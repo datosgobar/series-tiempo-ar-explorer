@@ -1,0 +1,6 @@
+languages:
+  - typescript
+  - javascript
+files:
+  - "src/**/*"
+limit: 0.0
