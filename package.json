@@ -12,14 +12,16 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "jscpd": "jscpd"
+    "jscpd": "jscpd",
+    "tslint": "tslint src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/node": "^10.0.6",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
-    "typescript": "^2.8.3",
-    "jscpd": "^0.6.17"
+    "jscpd": "^0.6.17",
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3"
   }
 }
