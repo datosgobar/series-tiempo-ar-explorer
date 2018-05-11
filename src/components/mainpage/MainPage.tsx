@@ -24,7 +24,9 @@ class MainPage extends React.Component<any, IMainPageState> {
     public render () {
         return (
             <div className='MainPage'>
-                <h1>MainPage</h1>
+                <h1>Series de tiempo</h1>
+                <p>Desde aquí poedés buscar las series de tiempo del tema que necesites,
+                     podés seleccionar más de una opcion de los resultados para compararlos.</p>
                 <SearchBox />
 
                 <Featured featured={this.state.featured}/>
