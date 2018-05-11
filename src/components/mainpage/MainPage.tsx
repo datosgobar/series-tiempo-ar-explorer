@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {connect} from 'react-redux';
 
 import './MainPage.css';
 
@@ -14,8 +15,8 @@ interface IMainPageState {
 
 class MainPage extends React.Component<any, IMainPageState> {
 
-    constructor(props: any){
-        super(props);
+    constructor(props: any, context: any){
+        super(props, context);
 
         this.state = {featured: this.props.featured};
     }
@@ -33,4 +34,10 @@ class MainPage extends React.Component<any, IMainPageState> {
     }
 }
 
-export default MainPage;
+function mapStateToProps(state: any, ownProps: any): IMainPageState{
+    return {
+        featured: state.featured
+    };
+}
+
+export default connect(mapStateToProps)(MainPage);
