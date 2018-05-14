@@ -1,8 +1,12 @@
 import * as React from 'react';
-import { Route } from 'react-router';
-import App from './App';
-// import MainPage from './components/mainpage/MainPage';
+import { Route, Switch } from 'react-router';
+import MainPage from './components/mainpage/MainPage';
+import SearchPage from './components/searchpage/SearchPage';
+
 
 export default (
-    <Route path='/' component={App}/>
+    <Switch>
+        <Route path='/search/:q' component={SearchPage} />
+        <Route path='/' component={MainPage} />
+    </Switch>
 );

@@ -1,33 +1,51 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './SearchBox.css';
 
-class SearchBox extends React.Component {
+interface ISearchBoxState {
 
-    constructor(props: any, context: any){
+    searchTerm: string;
+}
+
+class SearchBox extends React.Component<any, ISearchBoxState> {
+
+    constructor(props: any, context: any) {
         super(props, context);
 
-        this.onSubmit.bind(this);
+        this.state = { searchTerm: this.props.searchTerm || "" };
+
+        this.onSearchTermChange = this.onSearchTermChange.bind(this);
     }
 
-    public onSubmit (event: any) {
-        this.search(event.target.value);
+    public onSearchTermChange(event: any) {
+        const newSearchTerm: string = event.target.value;
+        this.setState({ searchTerm: newSearchTerm });
     }
 
-    public search (searchTerm: string) {
-        // TODO: implementar busqueda
-    }
-
-    public render () {
+    public render() {
         return (
             <div className='SearchBox'>
-                <input name={'search-box'} 
-                    type='text' 
+                <input
+                    type='text'
                     placeholder='Buscar Serie'
-                    onSubmit={this.onSubmit}/>
+                    onChange={this.onSearchTermChange} />
+                <Link to={'/search/' + this.state.searchTerm}>
+                    <input
+                        type='submit'
+                        value='Buscar' />
+                </Link>
+
             </div>
         );
     }
 }
 
-export default SearchBox;
+function mapStateToProps(state: any) {
+    return {
+        searchTerm: state.searchTem
+    }
+};
+
+export default connect(mapStateToProps)(SearchBox);

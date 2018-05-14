@@ -3,10 +3,9 @@ import {connect} from 'react-redux';
 
 import './MainPage.css';
 
-import Featured from './featured/Featured'
-
 import SearchBox from '../common/searchbox/SearchBox'
 import Serie from '../common/serie/Serie'
+import Featured from './featured/Featured'
 
 interface IMainPageState {
 
@@ -18,7 +17,7 @@ class MainPage extends React.Component<any, IMainPageState> {
     constructor(props: any, context: any){
         super(props, context);
 
-        this.state = {featured: this.props.featured};
+        this.state = {featured: Object.assign({}, this.props.featured )};
     }
 
     public render () {
@@ -29,7 +28,7 @@ class MainPage extends React.Component<any, IMainPageState> {
                      podés seleccionar más de una opcion de los resultados para compararlos.</p>
                 <SearchBox />
 
-                <Featured featured={this.state.featured}/>
+                <Featured />
                 
             </div>
         );

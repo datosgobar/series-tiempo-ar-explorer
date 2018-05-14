@@ -1,13 +1,13 @@
 import * as React from 'react';
 import './App.css';
 
-import MainPage from './components/mainpage/MainPage';
+import routes from './routes';
 
 class App extends React.Component {
-  public render() {
+  public render(): any {
     return (
       <div className="App">
-        <MainPage />
+        {routes}
       </div>
     );
   }

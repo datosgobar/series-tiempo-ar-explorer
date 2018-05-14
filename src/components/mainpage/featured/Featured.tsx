@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 
 import './Featured.css';
 
@@ -12,13 +13,13 @@ interface IFeaturedState {
 
 class Featured extends React.Component<any, IFeaturedState> {
 
-    constructor(props: any){
+    constructor(props: any) {
         super(props);
 
-        this.state = {featured: this.props.featured};
+        this.state = { featured: this.props.featured };
     }
 
-    public render () {
+    public render() {
         return (
             <div className="Featured">
                 <h3> Series Destacadas: </h3>
@@ -28,4 +29,10 @@ class Featured extends React.Component<any, IFeaturedState> {
     }
 }
 
-export default Featured;
+function mapStateToProps(state: any) {
+    return {
+        featured: state.featured
+    }
+}
+
+export default connect(mapStateToProps)(Featured);

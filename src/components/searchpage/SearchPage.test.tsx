@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from '../../store/configureStore';
-import MainPage from './MainPage';
+import SearchPage from './SearchPage';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -11,7 +11,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
-        <MainPage />
+        <SearchPage />
       </Provider>
     </BrowserRouter>
     , div);

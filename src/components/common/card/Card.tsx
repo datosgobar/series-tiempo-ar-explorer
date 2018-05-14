@@ -4,7 +4,7 @@ import './Card.css';
 
 interface ICardState{
 
-    about: React.Component[]
+    about: React.Component
 }
 
 class Card extends React.Component<any, ICardState> {
