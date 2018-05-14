@@ -5,14 +5,17 @@ import App from './App';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
+import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store/configureStore'
 
 const store = configureStore();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
