@@ -1,7 +1,12 @@
-import featured from "../../../conf/featured";
+import actionTypes from "../../../actions/actionTypes";
 import initialState from "../../../store/initialState";
 import Serie from "../../common/serie/Serie";
 
 export default function featuredReducer(state: Serie[] = initialState.featured, action: any): Serie[] {
-    return state.concat(featured);
+    
+    switch(action.type){
+        case actionTypes.LOAD_FEATURED: return [...action.featured];
+    }
+    
+    return state;
 }

@@ -1,16 +1,35 @@
 import * as React from 'react';
 import './App.css';
 
+import { connect } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { loadFeatured } from './actions/featuredActions';
 import routes from './routes';
 
-class App extends React.Component {
+import Serie from './components/common/serie/Serie';
+
+
+interface IAppProps{
+  featured?: Serie[];
+  dispatch: any;
+}
+
+class App extends React.Component<IAppProps, any> {
+
+  constructor(props: IAppProps){
+    super(props);
+    this.props.dispatch(loadFeatured(this.props.featured || []));
+  }
+
   public render(): any {
     return (
       <div className="App">
-        {routes}
+        <BrowserRouter>
+          {routes}
+        </BrowserRouter>
       </div>
     );
   }
 }
 
-export default App;
+export default connect()(App);
