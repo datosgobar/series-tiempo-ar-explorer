@@ -8,7 +8,7 @@ import routes from './routes';
 
 
 interface IAppProps{
-  featured?: JSX.Element[];
+  featured: JSX.Element[];
   dispatch: any;
 }
 
@@ -16,7 +16,7 @@ class App extends React.Component<IAppProps, any> {
 
   constructor(props: IAppProps){
     super(props);
-    this.props.dispatch(loadFeatured(this.props.featured || []));
+    this.props.dispatch(loadFeatured(this.props.featured));
   }
 
   public render(): any {

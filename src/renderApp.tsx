@@ -5,17 +5,16 @@ import { Provider } from "react-redux";
 import App from "./App";
 import Serie, { ISerie } from "./components/common/serie/Serie";
 
-import featuredFromConfFile from './conf/featured';
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
 
 
 interface IExplorerConfig {
-    featured?: ISerie[];
+    featured: ISerie[];
 }
 
 
-export default function render(selector: string, config?: IExplorerConfig) {
+export default function render(selector: string, config: IExplorerConfig) {
 
     ReactDOM.render(
         <Provider store={ configureStore() } >
@@ -28,10 +27,9 @@ export default function render(selector: string, config?: IExplorerConfig) {
 }
 
 
-function getFeatured(config: IExplorerConfig | undefined) {
-    const featured = config && config.featured ? config.featured : featuredFromConfFile;
+function getFeatured(config: IExplorerConfig) {
 
-    return featured.map(serie => <Serie key={serie.id}
+    return config.featured.map(serie => <Serie key={serie.id}
                                         id={serie.id}
                                         name={serie.name}
                                         author={serie.author}

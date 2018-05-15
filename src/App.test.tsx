@@ -11,7 +11,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <App featured={[]}/>
       </Provider>
     </BrowserRouter>
     , div);
