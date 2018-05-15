@@ -6,11 +6,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { loadFeatured } from './actions/featuredActions';
 import routes from './routes';
 
-import Serie from './components/common/serie/Serie';
-
 
 interface IAppProps{
-  featured?: Serie[];
+  featured?: JSX.Element[];
   dispatch: any;
 }
 

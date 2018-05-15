@@ -2,7 +2,15 @@ import * as React from 'react';
 
 import './Serie.css';
 
-class Serie extends React.Component<any, any> {
+export interface ISerie{
+
+    id: number;
+    name: string;
+    author: string;
+    description: string;
+}
+
+class Serie extends React.Component<ISerie, any> {
 
     public render () {
         return (

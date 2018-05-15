@@ -16,7 +16,7 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "jscpd": "react-scripts-ts jscpd",
+    "jscpd": "jscpd",
     "eject": "react-scripts-ts eject",
     "tslint": "tslint src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx"
   },
@@ -29,7 +29,7 @@
     "@types/react-router": "^4.0.25",
     "@types/react-router-dom": "^4.2.6",
     "@types/redux-immutable-state-invariant": "^2.0.4",
-    "jscpd": "^0.6.17",
+    "jscpd": "0.6.17",
     "redux-immutable-state-invariant": "^2.1.0",
     "redux-mock-store": "^1.5.1",
     "tslint": "^5.10.0",
