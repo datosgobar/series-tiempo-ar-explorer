@@ -7,23 +7,17 @@ import './Featured.css';
 import Card from '../../common/card/Card'
 import Serie from '../../common/serie/Serie'
 
-interface IFeaturedState {
+interface IFeaturedProps {
     featured: Serie[]
 }
 
-class Featured extends React.Component<any, IFeaturedState> {
-
-    constructor(props: any) {
-        super(props);
-
-        this.state = { featured: this.props.featured };
-    }
+class Featured extends React.Component<IFeaturedProps, any> {
 
     public render() {
         return (
             <div className="Featured">
                 <h3> Series Destacadas: </h3>
-                {this.state.featured.map((serie, index) => <Card key={index} about={serie} />)}
+                {this.props.featured.map((serie, index) => <Card key={index} about={serie} />)}
             </div>
         );
     }
