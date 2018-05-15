@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import './SearchBox.css';
@@ -11,10 +10,10 @@ interface ISearchBoxState {
 
 class SearchBox extends React.Component<any, ISearchBoxState> {
 
-    constructor(props: any, context: any) {
-        super(props, context);
+    constructor(props: any) {
+        super(props);
 
-        this.state = { searchTerm: this.props.searchTerm || "" };
+        this.state = { searchTerm: "" };
 
         this.onSearchTermChange = this.onSearchTermChange.bind(this);
         this.onSearch = this.onSearch.bind(this);
@@ -49,10 +48,4 @@ class SearchBox extends React.Component<any, ISearchBoxState> {
     }
 }
 
-function mapStateToProps(state: any) {
-    return {
-        searchTerm: state.searchTem
-    }
-};
-
-export default connect(mapStateToProps)(withRouter(SearchBox));
+export default withRouter(SearchBox);
