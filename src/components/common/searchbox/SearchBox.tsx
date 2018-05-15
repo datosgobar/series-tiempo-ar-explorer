@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import './SearchBox.css';
 
@@ -17,11 +17,18 @@ class SearchBox extends React.Component<any, ISearchBoxState> {
         this.state = { searchTerm: this.props.searchTerm || "" };
 
         this.onSearchTermChange = this.onSearchTermChange.bind(this);
+        this.onSearch = this.onSearch.bind(this);
     }
 
     public onSearchTermChange(event: any) {
         const newSearchTerm: string = event.target.value;
         this.setState({ searchTerm: newSearchTerm });
+    }
+
+    public onSearch(event: any) {
+        const uri = '/search/' + encodeURIComponent(escape(this.state.searchTerm));
+
+        this.props.history.push(uri);
     }
 
     public render() {
@@ -30,12 +37,12 @@ class SearchBox extends React.Component<any, ISearchBoxState> {
                 <input
                     type='text'
                     placeholder='Buscar Serie'
-                    onChange={this.onSearchTermChange} />
-                <Link to={'/search/' + this.state.searchTerm}>
-                    <input
-                        type='submit'
-                        value='Buscar' />
-                </Link>
+                    onChange={this.onSearchTermChange} 
+                    onSubmit={this.onSearch} />
+                <input
+                    type='submit'
+                    value='Buscar' 
+                    onClick={this.onSearch} />
 
             </div>
         );
@@ -48,4 +55,4 @@ function mapStateToProps(state: any) {
     }
 };
 
-export default connect(mapStateToProps)(SearchBox);
+export default connect(mapStateToProps)(withRouter(SearchBox));
