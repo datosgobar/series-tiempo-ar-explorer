@@ -2,22 +2,20 @@ import * as React from 'react';
 
 import './Serie.css';
 
-export interface ISerie{
+import { ISerie } from '../../../api/Serie';
 
-    id: number;
-    name: string;
-    author: string;
-    description: string;
+interface ISerieProps {
+    serie: ISerie;
 }
 
-class Serie extends React.Component<ISerie, any> {
+class Serie extends React.Component<ISerieProps, any> {
 
     public render () {
         return (
             <div className='Serie'>
-                <h5>{this.props.name}</h5>
-                <h6>{this.props.author}</h6>
-                <p>{this.props.description}</p>
+                <h5>{this.props.serie.title}</h5>
+                <h6>{this.props.serie.publisher.name}</h6>
+                <p>{this.props.serie.description}</p>
             </div>
         );
     }

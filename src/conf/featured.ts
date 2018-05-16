@@ -1,17 +1,17 @@
-import { ISerie } from "../components/common/serie/Serie";
+import { ISerie } from "../api/Serie";
 
 const featured: ISerie[] = [
     {
-        author: 'Subsecretaria de Programación Macroeconomica',
         description: 'Exportaciones por provincia y por pais de destino en millones de dolares',
-        id: 1,
-        name: 'PBI General Mensual',
+        id: "serie_01",
+        publisher: { mbox: 'mail@mail.com', name: 'Subsecretaria de Programación Macroeconomica' },
+        title: 'PBI General Mensual',
     },
     {
-        author: 'Subsecretaria de Programación Macroeconomica',
         description: 'Exportaciones por provincia y por pais de destino en millones de dolares',
-        id: 2,
-        name: '2PBI General Mensual',
+        id: "serie_02",
+        publisher: { mbox: 'mail@mail.com', name: 'Subsecretaria de Programación Macroeconomica' },
+        title: '2PBI General Mensual',
     }
 ];
 

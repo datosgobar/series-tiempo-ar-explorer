@@ -1,4 +1,4 @@
-import { ISerie } from "../components/common/serie/Serie";
+import { ISerie } from "../api/Serie";
 import actionTypes from "./actionTypes";
 
 export function loadFeatured(featured: ISerie[]) {

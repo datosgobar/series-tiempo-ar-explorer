@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 
 import './Featured.css';
 
+import { ISerie } from '../../../api/Serie';
 import Card from '../../common/card/Card'
-import Serie, { ISerie } from '../../common/serie/Serie'
+import Serie from '../../common/serie/Serie'
 
 interface IFeaturedProps {
     featured: ISerie[]
@@ -20,12 +21,8 @@ export class Featured extends React.Component<IFeaturedProps, any> {
                 {this.props.featured.map(
                     (serie, index) =>
                         <Card key={index} about={
-                            <Serie key={serie.id}
-                                id={serie.id}
-                                name={serie.name}
-                                author={serie.author}
-                                description={serie.description}
-                            />}
+                            <Serie key={index} serie={serie} />
+                        }
                         />)}
             </div>
         );

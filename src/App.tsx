@@ -4,7 +4,7 @@ import './App.css';
 import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { loadFeatured } from './actions/featuredActions';
-import { ISerie } from './components/common/serie/Serie';
+import { ISerie } from './api/Serie';
 import routes from './routes';
 
 
