@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
 import App from "./App";
-import Serie, { ISerie } from "./components/common/serie/Serie";
+import { ISerie } from "./components/common/serie/Serie";
 
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
@@ -29,9 +29,5 @@ export default function render(selector: string, config: IExplorerConfig) {
 
 function getFeatured(config: IExplorerConfig) {
 
-    return config.featured.map(serie => <Serie key={serie.id}
-                                        id={serie.id}
-                                        name={serie.name}
-                                        author={serie.author}
-                                        description={serie.description} />);
+    return config.featured;
 }
