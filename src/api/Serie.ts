@@ -1,3 +1,4 @@
+import DataPoint from './DataPoint';
 import ITsResponse, { IPublisher } from './ITsResponse'
 
 
@@ -10,48 +11,60 @@ export interface ISerie {
 
 
 export default class Serie implements ISerie {
-    private query: ITsResponse;
+    private tsResponse: ITsResponse;
     private index: number;
 
-    constructor(index: number, query: ITsResponse) {
-        this.query = query;
+    private get meta() {
+        return this.tsResponse.meta[this.index];
+    }
+
+    private get datasetMeta() {
+        return this.meta.dataset[0];
+    }
+
+    private get distributionMeta() {
+        return this.datasetMeta.distribution[0];
+    }
+
+    private get fieldMeta() {
+        return this.distributionMeta.field[0];
+    }
+
+    constructor(index: number, tsResponse: ITsResponse) {
+        this.tsResponse = tsResponse;
         this.index = index;
     }
 
     get id(): string {
         return (
-            this.query.meta[this.index + 1].dataset[this.index].distribution[this.index].field[this.index].id
+            this.fieldMeta.id
         );
     }
 
     get title(): string {
         return (
             // TODO: definir que titulo mostrar para una serie
-            this.query.meta[this.index + 1].dataset[this.index].distribution[this.index].field[this.index].title
+            this.fieldMeta.title
         );
     }
 
     get publisher(): IPublisher {
         return (
-            this.query.meta[this.index + 1].dataset[this.index].publisher
+            this.datasetMeta.publisher
         );
     }
 
     get description(): string {
         return (
-            this.query.meta[this.index + 1].dataset[this.index].distribution[this.index].field[this.index].description
+            this.fieldMeta.description
         );
     }
 
-    get data(): IDataPoint[] {
-        return this.query.data
-            .map((datapoint: object) => {
-                return { date: datapoint[0], value: datapoint[this.index + 1] }
-            });
+    get data(): DataPoint[] {
+        return this.tsResponse.data
+            .map((datapoint: any[]) => {
+                return new DataPoint(datapoint, this.index)
+            }
+            );
     }
-}
-
-interface IDataPoint {
-    date: string;
-    value: number;
 }

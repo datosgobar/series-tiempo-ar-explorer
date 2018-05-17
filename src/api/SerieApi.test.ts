@@ -22,6 +22,7 @@ it('get ids returns a promise of iterable with series', () => {
     expect(SerieApi.rp).toHaveBeenCalledTimes(1);
 });
 
+
 const tsResponseMock: ITsResponse = {
     "data": [
         [
@@ -34,6 +35,9 @@ const tsResponseMock: ITsResponse = {
         ]
     ],
     "meta": [
+        {
+            "dataset": []
+        },
         {
             "dataset": [
                 {

@@ -2,6 +2,14 @@ import ITsResponse from './ITsResponse'
 import Serie from "./Serie";
 
 
+export const METADATA = {
+    FULL: 'full',
+    NONE: 'none',
+    ONLY: 'only',
+    SIMPLE: 'simple',
+};
+
+
 export default class SerieApi {
 
     public static rp = require('request-promise-native');
@@ -12,12 +20,12 @@ export default class SerieApi {
         this.seriesUri = seriesUri;
     }
 
-    public getSeries(ids: string[]): Promise<Serie[]> {
+    public getSeries(ids: string[], metadata: string = METADATA.FULL): Promise<Serie[]> {
         const options = {
             json: true, // Automatically parses the JSON string in the response
             qs: {
                 ids: ids.toString(), // -> uri + '?ids=xxxxx%20xxxxx'
-                // metadata: 'only',
+                metadata,
             },
             uri: this.seriesUri,
         };
@@ -28,6 +36,6 @@ export default class SerieApi {
 
 function beautify(ids: string[], json: ITsResponse): Serie[] {
     return ids.map(
-        (_, index) => new Serie(index, json)
+        (_, index) => new Serie(index + 1, json)
     );
 }
