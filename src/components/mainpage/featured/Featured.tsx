@@ -1,6 +1,5 @@
 
 import * as React from 'react';
-import { connect } from 'react-redux';
 
 import './Featured.css';
 
@@ -29,10 +28,4 @@ export class Featured extends React.Component<IFeaturedProps, any> {
     }
 }
 
-function mapStateToProps(state: any) {
-    return {
-        featured: state.featured
-    }
-}
-
-export default connect(mapStateToProps)(Featured);
+export default Featured;
