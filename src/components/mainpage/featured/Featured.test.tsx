@@ -18,7 +18,7 @@ describe('Featured ', () => {
     const wrapper = mount(<Featured featured={[]} />);
 
     expect(wrapper.find('h3').text()).toEqual('Series Destacadas:');
-    expect(wrapper.find('.Card').isEmpty()).toBe(true);
+    expect(wrapper.find('.Card').exists()).toBe(false);
   });
 
   it('renders featured series in cards', () => {
