@@ -1,22 +1,34 @@
 import * as React from 'react';
 import './App.css';
 
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { loadFeatured } from './actions/featuredActions';
+import { ISerie } from './components/common/serie/Serie';
+import routes from './routes';
 
-class App extends React.Component {
-  public render() {
+
+interface IAppProps{
+  featured: ISerie[];
+  dispatch: any;
+}
+
+class App extends React.Component<IAppProps, any> {
+
+  constructor(props: IAppProps){
+    super(props);
+    this.props.dispatch(loadFeatured(this.props.featured));
+  }
+
+  public render(): any {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <BrowserRouter>
+          {routes}
+        </BrowserRouter>
       </div>
     );
   }
 }
 
-export default App;
+export default connect()(App);

@@ -5,22 +5,37 @@
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-scripts-ts": "2.15.1"
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
+    "react-scripts-ts": "2.15.1",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
     "jscpd": "jscpd",
+    "eject": "react-scripts-ts eject",
     "tslint": "tslint src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.1.10",
+    "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/jest": "^22.2.3",
     "@types/node": "^10.0.6",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
-    "jscpd": "^0.6.17",
+    "@types/react-redux": "^6.0.0",
+    "@types/react-router": "^4.0.25",
+    "@types/react-router-dom": "^4.2.6",
+    "@types/redux-immutable-state-invariant": "^2.0.4",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jscpd": "0.6.17",
+    "redux-immutable-state-invariant": "^2.1.0",
+    "redux-mock-store": "^1.5.1",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
   }
