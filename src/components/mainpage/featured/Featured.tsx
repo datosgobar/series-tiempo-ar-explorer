@@ -11,12 +11,12 @@ interface IFeaturedProps {
     featured: ISerie[]
 }
 
-class Featured extends React.Component<IFeaturedProps, any> {
+export class Featured extends React.Component<IFeaturedProps, any> {
 
     public render() {
         return (
             <div className="Featured">
-                <h3> Series Destacadas: </h3>
+                <h3>Series Destacadas:</h3>
                 {this.props.featured.map(
                     (serie, index) =>
                         <Card key={index} about={
