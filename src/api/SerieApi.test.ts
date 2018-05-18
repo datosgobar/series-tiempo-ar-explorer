@@ -8,20 +8,21 @@ function setupApi() {
     return new SerieApi('http://exampĺe.it/mock/');
 }
 
-it('get ids returns a promise of iterable with series', () => {
-    const api = setupApi();
+describe('SerieApi', () => {
+    it('getSeries by ids returns a promise of iterable with series', () => {
+        const api = setupApi();
 
-    api.getSeries(['serie_01']).then((returnedValue) => {
-        returnedValue.forEach(each => expect(each instanceof Serie).toBe(true));
-        expect(returnedValue.length).toBe(1);
-    }).catch(err => {
-        throw new Error(err);
-    }
-    );
+        api.getSeries(['serie_01']).then((returnedValue) => {
+            returnedValue.forEach(each => expect(each instanceof Serie).toBe(true));
+            expect(returnedValue.length).toBe(1);
+        }).catch(err => {
+            throw new Error(err);
+        }
+        );
 
-    expect(SerieApi.rp).toHaveBeenCalledTimes(1);
+        expect(SerieApi.rp).toHaveBeenCalledTimes(1);
+    });
 });
-
 
 const tsResponseMock: ITsResponse = {
     "data": [
@@ -56,7 +57,7 @@ const tsResponseMock: ITsResponse = {
                         "mbox": "example@dataset.com",
                         "name": "example dataset publisher name"
                     },
-                 }
+                }
             ],
         }
     ],

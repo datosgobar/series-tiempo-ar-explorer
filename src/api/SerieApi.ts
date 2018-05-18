@@ -30,12 +30,12 @@ export default class SerieApi {
             uri: this.seriesUri,
         };
 
-        return SerieApi.rp(options).then((json: ITsResponse) => beautify(ids, json));
+        return SerieApi.rp(options).then((tsResponse: ITsResponse) => tsResponseToSeries(ids, tsResponse));
     }
 }
 
-function beautify(ids: string[], json: ITsResponse): Serie[] {
+function tsResponseToSeries(ids: string[], tsResponse: ITsResponse): Serie[] {
     return ids.map(
-        (_, index) => new Serie(index + 1, json)
+        (_, index) => new Serie(index + 1, tsResponse)
     );
 }
