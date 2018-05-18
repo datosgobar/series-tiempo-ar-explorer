@@ -1,6 +1,7 @@
-import { IDataPoint } from "./DataPoint";
-import ITSAPIResponse from "./ITSAPIResponse";
-import Serie  from "./Serie";
+import { IDataPoint } from "../../api/DataPoint";
+import ITSAPIResponse from "../../api/ITSAPIResponse";
+import Serie from "../../api/Serie";
+
 
 describe('Serie', () => {
 

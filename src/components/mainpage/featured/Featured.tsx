@@ -11,7 +11,7 @@ interface IFeaturedProps {
     featured: ISerie[]
 }
 
-export class Featured extends React.Component<IFeaturedProps, any> {
+class Featured extends React.Component<IFeaturedProps, any> {
 
     public render() {
         return (

@@ -1,6 +1,6 @@
-import ITSAPIResponse from "./ITSAPIResponse";
-import Serie from "./Serie"
-import SerieApi from "./SerieApi";
+import ITSAPIResponse from "../../api/ITSAPIResponse";
+import Serie from "../../api/Serie";
+import SerieApi from "../../api/SerieApi";
 
 function setupApi() {
     const api = SerieApi.withUri('http://exampĺe.it/mock/');

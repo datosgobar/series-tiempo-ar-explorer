@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import { MainPage } from './MainPage';
+import { MainPage } from '../../../components/mainpage/MainPage';
 
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';

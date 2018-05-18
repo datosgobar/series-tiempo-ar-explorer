@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { ISerie } from '../../../api/Serie';
-import Serie from './Serie';
+import { ISerie } from '../../../../api/Serie';
+import Serie from '../../../../components/common/serie/Serie';
 
 it('renders without crashing', () => {
   const serie: ISerie = {id: "serie_01", title: "PBI", publisher: {mbox: "mail@min.com", name: 'MinEc'}, description: "PBI"};

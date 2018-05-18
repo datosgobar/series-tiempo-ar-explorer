@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
-import { Featured } from './Featured';
+import Featured from '../../../../components/mainpage/featured/Featured';
 
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
