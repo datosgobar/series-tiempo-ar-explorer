@@ -1,16 +1,17 @@
-import ITsResponse from "./ITsResponse";
+import ITSAPIResponse from "./ITSAPIResponse";
 import Serie from "./Serie"
 import SerieApi from "./SerieApi";
 
 function setupApi() {
+    const api = SerieApi.withUri('http://exampĺe.it/mock/');
     const mockRp = jest.fn(() => Promise.resolve(tsResponseMock));
-    SerieApi.rp = mockRp;
-    return new SerieApi('http://exampĺe.it/mock/');
+    api.apiClient.rp = mockRp;
+    return {api, mockRp};
 }
 
 describe('SerieApi', () => {
     it('getSeries by ids returns a promise of iterable with series', () => {
-        const api = setupApi();
+        const {api, mockRp} = setupApi();
 
         api.getSeries(['serie_01']).then((returnedValue) => {
             returnedValue.forEach(each => expect(each instanceof Serie).toBe(true));
@@ -20,11 +21,11 @@ describe('SerieApi', () => {
         }
         );
 
-        expect(SerieApi.rp).toHaveBeenCalledTimes(1);
+        expect(mockRp).toHaveBeenCalledTimes(1);
     });
 });
 
-const tsResponseMock: ITsResponse = {
+const tsResponseMock: ITSAPIResponse = {
     "data": [
         [
             "2017-10-01",

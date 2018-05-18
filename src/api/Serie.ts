@@ -1,5 +1,5 @@
 import DataPoint from './DataPoint';
-import ITsResponse, { IPublisher } from './ITsResponse'
+import ITSAPIResponse, { IPublisher } from './ITSAPIResponse'
 
 
 export interface ISerie {
@@ -11,7 +11,7 @@ export interface ISerie {
 
 
 export default class Serie implements ISerie {
-    private tsResponse: ITsResponse;
+    private tsResponse: ITSAPIResponse;
     private index: number;
 
     private get meta() {
@@ -30,7 +30,7 @@ export default class Serie implements ISerie {
         return this.distributionMeta.field[0];
     }
 
-    constructor(index: number, tsResponse: ITsResponse) {
+    constructor(index: number, tsResponse: ITSAPIResponse) {
         this.tsResponse = tsResponse;
         this.index = index;
     }

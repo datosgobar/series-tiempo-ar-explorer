@@ -1,5 +1,5 @@
 import { IDataPoint } from "./DataPoint";
-import ITsResponse from "./ITsResponse";
+import ITSAPIResponse from "./ITSAPIResponse";
 import Serie  from "./Serie";
 
 describe('Serie', () => {
@@ -32,7 +32,7 @@ describe('Serie', () => {
 });
 
 
-const tsResponseMock: ITsResponse = {
+const tsResponseMock: ITSAPIResponse = {
     "data": [
         [
             "2017-10-01",

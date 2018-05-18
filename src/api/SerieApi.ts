@@ -1,4 +1,5 @@
-import ITsResponse from './ITsResponse'
+import ApiClient from './ApiClient';
+import ITSAPIResponse from './ITSAPIResponse'
 import Serie from "./Serie";
 
 
@@ -9,32 +10,31 @@ export const METADATA = {
     SIMPLE: 'simple',
 };
 
-
 export default class SerieApi {
+    
+    public static withUri(seriesUri: string): SerieApi {
+        return new SerieApi(new ApiClient(seriesUri));
+    }
+    
+    public apiClient: ApiClient;
 
-    public static rp = require('request-promise-native');
-
-    private seriesUri: string;
-
-    constructor(seriesUri: string) {
-        this.seriesUri = seriesUri;
+    constructor(apiClient: ApiClient) {
+        this.apiClient = apiClient;
     }
 
     public getSeries(ids: string[], metadata: string = METADATA.FULL): Promise<Serie[]> {
         const options = {
-            json: true, // Automatically parses the JSON string in the response
             qs: {
-                ids: ids.toString(), // -> uri + '?ids=xxxxx%20xxxxx'
+                ids: ids.toString(),
                 metadata,
             },
-            uri: this.seriesUri,
         };
 
-        return SerieApi.rp(options).then((tsResponse: ITsResponse) => tsResponseToSeries(ids, tsResponse));
+        return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids, tsResponse));
     }
 }
 
-function tsResponseToSeries(ids: string[], tsResponse: ITsResponse): Serie[] {
+function tsResponseToSeries(ids: string[], tsResponse: ITSAPIResponse): Serie[] {
     return ids.map(
         (_, index) => new Serie(index + 1, tsResponse)
     );
