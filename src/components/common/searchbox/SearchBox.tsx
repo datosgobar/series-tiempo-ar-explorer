@@ -8,7 +8,7 @@ interface ISearchBoxState {
     searchTerm: string;
 }
 
-class SearchBox extends React.Component<any, ISearchBoxState> {
+export class SearchBox extends React.Component<any, ISearchBoxState> {
 
     constructor(props: any) {
         super(props);
@@ -33,6 +33,7 @@ class SearchBox extends React.Component<any, ISearchBoxState> {
     public render() {
         return (
             <div className='SearchBox'>
+
                 <input
                     type='text'
                     placeholder='Buscar Serie'
