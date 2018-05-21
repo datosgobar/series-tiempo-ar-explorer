@@ -9,12 +9,14 @@ configure({ adapter: new Adapter() });
 
 const series = [
   {
+    data: [],
     description: "description1",
     id: "serie_01",
     publisher: {mbox: "mail@mail.com", name: "publisher1"},
     title: "title1",
   },
   {
+    data: [],
     description: "description2",
     id: "serie_02",
     publisher: {mbox: "mail@mail.com", name: "publisher2"},

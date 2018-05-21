@@ -7,6 +7,7 @@ export interface ISerie {
     title: string;
     publisher: IPublisher;
     description: string;
+    data: DataPoint[];
 }
 
 

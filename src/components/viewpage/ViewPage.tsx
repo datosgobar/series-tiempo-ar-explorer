@@ -9,6 +9,7 @@ import { ISerie } from '../../api/Serie';
 
 import SerieApi from '../../SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
+import Graphic from './graphic/Graphic';
 import MetaData from './metadata/MetaData';
 
 interface IViewPageProps {
@@ -32,7 +33,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
             <div className='ViewPage'>
                 <h1>ViewPage</h1>
                 <SearchBox />
-                <MetaData series={this.props.series}/>
+                <Graphic series={this.props.series} />
+                <MetaData series={this.props.series} />
 
             </div>
         );
