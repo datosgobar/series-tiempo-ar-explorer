@@ -1,4 +1,4 @@
 export default {
     featured: [],
-    searchTerm: ""
+    viewSeries: [],
 }

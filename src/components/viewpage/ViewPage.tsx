@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 
 import './ViewPage.css';
 
+import { loadViewSeries } from '../../actions/seriesActions';
 import { ISerie } from '../../api/Serie';
-import SearchBox from '../common/searchbox/SearchBox'
+// import MetaData from './metadata/MetaData';
 
 import SerieApi from '../../SerieApi';
-
-import { loadViewSeries } from '../../actions/seriesActions';
+import SearchBox from '../common/searchbox/SearchBox'
+import MetaData from './metadata/MetaData';
 
 interface IViewPageProps {
     series: ISerie[];
@@ -18,8 +19,8 @@ interface IViewPageProps {
 
 export class ViewPage extends React.Component<IViewPageProps, any> {
 
-    constructor(props: any) {
-        super(props);
+    constructor(props: any, context: any) {
+        super(props, context);
 
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
 
@@ -31,7 +32,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
             <div className='ViewPage'>
                 <h1>ViewPage</h1>
                 <SearchBox />
-
+                <MetaData series={this.props.series}/>
 
             </div>
         );
@@ -50,4 +51,10 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 }
 
-export default connect()(ViewPage);
+function mapStateToProps(state: any, ownProps: any) {
+    return {
+        series: state.viewSeries
+    };
+}
+
+export default connect(mapStateToProps)(ViewPage);
