@@ -3,7 +3,7 @@ import './App.css';
 
 import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { loadFeatured } from './actions/featuredActions';
+import { loadFeatured } from './actions/seriesActions';
 import { ISerie } from './api/Serie';
 import routes from './routes';
 
