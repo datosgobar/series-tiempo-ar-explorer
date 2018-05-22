@@ -1,6 +1,8 @@
 # series-tiempo-ar-explorer
+
 Aplicación javascript para la búsqueda de series de tiempo, usando la API series-tiempo-ar-api
 
+Demo: https://datosgobar.github.io/series-tiempo-ar-explorer/#/
 
 ## Desarrollo
 documentacion de desarrollo [aqui](./docs/react.md)
