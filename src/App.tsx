@@ -2,7 +2,7 @@ import * as React from 'react';
 import './App.css';
 
 import { connect } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import {HashRouter} from 'react-router-dom';
 import { loadFeatured } from './actions/featuredActions';
 import { ISerie } from './components/common/serie/Serie';
 import routes from './routes';
@@ -23,9 +23,9 @@ class App extends React.Component<IAppProps, any> {
   public render(): any {
     return (
       <div className="App">
-        <BrowserRouter>
+        <HashRouter>
           {routes}
-        </BrowserRouter>
+        </HashRouter>
       </div>
     );
   }
