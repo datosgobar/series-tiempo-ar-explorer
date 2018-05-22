@@ -22,4 +22,11 @@ export default class DataPoint implements IDataPoint {
     get value(): number {
         return this.datapoint[this.index];
     }
+
+    public bake(): IDataPoint {
+        return {
+            date: this.date,
+            value: this.value,
+        };
+    }
 }

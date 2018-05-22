@@ -1,4 +1,4 @@
-import DataPoint from './DataPoint';
+import DataPoint, { IDataPoint } from './DataPoint';
 import ITSAPIResponse, { IPublisher } from './ITSAPIResponse'
 
 
@@ -7,7 +7,7 @@ export interface ISerie {
     title: string;
     publisher: IPublisher;
     description: string;
-    data: DataPoint[];
+    data: IDataPoint[];
 }
 
 
@@ -67,5 +67,15 @@ export default class Serie implements ISerie {
                 return new DataPoint(datapoint, this.index)
             }
             );
+    }
+
+    public bake(): ISerie {
+        return {
+            data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
+            description: this.description,
+            id: this.id,
+            publisher: {mbox: this.publisher.mbox, name: this.publisher.mbox},
+            title: this.title,
+        };
     }
 }
