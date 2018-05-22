@@ -3,8 +3,8 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
 import App from "./App";
-import { ISerie } from "./components/common/serie/Serie";
 
+import { ISerie } from "./api/Serie";
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
 

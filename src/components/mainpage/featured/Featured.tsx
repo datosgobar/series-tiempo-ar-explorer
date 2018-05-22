@@ -1,17 +1,17 @@
 
 import * as React from 'react';
-import { connect } from 'react-redux';
 
 import './Featured.css';
 
+import { ISerie } from '../../../api/Serie';
 import Card from '../../common/card/Card'
-import Serie, { ISerie } from '../../common/serie/Serie'
+import Serie from '../../common/serie/Serie'
 
 interface IFeaturedProps {
     featured: ISerie[]
 }
 
-export class Featured extends React.Component<IFeaturedProps, any> {
+class Featured extends React.Component<IFeaturedProps, any> {
 
     public render() {
         return (
@@ -20,22 +20,12 @@ export class Featured extends React.Component<IFeaturedProps, any> {
                 {this.props.featured.map(
                     (serie, index) =>
                         <Card key={index} about={
-                            <Serie key={serie.id}
-                                id={serie.id}
-                                name={serie.name}
-                                author={serie.author}
-                                description={serie.description}
-                            />}
+                            <Serie key={index} serie={serie} />
+                        }
                         />)}
             </div>
         );
     }
 }
 
-function mapStateToProps(state: any) {
-    return {
-        featured: state.featured
-    }
-}
-
-export default connect(mapStateToProps)(Featured);
+export default Featured;

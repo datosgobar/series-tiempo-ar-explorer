@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
-import { Featured } from './Featured';
+import Featured from '../../../../components/mainpage/featured/Featured';
 
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
@@ -8,8 +8,18 @@ import * as Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
 const series = [
-  { id: 1, name: "serie 01", author: "author", description: "description" },
-  { id: 1, name: "serie 02", author: "author", description: "description" }
+  {
+    description: "description1",
+    id: "serie_01",
+    publisher: {mbox: "mail@mail.com", name: "publisher1"},
+    title: "title1",
+  },
+  {
+    description: "description2",
+    id: "serie_02",
+    publisher: {mbox: "mail@mail.com", name: "publisher2"},
+    title: "title2",
+  },
 ];
 
 describe('Featured ', () => {
