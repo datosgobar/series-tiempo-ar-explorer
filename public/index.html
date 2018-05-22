@@ -36,5 +36,22 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+        window.onload = function() {
+            TSExplorer.render('root', {featured: [{
+                    author: 'Subsecretaria de Programación Macroeconomica',
+                    description: 'Exportaciones por provincia y por pais de destino en millones de dolares',
+                    id: 1,
+                    name: 'PBI General Mensual',
+                },
+                {
+                    author: 'Subsecretaria de Programación Macroeconomica',
+                    description: 'Exportaciones por provincia y por pais de destino en millones de dolares',
+                    id: 2,
+                    name: '2PBI General Mensual',
+                }
+            ]})
+        }
+    </script>
   </body>
 </html>
