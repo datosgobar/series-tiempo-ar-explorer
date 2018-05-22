@@ -9,7 +9,7 @@ export default (() => {
     return (
         <div className='MainPage'>
             <h1>Series de tiempo</h1>
-            <p>Desde aquí poedés buscar las series de tiempo del tema que necesites,
+            <p>Desde aquí podés buscar las series de tiempo del tema que necesites,
                  podés seleccionar más de una opcion de los resultados para compararlos.</p>
             <SearchBox />
 
