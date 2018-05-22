@@ -51,7 +51,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     private fetchSeries() {
         const search = this.props.location.search; // could be '?foo=bar'
         const params = new URLSearchParams(search);
-        const ids = params.getAll('id')
+        const ids = params.getAll('id');
 
         this.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
     }
