@@ -9,12 +9,12 @@ import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
 
 
-interface IExplorerConfig {
+export interface IExplorerConfig {
     featured: ISerie[];
 }
 
 
-export default function render(selector: string, config: IExplorerConfig) {
+export function render(selector: string, config: IExplorerConfig) {
 
     ReactDOM.render(
         <Provider store={ configureStore() } >
@@ -27,7 +27,7 @@ export default function render(selector: string, config: IExplorerConfig) {
 }
 
 
-function getFeatured(config: IExplorerConfig) {
+export function getFeatured(config: IExplorerConfig) {
 
     return config.featured;
 }
