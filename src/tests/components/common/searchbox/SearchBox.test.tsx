@@ -3,9 +3,8 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
-import configureStore from '../../../store/configureStore';
-import { SearchBox } from './SearchBox';
-
+import { SearchBox } from '../../../../components/common/searchbox/SearchBox';
+import configureStore from '../../../../store/configureStore';
 
 import { configure, mount } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16';

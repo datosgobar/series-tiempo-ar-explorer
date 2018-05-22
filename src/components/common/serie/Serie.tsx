@@ -2,25 +2,36 @@ import * as React from 'react';
 
 import './Serie.css';
 
-export interface ISerie{
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { ISerie } from '../../../api/Serie';
 
-    id: number;
-    name: string;
-    author: string;
-    description: string;
+interface ISerieProps extends RouteComponentProps<any>{
+    serie: ISerie;
 }
 
-class Serie extends React.Component<ISerie, any> {
+class Serie extends React.Component<ISerieProps, any> {
+
+    constructor(props: ISerieProps, context: any){
+        super(props, context);
+
+        this.viewSerie = this.viewSerie.bind(this);
+    }
+
+    public viewSerie(event: any) {
+        const uri = '/view/?id=' + this.props.serie.id;
+
+        this.props.history.push(uri);
+    }
 
     public render () {
         return (
-            <div className='Serie'>
-                <h5>{this.props.name}</h5>
-                <h6>{this.props.author}</h6>
-                <p>{this.props.description}</p>
+            <div className='Serie' onClick={this.viewSerie}>
+                <h5>{this.props.serie.title}</h5>
+                <h6>{this.props.serie.publisher.name}</h6>
+                <p>{this.props.serie.description}</p>
             </div>
         );
     }
 }
 
-export default Serie;
+export default withRouter(Serie);

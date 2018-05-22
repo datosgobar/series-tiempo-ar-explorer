@@ -3,14 +3,9 @@ import * as React from 'react';
 import './SearchPage.css';
 
 import SearchBox from '../common/searchbox/SearchBox'
-import Serie from '../common/serie/Serie'
 
-interface ISearchPageState {
 
-    results: Serie[]
-}
-
-class SearchPage extends React.Component<any, ISearchPageState> {
+class SearchPage extends React.Component<any, any> {
 
     public render () {
         return (

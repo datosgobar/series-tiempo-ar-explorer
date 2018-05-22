@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Card from './Card';
+import Card from '../../../../components/common/card/Card';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

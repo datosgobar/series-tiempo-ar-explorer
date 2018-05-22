@@ -2,9 +2,9 @@ import * as React from 'react';
 import './App.css';
 
 import { connect } from 'react-redux';
-import {HashRouter} from 'react-router-dom';
-import { loadFeatured } from './actions/featuredActions';
-import { ISerie } from './components/common/serie/Serie';
+import { HashRouter } from 'react-router-dom';
+import { loadFeatured } from './actions/seriesActions';
+import { ISerie } from './api/Serie';
 import routes from './routes';
 
 
