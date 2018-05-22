@@ -1,5 +1,5 @@
 {
-  "name": "series-tiempo-ar-webui",
+  "name": "series-tiempo-ar-explorer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -51,6 +51,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "build-docs": "npm run build && cp build/* docs/ -r",
     "test": "node scripts/test.js --env=jsdom",
     "jscpd": "jscpd",
     "tslint": "tslint src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx"
