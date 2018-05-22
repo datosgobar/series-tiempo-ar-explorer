@@ -5,7 +5,17 @@ Aplicación javascript para la búsqueda de series de tiempo, usando la API seri
 ## Desarrollo
 documentacion de desarrollo [aqui](./docs/react.md)
 
+## Generación de github pages
 
+Para actualizar la documentación de github pages es necesario correr los siguientes comandos:
+
+```
+npm run build
+rm docs/* -r
+cp build/* docs/ -r
+```
+
+Y finalmente subir todo al branch default.
 
 ## Contacto
 Te invitamos a [crearnos un issue](https://github.com/datosgobar/series-tiempo-ar-webui/issues/new?title=Encontre-un-bug-en-api-gateway)
