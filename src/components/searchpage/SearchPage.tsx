@@ -28,16 +28,15 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
         this.onResultsFetchedSuccess = this.onResultsFetchedSuccess.bind(this);
 
-        this.fetchResults();
+        this.fetchResults(this.props.location);
     }
 
     public onResultsFetchedSuccess(searchResults: any) {
-
         this.props.dispatch(loadSearchResults(searchResults));
     }
 
-    public fetchResults() {
-        const search = this.props.location.search; // could be '?foo=bar'
+    public fetchResults(location: any) {
+        const search = location.search; // could be '?foo=bar'
         const params = new URLSearchParams(search);
         const query: string = params.get('q') || "";
         let offset: any = params.get('offset');
