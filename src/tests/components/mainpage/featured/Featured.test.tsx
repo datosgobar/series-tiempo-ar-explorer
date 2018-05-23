@@ -34,7 +34,7 @@ describe('Featured ', () => {
     expect(wrapper.find('.Card').exists()).toBe(false);
   });
 
-  it('renders featured series in cards', () => {
+  it('renders featured serie in card', () => {
 
     const wrapper = mount(
       <MemoryRouter>
@@ -42,18 +42,18 @@ describe('Featured ', () => {
       </MemoryRouter>
     );
 
-    expect(wrapper.find('.Card').find('.Serie').length).toBe(1);
+    expect(wrapper.find('.Card').find('a.Serie').length).toBe(1);
   });
 
   it('renders featured series in cards', () => {
 
     const wrapper = mount(
       <MemoryRouter>
-        <Featured featured={[series[0], series[1]]} />
+        <Featured featured={series} />
       </MemoryRouter>
     );
 
-    expect(wrapper.find('.Card').find('.Serie').length).toBe(2);
+    expect(wrapper.find('.Card').find('a.Serie').length).toBe(2);
   });
 
 
