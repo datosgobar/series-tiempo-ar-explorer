@@ -125,7 +125,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "/home/lgomez/dev/modernizacion/series/explorer/tsconfig.test.json"
+        "tsConfigFile": "./tsconfig.test.json"
       }
     }
   },
