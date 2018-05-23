@@ -1,5 +1,5 @@
 import { ISerie } from "../../api/Serie";
-import { ISerieApi } from "../../api/SerieApi";
+import { ISearchResultItem, ISerieApi } from "../../api/SerieApi";
 
 const DELAY = 2000;
 
@@ -16,6 +16,10 @@ class MockApi implements ISerieApi {
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, ids.map(toSerie))
         })
+    }
+
+    public searchSeries(q: string, offset?: number | undefined, limit?: number | undefined): Promise<ISearchResultItem[]> {
+        return Promise.resolve([]);
     }
 };
 
