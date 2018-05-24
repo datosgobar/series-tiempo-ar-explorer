@@ -17,8 +17,8 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
             <div className='SearchPage'>
                 {this.props.searchResults.map(
-                    (searchResult: ISearchResultItem, index: number) => (
-                        <Card key={index} about={<SearchResultItem searchResult={searchResult} />} />
+                    (searchResult: ISearchResultItem) => (
+                        <Card key={searchResult.id} about={<SearchResultItem searchResult={searchResult} />} />
                     )
                 )}
             </div>

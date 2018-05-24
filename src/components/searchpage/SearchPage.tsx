@@ -19,6 +19,7 @@ interface ISearchPageProps extends RouteComponentProps<any> {
 
 class SearchPage extends React.Component<ISearchPageProps, any> {
 
+    private unListen: () => void;
     private seriesApi: ISerieApi;
 
     constructor(props: any, context: any) {
@@ -27,8 +28,17 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         this.seriesApi = this.props.seriesApi || SerieApi;
 
         this.onResultsFetchedSuccess = this.onResultsFetchedSuccess.bind(this);
+        this.fetchResults = this.fetchResults.bind(this);
 
         this.fetchResults(this.props.location);
+    }
+
+    public componentDidMount() {
+        this.unListen = this.props.history.listen(this.fetchResults);
+    }
+
+    public componentWillUnmount() {
+        this.unListen();
     }
 
     public onResultsFetchedSuccess(searchResults: any) {
@@ -38,7 +48,12 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
     public fetchResults(location: any) {
         const search = location.search; // could be '?foo=bar'
         const params = new URLSearchParams(search);
-        const query: string = params.get('q') || "";
+        const query = params.get('q');
+        
+        if(!query){
+            return;
+        }
+        
         let offset: any = params.get('offset');
         let limit: any = params.get('limit');
 
