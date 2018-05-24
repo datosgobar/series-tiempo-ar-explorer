@@ -11,23 +11,20 @@ import configureStore from "./store/configureStore";
 
 export interface IExplorerConfig {
     featured: ISerie[];
+    useBrowserRouter?: boolean;
 }
 
 
 export function render(selector: string, config: IExplorerConfig) {
 
+    const {featured, useBrowserRouter} = config;
+
     ReactDOM.render(
         <Provider store={ configureStore() } >
-            <App featured={ getFeatured(config) } />
+            <App featured={ featured } useBrowserRouter={useBrowserRouter}/>
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );
 
     registerServiceWorker();
-}
-
-
-export function getFeatured(config: IExplorerConfig) {
-
-    return config.featured;
 }
