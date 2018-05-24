@@ -2,7 +2,7 @@ import * as React from 'react';
 import './App.css';
 
 import {connect} from 'react-redux';
-import {BrowserRouter, HashRouter} from 'react-router-dom';
+import {BrowserRouter, BrowserRouterProps, HashRouter} from 'react-router-dom';
 import {loadFeatured} from './actions/seriesActions';
 import {ISerie} from './api/Serie';
 import routes from './routes';
@@ -12,6 +12,7 @@ interface IAppProps {
     featured: ISerie[];
     dispatch: any;
     useBrowserRouter?: boolean;
+    browserRouterConf?: BrowserRouterProps;
 }
 
 class App extends React.Component<IAppProps, any> {
@@ -30,15 +31,17 @@ class App extends React.Component<IAppProps, any> {
     }
 
     public renderRouter() {
-        return React.createElement(this.getRouter(), null, routes);
-    }
-
-    private getRouter() {
-        if (this.props.useBrowserRouter) {
-            return BrowserRouter;
+        const {useBrowserRouter, browserRouterConf} = this.props;
+        let router;
+        let props;
+        if (useBrowserRouter) {
+            router = BrowserRouter;
+            props = browserRouterConf;
         } else {
-            return HashRouter;
+            router = HashRouter;
+            props = {};
         }
+        return React.createElement(router, props, routes)
     }
 }
 
