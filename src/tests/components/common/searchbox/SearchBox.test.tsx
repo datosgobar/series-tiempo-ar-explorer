@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { SearchBox } from '../../../../components/common/searchbox/SearchBox';
 import configureStore from '../../../../store/configureStore';
 
-import { configure, mount } from 'enzyme'
+import { configure } from 'enzyme'
 import * as Adapter from 'enzyme-adapter-react-16';
 
 

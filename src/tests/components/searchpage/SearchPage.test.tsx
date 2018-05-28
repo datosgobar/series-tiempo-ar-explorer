@@ -17,7 +17,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <MemoryRouter>
       <Provider store={store}>
-        <SearchPage />
+        <SearchPage searchResults={[]} dispatch={jest.fn()}/>
       </Provider>
     </MemoryRouter>
     , div);
@@ -45,12 +45,12 @@ describe("SearchPage", () => {
 
     const searchterm = "exportaciones"
 
-    const wrapper = mount(
+    mount(
       <MemoryRouter
         initialEntries={['/search/?q=' + searchterm]}
         initialIndex={0}>
         <Provider store={store}>
-          <SearchPage seriesApi={mockSeriesApi} />
+          <SearchPage seriesApi={mockSeriesApi} searchResults={[]} dispatch={jest.fn()}/>
         </Provider>
       </MemoryRouter>
     );
@@ -63,12 +63,12 @@ describe("SearchPage", () => {
 
     const searchterm = "exportaciones"
 
-    const wrapper = mount(
+    mount(
       <MemoryRouter
         initialEntries={['/search/?offset=10&limit=5&q=' + searchterm]}
         initialIndex={0}>
         <Provider store={store}>
-          <SearchPage seriesApi={mockSeriesApi} />
+          <SearchPage seriesApi={mockSeriesApi} searchResults={[]} dispatch={jest.fn()}/>
         </Provider>
       </MemoryRouter>
     );

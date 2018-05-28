@@ -82,4 +82,4 @@ function mapStateToProps(state: any, ownProps: any) {
     };
 }
 
-export default withRouter(connect(mapStateToProps)(SearchPage));
+export default withRouter<ISearchPageProps>(connect(mapStateToProps)(SearchPage));
