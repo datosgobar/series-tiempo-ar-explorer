@@ -30,7 +30,16 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
 
-        this.fetchSeries();
+    }
+
+    public componentDidMount() {
+        this.fetchSeries(this.props);
+    }
+
+    public componentDidUpdate(prevProps: IViewPageProps, prevState: any, snapshot: any) {
+        if (prevProps.location.search !== this.props.location.search) {
+            this.fetchSeries(this.props);
+        }
     }
 
     public render() {
@@ -48,12 +57,15 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.dispatch(loadViewSeries(series));
     }
 
-    private fetchSeries() {
-        const search = this.props.location.search; // could be '?foo=bar'
-        const params = new URLSearchParams(search);
-        const ids = params.getAll('id');
-
+    private fetchSeries(props: IViewPageProps) {
+        const ids = this.getIDs(props);
         this.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
+    }
+
+    private getIDs(props: IViewPageProps): string[] {
+        const search = props.location.search; // could be '?foo=bar'
+        const params = new URLSearchParams(search);
+        return params.getAll('ids');
     }
 }
 

@@ -16,7 +16,7 @@ configure({ adapter: new Adapter() });
 
 it('renders without crashing', () => {
   const wrapper = shallow(
-      <ViewPage dispatch={dispatch} location={{ search: "?id=serie01" }} series={[]} seriesApi={mockApi} />
+      <ViewPage dispatch={dispatch} location={{ search: "?ids=serie01" }} series={[]} seriesApi={mockApi} />
   );
 
   expect(wrapper.find('.ViewPage').exists()).toBe(true);
