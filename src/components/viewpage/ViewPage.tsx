@@ -43,6 +43,13 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public render() {
+        if (!this.hasMainSerie()) {
+            return  <div className='ViewPage'>
+                <h1>Cargando...</h1>
+                <SearchBox />
+            </div>
+        }
+
         return (
             <div className='ViewPage'>
                 <h1>ViewPage</h1>
@@ -55,6 +62,10 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     public onSeriesFetchedSuccess(series: ISerie[]) {
         this.props.dispatch(loadViewSeries(series));
+    }
+
+    private hasMainSerie(): boolean {
+        return this.props.series.length > 0;
     }
 
     private fetchSeries(props: IViewPageProps) {
