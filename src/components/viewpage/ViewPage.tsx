@@ -1,20 +1,21 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 import './ViewPage.css';
 
-import { loadViewSeries } from '../../actions/seriesActions';
-import { ISerie } from '../../api/Serie';
-import { ISerieApi } from '../../api/SerieApi';
+import {loadViewSeries} from '../../actions/seriesActions';
+import {ISerie} from '../../api/Serie';
+import {ISerieApi} from '../../api/SerieApi';
 import SerieApi from '../../SerieApi';
 
+import {RouterProps, withRouter} from "react-router";
 import SearchBox from '../common/searchbox/SearchBox'
 import Graphic from './graphic/Graphic';
 import MetaData from './metadata/MetaData';
 
-interface IViewPageProps {
+interface IViewPageProps extends RouterProps {
     series: ISerie[];
-    readonly location: {search: string};
+    readonly location: { search: string };
     readonly dispatch: (action: object) => void;
     seriesApi?: ISerieApi;
 }
@@ -22,42 +23,42 @@ interface IViewPageProps {
 export class ViewPage extends React.Component<IViewPageProps, any> {
 
     private seriesApi: ISerieApi;
+    private unlisten: (() => void);
 
     constructor(props: IViewPageProps, context: any) {
         super(props, context);
 
         this.seriesApi = this.props.seriesApi || SerieApi;
-
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
 
     }
 
-    public componentDidMount() {
-        this.fetchSeries(this.props);
-    }
-
-    public componentDidUpdate(prevProps: IViewPageProps, prevState: any, snapshot: any) {
-        if (prevProps.location.search !== this.props.location.search) {
-            this.fetchSeries(this.props);
-        }
-    }
-
     public render() {
         if (!this.hasMainSerie()) {
-            return  <div className='ViewPage'>
+            return <div className='ViewPage'>
                 <h1>Cargando...</h1>
-                <SearchBox />
+                <SearchBox/>
             </div>
         }
 
         return (
             <div className='ViewPage'>
                 <h1>ViewPage</h1>
-                <SearchBox />
-                <Graphic series={this.props.series} />
-                <MetaData series={this.props.series} />
+                <SearchBox/>
+                <Graphic series={this.props.series}/>
+                <MetaData series={this.props.series}/>
             </div>
         );
+    }
+
+
+    public componentDidMount() {
+        this.unlisten = this.props.history.listen((l, a) => this.fetchSeries()); // se subscribe
+        this.fetchSeries();
+    }
+
+    public componentWillUnmount() {
+        this.unlisten(); // se dessubscribe
     }
 
     public onSeriesFetchedSuccess(series: ISerie[]) {
@@ -68,13 +69,13 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return this.props.series.length > 0;
     }
 
-    private fetchSeries(props: IViewPageProps) {
-        const ids = this.getIDs(props);
+    private fetchSeries() {
+        const ids = this.getIDs();
         this.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
     }
 
-    private getIDs(props: IViewPageProps): string[] {
-        const search = props.location.search; // could be '?foo=bar'
+    private getIDs(): string[] {
+        const search = this.props.location.search; // could be '?foo=bar'
         const params = new URLSearchParams(search);
         return params.getAll('ids');
     }
@@ -86,4 +87,4 @@ function mapStateToProps(state: any, ownProps: any) {
     };
 }
 
-export default connect(mapStateToProps)(ViewPage);
+export default withRouter(connect(mapStateToProps)(ViewPage));
