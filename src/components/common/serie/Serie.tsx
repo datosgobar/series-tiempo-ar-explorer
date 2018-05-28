@@ -13,7 +13,7 @@ class Serie extends React.Component<ISerieProps, any> {
 
     public render () {
         return (
-            <Link className='Serie' to={`/view/?id=${this.props.serie.id}`}>
+            <Link className='Serie' to={`/view/?ids=${this.props.serie.id}`}>
                 <h5>{this.props.serie.title}</h5>
                 <h6>{this.props.serie.publisher.name}</h6>
                 <p>{this.props.serie.description}</p>
