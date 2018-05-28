@@ -5,17 +5,18 @@ import Card from "../../common/card/Card";
 import SearchResultItem from "./SearchResultItem";
 
 
-interface ISearchPageProps {
+interface ISearchResultsProps {
     searchResults: ISearchResultItem[];
 }
 
-class SearchPage extends React.Component<ISearchPageProps, any> {
+
+class SearchResults extends React.Component<ISearchResultsProps, any> {
 
     public render() {
 
         return (
 
-            <div className='SearchPage'>
+            <div className='SearchResults'>
                 {this.props.searchResults.map(
                     (searchResult: ISearchResultItem) => (
                         <Card key={searchResult.id} about={<SearchResultItem searchResult={searchResult} />} />
@@ -27,4 +28,4 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 }
 
 
-export default SearchPage;
+export default SearchResults;

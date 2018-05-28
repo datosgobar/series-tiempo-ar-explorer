@@ -9,8 +9,8 @@ interface ISearchResultItemProps {
     searchResult: ISearchResultItem;
 }
 
-class SearchResultItem extends React.Component<ISearchResultItemProps, any> {
 
+class SearchResultItem extends React.Component<ISearchResultItemProps, any> {
 
     public render() {
         return (

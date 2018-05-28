@@ -26,34 +26,4 @@ describe('searchbox', () => {
       , div);
     ReactDOM.unmountComponentAtNode(div);
   });
-
-  it('redirects to search page when submited', () => {
-
-    const historyMock = {
-      push: jest.fn()
-    };
-
-    const wrapper = mount(<SearchBox history={historyMock}/>);
-
-    wrapper.find('.SearchBox').find('input').last().simulate('click');
-
-    expect(historyMock.push).toBeCalledWith('/search/');
-  });
-
-  it('redirects to search page when submited with searchterm', () => {
-
-    const searchTerm = 'searchTerm'
-
-    const historyMock = {
-      push: jest.fn()
-    };
-
-    const wrapper = mount(<SearchBox history={historyMock}/>);
-
-    wrapper.find('.SearchBox').find('input').first().simulate('change', { target: { value: searchTerm } });
-
-    wrapper.find('.SearchBox').find('input').last().simulate('click');
-
-    expect(historyMock.push).toBeCalledWith('/search/' + searchTerm);
-  });
 });
