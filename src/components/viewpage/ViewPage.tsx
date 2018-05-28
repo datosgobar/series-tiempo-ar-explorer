@@ -5,28 +5,23 @@ import './ViewPage.css';
 
 import { loadViewSeries } from '../../actions/seriesActions';
 import { ISerie } from '../../api/Serie';
-import { ISerieApi } from '../../api/SerieApi';
-import SerieApi from '../../SerieApi';
 
+import { ISerieApi } from '../../api/SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
 import Graphic from './graphic/Graphic';
 import MetaData from './metadata/MetaData';
 
 interface IViewPageProps {
     series: ISerie[];
+    seriesApi: ISerieApi;
     readonly location: {search: string};
     readonly dispatch: (action: object) => void;
-    seriesApi?: ISerieApi;
 }
 
 export class ViewPage extends React.Component<IViewPageProps, any> {
 
-    private seriesApi: ISerieApi;
-
     constructor(props: IViewPageProps, context: any) {
         super(props, context);
-
-        this.seriesApi = this.props.seriesApi || SerieApi;
 
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
 
@@ -53,13 +48,14 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         const params = new URLSearchParams(search);
         const ids = params.getAll('id');
 
-        this.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
+        this.props.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
     }
 }
 
 function mapStateToProps(state: any, ownProps: any) {
     return {
-        series: state.viewSeries
+        series: state.viewSeries,
+        seriesApi: state.seriesApi,
     };
 }
 

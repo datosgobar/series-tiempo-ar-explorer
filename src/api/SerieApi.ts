@@ -40,7 +40,7 @@ export default class SerieApi implements ISerieApi {
                 ids: ids.toString(),
                 metadata,
             },
-            uri: this.apiClient.uri + '/series',
+            uri: this.apiClient.endpoint('series'),
         };
 
         return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids, tsResponse));
@@ -53,7 +53,7 @@ export default class SerieApi implements ISerieApi {
                 offset,
                 q,
             },
-            uri: this.apiClient.uri + '/search',
+            uri: this.apiClient.endpoint('search'),
         };
         
         return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);

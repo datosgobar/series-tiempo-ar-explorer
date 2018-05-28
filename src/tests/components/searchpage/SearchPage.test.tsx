@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
+import { Store } from 'redux';
 
 import { configure, mount } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
@@ -9,6 +10,7 @@ import configureStore from '../../../store/configureStore';
 
 import MockApi from '../../api/mockApi';
 
+import { setSeriesApi } from '../../../actions/seriesActions';
 import { ISerieApi } from '../../../api/SerieApi';
 import SearchPage from '../../../components/searchpage/SearchPage';
 
@@ -18,7 +20,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <MemoryRouter>
       <Provider store={store}>
-        <SearchPage searchResults={[]} dispatch={jest.fn()}/>
+        <SearchPage seriesApi={new MockApi(0)} searchResults={[]} dispatch={jest.fn()}/>
       </Provider>
     </MemoryRouter>
     , div);
@@ -31,7 +33,7 @@ describe("SearchPage", () => {
 
 
   let mockSeriesApi: ISerieApi;
-  let store: any;
+  let store: Store;
 
   beforeEach(() => {
 
@@ -40,6 +42,7 @@ describe("SearchPage", () => {
     mockSeriesApi.getSeries = jest.fn().mockImplementation(mockSeriesApi.getSeries);
 
     store = configureStore();
+    store.dispatch(setSeriesApi(mockSeriesApi));
   });
 
   it('gets search results from seriesApi', () => {

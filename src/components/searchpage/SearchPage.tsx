@@ -7,7 +7,6 @@ import './SearchPage.css';
 
 import { loadSearchResults } from '../../actions/seriesActions';
 import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
-import SerieApi from '../../SerieApi';
 import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox'
 import SearchResults from './searchresults/SearchResults';
@@ -16,18 +15,15 @@ import SearchResults from './searchresults/SearchResults';
 interface ISearchPageProps extends RouteComponentProps<any> {
     searchResults: ISearchResultItem[];
     readonly dispatch: (action: object) => void;
-    seriesApi?: ISerieApi;
+    seriesApi: ISerieApi;
 }
 
 class SearchPage extends React.Component<ISearchPageProps, any> {
 
     private unListen: () => void;
-    private seriesApi: ISerieApi;
 
     constructor(props: any, context: any) {
         super(props, context);
-
-        this.seriesApi = this.props.seriesApi || SerieApi;
 
         this.onResultsFetchedSuccess = this.onResultsFetchedSuccess.bind(this);
         this.fetchResults = this.fetchResults.bind(this);
@@ -62,7 +58,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         offset = offset? parseInt(offset, 10): 0;
         limit = limit? parseInt(limit, 10): 10;
 
-        this.seriesApi.searchSeries(query, offset, limit).then(this.onResultsFetchedSuccess).catch(alert);
+        this.props.seriesApi.searchSeries(query, offset, limit).then(this.onResultsFetchedSuccess).catch(alert);
     }
 
     public render() {
@@ -80,7 +76,8 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
 function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
     return {
-        searchResults: state.searchResults
+        searchResults: state.searchResults,
+        seriesApi: state.seriesApi,
     };
 }
 
