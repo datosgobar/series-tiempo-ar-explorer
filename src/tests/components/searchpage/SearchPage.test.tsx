@@ -9,6 +9,7 @@ import configureStore from '../../../store/configureStore';
 
 import MockApi from '../../api/mockApi';
 
+import { ISerieApi } from '../../../api/SerieApi';
 import SearchPage from '../../../components/searchpage/SearchPage';
 
 it('renders without crashing', () => {
@@ -29,7 +30,7 @@ configure({ adapter: new Adapter() });
 describe("SearchPage", () => {
 
 
-  let mockSeriesApi: any;
+  let mockSeriesApi: ISerieApi;
   let store: any;
 
   beforeEach(() => {

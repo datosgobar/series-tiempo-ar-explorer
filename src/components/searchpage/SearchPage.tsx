@@ -1,3 +1,4 @@
+import { Location } from 'history';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -7,6 +8,7 @@ import './SearchPage.css';
 import { loadSearchResults } from '../../actions/seriesActions';
 import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
 import SerieApi from '../../SerieApi';
+import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox'
 import SearchResults from './searchresults/SearchResults';
 
@@ -41,21 +43,21 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         this.unListen();
     }
 
-    public onResultsFetchedSuccess(searchResults: any) {
+    public onResultsFetchedSuccess(searchResults: ISearchResultItem[]) {
         this.props.dispatch(loadSearchResults(searchResults));
     }
 
-    public fetchResults(location: any) {
-        const search = location.search; // could be '?foo=bar'
-        const params = new URLSearchParams(search);
-        const query = params.get('q');
+    public fetchResults(location: Location) {
+        const search: string = location.search; // could be '?foo=bar'
+        const params: URLSearchParams = new URLSearchParams(search);
+        const query: string | null = params.get('q');
         
         if(!query){
             return;
         }
         
-        let offset: any = params.get('offset');
-        let limit: any = params.get('limit');
+        let offset: number | string | null = params.get('offset');
+        let limit: number | string | null = params.get('limit');
 
         offset = offset? parseInt(offset, 10): 0;
         limit = limit? parseInt(limit, 10): 10;
@@ -76,7 +78,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
     }
 }
 
-function mapStateToProps(state: any, ownProps: any) {
+function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
     return {
         searchResults: state.searchResults
     };
