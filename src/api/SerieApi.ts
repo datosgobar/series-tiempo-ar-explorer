@@ -34,16 +34,17 @@ export default class SerieApi implements ISerieApi {
         this.apiClient = apiClient;
     }
 
-    public getSeries(ids: string[], metadata: string = METADATA.FULL): Promise<Serie[]> {
+    public getSeries(idsArray: string[], metadata: string = METADATA.FULL): Promise<Serie[]> {
+        const ids = idsArray.join(","); 
         const options = {
             qs: {
-                ids: ids.join(","),
+                ids,
                 metadata,
             },
             uri: this.apiClient.endpoint('series'),
         };
 
-        return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids, tsResponse));
+        return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
     }
 
     public searchSeries(q: string, offset: number = 0, limit: number = 10): Promise<ISearchResultItem[]>{
