@@ -1,11 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 
+import {BrowserRouterProps} from 'react-router-dom';
+import {ISerie} from "./api/Serie";
+import SerieApi, { ISerieApi } from "./api/SerieApi";
 import App from "./App";
 
-import { ISerie } from "./api/Serie";
-import SerieApi, { ISerieApi } from "./api/SerieApi";
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
 
@@ -13,6 +14,8 @@ import configureStore from "./store/configureStore";
 export interface IExplorerConfig {
     featured: ISerie[];
     seriesApiUri: string;
+    useBrowserRouter?: boolean;
+    browserRouterConf?: BrowserRouterProps;
 }
 
 

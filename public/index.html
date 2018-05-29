@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
@@ -20,43 +20,44 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+</head>
+<body>
+<noscript>
+    You need to enable JavaScript to run this app.
+</noscript>
+<div id="root"></div>
+<!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-    <script>
-        window.onload = function() {
-            TSExplorer.render('root', {featured: [
-                    {
-                        data: [],
-                        description: 'Exportaciones por provincia y por pais de destino en millones de dolares',
-                        id: "10.1_ISOA_1993_A_27",
-                        publisher: { mbox: 'mail@mail.com', name: 'Subsecretaria de Programación Macroeconomica' },
-                        title: 'PBI General Mensual',
-                    },
-                    {
-                        data: [],
-                        description: 'Exportaciones por provincia y por pais de destino en millones de dolares',
-                        id: "serie_02",
-                        publisher: { mbox: 'mail@mail.com', name: 'Subsecretaria de Programación Macroeconomica' },
-                        title: '2PBI General Mensual',
-                    }
+  To begin the development, run `npm start` or `yarn start`.
+  To create a production bundle, use `npm run build` or `yarn build`.
+-->
+<script>
+    window.onload = function () {
+        TSExplorer.render('root', {
+            featured: [
+                {
+                    data: [],
+                    description: 'Exportaciones por provincia y por pais de destino en millones de dolares',
+                    id: "10.1_ISOA_1993_A_27",
+                    publisher: {mbox: 'mail@mail.com', name: 'Subsecretaria de Programación Macroeconomica'},
+                    title: 'PBI General Mensual',
+                },
+                {
+                    data: [],
+                    description: 'Exportaciones por provincia y por pais de destino en millones de dolares',
+                    id: "serie_02",
+                    publisher: {mbox: 'mail@mail.com', name: 'Subsecretaria de Programación Macroeconomica'},
+                    title: '2PBI General Mensual',
+                }
             ],
             seriesApiUri: "http://apis.datos.gob.ar/series/api",
-          })
-        }
-    </script>
-  </body>
+        })
+    }
+</script>
+</body>
 </html>
