@@ -1,19 +1,6 @@
 
 import * as React from 'react';
-// tslint:disable-next-line:no-var-requires
-const ReactHighcharts = require('react-highcharts');
-
-// Highcharts more
-// tslint:disable-next-line:no-var-requires
-require('highcharts-more')(ReactHighcharts.Highcharts);
-
-// Highcharts exporting
-// tslint:disable-next-line:no-var-requires
-require('highcharts-exporting')(ReactHighcharts.Highcharts);
-
-// Highcharts export csv
-// tslint:disable-next-line:no-var-requires
-require('highcharts-export-csv')(ReactHighcharts.Highcharts)
+import {IHConfig, IHCSeries, ReactHighcharts} from './highcharts';
 
 
 import IDataPoint from '../../../api/DataPoint';
@@ -28,28 +15,16 @@ interface IGraphicProps {
 
 export class Graphic extends React.Component<IGraphicProps, any> {
 
-    get categories() {
+    public render() {
         return (
-            this.props.series.map(
-                (serie: ISerie) => serie.data.map(
-                    (datapoint: IDataPoint) => datapoint.date))
-            [0]
-            || []
+            <div className='Graphic'>
+                <p>Graphic</p>
+                <ReactHighcharts config={this.highchartsConfig()} />
+            </div>
         );
     }
 
-    get seriesValues() {
-        return (
-            this.props.series.map(
-                (serie: ISerie) => ({
-                    data: serie.data.map((datapoint: IDataPoint) => datapoint.value),
-                    name: serie.id,
-                })
-            )
-        );
-    }
-
-    get highchartsConfig() {
+    public highchartsConfig() {
         return ({
 
             title: {
@@ -57,10 +32,10 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             },
 
             xAxis: {
-                categories: this.categories,
+                categories: this.categories(),
             },
 
-            series: this.seriesValues,
+            series: this.seriesValues(),
 
             subtitle: {
                 text: 'When resizing the window or the frame, the chart should resize'
@@ -68,14 +43,43 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         });
     }
 
-    public render() {
+
+    public categories() {
         return (
-            <div className='Graphic'>
-                <p>Graphic</p>
-                <ReactHighcharts config={this.highchartsConfig} />
-            </div>
+            this.props.series.map(
+                (serie: ISerie) => serie.data.map(
+                    (datapoint: IDataPoint) => datapoint.date))
+                [0]
+            || []
         );
     }
+
+    public seriesValues():IHCSeries[] {
+        return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {}));
+    }
+
+    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
+        const data = serie.data.map(datapoint => datapoint.value);
+        return {...this.defaultHCSeriesConfig(), ...hcConfig, name: serie.id, data}
+
+    }
+
+    /**
+     * color: https://api.highcharts.com/highcharts/series.line.color
+     * dashStyle: https://api.highcharts.com/highcharts/series.line.dashStyle
+     * lineWidth: https://api.highcharts.com/highcharts/series.line.lineWidth
+     * type: https://api.highcharts.com/highcharts/series.line.type
+     *
+     */
+    public defaultHCSeriesConfig() {
+        return {
+            color: '#7CB5EC',
+            dashStyle: 'Solid',
+            lineWidth: 2,
+            type: 'line',
+        }
+    }
+
 }
 
 export default Graphic;
