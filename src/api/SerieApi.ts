@@ -37,7 +37,7 @@ export default class SerieApi implements ISerieApi {
     public getSeries(ids: string[], metadata: string = METADATA.FULL): Promise<Serie[]> {
         const options = {
             qs: {
-                ids: ids.toString(),
+                ids: ids.join(","),
                 metadata,
             },
             uri: this.apiClient.endpoint('series'),
