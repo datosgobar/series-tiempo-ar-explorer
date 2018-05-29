@@ -45,7 +45,7 @@ describe('Serie', () => {
 
         });
     };
-    describe("Multiples series fomr same tsResponse", () => {
+    describe("Multiples series from same tsResponse", () => {
         describeSerie(1);
         describeSerie(2);
     });
