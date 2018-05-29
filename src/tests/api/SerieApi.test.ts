@@ -1,6 +1,6 @@
-import ITSAPIResponse from "../../api/ITSAPIResponse";
 import Serie from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
+import {tsResponseMock} from "../support/factories/series_api";
 
 function setupApi() {
     const api = SerieApi.withUri('http://exampĺe.it/mock/');
@@ -17,60 +17,11 @@ describe('SerieApi', () => {
             returnedValue.forEach(each => expect(each instanceof Serie).toBe(true));
             expect(returnedValue.length).toBe(1);
         }).catch(err => {
-            throw new Error(err);
-        }
+                throw new Error(err);
+            }
         );
 
         expect(mockRp).toHaveBeenCalledTimes(1);
     });
 });
 
-const tsResponseMock: ITSAPIResponse = {
-    "data": [
-        [
-            "2017-10-01",
-            128.1
-        ],
-        [
-            "2017-11-01",
-            125.9
-        ]
-    ],
-    "meta": [
-        {
-            "dataset": []
-        },
-        {
-            "dataset": [
-                {
-                    "distribution": [
-                        {
-                            "field": [
-                                {
-                                    "description": "example field description",
-                                    "id": "example field id",
-                                    "title": "example field title",
-                                }
-                            ],
-                        }
-                    ],
-                    "publisher": {
-                        "mbox": "example@dataset.com",
-                        "name": "example dataset publisher name"
-                    },
-                }
-            ],
-        }
-    ],
-    "params": {
-        "identifiers": [
-            {
-                "dataset": "1",
-                "distribution": "1.1",
-                "id": "example field id"
-            }
-        ],
-        "ids": "example field id",
-        "metadata": "full"
-    }
-};
