@@ -1,15 +1,16 @@
 import * as React from 'react';
 import './App.css';
 
-import {connect} from 'react-redux';
-import {BrowserRouter, BrowserRouterProps, HashRouter} from 'react-router-dom';
-import {loadFeatured} from './actions/seriesActions';
-import {ISerie} from './api/Serie';
+import { connect } from 'react-redux';
+import { BrowserRouter, BrowserRouterProps, HashRouter } from 'react-router-dom';
+import { loadFeatured } from './actions/seriesActions';
+import { ISerieApi } from './api/SerieApi';
 import routes from './routes';
 
 
 interface IAppProps {
-    featured: ISerie[];
+    seriesApi: ISerieApi;
+    featured: string[];
     dispatch: any;
     useBrowserRouter?: boolean;
     browserRouterConf?: BrowserRouterProps;
@@ -19,7 +20,11 @@ class App extends React.Component<IAppProps, any> {
 
     constructor(props: IAppProps) {
         super(props);
-        this.props.dispatch(loadFeatured(this.props.featured));
+        this.fetchFeaturedSeries();
+    }
+
+    public fetchFeaturedSeries() {
+        this.props.seriesApi.getSeries(this.props.featured).then(featuredSeries => this.props.dispatch(loadFeatured(featuredSeries)))
     }
 
     public render(): any {
@@ -31,7 +36,7 @@ class App extends React.Component<IAppProps, any> {
     }
 
     public renderRouter() {
-        const {useBrowserRouter, browserRouterConf} = this.props;
+        const { useBrowserRouter, browserRouterConf } = this.props;
         let router;
         let props;
         if (useBrowserRouter) {
@@ -45,4 +50,10 @@ class App extends React.Component<IAppProps, any> {
     }
 }
 
-export default connect()(App);
+function mapStateToProps(state: any, ownProps: IAppProps) {
+    return {
+        seriesApi: state.seriesApi,
+    };
+}
+
+export default connect(mapStateToProps)(App);
