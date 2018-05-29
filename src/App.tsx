@@ -22,6 +22,9 @@ class App extends React.Component<IAppProps, any> {
     constructor(props: IAppProps) {
         super(props);
         this.props.dispatch(setSeriesApi(this.props.seriesApi));
+    }
+
+    public componentDidMount() {
         this.fetchFeaturedSeries();
     }
 
@@ -52,10 +55,4 @@ class App extends React.Component<IAppProps, any> {
     }
 }
 
-function mapStateToProps(state: any, ownProps: IAppProps) {
-    return {
-        seriesApi: state.seriesApi,
-    };
-}
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);
