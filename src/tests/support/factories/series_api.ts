@@ -1,5 +1,4 @@
-import ITSAPIResponse from "../../../api/ITSAPIResponse";
-
+import {ITSAPIResponse} from "../../../api/ITSAPIResponse";
 
 export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPIResponse {
 
