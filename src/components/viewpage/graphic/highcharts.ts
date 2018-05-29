@@ -19,10 +19,12 @@ export interface IHCSeries {
     type: string;
     color: string;
     lineWidth: number;
+    dashStyle: string;
 }
 
 export interface IHConfig {
     type?: string;
     color?: string;
     lineWidth?: number;
+    dashStyle?: string;
 }

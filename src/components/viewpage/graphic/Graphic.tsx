@@ -64,9 +64,17 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     }
 
+    /**
+     * color: https://api.highcharts.com/highcharts/series.line.color
+     * dashStyle: https://api.highcharts.com/highcharts/series.line.dashStyle
+     * lineWidth: https://api.highcharts.com/highcharts/series.line.lineWidth
+     * type: https://api.highcharts.com/highcharts/series.line.type
+     *
+     */
     public defaultHCSeriesConfig() {
         return {
             color: '#7CB5EC',
+            dashStyle: 'Solid',
             lineWidth: 2,
             type: 'line',
         }
