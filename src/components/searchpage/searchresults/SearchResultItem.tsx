@@ -15,7 +15,7 @@ class SearchResultItem extends React.Component<ISearchResultItemProps, any> {
     public render() {
         return (
 
-            <Link className='SearchResultItem' to={`/view/?id=${this.props.searchResult.id}`}>
+            <Link className='SearchResultItem' to={`/view/?ids=${this.props.searchResult.id}`}>
                 <h6>{this.props.searchResult.title}</h6>
                 <p>{this.props.searchResult.description}</p>
             </Link>
