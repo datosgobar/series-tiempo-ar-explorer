@@ -17,10 +17,11 @@ describe('searchbox', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
     const store = configureStore();
+    const onSearch = jest.fn();
     ReactDOM.render(
       <MemoryRouter>
         <Provider store={store}>
-          <SearchBox />
+          <SearchBox onSearch={onSearch}/>
         </Provider>
       </MemoryRouter>
       , div);

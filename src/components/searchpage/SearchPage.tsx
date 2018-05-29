@@ -5,70 +5,87 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import './SearchPage.css';
 
-import { loadSearchResults } from '../../actions/seriesActions';
-import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
+import { ISerieApi } from '../../api/SerieApi';
 import { IStore } from '../../store/initialState';
-import SearchBox from '../common/searchbox/SearchBox'
-import SearchResults from './searchresults/SearchResults';
+import Searcher from './searcher/Searcher';
 
 
 interface ISearchPageProps extends RouteComponentProps<any> {
-    searchResults: ISearchResultItem[];
-    readonly dispatch: (action: object) => void;
     seriesApi: ISerieApi;
 }
 
-class SearchPage extends React.Component<ISearchPageProps, any> {
+interface ISearchPageState {
+    q: string;
+    offset: number;
+    limit: number;
+}
+
+class SearchPage extends React.Component<ISearchPageProps, ISearchPageState> {
 
     private unListen: () => void;
 
     constructor(props: any, context: any) {
         super(props, context);
 
-        this.onResultsFetchedSuccess = this.onResultsFetchedSuccess.bind(this);
-        this.fetchResults = this.fetchResults.bind(this);
+        this.readUriParams = this.readUriParams.bind(this);
+        this.updateQueryParams = this.updateQueryParams.bind(this);
 
-        this.fetchResults(this.props.location);
+        this.state = this.readUriParams(this.props.location) || { q: "", offset: 0, limit: 10 };
     }
 
     public componentDidMount() {
-        this.unListen = this.props.history.listen(this.fetchResults);
+        this.unListen = this.props.history.listen(location => {
+            const newState = this.readUriParams(location);
+
+            if (!newState) {
+                return;
+            }
+
+            this.setState(newState);
+        });
     }
 
     public componentWillUnmount() {
         this.unListen();
     }
 
-    public onResultsFetchedSuccess(searchResults: ISearchResultItem[]) {
-        this.props.dispatch(loadSearchResults(searchResults));
-    }
-
-    public fetchResults(location: Location) {
+    public readUriParams(location: Location) {
         const search: string = location.search; // could be '?foo=bar'
         const params: URLSearchParams = new URLSearchParams(search);
-        const query: string | null = params.get('q');
-        
-        if(!query){
+        const q: string | null = params.get('q');
+
+        if (!q) {
             return;
         }
-        
+
         let offset: number | string | null = params.get('offset');
         let limit: number | string | null = params.get('limit');
 
-        offset = offset? parseInt(offset, 10): 0;
-        limit = limit? parseInt(limit, 10): 10;
+        offset = offset ? parseInt(offset, 10) : 0;
+        limit = limit ? parseInt(limit, 10) : 10;
 
-        this.props.seriesApi.searchSeries(query, offset, limit).then(this.onResultsFetchedSuccess).catch(alert);
+        return { q, offset, limit }
+    }
+
+    public updateQueryParams(q: string, offset: number, limit: number) {
+        const urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('q', q);
+        urlSearchParams.append('offset', offset.toString());
+        urlSearchParams.append('limit', limit.toString());
+
+        this.props.history.push('/search/?' + urlSearchParams);
     }
 
     public render() {
         return (
             <div className='SearchPage'>
                 <h1>Resultados Busqueda</h1>
-
-                <SearchBox />
-
-                <SearchResults searchResults={this.props.searchResults} />
+                <Searcher
+                    limit={this.state.limit}
+                    offset={this.state.offset}
+                    q={this.state.q}
+                    seriesApi={this.props.seriesApi}
+                    onWillSearch={this.updateQueryParams} />
             </div>
         );
     }
@@ -76,7 +93,6 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
 function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
     return {
-        searchResults: state.searchResults,
         seriesApi: state.seriesApi,
     };
 }
