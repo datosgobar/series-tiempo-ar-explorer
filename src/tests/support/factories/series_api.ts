@@ -18,7 +18,9 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
 
     const meta = [
         {
-            "dataset": []
+            end_date: "2013-01-01",
+            frequency: "year",
+            start_date: "1993-01-01",
         },
         ...tsIDs.map((tsID) => {
             return {

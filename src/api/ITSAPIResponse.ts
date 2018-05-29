@@ -4,9 +4,17 @@ export default interface ITSAPIResponse {
     params: any;
 }
 
-export interface IMetaData {
+export interface IExtraMeta {
+    end_date: string,
+    frequency: string,
+    start_date: string,
+}
+
+export interface ITSMeta {
     dataset: IDataSet[];
 }
+
+export type IMetaData = IExtraMeta | ITSMeta;
 
 export interface IDataSet {
     distribution: IDistribution[];
