@@ -1,6 +1,6 @@
 import ApiClient from './ApiClient';
-import ITSAPIResponse from './ITSAPIResponse'
-import Serie, { ISerie } from "./Serie";
+import {ITSAPIResponse} from './ITSAPIResponse'
+import Serie, {ISerie} from "./Serie";
 
 
 export const METADATA = {
@@ -16,11 +16,11 @@ export interface ISerieApi {
 }
 
 export default class SerieApi implements ISerieApi {
-    
+
     public static withUri(seriesUri: string): SerieApi {
         return new SerieApi(new ApiClient(seriesUri));
     }
-    
+
     public apiClient: ApiClient;
 
     constructor(apiClient: ApiClient) {
