@@ -25,11 +25,11 @@ export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState>
         this.triggerSearch = this.triggerSearch.bind(this);
     }
 
-    public componentWillReceiveProps(newProps: ISearchBoxProps){
+    public componentDidUpdate(prevProps: ISearchBoxProps){
         
-        if(newProps.searchTerm && (newProps.searchTerm !== this.state.searchTerm)){
+        if(this.props.searchTerm && (this.props.searchTerm !== prevProps.searchTerm)){
             this.setState({
-                searchTerm: newProps.searchTerm
+                searchTerm: this.props.searchTerm
             });
         }
     }
@@ -40,6 +40,7 @@ export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState>
     }
 
     public triggerSearch(event: any) {
+        event.preventDefault();
         this.props.onSearch(this.state.searchTerm);
     }
 

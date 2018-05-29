@@ -32,15 +32,20 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
     }
 
     public componentDidMount() {
-        this.search(this.props.q)
+        
+        if (!this.props.q) {
+            return;
+        }
+
+        this.performSearch(this.props.q, this.props.offset, this.props.limit);
     }
 
-    public componentWillReceiveProps(nextProps: ISearcherProps) {
-        if (nextProps.q !== this.props.q ||
-            nextProps.offset !== this.props.offset ||
-            nextProps.limit !== this.props.limit
+    public componentDidUpdate(prevProps: ISearcherProps) {
+        if (prevProps.q !== this.props.q ||
+            prevProps.offset !== this.props.offset ||
+            prevProps.limit !== this.props.limit
         ) {
-            this.search(nextProps.q, nextProps.offset, nextProps.limit);
+            this.performSearch(this.props.q, this.props.offset, this.props.limit);
         }
     }
 
@@ -58,8 +63,6 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         if (this.props.onWillSearch) {
             this.props.onWillSearch(q, offset, limit);
         }
-
-        this.performSearch(q, offset, limit);
     }
 
     public render() {
