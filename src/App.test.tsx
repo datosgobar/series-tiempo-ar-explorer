@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import configureStore from './store/configureStore';
+import MockApi from './tests/api/mockApi';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -11,7 +12,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
-        <App featured={[]}/>
+        <App seriesApi={new MockApi(0)} featured={[]}/>
       </Provider>
     </BrowserRouter>
     , div);
