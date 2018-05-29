@@ -1,4 +1,4 @@
-export default interface ITSAPIResponse {
+export interface ITSAPIResponse {
     data: any[];
     meta: IMetaData[];
     params: any;
