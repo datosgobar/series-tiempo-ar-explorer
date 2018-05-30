@@ -1,52 +1,66 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
 
 import './SearchBox.css';
+
+
+interface ISearchBoxProps {
+
+    onSearch: (searchTerm: string) => void;
+    searchTerm?: string;
+}
 
 interface ISearchBoxState {
 
     searchTerm: string;
 }
 
-export class SearchBox extends React.Component<any, ISearchBoxState> {
+export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
 
-    constructor(props: any) {
+    constructor(props: ISearchBoxProps) {
         super(props);
 
-        this.state = { searchTerm: "" };
+        this.state = { searchTerm: this.props.searchTerm || "" };
 
         this.onSearchTermChange = this.onSearchTermChange.bind(this);
-        this.onSearch = this.onSearch.bind(this);
+        this.triggerSearch = this.triggerSearch.bind(this);
+    }
+
+    public componentDidUpdate(prevProps: ISearchBoxProps){
+        
+        if(this.props.searchTerm && (this.props.searchTerm !== prevProps.searchTerm)){
+            this.setState({
+                searchTerm: this.props.searchTerm
+            });
+        }
     }
 
     public onSearchTermChange(event: any) {
-        const newSearchTerm: string = event.target.value;
-        this.setState({ searchTerm: newSearchTerm });
+        const searchTerm: string = event.target.value;
+        this.setState({ searchTerm });
     }
 
-    public onSearch(event: any) {
-        const uri = '/search/' + encodeURIComponent(escape(this.state.searchTerm));
-
-        this.props.history.push(uri);
+    public triggerSearch(event: any) {
+        event.preventDefault();
+        this.props.onSearch(this.state.searchTerm);
     }
 
     public render() {
         return (
             <div className='SearchBox'>
+                <form onSubmit={this.triggerSearch} >
+                    <input
+                        value={this.state.searchTerm}
+                        type='text'
+                        placeholder='Buscar Serie'
+                        onChange={this.onSearchTermChange} />
 
-                <input
-                    type='text'
-                    placeholder='Buscar Serie'
-                    onChange={this.onSearchTermChange} 
-                    onSubmit={this.onSearch} />
-                <input
-                    type='submit'
-                    value='Buscar' 
-                    onClick={this.onSearch} />
-
+                    <input
+                        type='submit'
+                        value='Buscar' />
+                </form>
             </div>
         );
     }
 }
 
-export default withRouter(SearchBox);
+export default SearchBox;
