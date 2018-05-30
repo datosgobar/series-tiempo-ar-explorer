@@ -51,8 +51,6 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
 
     public search(q?: string, offset?: number, limit?: number) {
 
-        q = q || this.props.q
-
         if (!q) {
             return;
         }
