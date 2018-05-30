@@ -3,7 +3,6 @@ import * as ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 
 import {BrowserRouterProps} from 'react-router-dom';
-import {ISerie} from "./api/Serie";
 import SerieApi, { ISerieApi } from "./api/SerieApi";
 import App from "./App";
 
@@ -12,7 +11,7 @@ import configureStore from "./store/configureStore";
 
 
 export interface IExplorerConfig {
-    featured: ISerie[];
+    featured: string[];
     seriesApiUri: string;
     useBrowserRouter?: boolean;
     browserRouterConf?: BrowserRouterProps;

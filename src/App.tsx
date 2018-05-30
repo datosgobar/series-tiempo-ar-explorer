@@ -2,17 +2,16 @@ import * as React from 'react';
 
 import './App.css';
 
-import {connect} from 'react-redux';
-import {BrowserRouter, BrowserRouterProps, HashRouter} from 'react-router-dom';
-import {loadFeatured, setSeriesApi} from './actions/seriesActions';
-import {ISerie} from './api/Serie';
+import { connect } from 'react-redux';
+import { BrowserRouter, BrowserRouterProps, HashRouter } from 'react-router-dom';
+import { loadFeatured, setSeriesApi } from './actions/seriesActions';
 import { ISerieApi } from './api/SerieApi';
 import routes from './routes';
 
 
 interface IAppProps {
-    featured: ISerie[];
-    dispatch: any;
+    featured: string[];
+    dispatch?: any;
     seriesApi: ISerieApi;
     useBrowserRouter?: boolean;
     browserRouterConf?: BrowserRouterProps;
@@ -23,7 +22,14 @@ class App extends React.Component<IAppProps, any> {
     constructor(props: IAppProps) {
         super(props);
         this.props.dispatch(setSeriesApi(this.props.seriesApi));
-        this.props.dispatch(loadFeatured(this.props.featured));
+    }
+
+    public componentDidMount() {
+        this.fetchFeaturedSeries();
+    }
+
+    public fetchFeaturedSeries() {
+        this.props.seriesApi.getSeries(this.props.featured).then(featuredSeries => this.props.dispatch(loadFeatured(featuredSeries)))
     }
 
     public render(): any {
@@ -35,7 +41,7 @@ class App extends React.Component<IAppProps, any> {
     }
 
     public renderRouter() {
-        const {useBrowserRouter, browserRouterConf} = this.props;
+        const { useBrowserRouter, browserRouterConf } = this.props;
         let router;
         let props;
         if (useBrowserRouter) {

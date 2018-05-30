@@ -5,10 +5,11 @@ import Featured from '../../../../components/mainpage/featured/Featured';
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import { MemoryRouter } from 'react-router';
+import { ISerie } from '../../../../api/Serie';
 
 configure({ adapter: new Adapter() });
 
-const series = [
+const series: ISerie[] = [
   {
     data: [],
     description: "description1",
