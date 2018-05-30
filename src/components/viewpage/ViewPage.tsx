@@ -27,20 +27,25 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
         this.fetchSeries = this.fetchSeries.bind(this);
+        this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
+    }
+
+    public redirectToSearchPage(searchTerm: string){
+        this.props.history.push('/search/?q=' + searchTerm);
     }
 
     public render() {
         if (!this.hasMainSerie()) {
             return <div className='ViewPage'>
                 <h1>Cargando...</h1>
-                <SearchBox/>
+                <SearchBox onSearch={this.redirectToSearchPage}/>
             </div>
         }
 
         return (
             <div className='ViewPage'>
                 <h1>ViewPage</h1>
-                <SearchBox/>
+                <SearchBox onSearch={this.redirectToSearchPage}/>
                 <Graphic series={this.props.series}/>
                 <MetaData series={this.props.series}/>
             </div>

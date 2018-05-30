@@ -1,7 +1,7 @@
 import { Action } from "redux";
 
 import { ISerie } from "../api/Serie";
-import { ISearchResultItem, ISerieApi } from "../api/SerieApi";
+import { ISerieApi } from "../api/SerieApi";
 import actionTypes from "./actionTypes";
 
 export interface ISeriesAction extends Action<string> {
@@ -14,14 +14,6 @@ export function loadFeatured(series: ISerie[]): ISeriesAction {
 
 export function loadViewSeries(series: ISerie[]): ISeriesAction {
     return { type: actionTypes.LOAD_VIEW_SERIES, series };
-}
-
-export interface ISearchResultsAction extends Action<string> {
-    searchResults: ISearchResultItem[];
-}
-
-export function loadSearchResults(searchResults: ISearchResultItem[]): ISearchResultsAction {
-    return { type: actionTypes.LOAD_SEARCH_RESULTS, searchResults }
 }
 
 export interface ISerieApiAction extends Action<string> {

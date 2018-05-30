@@ -20,7 +20,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <MemoryRouter>
       <Provider store={store}>
-        <SearchPage seriesApi={new MockApi(0)} searchResults={[]} dispatch={jest.fn()}/>
+        <SearchPage seriesApi={new MockApi(0)} />
       </Provider>
     </MemoryRouter>
     , div);
@@ -54,7 +54,7 @@ describe("SearchPage", () => {
         initialEntries={['/search/?q=' + searchterm]}
         initialIndex={0}>
         <Provider store={store}>
-          <SearchPage seriesApi={mockSeriesApi} searchResults={[]} dispatch={jest.fn()}/>
+          <SearchPage seriesApi={mockSeriesApi} />
         </Provider>
       </MemoryRouter>
     );
@@ -72,7 +72,7 @@ describe("SearchPage", () => {
         initialEntries={['/search/?offset=10&limit=5&q=' + searchterm]}
         initialIndex={0}>
         <Provider store={store}>
-          <SearchPage seriesApi={mockSeriesApi} searchResults={[]} dispatch={jest.fn()}/>
+          <SearchPage seriesApi={mockSeriesApi} />
         </Provider>
       </MemoryRouter>
     );

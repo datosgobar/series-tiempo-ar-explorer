@@ -1,47 +1,55 @@
 import * as React from 'react';
-import { Redirect, withRouter } from 'react-router';
 
 import './SearchBox.css';
+
+
+interface ISearchBoxProps {
+
+    onSearch: (searchTerm: string) => void;
+    searchTerm?: string;
+}
 
 interface ISearchBoxState {
 
     searchTerm: string;
-    redirect: JSX.Element | null;
 }
 
-export class SearchBox extends React.Component<any, ISearchBoxState> {
+export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
 
-    constructor(props: any) {
+    constructor(props: ISearchBoxProps) {
         super(props);
 
-        this.state = { searchTerm: "", redirect: null };
+        this.state = { searchTerm: this.props.searchTerm || "" };
 
         this.onSearchTermChange = this.onSearchTermChange.bind(this);
-        this.onSearch = this.onSearch.bind(this);
+        this.triggerSearch = this.triggerSearch.bind(this);
     }
 
-    public onSearchTermChange(event: any) {
-        const newSearchTerm: string = event.target.value;
-        this.setState({ searchTerm: newSearchTerm });
-    }
-
-    public componentDidUpdate(){
-        if(this.state.redirect){
-            this.setState({redirect: null});
+    public componentDidUpdate(prevProps: ISearchBoxProps){
+        
+        if(this.props.searchTerm && (this.props.searchTerm !== prevProps.searchTerm)){
+            this.setState({
+                searchTerm: this.props.searchTerm
+            });
         }
     }
 
-    public onSearch(event: any) {
+    public onSearchTermChange(event: any) {
+        const searchTerm: string = event.target.value;
+        this.setState({ searchTerm });
+    }
 
-        this.setState({ redirect: <Redirect to={`/search/?q=${this.state.searchTerm}`} /> });
+    public triggerSearch(event: any) {
+        event.preventDefault();
+        this.props.onSearch(this.state.searchTerm);
     }
 
     public render() {
         return (
             <div className='SearchBox'>
-                {this.state.redirect}
-                <form onSubmit={this.onSearch} >
+                <form onSubmit={this.triggerSearch} >
                     <input
+                        value={this.state.searchTerm}
                         type='text'
                         placeholder='Buscar Serie'
                         onChange={this.onSearchTermChange} />
@@ -55,4 +63,4 @@ export class SearchBox extends React.Component<any, ISearchBoxState> {
     }
 }
 
-export default withRouter(SearchBox);
+export default SearchBox;
