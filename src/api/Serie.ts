@@ -1,5 +1,5 @@
 import DataPoint, { IDataPoint } from './DataPoint';
-import ITSAPIResponse, { IPublisher } from './ITSAPIResponse'
+import {IPublisher, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
 
 
 export interface ISerie {
@@ -15,8 +15,8 @@ export default class Serie implements ISerie {
     private tsResponse: ITSAPIResponse;
     private index: number;
 
-    private get meta() {
-        return this.tsResponse.meta[this.index];
+    private get meta(): ITSMeta {
+        return this.tsResponse.meta[this.index] as ITSMeta;
     }
 
     private get datasetMeta() {
