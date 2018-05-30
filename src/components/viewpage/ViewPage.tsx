@@ -1,3 +1,4 @@
+import {Location} from 'history';
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {RouterProps, withRouter} from "react-router";
@@ -10,6 +11,7 @@ import { ISerieApi } from '../../api/SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
 import Graphic from './graphic/Graphic';
 import MetaData from './metadata/MetaData';
+import SeriesPicker from './seriespicker/SeriesPicker';
 
 interface IViewPageProps extends RouterProps {
     series: ISerie[];
@@ -28,6 +30,16 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
         this.fetchSeries = this.fetchSeries.bind(this);
         this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
+        this.addPickedSerie = this.addPickedSerie.bind(this);
+    }
+
+    public addPickedSerie(serieId: string){
+
+        const search: string = this.props.location.search; // could be '?foo=bar'
+        const params: URLSearchParams = new URLSearchParams(search);
+        params.append('ids', serieId)
+
+        this.props.history.push("/view/?" + params)
     }
 
     public redirectToSearchPage(searchTerm: string){
@@ -47,6 +59,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                 <h1>ViewPage</h1>
                 <SearchBox onSearch={this.redirectToSearchPage}/>
                 <Graphic series={this.props.series}/>
+                <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie}/>
                 <MetaData series={this.props.series}/>
             </div>
         );
@@ -54,8 +67,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
 
     public componentDidMount() {
-        this.unlisten = this.props.history.listen(l => this.fetchSeries()); // se subscribe
-        this.fetchSeries();
+        this.unlisten = this.props.history.listen(l => this.fetchSeries(l)); // se subscribe
+        this.fetchSeries(this.props.location as Location);
     }
 
     public componentWillUnmount() {
@@ -70,13 +83,18 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return this.props.series.length > 0;
     }
 
-    private fetchSeries() {
-        const ids = this.getIDs();
+    private fetchSeries(location: Location) {
+        const ids = this.getIDs(location);
+
+        if(ids.length === 0){
+            return
+        }
+
         this.props.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
     }
 
-    private getIDs(): string[] {
-        const search = this.props.location.search; // could be '?foo=bar'
+    private getIDs(location: Location): string[] {
+        const search = location.search; // could be '?foo=bar'
         const params = new URLSearchParams(search);
 
         return params.getAll('ids');
