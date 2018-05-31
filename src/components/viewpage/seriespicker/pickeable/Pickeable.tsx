@@ -17,7 +17,6 @@ class Pickeable<T> extends React.Component<IPickeableProps<T>, any> {
     }
 
     public pick(event: any) {
-        event.preventDefault();
         event.stopPropagation();
         this.props.onPick(this.props.value);
     }
