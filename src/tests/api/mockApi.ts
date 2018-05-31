@@ -19,7 +19,7 @@ class MockApi implements ISerieApi {
     }
 
     public searchSeries(q: string, offset?: number | undefined, limit?: number | undefined): Promise<ISearchResultItem[]> {
-        return Promise.resolve([]);
+        return Promise.resolve(['serie1', 'serie2'].map(toSerie));
     }
 };
 
