@@ -3,7 +3,7 @@ import * as React from "react";
 import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 
-import { ISerieApi, ISearchResultItem } from "../../../../api/SerieApi";
+import { ISearchResultItem, ISerieApi } from "../../../../api/SerieApi";
 import SeriesPicker from "../../../../components/viewpage/seriespicker/SeriesPicker";
 import MockApi from "../../../api/mockApi";
 
