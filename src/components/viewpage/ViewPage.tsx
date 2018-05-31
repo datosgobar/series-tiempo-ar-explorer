@@ -37,9 +37,16 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
         const search: string = this.props.location.search; // could be '?foo=bar'
         const params: URLSearchParams = new URLSearchParams(search);
-        params.append('ids', serieId)
+        
+        let ids = params.get('ids');
+        
+        ids = ids? ids + ',' + serieId: serieId;
 
-        this.props.history.push("/view/?" + params)
+        params.set('ids', ids);
+
+        const queryString = params.toString().replace(new RegExp('%2C', 'g'), ',');
+
+        this.props.history.push("/view/?" + queryString);
     }
 
     public redirectToSearchPage(searchTerm: string){
