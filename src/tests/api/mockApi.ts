@@ -21,6 +21,10 @@ class MockApi implements ISerieApi {
     public searchSeries(q: string, offset?: number | undefined, limit?: number | undefined): Promise<ISearchResultItem[]> {
         return Promise.resolve([]);
     }
+
+    public fetchSources() {
+        return Promise.resolve(["Ministerio de Cultura"]);
+    }
 };
 
 function toSerie(id: string) {

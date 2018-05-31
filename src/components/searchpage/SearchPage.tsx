@@ -7,6 +7,7 @@ import './SearchPage.css';
 
 import { ISerieApi } from '../../api/SerieApi';
 import { IStore } from '../../store/initialState';
+import Filters from './filters/Filters';
 import Searcher from './searcher/Searcher';
 
 
@@ -80,6 +81,7 @@ class SearchPage extends React.Component<ISearchPageProps, ISearchPageState> {
         return (
             <div className='SearchPage'>
                 <h1>Resultados Busqueda</h1>
+                <Filters seriesApi={this.props.seriesApi}/>
                 <Searcher
                     limit={this.state.limit}
                     offset={this.state.offset}
