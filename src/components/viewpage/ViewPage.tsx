@@ -1,7 +1,7 @@
-import {Location} from 'history';
+import { Location } from 'history';
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {RouterProps, withRouter} from "react-router";
+import { connect } from 'react-redux';
+import { RouterProps, withRouter } from "react-router";
 
 import './ViewPage.css';
 
@@ -31,25 +31,51 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.fetchSeries = this.fetchSeries.bind(this);
         this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
         this.addPickedSerie = this.addPickedSerie.bind(this);
+        this.removeSerie = this.removeSerie.bind(this);
     }
 
-    public addPickedSerie(event: React.MouseEvent<HTMLDivElement>, serieId: string){
+    public addPickedSerie(event: React.MouseEvent<HTMLDivElement>, serieId: string) {
 
-        const search: string = this.props.location.search; // could be '?foo=bar'
-        const params: URLSearchParams = new URLSearchParams(search);
-        
+        const params = this.getQueryParams();
+
         let ids = params.get('ids');
-        
-        ids = ids? ids + ',' + serieId: serieId;
+
+        ids = ids ? ids + ',' + serieId : serieId;
 
         params.set('ids', ids);
+
+        this.setQueryParams(params);
+    }
+
+    public getQueryParams(): URLSearchParams {
+
+        return new URLSearchParams(this.props.location.search);
+    }
+
+    public removeSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
+
+        const params = this.getQueryParams();
+
+        let ids = params.get('ids');
+
+        const idsArray = ids ? ids.split(',') : [];
+
+        if (idsArray.length > 1) {
+            ids = idsArray.filter((val) => val !== serieId).join(',');
+            params.set('ids', ids);
+        } 
+
+        this.setQueryParams(params);
+    }
+
+    public setQueryParams(params: URLSearchParams) {
 
         const queryString = params.toString().replace(new RegExp('%2C', 'g'), ',');
 
         this.props.history.push("/view/?" + queryString);
     }
 
-    public redirectToSearchPage(searchTerm: string){
+    public redirectToSearchPage(searchTerm: string) {
         this.props.history.push('/search/?q=' + searchTerm);
     }
 
@@ -57,17 +83,17 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         if (!this.hasMainSerie()) {
             return <div className='ViewPage'>
                 <h1>Cargando...</h1>
-                <SearchBox onSearch={this.redirectToSearchPage}/>
+                <SearchBox onSearch={this.redirectToSearchPage} />
             </div>
         }
 
         return (
             <div className='ViewPage'>
                 <h1>ViewPage</h1>
-                <SearchBox onSearch={this.redirectToSearchPage}/>
-                <Graphic series={this.props.series}/>
-                <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie}/>
-                <MetaData series={this.props.series}/>
+                <SearchBox onSearch={this.redirectToSearchPage} />
+                <Graphic series={this.props.series} />
+                <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} />
+                <MetaData series={this.props.series} onRemove={this.removeSerie} />
             </div>
         );
     }
@@ -93,7 +119,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     private fetchSeries(location: Location) {
         const ids = this.getIDs(location);
 
-        if(ids.length === 0){
+        if (ids.length === 0) {
             return
         }
 

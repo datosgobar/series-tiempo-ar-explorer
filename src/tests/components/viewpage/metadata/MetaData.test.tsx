@@ -21,7 +21,9 @@ const series: ISerie[] = [
 configure({ adapter: new Adapter() });
 
 it('renders without crashing', () => {
-    const wrapper = shallow(<MetaData series={series} />);
+    const onRemove = jest.fn();
+
+    const wrapper = shallow(<MetaData series={series} onRemove={onRemove} />);
 
     expect(wrapper.find('.MetaData').exists()).toBe(true);
 });
