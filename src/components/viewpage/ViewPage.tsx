@@ -33,7 +33,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.addPickedSerie = this.addPickedSerie.bind(this);
     }
 
-    public addPickedSerie(serieId: string){
+    public addPickedSerie(event: React.MouseEvent<HTMLDivElement>, serieId: string){
 
         const search: string = this.props.location.search; // could be '?foo=bar'
         const params: URLSearchParams = new URLSearchParams(search);

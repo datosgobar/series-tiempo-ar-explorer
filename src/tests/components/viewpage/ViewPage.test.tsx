@@ -19,6 +19,7 @@ configure({ adapter: new Adapter() });
 
 describe('ViewPage', () => {
 
+    const clickEvent = ({} as React.MouseEvent<HTMLDivElement>);
     let mockApi: ISerieApi;
     let store: Store;
 
@@ -80,7 +81,7 @@ describe('ViewPage', () => {
 
             />);
 
-        (wrapper.instance() as UnconnectedViewPage).addPickedSerie('serie01');
+        (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie01');
 
         expect(history.push).toBeCalledWith('/view/?ids=serie01')
     });
@@ -124,9 +125,9 @@ describe('ViewPage', () => {
 
         it('on Serie picked adds id to ids queryParam', () => {
 
-            (wrapper.instance() as UnconnectedViewPage).addPickedSerie('serie01');
+            (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie01');
 
-            (wrapper.instance() as UnconnectedViewPage).addPickedSerie('serie02');
+            (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie02');
 
             expect(historyMock.push).toBeCalledWith('/view/?ids=serie01,serie02')
         });
@@ -135,7 +136,7 @@ describe('ViewPage', () => {
 
             historyMock.push('/view/?ids=serie01&other=params');
            
-            (wrapper.instance() as UnconnectedViewPage).addPickedSerie('serie02');
+            (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie02');
 
             expect(historyMock.push).toBeCalledWith('/view/?ids=serie01,serie02&other=params')
         });

@@ -4,12 +4,11 @@ import './SeriesPicker.css';
 
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
 import Searcher from '../../common/searcher/Searcher';
-import Pickeable from './pickeable/Pickeable';
 
 interface ISeriesPickerProps {
 
     seriesApi: ISerieApi;
-    onPick: (serieId: string) => void;
+    onPick: (event: React.MouseEvent<HTMLDivElement>, serieId: string) => void;
 }
 
 interface ISeriesPickerState {
@@ -46,14 +45,21 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, ISeriesPickerStat
         );
     }
 
+    public handlePick(pickedSerieId: string){
+
+        return (event: React.MouseEvent<HTMLDivElement>) => {
+            this.props.onPick(event, pickedSerieId);
+        }
+    }
+
     public renderPickeableItems(searchResults: ISearchResultItem[]): JSX.Element {
         return (
             <div className="SearchResults">
                 {searchResults.map((searchResult: ISearchResultItem) =>
-                    <Pickeable onPick={this.props.onPick} value={searchResult.id} key={searchResult.id} >
+                    <div className="Pickeable" onClick={this.handlePick(searchResult.id)} key={searchResult.id} >
                         <h6>{searchResult.title}</h6>
                         <p>{searchResult.description}</p>
-                    </Pickeable>
+                    </div>
                 )}
             </div>
         );
