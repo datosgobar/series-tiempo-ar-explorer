@@ -1,17 +1,24 @@
 import * as React from "react";
+import { connect } from "react-redux";
 
 import { ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
+import { IStore } from "../../../store/initialState";
 import SearchBox from "../../common/searchbox/SearchBox";
 import SearchResults from "../searchresults/SearchResults";
 
 
-interface ISearcherProps {
+export interface ISearchParams {
 
-    seriesApi: ISerieApi;
+    datasetSource: string;
     limit: number;
     offset: number;
     q: string;
-    onWillSearch?: (q: string, offset: number, limit: number) => void;
+}
+
+interface ISearcherProps extends ISearchParams {
+
+    seriesApi: ISerieApi;
+    onWillSearch?: (q: string, datasetSource: string, offset: number, limit: number) => void;
 }
 
 interface ISearcherState {
@@ -32,36 +39,38 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
     }
 
     public componentDidMount() {
-        
+
         if (!this.props.q) {
             return;
         }
 
-        this.performSearch(this.props.q, this.props.offset, this.props.limit);
+        this.performSearch(this.props.q, this.props.datasetSource, this.props.offset, this.props.limit);
     }
 
     public componentDidUpdate(prevProps: ISearcherProps) {
         if (prevProps.q !== this.props.q ||
+            prevProps.datasetSource !== this.props.datasetSource ||
             prevProps.offset !== this.props.offset ||
             prevProps.limit !== this.props.limit
         ) {
-            this.performSearch(this.props.q, this.props.offset, this.props.limit);
+            this.performSearch(this.props.q, this.props.datasetSource, this.props.offset, this.props.limit);
         }
     }
 
-    public search(q?: string, offset?: number, limit?: number) {
+    public search(q?: string, datasetSource?: string, offset?: number, limit?: number) {
 
         q = q || this.props.q
-
+        
         if (!q) {
             return;
         }
-
+        
+        datasetSource = datasetSource || this.props.datasetSource;
         offset = offset || this.props.offset;
         limit = limit || this.props.limit;
 
         if (this.props.onWillSearch) {
-            this.props.onWillSearch(q, offset, limit);
+            this.props.onWillSearch(q, datasetSource, offset, limit);
         }
     }
 
@@ -75,12 +84,19 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         );
     }
 
-    private performSearch(q: string, offset: number, limit: number) {
-        this.props.seriesApi.searchSeries(q, offset, limit)
+    private performSearch(q: string, datasetSource: string, offset: number, limit: number) {
+        this.props.seriesApi.searchSeries(q, datasetSource, offset, limit)
             .then((searchResults: ISearchResultItem[]) => {
                 this.setState({ searchResults });
             }).catch(alert);
     }
 }
 
-export default Searcher;
+function mapStateToProps(state: IStore, ownProps: ISearcherProps) {
+    return ({
+        ...state.searchParams,
+        seriesApi: state.seriesApi,
+    });
+}
+
+export default connect(mapStateToProps)(Searcher);
