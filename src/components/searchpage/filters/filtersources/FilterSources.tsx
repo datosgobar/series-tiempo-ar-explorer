@@ -45,7 +45,7 @@ class FilterSources extends React.Component<IFilterSourcesProps, IFilterSourcesS
                 <h3>Sources</h3>
                 <ul>
                     {this.state.sources.map((source, index) =>
-                        <li key={source} onClick={this.handleClick(source)}>{source}</li>
+                        <li key={source} onClick={this.handleClick(source)} className="Source">{source}</li>
                     )}
                 </ul>
             </div>

@@ -14,18 +14,6 @@ import { setSeriesApi } from '../../../actions/seriesActions';
 import { ISerieApi } from '../../../api/SerieApi';
 import SearchPage from '../../../components/searchpage/SearchPage';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  const store = configureStore();
-  ReactDOM.render(
-    <MemoryRouter>
-      <Provider store={store}>
-        <SearchPage seriesApi={new MockApi(0)} />
-      </Provider>
-    </MemoryRouter>
-    , div);
-  ReactDOM.unmountComponentAtNode(div);
-});
 
 configure({ adapter: new Adapter() });
 
@@ -34,6 +22,7 @@ describe("SearchPage", () => {
 
   let mockSeriesApi: ISerieApi;
   let store: Store;
+  let source: string;
 
   beforeEach(() => {
 
@@ -43,6 +32,21 @@ describe("SearchPage", () => {
 
     store = configureStore();
     store.dispatch(setSeriesApi(mockSeriesApi));
+
+    source = "";
+  });
+
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    
+    ReactDOM.render(
+      <MemoryRouter>
+        <Provider store={store}>
+          <SearchPage seriesApi={new MockApi(0)} />
+        </Provider>
+      </MemoryRouter>
+      , div);
+    ReactDOM.unmountComponentAtNode(div);
   });
 
   it('gets search results from seriesApi', () => {
@@ -59,7 +63,7 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, 0, 10);
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, source, 0, 10);
   });
 
 
@@ -77,6 +81,6 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, 10, 5);
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, source, 10, 5);
   });
 });

@@ -2,14 +2,19 @@ import { ISerie } from "../../api/Serie";
 import { ISearchResultItem, ISerieApi } from "../../api/SerieApi";
 
 const DELAY = 1000;
-
+const SOURCES = [
+    "Ministerio de Cultura",
+    "Ministerio de Modernizacion",
+];
 
 class MockApi implements ISerieApi {
 
     private delay: number;
+    private sources: string[];
 
-    constructor(delay?: number) {
+    constructor(delay?: number, sources?: string[]) {
         this.delay = delay || DELAY;
+        this.sources = sources || SOURCES;
     }
 
     public getSeries(ids: string[]): Promise<ISerie[]> {
@@ -35,12 +40,9 @@ class MockApi implements ISerieApi {
     }
 
     public fetchSources(): Promise<string[]> {
-        // return Promise.resolve(["Ministerio de Cultura"]);
+        
         return new Promise((resolve, reject) => {
-            setTimeout(resolve, this.delay, [
-                "Ministerio de Cultura",
-                "Ministerio de Modernizacion",
-            ]);
+            setTimeout(resolve, this.delay, this.sources);
         });
     }
 };
