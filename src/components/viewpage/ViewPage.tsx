@@ -5,7 +5,7 @@ import { RouterProps, withRouter } from "react-router";
 
 import './ViewPage.css';
 
-import { loadViewSeries } from '../../actions/seriesActions';
+import { clearViewSeries, loadViewSeries } from '../../actions/seriesActions';
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
@@ -101,6 +101,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     public componentWillUnmount() {
         this.unlisten(); // se dessubscribe
+        this.props.dispatch(clearViewSeries());
     }
 
     public onSeriesFetchedSuccess(series: ISerie[]) {
