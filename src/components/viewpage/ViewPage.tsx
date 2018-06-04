@@ -28,21 +28,16 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         super(props, context);
 
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
-        this.fetchSeries = this.fetchSeries.bind(this);
+        this.handleUriChange = this.handleUriChange.bind(this);
         this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
         this.addPickedSerie = this.addPickedSerie.bind(this);
         this.removeSerie = this.removeSerie.bind(this);
     }
 
-    public addPickedSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
-
+    public viewSeries(ids: string[]) {
         const params = this.getQueryParams();
 
-        let ids = params.get('ids');
-
-        ids = ids ? ids + ',' + serieId : serieId;
-
-        params.set('ids', ids);
+        params.set('ids', ids.join(','))
 
         this.setQueryParams(params);
     }
@@ -52,27 +47,27 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return new URLSearchParams(this.props.location.search);
     }
 
-    public removeSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
-
-        const params = this.getQueryParams();
-
-        let ids = params.get('ids');
-
-        const idsArray = ids ? ids.split(',') : [];
-
-        if (idsArray.length > 1) {
-            ids = idsArray.filter((val) => val !== serieId).join(',');
-            params.set('ids', ids);
-        } 
-
-        this.setQueryParams(params);
-    }
-
     public setQueryParams(params: URLSearchParams) {
 
-        const queryString = params.toString().replace(new RegExp('%2C', 'g'), ',');
+        const queryString = params.toString()
+            .replace(new RegExp('%2C', 'g'), ',')
+            .replace(new RegExp('%3A', 'g'), ':');
 
         this.props.history.push("/view/?" + queryString);
+    }
+
+    public addPickedSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
+
+        const ids = getIDs(this.props.location as Location).concat(serieId);
+        this.viewSeries(ids);
+    }
+
+    public removeSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
+
+        const ids = getIDs(this.props.location as Location).filter((val) => val !== serieId);
+        if (ids.length) {
+            this.viewSeries(ids);
+        }
     }
 
     public redirectToSearchPage(searchTerm: string) {
@@ -100,8 +95,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
 
     public componentDidMount() {
-        this.unlisten = this.props.history.listen(l => this.fetchSeries(l)); // se subscribe
-        this.fetchSeries(this.props.location as Location);
+        this.unlisten = this.props.history.listen(l => this.handleUriChange(l)); // se subscribe
+        this.handleUriChange(this.props.location as Location);
     }
 
     public componentWillUnmount() {
@@ -116,21 +111,24 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return this.props.series.length > 0;
     }
 
-    private fetchSeries(location: Location) {
-        const ids = this.getIDs(location);
+    private handleUriChange(location: Location) {
+        const ids = getIDs(location);
 
         if (ids.length === 0) {
             return
         }
 
-        this.props.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
+        const idsWoDuplicates = removeDuplicates(ids);
+        if (idsWoDuplicates.length < ids.length) {
+            this.viewSeries(idsWoDuplicates);
+            return
+        }
+
+        this.fetchSeries(ids);
     }
 
-    private getIDs(location: Location): string[] {
-        const search = location.search; // could be '?foo=bar'
-        const params = new URLSearchParams(search);
-
-        return params.getAll('ids');
+    private fetchSeries(ids: string[]) {
+        this.props.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
     }
 }
 
@@ -139,6 +137,19 @@ function mapStateToProps(state: any, ownProps: any) {
         series: state.viewSeries,
         seriesApi: state.seriesApi,
     };
+}
+
+function getIDs(location: Location): string[] {
+    const params = new URLSearchParams(location.search);
+
+    let ids = params.getAll('ids');
+    ids = ids.length ? ids.join(',').split(',') : [];
+
+    return ids;
+}
+
+function removeDuplicates(arr: any[]) {
+    return Array.from(new Set(arr));
 }
 
 export default withRouter(connect(mapStateToProps)(ViewPage));
