@@ -8,7 +8,7 @@ import Searcher from '../../common/searcher/Searcher';
 interface ISeriesPickerProps {
 
     seriesApi: ISerieApi;
-    onPick: (event: React.MouseEvent<HTMLDivElement>, serieId: string) => void;
+    onPick: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void;
 }
 
 interface ISeriesPickerState {
@@ -47,7 +47,8 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, ISeriesPickerStat
 
     public handlePick(pickedSerieId: string){
 
-        return (event: React.MouseEvent<HTMLDivElement>) => {
+        return (event: React.MouseEvent<HTMLAnchorElement>) => {
+            event.preventDefault();
             this.props.onPick(event, pickedSerieId);
         }
     }
@@ -56,9 +57,10 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, ISeriesPickerStat
         return (
             <div className="SearchResults">
                 {searchResults.map((searchResult: ISearchResultItem) =>
-                    <div className="Pickeable" onClick={this.handlePick(searchResult.id)} key={searchResult.id} >
+                    <div className="Pickeable" key={searchResult.id}>
                         <h6>{searchResult.title}</h6>
                         <p>{searchResult.description}</p>
+                        <a href='#' onClick={this.handlePick(searchResult.id)}>add</a>
                     </div>
                 )}
             </div>

@@ -34,7 +34,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.removeSerie = this.removeSerie.bind(this);
     }
 
-    public addPickedSerie(event: React.MouseEvent<HTMLDivElement>, serieId: string) {
+    public addPickedSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
 
         const params = this.getQueryParams();
 

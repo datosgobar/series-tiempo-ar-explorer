@@ -20,6 +20,7 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
 
     public handleRemove(serieId: string){
         return ((event: React.MouseEvent<HTMLAnchorElement>) => {
+            event.preventDefault();
             this.props.onRemove(event, serieId);
         });
     }
@@ -29,10 +30,10 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
             <div className='MetaData'>
                 {this.props.series.map((serie: ISerie, index: number) =>
                     <div key={serie.id} className='Card'>
-                        <a onClick={this.handleRemove(serie.id)}>remover</a>
                         <h5>{serie.title}</h5>
                         <h6>{serie.publisher.name}</h6>
                         <p>{serie.description}</p>
+                        <a href='#' onClick={this.handleRemove(serie.id)}>remover</a>
                     </div>
                 )}
             </div>
