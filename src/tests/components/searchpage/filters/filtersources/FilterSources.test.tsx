@@ -5,7 +5,7 @@ import * as React from "react";
 import MockApi from "../../../../api/mockApi";
 
 import { ISerieApi } from "../../../../../api/SerieApi";
-import FilterSources from "../../../../../components/searchpage/filters/filtersources/FilterSources";
+import { FilterSources } from "../../../../../components/searchpage/filters/filtersources/FilterSources";
 
 
 configure({ adapter: new Adapter() });
@@ -32,6 +32,7 @@ describe('FilterSources', () => {
         shallow(
             <FilterSources
                 seriesApi={seriesApi}
+                picked=""
                 onSourcePicked={onSourcePicked} />
         );
 
@@ -43,6 +44,7 @@ describe('FilterSources', () => {
         const wrapper = mount(
             <FilterSources
                 seriesApi={seriesApi}
+                picked=""
                 onSourcePicked={onSourcePicked} />
         );
 
@@ -58,6 +60,7 @@ describe('FilterSources', () => {
             const wrapper = mount(
                 <FilterSources
                     seriesApi={seriesApi}
+                    picked=""
                     onSourcePicked={onSourcePicked} />
             );
 
