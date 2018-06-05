@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
+import searchParams from '../components/common/searcher/SearcherReducer';
 import featured from '../components/mainpage/featured/FeaturedReducer';
-import searchParams from '../components/searchpage/searcher/SearcherReducer';
 import viewSeries from '../components/viewpage/ViewPageReducer';
 import seriesApi from '../SerieApiReducer';
 

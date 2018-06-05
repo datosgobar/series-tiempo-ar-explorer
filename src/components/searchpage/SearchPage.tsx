@@ -6,10 +6,11 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import './SearchPage.css';
 
 import { setSearchParams } from '../../actions/searchActions';
-import { ISerieApi } from '../../api/SerieApi';
+import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
 import initialState, { IStore } from '../../store/initialState';
+import Searcher, { ISearchParams } from '../common/searcher/Searcher';
 import Filters from './filters/Filters';
-import Searcher, { ISearchParams } from './searcher/Searcher';
+import SearchResults from './searchresults/SearchResults';
 
 
 interface ISearchPageProps extends RouteComponentProps<any> {
@@ -59,11 +60,11 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
             return;
         }
 
-        let offset: number | string | null = params.get('offset');
-        let limit: number | string | null = params.get('limit');
+        const offsetString: string | null = params.get('offset');
+        const limitString: string | null = params.get('limit');
 
-        offset = offset ? parseInt(offset, 10) : initialState.searchParams.offset;
-        limit = limit ? parseInt(limit, 10) : initialState.searchParams.limit;
+        const offset = offsetString ? parseInt(offsetString, 10) : initialState.searchParams.offset;
+        const limit: number = limitString ? parseInt(limitString, 10) : initialState.searchParams.limit;
 
         const datasetSource = params.get('dataset_source') || "";
 
@@ -106,10 +107,15 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
                     offset={initialState.searchParams.offset}
                     q={initialState.searchParams.q}
                     seriesApi={this.props.seriesApi}
-                    onWillSearch={this.updateUriParams} />
+                    onWillSearch={this.updateUriParams} 
+                    renderSearchResults={renderSearchResults}/>
             </div>
         );
     }
+}
+
+function renderSearchResults(searchResults: ISearchResultItem[]): JSX.Element{
+    return  <SearchResults searchResults={searchResults} />
 }
 
 function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {

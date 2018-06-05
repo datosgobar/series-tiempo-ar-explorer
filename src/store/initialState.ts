@@ -1,6 +1,6 @@
 import { ISerie } from "../api/Serie";
 import { ISerieApi } from "../api/SerieApi";
-import { ISearchParams } from "../components/searchpage/searcher/Searcher";
+import { ISearchParams } from "../components/common/searcher/Searcher";
 
 export interface IStore {
     featured: ISerie[],

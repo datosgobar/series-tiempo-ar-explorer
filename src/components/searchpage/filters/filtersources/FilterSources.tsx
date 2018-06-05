@@ -57,11 +57,11 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
     public toRadioButton(source: string) {
         return (
             <div className="Source" key={source}>
-            <label>
-              <input type="radio" value={source} checked={this.props.picked === source} onChange={this.handleClick(source)}/>
-              {source}
-            </label>
-          </div>);
+                <label>
+                    <input type="radio" value={source} checked={this.props.picked === source} onChange={this.handleClick(source)} />
+                    {source}
+                </label>
+            </div>);
     }
 }
 

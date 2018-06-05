@@ -12,6 +12,10 @@ export function loadFeatured(series: ISerie[]): ISeriesAction {
     return { type: actionTypes.LOAD_FEATURED, series };
 }
 
+export function clearViewSeries(): ISeriesAction {
+    return { type: actionTypes.CLEAR_VIEW_SERIES, series: []};
+}
+
 export function loadViewSeries(series: ISerie[]): ISeriesAction {
     return { type: actionTypes.LOAD_VIEW_SERIES, series };
 }

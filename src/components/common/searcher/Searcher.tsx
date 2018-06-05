@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
 import { IStore } from "../../../store/initialState";
 import SearchBox from "../../common/searchbox/SearchBox";
-import SearchResults from "../searchresults/SearchResults";
 
 
 export interface ISearchParams {
@@ -19,6 +18,7 @@ interface ISearcherProps extends ISearchParams {
 
     seriesApi: ISerieApi;
     onWillSearch?: (q: string, datasetSource: string, offset: number, limit: number) => void;
+    renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element;
 }
 
 interface ISearcherState {
@@ -26,7 +26,7 @@ interface ISearcherState {
     searchResults: ISearchResultItem[];
 }
 
-class Searcher extends React.Component<ISearcherProps, ISearcherState> {
+export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
 
     constructor(props: ISearcherProps) {
         super(props);
@@ -59,8 +59,6 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
 
     public search(q?: string, datasetSource?: string, offset?: number, limit?: number) {
 
-        q = q || this.props.q
-        
         if (!q) {
             return;
         }
@@ -74,12 +72,13 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         }
     }
 
+
     public render() {
         return (
             <div className="Searcher">
                 <SearchBox searchTerm={this.props.q} onSearch={this.search} />
 
-                <SearchResults searchResults={this.state.searchResults} />
+                {this.props.renderSearchResults(this.state.searchResults)}
             </div>
         );
     }

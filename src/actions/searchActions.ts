@@ -1,6 +1,6 @@
 import { Action } from "redux";
 
-import { ISearchParams } from "../components/searchpage/searcher/Searcher";
+import { ISearchParams } from "../components/common/searcher/Searcher";
 import actionTypes from "./actionTypes";
 
 
