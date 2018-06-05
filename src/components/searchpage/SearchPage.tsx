@@ -25,7 +25,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
     constructor(props: any, context: any) {
         super(props, context);
 
-        this.readUriParams = this.readUriParams.bind(this);
+        this.getUriSearchParams = this.getUriSearchParams.bind(this);
         this.updateUriParams = this.updateUriParams.bind(this);
         this.sourcePicked = this.sourcePicked.bind(this);
     }
@@ -39,25 +39,29 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         this.updateSearchParams(this.props.location)
     }
 
-    public updateSearchParams(location: Location){
-        const searchParams = this.readUriParams(location);
+    public updateSearchParams(location: Location) {
+        let searchParams: ISearchParams;
 
-        if (searchParams) {
-            this.props.dispatch(setSearchParams(searchParams));
+        try {
+            searchParams = this.getUriSearchParams(location);
+        } catch {
+            return;
         }
+
+        this.props.dispatch(setSearchParams(searchParams));
     }
 
     public componentWillUnmount() {
         this.unListen();
     }
 
-    public readUriParams(location: Location): ISearchParams | void {
+    public getUriSearchParams(location: Location): ISearchParams {
         const search: string = location.search; // could be '?foo=bar'
         const params: URLSearchParams = new URLSearchParams(search);
         const q: string | null = params.get('q');
 
         if (!q) {
-            return;
+            throw new Error("query not set");
         }
 
         const offsetString: string | null = params.get('offset');
@@ -89,11 +93,15 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
     public sourcePicked(event: React.MouseEvent<HTMLElement>, newDatasetSource: string): void {
         event.stopPropagation()
 
-        const oldSearchParams = this.readUriParams(this.props.location)
+        let oldSearchParams: ISearchParams;
 
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.offset, oldSearchParams.limit);
+        try {
+            oldSearchParams = this.getUriSearchParams(this.props.location)
+        } catch {
+            return;
         }
+
+        this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.offset, oldSearchParams.limit);
     }
 
     public render() {
@@ -107,15 +115,15 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
                     offset={initialState.searchParams.offset}
                     q={initialState.searchParams.q}
                     seriesApi={this.props.seriesApi}
-                    onWillSearch={this.updateUriParams} 
-                    renderSearchResults={renderSearchResults}/>
+                    onWillSearch={this.updateUriParams}
+                    renderSearchResults={renderSearchResults} />
             </div>
         );
     }
 }
 
-function renderSearchResults(searchResults: ISearchResultItem[]): JSX.Element{
-    return  <SearchResults searchResults={searchResults} />
+function renderSearchResults(searchResults: ISearchResultItem[]): JSX.Element {
+    return <SearchResults searchResults={searchResults} />
 }
 
 function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
