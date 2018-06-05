@@ -50,7 +50,7 @@ describe('FilterSources', () => {
 
         return sourcesP.then(() => {
             wrapper.update();
-            expect(wrapper.find('li.Source').length).toBe(sources.length);
+            expect(wrapper.find('.Source').length).toBe(sources.length);
         });
     });
 
@@ -67,7 +67,7 @@ describe('FilterSources', () => {
             return sourcesP.then(() => {
                 wrapper.update();
 
-                wrapper.find('.Source').at(index).find('a').simulate('click');
+                wrapper.find('.Source').at(index).find('input').simulate('change');
 
                 expect(onSourcePicked).toBeCalledWith(mouseEvent, source);
             });

@@ -7,7 +7,7 @@ import { IStore } from "../../../../store/initialState";
 interface IFilterSourcesProps {
 
     seriesApi: ISerieApi;
-    onSourcePicked: (event: React.MouseEvent<HTMLElement>, source: string) => void;
+    onSourcePicked: (event: React.SyntheticEvent<HTMLElement>, source: string) => void;
     picked: string;
 }
 
@@ -24,7 +24,7 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
         this.state = { sources: [] };
 
         this.handleClick = this.handleClick.bind(this);
-        this.toListItem = this.toListItem.bind(this);
+        this.toRadioButton = this.toRadioButton.bind(this);
     }
 
     public updateSources() {
@@ -38,8 +38,7 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
     }
 
     public handleClick(source: string) {
-        return (event: React.MouseEvent<HTMLElement>) => {
-            event.preventDefault();
+        return (event: React.SyntheticEvent<HTMLElement>) => {
             this.props.onSourcePicked(event, source);
         };
     }
@@ -48,29 +47,22 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
         return (
             <div>
                 <h3>Sources</h3>
-                <ul>
-                    {this.state.sources.map(this.toListItem)}
-                </ul>
+                <div>
+                    {this.state.sources.map(this.toRadioButton)}
+                </div>
             </div>
         );
     }
 
-    public toListItem(source: string) {
-        if (this.props.picked === source) {
-            return this.highLight(this.sourceListItem(source));
-        }
-
-        return this.sourceListItem(source);
+    public toRadioButton(source: string) {
+        return (
+            <div className="Source" key={source}>
+            <label>
+              <input type="radio" value={source} checked={this.props.picked === source} onChange={this.handleClick(source)}/>
+              {source}
+            </label>
+          </div>);
     }
-
-    public highLight(element: JSX.Element) {
-        return <b>{element}</b>
-    }
-
-    public sourceListItem(source: string) {
-        return <li key={source} className="Source">{source} <a href="#" onClick={this.handleClick(source)} >filtrar</a></li>
-    }
-
 }
 
 function mapStateToProps(state: IStore) {
