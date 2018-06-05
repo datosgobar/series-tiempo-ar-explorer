@@ -1,4 +1,4 @@
-import ApiClient from './ApiClient';
+import {ApiClient} from './ApiClient';
 import {ITSAPIResponse} from './ITSAPIResponse'
 import Serie, {ISerie} from "./Serie";
 
@@ -35,7 +35,7 @@ export default class SerieApi implements ISerieApi {
     }
 
     public getSeries(idsArray: string[], metadata: string = METADATA.FULL): Promise<Serie[]> {
-        const ids = idsArray.join(","); 
+        const ids = idsArray.join(",");
         const options = {
             qs: {
                 ids,
@@ -47,7 +47,7 @@ export default class SerieApi implements ISerieApi {
         return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
     }
 
-    public searchSeries(q: string, offset: number = 0, limit: number = 10): Promise<ISearchResultItem[]>{
+    public searchSeries(q: string, offset: number = 0, limit: number = 10): Promise<ISearchResultItem[]> {
         const options = {
             qs: {
                 limit,
@@ -56,8 +56,8 @@ export default class SerieApi implements ISerieApi {
             },
             uri: this.apiClient.endpoint('search'),
         };
-        
-        return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
+
+        return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
     }
 }
 
