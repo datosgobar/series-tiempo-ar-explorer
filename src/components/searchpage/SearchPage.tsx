@@ -5,9 +5,10 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import './SearchPage.css';
 
-import { ISerieApi } from '../../api/SerieApi';
+import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
 import { IStore } from '../../store/initialState';
-import Searcher from './searcher/Searcher';
+import Searcher from '../common/searcher/Searcher';
+import SearchResults from './searchresults/SearchResults';
 
 
 interface ISearchPageProps extends RouteComponentProps<any> {
@@ -85,10 +86,15 @@ class SearchPage extends React.Component<ISearchPageProps, ISearchPageState> {
                     offset={this.state.offset}
                     q={this.state.q}
                     seriesApi={this.props.seriesApi}
-                    onWillSearch={this.updateQueryParams} />
+                    onWillSearch={this.updateQueryParams} 
+                    renderSearchResults={renderSearchResults}/>
             </div>
         );
     }
+}
+
+function renderSearchResults(searchResults: ISearchResultItem[]): JSX.Element{
+    return  <SearchResults searchResults={searchResults} />
 }
 
 function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {

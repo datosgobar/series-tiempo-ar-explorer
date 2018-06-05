@@ -49,6 +49,7 @@ export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState>
             <div className='SearchBox'>
                 <form onSubmit={this.triggerSearch} >
                     <input
+                        id="searchterm"
                         value={this.state.searchTerm}
                         type='text'
                         placeholder='Buscar Serie'

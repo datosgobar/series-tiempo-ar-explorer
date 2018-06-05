@@ -2,7 +2,6 @@ import * as React from "react";
 
 import { ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
 import SearchBox from "../../common/searchbox/SearchBox";
-import SearchResults from "../searchresults/SearchResults";
 
 
 interface ISearcherProps {
@@ -12,6 +11,7 @@ interface ISearcherProps {
     offset: number;
     q: string;
     onWillSearch?: (q: string, offset: number, limit: number) => void;
+    renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element;
 }
 
 interface ISearcherState {
@@ -32,7 +32,7 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
     }
 
     public componentDidMount() {
-        
+
         if (!this.props.q) {
             return;
         }
@@ -51,8 +51,6 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
 
     public search(q?: string, offset?: number, limit?: number) {
 
-        q = q || this.props.q
-
         if (!q) {
             return;
         }
@@ -65,12 +63,13 @@ class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         }
     }
 
+
     public render() {
         return (
             <div className="Searcher">
                 <SearchBox searchTerm={this.props.q} onSearch={this.search} />
 
-                <SearchResults searchResults={this.state.searchResults} />
+                {this.props.renderSearchResults(this.state.searchResults)}
             </div>
         );
     }
