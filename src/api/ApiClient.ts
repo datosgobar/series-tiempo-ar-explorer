@@ -1,32 +1,28 @@
+import axios from "axios";
+import {AxiosInstance} from "axios";
+import * as urljoin from "url-join";
 
-// tslint:disable-next-line:no-var-requires
-const rp = require('request-promise-native');
 
-export default class ApiClient {
+export interface IApiClientOpt {
+    uri: string;
+    qs: any;
+}
 
-    public uri: string;
-    public rp = rp;
+export class ApiClient {
 
-    constructor(uri:string){
-
-        uri += !uri.endsWith('/')? '/' : '';
-        
-        this.uri = uri;
+    constructor(private uri: string, private axiosInstance: AxiosInstance = axios) {
     }
 
-    public get(options: object = {}): Promise<object> {
-        return this.request({method:'GET', ...options});
+    public get<T>(options: IApiClientOpt): Promise<T> {
+        const {uri, qs} = options;
+        return this.axiosInstance.get<T>(uri, {params: qs}).
+        then(axionResponse => Promise.resolve(axionResponse.data));
     }
 
-    public request(options: object){
-        return this.rp({uri: this.uri, json: true, ...options});
-    }
 
     public endpoint(endpointPath: string): string {
-
-        endpointPath = endpointPath.startsWith('/')? endpointPath.slice(1) : endpointPath;
-        endpointPath = !endpointPath.endsWith('/')? endpointPath + '/': endpointPath;
-
-        return this.uri + endpointPath
+        let fullPath = urljoin(this.uri, endpointPath);
+        fullPath = fullPath.endsWith('/') ? fullPath : fullPath + '/';
+        return fullPath
     }
 }
