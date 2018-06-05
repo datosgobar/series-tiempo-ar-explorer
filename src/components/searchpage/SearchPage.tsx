@@ -85,7 +85,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         this.props.history.push('/search/?' + urlSearchParams);
     }
 
-    public sourcePicked(event: React.MouseEvent<HTMLLIElement>, newDatasetSource: string): void {
+    public sourcePicked(event: React.MouseEvent<HTMLElement>, newDatasetSource: string): void {
         event.stopPropagation()
 
         const oldSearchParams = this.readUriParams(this.props.location)

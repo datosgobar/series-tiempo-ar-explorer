@@ -6,7 +6,7 @@ import FilterSources from './filtersources/FilterSources';
 interface IFilterProps {
 
     seriesApi: ISerieApi;
-    onSourcePicked: (event: React.MouseEvent<HTMLLIElement>, source:string) => void;
+    onSourcePicked: (event: React.MouseEvent<HTMLElement>, source:string) => void;
 }
 
 function Filters(props: IFilterProps) {

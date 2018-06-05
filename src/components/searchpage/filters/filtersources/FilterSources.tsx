@@ -5,7 +5,7 @@ import { ISerieApi } from "../../../../api/SerieApi";
 interface IFilterSourcesProps {
 
     seriesApi: ISerieApi;
-    onSourcePicked: (event: React.MouseEvent<HTMLLIElement>, source:string) => void;
+    onSourcePicked: (event: React.MouseEvent<HTMLElement>, source:string) => void;
 }
 
 interface IFilterSourcesState {
@@ -34,7 +34,8 @@ class FilterSources extends React.Component<IFilterSourcesProps, IFilterSourcesS
     }
 
     public handleClick(source: string) {
-        return (event: React.MouseEvent<HTMLLIElement>) => {
+        return (event: React.MouseEvent<HTMLElement>) => {
+            event.preventDefault();
             this.props.onSourcePicked(event, source)
         };
     }
@@ -45,7 +46,7 @@ class FilterSources extends React.Component<IFilterSourcesProps, IFilterSourcesS
                 <h3>Sources</h3>
                 <ul>
                     {this.state.sources.map((source, index) =>
-                        <li key={source} onClick={this.handleClick(source)} className="Source">{source}</li>
+                        <li key={source} className="Source">{source} <a href="#" onClick={this.handleClick(source)} >filtrar</a></li>
                     )}
                 </ul>
             </div>

@@ -64,7 +64,7 @@ describe('FilterSources', () => {
             return sourcesP.then(() => {
                 wrapper.update();
 
-                wrapper.find('li.Source').at(index).simulate('click');
+                wrapper.find('.Source').at(index).find('a').simulate('click');
 
                 expect(onSourcePicked).toBeCalledWith(mouseEvent, source);
             });
