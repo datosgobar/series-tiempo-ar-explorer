@@ -18,6 +18,7 @@ interface ISearcherProps extends ISearchParams {
 
     seriesApi: ISerieApi;
     onWillSearch?: (q: string, datasetSource: string, offset: number, limit: number) => void;
+
     renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element;
 }
 
@@ -62,7 +63,7 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         if (!q) {
             return;
         }
-        
+      
         datasetSource = datasetSource || this.props.datasetSource;
         offset = offset || this.props.offset;
         limit = limit || this.props.limit;
