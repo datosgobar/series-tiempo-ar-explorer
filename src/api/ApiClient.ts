@@ -1,5 +1,6 @@
 import axios from "axios";
 import {AxiosInstance} from "axios";
+import * as urljoin from "url-join";
 
 
 export interface IApiClientOpt {
@@ -20,7 +21,7 @@ export class ApiClient {
 
 
     public endpoint(endpointPath: string): string {
-        let fullPath = [this.uri, endpointPath].join("/");
+        let fullPath = urljoin(this.uri, endpointPath);
         fullPath = fullPath.endsWith('/') ? fullPath : fullPath + '/';
         return fullPath
     }

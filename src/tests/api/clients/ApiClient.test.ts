@@ -36,4 +36,18 @@ describe("ApiClient", () => {
         })
 
     });
+
+    it("joins uri and path", () => {
+        expect(apiClient.endpoint(path)).toEqual([baseURL, path].join("/") + "/");
+    });
+
+    it("joins uri and path with starting /", () => {
+        path = "/foo";
+        expect(apiClient.endpoint(path)).toEqual(baseURL + path + "/");
+    });
+
+    it("joins uri and path with ending /", () => {
+        path = "foo/";
+        expect(apiClient.endpoint(path)).toEqual([baseURL, path].join("/"));
+    });
 });
