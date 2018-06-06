@@ -65,8 +65,7 @@ export default class SerieApi implements ISerieApi {
 
     public fetchSources() {
         const options = {
-            // uri: this.apiClient.endpoint('search/dataset_source'),
-            uri: this.apiClient.uri + '/search/dataset_source', // este se hace manual por un error en la api
+            uri: this.apiClient.endpoint('search/dataset_source', false),
         }
 
         return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);

@@ -5,7 +5,7 @@ import * as urljoin from "url-join";
 
 export interface IApiClientOpt {
     uri: string;
-    qs: any;
+    qs?: any;
 }
 
 export class ApiClient {
@@ -20,9 +20,10 @@ export class ApiClient {
     }
 
 
-    public endpoint(endpointPath: string): string {
+    public endpoint(endpointPath: string, trailingSlash: boolean = true): string {
         let fullPath = urljoin(this.uri, endpointPath);
         fullPath = fullPath.endsWith('/') ? fullPath : fullPath + '/';
+        fullPath = trailingSlash? fullPath : fullPath.slice(0, -1);
         return fullPath
     }
 }
