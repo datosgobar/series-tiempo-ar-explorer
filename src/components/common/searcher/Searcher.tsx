@@ -73,11 +73,14 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         }
     }
 
-
     public render() {
         return (
             <div className="Searcher">
-                <SearchBox searchTerm={this.props.q} onSearch={this.search} />
+                <SearchBox 
+                searchTerm={this.props.q} 
+                onSearch={this.search} 
+                seriesApi={this.props.seriesApi}
+                />
 
                 {this.props.renderSearchResults(this.state.searchResults)}
             </div>

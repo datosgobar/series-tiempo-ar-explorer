@@ -78,14 +78,14 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         if (!this.hasMainSerie()) {
             return <div className='ViewPage'>
                 <h1>Cargando...</h1>
-                <SearchBox onSearch={this.redirectToSearchPage} />
+                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi}/>
             </div>
         }
 
         return (
             <div className='ViewPage'>
                 <h1>ViewPage</h1>
-                <SearchBox onSearch={this.redirectToSearchPage} />
+                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi}/>
                 <Graphic series={this.props.series} />
                 <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} />
                 <MetaData series={this.props.series} onRemove={this.removeSerie} />
