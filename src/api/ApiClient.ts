@@ -21,9 +21,7 @@ export class ApiClient {
 
 
     public endpoint(endpointPath: string, trailingSlash: boolean = true): string {
-        let fullPath = urljoin(this.uri, endpointPath);
-        fullPath = fullPath.endsWith('/') ? fullPath : fullPath + '/';
-        fullPath = trailingSlash? fullPath : fullPath.slice(0, -1);
-        return fullPath
+        const fullPath = urljoin(this.uri, endpointPath, '/');
+        return trailingSlash? fullPath : fullPath.slice(0, -1);
     }
 }
