@@ -19,7 +19,8 @@ export const METADATA = {
 export interface ISerieApi {
 
     getSeries: ((ids: string[]) => Promise<ISerie[]>);
-    searchSeries: ((q: string, offset?: number, limit?: number) => Promise<ISearchResultItem[]>);
+    searchSeries: ((q: string, datasetSource?: string, offset?: number, limit?: number) => Promise<ISearchResultItem[]>);
+    fetchSources: () => Promise<string[]>;
 }
 
 export default class SerieApi implements ISerieApi {
@@ -47,15 +48,25 @@ export default class SerieApi implements ISerieApi {
         return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
     }
 
-    public searchSeries(q: string, offset: number = 0, limit: number = 10): Promise<ISearchResultItem[]> {
+    public searchSeries(q: string, datasetSource?: string, offset: number = 0, limit: number = 10): Promise<ISearchResultItem[]> {
+
         const options = {
             qs: {
+                dataset_soruce: datasetSource,
                 limit,
                 offset,
                 q,
             },
             uri: this.apiClient.endpoint('search'),
         };
+
+        return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
+    }
+
+    public fetchSources() {
+        const options = {
+            uri: this.apiClient.endpoint('search/dataset_source', false),
+        }
 
         return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
     }

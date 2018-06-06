@@ -1,45 +1,41 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 
 import './SeriesPicker.css';
 
+import { setSearchParams } from '../../../actions/searchActions';
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
+import initialState from '../../../store/initialState';
 import Searcher from '../../common/searcher/Searcher';
 
 interface ISeriesPickerProps {
 
     seriesApi: ISerieApi;
     onPick: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void;
+    dispatch?: any;
 }
 
-interface ISeriesPickerState {
-
-    q: string;
-    offset: number;
-    limit: number;
-}
-
-class SeriesPicker extends React.Component<ISeriesPickerProps, ISeriesPickerState> {
+class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
 
     constructor(props: ISeriesPickerProps, context: any) {
         super(props, context);
-
-        this.state = { q: "", offset: 0, limit: 4 };
 
         this.handleSearch = this.handleSearch.bind(this);
         this.renderPickeableItems = this.renderPickeableItems.bind(this);
     }
 
-    public handleSearch(q: string, offset: number, limit: number): void {
-        this.setState({ q, offset, limit })
+    public handleSearch(q: string, datasetSource:string, offset: number, limit: number): void {
+        this.props.dispatch(setSearchParams({q, datasetSource, offset, limit}));
     }
 
     public render() {
         return (
             <Searcher
                 seriesApi={this.props.seriesApi}
-                limit={this.state.limit}
-                offset={this.state.offset}
-                q={this.state.q}
+                datasetSource={initialState.searchParams.datasetSource}
+                limit={initialState.searchParams.limit}
+                offset={initialState.searchParams.offset}
+                q={initialState.searchParams.q}
                 onWillSearch={this.handleSearch}
                 renderSearchResults={this.renderPickeableItems} />
         );
@@ -69,4 +65,4 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, ISeriesPickerStat
 }
 
 
-export default SeriesPicker;
+export default connect()(SeriesPicker);
