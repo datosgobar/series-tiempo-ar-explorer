@@ -1,6 +1,6 @@
-import ApiClient from './ApiClient';
-import { ITSAPIResponse } from './ITSAPIResponse'
-import Serie, { ISerie } from "./Serie";
+import {ApiClient} from './ApiClient';
+import {ITSAPIResponse} from './ITSAPIResponse'
+import Serie, {ISerie} from "./Serie";
 
 
 export interface ISearchResultItem {
@@ -49,6 +49,7 @@ export default class SerieApi implements ISerieApi {
     }
 
     public searchSeries(q: string, datasetSource?: string, offset: number = 0, limit: number = 10): Promise<ISearchResultItem[]> {
+
         const options = {
             qs: {
                 dataset_soruce: datasetSource,
@@ -59,7 +60,7 @@ export default class SerieApi implements ISerieApi {
             uri: this.apiClient.endpoint('search'),
         };
 
-        return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
+        return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
     }
 
     public fetchSources() {
@@ -68,7 +69,7 @@ export default class SerieApi implements ISerieApi {
             uri: this.apiClient.uri + '/search/dataset_source', // este se hace manual por un error en la api
         }
 
-        return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
+        return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
     }
 }
 
