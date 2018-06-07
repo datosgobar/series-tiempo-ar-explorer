@@ -73,14 +73,14 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
         const datasetSource = params.get('dataset_source') || "";
 
-        const theme = params.get('dataset_theme') || "";
+        const datasetTheme = params.get('dataset_theme') || "";
 
         return ({
             datasetSource,
+            datasetTheme,
             limit,
             offset,
             q,
-            theme,
         });
     }
 
@@ -106,7 +106,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
             return;
         }
 
-        this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.theme, oldSearchParams.offset, oldSearchParams.limit);
+        this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
     }
 
     public themePicked(event: React.MouseEvent<HTMLElement>, newTheme: string): void {
@@ -130,7 +130,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
                 <Filters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
                 <Searcher
                     datasetSource={initialState.searchParams.datasetSource}
-                    theme={initialState.searchParams.theme}
+                    datasetTheme={initialState.searchParams.datasetTheme}
                     limit={initialState.searchParams.limit}
                     offset={initialState.searchParams.offset}
                     q={initialState.searchParams.q}

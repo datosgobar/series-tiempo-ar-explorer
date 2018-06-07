@@ -67,7 +67,7 @@ export class FilterThemes extends React.Component<IFilterThemesProps, IFilterThe
 
 function mapStateToProps(state: IStore) {
     return {
-        picked: state.searchParams.theme,
+        picked: state.searchParams.datasetTheme,
     };
 }
 

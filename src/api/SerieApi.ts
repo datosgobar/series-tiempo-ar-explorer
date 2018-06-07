@@ -1,12 +1,19 @@
-import {ApiClient} from './ApiClient';
-import {ITSAPIResponse} from './ITSAPIResponse'
-import Serie, {ISerie} from "./Serie";
+import { ApiClient } from './ApiClient';
+import { ITSAPIResponse } from './ITSAPIResponse'
+import Serie, { ISerie } from "./Serie";
 
 
 export interface ISearchResultItem {
     title: string;
     id: string;
     description: string;
+}
+
+export interface ISearchOptions {
+    datasetSource?: string;
+    datasetTheme?: string;
+    offset?: number;
+    limit?: number;
 }
 
 export const METADATA = {
@@ -19,7 +26,7 @@ export const METADATA = {
 export interface ISerieApi {
 
     getSeries: ((ids: string[]) => Promise<ISerie[]>);
-    searchSeries: ((q: string, datasetSource?: string, theme?: string, offset?: number, limit?: number) => Promise<ISearchResultItem[]>);
+    searchSeries: ((q: string, searchOptions?: ISearchOptions) => Promise<ISearchResultItem[]>);
     fetchSources: () => Promise<string[]>;
     fetchThemes: () => Promise<string[]>;
 }
@@ -49,12 +56,19 @@ export default class SerieApi implements ISerieApi {
         return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
     }
 
-    public searchSeries(q: string, datasetSource?: string, theme?: string, offset: number = 0, limit: number = 10): Promise<ISearchResultItem[]> {
+    public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<ISearchResultItem[]> {
+
+        const limit = searchOptions && searchOptions.limit? searchOptions.limit : 10;
+        const offset = searchOptions && searchOptions.offset? searchOptions.offset : 0;
+        // tslint:disable-next-line:variable-name
+        const dataset_soruce = searchOptions && searchOptions.datasetSource? searchOptions.datasetSource : undefined;
+        // tslint:disable-next-line:variable-name
+        const dataset_theme = searchOptions && searchOptions.datasetTheme? searchOptions.datasetTheme : undefined;
 
         const options = {
             qs: {
-                dataset_soruce: datasetSource,
-                dataset_theme: theme,
+                dataset_soruce,
+                dataset_theme,
                 limit,
                 offset,
                 q,

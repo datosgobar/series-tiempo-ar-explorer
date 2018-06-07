@@ -1,5 +1,5 @@
 import { ISerie } from "../../api/Serie";
-import { ISearchResultItem, ISerieApi } from "../../api/SerieApi";
+import { ISearchOptions, ISearchResultItem, ISerieApi } from "../../api/SerieApi";
 
 const DELAY = 1000;
 const SOURCES = [
@@ -34,13 +34,21 @@ class MockApi implements ISerieApi {
         })
     }
 
-    public searchSeries(q: string, datasetSource?: string, theme?: string, offset?: number | undefined, limit?: number | undefined): Promise<ISearchResultItem[]> {
-        
-        if (datasetSource) {return new Promise((resolve, reject) => {
-            setTimeout(resolve, this.delay, [
-                toSearchResult("serie01"),
-            ]);
-        });
+    public searchSeries(q: string, options?: ISearchOptions): Promise<ISearchResultItem[]> {
+
+        if (options && options.datasetSource) {
+            return new Promise((resolve, reject) => {
+                setTimeout(resolve, this.delay, [
+                    toSearchResult("serie01"),
+                ]);
+            });
+        }
+        if (options && options.datasetTheme) {
+            return new Promise((resolve, reject) => {
+                setTimeout(resolve, this.delay, [
+                    toSearchResult("serie02"),
+                ]);
+            });
         }
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, [
@@ -51,14 +59,14 @@ class MockApi implements ISerieApi {
     }
 
     public fetchSources(): Promise<string[]> {
-        
+
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, this.sources);
         });
     }
 
     public fetchThemes(): Promise<string[]> {
-        
+
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, this.themes);
         });

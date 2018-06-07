@@ -22,7 +22,8 @@ describe("SearchPage", () => {
 
   let mockSeriesApi: ISerieApi;
   let store: Store;
-  let source: string;
+  let datasetSource: string;
+  let datasetTheme: string;
 
   beforeEach(() => {
 
@@ -33,12 +34,13 @@ describe("SearchPage", () => {
     store = configureStore();
     store.dispatch(setSeriesApi(mockSeriesApi));
 
-    source = "";
+    datasetSource = "";
+    datasetTheme = "";
   });
 
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    
+
     ReactDOM.render(
       <MemoryRouter>
         <Provider store={store}>
@@ -63,17 +65,19 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, source, 0, 10);
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset: 0, limit: 10 });
   });
 
 
   it('gets search results from seriesApi with limit and offset parameters', () => {
 
     const searchterm = "exportaciones"
+    const offset = 10;
+    const limit = 5;
 
     mount(
       <MemoryRouter
-        initialEntries={['/search/?offset=10&limit=5&q=' + searchterm]}
+        initialEntries={[`/search/?offset=${offset}&limit=${limit}&q=${searchterm}`]}
         initialIndex={0}>
         <Provider store={store}>
           <SearchPage seriesApi={mockSeriesApi} />
@@ -81,6 +85,6 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, source, 10, 5);
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset, limit });
   });
 });
