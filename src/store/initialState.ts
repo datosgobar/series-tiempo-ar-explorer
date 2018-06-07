@@ -16,6 +16,7 @@ const initialState: IStore = {
         limit: 10,
         offset: 0,
         q: "",
+        theme: "",
     },
     seriesApi: null,
     viewSeries: [],

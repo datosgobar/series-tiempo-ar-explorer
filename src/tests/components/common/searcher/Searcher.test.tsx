@@ -19,6 +19,7 @@ describe('SeriesPicker', () => {
     let offset: number;
     let limit: number;
     let datasetSource: string;
+    let theme: string;
 
     let renderSearchResults: any;
 
@@ -32,20 +33,21 @@ describe('SeriesPicker', () => {
         limit = 10;
         offset = 0;
         datasetSource = "";
+        theme = "";
 
         renderSearchResults = jest.fn();
     });
 
     it('searchs upon render', () => {
 
-        mount(<Searcher datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+        mount(<Searcher theme={theme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
         expect(mockSeriesApi.searchSeries).toBeCalledWith(q, datasetSource, offset, limit);
     });
 
     it('do not queries api if q is falsy', () => {
 
-        mount(<Searcher datasetSource={datasetSource} seriesApi={mockSeriesApi} q={""} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+        mount(<Searcher theme={theme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={""} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
         expect(mockSeriesApi.searchSeries).not.toBeCalled();
     });
@@ -57,7 +59,7 @@ describe('SeriesPicker', () => {
         beforeEach(() => {
             node = document.createElement('div');
             ReactDOM.render(
-                <Searcher datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
+                <Searcher theme={theme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
         });
 
@@ -68,7 +70,7 @@ describe('SeriesPicker', () => {
         it('do not search if props dont change', () => {
 
             ReactDOM.render(
-                <Searcher datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
+                <Searcher theme={theme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
             expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
@@ -79,7 +81,7 @@ describe('SeriesPicker', () => {
             q = "exportaciones";
 
             ReactDOM.render(
-                <Searcher datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
+                <Searcher theme={theme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
             expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(2);
@@ -97,7 +99,7 @@ describe('SeriesPicker', () => {
         it('triggers onWillSearch prop when submited', () => {
 
             willSearch = jest.fn();
-            const wrapper = mount(<Searcher datasetSource={datasetSource} onWillSearch={willSearch} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+            const wrapper = mount(<Searcher theme={theme} datasetSource={datasetSource} onWillSearch={willSearch} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
             wrapper.find('form').simulate('submit');
 
@@ -109,7 +111,7 @@ describe('SeriesPicker', () => {
             let wrapper: ReactWrapper;
 
             beforeEach(() => {
-                wrapper = mount(<Searcher datasetSource={datasetSource} onWillSearch={willSearch} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+                wrapper = mount(<Searcher theme={theme} datasetSource={datasetSource} onWillSearch={willSearch} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
             });
 
             function inputTextAndSubmit(searchTerm: string){
@@ -141,7 +143,7 @@ describe('SeriesPicker', () => {
         it('do not queries api when submited', () => {
 
             willSearch = jest.fn();
-            const wrapper = mount(<Searcher datasetSource={datasetSource} onWillSearch={willSearch} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+            const wrapper = mount(<Searcher theme={theme} datasetSource={datasetSource} onWillSearch={willSearch} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
             expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
 

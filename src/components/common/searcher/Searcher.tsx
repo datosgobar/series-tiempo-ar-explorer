@@ -9,6 +9,7 @@ import SearchBox from "../../common/searchbox/SearchBox";
 export interface ISearchParams {
 
     datasetSource: string;
+    theme: string;
     limit: number;
     offset: number;
     q: string;
@@ -17,7 +18,7 @@ export interface ISearchParams {
 interface ISearcherProps extends ISearchParams {
 
     seriesApi: ISerieApi;
-    onWillSearch?: (q: string, datasetSource: string, offset: number, limit: number) => void;
+    onWillSearch?: (q: string, datasetSource: string, theme: string, offset: number, limit: number) => void;
 
     renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element;
 }
@@ -45,31 +46,33 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
             return;
         }
 
-        this.performSearch(this.props.q, this.props.datasetSource, this.props.offset, this.props.limit);
+        this.performSearch(this.props.q, this.props.datasetSource, this.props.theme, this.props.offset, this.props.limit);
     }
 
     public componentDidUpdate(prevProps: ISearcherProps) {
         if (prevProps.q !== this.props.q ||
+            prevProps.theme !== this.props.theme ||
             prevProps.datasetSource !== this.props.datasetSource ||
             prevProps.offset !== this.props.offset ||
             prevProps.limit !== this.props.limit
         ) {
-            this.performSearch(this.props.q, this.props.datasetSource, this.props.offset, this.props.limit);
+            this.performSearch(this.props.q, this.props.datasetSource, this.props.theme, this.props.offset, this.props.limit);
         }
     }
 
-    public search(q?: string, datasetSource?: string, offset?: number, limit?: number) {
+    public search(q?: string, datasetSource?: string, theme?:string, offset?: number, limit?: number) {
 
         if (!q) {
             return;
         }
-      
+
         datasetSource = datasetSource || this.props.datasetSource;
         offset = offset || this.props.offset;
         limit = limit || this.props.limit;
+        theme = theme || this.props.theme;
 
         if (this.props.onWillSearch) {
-            this.props.onWillSearch(q, datasetSource, offset, limit);
+            this.props.onWillSearch(q, datasetSource, theme, offset, limit);
         }
     }
 
@@ -84,8 +87,8 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         );
     }
 
-    private performSearch(q: string, datasetSource: string, offset: number, limit: number) {
-        this.props.seriesApi.searchSeries(q, datasetSource, offset, limit)
+    private performSearch(q: string, datasetSource: string, theme: string, offset: number, limit: number) {
+        this.props.seriesApi.searchSeries(q, datasetSource, theme, offset, limit)
             .then((searchResults: ISearchResultItem[]) => {
                 this.setState({ searchResults });
             }).catch(alert);

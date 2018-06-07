@@ -28,6 +28,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         this.getUriSearchParams = this.getUriSearchParams.bind(this);
         this.updateUriParams = this.updateUriParams.bind(this);
         this.sourcePicked = this.sourcePicked.bind(this);
+        this.themePicked = this.themePicked.bind(this);
     }
 
     public componentDidMount() {
@@ -72,20 +73,24 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
         const datasetSource = params.get('dataset_source') || "";
 
+        const theme = params.get('dataset_theme') || "";
+
         return ({
             datasetSource,
             limit,
             offset,
             q,
+            theme,
         });
     }
 
-    public updateUriParams(q: string, datasetSource: string, offset: number, limit: number) {
+    public updateUriParams(q: string, datasetSource: string, theme: string, offset: number, limit: number) {
         const urlSearchParams = new URLSearchParams();
         urlSearchParams.append('q', q);
         urlSearchParams.append('dataset_source', datasetSource);
         urlSearchParams.append('offset', offset.toString());
         urlSearchParams.append('limit', limit.toString());
+        urlSearchParams.append('dataset_theme', theme);
 
         this.props.history.push('/search/?' + urlSearchParams);
     }
@@ -101,16 +106,31 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
             return;
         }
 
-        this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.offset, oldSearchParams.limit);
+        this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.theme, oldSearchParams.offset, oldSearchParams.limit);
+    }
+
+    public themePicked(event: React.MouseEvent<HTMLElement>, newTheme: string): void {
+        event.stopPropagation();
+
+        let oldSearchParams: ISearchParams;
+
+        try {
+            oldSearchParams = this.getUriSearchParams(this.props.location)
+        } catch {
+            return;
+        }
+
+        this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
     }
 
     public render() {
         return (
             <div className='SearchPage'>
                 <h1>Resultados Busqueda</h1>
-                <Filters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} />
+                <Filters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
                 <Searcher
                     datasetSource={initialState.searchParams.datasetSource}
+                    theme={initialState.searchParams.theme}
                     limit={initialState.searchParams.limit}
                     offset={initialState.searchParams.offset}
                     q={initialState.searchParams.q}
