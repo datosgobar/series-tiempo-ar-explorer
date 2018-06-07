@@ -50,7 +50,7 @@ describe('FilterThemes', () => {
 
         return themesP.then(() => {
             wrapper.update();
-            expect(wrapper.find('.Theme').length).toBe(themes.length);
+            expect(wrapper.find(FilterThemes).find('.Item').length).toBe(themes.length);
         });
     });
 
@@ -67,7 +67,7 @@ describe('FilterThemes', () => {
             return themesP.then(() => {
                 wrapper.update();
 
-                wrapper.find('.Theme').at(index).find('input').simulate('change');
+                wrapper.find(FilterThemes).find('.Item').at(index).find('input').simulate('change');
 
                 expect(onThemePicked).toBeCalledWith(mouseEvent, theme);
             });

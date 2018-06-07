@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { ISerieApi } from "../../../../api/SerieApi";
 import { IStore } from "../../../../store/initialState";
+import Selector from "../../../common/selector/Selector";
 
 interface IFilterThemesProps {
 
@@ -23,8 +24,12 @@ export class FilterThemes extends React.Component<IFilterThemesProps, IFilterThe
 
         this.state = { themes: [] };
 
-        this.handleClick = this.handleClick.bind(this);
-        this.toCheckBox = this.toCheckBox.bind(this);
+        this.updateThemes = this.updateThemes.bind(this);
+        this.onItemSelected = this.onItemSelected.bind(this);
+    }
+
+    public componentDidMount(){
+        this.updateThemes();
     }
 
     public updateThemes() {
@@ -33,36 +38,27 @@ export class FilterThemes extends React.Component<IFilterThemesProps, IFilterThe
         });
     }
 
-    public componentDidMount() {
-        this.updateThemes()
-    }
-
-    public handleClick(source: string) {
-        return (event: React.SyntheticEvent<HTMLElement>) => {
-            this.props.onThemePicked(event, source);
-        };
+    public onItemSelected(event: React.SyntheticEvent<HTMLElement>, item: string) {
+        this.props.onThemePicked(event, item);
     }
 
     public render() {
         return (
             <div>
                 <h3>Themes</h3>
-                <div>
-                    {this.state.themes.map(this.toCheckBox)}
-                </div>
+                <Selector
+                    selected={this.props.picked}
+                    items={this.state.themes}
+                    onItemSelected={this.onItemSelected}
+                    renderItem={renderTheme}
+                />
             </div>
         );
     }
+}
 
-    public toCheckBox(source: string) {
-        return (
-            <div className="Theme" key={source}>
-                <label>
-                    <input type="radio" value={source} checked={this.props.picked === source} onChange={this.handleClick(source)} />
-                    {source}
-                </label>
-            </div>);
-    }
+function renderTheme(theme: string) {
+    return theme;
 }
 
 function mapStateToProps(state: IStore) {

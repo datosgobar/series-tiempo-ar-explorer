@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { ISerieApi } from "../../../../api/SerieApi";
 import { IStore } from "../../../../store/initialState";
+import Selector from "../../../common/selector/Selector";
 
 interface IFilterSourcesProps {
 
@@ -23,8 +24,12 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
 
         this.state = { sources: [] };
 
-        this.handleClick = this.handleClick.bind(this);
-        this.toRadioButton = this.toRadioButton.bind(this);
+        this.updateSources = this.updateSources.bind(this);
+        this.onItemSelected = this.onItemSelected.bind(this);
+    }
+
+    public componentDidMount(){
+        this.updateSources();
     }
 
     public updateSources() {
@@ -33,37 +38,29 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
         });
     }
 
-    public componentDidMount() {
-        this.updateSources()
-    }
-
-    public handleClick(source: string) {
-        return (event: React.SyntheticEvent<HTMLElement>) => {
-            this.props.onSourcePicked(event, source);
-        };
+    public onItemSelected(event: React.SyntheticEvent<HTMLElement>, item: string) {
+        this.props.onSourcePicked(event, item);
     }
 
     public render() {
         return (
             <div>
                 <h3>Sources</h3>
-                <div>
-                    {this.state.sources.map(this.toRadioButton)}
-                </div>
+                <Selector
+                    selected={this.props.picked}
+                    items={this.state.sources}
+                    onItemSelected={this.onItemSelected}
+                    renderItem={renderSource}
+                />
             </div>
         );
     }
-
-    public toRadioButton(source: string) {
-        return (
-            <div className="Source" key={source}>
-                <label>
-                    <input type="radio" value={source} checked={this.props.picked === source} onChange={this.handleClick(source)} />
-                    {source}
-                </label>
-            </div>);
-    }
 }
+
+function renderSource(source: string) {
+    return source;
+}
+
 
 function mapStateToProps(state: IStore) {
     return {
