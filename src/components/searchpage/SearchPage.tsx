@@ -7,6 +7,7 @@ import './SearchPage.css';
 
 import { setSearchParams } from '../../actions/searchActions';
 import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
+import setOrDelete from '../../helpers/helpers';
 import initialState, { IStore } from '../../store/initialState';
 import Searcher, { ISearchParams } from '../common/searcher/Searcher';
 import Filters from './filters/Filters';
@@ -84,13 +85,15 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         });
     }
 
-    public updateUriParams(q: string, datasetSource: string, theme: string, offset: number, limit: number) {
-        const urlSearchParams = new URLSearchParams();
-        urlSearchParams.append('q', q);
-        urlSearchParams.append('dataset_source', datasetSource);
-        urlSearchParams.append('offset', offset.toString());
-        urlSearchParams.append('limit', limit.toString());
-        urlSearchParams.append('dataset_theme', theme);
+    public updateUriParams(q: string, datasetSource: string, datasetTheme: string, offset: number, limit: number) {
+        const urlSearchParams: any = new URLSearchParams();
+        urlSearchParams.setOrDelete = setOrDelete;
+
+        urlSearchParams.setOrDelete('q', q);
+        urlSearchParams.setOrDelete('dataset_source', datasetSource);
+        urlSearchParams.setOrDelete('offset', offset);
+        urlSearchParams.setOrDelete('limit', limit);
+        urlSearchParams.setOrDelete('dataset_theme', datasetTheme);
 
         this.props.history.push('/search/?' + urlSearchParams);
     }

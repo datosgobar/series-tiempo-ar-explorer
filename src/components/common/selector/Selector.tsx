@@ -5,7 +5,7 @@ interface ISelectorProps<T> {
 
     selected: T;
     items: T[];
-    onItemSelected: (event: React.SyntheticEvent<HTMLElement>, item: T) => void;
+    onItemSelected: (event: React.SyntheticEvent<HTMLElement>, item: T | null) => void;
     renderItem: (item: T) => JSX.Element | string;
 }
 
@@ -21,7 +21,10 @@ class Selector<T> extends React.Component<ISelectorProps<T>, any> {
     
     public handleClick(item: T) {
         return (event: React.SyntheticEvent<HTMLInputElement>) => {
-            this.props.onItemSelected(event, item);
+            this.props.onItemSelected(
+                event, 
+                (event.target as any).checked? item : null
+            );
         };
     }
 
@@ -37,7 +40,7 @@ class Selector<T> extends React.Component<ISelectorProps<T>, any> {
         return (
             <div className="Item" key={item.toString()}>
                 <label>
-                    <input type="radio" checked={this.props.selected === item} onChange={this.handleClick(item)} />
+                    <input type="checkbox" checked={this.props.selected === item} onChange={this.handleClick(item)} />
                     {this.props.renderItem(item)}
                 </label>
             </div>);

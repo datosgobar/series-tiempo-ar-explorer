@@ -67,7 +67,7 @@ describe('FilterSources', () => {
             return sourcesP.then(() => {
                 wrapper.update();
 
-                wrapper.find(FilterSources).find('.Item').at(index).find('input').simulate('change');
+                wrapper.find(FilterSources).find('.Item').at(index).find('input').simulate('change', { target: { checked: true } });
 
                 expect(onSourcePicked).toBeCalledWith(mouseEvent, source);
             });
