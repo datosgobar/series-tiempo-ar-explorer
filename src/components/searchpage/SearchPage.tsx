@@ -7,7 +7,7 @@ import './SearchPage.css';
 
 import { setSearchParams } from '../../actions/searchActions';
 import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
-import setOrDelete from '../../helpers/helpers';
+import URLSearchParams from '../../helpers/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import Searcher, { ISearchParams } from '../common/searcher/Searcher';
 import Filters from './filters/Filters';
@@ -86,13 +86,12 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
     }
 
     public updateUriParams(q: string, datasetSource: string, datasetTheme: string, offset: number, limit: number) {
-        const urlSearchParams: any = new URLSearchParams();
-        urlSearchParams.setOrDelete = setOrDelete;
+        const urlSearchParams = new URLSearchParams();
 
         urlSearchParams.setOrDelete('q', q);
         urlSearchParams.setOrDelete('dataset_source', datasetSource);
-        urlSearchParams.setOrDelete('offset', offset);
-        urlSearchParams.setOrDelete('limit', limit);
+        urlSearchParams.setOrDelete('offset', offset.toString());
+        urlSearchParams.setOrDelete('limit', limit.toString());
         urlSearchParams.setOrDelete('dataset_theme', datasetTheme);
 
         this.props.history.push('/search/?' + urlSearchParams);

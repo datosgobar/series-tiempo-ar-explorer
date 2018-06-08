@@ -61,13 +61,13 @@ export default class SerieApi implements ISerieApi {
         const limit = searchOptions && searchOptions.limit? searchOptions.limit : 10;
         const offset = searchOptions && searchOptions.offset? searchOptions.offset : 0;
         // tslint:disable-next-line:variable-name
-        const dataset_soruce = searchOptions && searchOptions.datasetSource? searchOptions.datasetSource : undefined;
+        const dataset_source = searchOptions && searchOptions.datasetSource? searchOptions.datasetSource : undefined;
         // tslint:disable-next-line:variable-name
         const dataset_theme = searchOptions && searchOptions.datasetTheme? searchOptions.datasetTheme : undefined;
 
         const options = {
             qs: {
-                dataset_soruce,
+                dataset_source,
                 dataset_theme,
                 limit,
                 offset,
