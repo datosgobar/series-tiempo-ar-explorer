@@ -44,11 +44,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
     public updateSearchParams(location: Location) {
         let searchParams: ISearchParams;
 
-        try {
-            searchParams = this.getUriSearchParams(location);
-        } catch {
-            return;
-        }
+        searchParams = this.getUriSearchParams(location);
 
         this.props.dispatch(setSearchParams(searchParams));
     }
@@ -102,11 +98,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
         let oldSearchParams: ISearchParams;
 
-        try {
-            oldSearchParams = this.getUriSearchParams(this.props.location)
-        } catch {
-            return;
-        }
+        oldSearchParams = this.getUriSearchParams(this.props.location)
 
         this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
     }
@@ -116,11 +108,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
         let oldSearchParams: ISearchParams;
 
-        try {
-            oldSearchParams = this.getUriSearchParams(this.props.location)
-        } catch {
-            return;
-        }
+        oldSearchParams = this.getUriSearchParams(this.props.location)
 
         this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
     }

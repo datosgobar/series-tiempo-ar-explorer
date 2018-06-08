@@ -42,7 +42,7 @@ describe("SearchPage", () => {
     const div = document.createElement('div');
 
     ReactDOM.render(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={['/search/?q=cons']} initialIndex={0}>
         <Provider store={store}>
           <SearchPage seriesApi={new MockApi(0)} />
         </Provider>
