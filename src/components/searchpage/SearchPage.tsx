@@ -59,7 +59,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
     public getUriSearchParams(location: Location): ISearchParams {
         const search: string = location.search; // could be '?foo=bar'
-        const params: URLSearchParams = new URLSearchParams(search);
+        const params: URLSearchParams = URLSearchParams(search);
         const q: string | null = params.get('q');
 
         if (!q) {
@@ -86,7 +86,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
     }
 
     public updateUriParams(q: string, datasetSource: string, datasetTheme: string, offset: number, limit: number) {
-        const urlSearchParams = new URLSearchParams();
+        const urlSearchParams = URLSearchParams();
 
         urlSearchParams.setOrDelete('q', q);
         urlSearchParams.setOrDelete('dataset_source', datasetSource);
