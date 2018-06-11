@@ -60,7 +60,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
         const data = serie.data.map(datapoint => datapoint.value);
-        return {...this.defaultHCSeriesConfig(), ...hcConfig, name: serie.id, data}
+        return {...this.defaultHCSeriesConfig(), ...hcConfig, name: serie.title, data}
 
     }
 
