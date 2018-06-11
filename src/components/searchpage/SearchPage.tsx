@@ -7,6 +7,7 @@ import './SearchPage.css';
 
 import { setSearchParams } from '../../actions/searchActions';
 import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
+import URLSearchParams from '../../helpers/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import Searcher, { ISearchParams } from '../common/searcher/Searcher';
 import Filters from './filters/Filters';
@@ -28,6 +29,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         this.getUriSearchParams = this.getUriSearchParams.bind(this);
         this.updateUriParams = this.updateUriParams.bind(this);
         this.sourcePicked = this.sourcePicked.bind(this);
+        this.themePicked = this.themePicked.bind(this);
     }
 
     public componentDidMount() {
@@ -42,11 +44,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
     public updateSearchParams(location: Location) {
         let searchParams: ISearchParams;
 
-        try {
-            searchParams = this.getUriSearchParams(location);
-        } catch {
-            return;
-        }
+        searchParams = this.getUriSearchParams(location);
 
         this.props.dispatch(setSearchParams(searchParams));
     }
@@ -57,7 +55,7 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
     public getUriSearchParams(location: Location): ISearchParams {
         const search: string = location.search; // could be '?foo=bar'
-        const params: URLSearchParams = new URLSearchParams(search);
+        const params: URLSearchParams = URLSearchParams(search);
         const q: string | null = params.get('q');
 
         if (!q) {
@@ -72,20 +70,25 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
         const datasetSource = params.get('dataset_source') || "";
 
+        const datasetTheme = params.get('dataset_theme') || "";
+
         return ({
             datasetSource,
+            datasetTheme,
             limit,
             offset,
             q,
         });
     }
 
-    public updateUriParams(q: string, datasetSource: string, offset: number, limit: number) {
-        const urlSearchParams = new URLSearchParams();
-        urlSearchParams.append('q', q);
-        urlSearchParams.append('dataset_source', datasetSource);
-        urlSearchParams.append('offset', offset.toString());
-        urlSearchParams.append('limit', limit.toString());
+    public updateUriParams(q: string, datasetSource: string, datasetTheme: string, offset: number, limit: number) {
+        const urlSearchParams = URLSearchParams();
+
+        urlSearchParams.setOrDelete('q', q);
+        urlSearchParams.setOrDelete('dataset_source', datasetSource);
+        urlSearchParams.setOrDelete('offset', offset.toString());
+        urlSearchParams.setOrDelete('limit', limit.toString());
+        urlSearchParams.setOrDelete('dataset_theme', datasetTheme);
 
         this.props.history.push('/search/?' + urlSearchParams);
     }
@@ -95,22 +98,29 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
 
         let oldSearchParams: ISearchParams;
 
-        try {
-            oldSearchParams = this.getUriSearchParams(this.props.location)
-        } catch {
-            return;
-        }
+        oldSearchParams = this.getUriSearchParams(this.props.location)
 
-        this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.offset, oldSearchParams.limit);
+        this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+    }
+
+    public themePicked(event: React.MouseEvent<HTMLElement>, newTheme: string): void {
+        event.stopPropagation();
+
+        let oldSearchParams: ISearchParams;
+
+        oldSearchParams = this.getUriSearchParams(this.props.location)
+
+        this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
     }
 
     public render() {
         return (
             <div className='SearchPage'>
                 <h1>Resultados Busqueda</h1>
-                <Filters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} />
+                <Filters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
                 <Searcher
                     datasetSource={initialState.searchParams.datasetSource}
+                    datasetTheme={initialState.searchParams.datasetTheme}
                     limit={initialState.searchParams.limit}
                     offset={initialState.searchParams.offset}
                     q={initialState.searchParams.q}

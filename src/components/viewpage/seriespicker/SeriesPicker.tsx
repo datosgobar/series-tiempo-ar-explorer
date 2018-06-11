@@ -24,14 +24,15 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
         this.renderPickeableItems = this.renderPickeableItems.bind(this);
     }
 
-    public handleSearch(q: string, datasetSource:string, offset: number, limit: number): void {
-        this.props.dispatch(setSearchParams({q, datasetSource, offset, limit}));
+    public handleSearch(q: string, datasetSource: string, datasetTheme: string, offset: number, limit: number): void {
+        this.props.dispatch(setSearchParams({ q, datasetSource, datasetTheme, offset, limit }));
     }
 
     public render() {
         return (
             <Searcher
                 seriesApi={this.props.seriesApi}
+                datasetTheme={initialState.searchParams.datasetTheme}
                 datasetSource={initialState.searchParams.datasetSource}
                 limit={initialState.searchParams.limit}
                 offset={initialState.searchParams.offset}
@@ -41,7 +42,7 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
         );
     }
 
-    public handlePick(pickedSerieId: string){
+    public handlePick(pickedSerieId: string) {
 
         return (event: React.MouseEvent<HTMLAnchorElement>) => {
             event.preventDefault();

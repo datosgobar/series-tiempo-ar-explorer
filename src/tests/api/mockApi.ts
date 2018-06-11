@@ -1,20 +1,31 @@
 import { ISerie } from "../../api/Serie";
-import { ISearchResultItem, ISerieApi } from "../../api/SerieApi";
+import { ISearchOptions, ISearchResultItem, ISerieApi } from "../../api/SerieApi";
 
 const DELAY = 1000;
 const SOURCES = [
     "Ministerio de Cultura",
     "Ministerio de Modernizacion",
 ];
+const THEMES = [
+    "Consumo",
+    "Sector Externo",
+    "Empresas",
+    "Producción",
+    "Economía Internacional",
+    "Inversión",
+    "Precios",
+];
 
 class MockApi implements ISerieApi {
 
     private delay: number;
     private sources: string[];
+    private themes: string[];
 
-    constructor(delay?: number, sources?: string[]) {
+    constructor(delay?: number, sources?: string[], themes?: string[]) {
         this.delay = delay || DELAY;
         this.sources = sources || SOURCES;
+        this.themes = themes || THEMES;
     }
 
     public getSeries(ids: string[]): Promise<ISerie[]> {
@@ -23,13 +34,21 @@ class MockApi implements ISerieApi {
         })
     }
 
-    public searchSeries(q: string, datasetSource?: string, offset?: number | undefined, limit?: number | undefined): Promise<ISearchResultItem[]> {
-        
-        if (datasetSource) {return new Promise((resolve, reject) => {
-            setTimeout(resolve, this.delay, [
-                toSearchResult("serie01"),
-            ]);
-        });
+    public searchSeries(q: string, options?: ISearchOptions): Promise<ISearchResultItem[]> {
+
+        if (options && options.datasetSource) {
+            return new Promise((resolve, reject) => {
+                setTimeout(resolve, this.delay, [
+                    toSearchResult("serie01"),
+                ]);
+            });
+        }
+        if (options && options.datasetTheme) {
+            return new Promise((resolve, reject) => {
+                setTimeout(resolve, this.delay, [
+                    toSearchResult("serie02"),
+                ]);
+            });
         }
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, [
@@ -40,9 +59,16 @@ class MockApi implements ISerieApi {
     }
 
     public fetchSources(): Promise<string[]> {
-        
+
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, this.sources);
+        });
+    }
+
+    public fetchThemes(): Promise<string[]> {
+
+        return new Promise((resolve, reject) => {
+            setTimeout(resolve, this.delay, this.themes);
         });
     }
 };

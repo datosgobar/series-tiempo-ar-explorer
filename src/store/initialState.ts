@@ -13,6 +13,7 @@ const initialState: IStore = {
     featured: [],
     searchParams: {
         datasetSource: "",
+        datasetTheme: "",
         limit: 10,
         offset: 0,
         q: "",
