@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import './SearchBox.css';
-
+import FormInput from '../../style/FormInput'
+import HeroFormSearch from '../../style/HeroFormSearch'
+import SearchIcon from '../../style/SearchIcon'
 
 interface ISearchBoxProps {
 
@@ -25,9 +26,9 @@ export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState>
         this.triggerSearch = this.triggerSearch.bind(this);
     }
 
-    public componentDidUpdate(prevProps: ISearchBoxProps){
-        
-        if(this.props.searchTerm && (this.props.searchTerm !== prevProps.searchTerm)){
+    public componentDidUpdate(prevProps: ISearchBoxProps) {
+
+        if (this.props.searchTerm && (this.props.searchTerm !== prevProps.searchTerm)) {
             this.setState({
                 searchTerm: this.props.searchTerm
             });
@@ -46,20 +47,16 @@ export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState>
 
     public render() {
         return (
-            <div className='SearchBox'>
-                <form onSubmit={this.triggerSearch} >
-                    <input
-                        id="searchterm"
-                        value={this.state.searchTerm}
-                        type='text'
-                        placeholder='Buscar Serie'
-                        onChange={this.onSearchTermChange} />
+            <HeroFormSearch onSubmit={this.triggerSearch} >
+                <FormInput
+                    id="searchterm"
+                    value={this.state.searchTerm}
+                    type='text'
+                    placeholder='Buscar Serie'
+                    onChange={this.onSearchTermChange} />
 
-                    <input
-                        type='submit'
-                        value='Buscar' />
-                </form>
-            </div>
+                <SearchIcon onClick={this.triggerSearch} />
+            </HeroFormSearch>
         );
     }
 }
