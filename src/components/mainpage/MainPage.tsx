@@ -2,7 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import './MainPage.css';
+import Hero from '../style/Hero';
+import PLarger from '../style/PLarger';
+import Row from '../style/Row';
+import TitleXXL from '../style/TitleXXL';
 
 import { ISerie } from '../../api/Serie';
 import SearchBox from '../common/searchbox/SearchBox'
@@ -27,15 +30,20 @@ export class MainPage extends React.Component<IMainPageProps, any> {
 
     public render() {
         return (
-            <div className='MainPage'>
-                <h1>Series de tiempo</h1>
-                <p>Desde aquí podés buscar las series de tiempo del tema que necesites,
-                 podés seleccionar más de una opcion de los resultados para compararlos.</p>
-                <SearchBox onSearch={this.redirectToSearchPage} />
+            <section id="home">
+                <Hero>
+                    <Row>
+                        <TitleXXL>Series de tiempo</TitleXXL>
+                        <PLarger>Desde aquí podés buscar las series de tiempo del tema que necesites,
+                 podés seleccionar más de una opcion de los resultados para compararlos.</PLarger>
+                    </Row>
+                    <Row>
+                        <SearchBox onSearch={this.redirectToSearchPage} />
+                    </Row>
+                </Hero>
 
                 <Featured featured={this.props.featured} />
-
-            </div>
+            </section>
         );
     }
 }
