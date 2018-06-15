@@ -25,7 +25,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         return ({
 
             title: {
-                text: 'Chart reflow is set to true'
+                text: '',
             },
 
             xAxis: {
@@ -34,9 +34,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
             series: this.seriesValues(),
 
-            subtitle: {
-                text: 'When resizing the window or the frame, the chart should resize'
-            },
         });
     }
 

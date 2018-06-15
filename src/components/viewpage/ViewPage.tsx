@@ -3,8 +3,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouterProps, withRouter } from "react-router";
 
+import ClearFix from '../style/ClearFix';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
+import Tag from '../style/Tag/Tag';
+import TagContainer from '../style/Tag/TagContainer';
+import AddAndCustomizeSeries from './AddAndCustomizeSeries';
+import DownloadDropdown from './DownloadDropdown';
 
 import { clearViewSeries, loadViewSeries } from '../../actions/seriesActions';
 import { ISerie } from '../../api/Serie';
@@ -88,6 +93,22 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                 <SeriesHero compact={true} searchBox={<SearchBox onSearch={this.redirectToSearchPage} />} />
                 <div id="detalle-content">
                     <Container>
+                        <AddAndCustomizeSeries />
+                        <ClearFix />
+                        <div className="col-sm-6">
+                            <TagContainer>
+                                <Tag color="#045C90">
+                                    Exportaciones FOB por rubro
+								</Tag>
+                                <Tag color="#F4B21E">
+                                    Exportaciones FOB por rubro
+                                </Tag>
+                            </TagContainer>
+                        </div>
+                        <div className="col-sm-6">
+                            <DownloadDropdown />
+                            <ClearFix />
+                        </div>
                         <Graphic series={this.props.series} />
                         <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} />
