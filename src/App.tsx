@@ -8,8 +8,6 @@ import { loadFeatured, setSeriesApi } from './actions/seriesActions';
 import { ISerieApi } from './api/SerieApi';
 import routes from './routes';
 
-import Footer from './components/common/footer/Footer';
-import Header from './components/common/header/Header';
 import Wrapper from './components/style/Common/Wrapper';
 
 interface IAppProps {
@@ -37,13 +35,9 @@ class App extends React.Component<IAppProps, any> {
 
     public render(): any {
         return (
-            <body>
-                <Header />
-                <Wrapper>
-                    {this.renderRouter()}
-                </Wrapper>
-                <Footer />
-            </body>
+            <Wrapper>
+                {this.renderRouter()}
+            </Wrapper>
         );
     }
 
