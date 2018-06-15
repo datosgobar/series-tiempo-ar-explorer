@@ -17,7 +17,7 @@ interface ISerieCardProps extends React.Props<any> {
 export default (props: ISerieCardProps) =>
 
     <Link to={`/view/?ids=${props.serie.id}`}>
-        <Card title={props.serie.title} color={randomColor()}>
+        <Card title={props.serie.title} pegColor={randomColor()}>
             <CardTitle>{props.serie.title}</CardTitle>
             <CardSubtitle>{props.serie.publisher.name}</CardSubtitle>
             <CardBody>{props.serie.description}</CardBody>

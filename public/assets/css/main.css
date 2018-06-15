@@ -761,32 +761,32 @@ MIXINS:
   section#detalle #detalle-content .detalle-serie .dl-horizontal dd {
     margin-left: 280px;
   }
-  section#detalle #detalle-content .detalle-serie .title-and-actions .title,
-  section#detalle #detalle-content .detalle-serie .title-and-actions .action,
-  section#detalle #detalle-content .detalle-serie .title-and-actions .title-warning {
+  .detalle-serie .title-and-actions .title,
+  .detalle-serie .title-and-actions .action,
+  .detalle-serie .title-and-actions .title-warning {
     display: inline-block;
     vertical-align: middle;
     margin-right: 15px;
   }
-  section#detalle #detalle-content .detalle-serie .title-and-actions .title {
+  .detalle-serie .title-and-actions .title {
     padding-left: 15px;
     border-left-width: 5px;
     border-left-style: solid;
     border-left-color: var(--data-color);
   }
-  section#detalle #detalle-content .detalle-serie .title-and-actions .action {
+  .detalle-serie .title-and-actions .action {
     font-size: 12px;
     color: #686868;
     border-radius: 5px;
   }
-  section#detalle #detalle-content .detalle-serie .title-and-actions .action i {
+  .detalle-serie .title-and-actions .action i {
     margin-right: 5px;
   }
-  section#detalle #detalle-content .detalle-serie .title-and-actions .action:hover,
-  section#detalle #detalle-content .detalle-serie .title-and-actions .action:focus {
+  .detalle-serie .title-and-actions .action:hover,
+  .detalle-serie .title-and-actions .action:focus {
     color: #0072bc;
   }
-  section#detalle #detalle-content .detalle-serie .title-and-actions .title-warning i {
+  .detalle-serie .title-and-actions .title-warning i {
     font-size: 21px;
     color: #F3B125;
   }

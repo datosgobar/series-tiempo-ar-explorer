@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import './MetaData.css';
+import RemoveAction from '../../style/Details/RemoveAction';
+import SerieDetails from '../../style/Details/SerieDetails';
 
 import { ISerie } from '../../../api/Serie';
 
@@ -29,12 +30,9 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
         return (
             <div className='MetaData'>
                 {this.props.series.map((serie: ISerie, index: number) =>
-                    <div key={serie.id} className='Card'>
-                        <h5>{serie.title}</h5>
-                        <h6>{serie.publisher.name}</h6>
-                        <p>{serie.description}</p>
-                        <a href='#' onClick={this.handleRemove(serie.id)}>remover</a>
-                    </div>
+                    <SerieDetails key={serie.id} serie={serie} actions={[
+                        <RemoveAction key={serie.id} onClick={this.handleRemove(serie.id)}/>
+                    ]}/>
                 )}
             </div>
         );

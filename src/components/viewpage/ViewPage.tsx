@@ -3,6 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouterProps, withRouter } from "react-router";
 
+import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
 
 import { clearViewSeries, loadViewSeries } from '../../actions/seriesActions';
@@ -85,9 +86,13 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return (
             <section id="detalle">
                 <SeriesHero compact={true} searchBox={<SearchBox onSearch={this.redirectToSearchPage} />} />
-                <Graphic series={this.props.series} />
-                <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} />
-                <MetaData series={this.props.series} onRemove={this.removeSerie} />
+                <div id="detalle-content">
+                    <Container>
+                        <Graphic series={this.props.series} />
+                        <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} />
+                        <MetaData series={this.props.series} onRemove={this.removeSerie} />
+                    </Container>
+                </div>
             </section>
         );
     }
