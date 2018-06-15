@@ -10,7 +10,7 @@ import routes from './routes';
 
 import Footer from './components/common/footer/Footer';
 import Header from './components/common/header/Header';
-import Wrapper from './components/style/Wrapper';
+import Wrapper from './components/style/Common/Wrapper';
 
 interface IAppProps {
     featured: string[];

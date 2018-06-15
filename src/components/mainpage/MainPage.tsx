@@ -2,10 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import Hero from '../style/Hero';
-import PLarger from '../style/PLarger';
-import Row from '../style/Row';
-import TitleXXL from '../style/TitleXXL';
+import Row from '../style/Common/Row';
+import Hero from '../style/Hero/Hero';
+import PLarger from '../style/Hero/PLarger';
+import TitleXXL from '../style/Hero/TitleXXL';
 
 import { ISerie } from '../../api/Serie';
 import SearchBox from '../common/searchbox/SearchBox'

@@ -1,11 +1,12 @@
-
 import * as React from 'react';
 
-import './Featured.css';
-
 import { ISerie } from '../../../api/Serie';
-import Card from '../../common/card/Card'
-import Serie from '../../common/serie/Serie'
+
+import SerieCard from '../../style/Card/SerieCard';
+import Row from '../../style/Common/Row';
+import FeaturedContainer from '../../style/Featured/FeaturedContainer';
+import FeaturedTitle from '../../style/Featured/FeaturedTitle';
+
 
 interface IFeaturedProps {
     featured: ISerie[]
@@ -15,15 +16,15 @@ class Featured extends React.Component<IFeaturedProps, any> {
 
     public render() {
         return (
-            <div className="Featured">
-                <h3>Series Destacadas:</h3>
-                {this.props.featured.map(
-                    (serie, index) =>
-                        <Card key={index} about={
-                            <Serie key={index} serie={serie} />
-                        }
-                        />)}
-            </div>
+            <FeaturedContainer>
+                <FeaturedTitle>Series Destacadas:</FeaturedTitle>
+                <Row>
+                    {this.props.featured.map(
+                        (serie: ISerie) =>
+                                <SerieCard key={serie.id} serie={serie} />
+                            )}
+                </Row>
+            </FeaturedContainer>
         );
     }
 }

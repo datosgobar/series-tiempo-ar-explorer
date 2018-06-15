@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import FormInput from '../../style/FormInput'
-import HeroFormSearch from '../../style/HeroFormSearch'
-import SearchIcon from '../../style/SearchIcon'
+import FormInput from '../../style/Common/FormInput';
+import SearchIcon from '../../style/Common/SearchIcon';
+import HeroFormSearch from '../../style/Hero/HeroFormSearch';
 
 interface ISearchBoxProps {
 
