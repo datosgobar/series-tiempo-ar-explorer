@@ -1,6 +1,10 @@
 import * as React from 'react';
 
 
-export default (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) =>
+interface IDetailsTitleProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement> {
+    pegColor?: string;
+}
 
-    <h2 className="title title-md font-2" style={{color: props.color}} {...props} />
+export default (props: IDetailsTitleProps) =>
+
+    <h2 className="title title-md font-2" style={{ borderLeftColor: props.pegColor }} {...props} />

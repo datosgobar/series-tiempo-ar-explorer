@@ -10,7 +10,7 @@ interface ISeriesCardProps extends React.Props<any> {
 export default (props: ISeriesCardProps) =>
 
     <div className="col-sm-6 col-md-4">
-        <a className="series-card mg-lg-b" style={{color: props.pegColor}} title={props.title}>
+        <a className="series-card mg-lg-b" style={{borderRightColor: props.pegColor}} title={props.title}>
         {props.children}            
         </a>
     </div>
