@@ -1,18 +1,15 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 
 import './SeriesPicker.css';
 
-import { setSearchParams } from '../../../actions/searchActions';
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
 import initialState from '../../../store/initialState';
-import Searcher from '../../common/searcher/Searcher';
+import FullSearcher from '../../common/searcher/FullSearcher';
 
 interface ISeriesPickerProps {
 
     seriesApi: ISerieApi;
     onPick: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void;
-    dispatch?: any;
 }
 
 class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
@@ -20,24 +17,18 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
     constructor(props: ISeriesPickerProps, context: any) {
         super(props, context);
 
-        this.handleSearch = this.handleSearch.bind(this);
         this.renderPickeableItems = this.renderPickeableItems.bind(this);
-    }
-
-    public handleSearch(q: string, datasetSource: string, datasetTheme: string, offset: number, limit: number): void {
-        this.props.dispatch(setSearchParams({ q, datasetSource, datasetTheme, offset, limit }));
     }
 
     public render() {
         return (
-            <Searcher
+            <FullSearcher
                 seriesApi={this.props.seriesApi}
                 datasetTheme={initialState.searchParams.datasetTheme}
                 datasetSource={initialState.searchParams.datasetSource}
                 limit={initialState.searchParams.limit}
                 offset={initialState.searchParams.offset}
                 q={initialState.searchParams.q}
-                onWillSearch={this.handleSearch}
                 renderSearchResults={this.renderPickeableItems} />
         );
     }
@@ -66,4 +57,4 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
 }
 
 
-export default connect()(SeriesPicker);
+export default SeriesPicker;
