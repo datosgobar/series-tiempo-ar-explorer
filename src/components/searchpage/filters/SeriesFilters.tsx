@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Filters from '../Filters';
-import FilterTitle from '../FilterTitle';
+import Filters from '../../style/Filters/Filters';
+import FilterTitle from '../../style/Filters/FilterTitle';
 
 import { ISerieApi } from '../../../api/SerieApi';
 import FilterSources from './filtersources/FilterSources';

@@ -1,10 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import FilterSubTitle from "../../../style/Filters/FilterSubTitle";
+
 import { ISerieApi } from "../../../../api/SerieApi";
 import { IStore } from "../../../../store/initialState";
 import Selector from "../../../common/selector/Selector";
-import FilterSubTitle from "../../FilterSubTitle";
+
 
 interface IFilterThemesProps {
 
