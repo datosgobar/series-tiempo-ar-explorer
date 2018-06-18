@@ -5,12 +5,15 @@ import { withRouter } from 'react-router-dom';
 import './MainPage.css';
 
 import { ISerie } from '../../api/Serie';
-import SearchBox from '../common/searchbox/SearchBox'
-import Featured from './featured/Featured'
+import { ISerieApi } from '../../api/SerieApi';
+import { IStore } from '../../store/initialState';
+import SearchBox from '../common/searchbox/SearchBox';
+import Featured from './featured/Featured';
 
 interface IMainPageProps {
     featured: ISerie[];
     history?: any;
+    seriesApi: ISerieApi;
 }
 
 export class MainPage extends React.Component<IMainPageProps, any> {
@@ -31,7 +34,7 @@ export class MainPage extends React.Component<IMainPageProps, any> {
                 <h1>Series de tiempo</h1>
                 <p>Desde aquí podés buscar las series de tiempo del tema que necesites,
                  podés seleccionar más de una opcion de los resultados para compararlos.</p>
-                <SearchBox onSearch={this.redirectToSearchPage} />
+                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi}/>
 
                 <Featured featured={this.props.featured} />
 
@@ -41,9 +44,10 @@ export class MainPage extends React.Component<IMainPageProps, any> {
 }
 
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: IStore) {
     return {
-        featured: state.featured
+        featured: state.featured,
+        seriesApi: state.seriesApi,
     }
 }
 

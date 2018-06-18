@@ -5,14 +5,16 @@ import { MainPage } from '../../../components/mainpage/MainPage';
 
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
+import MockApi from '../../api/mockApi';
 
 configure({ adapter: new Adapter() });
 
 it('renders without crashing', () => {
 
+  const seriesApi = new MockApi(0);
   const wrapper = mount(
     <MemoryRouter>
-      <MainPage featured={[]} />
+      <MainPage featured={[]} seriesApi={seriesApi} />
     </MemoryRouter>);
 
   expect(wrapper.find('.MainPage').exists()).toBe(true);

@@ -4,6 +4,7 @@ import * as ReactDOM from "react-dom";
 import { configure, mount, ReactWrapper } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 
+import * as AutoComplete from 'react-autocomplete';
 import { ISerieApi } from "../../../../api/SerieApi";
 import {Searcher} from "../../../../components/common/searcher/Searcher";
 import MockApi from "../../../api/mockApi";
@@ -116,7 +117,7 @@ describe('SeriesPicker', () => {
 
             function inputTextAndSubmit(searchTerm: string){
                 
-                wrapper.find('input#searchterm').simulate('change', { target: { value: searchTerm } });
+                wrapper.find(AutoComplete).find('input').simulate('change', { target: { value: searchTerm } });
 
                 wrapper.find('form').simulate('submit');
             }
