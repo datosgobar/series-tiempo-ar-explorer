@@ -1,10 +1,9 @@
 import * as React from 'react';
 
-import './SeriesPicker.css';
-
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
 import initialState from '../../../store/initialState';
 import FullSearcher from '../../common/searcher/FullSearcher';
+
 
 interface ISeriesPickerProps {
 

@@ -6,8 +6,6 @@ import { IHConfig, IHCSeries, ReactHighcharts } from './highcharts';
 import IDataPoint from '../../../api/DataPoint';
 import { ISerie } from '../../../api/Serie';
 
-import './Graphic.css';
-
 
 interface IGraphicProps {
     series: ISerie[];

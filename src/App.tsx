@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import './App.css';
-
 import { connect } from 'react-redux';
 import { BrowserRouter, BrowserRouterProps, HashRouter } from 'react-router-dom';
 import { loadFeatured, setSeriesApi } from './actions/seriesActions';
