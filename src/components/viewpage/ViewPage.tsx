@@ -6,10 +6,9 @@ import { RouterProps, withRouter } from "react-router";
 import ClearFix from '../style/ClearFix';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
-import Tag from '../style/Tag/Tag';
-import TagContainer from '../style/Tag/TagContainer';
 import AddAndCustomizeSeries from './AddAndCustomizeSeries';
 import DownloadDropdown from './DownloadDropdown';
+import SeriesTags from './SeriesTags'
 
 import { clearViewSeries, loadViewSeries } from '../../actions/seriesActions';
 import { ISerie } from '../../api/Serie';
@@ -95,16 +94,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                     <Container>
                         <AddAndCustomizeSeries />
                         <ClearFix />
-                        <div className="col-sm-6">
-                            <TagContainer>
-                                <Tag color="#045C90">
-                                    Exportaciones FOB por rubro
-								</Tag>
-                                <Tag color="#F4B21E">
-                                    Exportaciones FOB por rubro
-                                </Tag>
-                            </TagContainer>
-                        </div>
+                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie}/>
                         <div className="col-sm-6">
                             <DownloadDropdown />
                             <ClearFix />
