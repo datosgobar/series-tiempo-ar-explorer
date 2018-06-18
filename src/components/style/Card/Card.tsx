@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 
-interface ISeriesCardProps extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {
-    pegColor?: string;
+interface ISeriesCardProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+    pegcolor?: string;
 }
 
 export default (props: ISeriesCardProps) =>
 
-        <a className="series-card mg-lg-b" style={{borderRightColor: props.pegColor}} {...props}>
+        <div className="series-card mg-lg-b" style={{borderRightColor: props.pegcolor}} {...props}>
         {props.children}            
-        </a>
+        </div>

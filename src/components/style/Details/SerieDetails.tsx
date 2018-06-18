@@ -18,7 +18,7 @@ export default (props: ISerieDetailsProp) =>
 
     <Details key={props.serie.id}>
         <DetailsTitleAndActions>
-            <DetailsTitle pegColor={randomColor()}>
+            <DetailsTitle pegcolor={randomColor()}>
                 {props.serie.title}
             </DetailsTitle>
             {props.actions}

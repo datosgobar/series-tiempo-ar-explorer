@@ -17,7 +17,7 @@ export default (props: ISeriesTagsProps) =>
     <div className="col-sm-6">
         <TagContainer>
             {props.series.map(serie => 
-            <Tag key={serie.id} pegColor="#045C90" onClose={closeHandler(serie.id, props.onTagClose)}>
+            <Tag key={serie.id} pegcolor="#045C90" onClose={closeHandler(serie.id, props.onTagClose)}>
                 {serie.title}
             </Tag>
             )}

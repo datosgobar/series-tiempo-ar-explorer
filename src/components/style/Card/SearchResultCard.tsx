@@ -15,7 +15,7 @@ interface ISearchResultCardProps extends React.Props<any> {
 export default (props: ISearchResultCardProps) =>
 
         <Link to={`/view/?ids=${props.searchResult.id}`}>
-            <Card title={props.searchResult.title} pegColor={randomColor()}>
+            <Card title={props.searchResult.title} pegcolor={randomColor()}>
                 <CardTitle>{props.searchResult.title}</CardTitle>
                 <CardBody>{props.searchResult.description}</CardBody>
             </Card>
