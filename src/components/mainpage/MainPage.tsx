@@ -11,6 +11,7 @@ import Featured from './featured/Featured';
 interface IMainPageProps {
     featured: ISerie[];
     history?: any;
+    seriesApi: ISerieApi;
 }
 
 export class MainPage extends React.Component<IMainPageProps, any> {
@@ -36,9 +37,10 @@ export class MainPage extends React.Component<IMainPageProps, any> {
 }
 
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: IStore) {
     return {
-        featured: state.featured
+        featured: state.featured,
+        seriesApi: state.seriesApi,
     }
 }
 

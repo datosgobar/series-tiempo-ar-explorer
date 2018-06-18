@@ -83,7 +83,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         if (!this.hasMainSerie()) {
             return <div className='ViewPage'>
                 <h1>Cargando...</h1>
-                <SearchBox onSearch={this.redirectToSearchPage} />
+                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi}/>
             </div>
         }
 

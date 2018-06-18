@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 
+import * as AutoComplete from 'react-autocomplete';
 import { setSeriesApi } from "../../../../actions/seriesActions";
 import { ISearchResultItem, ISerieApi } from "../../../../api/SerieApi";
 import SeriesPicker from "../../../../components/viewpage/seriespicker/SeriesPicker";
@@ -49,7 +50,7 @@ describe('SeriesPicker', () => {
                 <SeriesPicker seriesApi={mockSeriesApi} onPick={onPick} />
             </Provider>);
 
-        wrapper.find('input').simulate('change', { target: { value: searchTerm } });
+        wrapper.find(AutoComplete).find('input').simulate('change', { target: { value: searchTerm } });
         wrapper.find('form').simulate('submit');
 
         return promise.then(() => {
