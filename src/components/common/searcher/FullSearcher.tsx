@@ -1,9 +1,8 @@
 import * as React from "react";
 
 import { ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
-import initialState from "../../../store/initialState";
 import SearchBox from "../../common/searchbox/SearchBox";
-import { ISearcherProps, ISearchParams, Searcher } from "./Searcher";
+import Searcher, { ISearcherProps, ISearchParams } from "./Searcher";
 
 
 interface IFullSearcherProps extends ISearchParams {
@@ -13,12 +12,18 @@ interface IFullSearcherProps extends ISearchParams {
     renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element | JSX.Element[];
 }
 
-export class FullSearcher extends React.Component<IFullSearcherProps, ISearchParams> {
+export default class FullSearcher extends React.Component<IFullSearcherProps, ISearchParams> {
 
     constructor(props: IFullSearcherProps) {
         super(props);
 
-        this.state = {...initialState.searchParams}
+        this.state = {
+            datasetSource: this.props.datasetSource,
+            datasetTheme: this.props.datasetTheme,
+            limit: this.props.limit,
+            offset: this.props.offset,
+            q: this.props.q,
+        }
 
         this.search = this.search.bind(this);
     }
@@ -55,5 +60,3 @@ export class FullSearcher extends React.Component<IFullSearcherProps, ISearchPar
         );
     }
 }
-
-export default FullSearcher;

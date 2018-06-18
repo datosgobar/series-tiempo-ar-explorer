@@ -1,4 +1,4 @@
-import { configure, mount, ReactWrapper } from "enzyme";
+import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from "react";
 
@@ -19,7 +19,7 @@ describe('FilterThemes', () => {
     let onThemePicked: (event: React.MouseEvent<HTMLLIElement>, theme: string) => void;
     const mouseEvent = expect.anything();
 
-    let wrapper: ReactWrapper;
+    let wrapper: any;
 
     beforeEach(() => {
 
@@ -45,7 +45,7 @@ describe('FilterThemes', () => {
 
         return themesP.then(() => {
             wrapper.update();
-            expect(wrapper.find(FilterThemes).find('.Item').length).toBe(themes.length);
+            expect(wrapper.find(FilterThemes).find('li').length).toBe(themes.length);
         });
     });
 
@@ -55,21 +55,10 @@ describe('FilterThemes', () => {
             return themesP.then(() => {
                 wrapper.update();
 
-                wrapper.find(FilterThemes).find('.Item').at(index).find('input').simulate('change', { target: { checked: true } });
+                wrapper.find(FilterThemes).find('li').at(index).find('a').simulate('click');
 
                 expect(onThemePicked).toBeCalledWith(mouseEvent, theme);
             });
         });
-
-        it('calls onThemePicked(event, null) when selected theme is deselected', () => {
-    
-            return themesP.then(() => {
-                wrapper.update();
-    
-                wrapper.find(FilterThemes).find('.Item').at(index).find('input').simulate('change', { target: { checked: false } });
-    
-                expect(onThemePicked).toBeCalledWith(mouseEvent, null);
-            });
-        })
     });    
 });

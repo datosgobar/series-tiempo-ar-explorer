@@ -1,4 +1,4 @@
-import { mount, ReactWrapper } from 'enzyme';
+import { mount } from 'enzyme';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
@@ -95,7 +95,7 @@ describe('ViewPage', () => {
 
         let historyMock: any;
 
-        let wrapper: ReactWrapper;
+        let wrapper: any;
 
         beforeEach(() => {
             dispatch.mockReset();

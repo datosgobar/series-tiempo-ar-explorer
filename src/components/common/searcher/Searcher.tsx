@@ -24,7 +24,7 @@ interface ISearcherState {
     searchResults: ISearchResultItem[];
 }
 
-export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
+export default class Searcher extends React.Component<ISearcherProps, ISearcherState> {
 
     constructor(props: ISearcherProps) {
         super(props);
@@ -34,12 +34,12 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         };
     }
 
-    public searchOptions(){
+    public searchOptions() {
         return {
-            datasetSource: this.props.datasetSource, 
-            datasetTheme: this.props.datasetTheme, 
+            datasetSource: this.props.datasetSource,
+            datasetTheme: this.props.datasetTheme,
             limit: this.props.limit,
-            offset: this.props.offset, 
+            offset: this.props.offset,
         }
     }
 
@@ -64,7 +64,11 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
     }
 
     public render() {
-        return this.props.renderSearchResults(this.state.searchResults);
+        return (
+            <div>
+                {this.props.renderSearchResults(this.state.searchResults)}
+            </div>
+        );
     }
 
     private performSearch(q: string, options?: ISearchOptions) {
@@ -74,5 +78,3 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
             }).catch(alert);
     }
 }
-
-export default Searcher;

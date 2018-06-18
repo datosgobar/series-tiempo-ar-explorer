@@ -5,7 +5,7 @@ import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 
 import { ISerieApi } from "../../../../api/SerieApi";
-import { FullSearcher } from "../../../../components/common/searcher/FullSearcher";
+import Searcher from "../../../../components/common/searcher/Searcher";
 import MockApi from "../../../api/mockApi";
 
 
@@ -40,14 +40,14 @@ describe('SeriesPicker', () => {
 
     it('searchs upon render', () => {
 
-        mount(<FullSearcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+        mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
         expect(mockSeriesApi.searchSeries).toBeCalledWith(q, { datasetTheme, datasetSource, offset, limit });
     });
 
     it('do not queries api if q is falsy', () => {
 
-        mount(<FullSearcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={""} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+        mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={""} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
         expect(mockSeriesApi.searchSeries).not.toBeCalled();
     });
@@ -59,7 +59,7 @@ describe('SeriesPicker', () => {
         beforeEach(() => {
             node = document.createElement('div');
             ReactDOM.render(
-                <FullSearcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
+                <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
         });
 
@@ -70,7 +70,7 @@ describe('SeriesPicker', () => {
         it('do not search if props dont change', () => {
 
             ReactDOM.render(
-                <FullSearcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
+                <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
             expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
@@ -81,24 +81,10 @@ describe('SeriesPicker', () => {
             q = "exportaciones";
 
             ReactDOM.render(
-                <FullSearcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
+                <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
             expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(2);
-        });
-    });
-
-    describe('form behaviour', () => {
-
-        it('do not queries api when submited', () => {
-
-            const wrapper = mount(<FullSearcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
-
-            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
-
-            wrapper.find('form').simulate('submit');
-
-            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
         });
     });
 });

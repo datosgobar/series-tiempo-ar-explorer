@@ -49,7 +49,7 @@ describe('SeriesPicker', () => {
                 <SeriesPicker seriesApi={mockSeriesApi} onPick={onPick} />
             </Provider>);
 
-        wrapper.find('input#searchterm').simulate('change', { target: { value: searchTerm } });
+        wrapper.find('input').simulate('change', { target: { value: searchTerm } });
         wrapper.find('form').simulate('submit');
 
         return promise.then(() => {

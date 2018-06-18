@@ -1,4 +1,4 @@
-import { configure, mount, shallow } from "enzyme";
+import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from "react";
 
@@ -29,7 +29,7 @@ describe('FilterSources', () => {
 
     it('fetches sources upon render', () => {
 
-        shallow(
+        mount(
             <FilterSources
                 seriesApi={seriesApi}
                 picked=""
@@ -50,7 +50,7 @@ describe('FilterSources', () => {
 
         return sourcesP.then(() => {
             wrapper.update();
-            expect(wrapper.find(FilterSources).find('.Item').length).toBe(sources.length);
+            expect(wrapper.find(FilterSources).find('li').length).toBe(sources.length);
         });
     });
 
@@ -67,7 +67,7 @@ describe('FilterSources', () => {
             return sourcesP.then(() => {
                 wrapper.update();
 
-                wrapper.find(FilterSources).find('.Item').at(index).find('input').simulate('change', { target: { checked: true } });
+                wrapper.find(FilterSources).find('li').at(index).find('a').simulate('click');
 
                 expect(onSourcePicked).toBeCalledWith(mouseEvent, source);
             });
