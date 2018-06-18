@@ -1,9 +1,6 @@
 import * as React from "react";
-import { connect } from "react-redux";
 
 import { ISearchOptions, ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
-import { IStore } from "../../../store/initialState";
-import SearchBox from "../../common/searchbox/SearchBox";
 
 
 export interface ISearchParams {
@@ -15,12 +12,11 @@ export interface ISearchParams {
     q: string;
 }
 
-interface ISearcherProps extends ISearchParams {
+export interface ISearcherProps extends ISearchParams {
 
     seriesApi: ISerieApi;
-    onWillSearch?: (q: string, datasetSource: string, theme: string, offset: number, limit: number) => void;
 
-    renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element;
+    renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element | JSX.Element[];
 }
 
 interface ISearcherState {
@@ -36,8 +32,6 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         this.state = {
             searchResults: [],
         };
-
-        this.search = this.search.bind(this);
     }
 
     public searchOptions(){
@@ -69,31 +63,8 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         }
     }
 
-    public search(q?: string, datasetSource?: string, datasetTheme?:string, offset?: number, limit?: number) {
-
-        if (!q) {
-            return;
-        }
-
-        datasetSource = datasetSource || this.props.datasetSource;
-        offset = offset || this.props.offset;
-        limit = limit || this.props.limit;
-        datasetTheme = datasetTheme || this.props.datasetTheme;
-
-        if (this.props.onWillSearch) {
-            this.props.onWillSearch(q, datasetSource, datasetTheme, offset, limit);
-        }
-    }
-
-
     public render() {
-        return (
-            <div className="Searcher">
-                <SearchBox searchTerm={this.props.q} onSearch={this.search} />
-
-                {this.props.renderSearchResults(this.state.searchResults)}
-            </div>
-        );
+        return this.props.renderSearchResults(this.state.searchResults);
     }
 
     private performSearch(q: string, options?: ISearchOptions) {
@@ -104,11 +75,4 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
     }
 }
 
-function mapStateToProps(state: IStore, ownProps: ISearcherProps) {
-    return ({
-        ...state.searchParams,
-        seriesApi: state.seriesApi,
-    });
-}
-
-export default connect(mapStateToProps)(Searcher);
+export default Searcher;
