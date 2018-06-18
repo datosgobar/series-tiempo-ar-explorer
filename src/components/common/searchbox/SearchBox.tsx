@@ -2,13 +2,12 @@
 const debounce = require('debounce');
 
 import * as React from 'react';
-import * as AutoComplete from 'react-autocomplete';
 
-import FormInput from '../../style/Common/FormInput';
 import SearchIcon from '../../style/Common/SearchIcon';
 import HeroFormSearch from '../../style/Hero/HeroFormSearch';
 
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
+import AutoComplete from '../../style/Common/AutoComplete';
 
 
 interface ISearchBoxProps {
@@ -53,7 +52,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     public updateAutoCompleteItems(searchTerm: string) {
         if (searchTerm.length) {
             this.props.seriesApi
-                .searchSeries(searchTerm, undefined, 0, 4)
+                .searchSeries(searchTerm, {limit: 4})
                 .then((autoCompleteItems: ISearchResultItem[]) => {
                     this.setState({ autoCompleteItems })
                 });
@@ -79,30 +78,16 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     public render() {
         return (
             <HeroFormSearch onSubmit={this.triggerSearch} >
-                <FormInput
-                    id="searchterm"
+                <AutoComplete
                     value={this.state.searchTerm}
-                    type='text'
-                    placeholder='Buscar Serie'
-                    onChange={this.onSearchTermChange} />
+                    onChange={this.onSearchTermChange}
+                    getItemValue={getItemValue}
+                    items={this.state.autoCompleteItems}
+                    renderItem={renderItem}
+                    onSelect={this.onSelect} />
 
                 <SearchIcon onClick={this.triggerSearch} />
             </HeroFormSearch>
-            <div className='SearchBox'>
-                <form onSubmit={this.triggerSearch} >
-                    <AutoComplete
-                        value={this.state.searchTerm}
-                        onChange={this.onSearchTermChange}
-                        getItemValue={getItemValue}
-                        items={this.state.autoCompleteItems}
-                        renderItem={renderItem}
-                        onSelect={this.onSelect} />
-
-                    <input
-                        type='submit'
-                        value='Buscar' />
-                </form>
-            </div>
         );
     }
 }
@@ -111,7 +96,7 @@ function getItemValue(item: ISearchResultItem) { return item.title; }
 
 function renderItem(item: ISearchResultItem, isHighlighted: boolean) {
     return (
-        <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+        <div key={item.id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
             {isHighlighted ? <b>{item.title}</b> : item.title}
         </div>
     );

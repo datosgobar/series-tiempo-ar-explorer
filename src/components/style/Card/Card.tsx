@@ -7,6 +7,5 @@ interface ISeriesCardProps extends React.DetailedHTMLProps<React.HTMLAttributes<
 
 export default (props: ISeriesCardProps) =>
 
-        <div className="series-card mg-lg-b" style={{borderRightColor: props.pegcolor}} {...props}>
-        {props.children}            
-        </div>
+        <div className="series-card mg-lg-b" style={{borderRightColor: props.pegcolor}} {...props} />
+

@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import SeriesHero from '../style/Hero/SeriesHero';
 
 import { ISerie } from '../../api/Serie';
+import { ISerieApi } from '../../api/SerieApi';
+import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import Featured from './featured/Featured';
 
@@ -29,7 +31,7 @@ export class MainPage extends React.Component<IMainPageProps, any> {
     public render() {
         return (
             <section id="home">
-                <SeriesHero searchBox={<SearchBox onSearch={this.redirectToSearchPage} />}/>
+                <SeriesHero searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} />}/>
                 <Featured featured={this.props.featured} />
             </section>
         );

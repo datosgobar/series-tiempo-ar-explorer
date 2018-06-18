@@ -53,7 +53,7 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
     public render() {
         return (
             <div className="Searcher">
-                <SearchBox searchTerm={this.props.q} onSearch={this.search} />
+                <SearchBox seriesApi={this.props.seriesApi} searchTerm={this.props.q} onSearch={this.search} />
 
                 <Searcher {...this.searcherProps()}/>
             </div>

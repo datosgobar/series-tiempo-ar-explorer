@@ -89,7 +89,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
         return (
             <section id="detalle">
-                <SeriesHero compact={true} searchBox={<SearchBox onSearch={this.redirectToSearchPage} />} />
+                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} />} />
                 <div id="detalle-content">
                     <Container>
                         <AddAndCustomizeSeries />

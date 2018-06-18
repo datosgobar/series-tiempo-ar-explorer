@@ -182,7 +182,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
 
             <section id="listado">
 
-                <SeriesHero compact={true} searchBox={<SearchBox onSearch={this.searchTermPicked} />} />
+                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} />} />
 
                 <div id="listado-list">
                     <Container>
