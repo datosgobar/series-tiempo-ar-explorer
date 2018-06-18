@@ -1,6 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import FilterSubTitle from "../../FilterSubTitle";
+
 import { ISerieApi } from "../../../../api/SerieApi";
 import { IStore } from "../../../../store/initialState";
 import Selector from "../../../common/selector/Selector";
@@ -28,7 +30,7 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
         this.onItemSelected = this.onItemSelected.bind(this);
     }
 
-    public componentDidMount(){
+    public componentDidMount() {
         this.updateSources();
     }
 
@@ -45,14 +47,14 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
     public render() {
         return (
             <div>
-                <h3>Sources</h3>
+                <FilterSubTitle>Fuentes:</FilterSubTitle>
                 <Selector
                     selected={this.props.picked}
                     items={this.state.sources}
                     onItemSelected={this.onItemSelected}
                     renderItem={renderSource}
                 />
-            </div>
+            </div>  
         );
     }
 }

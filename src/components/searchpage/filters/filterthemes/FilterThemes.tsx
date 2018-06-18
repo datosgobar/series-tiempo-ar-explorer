@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { ISerieApi } from "../../../../api/SerieApi";
 import { IStore } from "../../../../store/initialState";
 import Selector from "../../../common/selector/Selector";
+import FilterSubTitle from "../../FilterSubTitle";
 
 interface IFilterThemesProps {
 
@@ -45,7 +46,7 @@ export class FilterThemes extends React.Component<IFilterThemesProps, IFilterThe
     public render() {
         return (
             <div>
-                <h3>Themes</h3>
+                <FilterSubTitle>Categorías:</FilterSubTitle>
                 <Selector
                     selected={this.props.picked}
                     items={this.state.themes}

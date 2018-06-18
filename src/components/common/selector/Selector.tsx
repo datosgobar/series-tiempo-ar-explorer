@@ -18,32 +18,35 @@ class Selector<T> extends React.Component<ISelectorProps<T>, any> {
         this.handleClick = this.handleClick.bind(this);
         this.toRadioButton = this.toRadioButton.bind(this);
     }
-    
+
     public handleClick(item: T) {
         return (event: React.SyntheticEvent<HTMLInputElement>) => {
             this.props.onItemSelected(
-                event, 
-                (event.target as any).checked? item : null
+                event,
+                (event.target as any).checked ? item : null
             );
         };
     }
 
     public render() {
         return (
-            <div className="Selector">
+            <ul>
                 {this.props.items.map(this.toRadioButton)}
-            </div>
+            </ul>
         );
     }
 
     public toRadioButton(item: T) {
         return (
-            <div className="Item" key={item.toString()}>
-                <label>
-                    <input type="checkbox" checked={this.props.selected === item} onChange={this.handleClick(item)} />
-                    {this.props.renderItem(item)}
-                </label>
-            </div>);
+            <li key={item.toString()}>
+                <a>
+                    <label>
+                        <input type="checkbox" checked={this.props.selected === item} onChange={this.handleClick(item)} />
+                        {this.props.renderItem(item)}
+                    </label>
+                </a>
+            </li>
+        );
     }
 }
 
