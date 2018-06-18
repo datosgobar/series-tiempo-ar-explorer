@@ -20,10 +20,10 @@ class Selector<T> extends React.Component<ISelectorProps<T>, any> {
     }
 
     public handleClick(item: T) {
-        return (event: React.SyntheticEvent<HTMLInputElement>) => {
+        return (event: React.SyntheticEvent<HTMLAnchorElement>) => {
             this.props.onItemSelected(
                 event,
-                (event.target as any).checked ? item : null
+                item
             );
         };
     }
@@ -39,9 +39,8 @@ class Selector<T> extends React.Component<ISelectorProps<T>, any> {
     public toRadioButton(item: T) {
         return (
             <li key={item.toString()}>
-                <a>
+                <a onClick={this.handleClick(item)}>
                     <label>
-                        <input type="checkbox" checked={this.props.selected === item} onChange={this.handleClick(item)} />
                         {this.props.renderItem(item)}
                     </label>
                 </a>

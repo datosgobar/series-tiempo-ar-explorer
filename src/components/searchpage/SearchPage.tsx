@@ -3,15 +3,19 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './SearchPage.css';
+import SearchResultCard from '../style/Card/SearchResultCard';
+import Container from '../style/Common/Container';
+import Row from '../style/Common/Row';
+import SeriesHero from '../style/Hero/SeriesHero';
+import Tag from '../style/Tag/Tag';
 
 import { setSearchParams } from '../../actions/searchActions';
 import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
 import URLSearchParams from '../../helpers/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
+import SearchBox from '../common/searchbox/SearchBox';
 import Searcher, { ISearchParams } from '../common/searcher/Searcher';
-import Filters from './filters/Filters';
-import SearchResults from './searchresults/SearchResults';
+import SeriesFilters from './filters/SeriesFilters';
 
 
 interface ISearchPageProps extends RouteComponentProps<any> {
@@ -19,7 +23,7 @@ interface ISearchPageProps extends RouteComponentProps<any> {
     dispatch?: any;
 }
 
-class SearchPage extends React.Component<ISearchPageProps, any> {
+class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> {
 
     private unListen: () => void;
 
@@ -30,6 +34,10 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         this.updateUriParams = this.updateUriParams.bind(this);
         this.sourcePicked = this.sourcePicked.bind(this);
         this.themePicked = this.themePicked.bind(this);
+        this.searchTermPicked = this.searchTermPicked.bind(this);
+        this.searchTags = this.searchTags.bind(this);
+        this.themeRemoved = this.themeRemoved.bind(this);
+        this.sourceRemoved = this.sourceRemoved.bind(this);
     }
 
     public componentDidMount() {
@@ -42,24 +50,26 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
     }
 
     public updateSearchParams(location: Location) {
-        let searchParams: ISearchParams;
+        let searchParams: ISearchParams | undefined;
 
         searchParams = this.getUriSearchParams(location);
 
-        this.props.dispatch(setSearchParams(searchParams));
+        if (searchParams) {
+            this.props.dispatch(setSearchParams(searchParams));
+        }
     }
 
     public componentWillUnmount() {
         this.unListen();
     }
 
-    public getUriSearchParams(location: Location): ISearchParams {
+    public getUriSearchParams(location: Location): ISearchParams | undefined {
         const search: string = location.search; // could be '?foo=bar'
         const params: URLSearchParams = URLSearchParams(search);
         const q: string | null = params.get('q');
 
         if (!q) {
-            throw new Error("query not set");
+            return;
         }
 
         const offsetString: string | null = params.get('offset');
@@ -93,53 +103,140 @@ class SearchPage extends React.Component<ISearchPageProps, any> {
         this.props.history.push('/search/?' + urlSearchParams);
     }
 
-    public sourcePicked(event: React.MouseEvent<HTMLElement>, newDatasetSource: string): void {
+    public sourceRemoved(event: React.MouseEvent<HTMLAnchorElement>): void {
         event.stopPropagation()
 
-        let oldSearchParams: ISearchParams;
+        let oldSearchParams: ISearchParams | undefined;
 
         oldSearchParams = this.getUriSearchParams(this.props.location)
 
-        this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q, "", oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public sourcePicked(event: React.MouseEvent<HTMLElement>, newDatasetSource: string): void {
+        event.stopPropagation()
+
+        let oldSearchParams: ISearchParams | undefined;
+
+        oldSearchParams = this.getUriSearchParams(this.props.location)
+
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public themeRemoved(event: React.MouseEvent<HTMLAnchorElement>): void {
+        event.stopPropagation();
+
+        let oldSearchParams: ISearchParams | undefined;
+
+        oldSearchParams = this.getUriSearchParams(this.props.location)
+
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, "", oldSearchParams.offset, oldSearchParams.limit);
+        }
     }
 
     public themePicked(event: React.MouseEvent<HTMLElement>, newTheme: string): void {
         event.stopPropagation();
 
-        let oldSearchParams: ISearchParams;
+        let oldSearchParams: ISearchParams | undefined;
 
         oldSearchParams = this.getUriSearchParams(this.props.location)
 
-        this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public searchTermPicked(newSearchTerm: string): void {
+        let oldSearchParams: ISearchParams | undefined;
+
+        oldSearchParams = this.getUriSearchParams(this.props.location);
+
+        if (oldSearchParams) {
+            this.updateUriParams(newSearchTerm, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public searchTags(): JSX.Element[] {
+        let tags: JSX.Element[] = [];
+        let searchParams: ISearchParams | undefined;
+
+        searchParams = this.getUriSearchParams(this.props.location);
+        if (!searchParams) {
+            return tags;
+        }
+
+        tags = searchParams.q ? tags.concat(<Tag key={searchParams.q}>{searchParams.q}</Tag>) : tags;
+        tags = searchParams.datasetTheme ? tags.concat(<Tag key={searchParams.datasetTheme} onClose={this.themeRemoved}>{searchParams.datasetTheme}</Tag>) : tags;
+        tags = searchParams.datasetSource ? tags.concat(<Tag key={searchParams.datasetSource} onClose={this.sourceRemoved}>{searchParams.datasetSource}</Tag>) : tags;
+
+        return tags;
     }
 
     public render() {
         return (
-            <div className='SearchPage'>
-                <h1>Resultados Busqueda</h1>
-                <Filters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
-                <Searcher
-                    datasetSource={initialState.searchParams.datasetSource}
-                    datasetTheme={initialState.searchParams.datasetTheme}
-                    limit={initialState.searchParams.limit}
-                    offset={initialState.searchParams.offset}
-                    q={initialState.searchParams.q}
-                    seriesApi={this.props.seriesApi}
-                    onWillSearch={this.updateUriParams}
-                    renderSearchResults={renderSearchResults} />
-            </div>
+
+            <section id="listado">
+
+                <SeriesHero compact={true} searchBox={<SearchBox onSearch={this.searchTermPicked} />} />
+
+                <div id="listado-list">
+                    <Container>
+                        <Row>
+                            <div className="col-sm-4">
+
+                                <SeriesFilters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
+
+                            </div>
+                            <div className="col-sm-8">
+                                <div id="list" className="pd-v-lg">
+                                    <div className="title-and-tags mg-b">
+                                        <h2 className="title title-md font-2">Resultados de la búsqueda:</h2>
+                                        {this.searchTags()}
+                                    </div>
+
+                                    <Searcher
+                                        datasetSource={this.props.datasetSource}
+                                        datasetTheme={this.props.datasetTheme}
+                                        limit={this.props.limit}
+                                        offset={this.props.offset}
+                                        q={this.props.q}
+                                        seriesApi={this.props.seriesApi}
+                                        renderSearchResults={renderSearchResults} />
+
+                                </div>
+                            </div>
+                        </Row>
+                    </Container>
+                </div>
+            </section>
         );
     }
 }
 
-function renderSearchResults(searchResults: ISearchResultItem[]): JSX.Element {
-    return <SearchResults searchResults={searchResults} />
-}
 
 function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
     return {
+        ...state.searchParams,
         seriesApi: state.seriesApi,
     };
 }
 
 export default withRouter<ISearchPageProps>(connect(mapStateToProps)(SearchPage));
+
+
+function renderSearchResults(searchResults: ISearchResultItem[]) {
+    return (
+        searchResults.map(toCard)
+    );
+}
+
+function toCard(searchResult: ISearchResultItem) {
+    return (
+        <SearchResultCard key={searchResult.id} searchResult={searchResult} />
+    );
+}
