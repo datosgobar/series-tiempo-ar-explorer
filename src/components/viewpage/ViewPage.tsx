@@ -6,7 +6,7 @@ import { RouterProps, withRouter } from "react-router";
 import ClearFix from '../style/ClearFix';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
-import AddAndCustomizeSeries from './AddAndCustomizeSeries';
+import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
 import DownloadDropdown from './DownloadDropdown';
 import SeriesTags from './SeriesTags'
 
@@ -14,6 +14,7 @@ import { clearViewSeries, loadViewSeries } from '../../actions/seriesActions';
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
+import DetallePanel from './DetallePanel';
 import Graphic from './graphic/Graphic';
 import MetaData from './metadata/MetaData';
 import SeriesPicker from './seriespicker/SeriesPicker';
@@ -83,7 +84,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         if (!this.hasMainSerie()) {
             return <div className='ViewPage'>
                 <h1>Cargando...</h1>
-                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi}/>
+                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi} />
             </div>
         }
 
@@ -92,9 +93,9 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                 <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} />} />
                 <div id="detalle-content">
                     <Container>
-                        <AddAndCustomizeSeries />
+                        <AddAndCustomizeSeriesButton />
                         <ClearFix />
-                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie}/>
+                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie} />
                         <div className="col-sm-6">
                             <DownloadDropdown />
                             <ClearFix />
@@ -103,6 +104,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} />
                     </Container>
+                    <DetallePanel />
                 </div>
             </section>
         );
