@@ -35,6 +35,16 @@ export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState>
         }
     }
 
+    public updateAutoCompleteItems(searchTerm: string) {
+        if (searchTerm.length) {
+            this.props.seriesApi
+                .searchSeries(searchTerm, {limit: 4})
+                .then((autoCompleteItems: ISearchResultItem[]) => {
+                    this.setState({ autoCompleteItems })
+                });
+        }
+    }
+
     public onSearchTermChange(event: any) {
         const searchTerm: string = event.target.value;
         this.setState({ searchTerm });

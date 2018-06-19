@@ -168,4 +168,4 @@ function removeDuplicates(arr: any[]) {
     return Array.from(new Set(arr));
 }
 
-export default withRouter(connect(mapStateToProps)(ViewPage));
+export default withRouter(connect(mapStateToProps)(ViewPage as any));
