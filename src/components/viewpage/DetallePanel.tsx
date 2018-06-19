@@ -1,9 +1,13 @@
 import * as React from 'react';
 
 
-export default class DetallePanel extends React.Component<{}, {}>{
+interface IDetallePanelProps extends React.Props<{}>{
+    seriesPicker: JSX.Element;
+}
 
-    public componentDidMount(){
+export default class DetallePanel extends React.Component<IDetallePanelProps, {}>{
+
+    public componentDidMount() {
         $(window).resize(() => {
             const wHeight = $(window).height();
             const dcHeight = $('#detalle-content').height();
@@ -49,6 +53,7 @@ export default class DetallePanel extends React.Component<{}, {}>{
                     <div className="tab-content" style={{ height: '1173px' }}>
 
                         <div className="tab-pane fade in active" id="tab1">
+                            {this.props.seriesPicker}
                             <form className="dp-form-search mg-lg-b">
                                 <div className="form-group">
                                     <input className="form-control" placeholder="Buscá acá otras series para comparar" type="text" />

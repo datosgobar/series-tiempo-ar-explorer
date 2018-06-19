@@ -101,10 +101,9 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                             <ClearFix />
                         </div>
                         <Graphic series={this.props.series} />
-                        <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} />
                     </Container>
-                    <DetallePanel />
+                    <DetallePanel seriesPicker={<SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} />}/>
                 </div>
             </section>
         );
