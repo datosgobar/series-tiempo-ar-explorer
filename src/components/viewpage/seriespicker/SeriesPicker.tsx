@@ -2,17 +2,17 @@ import * as React from 'react';
 
 import SeriesPickerCard, { ISeriesPickerCardProps } from '../../style/Card/SeriesPickerCard';
 
-import { ISerie } from '../../../api/Serie';
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
 import initialState from '../../../store/initialState';
 import FullSearcher from '../../common/searcher/FullSearcher';
 
 
-interface ISeriesPickerProps {
+export interface ISeriesPickerProps {
 
     seriesApi: ISerieApi;
-    checkedSeries?: ISerie[];
     onPick: (event: React.MouseEvent<HTMLElement>, serieId: string) => void;
+    isChecked?: (serieId: string) => boolean;
+    pegColorFor?: (serieId: string) => string;
 }
 
 class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
@@ -47,9 +47,9 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
 
     public searchResultCardProps(searchResult: ISearchResultItem): ISeriesPickerCardProps{
         return {
-            checked: this.props.checkedSeries && (this.props.checkedSeries.map(serie => serie.id).indexOf(searchResult.id) >= 0),
+            checked: this.props.isChecked && this.props.isChecked(searchResult.id),
             onClick: this.handlePick(searchResult.id),
-            pegcolor: "red",
+            pegcolor: this.props.pegColorFor? this.props.pegColorFor(searchResult.id) : undefined,
             searchResult,
         }
     }

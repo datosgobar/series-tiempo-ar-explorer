@@ -17,7 +17,7 @@ import SearchBox from '../common/searchbox/SearchBox'
 import DetallePanel from './DetallePanel';
 import Graphic from './graphic/Graphic';
 import MetaData from './metadata/MetaData';
-import SeriesPicker from './seriespicker/SeriesPicker';
+import SeriesPicker, { ISeriesPickerProps } from './seriespicker/SeriesPicker';
 
 interface IViewPageProps extends RouterProps {
     series: ISerie[];
@@ -36,8 +36,10 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
         this.handleUriChange = this.handleUriChange.bind(this);
         this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
-        this.addPickedSerie = this.addPickedSerie.bind(this);
         this.removeSerie = this.removeSerie.bind(this);
+        this.seriesPickerProps = this.seriesPickerProps.bind(this);
+        this.isChecked = this.isChecked.bind(this);
+        this.addPickedSerie = this.addPickedSerie.bind(this);
     }
 
     public viewSeries(ids: string[]) {
@@ -103,12 +105,30 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         <Graphic series={this.props.series} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} />
                     </Container>
-                    <DetallePanel seriesPicker={<SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} checkedSeries={this.props.series} />}/>
+                    <DetallePanel seriesPicker={
+                        <SeriesPicker {...this.seriesPickerProps()} />
+                    } />
                 </div>
             </section>
         );
     }
 
+    public seriesPickerProps(): ISeriesPickerProps{
+        return {
+            isChecked: this.isChecked,
+            onPick: this.addPickedSerie,
+            pegColorFor: this.pegColorFor,
+            seriesApi: this.props.seriesApi,
+        }
+    }
+
+    public isChecked(serieId: string): boolean{
+        return this.props.series.map(serie => serie.id).indexOf(serieId) >= 0;
+    }
+
+    public pegColorFor(serieId: string): string{
+        return "red";
+    }
 
     public componentDidMount() {
         this.unlisten = this.props.history.listen(l => this.handleUriChange(l)); // se subscribe
