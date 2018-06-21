@@ -2,6 +2,9 @@ import * as React from "react";
 
 import { ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
 import SearchBox from "../../common/searchbox/SearchBox";
+import { FilterSources } from "../filters/filtersources/FilterSources";
+import { FilterThemes } from "../filters/filterthemes/FilterThemes";
+import DropDownSelector from "../selector/DropDownSelector";
 import Searcher, { ISearcherProps, ISearchParams } from "./Searcher";
 
 
@@ -63,9 +66,11 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                                                 <label className="label-control mg-sm-t">Tema:</label>
                                             </div>
                                             <div className="col-xs-8">
-                                                <select className="form-control">
-                                                    <option value="">Selecciona una opción</option>
-                                                </select>
+                                            <FilterThemes 
+                                            onThemePicked={identity} 
+                                            seriesApi={this.props.seriesApi} 
+                                            picked={""} 
+                                            selector={DropDownSelector}/>
                                             </div>
                                         </div>
                                     </div>
@@ -75,9 +80,11 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                                                 <label className="label-control mg-sm-t">Fuente:</label>
                                             </div>
                                             <div className="col-xs-8">
-                                                <select className="form-control">
-                                                    <option value="">Selecciona una opción</option>
-                                                </select>
+                                            <FilterSources 
+                                            onSourcePicked={identity} 
+                                            seriesApi={this.props.seriesApi} 
+                                            picked={""} 
+                                            selector={DropDownSelector}/>
                                             </div>
                                         </div>
                                     </div>
@@ -136,3 +143,5 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
         );
     }
 }
+
+function identity(x:any){return x;}

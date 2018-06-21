@@ -7,7 +7,6 @@ import MockApi from "../../../../api/mockApi";
 import { ISerieApi } from "../../../../../api/SerieApi";
 import { FilterSources } from "../../../../../components/common/filters/filtersources/FilterSources";
 import Selector from "../../../../../components/common/selector/Selector";
-import FilterSubTitle from "../../../../../components/style/Filters/FilterSubTitle";
 
 
 configure({ adapter: new Adapter() });
@@ -33,7 +32,6 @@ describe('FilterSources', () => {
 
         mount(
             <FilterSources
-                labelWraper={FilterSubTitle}
                 selector={Selector}
                 seriesApi={seriesApi}
                 picked=""
@@ -47,7 +45,6 @@ describe('FilterSources', () => {
 
         const wrapper = mount(
             <FilterSources
-                labelWraper={FilterSubTitle}
                 selector={Selector}
                 seriesApi={seriesApi}
                 picked=""
@@ -65,7 +62,6 @@ describe('FilterSources', () => {
 
             const wrapper = mount(
                 <FilterSources
-                    labelWraper={FilterSubTitle}
                     selector={Selector}
                     seriesApi={seriesApi}
                     picked=""

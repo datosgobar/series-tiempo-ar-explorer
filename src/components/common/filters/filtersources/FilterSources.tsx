@@ -41,18 +41,14 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
     }
 
     public render() {
-        const LabelWrapper = this.props.labelWraper
         const Selector = this.props.selector;
         return (
-            <div>
-                <LabelWrapper>Fuentes:</LabelWrapper>
                 <Selector
                     selected={this.props.picked}
                     items={this.state.sources}
                     onItemSelected={this.onItemSelected}
                     renderItem={renderSource}
                 />
-            </div>  
         );
     }
 }

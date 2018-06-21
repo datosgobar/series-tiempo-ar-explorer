@@ -7,7 +7,6 @@ import MockApi from "../../../../api/mockApi";
 import { ISerieApi } from "../../../../../api/SerieApi";
 import { FilterThemes } from "../../../../../components/common/filters/filterthemes/FilterThemes";
 import Selector from "../../../../../components/common/selector/Selector";
-import FilterSubTitle from "../../../../../components/style/Filters/FilterSubTitle";
 
 
 configure({ adapter: new Adapter() });
@@ -32,7 +31,6 @@ describe('FilterThemes', () => {
 
         wrapper = mount(
             <FilterThemes
-                labelWraper={FilterSubTitle}
                 selector={Selector}
                 seriesApi={seriesApi}
                 picked=""

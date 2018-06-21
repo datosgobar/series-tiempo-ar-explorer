@@ -41,18 +41,14 @@ export class FilterThemes extends React.Component<IFilterThemesProps, IFilterThe
     }
 
     public render() {
-        const LabelWrapper = this.props.labelWraper
         const Selector = this.props.selector;
         return (
-            <div>
-                <LabelWrapper>Categorías:</LabelWrapper>
                 <Selector
                     selected={this.props.picked}
                     items={this.state.themes}
                     onItemSelected={this.onItemSelected}
                     renderItem={renderTheme}
                 />
-            </div>
         );
     }
 }

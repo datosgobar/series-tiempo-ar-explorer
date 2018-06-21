@@ -1,13 +1,6 @@
 import * as React from "react";
 
-
-export interface ISelectorProps<T> {
-
-    selected: T;
-    items: T[];
-    onItemSelected: (event: React.SyntheticEvent<HTMLElement>, item: T | null) => void;
-    renderItem: (item: T) => JSX.Element | string;
-}
+import ISelectorProps from "./SelectorProps";
 
 
 class Selector<T> extends React.Component<ISelectorProps<T>, any> {

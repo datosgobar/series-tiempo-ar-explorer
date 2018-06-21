@@ -6,7 +6,7 @@ import FilterTitle from '../../style/Filters/FilterTitle';
 import { ISerieApi } from '../../../api/SerieApi';
 import FilterSources from '../../common/filters/filtersources/FilterSources';
 import FilterThemes from '../../common/filters/filterthemes/FilterThemes';
-import { ISelectorProps } from '../../common/selector/Selector';
+import ISelectorProps from '../../common/selector/SelectorProps';
 import FilterSubTitle from '../../style/Filters/FilterSubTitle';
 
 interface IFilterProps {
@@ -24,8 +24,10 @@ function SeriesFilters(props: IFilterProps) {
 
         <Filters>
             <FilterTitle>Filtros:</FilterTitle>
-            <FilterSources labelWraper={FilterSubTitle} selector={Selector} seriesApi={props.seriesApi} onSourcePicked={props.onSourcePicked} />
-            <FilterThemes labelWraper={FilterSubTitle} selector={Selector} seriesApi={props.seriesApi} onThemePicked={props.onThemePicked} />
+            <FilterSubTitle>Fuentes:</FilterSubTitle>
+            <FilterSources  selector={Selector} seriesApi={props.seriesApi} onSourcePicked={props.onSourcePicked} />
+            <FilterSubTitle>Temas:</FilterSubTitle>
+            <FilterThemes  selector={Selector} seriesApi={props.seriesApi} onThemePicked={props.onThemePicked} />
         </Filters>
     );
 };
