@@ -53,9 +53,85 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
     public render() {
         return (
             <div className="Searcher">
-                <SearchBox seriesApi={this.props.seriesApi} searchTerm={this.props.q} onSearch={this.search} />
 
-                <Searcher {...this.searcherProps()}/>
+                <SearchBox seriesApi={this.props.seriesApi} searchTerm={this.props.q} onSearch={this.search} />
+                            <div className="dp-filters">
+                                <form>
+                                    <div className="form-group">
+                                        <div className="row">
+                                            <div className="col-xs-4">
+                                                <label className="label-control mg-sm-t">Tema:</label>
+                                            </div>
+                                            <div className="col-xs-8">
+                                                <select className="form-control">
+                                                    <option value="">Selecciona una opción</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <div className="row">
+                                            <div className="col-xs-4">
+                                                <label className="label-control mg-sm-t">Fuente:</label>
+                                            </div>
+                                            <div className="col-xs-8">
+                                                <select className="form-control">
+                                                    <option value="">Selecciona una opción</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <div className="row">
+                                            <div className="col-xs-4">
+                                                <label className="label-control">Periodicidad de al menos:</label>
+                                            </div>
+                                            <div className="col-xs-8">
+                                                <select className="form-control">
+                                                    <option value="">Selecciona una opción</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5 className="title-xxsm font-1 mg-b">Último dato disponible:</h5>
+                                    <div className="row">
+                                        <div className="col-sm-6">
+                                            <div className="form-group">
+                                                <div className="row">
+                                                    <div className="col-xs-3">
+                                                        <label className="label-control mg-sm-t">Desde:</label>
+                                                    </div>
+                                                    <div className="col-xs-9">
+                                                        <select className="form-control">
+                                                            <option value="">Cualquiera</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-6">
+                                            <div className="form-group">
+                                                <div className="row">
+                                                    <div className="col-xs-3">
+                                                        <label className="label-control mg-sm-t">Hasta:</label>
+                                                    </div>
+                                                    <div className="col-xs-9">
+                                                        <select className="form-control">
+                                                            <option value="">Cualquiera</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h6 className="title-xxsm font-1 mg-b">43 series encontradas (Hacé clic sobre las que quieras agregar)</h6>
+                                </form>
+                            </div>
+                                <Searcher {...this.searcherProps()}/>
+                            
+                            <div className="dp-no-results pd-v-xlg">
+                                <h3 className="title-lg font-1 text-center color-gl mg-xlg-t mg-xlg-b">Los resultados aparecerán aquí</h3>
+                            </div>
             </div>
         );
     }

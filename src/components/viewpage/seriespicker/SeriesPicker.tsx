@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+import SeriesPickerCard, { ISeriesPickerCardProps } from '../../style/Card/SeriesPickerCard';
+
+import { ISerie } from '../../../api/Serie';
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
 import initialState from '../../../store/initialState';
 import FullSearcher from '../../common/searcher/FullSearcher';
@@ -8,7 +11,8 @@ import FullSearcher from '../../common/searcher/FullSearcher';
 interface ISeriesPickerProps {
 
     seriesApi: ISerieApi;
-    onPick: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void;
+    checkedSeries?: ISerie[];
+    onPick: (event: React.MouseEvent<HTMLElement>, serieId: string) => void;
 }
 
 class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
@@ -17,6 +21,7 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
         super(props, context);
 
         this.renderPickeableItems = this.renderPickeableItems.bind(this);
+        this.searchResultCardProps = this.searchResultCardProps.bind(this);
     }
 
     public render() {
@@ -34,21 +39,28 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
 
     public handlePick(pickedSerieId: string) {
 
-        return (event: React.MouseEvent<HTMLAnchorElement>) => {
+        return (event: React.MouseEvent<HTMLElement>) => {
             event.preventDefault();
             this.props.onPick(event, pickedSerieId);
         }
     }
 
+    public searchResultCardProps(searchResult: ISearchResultItem): ISeriesPickerCardProps{
+        return {
+            checked: this.props.checkedSeries && (this.props.checkedSeries.map(serie => serie.id).indexOf(searchResult.id) >= 0),
+            onClick: this.handlePick(searchResult.id),
+            pegcolor: "red",
+            searchResult,
+        }
+    }
+
     public renderPickeableItems(searchResults: ISearchResultItem[]): JSX.Element {
         return (
-            <div className="SearchResults">
+            <div className="dp-results">
                 {searchResults.map((searchResult: ISearchResultItem) =>
-                    <div className="Pickeable" key={searchResult.id}>
-                        <h6>{searchResult.title}</h6>
-                        <p>{searchResult.description}</p>
-                        <a href='#' onClick={this.handlePick(searchResult.id)}>add</a>
-                    </div>
+                    <SeriesPickerCard 
+                    key={searchResult.id}
+                    {...this.searchResultCardProps(searchResult)} />
                 )}
             </div>
         );
