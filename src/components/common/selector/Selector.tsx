@@ -1,7 +1,7 @@
 import * as React from "react";
 
 
-interface ISelectorProps<T> {
+export interface ISelectorProps<T> {
 
     selected: T;
     items: T[];

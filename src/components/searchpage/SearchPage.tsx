@@ -15,6 +15,7 @@ import URLSearchParams from '../../helpers/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import Searcher, { ISearchParams } from '../common/searcher/Searcher';
+import Selector from '../common/selector/Selector';
 import SeriesFilters from './filters/SeriesFilters';
 
 
@@ -189,7 +190,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                         <Row>
                             <div className="col-sm-4">
 
-                                <SeriesFilters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
+                                <SeriesFilters selector={Selector} seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
 
                             </div>
                             <div className="col-sm-8">
