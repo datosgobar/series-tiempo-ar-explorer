@@ -7,10 +7,10 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import * as AutoComplete from 'react-autocomplete';
 import { setSeriesApi } from "../../../../actions/seriesActions";
 import { ISearchResultItem, ISerieApi } from "../../../../api/SerieApi";
+import Searcher from "../../../../components/common/searcher/Searcher";
 import SeriesPicker from "../../../../components/viewpage/seriespicker/SeriesPicker";
 import configureStore from "../../../../store/configureStore";
 import MockApi from "../../../api/mockApi";
-import Searcher from "../../../../components/common/searcher/Searcher";
 
 
 configure({ adapter: new Adapter() });

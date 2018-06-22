@@ -18,7 +18,6 @@ describe('FilterSources', () => {
 
     let seriesApi: ISerieApi;
     let onSourcePicked: (source: string) => void;
-    const mouseEvent = expect.anything();
 
     beforeEach(() => {
 

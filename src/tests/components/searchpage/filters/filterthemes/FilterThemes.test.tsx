@@ -18,7 +18,6 @@ describe('FilterThemes', () => {
 
     let seriesApi: ISerieApi;
     let onThemePicked: (theme: string) => void;
-    const mouseEvent = expect.anything();
 
     let wrapper: any;
 
