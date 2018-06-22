@@ -59,7 +59,7 @@ describe('FilterThemes', () => {
 
                 wrapper.find(FilterThemes).find('li').at(index).find('a').simulate('click');
 
-                expect(onThemePicked).toBeCalledWith(mouseEvent, theme);
+                expect(onThemePicked).toBeCalledWith(theme);
             });
         });
     });

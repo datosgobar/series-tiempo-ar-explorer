@@ -10,6 +10,7 @@ import { ISearchResultItem, ISerieApi } from "../../../../api/SerieApi";
 import SeriesPicker from "../../../../components/viewpage/seriespicker/SeriesPicker";
 import configureStore from "../../../../store/configureStore";
 import MockApi from "../../../api/mockApi";
+import Searcher from "../../../../components/common/searcher/Searcher";
 
 
 configure({ adapter: new Adapter() });
@@ -51,12 +52,11 @@ describe('SeriesPicker', () => {
             </Provider>);
 
         wrapper.find(AutoComplete).find('input').simulate('change', { target: { value: searchTerm } });
-        wrapper.find('form').simulate('submit');
+        wrapper.find(AutoComplete).closest('form').simulate('submit');
 
         return promise.then(() => {
             wrapper.update();
-            expect(wrapper.find('.SearchResults').exists()).toBeTruthy();
-            expect(wrapper.find('.Pickeable').length).toBe(searchResults.length);
+            expect(wrapper.find(Searcher).children().length).toBe(searchResults.length);
         });
     });
 });

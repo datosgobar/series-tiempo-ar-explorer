@@ -73,7 +73,7 @@ describe('FilterSources', () => {
 
                 wrapper.find(FilterSources).find('li').at(index).find('a').simulate('click');
 
-                expect(onSourcePicked).toBeCalledWith(mouseEvent, source);
+                expect(onSourcePicked).toBeCalledWith(source);
             });
         });
     });
