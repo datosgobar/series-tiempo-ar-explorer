@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import FormGroup from "../../style/Common/FormGroup";
 import Row from "../../style/Common/Row";
 
 import { ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
@@ -62,7 +63,7 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                 <SearchBox seriesApi={this.props.seriesApi} searchTerm={this.props.q} onSearch={this.onSearchTermPicked} />
                             <div className="dp-filters">
                                 <form>
-                                    <div className="form-group">
+                                    <FormGroup>
                                         <Row>
                                             <div className="col-xs-4">
                                                 <label className="label-control mg-sm-t">Tema:</label>
@@ -75,8 +76,8 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                                             selector={DropDownSelector}/>
                                             </div>
                                         </Row>
-                                    </div>
-                                    <div className="form-group">
+                                    </FormGroup>
+                                    <FormGroup>
                                         <Row>
                                             <div className="col-xs-4">
                                                 <label className="label-control mg-sm-t">Fuente:</label>
@@ -89,8 +90,8 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                                             selector={DropDownSelector}/>
                                             </div>
                                         </Row>
-                                    </div>
-                                    <div className="form-group">
+                                    </FormGroup>
+                                    <FormGroup>
                                         <Row>
                                             <div className="col-xs-4">
                                                 <label className="label-control">Periodicidad de al menos:</label>
@@ -101,7 +102,7 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                                                 </select>
                                             </div>
                                         </Row>
-                                    </div>
+                                    </FormGroup>
                                     <h5 className="title-xxsm font-1 mg-b">Último dato disponible:</h5>
                                     <div className="row">
                                         <div className="col-sm-6">

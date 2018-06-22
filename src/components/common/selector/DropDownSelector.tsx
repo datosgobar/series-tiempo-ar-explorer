@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Select, { OnChangeHandler } from 'react-select';
 
-import FormInput from '../../style/Common/FormInput';
+import FormDropdown from '../../style/Common/FormDropdown';
 
 import ISelectorProps from './SelectorProps';
 
@@ -10,6 +10,7 @@ type T = string;
 
 export default (props: ISelectorProps<T>) =>
     <Select
+        noResultsText=""
         placeholder={""}
         inputRenderer={input}
         closeOnSelect={true}
@@ -25,7 +26,7 @@ export default (props: ISelectorProps<T>) =>
     />
 
 function input(props: any) {
-    return <FormInput placeholder="Selecciona una opción" {...props}/>
+    return <FormDropdown placeholder="Selecciona una opción" {...props}/>
 }
 
 function handleChange(onChange: (item: T | null) => void): OnChangeHandler<T> {
