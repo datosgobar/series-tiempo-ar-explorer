@@ -7,7 +7,7 @@ import ClearFix from '../style/ClearFix';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
 import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
-import DownloadDropdown from './DownloadDropdown';
+// import DownloadDropdown from './DownloadDropdown';
 import SeriesTags from './SeriesTags'
 
 import { clearViewSeries, loadViewSeries } from '../../actions/seriesActions';
@@ -99,7 +99,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         <ClearFix />
                         <SeriesTags series={this.props.series} onTagClose={this.removeSerie} />
                         <div className="col-sm-6">
-                            <DownloadDropdown />
+                            {/* <DownloadDropdown /> */}
                             <ClearFix />
                         </div>
                         <Graphic series={this.props.series} />

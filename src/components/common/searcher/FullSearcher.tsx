@@ -91,7 +91,7 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                                             </div>
                                         </Row>
                                     </FormGroup>
-                                    <FormGroup>
+                                    {/* <FormGroup>
                                         <Row>
                                             <div className="col-xs-4">
                                                 <label className="label-control">Periodicidad de al menos:</label>
@@ -134,9 +134,9 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                                             </div>
                                         </div>
                                     </div>
-                                    <h6 className="title-xxsm font-1 mg-b">43 series encontradas (Hacé clic sobre las que quieras agregar)</h6>
+                                    <h6 className="title-xxsm font-1 mg-b">43 series encontradas (Hacé clic sobre las que quieras agregar)</h6> */}
                                 </form>
-                            </div>
+                            </div> 
                                 <Searcher {...this.searcherProps()}/>
                             
                             <div className="dp-no-results pd-v-xlg">

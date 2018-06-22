@@ -46,8 +46,8 @@ export default class DetallePanel extends React.Component<IDetallePanelProps, {}
 
                     <ul className="nav nav-tabs nav-justified">
                         <li className="active"><a href="#tab1" data-toggle="tab">Agregar Serie</a></li>
-                        <li><a href="#tab2" data-toggle="tab">Editar Serie</a></li>
-                        <li><a href="#tab3" data-toggle="tab">Estilos</a></li>
+                        {/* <li><a href="#tab2" data-toggle="tab">Editar Serie</a></li>
+                        <li><a href="#tab3" data-toggle="tab">Estilos</a></li> */}
                     </ul>
 
                     <div className="tab-content" style={{ height: '1173px' }}>
@@ -55,7 +55,7 @@ export default class DetallePanel extends React.Component<IDetallePanelProps, {}
                         <div className="tab-pane fade in active" id="tab1">
                             {this.props.seriesPicker}
                         </div>
-
+{/*
                         <div className="tab-pane fade" id="tab2">
                             <div className="dp-filters">
                                 <form>
@@ -161,7 +161,7 @@ export default class DetallePanel extends React.Component<IDetallePanelProps, {}
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
