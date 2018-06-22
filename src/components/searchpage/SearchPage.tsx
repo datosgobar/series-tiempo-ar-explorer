@@ -116,8 +116,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         }
     }
 
-    public sourcePicked(event: React.MouseEvent<HTMLElement>, newDatasetSource: string): void {
-        event.stopPropagation()
+    public sourcePicked(newDatasetSource: string): void {
 
         let oldSearchParams: ISearchParams | undefined;
 
@@ -140,9 +139,8 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         }
     }
 
-    public themePicked(event: React.MouseEvent<HTMLElement>, newTheme: string): void {
-        event.stopPropagation();
-
+    public themePicked(newTheme: string): void {
+        
         let oldSearchParams: ISearchParams | undefined;
 
         oldSearchParams = this.getUriSearchParams(this.props.location)

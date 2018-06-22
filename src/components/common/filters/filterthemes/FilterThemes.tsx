@@ -7,7 +7,7 @@ import IFilterProps from "../FilterProps";
 
 interface IFilterThemesProps extends IFilterProps {
 
-    onThemePicked: (event: React.SyntheticEvent<HTMLElement>, source: string) => void;
+    onThemePicked: (theme: string) => void;
 }
 
 interface IFilterThemesState {
@@ -23,7 +23,6 @@ export class FilterThemes extends React.Component<IFilterThemesProps, IFilterThe
         this.state = { themes: [] };
 
         this.updateThemes = this.updateThemes.bind(this);
-        this.onItemSelected = this.onItemSelected.bind(this);
     }
 
     public componentDidMount(){
@@ -36,17 +35,13 @@ export class FilterThemes extends React.Component<IFilterThemesProps, IFilterThe
         });
     }
 
-    public onItemSelected(event: React.SyntheticEvent<HTMLElement>, item: string) {
-        this.props.onThemePicked(event, item);
-    }
-
     public render() {
         const Selector = this.props.selector;
         return (
                 <Selector
                     selected={this.props.picked}
                     items={this.state.themes}
-                    onItemSelected={this.onItemSelected}
+                    onItemSelected={this.props.onThemePicked}
                     renderItem={renderTheme}
                 />
         );

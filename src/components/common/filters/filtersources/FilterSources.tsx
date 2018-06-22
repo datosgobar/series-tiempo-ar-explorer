@@ -7,7 +7,7 @@ import IFilterProps from "../FilterProps";
 
 interface IFilterSourcesProps extends IFilterProps {
 
-    onSourcePicked: (event: React.SyntheticEvent<HTMLElement>, source: string) => void;
+    onSourcePicked: (source: string) => void;
 }
 
 interface IFilterSourcesState {
@@ -23,7 +23,6 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
         this.state = { sources: [] };
 
         this.updateSources = this.updateSources.bind(this);
-        this.onItemSelected = this.onItemSelected.bind(this);
     }
 
     public componentDidMount() {
@@ -36,17 +35,13 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
         });
     }
 
-    public onItemSelected(event: React.SyntheticEvent<HTMLElement>, item: string) {
-        this.props.onSourcePicked(event, item);
-    }
-
     public render() {
         const Selector = this.props.selector;
         return (
                 <Selector
                     selected={this.props.picked}
                     items={this.state.sources}
-                    onItemSelected={this.onItemSelected}
+                    onChange={this.props.onSourcePicked}
                     renderItem={renderSource}
                 />
         );

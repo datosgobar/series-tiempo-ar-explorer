@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import Row from "../../style/Common/Row";
+
 import { ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
 import SearchBox from "../../common/searchbox/SearchBox";
 import { FilterSources } from "../filters/filtersources/FilterSources";
@@ -28,21 +30,9 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
             q: this.props.q,
         }
 
-        this.search = this.search.bind(this);
-    }
-
-    public search(q?: string, datasetSource?: string, datasetTheme?:string, offset?: number, limit?: number) {
-
-        if (!q) {
-            return;
-        }
-
-        datasetSource = datasetSource || this.props.datasetSource;
-        offset = offset || this.props.offset;
-        limit = limit || this.props.limit;
-        datasetTheme = datasetTheme || this.props.datasetTheme;
-
-        this.setState({q, datasetSource, datasetTheme, offset, limit});
+        this.onSearchTermPicked = this.onSearchTermPicked.bind(this);
+        this.onSourcePicked = this.onSourcePicked.bind(this);
+        this.onThemePicked = this.onThemePicked.bind(this);
     }
 
     public searcherProps(): ISearcherProps {
@@ -53,43 +43,55 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
         });
     }
 
+    public onSearchTermPicked(q: string){
+        this.setState({q});
+    }
+
+    public onSourcePicked(datasetSource: string): void{
+        this.setState({datasetSource});
+    }
+
+    public onThemePicked(datasetTheme: string): void {
+        this.setState({datasetTheme});
+    }
+
     public render() {
         return (
             <div className="Searcher">
 
-                <SearchBox seriesApi={this.props.seriesApi} searchTerm={this.props.q} onSearch={this.search} />
+                <SearchBox seriesApi={this.props.seriesApi} searchTerm={this.props.q} onSearch={this.onSearchTermPicked} />
                             <div className="dp-filters">
                                 <form>
                                     <div className="form-group">
-                                        <div className="row">
+                                        <Row>
                                             <div className="col-xs-4">
                                                 <label className="label-control mg-sm-t">Tema:</label>
                                             </div>
                                             <div className="col-xs-8">
                                             <FilterThemes 
-                                            onThemePicked={identity} 
+                                            onThemePicked={this.onThemePicked} 
                                             seriesApi={this.props.seriesApi} 
-                                            picked={""} 
+                                            picked={this.state.datasetTheme} 
                                             selector={DropDownSelector}/>
                                             </div>
-                                        </div>
+                                        </Row>
                                     </div>
                                     <div className="form-group">
-                                        <div className="row">
+                                        <Row>
                                             <div className="col-xs-4">
                                                 <label className="label-control mg-sm-t">Fuente:</label>
                                             </div>
                                             <div className="col-xs-8">
                                             <FilterSources 
-                                            onSourcePicked={identity} 
+                                            onSourcePicked={this.onSourcePicked} 
                                             seriesApi={this.props.seriesApi} 
-                                            picked={""} 
+                                            picked={this.state.datasetSource} 
                                             selector={DropDownSelector}/>
                                             </div>
-                                        </div>
+                                        </Row>
                                     </div>
                                     <div className="form-group">
-                                        <div className="row">
+                                        <Row>
                                             <div className="col-xs-4">
                                                 <label className="label-control">Periodicidad de al menos:</label>
                                             </div>
@@ -98,7 +100,7 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                                                     <option value="">Selecciona una opción</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </Row>
                                     </div>
                                     <h5 className="title-xxsm font-1 mg-b">Último dato disponible:</h5>
                                     <div className="row">
@@ -143,5 +145,3 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
         );
     }
 }
-
-function identity(x:any){return x;}

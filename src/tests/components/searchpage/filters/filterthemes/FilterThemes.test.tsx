@@ -17,7 +17,7 @@ describe('FilterThemes', () => {
     const themesP = Promise.resolve(themes);
 
     let seriesApi: ISerieApi;
-    let onThemePicked: (event: React.MouseEvent<HTMLLIElement>, theme: string) => void;
+    let onThemePicked: (theme: string) => void;
     const mouseEvent = expect.anything();
 
     let wrapper: any;

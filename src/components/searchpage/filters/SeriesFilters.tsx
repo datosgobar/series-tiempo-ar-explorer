@@ -12,8 +12,8 @@ import FilterSubTitle from '../../style/Filters/FilterSubTitle';
 interface IFilterProps {
 
     seriesApi: ISerieApi;
-    onSourcePicked: (event: React.MouseEvent<HTMLElement>, source: string) => void;
-    onThemePicked: (event: React.MouseEvent<HTMLElement>, theme: string) => void;
+    onSourcePicked: (source: string) => void;
+    onThemePicked: (theme: string) => void;
     selector: React.ComponentClass<ISelectorProps<string>>;
 }
 

@@ -17,7 +17,7 @@ describe('FilterSources', () => {
     const sourcesP = Promise.resolve(sources);
 
     let seriesApi: ISerieApi;
-    let onSourcePicked: (event: React.MouseEvent<HTMLLIElement>, source: string) => void;
+    let onSourcePicked: (source: string) => void;
     const mouseEvent = expect.anything();
 
     beforeEach(() => {

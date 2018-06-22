@@ -14,10 +14,9 @@ class Selector<T> extends React.Component<ISelectorProps<T>, any> {
 
     public handleClick(item: T) {
         return (event: React.SyntheticEvent<HTMLAnchorElement>) => {
-            this.props.onItemSelected(
-                event,
-                item
-            );
+            event.preventDefault();
+            event.stopPropagation();
+            this.props.onChange(item);
         };
     }
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
+import Select, { OnChangeHandler } from 'react-select';
 
-import Select from '../../style/Common/Select';
+import FormInput from '../../style/Common/FormInput';
 
 import ISelectorProps from './SelectorProps';
 
@@ -8,21 +9,27 @@ import ISelectorProps from './SelectorProps';
 type T = string;
 
 export default (props: ISelectorProps<T>) =>
+    <Select
+        placeholder={""}
+        inputRenderer={input}
+        closeOnSelect={true}
+        onBlurResetsInput={false}
+        onSelectResetsInput={false}
+        options={props.items.map((item: T) => ({ value: item, label: item }))}
+        simpleValue={true}
+        clearable={true}
+        value={props.selected}
+        onChange={handleChange(props.onChange)}
+        rtl={true}
+        searchable={true}
+    />
 
-    <Select>
-        <option value="">Selecciona una opción</option>
-        {props.items.map(item =>
-            <option key={item.toString()} onClick={handleClick(props.onItemSelected, item)}>
-                {props.renderItem(item)}
-            </option>
-        )}
-    </Select>
+function input(props: any) {
+    return <FormInput placeholder="Selecciona una opción" {...props}/>
+}
 
-function handleClick(onItemSelected: any, item: T){
-    return (event: React.SyntheticEvent<HTMLElement>) => {
-        onItemSelected(
-            event,
-            item
-        );
-    };
+function handleChange(onChange: (item: T | null) => void): OnChangeHandler<T> {
+    return (option: any) => {
+        onChange(option)
+    }
 }
