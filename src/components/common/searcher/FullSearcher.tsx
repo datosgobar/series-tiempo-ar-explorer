@@ -91,50 +91,6 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
                                             </div>
                                         </Row>
                                     </FormGroup>
-                                    {/* <FormGroup>
-                                        <Row>
-                                            <div className="col-xs-4">
-                                                <label className="label-control">Periodicidad de al menos:</label>
-                                            </div>
-                                            <div className="col-xs-8">
-                                                <select className="form-control">
-                                                    <option value="">Selecciona una opción</option>
-                                                </select>
-                                            </div>
-                                        </Row>
-                                    </FormGroup>
-                                    <h5 className="title-xxsm font-1 mg-b">Último dato disponible:</h5>
-                                    <div className="row">
-                                        <div className="col-sm-6">
-                                            <div className="form-group">
-                                                <div className="row">
-                                                    <div className="col-xs-3">
-                                                        <label className="label-control mg-sm-t">Desde:</label>
-                                                    </div>
-                                                    <div className="col-xs-9">
-                                                        <select className="form-control">
-                                                            <option value="">Cualquiera</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-sm-6">
-                                            <div className="form-group">
-                                                <div className="row">
-                                                    <div className="col-xs-3">
-                                                        <label className="label-control mg-sm-t">Hasta:</label>
-                                                    </div>
-                                                    <div className="col-xs-9">
-                                                        <select className="form-control">
-                                                            <option value="">Cualquiera</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h6 className="title-xxsm font-1 mg-b">43 series encontradas (Hacé clic sobre las que quieras agregar)</h6> */}
                                 </form>
                             </div> 
                                 <Searcher {...this.searcherProps()}/>
