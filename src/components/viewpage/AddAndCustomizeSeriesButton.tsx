@@ -1,24 +1,23 @@
 import * as React from 'react';
 
+const BTN_CONFIG = '#btn-config';
+const BTN_CLOSE = '#detalle-panel .dp-header-close';
 
 export default class AddAndCustomizeSeriesButton extends React.Component<{}, {}>{
 
     public componentDidMount() {
 
         $(() => {
-
-            $('#btn-config').click(() => {
-                $('#detalle-content').addClass('has-panel-open');
-                return false;
-            });
-
-            $('#detalle-panel .dp-header-close').click(() => {
-                $('#detalle-content').removeClass('has-panel-open');
-                return false;
-            });
-
+            $(BTN_CONFIG).click(openPanel);
+            $(BTN_CLOSE).click(closePanel);
         });
     }
+
+    public componentWillUnmount() {
+        $(BTN_CONFIG).off('click', openPanel);
+        $(BTN_CLOSE).off('click', closePanel);
+    }
+
     public render() {
         return (
             <a id="btn-config" className="btn btn-link mg-b pull-right mg-t">
@@ -26,4 +25,12 @@ export default class AddAndCustomizeSeriesButton extends React.Component<{}, {}>
             </a>
         );
     }
+}
+
+function openPanel() {
+    $('#detalle-content').addClass('has-panel-open');
+}
+
+function closePanel() {
+    $('#detalle-content').removeClass('has-panel-open');
 }
