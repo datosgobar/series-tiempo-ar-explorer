@@ -7,6 +7,7 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import * as AutoComplete from 'react-autocomplete';
 import { setSeriesApi } from "../../../../actions/seriesActions";
 import { ISearchResultItem, ISerieApi } from "../../../../api/SerieApi";
+import Searcher from "../../../../components/common/searcher/Searcher";
 import SeriesPicker from "../../../../components/viewpage/seriespicker/SeriesPicker";
 import configureStore from "../../../../store/configureStore";
 import MockApi from "../../../api/mockApi";
@@ -51,12 +52,11 @@ describe('SeriesPicker', () => {
             </Provider>);
 
         wrapper.find(AutoComplete).find('input').simulate('change', { target: { value: searchTerm } });
-        wrapper.find('form').simulate('submit');
+        wrapper.find(AutoComplete).closest('form').simulate('submit');
 
         return promise.then(() => {
             wrapper.update();
-            expect(wrapper.find('.SearchResults').exists()).toBeTruthy();
-            expect(wrapper.find('.Pickeable').length).toBe(searchResults.length);
+            expect(wrapper.find(Searcher).children().length).toBe(searchResults.length);
         });
     });
 });

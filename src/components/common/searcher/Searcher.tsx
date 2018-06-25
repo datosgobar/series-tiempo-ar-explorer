@@ -1,9 +1,6 @@
 import * as React from "react";
-import { connect } from "react-redux";
 
 import { ISearchOptions, ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
-import { IStore } from "../../../store/initialState";
-import SearchBox from "../../common/searchbox/SearchBox";
 
 
 export interface ISearchParams {
@@ -15,12 +12,11 @@ export interface ISearchParams {
     q: string;
 }
 
-interface ISearcherProps extends ISearchParams {
+export interface ISearcherProps extends ISearchParams {
 
     seriesApi: ISerieApi;
-    onWillSearch?: (q: string, datasetSource: string, theme: string, offset: number, limit: number) => void;
 
-    renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element;
+    renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element | JSX.Element[];
 }
 
 interface ISearcherState {
@@ -28,7 +24,7 @@ interface ISearcherState {
     searchResults: ISearchResultItem[];
 }
 
-export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
+export default class Searcher extends React.Component<ISearcherProps, ISearcherState> {
 
     constructor(props: ISearcherProps) {
         super(props);
@@ -36,16 +32,14 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
         this.state = {
             searchResults: [],
         };
-
-        this.search = this.search.bind(this);
     }
 
-    public searchOptions(){
+    public searchOptions() {
         return {
-            datasetSource: this.props.datasetSource, 
-            datasetTheme: this.props.datasetTheme, 
+            datasetSource: this.props.datasetSource,
+            datasetTheme: this.props.datasetTheme,
             limit: this.props.limit,
-            offset: this.props.offset, 
+            offset: this.props.offset,
         }
     }
 
@@ -59,41 +53,20 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
     }
 
     public componentDidUpdate(prevProps: ISearcherProps) {
-        if (prevProps.q !== this.props.q ||
-            prevProps.datasetTheme !== this.props.datasetTheme ||
-            prevProps.datasetSource !== this.props.datasetSource ||
-            prevProps.offset !== this.props.offset ||
-            prevProps.limit !== this.props.limit
-        ) {
+        if (this.props.q &&
+            (prevProps.q !== this.props.q ||
+                prevProps.datasetTheme !== this.props.datasetTheme ||
+                prevProps.datasetSource !== this.props.datasetSource ||
+                prevProps.offset !== this.props.offset ||
+                prevProps.limit !== this.props.limit
+            )) {
             this.performSearch(this.props.q, this.searchOptions());
-        }
-    }
-
-    public search(q?: string, datasetSource?: string, datasetTheme?:string, offset?: number, limit?: number) {
-
-        if (!q) {
-            return;
-        }
-
-        datasetSource = datasetSource || this.props.datasetSource;
-        offset = offset || this.props.offset;
-        limit = limit || this.props.limit;
-        datasetTheme = datasetTheme || this.props.datasetTheme;
-
-        if (this.props.onWillSearch) {
-            this.props.onWillSearch(q, datasetSource, datasetTheme, offset, limit);
         }
     }
 
     public render() {
         return (
-            <div className="Searcher">
-                <SearchBox 
-                searchTerm={this.props.q} 
-                onSearch={this.search} 
-                seriesApi={this.props.seriesApi}
-                />
-
+            <div>
                 {this.props.renderSearchResults(this.state.searchResults)}
             </div>
         );
@@ -106,12 +79,3 @@ export class Searcher extends React.Component<ISearcherProps, ISearcherState> {
             }).catch(alert);
     }
 }
-
-function mapStateToProps(state: IStore, ownProps: ISearcherProps) {
-    return ({
-        ...state.searchParams,
-        seriesApi: state.seriesApi,
-    });
-}
-
-export default connect(mapStateToProps)(Searcher);

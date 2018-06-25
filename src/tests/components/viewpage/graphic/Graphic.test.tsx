@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import * as React from 'react';
 
 import { configure } from 'enzyme';
@@ -24,13 +24,13 @@ const series: ISerie[] = [
 configure({ adapter: new Adapter() });
 
 it('renders without crashing', () => {
-    const wrapper = shallow(<Graphic series={[]}/>);
+    const wrapper = mount(<Graphic series={[]}/>);
 
-    expect(wrapper.find('.Graphic').exists()).toBe(true);
+    expect(wrapper.find(Graphic).exists()).toBe(true);
 });
 
 it('renders without crashing', () => {
-    const wrapper = shallow(<Graphic series={series} />);
+    const wrapper = mount(<Graphic series={series} />);
 
-    expect(wrapper.find('.Graphic').exists()).toBe(true);
+    expect(wrapper.find(Graphic).exists()).toBe(true);
 });

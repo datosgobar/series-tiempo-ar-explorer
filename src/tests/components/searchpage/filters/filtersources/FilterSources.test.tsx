@@ -1,11 +1,12 @@
-import { configure, mount, shallow } from "enzyme";
+import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from "react";
 
 import MockApi from "../../../../api/mockApi";
 
 import { ISerieApi } from "../../../../../api/SerieApi";
-import { FilterSources } from "../../../../../components/searchpage/filters/filtersources/FilterSources";
+import { FilterSources } from "../../../../../components/common/filters/filtersources/FilterSources";
+import Selector from "../../../../../components/common/selector/Selector";
 
 
 configure({ adapter: new Adapter() });
@@ -16,8 +17,7 @@ describe('FilterSources', () => {
     const sourcesP = Promise.resolve(sources);
 
     let seriesApi: ISerieApi;
-    let onSourcePicked: (event: React.MouseEvent<HTMLLIElement>, source: string) => void;
-    const mouseEvent = expect.anything();
+    let onSourcePicked: (source: string) => void;
 
     beforeEach(() => {
 
@@ -29,8 +29,9 @@ describe('FilterSources', () => {
 
     it('fetches sources upon render', () => {
 
-        shallow(
+        mount(
             <FilterSources
+                selector={Selector}
                 seriesApi={seriesApi}
                 picked=""
                 onSourcePicked={onSourcePicked} />
@@ -43,6 +44,7 @@ describe('FilterSources', () => {
 
         const wrapper = mount(
             <FilterSources
+                selector={Selector}
                 seriesApi={seriesApi}
                 picked=""
                 onSourcePicked={onSourcePicked} />
@@ -50,7 +52,7 @@ describe('FilterSources', () => {
 
         return sourcesP.then(() => {
             wrapper.update();
-            expect(wrapper.find(FilterSources).find('.Item').length).toBe(sources.length);
+            expect(wrapper.find(FilterSources).find('li').length).toBe(sources.length);
         });
     });
 
@@ -59,6 +61,7 @@ describe('FilterSources', () => {
 
             const wrapper = mount(
                 <FilterSources
+                    selector={Selector}
                     seriesApi={seriesApi}
                     picked=""
                     onSourcePicked={onSourcePicked} />
@@ -67,9 +70,9 @@ describe('FilterSources', () => {
             return sourcesP.then(() => {
                 wrapper.update();
 
-                wrapper.find(FilterSources).find('.Item').at(index).find('input').simulate('change', { target: { checked: true } });
+                wrapper.find(FilterSources).find('li').at(index).find('a').simulate('click');
 
-                expect(onSourcePicked).toBeCalledWith(mouseEvent, source);
+                expect(onSourcePicked).toBeCalledWith(source);
             });
         });
     });

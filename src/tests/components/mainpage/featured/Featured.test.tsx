@@ -6,6 +6,7 @@ import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import { MemoryRouter } from 'react-router';
 import { ISerie } from '../../../../api/Serie';
+import Card from '../../../../components/style/Card/Card';
 
 configure({ adapter: new Adapter() });
 
@@ -31,8 +32,7 @@ describe('Featured ', () => {
   it('renders without crashing', () => {
     const wrapper = mount(<Featured featured={[]} />);
 
-    expect(wrapper.find('h3').text()).toEqual('Series Destacadas:');
-    expect(wrapper.find('.Card').exists()).toBe(false);
+    expect(wrapper.find(Card).exists()).toBeFalsy();
   });
 
   it('renders featured serie in card', () => {
@@ -43,7 +43,7 @@ describe('Featured ', () => {
       </MemoryRouter>
     );
 
-    expect(wrapper.find('.Card').find('a.Serie').length).toBe(1);
+    expect(wrapper.find(Card).length).toBe(1);
   });
 
   it('renders featured series in cards', () => {
@@ -54,7 +54,7 @@ describe('Featured ', () => {
       </MemoryRouter>
     );
 
-    expect(wrapper.find('.Card').find('a.Serie').length).toBe(2);
+    expect(wrapper.find(Card).length).toBe(2);
   });
 
 

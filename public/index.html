@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
+
+    <title>Series de tiempo | Ministerio de modernización</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
@@ -19,14 +23,46 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/ico/favicon-16x16.png">
+    <link rel="manifest" href="assets/ico/site.webmanifest">
+    <link rel="mask-icon" href="assets/ico/safari-pinned-tab.svg" color="#0072bc">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <meta name="msapplication-TileColor" content="#0072bc">
+    <meta name="msapplication-config" content="assets/ico/browserconfig.xml">
+    <meta name="theme-color" content="#0072bc">
+
+    <script type="text/javascript" src="assets/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.easing.1.3.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/font-awesome/fontawesome-pro-brands.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/font-awesome/fontawesome-pro-core.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/font-awesome/fontawesome-pro-light.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/font-awesome/fontawesome-pro-regular.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/font-awesome/fontawesome-pro-solid.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/font-awesome/fontawesome-pro-svg-framework.css" type="text/css">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
+
+    <link rel="stylesheet" href="assets/css/normalize.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
+
 <body>
-<noscript>
-    You need to enable JavaScript to run this app.
-</noscript>
-<div id="root"></div>
-<!--
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <!--
   This HTML file is a template.
   If you open it directly in the browser, you will see an empty page.
 
@@ -36,15 +72,16 @@
   To begin the development, run `npm start` or `yarn start`.
   To create a production bundle, use `npm run build` or `yarn build`.
 -->
-<script>
-    window.onload = function () {
-        TSExplorer.render('root', {
-            featured: [
-                "10.1_ISOA_1993_A_27",
-            ],
-            seriesApiUri: "http://apis.datos.gob.ar/series/api",
-        })
-    }
-</script>
+    <script>
+        window.onload = function () {
+            TSExplorer.render('root', {
+                featured: [
+                    "10.1_ISOA_1993_A_27",
+                ],
+                seriesApiUri: "http://apis.datos.gob.ar/series/api",
+            })
+        }
+    </script>
 </body>
+
 </html>

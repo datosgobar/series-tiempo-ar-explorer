@@ -1,11 +1,12 @@
-import { configure, mount, ReactWrapper } from "enzyme";
+import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from "react";
 
 import MockApi from "../../../../api/mockApi";
 
 import { ISerieApi } from "../../../../../api/SerieApi";
-import { FilterThemes } from "../../../../../components/searchpage/filters/filterthemes/FilterThemes";
+import { FilterThemes } from "../../../../../components/common/filters/filterthemes/FilterThemes";
+import Selector from "../../../../../components/common/selector/Selector";
 
 
 configure({ adapter: new Adapter() });
@@ -16,10 +17,9 @@ describe('FilterThemes', () => {
     const themesP = Promise.resolve(themes);
 
     let seriesApi: ISerieApi;
-    let onThemePicked: (event: React.MouseEvent<HTMLLIElement>, theme: string) => void;
-    const mouseEvent = expect.anything();
+    let onThemePicked: (theme: string) => void;
 
-    let wrapper: ReactWrapper;
+    let wrapper: any;
 
     beforeEach(() => {
 
@@ -30,6 +30,7 @@ describe('FilterThemes', () => {
 
         wrapper = mount(
             <FilterThemes
+                selector={Selector}
                 seriesApi={seriesApi}
                 picked=""
                 onThemePicked={onThemePicked} />
@@ -45,7 +46,7 @@ describe('FilterThemes', () => {
 
         return themesP.then(() => {
             wrapper.update();
-            expect(wrapper.find(FilterThemes).find('.Item').length).toBe(themes.length);
+            expect(wrapper.find(FilterThemes).find('li').length).toBe(themes.length);
         });
     });
 
@@ -55,21 +56,10 @@ describe('FilterThemes', () => {
             return themesP.then(() => {
                 wrapper.update();
 
-                wrapper.find(FilterThemes).find('.Item').at(index).find('input').simulate('change', { target: { checked: true } });
+                wrapper.find(FilterThemes).find('li').at(index).find('a').simulate('click');
 
-                expect(onThemePicked).toBeCalledWith(mouseEvent, theme);
+                expect(onThemePicked).toBeCalledWith(theme);
             });
         });
-
-        it('calls onThemePicked(event, null) when selected theme is deselected', () => {
-    
-            return themesP.then(() => {
-                wrapper.update();
-    
-                wrapper.find(FilterThemes).find('.Item').at(index).find('input').simulate('change', { target: { checked: false } });
-    
-                expect(onThemePicked).toBeCalledWith(mouseEvent, null);
-            });
-        })
-    });    
+    });
 });

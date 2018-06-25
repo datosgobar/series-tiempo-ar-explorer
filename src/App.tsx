@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import './App.css';
-
 import { connect } from 'react-redux';
 import { BrowserRouter, BrowserRouterProps, HashRouter } from 'react-router-dom';
 import { loadFeatured, setSeriesApi } from './actions/seriesActions';
 import { ISerieApi } from './api/SerieApi';
 import routes from './routes';
 
+import Wrapper from './components/style/Common/Wrapper';
 
 interface IAppProps {
     featured: string[];
@@ -34,9 +33,9 @@ class App extends React.Component<IAppProps, any> {
 
     public render(): any {
         return (
-            <div className="App">
+            <Wrapper>
                 {this.renderRouter()}
-            </div>
+            </Wrapper>
         );
     }
 

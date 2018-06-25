@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import * as React from 'react';
 
 import { configure } from 'enzyme';
@@ -23,7 +23,7 @@ configure({ adapter: new Adapter() });
 it('renders without crashing', () => {
     const onRemove = jest.fn();
 
-    const wrapper = shallow(<MetaData series={series} onRemove={onRemove} />);
+    const wrapper = mount(<MetaData series={series} onRemove={onRemove} />);
 
     expect(wrapper.find('.MetaData').exists()).toBe(true);
 });

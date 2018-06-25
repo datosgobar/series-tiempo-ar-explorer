@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 
-import './SeriesPicker.css';
+import SeriesPickerCard, { ISeriesPickerCardProps } from '../../style/Card/SeriesPickerCard';
 
-import { setSearchParams } from '../../../actions/searchActions';
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
 import initialState from '../../../store/initialState';
-import Searcher from '../../common/searcher/Searcher';
+import FullSearcher from '../../common/searcher/FullSearcher';
 
-interface ISeriesPickerProps {
+
+export interface ISeriesPickerProps {
 
     seriesApi: ISerieApi;
-    onPick: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void;
-    dispatch?: any;
+    onPick: (event: React.MouseEvent<HTMLElement>, serieId: string) => void;
+    isChecked?: (serieId: string) => boolean;
+    pegColorFor?: (serieId: string) => string;
 }
 
 class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
@@ -20,45 +20,47 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
     constructor(props: ISeriesPickerProps, context: any) {
         super(props, context);
 
-        this.handleSearch = this.handleSearch.bind(this);
         this.renderPickeableItems = this.renderPickeableItems.bind(this);
-    }
-
-    public handleSearch(q: string, datasetSource: string, datasetTheme: string, offset: number, limit: number): void {
-        this.props.dispatch(setSearchParams({ q, datasetSource, datasetTheme, offset, limit }));
+        this.searchResultCardProps = this.searchResultCardProps.bind(this);
     }
 
     public render() {
         return (
-            <Searcher
+            <FullSearcher
                 seriesApi={this.props.seriesApi}
                 datasetTheme={initialState.searchParams.datasetTheme}
                 datasetSource={initialState.searchParams.datasetSource}
                 limit={initialState.searchParams.limit}
                 offset={initialState.searchParams.offset}
                 q={initialState.searchParams.q}
-                onWillSearch={this.handleSearch}
                 renderSearchResults={this.renderPickeableItems} />
         );
     }
 
     public handlePick(pickedSerieId: string) {
 
-        return (event: React.MouseEvent<HTMLAnchorElement>) => {
+        return (event: React.MouseEvent<HTMLElement>) => {
             event.preventDefault();
             this.props.onPick(event, pickedSerieId);
         }
     }
 
+    public searchResultCardProps(searchResult: ISearchResultItem): ISeriesPickerCardProps{
+        return {
+            checked: this.props.isChecked && this.props.isChecked(searchResult.id),
+            onClick: this.handlePick(searchResult.id),
+            pegcolor: this.props.pegColorFor? this.props.pegColorFor(searchResult.id) : undefined,
+            searchResult,
+        }
+    }
+
     public renderPickeableItems(searchResults: ISearchResultItem[]): JSX.Element {
         return (
-            <div className="SearchResults">
+            <div className="dp-results">
                 {searchResults.map((searchResult: ISearchResultItem) =>
-                    <div className="Pickeable" key={searchResult.id}>
-                        <h6>{searchResult.title}</h6>
-                        <p>{searchResult.description}</p>
-                        <a href='#' onClick={this.handlePick(searchResult.id)}>add</a>
-                    </div>
+                    <SeriesPickerCard 
+                    key={searchResult.id}
+                    {...this.searchResultCardProps(searchResult)} />
                 )}
             </div>
         );
@@ -66,4 +68,4 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
 }
 
 
-export default connect()(SeriesPicker);
+export default SeriesPicker;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import './MainPage.css';
+import SeriesHero from '../style/Hero/SeriesHero';
 
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
@@ -30,15 +30,10 @@ export class MainPage extends React.Component<IMainPageProps, any> {
 
     public render() {
         return (
-            <div className='MainPage'>
-                <h1>Series de tiempo</h1>
-                <p>Desde aquí podés buscar las series de tiempo del tema que necesites,
-                 podés seleccionar más de una opcion de los resultados para compararlos.</p>
-                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi}/>
-
+            <section id="home">
+                <SeriesHero searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} />}/>
                 <Featured featured={this.props.featured} />
-
-            </div>
+            </section>
         );
     }
 }

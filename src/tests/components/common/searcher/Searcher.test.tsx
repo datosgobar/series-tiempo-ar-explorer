@@ -1,12 +1,11 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { configure, mount, ReactWrapper } from "enzyme";
+import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 
-import * as AutoComplete from 'react-autocomplete';
 import { ISerieApi } from "../../../../api/SerieApi";
-import {Searcher} from "../../../../components/common/searcher/Searcher";
+import Searcher from "../../../../components/common/searcher/Searcher";
 import MockApi from "../../../api/mockApi";
 
 
@@ -43,7 +42,7 @@ describe('SeriesPicker', () => {
 
         mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
-        expect(mockSeriesApi.searchSeries).toBeCalledWith(q, {datasetTheme, datasetSource, offset, limit});
+        expect(mockSeriesApi.searchSeries).toBeCalledWith(q, { datasetTheme, datasetSource, offset, limit });
     });
 
     it('do not queries api if q is falsy', () => {
@@ -86,71 +85,6 @@ describe('SeriesPicker', () => {
                 node);
 
             expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(2);
-        });
-    });
-
-    describe('form behaviour', () => {
-
-        let willSearch: () => void;
-
-        beforeEach(() => {
-            willSearch = jest.fn();
-        });
-
-        it('triggers onWillSearch prop when submited', () => {
-
-            willSearch = jest.fn();
-            const wrapper = mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} onWillSearch={willSearch} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
-
-            wrapper.find('form').simulate('submit');
-
-            expect(willSearch).toBeCalled();
-        });
-
-        describe('onWillSearch behaviour', () => {
-
-            let wrapper: ReactWrapper;
-
-            beforeEach(() => {
-                wrapper = mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} onWillSearch={willSearch} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
-            });
-
-            function inputTextAndSubmit(searchTerm: string){
-                
-                wrapper.find(AutoComplete).find('input').simulate('change', { target: { value: searchTerm } });
-
-                wrapper.find('form').simulate('submit');
-            }
-
-            it('triggers onWillSearch prop with input searchterm, offset, and limit when submited', () => {
-
-                const searchTerm = "pbi";
-
-                inputTextAndSubmit(searchTerm);
-
-                expect(willSearch).toBeCalledWith(searchTerm, datasetTheme, datasetSource, offset, limit);
-            });
-
-            it('do not trigger onWillSearch prop if input searchTerm is falsy', () => {
-
-                const searchTerm = "";
-
-                inputTextAndSubmit(searchTerm);
-
-                expect(willSearch).not.toBeCalled();
-            });
-        });
-
-        it('do not queries api when submited', () => {
-
-            willSearch = jest.fn();
-            const wrapper = mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} onWillSearch={willSearch} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
-
-            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
-
-            wrapper.find('form').simulate('submit');
-
-            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
         });
     });
 });

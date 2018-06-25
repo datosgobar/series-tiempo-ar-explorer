@@ -2,11 +2,12 @@
 const debounce = require('debounce');
 
 import * as React from 'react';
-import * as AutoComplete from 'react-autocomplete';
 
-import './SearchBox.css';
+import SearchIcon from '../../style/Common/SearchIcon';
+import HeroFormSearch from '../../style/Hero/HeroFormSearch';
 
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
+import AutoComplete from '../../style/Common/AutoComplete';
 
 
 interface ISearchBoxProps {
@@ -76,21 +77,17 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
 
     public render() {
         return (
-            <div className='SearchBox'>
-                <form onSubmit={this.triggerSearch} >
-                    <AutoComplete
-                        value={this.state.searchTerm}
-                        onChange={this.onSearchTermChange}
-                        getItemValue={getItemValue}
-                        items={this.state.autoCompleteItems}
-                        renderItem={renderItem}
-                        onSelect={this.onSelect} />
+            <HeroFormSearch onSubmit={this.triggerSearch} >
+                <AutoComplete
+                    value={this.state.searchTerm}
+                    onChange={this.onSearchTermChange}
+                    getItemValue={getItemValue}
+                    items={this.state.autoCompleteItems}
+                    renderItem={renderItem}
+                    onSelect={this.onSelect} />
 
-                    <input
-                        type='submit'
-                        value='Buscar' />
-                </form>
-            </div>
+                <SearchIcon onClick={this.triggerSearch} />
+            </HeroFormSearch>
         );
     }
 }
@@ -99,7 +96,7 @@ function getItemValue(item: ISearchResultItem) { return item.title; }
 
 function renderItem(item: ISearchResultItem, isHighlighted: boolean) {
     return (
-        <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+        <div key={item.id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
             {isHighlighted ? <b>{item.title}</b> : item.title}
         </div>
     );

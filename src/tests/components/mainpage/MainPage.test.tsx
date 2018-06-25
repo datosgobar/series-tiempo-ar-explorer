@@ -17,6 +17,5 @@ it('renders without crashing', () => {
       <MainPage featured={[]} seriesApi={seriesApi} />
     </MemoryRouter>);
 
-  expect(wrapper.find('.MainPage').exists()).toBe(true);
-  expect(wrapper.find('.MainPage').find('h1').text()).toBe('Series de tiempo');
+  expect(wrapper.find(MainPage).find('h1').text()).toBe('Series de tiempo');
 });

@@ -1,12 +1,10 @@
 
 import * as React from 'react';
-import {IHConfig, IHCSeries, ReactHighcharts} from './highcharts';
+import { IHConfig, IHCSeries, ReactHighcharts } from './highcharts';
 
 
 import IDataPoint from '../../../api/DataPoint';
 import { ISerie } from '../../../api/Serie';
-
-import './Graphic.css';
 
 
 interface IGraphicProps {
@@ -17,10 +15,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public render() {
         return (
-            <div className='Graphic'>
-                <p>Graphic</p>
-                <ReactHighcharts config={this.highchartsConfig()} />
-            </div>
+            <ReactHighcharts config={this.highchartsConfig()} />
         );
     }
 
@@ -28,7 +23,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         return ({
 
             title: {
-                text: 'Chart reflow is set to true'
+                text: '',
             },
 
             xAxis: {
@@ -37,9 +32,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
             series: this.seriesValues(),
 
-            subtitle: {
-                text: 'When resizing the window or the frame, the chart should resize'
-            },
         });
     }
 
@@ -49,18 +41,18 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             this.props.series.map(
                 (serie: ISerie) => serie.data.map(
                     (datapoint: IDataPoint) => datapoint.date))
-                [0]
+            [0]
             || []
         );
     }
 
-    public seriesValues():IHCSeries[] {
+    public seriesValues(): IHCSeries[] {
         return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {}));
     }
 
     public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
         const data = serie.data.map(datapoint => datapoint.value);
-        return {...this.defaultHCSeriesConfig(), ...hcConfig, name: serie.title, data}
+        return { ...this.defaultHCSeriesConfig(), ...hcConfig, name: serie.title, data }
 
     }
 
