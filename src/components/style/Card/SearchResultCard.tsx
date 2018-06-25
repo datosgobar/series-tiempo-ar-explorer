@@ -6,6 +6,7 @@ import CardBody from './CardBody';
 import CardTitle from './CardTitle';
 
 import { ISearchResultItem } from '../../../api/SerieApi';
+import randomColor from '../../../helpers/randomColor';
 
 
 interface ISearchResultCardProps extends React.Props<any> {
@@ -20,8 +21,3 @@ export default (props: ISearchResultCardProps) =>
                 <CardBody>{props.searchResult.description}</CardBody>
             </Card>
         </Link>
-
-function randomColor() {
-    // tslint:disable-next-line:no-bitwise
-    return "#" + ((1 << 24) * Math.random() | 0).toString(16)
-}

@@ -6,6 +6,7 @@ import DetailsTitle from './DetailsTitle';
 import DetailsTitleAndActions from './DetailsTitleAndActions';
 
 import { ISerie } from '../../../api/Serie';
+import randomColor from '../../../helpers/randomColor';
 
 
 interface ISerieDetailsProp extends React.Props<any> {
@@ -52,8 +53,3 @@ export default (props: ISerieDetailsProp) =>
              </div>
          </Row>
      </Details>
-
- function randomColor() {
-     // tslint:disable-next-line:no-bitwise
-     return "#"+((1<<24)*Math.random()|0).toString(16)
- }

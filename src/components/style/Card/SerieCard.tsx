@@ -8,6 +8,7 @@ import CardSubtitle from './CardSubtitle';
 import CardTitle from './CardTitle';
 
 import { ISerie } from '../../../api/Serie';
+import randomColor from '../../../helpers/randomColor';
 
 
 interface ISerieCardProps extends React.Props<any> {
@@ -27,8 +28,3 @@ export default (props: ISerieCardProps) =>
             </Card>
         </Link>
     </div>
-
-function randomColor() {
-    // tslint:disable-next-line:no-bitwise
-    return "#" + ((1 << 24) * Math.random() | 0).toString(16)
-}
