@@ -12,7 +12,7 @@ export default (props: ISelectorProps<T>) =>
     <Select
         noResultsText=""
         placeholder={""}
-        inputRenderer={input}
+        inputRenderer={inputRenderer}
         closeOnSelect={true}
         onBlurResetsInput={false}
         onSelectResetsInput={false}
@@ -25,7 +25,7 @@ export default (props: ISelectorProps<T>) =>
         searchable={true}
     />
 
-function input(props: any) {
+function inputRenderer(props: any) {
     return <FormDropdown placeholder="Selecciona una opción" {...props}/>
 }
 
