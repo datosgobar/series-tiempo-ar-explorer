@@ -90,9 +90,18 @@ function toSerie(id: string): ISerie {
 function toSearchResult(id: string): ISearchResultItem {
 
     return {
+        accuralPeriodisity: 'Anual',
+        dataset: {
+            title: id + '_dataset_title'
+        },
         description: 'Description id: ' + id,
         id,
+        index: {
+            end: '2018',
+            start: '1960',
+        },
         title: 'title_' + id,
+        units: 'Millones de pesos'
     };
 }
 

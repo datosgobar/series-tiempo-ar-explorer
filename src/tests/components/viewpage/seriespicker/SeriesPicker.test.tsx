@@ -34,9 +34,18 @@ describe('SeriesPicker', () => {
 
         const searchResults: ISearchResultItem[] = [
             {
+                accuralPeriodisity: 'Anual',
+                dataset:{
+                    title: 'serie1_dataset_title'
+                },
                 description: "description",
                 id: "serie1",
+                index: {
+                    end: '2018',
+                    start: '1960',
+                },
                 title: "title",
+                units: 'Millones de pesos'
             },
         ];
         const promise = Promise.resolve(searchResults);
