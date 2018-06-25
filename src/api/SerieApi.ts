@@ -7,6 +7,15 @@ export interface ISearchResultItem {
     title: string;
     id: string;
     description: string;
+    dataset: {
+        title: string,
+    };
+    index: {
+        start: string,
+        end: string,
+    };
+    units: string;
+    accuralPeriodisity: string;
 }
 
 export interface ISearchOptions {
@@ -58,12 +67,12 @@ export default class SerieApi implements ISerieApi {
 
     public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<ISearchResultItem[]> {
 
-        const limit = searchOptions && searchOptions.limit? searchOptions.limit : 10;
-        const offset = searchOptions && searchOptions.offset? searchOptions.offset : 0;
+        const limit = searchOptions && searchOptions.limit ? searchOptions.limit : 10;
+        const offset = searchOptions && searchOptions.offset ? searchOptions.offset : 0;
         // tslint:disable-next-line:variable-name
-        const dataset_source = searchOptions && searchOptions.datasetSource? searchOptions.datasetSource : undefined;
+        const dataset_source = searchOptions && searchOptions.datasetSource ? searchOptions.datasetSource : undefined;
         // tslint:disable-next-line:variable-name
-        const dataset_theme = searchOptions && searchOptions.datasetTheme? searchOptions.datasetTheme : undefined;
+        const dataset_theme = searchOptions && searchOptions.datasetTheme ? searchOptions.datasetTheme : undefined;
 
         const options = {
             qs: {
@@ -76,7 +85,10 @@ export default class SerieApi implements ISerieApi {
             uri: this.apiClient.endpoint('search'),
         };
 
-        return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
+        return this.apiClient.get<ITSAPIResponse>(options)
+            .then((tsResponse: ITSAPIResponse) => tsResponse.data)
+            .then((searchResults: ISearchResultItem[]) =>
+                searchResults.map(addPlaceHolders));
     }
 
     public fetchSources() {
@@ -100,4 +112,21 @@ function tsResponseToSeries(ids: string[], tsResponse: ITSAPIResponse): Serie[] 
     return ids.map(
         (_, index) => new Serie(index + 1, tsResponse)
     );
+}
+
+function addPlaceHolders(searchResult: ISearchResultItem): ISearchResultItem {
+    return ({
+        accuralPeriodisity: searchResult.accuralPeriodisity || "accuralPeriodisity",
+        dataset: searchResult.dataset || {
+            title: "dataset_title",
+        },
+        description: searchResult.description || "field_description",
+        id: searchResult.id || "id",
+        index: searchResult.index || {
+            end: "index_end",
+            start: "index_start",
+        },
+        title: searchResult.title || "field_title",
+        units: searchResult.units || "field_units",
+    });
 }

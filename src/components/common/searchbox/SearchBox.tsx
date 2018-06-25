@@ -8,6 +8,7 @@ import HeroFormSearch from '../../style/Hero/HeroFormSearch';
 
 import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
 import AutoComplete from '../../style/Common/AutoComplete';
+import AutoCompleteItem from '../../style/Common/AutoCompleteItem';
 
 
 interface ISearchBoxProps {
@@ -96,9 +97,7 @@ function getItemValue(item: ISearchResultItem) { return item.title; }
 
 function renderItem(item: ISearchResultItem, isHighlighted: boolean) {
     return (
-        <div key={item.id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-            {isHighlighted ? <b>{item.title}</b> : item.title}
-        </div>
+        <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} />
     );
 }
 
