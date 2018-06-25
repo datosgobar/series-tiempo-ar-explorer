@@ -22,16 +22,21 @@ export class MainPage extends React.Component<IMainPageProps, any> {
         super(props, context);
 
         this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
+        this.redirectToViewPage = this.redirectToViewPage.bind(this);
     }
 
     public redirectToSearchPage(searchTerm: string) {
         this.props.history.push('/search/?q=' + searchTerm);
     }
 
+    public redirectToViewPage(serieId: string) {
+        this.props.history.push('/view/?ids=' + serieId);
+    }
+
     public render() {
         return (
             <section id="home">
-                <SeriesHero searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} />}/>
+                <SeriesHero searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} onSelect={this.redirectToViewPage}/>}/>
                 <Featured featured={this.props.featured} />
             </section>
         );

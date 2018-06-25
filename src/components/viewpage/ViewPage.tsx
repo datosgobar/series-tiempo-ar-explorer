@@ -35,6 +35,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
         this.handleUriChange = this.handleUriChange.bind(this);
         this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
+        this.redirectToViewPage = this.redirectToViewPage.bind(this);
         this.removeSerie = this.removeSerie.bind(this);
         this.seriesPickerProps = this.seriesPickerProps.bind(this);
         this.isChecked = this.isChecked.bind(this);
@@ -81,17 +82,21 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.history.push('/search/?q=' + searchTerm);
     }
 
+    public redirectToViewPage(serieId: string) {
+        this.props.history.push('/view/?ids=' + serieId);
+    }
+
     public render() {
         if (!this.hasMainSerie()) {
             return <div className='ViewPage'>
                 <h1>Cargando...</h1>
-                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi} />
+                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi} onSelect={this.redirectToViewPage}/>
             </div>
         }
 
         return (
             <section id="detalle">
-                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} />} />
+                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} onSelect={this.redirectToViewPage}/>} />
                 <div id="detalle-content">
                     <Container>
                         <AddAndCustomizeSeriesButton />

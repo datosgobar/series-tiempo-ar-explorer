@@ -39,6 +39,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.searchTags = this.searchTags.bind(this);
         this.themeRemoved = this.themeRemoved.bind(this);
         this.sourceRemoved = this.sourceRemoved.bind(this);
+        this.redirectToViewPage = this.redirectToViewPage.bind(this);
     }
 
     public componentDidMount() {
@@ -176,13 +177,17 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         return tags;
     }
 
+    public redirectToViewPage(serieId: string) {
+        this.props.history.push('/view/?ids=' + serieId);
+    }
+
     public render() {
         return (
 
             <section id="listado">
 
-                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} />} />
-
+                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} onSelect={this.redirectToViewPage}/>} />
+                
                 <div id="listado-list">
                     <Container>
                         <Row>

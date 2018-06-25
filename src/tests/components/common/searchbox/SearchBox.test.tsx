@@ -17,9 +17,10 @@ describe('searchbox', () => {
     const div = document.createElement('div');
     const seriesApi = new MockApi(0);
     const onSearch = jest.fn();
+    const onSelect = jest.fn();
     ReactDOM.render(
       <MemoryRouter>
-          <SearchBox onSearch={onSearch} seriesApi={seriesApi}/>
+          <SearchBox onSearch={onSearch} seriesApi={seriesApi} onSelect={onSelect}/>
       </MemoryRouter>
       , div);
     ReactDOM.unmountComponentAtNode(div);
