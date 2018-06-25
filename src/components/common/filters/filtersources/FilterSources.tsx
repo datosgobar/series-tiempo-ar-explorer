@@ -1,17 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import FilterSubTitle from "../../../style/Filters/FilterSubTitle";
-
-import { ISerieApi } from "../../../../api/SerieApi";
 import { IStore } from "../../../../store/initialState";
-import Selector from "../../../common/selector/Selector";
+import IFilterProps from "../FilterProps";
 
-interface IFilterSourcesProps {
 
-    seriesApi: ISerieApi;
-    onSourcePicked: (event: React.SyntheticEvent<HTMLElement>, source: string) => void;
-    picked: string;
+interface IFilterSourcesProps extends IFilterProps {
+
+    onSourcePicked: (source: string) => void;
 }
 
 interface IFilterSourcesState {
@@ -27,7 +23,6 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
         this.state = { sources: [] };
 
         this.updateSources = this.updateSources.bind(this);
-        this.onItemSelected = this.onItemSelected.bind(this);
     }
 
     public componentDidMount() {
@@ -35,26 +30,20 @@ export class FilterSources extends React.Component<IFilterSourcesProps, IFilterS
     }
 
     public updateSources() {
-        this.props.seriesApi.fetchSources().then(sources => {
+        this.props.seriesApi.fetchSources().then((sources: string[]) => {
             this.setState({ sources });
         });
     }
 
-    public onItemSelected(event: React.SyntheticEvent<HTMLElement>, item: string) {
-        this.props.onSourcePicked(event, item);
-    }
-
     public render() {
+        const Selector = this.props.selector;
         return (
-            <div>
-                <FilterSubTitle>Fuentes:</FilterSubTitle>
                 <Selector
                     selected={this.props.picked}
                     items={this.state.sources}
-                    onItemSelected={this.onItemSelected}
+                    onChange={this.props.onSourcePicked}
                     renderItem={renderSource}
                 />
-            </div>  
         );
     }
 }

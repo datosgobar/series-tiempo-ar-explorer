@@ -1,18 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import FilterSubTitle from "../../../style/Filters/FilterSubTitle";
-
-import { ISerieApi } from "../../../../api/SerieApi";
 import { IStore } from "../../../../store/initialState";
-import Selector from "../../../common/selector/Selector";
+import IFilterProps from "../FilterProps";
 
 
-interface IFilterThemesProps {
+interface IFilterThemesProps extends IFilterProps {
 
-    seriesApi: ISerieApi;
-    onThemePicked: (event: React.SyntheticEvent<HTMLElement>, source: string) => void;
-    picked: string;
+    onThemePicked: (theme: string) => void;
 }
 
 interface IFilterThemesState {
@@ -28,7 +23,6 @@ export class FilterThemes extends React.Component<IFilterThemesProps, IFilterThe
         this.state = { themes: [] };
 
         this.updateThemes = this.updateThemes.bind(this);
-        this.onItemSelected = this.onItemSelected.bind(this);
     }
 
     public componentDidMount(){
@@ -36,26 +30,20 @@ export class FilterThemes extends React.Component<IFilterThemesProps, IFilterThe
     }
 
     public updateThemes() {
-        this.props.seriesApi.fetchThemes().then(themes => {
+        this.props.seriesApi.fetchThemes().then((themes: string[]) => {
             this.setState({ themes });
         });
     }
 
-    public onItemSelected(event: React.SyntheticEvent<HTMLElement>, item: string) {
-        this.props.onThemePicked(event, item);
-    }
-
     public render() {
+        const Selector = this.props.selector;
         return (
-            <div>
-                <FilterSubTitle>Categorías:</FilterSubTitle>
                 <Selector
                     selected={this.props.picked}
                     items={this.state.themes}
-                    onItemSelected={this.onItemSelected}
+                    onChange={this.props.onThemePicked}
                     renderItem={renderTheme}
                 />
-            </div>
         );
     }
 }

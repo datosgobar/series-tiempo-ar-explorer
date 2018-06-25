@@ -5,7 +5,8 @@ import * as React from "react";
 import MockApi from "../../../../api/mockApi";
 
 import { ISerieApi } from "../../../../../api/SerieApi";
-import { FilterThemes } from "../../../../../components/searchpage/filters/filterthemes/FilterThemes";
+import { FilterThemes } from "../../../../../components/common/filters/filterthemes/FilterThemes";
+import Selector from "../../../../../components/common/selector/Selector";
 
 
 configure({ adapter: new Adapter() });
@@ -16,8 +17,7 @@ describe('FilterThemes', () => {
     const themesP = Promise.resolve(themes);
 
     let seriesApi: ISerieApi;
-    let onThemePicked: (event: React.MouseEvent<HTMLLIElement>, theme: string) => void;
-    const mouseEvent = expect.anything();
+    let onThemePicked: (theme: string) => void;
 
     let wrapper: any;
 
@@ -30,6 +30,7 @@ describe('FilterThemes', () => {
 
         wrapper = mount(
             <FilterThemes
+                selector={Selector}
                 seriesApi={seriesApi}
                 picked=""
                 onThemePicked={onThemePicked} />
@@ -57,8 +58,8 @@ describe('FilterThemes', () => {
 
                 wrapper.find(FilterThemes).find('li').at(index).find('a').simulate('click');
 
-                expect(onThemePicked).toBeCalledWith(mouseEvent, theme);
+                expect(onThemePicked).toBeCalledWith(theme);
             });
         });
-    });    
+    });
 });

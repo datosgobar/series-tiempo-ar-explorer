@@ -6,17 +6,18 @@ import { RouterProps, withRouter } from "react-router";
 import ClearFix from '../style/ClearFix';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
-import AddAndCustomizeSeries from './AddAndCustomizeSeries';
-import DownloadDropdown from './DownloadDropdown';
+import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
+// import DownloadDropdown from './DownloadDropdown';
 import SeriesTags from './SeriesTags'
 
 import { clearViewSeries, loadViewSeries } from '../../actions/seriesActions';
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
+import DetallePanel from './DetallePanel';
 import Graphic from './graphic/Graphic';
 import MetaData from './metadata/MetaData';
-import SeriesPicker from './seriespicker/SeriesPicker';
+import SeriesPicker, { ISeriesPickerProps } from './seriespicker/SeriesPicker';
 
 interface IViewPageProps extends RouterProps {
     series: ISerie[];
@@ -35,8 +36,10 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
         this.handleUriChange = this.handleUriChange.bind(this);
         this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
-        this.addPickedSerie = this.addPickedSerie.bind(this);
         this.removeSerie = this.removeSerie.bind(this);
+        this.seriesPickerProps = this.seriesPickerProps.bind(this);
+        this.isChecked = this.isChecked.bind(this);
+        this.addPickedSerie = this.addPickedSerie.bind(this);
     }
 
     public viewSeries(ids: string[]) {
@@ -83,31 +86,49 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         if (!this.hasMainSerie()) {
             return <div className='ViewPage'>
                 <h1>Cargando...</h1>
-                <SearchBox onSearch={this.redirectToSearchPage} />
+                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi} />
             </div>
         }
 
         return (
             <section id="detalle">
-                <SeriesHero compact={true} searchBox={<SearchBox onSearch={this.redirectToSearchPage} />} />
+                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} />} />
                 <div id="detalle-content">
                     <Container>
-                        <AddAndCustomizeSeries />
+                        <AddAndCustomizeSeriesButton />
                         <ClearFix />
-                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie}/>
+                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie} />
                         <div className="col-sm-6">
-                            <DownloadDropdown />
+                            {/* <DownloadDropdown /> */}
                             <ClearFix />
                         </div>
                         <Graphic series={this.props.series} />
-                        <SeriesPicker seriesApi={this.props.seriesApi} onPick={this.addPickedSerie} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} />
                     </Container>
+                    <DetallePanel seriesPicker={
+                        <SeriesPicker {...this.seriesPickerProps()} />
+                    } />
                 </div>
             </section>
         );
     }
 
+    public seriesPickerProps(): ISeriesPickerProps{
+        return {
+            isChecked: this.isChecked,
+            onPick: this.addPickedSerie,
+            pegColorFor: this.pegColorFor,
+            seriesApi: this.props.seriesApi,
+        }
+    }
+
+    public isChecked(serieId: string): boolean{
+        return this.props.series.map(serie => serie.id).indexOf(serieId) >= 0;
+    }
+
+    public pegColorFor(serieId: string): string{
+        return "red";
+    }
 
     public componentDidMount() {
         this.unlisten = this.props.history.listen(l => this.handleUriChange(l)); // se subscribe

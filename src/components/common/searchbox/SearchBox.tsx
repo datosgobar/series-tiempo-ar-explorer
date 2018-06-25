@@ -1,29 +1,43 @@
+// tslint:disable-next-line:no-var-requires
+const debounce = require('debounce');
+
 import * as React from 'react';
 
-import FormInput from '../../style/Common/FormInput';
 import SearchIcon from '../../style/Common/SearchIcon';
 import HeroFormSearch from '../../style/Hero/HeroFormSearch';
+
+import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
+import AutoComplete from '../../style/Common/AutoComplete';
+
 
 interface ISearchBoxProps {
 
     onSearch: (searchTerm: string) => void;
     searchTerm?: string;
+    seriesApi: ISerieApi;
 }
 
 interface ISearchBoxState {
 
     searchTerm: string;
+    autoCompleteItems: ISearchResultItem[];
 }
 
-export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
+class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
+
 
     constructor(props: ISearchBoxProps) {
         super(props);
 
-        this.state = { searchTerm: this.props.searchTerm || "" };
+        this.state = {
+            autoCompleteItems: [],
+            searchTerm: this.props.searchTerm || "",
+        };
 
         this.onSearchTermChange = this.onSearchTermChange.bind(this);
         this.triggerSearch = this.triggerSearch.bind(this);
+        this.updateAutoCompleteItems = debounce(this.updateAutoCompleteItems, 500);
+        this.onSelect = this.onSelect.bind(this);
     }
 
     public componentDidUpdate(prevProps: ISearchBoxProps) {
@@ -38,7 +52,7 @@ export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState>
     public updateAutoCompleteItems(searchTerm: string) {
         if (searchTerm.length) {
             this.props.seriesApi
-                .searchSeries(searchTerm, {limit: 4})
+                .searchSeries(searchTerm, {offset: 0, limit: 4})
                 .then((autoCompleteItems: ISearchResultItem[]) => {
                     this.setState({ autoCompleteItems })
                 });
@@ -48,6 +62,8 @@ export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState>
     public onSearchTermChange(event: any) {
         const searchTerm: string = event.target.value;
         this.setState({ searchTerm });
+
+        this.updateAutoCompleteItems(searchTerm);
     }
 
     public triggerSearch(event: any) {
@@ -55,20 +71,35 @@ export class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState>
         this.props.onSearch(this.state.searchTerm);
     }
 
+    public onSelect(val: string, item: ISearchResultItem) {
+        this.props.onSearch(val);
+    }
+
     public render() {
         return (
             <HeroFormSearch onSubmit={this.triggerSearch} >
-                <FormInput
-                    id="searchterm"
+                <AutoComplete
                     value={this.state.searchTerm}
-                    type='text'
-                    placeholder='Buscar Serie'
-                    onChange={this.onSearchTermChange} />
+                    onChange={this.onSearchTermChange}
+                    getItemValue={getItemValue}
+                    items={this.state.autoCompleteItems}
+                    renderItem={renderItem}
+                    onSelect={this.onSelect} />
 
                 <SearchIcon onClick={this.triggerSearch} />
             </HeroFormSearch>
         );
     }
+}
+
+function getItemValue(item: ISearchResultItem) { return item.title; }
+
+function renderItem(item: ISearchResultItem, isHighlighted: boolean) {
+    return (
+        <div key={item.id} style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+            {isHighlighted ? <b>{item.title}</b> : item.title}
+        </div>
+    );
 }
 
 export default SearchBox;

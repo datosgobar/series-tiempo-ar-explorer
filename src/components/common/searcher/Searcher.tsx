@@ -53,12 +53,13 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
     }
 
     public componentDidUpdate(prevProps: ISearcherProps) {
-        if (prevProps.q !== this.props.q ||
-            prevProps.datasetTheme !== this.props.datasetTheme ||
-            prevProps.datasetSource !== this.props.datasetSource ||
-            prevProps.offset !== this.props.offset ||
-            prevProps.limit !== this.props.limit
-        ) {
+        if (this.props.q &&
+            (prevProps.q !== this.props.q ||
+                prevProps.datasetTheme !== this.props.datasetTheme ||
+                prevProps.datasetSource !== this.props.datasetSource ||
+                prevProps.offset !== this.props.offset ||
+                prevProps.limit !== this.props.limit
+            )) {
             this.performSearch(this.props.q, this.searchOptions());
         }
     }

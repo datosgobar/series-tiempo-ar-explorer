@@ -1,13 +1,6 @@
 import * as React from "react";
 
-
-interface ISelectorProps<T> {
-
-    selected: T;
-    items: T[];
-    onItemSelected: (event: React.SyntheticEvent<HTMLElement>, item: T | null) => void;
-    renderItem: (item: T) => JSX.Element | string;
-}
+import ISelectorProps from "./SelectorProps";
 
 
 class Selector<T> extends React.Component<ISelectorProps<T>, any> {
@@ -21,10 +14,9 @@ class Selector<T> extends React.Component<ISelectorProps<T>, any> {
 
     public handleClick(item: T) {
         return (event: React.SyntheticEvent<HTMLAnchorElement>) => {
-            this.props.onItemSelected(
-                event,
-                item
-            );
+            event.preventDefault();
+            event.stopPropagation();
+            this.props.onChange(item);
         };
     }
 

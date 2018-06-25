@@ -15,6 +15,7 @@ import URLSearchParams from '../../helpers/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import Searcher, { ISearchParams } from '../common/searcher/Searcher';
+import Selector from '../common/selector/Selector';
 import SeriesFilters from './filters/SeriesFilters';
 
 
@@ -115,8 +116,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         }
     }
 
-    public sourcePicked(event: React.MouseEvent<HTMLElement>, newDatasetSource: string): void {
-        event.stopPropagation()
+    public sourcePicked(newDatasetSource: string): void {
 
         let oldSearchParams: ISearchParams | undefined;
 
@@ -139,9 +139,8 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         }
     }
 
-    public themePicked(event: React.MouseEvent<HTMLElement>, newTheme: string): void {
-        event.stopPropagation();
-
+    public themePicked(newTheme: string): void {
+        
         let oldSearchParams: ISearchParams | undefined;
 
         oldSearchParams = this.getUriSearchParams(this.props.location)
@@ -182,14 +181,14 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
 
             <section id="listado">
 
-                <SeriesHero compact={true} searchBox={<SearchBox onSearch={this.searchTermPicked} />} />
+                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} />} />
 
                 <div id="listado-list">
                     <Container>
                         <Row>
                             <div className="col-sm-4">
 
-                                <SeriesFilters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
+                                <SeriesFilters selector={Selector} seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
 
                             </div>
                             <div className="col-sm-8">
