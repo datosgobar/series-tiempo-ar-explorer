@@ -13,6 +13,7 @@ import AutoCompleteItem from '../../style/Common/AutoCompleteItem';
 
 interface ISearchBoxProps {
 
+    onSelect: (serieId: string) => void;
     onSearch: (searchTerm: string) => void;
     searchTerm?: string;
     seriesApi: ISerieApi;
@@ -73,7 +74,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 
     public onSelect(val: string, item: ISearchResultItem) {
-        this.props.onSearch(val);
+        this.props.onSelect(item.id);
     }
 
     public render() {

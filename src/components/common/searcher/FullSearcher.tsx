@@ -60,7 +60,7 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
         return (
             <div className="Searcher">
 
-                <SearchBox seriesApi={this.props.seriesApi} searchTerm={this.props.q} onSearch={this.onSearchTermPicked} />
+                <SearchBox seriesApi={this.props.seriesApi} searchTerm={this.props.q} onSearch={this.onSearchTermPicked} onSelect={this.onSearchTermPicked}/>
                             <div className="dp-filters">
                                 <form>
                                     <FormGroup>
