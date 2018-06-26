@@ -44,7 +44,7 @@ export default class Serie implements ISerie {
     get title(): string {
         return (
             // TODO: definir que titulo mostrar para una serie
-            this.fieldMeta.title
+            this.fieldMeta.description
         );
     }
 
@@ -56,7 +56,7 @@ export default class Serie implements ISerie {
 
     get description(): string {
         return (
-            this.fieldMeta.description
+            this.datasetMeta.title
         );
     }
 

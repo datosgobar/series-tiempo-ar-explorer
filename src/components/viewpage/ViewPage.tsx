@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { RouterProps, withRouter } from "react-router";
 
 import ClearFix from '../style/ClearFix';
+import Color from '../style/Colors/Color';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
 import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
@@ -130,7 +131,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public pegColorFor(serieId: string): string{
-        return "red";
+        return Color.Magenta;
     }
 
     public componentDidMount() {

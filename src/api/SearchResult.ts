@@ -13,7 +13,7 @@ export default class SearchResult implements ISerie {
     }
 
     public get title(): string {
-        return this.searchResult.field.title;
+        return this.searchResult.field.description;
     }
 
     public get publisher(): IPublisher {

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-import SearchResultCard from '../style/Card/SearchResultCard';
+import Color from '../style/Colors/Color';
 import Container from '../style/Common/Container';
 import Row from '../style/Common/Row';
 import SeriesHero from '../style/Hero/SeriesHero';
@@ -17,7 +17,9 @@ import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import Searcher, { ISearchParams } from '../common/searcher/Searcher';
 import Selector from '../common/selector/Selector';
+import LinkedSerieCard from '../style/Card/Serie/LinkedSerieCard';
 import SeriesFilters from './filters/SeriesFilters';
+
 
 
 interface ISearchPageProps extends RouteComponentProps<any> {
@@ -242,6 +244,6 @@ function renderSearchResults(searchResults: SearchResult[]) {
 
 function toCard(searchResult: SearchResult) {
     return (
-        <SearchResultCard key={searchResult.id} searchResult={searchResult} />
+        <LinkedSerieCard key={searchResult.id} serie={searchResult} pegColor={Color.Purple}/>
     );
 }

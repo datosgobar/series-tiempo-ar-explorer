@@ -6,7 +6,7 @@ import DetailsTitle from './DetailsTitle';
 import DetailsTitleAndActions from './DetailsTitleAndActions';
 
 import { ISerie } from '../../../api/Serie';
-import randomColor from '../../../helpers/randomColor';
+import Color from '../Colors/Color';
 
 
 interface ISerieDetailsProp extends React.Props<any> {
@@ -19,7 +19,7 @@ export default (props: ISerieDetailsProp) =>
 
     <Details key={props.serie.id}>
         <DetailsTitleAndActions>
-            <DetailsTitle pegcolor={randomColor()}>
+            <DetailsTitle pegcolor={Color.Purple}>
                 {props.serie.title}
             </DetailsTitle>
             {props.actions}
