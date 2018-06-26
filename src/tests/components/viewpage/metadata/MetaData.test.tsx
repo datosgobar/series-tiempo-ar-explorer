@@ -3,13 +3,12 @@ import * as React from 'react';
 
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
-import { ISerie } from '../../../../api/Serie';
 
 import MetaData from '../../../../components/viewpage/metadata/MetaData';
-import { generateITSAPIResponse } from '../../../support/factories/series_api';
+import { generateSeries } from '../../../support/factories/series_api';
 
 
-const series: ISerie[] = generateITSAPIResponse(['id']).data;
+const series = generateSeries();
 
 configure({ adapter: new Adapter() });
 

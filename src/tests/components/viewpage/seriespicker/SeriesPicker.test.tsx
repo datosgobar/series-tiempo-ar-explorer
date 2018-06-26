@@ -7,6 +7,7 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import * as AutoComplete from 'react-autocomplete';
 
 import { setSeriesApi } from "../../../../actions/seriesActions";
+import { ITSMeta } from "../../../../api/ITSAPIResponse";
 import SearchResult from "../../../../api/SearchResult";
 import { ISerie } from "../../../../api/Serie";
 import { ISerieApi } from "../../../../api/SerieApi";
@@ -38,7 +39,7 @@ describe('SeriesPicker', () => {
         const onPick = jest.fn();
         const searchTerm = "hola";
 
-        const searchResults: ISerie[] = generateITSAPIResponse(['serie01']).data.map(result => new SearchResult(result));
+        const searchResults: ISerie[] = generateITSAPIResponse(['serie01']).meta.slice(1).map(result => new SearchResult(result as ITSMeta));
 
         const promise = Promise.resolve(searchResults);
         const mockSearch = jest.fn().mockReturnValue(promise);

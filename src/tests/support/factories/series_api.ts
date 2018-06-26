@@ -1,4 +1,5 @@
 import { ITSAPIResponse } from "../../../api/ITSAPIResponse";
+import Serie from "../../../api/Serie";
 
 export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPIResponse {
 
@@ -85,3 +86,8 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
 }
 
 export const tsResponseMock: ITSAPIResponse = generateITSAPIResponse();
+
+export function generateSeries(seriesIds = ["serie01", "serie02"]){
+    const response = generateITSAPIResponse(seriesIds);
+    return seriesIds.map((id, index) => new Serie(index+1, response));
+}

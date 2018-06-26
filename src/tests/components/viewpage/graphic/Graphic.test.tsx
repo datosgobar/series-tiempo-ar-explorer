@@ -6,10 +6,10 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import { ISerie } from '../../../../api/Serie';
 
 import Graphic from '../../../../components/viewpage/graphic/Graphic';
-import { generateITSAPIResponse } from '../../../support/factories/series_api';
+import { generateSeries } from '../../../support/factories/series_api';
 
 
-const series: ISerie[] = generateITSAPIResponse(['id']).data;
+const series: ISerie[] = generateSeries();
 
 configure({ adapter: new Adapter() });
 

@@ -24,12 +24,12 @@ describe('Serie', () => {
             it("uses dataset's publisher as publisher", () => {
                 expect(serie.publisher.name).toBe(getTSMetadata(tsResponseMock,serieIndex).dataset.publisher.name);
             });
-            it("uses field's title as title", () => {
-                expect(serie.title).toBe(getTSMetadata(tsResponseMock,serieIndex).field.title);
+            it("uses field's description as title", () => {
+                expect(serie.title).toBe(getTSMetadata(tsResponseMock,serieIndex).field.description);
             });
-            it("uses field's description as description", () => {
+            it("uses dataset's title as description", () => {
                 expect(serie.description).toBe(getTSMetadata(tsResponseMock, serieIndex).
-                    field.description);
+                    dataset.title);
             });
             it("uses data at 0 as date", () => {
                 serie.data.forEach((dataPoint: IDataPoint, index: number) => {
