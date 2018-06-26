@@ -11,24 +11,40 @@ export interface IExtraMeta {
 }
 
 export interface ITSMeta {
-    dataset: IDataSet[];
+    catalog: ICatalog;
+    dataset: IDataSet;
+    distribution: IDistribution;
+    field: IField;
 }
 
 export type IMetaData = IExtraMeta | ITSMeta;
 
-export interface IDataSet {
-    distribution: IDistribution[];
+export interface ICatalog {
     publisher: IPublisher;
+    description: string;
+    modified: string;
+    title: string;
+    identifier: string;
+}
+
+export interface IDataSet {
+    publisher: IPublisher;
+    title: string;
+    source: string;
+    identifier: string;
 }
 
 export interface IDistribution {
-    field: IField[];
+    description: string;
+    title: string;
+    identifier: string;
 }
 
 export interface IField {
     id: string;
     title: string;
     description: string;
+    units: string;
 }
 
 export interface IPublisher {

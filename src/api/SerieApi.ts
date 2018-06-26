@@ -87,8 +87,8 @@ export default class SerieApi implements ISerieApi {
 
         return this.apiClient.get<ITSAPIResponse>(options)
             .then((tsResponse: ITSAPIResponse) => tsResponse.data)
-            .then((searchResults: ISearchResultItem[]) =>
-                searchResults.map(addPlaceHolders));
+            // .then((searchResults: ISearchResultItem[]) =>
+            //     searchResults.map(addPlaceHolders));
     }
 
     public fetchSources() {
@@ -114,19 +114,19 @@ function tsResponseToSeries(ids: string[], tsResponse: ITSAPIResponse): Serie[] 
     );
 }
 
-function addPlaceHolders(searchResult: ISearchResultItem): ISearchResultItem {
-    return ({
-        accuralPeriodisity: searchResult.accuralPeriodisity || "accuralPeriodisity",
-        dataset: searchResult.dataset || {
-            title: "dataset_title",
-        },
-        description: searchResult.description || "field_description",
-        id: searchResult.id || "id",
-        index: searchResult.index || {
-            end: "index_end",
-            start: "index_start",
-        },
-        title: searchResult.title || "field_title",
-        units: searchResult.units || "field_units",
-    });
-}
+// function addPlaceHolders(searchResult: ISearchResultItem): ISearchResultItem {
+//     return ({
+//         accuralPeriodisity: searchResult.accuralPeriodisity || "accuralPeriodisity",
+//         dataset: searchResult.dataset || {
+//             title: "dataset_title",
+//         },
+//         description: searchResult.description || "field_description",
+//         id: searchResult.id || "id",
+//         index: searchResult.index || {
+//             end: "index_end",
+//             start: "index_start",
+//         },
+//         title: searchResult.title || "field_title",
+//         units: searchResult.units || "field_units",
+//     });
+// }

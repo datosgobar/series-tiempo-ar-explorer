@@ -1,4 +1,4 @@
-import {ITSAPIResponse} from "../../../api/ITSAPIResponse";
+import { ITSAPIResponse } from "../../../api/ITSAPIResponse";
 
 export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPIResponse {
 
@@ -23,28 +23,41 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
         },
         ...tsIDs.map((tsID) => {
             return {
-                "dataset": [
-                    {
-                        "distribution": [
-                            {
-                                "field": [
-                                    {
-                                        "description": `${tsID} field description`,
-                                        "id": tsID,
-                                        "title": `${tsID} field title`,
-                                    }
-                                ],
-                            }
-                        ],
-                        "publisher": {
-                            "mbox": `${tsID}@dataset.com`,
-                            "name": `${tsID} dataset publisher name`
-                        },
-                    }
-                ],
-            }
-        }),
+                catalog: {
+                    description: `${tsID} catalog description`,
+                    identifier: `${tsID} catalog identifier`,
+                    modified: `${tsID} catalog modified`,
+                    publisher: {
+                        mbox: `${tsID}@catalog.com`,
+                        name: `${tsID} catalog publisher name`
+                    },
+                    title: `${tsID} catalog title`,
+                },
+                dataset: {
+                    identifier: `${tsID} dataset identifier`,
+                    publisher: {
+                        mbox: `${tsID}@dataset.com`,
+                        name: `${tsID} dataset publisher name`
+                    },
+                    source: `${tsID} dataset source`,
+                    title: `${tsID} dataset title`,
+                },
+                distribution: {
+                    description: `${tsID} distribution description`,
+                    identifier: `${tsID} distribution identifier`,
+                    title: `${tsID} distribution title`,
+                    units: `${tsID} distribution units`,
+                },
+                field: {
+                    description: `${tsID} field description`,
+                    id: tsID,
+                    title: `${tsID} field title`,
+                    units: `${tsID} field units`,
+                },
 
+            }
+        }
+        )
     ];
 
     const params = {

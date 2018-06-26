@@ -20,15 +20,11 @@ export default class Serie implements ISerie {
     }
 
     private get datasetMeta() {
-        return this.meta.dataset[0];
-    }
-
-    private get distributionMeta() {
-        return this.datasetMeta.distribution[0];
+        return this.meta.dataset;
     }
 
     private get fieldMeta() {
-        return this.distributionMeta.field[0];
+        return this.meta.field;
     }
 
     constructor(index: number, tsResponse: ITSAPIResponse) {
