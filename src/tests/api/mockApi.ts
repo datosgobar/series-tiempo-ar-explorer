@@ -1,5 +1,6 @@
+import SearchResult from "../../api/SearchResult";
 import { ISerie } from "../../api/Serie";
-import { ISearchOptions, ISearchResultItem, ISerieApi } from "../../api/SerieApi";
+import { ISearchOptions, ISerieApi } from "../../api/SerieApi";
 
 const DELAY = 1000;
 const SOURCES = [
@@ -28,32 +29,32 @@ class MockApi implements ISerieApi {
         this.themes = themes || THEMES;
     }
 
-    public getSeries(ids: string[]): Promise<ISerie[]> {
+    public fetchSeries(ids: string[]): Promise<ISerie[]> {
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, ids.map(toSerie))
         })
     }
 
-    public searchSeries(q: string, options?: ISearchOptions): Promise<ISearchResultItem[]> {
+    public searchSeries(q: string, options?: ISearchOptions): Promise<SearchResult[]> {
 
         if (options && options.datasetSource) {
             return new Promise((resolve, reject) => {
                 setTimeout(resolve, this.delay, [
-                    toSearchResult("serie01"),
+                    toSerie("serie01"),
                 ]);
             });
         }
         if (options && options.datasetTheme) {
             return new Promise((resolve, reject) => {
                 setTimeout(resolve, this.delay, [
-                    toSearchResult("serie02"),
+                    toSerie("serie02"),
                 ]);
             });
         }
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, [
-                toSearchResult("serie01"),
-                toSearchResult("serie02"),
+                toSerie("serie01"),
+                toSerie("serie02"),
             ]);
         });
     }
@@ -76,33 +77,18 @@ class MockApi implements ISerieApi {
 function toSerie(id: string): ISerie {
 
     const self = {
+        accuralPeriodicity: `${id} accuralPeriodicity`,
         bake: () => self,
         data: [],
         description: 'description' + id,
         id,
+        index: {start: `${id} index start`, end: `${id} index end`},
         publisher: { mbox: 'mail' + id, name: 'publi' + id },
         title: 'title' + id,
+        units: `${id} units`,
     }
 
     return self;
-}
-
-function toSearchResult(id: string): ISearchResultItem {
-
-    return {
-        accuralPeriodisity: 'Anual',
-        dataset: {
-            title: id + '_dataset_title'
-        },
-        description: 'Description id: ' + id,
-        id,
-        index: {
-            end: '2018',
-            start: '1960',
-        },
-        title: 'title_' + id,
-        units: 'Millones de pesos'
-    };
 }
 
 export default MockApi;

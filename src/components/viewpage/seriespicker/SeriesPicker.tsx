@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import SeriesPickerCard, { ISeriesPickerCardProps } from '../../style/Card/SeriesPickerCard';
 
-import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
+import SearchResult from '../../../api/SearchResult';
+import { ISerieApi } from '../../../api/SerieApi';
 import initialState from '../../../store/initialState';
 import FullSearcher from '../../common/searcher/FullSearcher';
 
@@ -45,22 +46,22 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
         }
     }
 
-    public searchResultCardProps(searchResult: ISearchResultItem): ISeriesPickerCardProps{
+    public searchResultCardProps(searchResult: SearchResult): ISeriesPickerCardProps {
         return {
             checked: this.props.isChecked && this.props.isChecked(searchResult.id),
             onClick: this.handlePick(searchResult.id),
-            pegcolor: this.props.pegColorFor? this.props.pegColorFor(searchResult.id) : undefined,
+            pegcolor: this.props.pegColorFor ? this.props.pegColorFor(searchResult.id) : undefined,
             searchResult,
         }
     }
 
-    public renderPickeableItems(searchResults: ISearchResultItem[]): JSX.Element {
+    public renderPickeableItems(searchResults: SearchResult[]): JSX.Element {
         return (
             <div className="dp-results">
-                {searchResults.map((searchResult: ISearchResultItem) =>
-                    <SeriesPickerCard 
-                    key={searchResult.id}
-                    {...this.searchResultCardProps(searchResult)} />
+                {searchResults.map((searchResult: SearchResult) =>
+                    <SeriesPickerCard
+                        key={searchResult.id}
+                        {...this.searchResultCardProps(searchResult)} />
                 )}
             </div>
         );

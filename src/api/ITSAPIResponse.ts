@@ -45,6 +45,11 @@ export interface IField {
     title: string;
     description: string;
     units: string;
+    accuralPeriodicity: string;
+    index:{
+        start: string,
+        end: string,
+    };
 }
 
 export interface IPublisher {

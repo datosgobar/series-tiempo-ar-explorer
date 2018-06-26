@@ -6,11 +6,11 @@ import CardFooter from './CardFooter';
 import CardSubtitle from './CardSubtitle';
 import CardTitle from './CardTitle';
 
-import { ISearchResultItem } from '../../../api/SerieApi';
+import SearchResult from '../../../api/SearchResult';
 
 
 export interface ISeriesPickerCardProps extends React.Props<{}> {
-    searchResult: ISearchResultItem;
+    searchResult: SearchResult;
     pegcolor?: string;
     onClick?: React.MouseEventHandler<HTMLElement>;
     checked?: boolean;

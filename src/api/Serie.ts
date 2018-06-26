@@ -8,15 +8,23 @@ export interface ISerie {
     publisher: IPublisher;
     description: string;
     data: IDataPoint[];
+    accuralPeriodicity: string;
+    index:{
+        start: string,
+        end: string,
+    };
+    units: string;
 }
 
 
 export default class Serie implements ISerie {
-    private tsResponse: ITSAPIResponse;
-    private index: number;
+
+    constructor(private responseIndex: number, private tsResponse: ITSAPIResponse) {
+        
+    }
 
     private get meta(): ITSMeta {
-        return this.tsResponse.meta[this.index] as ITSMeta;
+        return this.tsResponse.meta[this.responseIndex] as ITSMeta;
     }
 
     private get datasetMeta() {
@@ -25,11 +33,6 @@ export default class Serie implements ISerie {
 
     private get fieldMeta() {
         return this.meta.field;
-    }
-
-    constructor(index: number, tsResponse: ITSAPIResponse) {
-        this.tsResponse = tsResponse;
-        this.index = index;
     }
 
     get id(): string {
@@ -60,18 +63,33 @@ export default class Serie implements ISerie {
     get data(): DataPoint[] {
         return this.tsResponse.data
             .map((datapoint: any[]) => {
-                return new DataPoint(datapoint, this.index)
+                return new DataPoint(datapoint, this.responseIndex)
             }
             );
     }
 
+    get accuralPeriodicity() {
+        return this.fieldMeta.accuralPeriodicity;
+    }
+
+    get units() {
+        return this.fieldMeta.units;
+    }
+
+    get index() {
+        return this.fieldMeta.index
+    }
+
     public bake(): ISerie {
         return {
+            accuralPeriodicity: this.accuralPeriodicity,
             data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
             description: this.description,
             id: this.id,
+            index: this.index,
             publisher: {mbox: this.publisher.mbox, name: this.publisher.mbox},
             title: this.title,
+            units: this.units,
         };
     }
 }

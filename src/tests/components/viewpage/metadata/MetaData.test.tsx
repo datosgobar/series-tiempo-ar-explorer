@@ -6,17 +6,10 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import { ISerie } from '../../../../api/Serie';
 
 import MetaData from '../../../../components/viewpage/metadata/MetaData';
+import { generateITSAPIResponse } from '../../../support/factories/series_api';
 
 
-const series: ISerie[] = [
-    {
-        data: [],
-        description: 'description',
-        id: 'id',
-        publisher: { mbox: 'mail', name: 'publi' },
-        title: 'title',
-    }
-];
+const series: ISerie[] = generateITSAPIResponse(['id']).data;
 
 configure({ adapter: new Adapter() });
 

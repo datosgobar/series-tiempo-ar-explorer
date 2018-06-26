@@ -3,12 +3,13 @@ const debounce = require('debounce');
 
 import * as React from 'react';
 
+import AutoComplete from '../../style/Common/AutoComplete';
+import AutoCompleteItem from '../../style/Common/AutoCompleteItem';
 import SearchIcon from '../../style/Common/SearchIcon';
 import HeroFormSearch from '../../style/Hero/HeroFormSearch';
 
-import { ISearchResultItem, ISerieApi } from '../../../api/SerieApi';
-import AutoComplete from '../../style/Common/AutoComplete';
-import AutoCompleteItem from '../../style/Common/AutoCompleteItem';
+import SearchResult from '../../../api/SearchResult';
+import { ISerieApi } from '../../../api/SerieApi';
 
 
 interface ISearchBoxProps {
@@ -22,7 +23,7 @@ interface ISearchBoxProps {
 interface ISearchBoxState {
 
     searchTerm: string;
-    autoCompleteItems: ISearchResultItem[];
+    autoCompleteItems: SearchResult[];
 }
 
 class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
@@ -55,7 +56,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         if (searchTerm.length) {
             this.props.seriesApi
                 .searchSeries(searchTerm, {offset: 0, limit: 4})
-                .then((autoCompleteItems: ISearchResultItem[]) => {
+                .then((autoCompleteItems: SearchResult[]) => {
                     this.setState({ autoCompleteItems })
                 });
         }
@@ -73,7 +74,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         this.props.onSearch(this.state.searchTerm);
     }
 
-    public onSelect(val: string, item: ISearchResultItem) {
+    public onSelect(val: string, item: SearchResult) {
         this.props.onSelect(item.id);
     }
 
@@ -94,9 +95,9 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 }
 
-function getItemValue(item: ISearchResultItem) { return item.title; }
+function getItemValue(item: SearchResult) { return item.title; }
 
-function renderItem(item: ISearchResultItem, isHighlighted: boolean) {
+function renderItem(item: SearchResult, isHighlighted: boolean) {
     return (
         <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} />
     );

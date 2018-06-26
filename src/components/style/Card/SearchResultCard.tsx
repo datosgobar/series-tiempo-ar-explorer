@@ -5,12 +5,13 @@ import Card from './Card';
 import CardBody from './CardBody';
 import CardTitle from './CardTitle';
 
-import { ISearchResultItem } from '../../../api/SerieApi';
+import SearchResult from '../../../api/SearchResult';
+
 import randomColor from '../../../helpers/randomColor';
 
 
 interface ISearchResultCardProps extends React.Props<any> {
-    searchResult: ISearchResultItem;
+    searchResult: SearchResult;
 }
 
 export default (props: ISearchResultCardProps) =>

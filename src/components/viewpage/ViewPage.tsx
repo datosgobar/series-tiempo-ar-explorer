@@ -168,7 +168,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     private fetchSeries(ids: string[]) {
-        this.props.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
+        this.props.seriesApi.fetchSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
     }
 }
 

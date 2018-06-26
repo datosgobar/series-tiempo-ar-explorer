@@ -10,7 +10,8 @@ import SeriesHero from '../style/Hero/SeriesHero';
 import Tag from '../style/Tag/Tag';
 
 import { setSearchParams } from '../../actions/searchActions';
-import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
+import SearchResult from '../../api/SearchResult';
+import { ISerieApi } from '../../api/SerieApi';
 import URLSearchParams from '../../helpers/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
@@ -233,13 +234,13 @@ function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
 export default withRouter<ISearchPageProps>(connect(mapStateToProps)(SearchPage));
 
 
-function renderSearchResults(searchResults: ISearchResultItem[]) {
+function renderSearchResults(searchResults: SearchResult[]) {
     return (
         searchResults.map(toCard)
     );
 }
 
-function toCard(searchResult: ISearchResultItem) {
+function toCard(searchResult: SearchResult) {
     return (
         <SearchResultCard key={searchResult.id} searchResult={searchResult} />
     );

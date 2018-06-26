@@ -3,7 +3,8 @@ import * as React from "react";
 import FormGroup from "../../style/Common/FormGroup";
 import Row from "../../style/Common/Row";
 
-import { ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
+import SearchResult from "../../../api/SearchResult";
+import { ISerieApi } from "../../../api/SerieApi";
 import SearchBox from "../../common/searchbox/SearchBox";
 import { FilterSources } from "../filters/filtersources/FilterSources";
 import { FilterThemes } from "../filters/filterthemes/FilterThemes";
@@ -15,7 +16,7 @@ interface IFullSearcherProps extends ISearchParams {
 
     seriesApi: ISerieApi;
 
-    renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element | JSX.Element[];
+    renderSearchResults: (searchResults: SearchResult[]) => JSX.Element | JSX.Element[];
 }
 
 export default class FullSearcher extends React.Component<IFullSearcherProps, ISearchParams> {

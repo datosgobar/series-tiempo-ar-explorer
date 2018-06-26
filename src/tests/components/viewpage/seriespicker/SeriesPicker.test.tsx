@@ -5,12 +5,18 @@ import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 
 import * as AutoComplete from 'react-autocomplete';
+
 import { setSeriesApi } from "../../../../actions/seriesActions";
-import { ISearchResultItem, ISerieApi } from "../../../../api/SerieApi";
+import SearchResult from "../../../../api/SearchResult";
+import { ISerie } from "../../../../api/Serie";
+import { ISerieApi } from "../../../../api/SerieApi";
 import Searcher from "../../../../components/common/searcher/Searcher";
 import SeriesPicker from "../../../../components/viewpage/seriespicker/SeriesPicker";
+
 import configureStore from "../../../../store/configureStore";
+
 import MockApi from "../../../api/mockApi";
+import { generateITSAPIResponse } from "../../../support/factories/series_api";
 
 
 configure({ adapter: new Adapter() });
@@ -24,7 +30,7 @@ describe('SeriesPicker', () => {
 
         mockSeriesApi = new MockApi(0);
         mockSeriesApi.searchSeries = jest.fn().mockImplementation(mockSeriesApi.searchSeries);
-        mockSeriesApi.getSeries = jest.fn().mockImplementation(mockSeriesApi.getSeries);
+        mockSeriesApi.fetchSeries = jest.fn().mockImplementation(mockSeriesApi.fetchSeries);
     });
 
     it('searchs and show results', () => {
@@ -32,22 +38,8 @@ describe('SeriesPicker', () => {
         const onPick = jest.fn();
         const searchTerm = "hola";
 
-        const searchResults: ISearchResultItem[] = [
-            {
-                accuralPeriodisity: 'Anual',
-                dataset:{
-                    title: 'serie1_dataset_title'
-                },
-                description: "description",
-                id: "serie1",
-                index: {
-                    end: '2018',
-                    start: '1960',
-                },
-                title: "title",
-                units: 'Millones de pesos'
-            },
-        ];
+        const searchResults: ISerie[] = generateITSAPIResponse(['serie01']).data.map(result => new SearchResult(result));
+
         const promise = Promise.resolve(searchResults);
         const mockSearch = jest.fn().mockReturnValue(promise);
         mockSeriesApi.searchSeries = mockSearch;

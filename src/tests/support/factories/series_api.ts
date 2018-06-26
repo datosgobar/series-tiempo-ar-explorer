@@ -49,8 +49,13 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                     units: `${tsID} distribution units`,
                 },
                 field: {
+                    accuralPeriodicity: `${tsID} field accuralPeriodisity`,
                     description: `${tsID} field description`,
                     id: tsID,
+                    index: {
+                        end: `${tsID} field index end`,
+                        start: `${tsID} field index start`,
+                    },
                     title: `${tsID} field title`,
                     units: `${tsID} field units`,
                 },
