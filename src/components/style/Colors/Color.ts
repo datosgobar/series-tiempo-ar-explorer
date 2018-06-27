@@ -1,12 +1,17 @@
-enum Color {
-    Brown = "brown", 
-    Green1 = "green1", 
-    Blue = "blue", 
-    Purple = "purple", 
-    Violet = "violet", 
-    Green2 = "green2", 
-    Orange = "orange", 
-    Magenta = "magenta"
+export class Color {
+    constructor(public name: string, public code: string){}
 }
 
-export default Color;
+const Colors = {
+    Blue: new Color("blue", "#417798"),
+    Brown: new Color("brown","#8e655e"),
+    Green1: new Color("green1", "#009488"),
+    Green2: new Color("green2", "#898d5d"),
+    Magenta: new Color("magenta", "#ef0065"),
+    Orange: new Color("orange", "#c96339"),
+    Purple: new Color("purple", "#8b5172"),
+    Violet: new Color("violet", "#7b52a4"),
+};
+export const NaC = new Color("", "");
+
+export default Colors;
