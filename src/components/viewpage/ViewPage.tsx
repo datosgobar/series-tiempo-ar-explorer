@@ -91,23 +91,23 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         if (!this.hasMainSerie()) {
             return <div className='ViewPage'>
                 <h1>Cargando...</h1>
-                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi} onSelect={this.redirectToViewPage}/>
+                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi} onSelect={this.redirectToViewPage} />
             </div>
         }
 
         return (
             <section id="detalle">
-                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} onSelect={this.redirectToViewPage}/>} />
+                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} onSelect={this.redirectToViewPage} />} />
                 <div id="detalle-content">
                     <Container>
                         <AddAndCustomizeSeriesButton />
                         <ClearFix />
-                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie} pegColorFor={this.pegColorFor}/>
+                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie} pegColorFor={this.pegColorFor} />
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
                         <Graphic series={this.props.series} />
-                        <MetaData series={this.props.series} onRemove={this.removeSerie} />
+                        <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.pegColorFor} />
                     </Container>
                     <DetallePanel seriesPicker={
                         <SeriesPicker {...this.seriesPickerProps()} />
@@ -117,7 +117,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         );
     }
 
-    public seriesPickerProps(): ISeriesPickerProps{
+    public seriesPickerProps(): ISeriesPickerProps {
         return {
             isChecked: this.isChecked,
             onPick: this.addPickedSerie,
@@ -126,11 +126,11 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         }
     }
 
-    public isChecked(serieId: string): boolean{
+    public isChecked(serieId: string): boolean {
         return this.props.series.map(serie => serie.id).indexOf(serieId) >= 0;
     }
 
-    public pegColorFor(serieId: string): string{
+    public pegColorFor(serieId: string): string {
         return Color.Orange;
     }
 

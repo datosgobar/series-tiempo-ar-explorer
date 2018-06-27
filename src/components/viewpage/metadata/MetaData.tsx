@@ -9,6 +9,7 @@ import { ISerie } from '../../../api/Serie';
 interface IMetaDataProps {
     series: ISerie[];
     onRemove: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void;
+    pegColorFor?: (serieId: string) => string;
 }
 
 export class MetaData extends React.Component<IMetaDataProps, any> {
@@ -30,7 +31,9 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
         return (
             <div className='MetaData'>
                 {this.props.series.map((serie: ISerie, index: number) =>
-                    <SerieDetails key={serie.id} serie={serie} actions={[
+                    <SerieDetails key={serie.id} serie={serie} 
+                        pegColorFor={this.props.pegColorFor}
+                    actions={[
                         <RemoveAction key={serie.id} onClick={this.handleRemove(serie.id)}/>
                     ]}/>
                 )}
