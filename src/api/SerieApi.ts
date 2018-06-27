@@ -110,8 +110,11 @@ function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {
 
     const data = apiResponse.data.map((searchResult: ITSMeta) => ({
         ...searchResult,
+        dataset: {
+            accrualPeriodicity: `accrualPeriodicity`,
+            ...searchResult.dataset
+        },
         field: {
-            accuralPeriodicity: `accuralPeriodicity`,
             index:{
                 end: `index_end`,
                 start: `index_start`,

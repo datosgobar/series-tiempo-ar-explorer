@@ -28,8 +28,8 @@ export default class SearchResult implements ISerie {
         return [];
     }
 
-    public get accuralPeriodicity() {
-        return this.searchResult.field.accuralPeriodicity;
+    public get accrualPeriodicity() {
+        return this.searchResult.dataset.accrualPeriodicity;
     }
 
     public get index() {
@@ -38,5 +38,17 @@ export default class SearchResult implements ISerie {
 
     public get units() {
         return this.searchResult.field.units;
+    }
+
+    public get landingPage() {
+        return "";
+    }
+
+    public get issued() {
+        return "";
+    }
+
+    public get themes() {
+        return [];
     }
 }

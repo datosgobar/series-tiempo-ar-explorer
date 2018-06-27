@@ -32,12 +32,16 @@ export interface IDataSet {
     title: string;
     source: string;
     identifier: string;
+    landingPage: string;
+    theme: string[];
+    accrualPeriodicity: string;
 }
 
 export interface IDistribution {
     description: string;
     title: string;
     identifier: string;
+    issued: string;
 }
 
 export interface IField {
@@ -45,7 +49,6 @@ export interface IField {
     title: string;
     description: string;
     units: string;
-    accuralPeriodicity: string;
     index:{
         start: string,
         end: string,

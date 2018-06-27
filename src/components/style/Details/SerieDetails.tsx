@@ -28,11 +28,11 @@ export default (props: ISerieDetailsProp) =>
             <div className="col-sm-10 col-md-8">
                 <dl className="dl-horizontal">
                     <dt>Temas</dt>
-                    <dd>Economía</dd>
+                    <dd>{props.serie.themes.join(', ')}</dd>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Frecuencia de actualización</dt>
-                    <dd>Semanal</dd>
+                    <dd>{props.serie.accrualPeriodicity}</dd>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Responsable</dt>
@@ -40,15 +40,15 @@ export default (props: ISerieDetailsProp) =>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Fecha de publicación</dt>
-                    <dd>11/11/2017</dd>
+                    <dd>{props.serie.issued}</dd>
                 </dl>
                  <dl className="dl-horizontal">
                      <dt>Fecha de actualización</dt>
-                     <dd>11/11/2017</dd>
+                     <dd>2018-01-01</dd>
                  </dl>
                  <dl className="dl-horizontal">
                      <dt>Página de referencia</dt>
-                     <dd><a href="http://www.hacienda.gob.ar" className="color-1">www.hacienda.gob.ar</a></dd>
+                     <dd><a href={props.serie.landingPage} className="color-1">{props.serie.landingPage}</a></dd>
                  </dl>
              </div>
          </Row>

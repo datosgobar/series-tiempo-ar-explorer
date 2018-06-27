@@ -1,4 +1,4 @@
-import { ITSAPIResponse } from "../../../api/ITSAPIResponse";
+import { IMetaData, ITSAPIResponse } from "../../../api/ITSAPIResponse";
 import Serie from "../../../api/Serie";
 
 export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPIResponse {
@@ -16,7 +16,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
         })];
     });
 
-    const meta = [
+    const meta: IMetaData[] = [
         {
             end_date: "2013-01-01",
             frequency: "year",
@@ -35,22 +35,25 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                     title: `${tsID} catalog title`,
                 },
                 dataset: {
+                    accrualPeriodicity: `${tsID} dataset accrualPeriodisity`,
                     identifier: `${tsID} dataset identifier`,
+                    landingPage: `${tsID} dataset landingPage`,
                     publisher: {
                         mbox: `${tsID}@dataset.com`,
                         name: `${tsID} dataset publisher name`
                     },
                     source: `${tsID} dataset source`,
+                    theme: [`${tsID} dataset theme`],
                     title: `${tsID} dataset title`,
                 },
                 distribution: {
                     description: `${tsID} distribution description`,
                     identifier: `${tsID} distribution identifier`,
+                    issued: `${tsID} distribution issued`,
                     title: `${tsID} distribution title`,
                     units: `${tsID} distribution units`,
                 },
                 field: {
-                    accuralPeriodicity: `${tsID} field accuralPeriodisity`,
                     description: `${tsID} field description`,
                     id: tsID,
                     index: {
@@ -60,28 +63,27 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                     title: `${tsID} field title`,
                     units: `${tsID} field units`,
                 },
-
             }
         }
         )
     ];
 
     const params = {
-        "identifiers": tsIDs.map(tsID => {
+        identifiers: tsIDs.map(tsID => {
             return {
                 "dataset": "1",
                 "distribution": "1.1",
                 "id": tsID
             }
         }),
-        "ids": tsIDs.join(","),
-        "metadata": "full"
+        ids: tsIDs.join(","),
+        metadata: "full"
     };
 
     return {
-        "data": data,
-        "meta": meta,
-        "params": params,
+        data,
+        meta,
+        params,
     }
 }
 

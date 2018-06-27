@@ -8,12 +8,15 @@ export interface ISerie {
     publisher: IPublisher;
     description: string;
     data: IDataPoint[];
-    accuralPeriodicity: string;
+    accrualPeriodicity: string;
     index:{
         start: string,
         end: string,
     };
     units: string;
+    landingPage: string,
+    issued: string,
+    themes: string[],
 }
 
 
@@ -31,6 +34,10 @@ export default class Serie implements ISerie {
         return this.meta.dataset;
     }
 
+    private get distributionMeta() {
+        return this.meta.distribution;
+    }
+
     private get fieldMeta() {
         return this.meta.field;
     }
@@ -43,7 +50,6 @@ export default class Serie implements ISerie {
 
     get title(): string {
         return (
-            // TODO: definir que titulo mostrar para una serie
             this.fieldMeta.description
         );
     }
@@ -68,8 +74,8 @@ export default class Serie implements ISerie {
             );
     }
 
-    get accuralPeriodicity() {
-        return this.fieldMeta.accuralPeriodicity;
+    get accrualPeriodicity() {
+        return this.datasetMeta.accrualPeriodicity;
     }
 
     get units() {
@@ -80,14 +86,29 @@ export default class Serie implements ISerie {
         return this.fieldMeta.index
     }
 
+    get landingPage(){
+        return this.datasetMeta.landingPage;
+    }
+    
+    get issued() {
+        return this.distributionMeta.issued;
+    }
+
+    get themes() {
+        return this.datasetMeta.theme;
+    }
+
     public bake(): ISerie {
         return {
-            accuralPeriodicity: this.accuralPeriodicity,
+            accrualPeriodicity: this.accrualPeriodicity,
             data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
             description: this.description,
             id: this.id,
             index: this.index,
+            issued: this.issued,
+            landingPage: this.landingPage,
             publisher: {...this.publisher},
+            themes: [...this.themes],
             title: this.title,
             units: this.units,
         };

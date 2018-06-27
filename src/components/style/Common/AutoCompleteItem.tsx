@@ -18,7 +18,7 @@ export default class AutoCompleteItem extends React.Component<IAutoCompleteItemP
                 {this.props.item.description} |
                 Periodo: {this.props.item.index.start} - {this.props.item.index.end} |
                 Unidades: {this.props.item.units} |
-                Frecuencia: {this.props.item.accuralPeriodicity}
+                Frecuencia: {this.props.item.accrualPeriodicity}
             </div>
         );
     }

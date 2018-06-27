@@ -77,7 +77,7 @@ class MockApi implements ISerieApi {
 function toSerie(id: string): ISerie {
 
     const self = {
-        accuralPeriodicity: `${id} accuralPeriodicity`,
+        accrualPeriodicity: `${id} accrualPeriodicity`,
         bake: () => self,
         data: [],
         description: 'description' + id,
@@ -86,6 +86,10 @@ function toSerie(id: string): ISerie {
         publisher: { mbox: 'mail' + id, name: 'publi' + id },
         title: 'title' + id,
         units: `${id} units`,
+
+        issued: `${id} issued`,
+        landingPage: `${id} landingPage`,
+        themes: [`${id} theme`],
     }
 
     return self;
