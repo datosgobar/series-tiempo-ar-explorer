@@ -87,7 +87,7 @@ export default class Serie implements ISerie {
             description: this.description,
             id: this.id,
             index: this.index,
-            publisher: {mbox: this.publisher.mbox, name: this.publisher.mbox},
+            publisher: {...this.publisher},
             title: this.title,
             units: this.units,
         };
