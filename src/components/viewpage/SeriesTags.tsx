@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Colors, { Color } from '../style/Colors/Color';
+import { Color, NaC } from '../style/Colors/Color';
 import Tag from '../style/Tag/Tag';
 import TagContainer from '../style/Tag/TagContainer';
 
@@ -19,7 +19,7 @@ export default (props: ISeriesTagsProps) =>
     <div className="col-sm-6">
         <TagContainer>
             {props.series.map(serie =>
-                <Tag key={serie.id} pegColor={props.pegColorFor ? props.pegColorFor(serie) : Colors.Orange} onClose={closeHandler(serie.id, props.onTagClose)}>
+                <Tag key={serie.id} pegColor={props.pegColorFor ? props.pegColorFor(serie) : NaC} onClose={closeHandler(serie.id, props.onTagClose)}>
                     {serie.title}
                 </Tag>
             )}

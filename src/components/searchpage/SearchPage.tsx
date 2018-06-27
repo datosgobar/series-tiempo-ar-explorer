@@ -3,7 +3,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-import Color from '../style/Colors/Color';
 import Container from '../style/Common/Container';
 import Row from '../style/Common/Row';
 import SeriesHero from '../style/Hero/SeriesHero';
@@ -144,7 +143,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     }
 
     public themePicked(newTheme: string): void {
-        
+
         let oldSearchParams: ISearchParams | undefined;
 
         oldSearchParams = this.getUriSearchParams(this.props.location)
@@ -189,8 +188,8 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
 
             <section id="listado">
 
-                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} onSelect={this.redirectToViewPage}/>} />
-                
+                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} onSelect={this.redirectToViewPage} />} />
+
                 <div id="listado-list">
                     <Container>
                         <Row>
@@ -244,6 +243,6 @@ function renderSearchResults(searchResults: SearchResult[]) {
 
 function toCard(searchResult: SearchResult) {
     return (
-        <LinkedSerieCard key={searchResult.id} serie={searchResult} pegColor={Color.Orange}/>
+        <LinkedSerieCard key={searchResult.id} serie={searchResult} />
     );
 }

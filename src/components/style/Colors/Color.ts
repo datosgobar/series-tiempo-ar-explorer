@@ -12,5 +12,6 @@ const Colors = {
     Purple: new Color("purple", "#8b5172"),
     Violet: new Color("violet", "#7b52a4"),
 };
+export const NaC = new Color("", "");
 
 export default Colors;

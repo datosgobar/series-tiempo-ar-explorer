@@ -5,7 +5,7 @@ import { ISerieApi } from '../../../api/SerieApi';
 import initialState from '../../../store/initialState';
 import FullSearcher from '../../common/searcher/FullSearcher';
 import SerieCard from '../../style/Card/Serie/SerieCard';
-import Colors, { Color } from '../../style/Colors/Color';
+import { Color, NaC } from '../../style/Colors/Color';
 
 import { ISerie } from '../../../api/Serie';
 
@@ -52,7 +52,7 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
         return {
             checked: this.props.isChecked && this.props.isChecked(searchResult.id),
             onClick: this.handlePick(searchResult.id),
-            pegColor: this.props.pegColorFor ? this.props.pegColorFor(searchResult) : Colors.Orange,
+            pegColor: this.props.pegColorFor ? this.props.pegColorFor(searchResult) : NaC,
             serie: searchResult,
         }
     }
