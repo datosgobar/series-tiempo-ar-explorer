@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { ISearchResultItem } from '../../../api/SerieApi';
+import SearchResult from '../../../api/SearchResult';
 
 
 interface IAutoCompleteItemProps extends React.Props<any> {
 
-    item: ISearchResultItem;
+    item: SearchResult;
     isHighlighted: boolean;
 }
 
@@ -14,11 +14,11 @@ export default class AutoCompleteItem extends React.Component<IAutoCompleteItemP
     public render() {
         return (
             <div style={{ background: this.props.isHighlighted ? 'lightgray' : 'white' }}>
-                {this.props.item.description} <br />
-                {this.props.item.dataset.title} |
+                {this.props.item.title} <br />
+                {this.props.item.description} |
                 Periodo: {this.props.item.index.start} - {this.props.item.index.end} |
                 Unidades: {this.props.item.units} |
-                Frecuencia: {this.props.item.accuralPeriodisity}
+                Frecuencia: {this.props.item.accrualPeriodicity}
             </div>
         );
     }

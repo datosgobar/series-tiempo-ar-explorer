@@ -3,20 +3,23 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-import SearchResultCard from '../style/Card/SearchResultCard';
+import Color from '../style/Colors/Color';
 import Container from '../style/Common/Container';
 import Row from '../style/Common/Row';
 import SeriesHero from '../style/Hero/SeriesHero';
 import Tag from '../style/Tag/Tag';
 
 import { setSearchParams } from '../../actions/searchActions';
-import { ISearchResultItem, ISerieApi } from '../../api/SerieApi';
+import SearchResult from '../../api/SearchResult';
+import { ISerieApi } from '../../api/SerieApi';
 import URLSearchParams from '../../helpers/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import Searcher, { ISearchParams } from '../common/searcher/Searcher';
 import Selector from '../common/selector/Selector';
+import LinkedSerieCard from '../style/Card/Serie/LinkedSerieCard';
 import SeriesFilters from './filters/SeriesFilters';
+
 
 
 interface ISearchPageProps extends RouteComponentProps<any> {
@@ -233,14 +236,14 @@ function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
 export default withRouter<ISearchPageProps>(connect(mapStateToProps)(SearchPage));
 
 
-function renderSearchResults(searchResults: ISearchResultItem[]) {
+function renderSearchResults(searchResults: SearchResult[]) {
     return (
         searchResults.map(toCard)
     );
 }
 
-function toCard(searchResult: ISearchResultItem) {
+function toCard(searchResult: SearchResult) {
     return (
-        <SearchResultCard key={searchResult.id} searchResult={searchResult} />
+        <LinkedSerieCard key={searchResult.id} serie={searchResult} pegColor={Color.Orange}/>
     );
 }

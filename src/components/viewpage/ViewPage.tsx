@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { RouterProps, withRouter } from "react-router";
 
 import ClearFix from '../style/ClearFix';
+import Color from '../style/Colors/Color';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
 import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
@@ -101,7 +102,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                     <Container>
                         <AddAndCustomizeSeriesButton />
                         <ClearFix />
-                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie} />
+                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie} pegColorFor={this.pegColorFor}/>
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
@@ -130,7 +131,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public pegColorFor(serieId: string): string{
-        return "red";
+        return Color.Orange;
     }
 
     public componentDidMount() {
@@ -168,7 +169,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     private fetchSeries(ids: string[]) {
-        this.props.seriesApi.getSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
+        this.props.seriesApi.fetchSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
     }
 }
 

@@ -25,7 +25,7 @@ describe('ViewPage', () => {
 
     beforeEach(() => {
         mockApi = new MockApi(0);
-        mockApi.getSeries = jest.fn(mockApi.getSeries);
+        mockApi.fetchSeries = jest.fn(mockApi.fetchSeries);
 
         store = configureStore();
         store.dispatch(setSeriesApi(mockApi))
@@ -51,14 +51,14 @@ describe('ViewPage', () => {
 
         renderViewPage('/view/?ids=serie01');
 
-        expect(mockApi.getSeries).toBeCalledWith(["serie01"]);
+        expect(mockApi.fetchSeries).toBeCalledWith(["serie01"]);
     });
 
     it('does not fetchs series if no ids were provided in the url', () => {
 
         renderViewPage('/view/');
 
-        expect(mockApi.getSeries).not.toBeCalled();
+        expect(mockApi.fetchSeries).not.toBeCalled();
     });
 
     it('on Serie picked adds id to ids queryParam', () => {

@@ -8,32 +8,38 @@ export interface ISerie {
     publisher: IPublisher;
     description: string;
     data: IDataPoint[];
+    accrualPeriodicity: string;
+    index:{
+        start: string,
+        end: string,
+    };
+    units: string;
+    landingPage: string,
+    issued: string,
+    themes: string[],
 }
 
 
 export default class Serie implements ISerie {
-    private tsResponse: ITSAPIResponse;
-    private index: number;
+
+    constructor(private responseIndex: number, private tsResponse: ITSAPIResponse) {
+        
+    }
 
     private get meta(): ITSMeta {
-        return this.tsResponse.meta[this.index] as ITSMeta;
+        return this.tsResponse.meta[this.responseIndex] as ITSMeta;
     }
 
     private get datasetMeta() {
-        return this.meta.dataset[0];
+        return this.meta.dataset;
     }
 
     private get distributionMeta() {
-        return this.datasetMeta.distribution[0];
+        return this.meta.distribution;
     }
 
     private get fieldMeta() {
-        return this.distributionMeta.field[0];
-    }
-
-    constructor(index: number, tsResponse: ITSAPIResponse) {
-        this.tsResponse = tsResponse;
-        this.index = index;
+        return this.meta.field;
     }
 
     get id(): string {
@@ -44,8 +50,7 @@ export default class Serie implements ISerie {
 
     get title(): string {
         return (
-            // TODO: definir que titulo mostrar para una serie
-            this.fieldMeta.title
+            this.fieldMeta.description
         );
     }
 
@@ -57,25 +62,55 @@ export default class Serie implements ISerie {
 
     get description(): string {
         return (
-            this.fieldMeta.description
+            this.datasetMeta.title
         );
     }
 
     get data(): DataPoint[] {
         return this.tsResponse.data
             .map((datapoint: any[]) => {
-                return new DataPoint(datapoint, this.index)
+                return new DataPoint(datapoint, this.responseIndex)
             }
             );
     }
 
+    get accrualPeriodicity() {
+        return this.datasetMeta.accrualPeriodicity;
+    }
+
+    get units() {
+        return this.fieldMeta.units;
+    }
+
+    get index() {
+        return this.fieldMeta.index
+    }
+
+    get landingPage(){
+        return this.datasetMeta.landingPage;
+    }
+    
+    get issued() {
+        return this.distributionMeta.issued;
+    }
+
+    get themes() {
+        return this.datasetMeta.theme;
+    }
+
     public bake(): ISerie {
         return {
+            accrualPeriodicity: this.accrualPeriodicity,
             data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
             description: this.description,
             id: this.id,
-            publisher: {mbox: this.publisher.mbox, name: this.publisher.mbox},
+            index: this.index,
+            issued: this.issued,
+            landingPage: this.landingPage,
+            publisher: {...this.publisher},
+            themes: [...this.themes],
             title: this.title,
+            units: this.units,
         };
     }
 }

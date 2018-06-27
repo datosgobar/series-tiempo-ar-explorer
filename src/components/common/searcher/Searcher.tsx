@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import { ISearchOptions, ISearchResultItem, ISerieApi } from "../../../api/SerieApi";
+import SearchResult from "../../../api/SearchResult";
+import { ISearchOptions, ISerieApi } from "../../../api/SerieApi";
 
 
 export interface ISearchParams {
@@ -16,12 +17,12 @@ export interface ISearcherProps extends ISearchParams {
 
     seriesApi: ISerieApi;
 
-    renderSearchResults: (searchResults: ISearchResultItem[]) => JSX.Element | JSX.Element[];
+    renderSearchResults: (searchResults: SearchResult[]) => JSX.Element | JSX.Element[];
 }
 
 interface ISearcherState {
 
-    searchResults: ISearchResultItem[];
+    searchResults: SearchResult[];
 }
 
 export default class Searcher extends React.Component<ISearcherProps, ISearcherState> {
@@ -74,7 +75,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
 
     private performSearch(q: string, options?: ISearchOptions) {
         this.props.seriesApi.searchSeries(q, options)
-            .then((searchResults: ISearchResultItem[]) => {
+            .then((searchResults: SearchResult[]) => {
                 this.setState({ searchResults });
             }).catch(alert);
     }

@@ -19,18 +19,17 @@ describe('Serie', () => {
         });
         describe("Serie uses attributes from tsResponse", () => {
             it("uses field's id as id", () => {
-                expect(serie.id).toBe(getTSMetadata(tsResponseMock, serieIndex).dataset[0].distribution[0].field[0].id);
+                expect(serie.id).toBe(getTSMetadata(tsResponseMock, serieIndex).field.id);
             });
             it("uses dataset's publisher as publisher", () => {
-                expect(serie.publisher.name).toBe(getTSMetadata(tsResponseMock,serieIndex).dataset[0].publisher.name);
+                expect(serie.publisher.name).toBe(getTSMetadata(tsResponseMock,serieIndex).dataset.publisher.name);
             });
-            it("uses field's title as title", () => {
-                expect(serie.title).toBe(getTSMetadata(tsResponseMock,serieIndex).dataset[0].
-                    distribution[0].field[0].title);
+            it("uses field's description as title", () => {
+                expect(serie.title).toBe(getTSMetadata(tsResponseMock,serieIndex).field.description);
             });
-            it("uses field's description as description", () => {
+            it("uses dataset's title as description", () => {
                 expect(serie.description).toBe(getTSMetadata(tsResponseMock, serieIndex).
-                    dataset[0].distribution[0].field[0].description);
+                    dataset.title);
             });
             it("uses data at 0 as date", () => {
                 serie.data.forEach((dataPoint: IDataPoint, index: number) => {

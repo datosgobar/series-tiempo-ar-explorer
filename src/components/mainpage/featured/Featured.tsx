@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { ISerie } from '../../../api/Serie';
 
-import SerieCard from '../../style/Card/SerieCard';
+import FeaturedSerieCard from '../../style/Card/Serie/FeaturedSerieCard';
+import Color from '../../style/Colors/Color';
 import Row from '../../style/Common/Row';
 import FeaturedContainer from '../../style/Featured/FeaturedContainer';
 import FeaturedTitle from '../../style/Featured/FeaturedTitle';
@@ -21,7 +22,7 @@ class Featured extends React.Component<IFeaturedProps, any> {
                 <Row>
                     {this.props.featured.map(
                         (serie: ISerie) =>
-                                <SerieCard key={serie.id} serie={serie} />
+                                <FeaturedSerieCard key={serie.id} serie={serie} pegColor={Color.Orange}/>
                             )}
                 </Row>
             </FeaturedContainer>

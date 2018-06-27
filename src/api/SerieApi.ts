@@ -1,22 +1,8 @@
 import { ApiClient } from './ApiClient';
-import { ITSAPIResponse } from './ITSAPIResponse'
+import { ITSAPIResponse, ITSMeta } from './ITSAPIResponse'
+import SearchResult from './SearchResult';
 import Serie, { ISerie } from "./Serie";
 
-
-export interface ISearchResultItem {
-    title: string;
-    id: string;
-    description: string;
-    dataset: {
-        title: string,
-    };
-    index: {
-        start: string,
-        end: string,
-    };
-    units: string;
-    accuralPeriodisity: string;
-}
 
 export interface ISearchOptions {
     datasetSource?: string;
@@ -32,12 +18,15 @@ export const METADATA = {
     SIMPLE: 'simple',
 };
 
+type DatasetTheme = string;
+type DatasetSource = string;
+
 export interface ISerieApi {
 
-    getSeries: ((ids: string[]) => Promise<ISerie[]>);
-    searchSeries: ((q: string, searchOptions?: ISearchOptions) => Promise<ISearchResultItem[]>);
-    fetchSources: () => Promise<string[]>;
-    fetchThemes: () => Promise<string[]>;
+    fetchSeries: ((ids: string[]) => Promise<ISerie[]>);
+    searchSeries: ((q: string, searchOptions?: ISearchOptions) => Promise<SearchResult[]>);
+    fetchSources: () => Promise<DatasetSource[]>;
+    fetchThemes: () => Promise<DatasetTheme[]>;
 }
 
 export default class SerieApi implements ISerieApi {
@@ -52,7 +41,7 @@ export default class SerieApi implements ISerieApi {
         this.apiClient = apiClient;
     }
 
-    public getSeries(idsArray: string[], metadata: string = METADATA.FULL): Promise<Serie[]> {
+    public fetchSeries(idsArray: string[], metadata: string = METADATA.FULL): Promise<Serie[]> {
         const ids = idsArray.join(",");
         const options = {
             qs: {
@@ -65,7 +54,7 @@ export default class SerieApi implements ISerieApi {
         return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
     }
 
-    public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<ISearchResultItem[]> {
+    public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<SearchResult[]> {
 
         const limit = searchOptions && searchOptions.limit ? searchOptions.limit : 10;
         const offset = searchOptions && searchOptions.offset ? searchOptions.offset : 0;
@@ -86,9 +75,8 @@ export default class SerieApi implements ISerieApi {
         };
 
         return this.apiClient.get<ITSAPIResponse>(options)
-            .then((tsResponse: ITSAPIResponse) => tsResponse.data)
-            .then((searchResults: ISearchResultItem[]) =>
-                searchResults.map(addPlaceHolders));
+            .then(addPlaceHolders)
+            .then(tsResponseToSearchResult)
     }
 
     public fetchSources() {
@@ -114,19 +102,28 @@ function tsResponseToSeries(ids: string[], tsResponse: ITSAPIResponse): Serie[] 
     );
 }
 
-function addPlaceHolders(searchResult: ISearchResultItem): ISearchResultItem {
-    return ({
-        accuralPeriodisity: searchResult.accuralPeriodisity || "accuralPeriodisity",
-        dataset: searchResult.dataset || {
-            title: "dataset_title",
+function tsResponseToSearchResult(tsResponse: ITSAPIResponse): SearchResult[] {
+    return tsResponse.data.map((searchResult: ITSMeta) => new SearchResult(searchResult));
+}
+
+function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {
+
+    const data = apiResponse.data.map((searchResult: ITSMeta) => ({
+        ...searchResult,
+        dataset: {
+            accrualPeriodicity: `accrualPeriodicity`,
+            ...searchResult.dataset
         },
-        description: searchResult.description || "field_description",
-        id: searchResult.id || "id",
-        index: searchResult.index || {
-            end: "index_end",
-            start: "index_start",
+        field: {
+            index:{
+                end: `index_end`,
+                start: `index_start`,
+            },
+            units: `units`,
+            ...searchResult.field,
         },
-        title: searchResult.title || "field_title",
-        units: searchResult.units || "field_units",
-    });
+    }));
+
+
+    return { ...apiResponse, data };
 }

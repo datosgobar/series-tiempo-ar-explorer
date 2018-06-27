@@ -29,7 +29,7 @@ describe("SearchPage", () => {
 
     mockSeriesApi = new MockApi(0);
     mockSeriesApi.searchSeries = jest.fn().mockImplementation(mockSeriesApi.searchSeries);
-    mockSeriesApi.getSeries = jest.fn().mockImplementation(mockSeriesApi.getSeries);
+    mockSeriesApi.fetchSeries = jest.fn().mockImplementation(mockSeriesApi.fetchSeries);
 
     store = configureStore();
     store.dispatch(setSeriesApi(mockSeriesApi));

@@ -5,27 +5,17 @@ import Featured from '../../../../components/mainpage/featured/Featured';
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import { MemoryRouter } from 'react-router';
-import { ISerie } from '../../../../api/Serie';
+import Serie, { ISerie } from '../../../../api/Serie';
 import Card from '../../../../components/style/Card/Card';
+
+import { generateITSAPIResponse } from '../../../support/factories/series_api';
+
 
 configure({ adapter: new Adapter() });
 
-const series: ISerie[] = [
-  {
-    data: [],
-    description: "description1",
-    id: "serie_01",
-    publisher: { mbox: "mail@mail.com", name: "publisher1" },
-    title: "title1",
-  },
-  {
-    data: [],
-    description: "description2",
-    id: "serie_02",
-    publisher: { mbox: "mail@mail.com", name: "publisher2" },
-    title: "title2",
-  },
-];
+const ids = ["serie01", "serie02"];
+const response = generateITSAPIResponse(ids);
+const series: ISerie[] = ids.map((id, index) => new Serie(index+1, response));
 
 describe('Featured ', () => {
 

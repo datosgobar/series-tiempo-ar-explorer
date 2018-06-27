@@ -28,7 +28,7 @@ class App extends React.Component<IAppProps, any> {
     }
 
     public fetchFeaturedSeries() {
-        this.props.seriesApi.getSeries(this.props.featured).then(featuredSeries => this.props.dispatch(loadFeatured(featuredSeries)))
+        this.props.seriesApi.fetchSeries(this.props.featured).then(featuredSeries => this.props.dispatch(loadFeatured(featuredSeries)))
     }
 
     public render(): any {

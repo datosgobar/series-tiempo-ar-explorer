@@ -1,16 +1,24 @@
 import * as React from 'react';
+
 import CardCheck from './CardCheck';
 
 
-interface ISeriesCardProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    pegcolor?: string;
+export interface ICardProps extends React.HTMLProps<HTMLDivElement> {
+    title?: string;
+    pegColor?: string;
     checked?: boolean;
 }
 
-export default (props: ISeriesCardProps) =>
+export default (props: ICardProps) =>
 
-        <div className={`series-card mg-lg-b ${props.checked? "card-has-check" : ""}`} style={{borderRightColor: props.pegcolor}} {...props} >
+    <div
+        onClick={props.onClick}
+        title={props.title}
+        className={`series-card mg-lg-b 
+        ${props.checked ? "card-has-check" : ""} 
+        ${props.pegColor && `sc-${props.pegColor}`}
+        `}>
         {props.children}
-        {props.checked && <CardCheck/>}
-        </div>
+        {props.checked && <CardCheck />}
+    </div>
 

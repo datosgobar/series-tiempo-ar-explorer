@@ -3,23 +3,13 @@ import * as React from 'react';
 
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
-import DataPoint from '../../../../api/DataPoint';
 import { ISerie } from '../../../../api/Serie';
 
 import Graphic from '../../../../components/viewpage/graphic/Graphic';
+import { generateSeries } from '../../../support/factories/series_api';
 
 
-const series: ISerie[] = [
-    {
-        data: [
-            new DataPoint(['2018-04-01', 100], 1),
-        ],
-        description: 'description',
-        id: 'id',
-        publisher: { mbox: 'mail', name: 'publi' },
-        title: 'title',
-    }
-];
+const series: ISerie[] = generateSeries();
 
 configure({ adapter: new Adapter() });
 
