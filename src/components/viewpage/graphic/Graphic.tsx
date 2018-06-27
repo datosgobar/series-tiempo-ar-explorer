@@ -1,7 +1,7 @@
-
 import * as React from 'react';
 import { IHConfig, IHCSeries, ReactHighcharts } from './highcharts';
 
+import { Color } from '../../style/Colors/Color';
 
 import IDataPoint from '../../../api/DataPoint';
 import { ISerie } from '../../../api/Serie';
@@ -9,6 +9,7 @@ import { ISerie } from '../../../api/Serie';
 
 interface IGraphicProps {
     series: ISerie[];
+    colorFor?: (serie: ISerie) => Color;
 }
 
 export class Graphic extends React.Component<IGraphicProps, any> {
@@ -52,7 +53,13 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
         const data = serie.data.map(datapoint => datapoint.value);
-        return { ...this.defaultHCSeriesConfig(), ...hcConfig, name: serie.title, data }
+        return {
+            ...this.defaultHCSeriesConfig(),
+            ...hcConfig,
+            color: this.props.colorFor ? this.props.colorFor(serie).code : this.defaultHCSeriesConfig().color,
+            data,
+            name: serie.title,
+        }
 
     }
 
