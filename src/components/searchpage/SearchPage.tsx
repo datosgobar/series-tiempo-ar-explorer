@@ -244,6 +244,6 @@ function renderSearchResults(searchResults: SearchResult[]) {
 
 function toCard(searchResult: SearchResult) {
     return (
-        <LinkedSerieCard key={searchResult.id} serie={searchResult} pegColor={Color.Purple}/>
+        <LinkedSerieCard key={searchResult.id} serie={searchResult} pegColor={Color.Orange}/>
     );
 }

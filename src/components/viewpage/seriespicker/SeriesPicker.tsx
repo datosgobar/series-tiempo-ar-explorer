@@ -50,7 +50,7 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
         return {
             checked: this.props.isChecked && this.props.isChecked(searchResult.id),
             onClick: this.handlePick(searchResult.id),
-            pegColor: this.props.pegColorFor ? this.props.pegColorFor(searchResult.id) : Color.Violet,
+            pegColor: this.props.pegColorFor ? this.props.pegColorFor(searchResult.id) : Color.Orange,
             serie: searchResult,
         }
     }

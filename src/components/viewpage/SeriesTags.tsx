@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import Color from '../style/Colors/Color';
 import Tag from '../style/Tag/Tag';
 import TagContainer from '../style/Tag/TagContainer';
 
@@ -10,6 +11,7 @@ interface ISeriesTagsProps extends React.Props<any> {
 
     series: ISerie[];
     onTagClose: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void;
+    pegColorFor?: (serieId: string) => string;
 }
 
 export default (props: ISeriesTagsProps) =>
@@ -17,7 +19,7 @@ export default (props: ISeriesTagsProps) =>
     <div className="col-sm-6">
         <TagContainer>
             {props.series.map(serie => 
-            <Tag key={serie.id} pegcolor="#045C90" onClose={closeHandler(serie.id, props.onTagClose)}>
+            <Tag key={serie.id} pegColor={props.pegColorFor? props.pegColorFor(serie.id) : Color.Orange} onClose={closeHandler(serie.id, props.onTagClose)}>
                 {serie.title}
             </Tag>
             )}

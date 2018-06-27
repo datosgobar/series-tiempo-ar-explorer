@@ -22,7 +22,7 @@ class Featured extends React.Component<IFeaturedProps, any> {
                 <Row>
                     {this.props.featured.map(
                         (serie: ISerie) =>
-                                <FeaturedSerieCard key={serie.id} serie={serie} pegColor={Color.Purple}/>
+                                <FeaturedSerieCard key={serie.id} serie={serie} pegColor={Color.Orange}/>
                             )}
                 </Row>
             </FeaturedContainer>

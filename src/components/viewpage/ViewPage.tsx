@@ -102,7 +102,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                     <Container>
                         <AddAndCustomizeSeriesButton />
                         <ClearFix />
-                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie} />
+                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie} pegColorFor={this.pegColorFor}/>
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
@@ -131,7 +131,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public pegColorFor(serieId: string): string{
-        return Color.Magenta;
+        return Color.Orange;
     }
 
     public componentDidMount() {
