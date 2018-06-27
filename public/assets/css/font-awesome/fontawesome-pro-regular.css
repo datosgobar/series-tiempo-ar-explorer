@@ -1,17 +1,16 @@
 @font-face {
-    font-family: 'Font Awesome 5 Regular';
-    font-style: normal;
-    font-weight: 400;
-    src: url("../../fonts/font-awesome/fontawesome-pro-regular-400.eot");
-    src: url("../../fonts/font-awesome/fontawesome-pro-regular-400.eot?#iefix") format("embedded-opentype"), 
-        url("../../fonts/font-awesome/fontawesome-pro-regular-400.woff2") format("woff2"), 
-        url("../../fonts/font-awesome/fontawesome-pro-regular-400.woff") format("woff"), 
-        url("../../fonts/font-awesome/fontawesome-pro-regular-400.ttf") format("truetype"), 
-        url("../../fonts/font-awesome/fontawesome-pro-regular-400.svg#fontawesome") format("svg");
-  }
-  
-  .far {
-    font-family: 'Font Awesome 5 Regular';
-    font-weight: 400;
-  }
-  
+  font-family: 'Font Awesome 5 Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../fonts/font-awesome/fontawesome-pro-regular-400.eot");
+  src: url("../../fonts/font-awesome/fontawesome-pro-regular-400.eot?#iefix") format("embedded-opentype"), 
+	  url("../../fonts/font-awesome/fontawesome-pro-regular-400.woff2") format("woff2"), 
+	  url("../../fonts/font-awesome/fontawesome-pro-regular-400.woff") format("woff"), 
+	  url("../../fonts/font-awesome/fontawesome-pro-regular-400.ttf") format("truetype"), 
+	  url("../../fonts/font-awesome/fontawesome-pro-regular-400.svg#fontawesome") format("svg");
+}
+
+.far {
+  font-family: 'Font Awesome 5 Regular';
+  font-weight: 400;
+}
