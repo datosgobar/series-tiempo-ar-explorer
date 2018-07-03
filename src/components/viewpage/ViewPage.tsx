@@ -89,13 +89,6 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public render() {
-        if (!this.hasMainSerie()) {
-            return <div className='ViewPage'>
-                <h1>Cargando...</h1>
-                <SearchBox onSearch={this.redirectToSearchPage} seriesApi={this.props.seriesApi} onSelect={this.redirectToViewPage} />
-            </div>
-        }
-
         return (
             <section id="detalle">
                 <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} onSelect={this.redirectToViewPage} />} />
@@ -152,10 +145,6 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.dispatch(loadViewSeries(series));
     }
 
-    private hasMainSerie(): boolean {
-        return this.props.series.length > 0;
-    }
-
     private handleUriChange(location: Location) {
         const ids = getIDs(location);
 
@@ -169,6 +158,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
             return
         }
 
+        this.props.dispatch(clearViewSeries()); // clear cached series
         this.fetchSeries(ids);
     }
 

@@ -16,9 +16,15 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public render() {
         return (
-            <ReactHighcharts config={this.highchartsConfig()} />
+            <ReactHighcharts config={this.highchartsConfig()} callback={this.afterRender} />
         );
     }
+
+    public afterRender = (chart: any) => {
+        if (this.props.series.length === 0) {
+            chart.showLoading('Cargando...');
+        }
+    };
 
     public highchartsConfig() {
         return ({
