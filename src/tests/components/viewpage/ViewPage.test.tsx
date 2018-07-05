@@ -15,7 +15,10 @@ import ViewPage, { ViewPage as UnconnectedViewPage } from '../../../components/v
 import configureStore from '../../../store/configureStore';
 
 import * as $ from 'jquery'; // Necessary because DetallePanel and AddAndCustomizeSeriesButton access to jquery directly
-global.$ = $;
+
+const globalAny:any = global;
+
+globalAny.$ = $;
 
 configure({ adapter: new Adapter() });
 
