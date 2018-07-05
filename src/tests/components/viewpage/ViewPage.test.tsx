@@ -14,6 +14,8 @@ import { ISerieApi } from '../../../api/SerieApi';
 import ViewPage, { ViewPage as UnconnectedViewPage } from '../../../components/viewpage/ViewPage';
 import configureStore from '../../../store/configureStore';
 
+import * as $ from 'jquery'; // Necessary because DetallePanel and AddAndCustomizeSeriesButton access to jquery directly
+global.$ = $;
 
 configure({ adapter: new Adapter() });
 
@@ -44,17 +46,17 @@ describe('ViewPage', () => {
 
         const wrapper = renderViewPage('/view/?ids=serie01');
 
-        expect(wrapper.find('.ViewPage').exists()).toBe(true);
+        expect(wrapper.find('#detalle').exists()).toBe(true);
     });
 
-    it('fetchs series on the url upon render', () => {
+    it('fetches series on the url upon render', () => {
 
         renderViewPage('/view/?ids=serie01');
 
         expect(mockApi.fetchSeries).toBeCalledWith(["serie01"]);
     });
 
-    it('does not fetchs series if no ids were provided in the url', () => {
+    it('does not fetch series if no ids were provided in the url', () => {
 
         renderViewPage('/view/');
 
@@ -135,7 +137,7 @@ describe('ViewPage', () => {
         it('keeps other params untouched', () => {
 
             historyMock.push('/view/?ids=serie01&other=params');
-           
+
             (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie02');
 
             expect(historyMock.push).toBeCalledWith('/view/?ids=serie01,serie02&other=params')
@@ -147,9 +149,9 @@ describe('ViewPage', () => {
         });
 
         it('unsubscribe of history when unmounted', () => {
-            
+
             wrapper.unmount();
-            
+
             expect(unlistenMock).toHaveBeenCalledTimes(1);
         });
     });
