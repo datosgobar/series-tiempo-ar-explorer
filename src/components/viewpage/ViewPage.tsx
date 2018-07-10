@@ -12,6 +12,7 @@ import SeriesTags from './SeriesTags'
 
 import {clearViewSeries, loadViewSeries, setDate} from '../../actions/seriesActions';
 import { IDate } from "../../api/DateSerie";
+import QueryParams from "../../api/QueryParams";
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
@@ -153,6 +154,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         if (ids.length === 0) {
             return
         }
+
         this.props.dispatch(setDate(getDateFromUrl(location)));
 
         const idsWoDuplicates = removeDuplicates(ids);
@@ -162,11 +164,14 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         }
 
         this.props.dispatch(clearViewSeries()); // clear cached series
-        this.fetchSeries(ids);
+
+        const params = new QueryParams(ids);
+        params.setCollapse(getCollapseValue(location));
+        this.fetchSeries(params);
     }
 
-    private fetchSeries(ids: string[]) {
-        this.props.seriesApi.fetchSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
+    private fetchSeries(params: QueryParams) {
+        this.props.seriesApi.fetchSeries(params).then(this.onSeriesFetchedSuccess).catch(alert);
     }
 }
 
@@ -193,6 +198,26 @@ function getDateFromUrl(location: Location): IDate {
     const end = params.get('end_date') || '';
 
     return { start, end };
+}
+
+function collapseAggregationSpecified(location: Location): boolean {
+    const params = getParamsFromUrl(location);
+    const ids = params.getAll('ids');
+    const collapseValues = ['avg', 'sum', 'end_of_period', 'min', 'max'];
+
+    return ids.some(id => collapseValues.indexOf(id.split(':')[1]) >= 0);
+}
+
+function getCollapseValue(location: Location): string {
+    const params = getParamsFromUrl(location);
+
+    let collapseValue = params.get('collapse') || '';
+
+    if(!collapseAggregationSpecified(location)) {
+        collapseValue = '';
+    }
+
+    return collapseValue;
 }
 
 function getParamsFromUrl(location: Location): URLSearchParams {
