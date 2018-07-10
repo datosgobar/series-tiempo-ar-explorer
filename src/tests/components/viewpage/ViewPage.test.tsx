@@ -56,7 +56,7 @@ describe('ViewPage', () => {
 
         renderViewPage('/view/?ids=serie01');
 
-        expect(mockApi.fetchSeries).toBeCalledWith(["serie01"]);
+        expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01"], collapse: ''});
     });
 
     it('does not fetch series if no ids were provided in the url', () => {
