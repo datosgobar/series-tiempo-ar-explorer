@@ -83,7 +83,7 @@ describe('ViewPage', () => {
                 location={location}
                 dispatch={dispatch}
                 history={history as any}
-
+                date={{start: '', end: ''}}
             />);
 
         (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie01');
@@ -124,7 +124,7 @@ describe('ViewPage', () => {
                     location={locationMock}
                     dispatch={dispatch}
                     history={historyMock as any}
-
+                    date={{start: '', end: ''}}
                 />);
         });
 

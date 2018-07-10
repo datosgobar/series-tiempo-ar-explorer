@@ -10,7 +10,8 @@ import SeriesHero from '../style/Hero/SeriesHero';
 import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
 import SeriesTags from './SeriesTags'
 
-import { clearViewSeries, loadViewSeries } from '../../actions/seriesActions';
+import {clearViewSeries, loadViewSeries, setDate} from '../../actions/seriesActions';
+import { IDate } from "../../api/DateSerie";
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
@@ -22,6 +23,7 @@ import SeriesPicker, { ISeriesPickerProps } from './seriespicker/SeriesPicker';
 interface IViewPageProps extends RouterProps {
     series: ISerie[];
     seriesApi: ISerieApi;
+    date: IDate
     readonly location: { search: string };
     readonly dispatch: (action: object) => void;
 }
@@ -47,7 +49,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     public viewSeries(ids: string[]) {
         const params = this.getQueryParams();
 
-        params.set('ids', ids.join(','))
+        params.set('ids', ids.join(','));
 
         this.setQueryParams(params);
     }
@@ -100,7 +102,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
-                        <Graphic series={this.props.series} colorFor={this.colorFor} />
+                        <Graphic series={this.props.series} colorFor={this.colorFor} date={this.props.date}/>
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={
@@ -151,6 +153,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         if (ids.length === 0) {
             return
         }
+        this.props.dispatch(setDate(getDateFromUrl(location)));
 
         const idsWoDuplicates = removeDuplicates(ids);
         if (idsWoDuplicates.length < ids.length) {
@@ -169,6 +172,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
 function mapStateToProps(state: any, ownProps: any) {
     return {
+        date: state.date,
         series: state.viewSeries,
         seriesApi: state.seriesApi,
     };
@@ -181,6 +185,18 @@ function getIDs(location: Location): string[] {
     ids = ids.length ? ids.join(',').split(',') : [];
 
     return ids;
+}
+
+function getDateFromUrl(location: Location): IDate {
+    const params = getParamsFromUrl(location);
+    const start = params.get('start_date') || '';
+    const end = params.get('end_date') || '';
+
+    return { start, end };
+}
+
+function getParamsFromUrl(location: Location): URLSearchParams {
+    return new URLSearchParams(location.search);
 }
 
 function removeDuplicates(arr: any[]) {

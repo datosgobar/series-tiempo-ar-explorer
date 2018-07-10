@@ -1,11 +1,15 @@
 import { Action } from "redux";
-
+import { IDate } from "../api/DateSerie";
 import { ISerie } from "../api/Serie";
 import { ISerieApi } from "../api/SerieApi";
 import actionTypes from "./actionTypes";
 
 export interface ISeriesAction extends Action<string> {
     series: ISerie[];
+}
+
+export interface IDateAction extends Action<string> {
+    date: IDate;
 }
 
 export function loadFeatured(series: ISerie[]): ISeriesAction {
@@ -18,6 +22,10 @@ export function clearViewSeries(): ISeriesAction {
 
 export function loadViewSeries(series: ISerie[]): ISeriesAction {
     return { type: actionTypes.LOAD_VIEW_SERIES, series };
+}
+
+export function setDate(date: IDate): IDateAction {
+    return { type: actionTypes.LOAD_DATE, date };
 }
 
 export interface ISerieApiAction extends Action<string> {

@@ -1,8 +1,10 @@
+import { IDate } from "../api/DateSerie";
 import { ISerie } from "../api/Serie";
 import { ISerieApi } from "../api/SerieApi";
 import { ISearchParams } from "../components/common/searcher/Searcher";
 
 export interface IStore {
+    date: IDate,
     featured: ISerie[],
     viewSeries: ISerie[],
     seriesApi: ISerieApi | null,
@@ -10,6 +12,7 @@ export interface IStore {
 }
 
 const initialState: IStore = {
+    date: { start: '', end: '' },
     featured: [],
     searchParams: {
         datasetSource: "",
@@ -20,6 +23,6 @@ const initialState: IStore = {
     },
     seriesApi: null,
     viewSeries: [],
-}
+};
 
 export default initialState;
