@@ -28,6 +28,9 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public highchartsConfig() {
         return ({
+            legend: {
+                enabled: false
+            },
 
             title: {
                 text: '',
@@ -38,7 +41,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             },
 
             series: this.seriesValues(),
-
         });
     }
 
