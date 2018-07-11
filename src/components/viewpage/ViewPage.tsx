@@ -11,7 +11,7 @@ import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
 import SeriesTags from './SeriesTags'
 
 import {clearViewSeries, loadViewSeries, setDate} from '../../actions/seriesActions';
-import { IDate } from "../../api/DateSerie";
+import { IDateRange } from "../../api/DateSerie";
 import QueryParams from "../../api/QueryParams";
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
@@ -24,7 +24,7 @@ import SeriesPicker, { ISeriesPickerProps } from './seriespicker/SeriesPicker';
 interface IViewPageProps extends RouterProps {
     series: ISerie[];
     seriesApi: ISerieApi;
-    date: IDate
+    date: IDateRange
     readonly location: { search: string };
     readonly dispatch: (action: object) => void;
 }
@@ -192,7 +192,7 @@ function getIDs(location: Location): string[] {
     return ids;
 }
 
-function getDateFromUrl(location: Location): IDate {
+function getDateFromUrl(location: Location): IDateRange {
     const params = getParamsFromUrl(location);
     const start = params.get('start_date') || '';
     const end = params.get('end_date') || '';

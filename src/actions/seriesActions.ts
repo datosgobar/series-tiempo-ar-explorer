@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { IDate } from "../api/DateSerie";
+import { IDateRange } from "../api/DateSerie";
 import { ISerie } from "../api/Serie";
 import { ISerieApi } from "../api/SerieApi";
 import actionTypes from "./actionTypes";
@@ -9,7 +9,7 @@ export interface ISeriesAction extends Action<string> {
 }
 
 export interface IDateAction extends Action<string> {
-    date: IDate;
+    date: IDateRange;
 }
 
 export function loadFeatured(series: ISerie[]): ISeriesAction {
@@ -24,7 +24,7 @@ export function loadViewSeries(series: ISerie[]): ISeriesAction {
     return { type: actionTypes.LOAD_VIEW_SERIES, series };
 }
 
-export function setDate(date: IDate): IDateAction {
+export function setDate(date: IDateRange): IDateAction {
     return { type: actionTypes.LOAD_DATE, date };
 }
 

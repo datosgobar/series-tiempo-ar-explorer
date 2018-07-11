@@ -1,9 +1,9 @@
 import actionTypes from "../../actions/actionTypes";
-import { IDate } from "../../api/DateSerie";
+import { IDateRange } from "../../api/DateSerie";
 import initialState from "../../store/initialState";
 
 
-export default function dateReducer(state: IDate = initialState.date, action: any): IDate {
+export default function dateReducer(state: IDateRange = initialState.date, action: any): IDateRange {
 
     switch(action.type){
         case actionTypes.LOAD_DATE: return {...action.date};

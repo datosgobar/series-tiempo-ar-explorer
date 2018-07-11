@@ -1,10 +1,10 @@
-import { IDate } from "../api/DateSerie";
+import { IDateRange } from "../api/DateSerie";
 import { ISerie } from "../api/Serie";
 import { ISerieApi } from "../api/SerieApi";
 import { ISearchParams } from "../components/common/searcher/Searcher";
 
 export interface IStore {
-    date: IDate,
+    date: IDateRange,
     featured: ISerie[],
     viewSeries: ISerie[],
     seriesApi: ISerieApi | null,

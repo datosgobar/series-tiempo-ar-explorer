@@ -4,14 +4,14 @@ import { IHConfig, IHCSeries, ReactHighcharts } from './highcharts';
 import { Color } from '../../style/Colors/Color';
 
 import IDataPoint from '../../../api/DataPoint';
-import { IDate } from "../../../api/DateSerie";
+import { IDateRange } from "../../../api/DateSerie";
 import { ISerie } from '../../../api/Serie';
 
 
 interface IGraphicProps {
     series: ISerie[];
     colorFor?: (serie: ISerie) => Color;
-    date: IDate;
+    date: IDateRange;
 }
 
 export class Graphic extends React.Component<IGraphicProps, any> {

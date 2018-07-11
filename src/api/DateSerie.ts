@@ -1,5 +1,5 @@
 
-export interface IDate {
+export interface IDateRange {
     start: string,
     end: string,
 }
