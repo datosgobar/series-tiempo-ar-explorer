@@ -59,6 +59,32 @@ describe('ViewPage', () => {
         expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01"], collapse: ''});
     });
 
+    describe('collapse', () => {
+        it('does not fetch using collapse if collapse_aggregation is not specified', () => {
+            renderViewPage('/view/?ids=serie01:sum');
+
+            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: ''});
+        });
+
+        it('does not fetch using collapse if collapse_aggregation is invalid', () => {
+            renderViewPage('/view/?ids=serie01:sum&collapse=foo');
+
+            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: 'foo'});
+        });
+
+        it('fetches using collapse', () => {
+            renderViewPage('/view/?ids=serie01:sum&collapse=year');
+
+            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: 'year'});
+        });
+
+        it('fetches using collapse with multiple ids', () => {
+            renderViewPage('/view/?ids=serie01:sum,serie02&collapse=year');
+
+            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum", "serie02"], collapse: 'year'});
+        });
+    });
+
     it('does not fetch series if no ids were provided in the url', () => {
 
         renderViewPage('/view/');

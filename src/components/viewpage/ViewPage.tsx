@@ -202,7 +202,7 @@ function getDateFromUrl(location: Location): IDateRange {
 
 function collapseAggregationSpecified(location: Location): boolean {
     const params = getParamsFromUrl(location);
-    const ids = params.getAll('ids');
+    const ids = params.getAll('ids')[0].split(',');
     const collapseValues = ['avg', 'sum', 'end_of_period', 'min', 'max'];
 
     return ids.some(id => collapseValues.indexOf(id.split(':')[1]) >= 0);
