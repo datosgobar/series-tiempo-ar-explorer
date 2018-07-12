@@ -10,7 +10,9 @@ import SeriesHero from '../style/Hero/SeriesHero';
 import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
 import SeriesTags from './SeriesTags'
 
-import { clearViewSeries, loadViewSeries } from '../../actions/seriesActions';
+import {clearViewSeries, loadViewSeries, setDate} from '../../actions/seriesActions';
+import { IDateRange } from "../../api/DateSerie";
+import QueryParams from "../../api/QueryParams";
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
@@ -22,6 +24,7 @@ import SeriesPicker, { ISeriesPickerProps } from './seriespicker/SeriesPicker';
 interface IViewPageProps extends RouterProps {
     series: ISerie[];
     seriesApi: ISerieApi;
+    date: IDateRange
     readonly location: { search: string };
     readonly dispatch: (action: object) => void;
 }
@@ -47,7 +50,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     public viewSeries(ids: string[]) {
         const params = this.getQueryParams();
 
-        params.set('ids', ids.join(','))
+        params.set('ids', ids.join(','));
 
         this.setQueryParams(params);
     }
@@ -100,7 +103,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
-                        <Graphic series={this.props.series} colorFor={this.colorFor} />
+                        <Graphic series={this.props.series} colorFor={this.colorFor} date={this.props.date}/>
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={
@@ -152,6 +155,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
             return
         }
 
+        this.props.dispatch(setDate(getDateFromUrl(location)));
+
         const idsWoDuplicates = removeDuplicates(ids);
         if (idsWoDuplicates.length < ids.length) {
             this.viewSeries(idsWoDuplicates);
@@ -159,16 +164,20 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         }
 
         this.props.dispatch(clearViewSeries()); // clear cached series
-        this.fetchSeries(ids);
+
+        const params = new QueryParams(ids);
+        params.setCollapse(getCollapseValue(location));
+        this.fetchSeries(params);
     }
 
-    private fetchSeries(ids: string[]) {
-        this.props.seriesApi.fetchSeries(ids).then(this.onSeriesFetchedSuccess).catch(alert);
+    private fetchSeries(params: QueryParams) {
+        this.props.seriesApi.fetchSeries(params).then(this.onSeriesFetchedSuccess).catch(alert);
     }
 }
 
 function mapStateToProps(state: any, ownProps: any) {
     return {
+        date: state.date,
         series: state.viewSeries,
         seriesApi: state.seriesApi,
     };
@@ -181,6 +190,38 @@ function getIDs(location: Location): string[] {
     ids = ids.length ? ids.join(',').split(',') : [];
 
     return ids;
+}
+
+function getDateFromUrl(location: Location): IDateRange {
+    const params = getParamsFromUrl(location);
+    const start = params.get('start_date') || '';
+    const end = params.get('end_date') || '';
+
+    return { start, end };
+}
+
+function collapseAggregationSpecified(location: Location): boolean {
+    const params = getParamsFromUrl(location);
+    const ids = params.getAll('ids')[0].split(',');
+    const collapseValues = ['avg', 'sum', 'end_of_period', 'min', 'max'];
+
+    return ids.some(id => collapseValues.indexOf(id.split(':')[1]) >= 0);
+}
+
+function getCollapseValue(location: Location): string {
+    const params = getParamsFromUrl(location);
+
+    let collapseValue = params.get('collapse') || '';
+
+    if(!collapseAggregationSpecified(location)) {
+        collapseValue = '';
+    }
+
+    return collapseValue;
+}
+
+function getParamsFromUrl(location: Location): URLSearchParams {
+    return new URLSearchParams(location.search);
 }
 
 function removeDuplicates(arr: any[]) {

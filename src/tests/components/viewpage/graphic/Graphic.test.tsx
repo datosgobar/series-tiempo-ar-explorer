@@ -13,14 +13,16 @@ const series: ISerie[] = generateSeries();
 
 configure({ adapter: new Adapter() });
 
+const mockDate = {start: '', end: ''};
+
 it('renders without crashing', () => {
-    const wrapper = mount(<Graphic series={[]}/>);
+    const wrapper = mount(<Graphic series={[]} date={mockDate} />);
 
     expect(wrapper.find(Graphic).exists()).toBe(true);
 });
 
 it('renders without crashing', () => {
-    const wrapper = mount(<Graphic series={series} />);
+    const wrapper = mount(<Graphic series={series} date={mockDate} />);
 
     expect(wrapper.find(Graphic).exists()).toBe(true);
 });
