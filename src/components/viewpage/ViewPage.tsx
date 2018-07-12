@@ -18,6 +18,7 @@ import DetallePanel from './DetallePanel';
 import Graphic from './graphic/Graphic';
 import MetaData from './metadata/MetaData';
 import SeriesPicker, { ISeriesPickerProps } from './seriespicker/SeriesPicker';
+import { Share } from "./Share";
 
 interface IViewPageProps extends RouterProps {
     series: ISerie[];
@@ -101,6 +102,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                             <ClearFix />
                         </div>
                         <Graphic series={this.props.series} colorFor={this.colorFor} />
+                        <Share url={window.location.href} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={
