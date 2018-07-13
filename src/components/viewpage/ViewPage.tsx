@@ -48,7 +48,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     public viewSeries(ids: string[]) {
         const params = this.getQueryParams();
 
-        params.set('ids', ids.join(','))
+        params.set('ids', ids.join(','));
 
         this.setQueryParams(params);
     }
@@ -103,7 +103,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         </div>
                         <div className="graph mg-xlg-b">
                             <Graphic series={this.props.series} colorFor={this.colorFor} />
-                            <Share url={window.location.href} />
+                            <Share url={window.location.href} series={this.props.series} />
                         </div>
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
