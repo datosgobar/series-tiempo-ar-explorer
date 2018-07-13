@@ -1,7 +1,5 @@
 build:
-	npm run build
-	rm docs/* -r
-	cp build/* docs/ -r
+	npm run build-docs
 
 setup:
 	npm install
