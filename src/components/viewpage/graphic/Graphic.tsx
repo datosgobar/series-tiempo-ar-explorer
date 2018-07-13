@@ -96,26 +96,42 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         }
     }
 
+    private hasDateFilter(): boolean {
+        return this.props.date.start !== '' || this.props.date.end !== '';
+    }
+
     private applyZoom(chart: any) {
-        if(this.props.series.length === 0) { return; }
+        if(this.props.series.length === 0 || !this.hasDateFilter()) { return; }
 
         let min = 0;
         let max = this.props.series[0].data.length - 1;
 
         if (this.props.date.start !== '') {
-            const start = new Date(this.props.date.start);
-            min = this.props.series[0].data.findIndex(serie => start <= new Date(serie.date));
+            const start = stringToDate(this.props.date.start);
+            min = this.props.series[0].data.findIndex(serie => start <= stringToDate(serie.date));
+            min = min === -1 ? 0 : min;
         }
 
         if (this.props.date.end !== '') {
-            const end = new Date(this.props.date.end);
-            max = this.props.series[0].data.findIndex(serie => end >= new Date(serie.date));
+            const end = stringToDate(this.props.date.end);
+            max = this.props.series[0].data.findIndex(serie => end <= stringToDate(serie.date));
+            max = max === -1 ? this.props.series[0].data.length : max;
         }
 
         chart.xAxis[0].setExtremes(min, max);
         chart.showResetZoom();
     };
 
+}
+
+// returns a date from string
+// '2010' => 01 Jan 2010
+// '2010-03' or '2010/03' => 01 Mar 2010
+// '2010-03-01' or '2010/03/01' => 01 Mar 2010
+function stringToDate(date: string): Date {
+    const parsedDate  = date.replace(/([\/\-])/g, '/');
+    const result = parsedDate.split('/').length === 1 ? `${parsedDate}/01` : parsedDate;
+    return new Date(result);
 }
 
 export default Graphic;
