@@ -12,9 +12,7 @@ documentacion de desarrollo [aqui](./docs/react.md)
 Para actualizar la documentación de github pages es necesario correr los siguientes comandos:
 
 ```
-npm run build
-rm docs/* -r
-cp build/* docs/ -r
+npm run build-docs
 ```
 
 Y finalmente subir todo al branch default.
