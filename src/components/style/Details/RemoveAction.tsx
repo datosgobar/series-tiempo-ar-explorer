@@ -7,5 +7,5 @@ export default (props: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAn
 
     <Action {...props}>
         <TrashCanIcon />
-        Remover
+        Eliminar serie
     </Action>

@@ -101,8 +101,10 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
-                        <Graphic series={this.props.series} colorFor={this.colorFor} />
-                        <Share url={window.location.href} />
+                        <div className="graph mg-xlg-b">
+                            <Graphic series={this.props.series} colorFor={this.colorFor} />
+                            <Share url={window.location.href} />
+                        </div>
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={
