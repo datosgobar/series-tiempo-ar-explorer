@@ -13,12 +13,17 @@ export default class AutoCompleteItem extends React.Component<IAutoCompleteItemP
 
     public render() {
         return (
-            <div style={{ background: this.props.isHighlighted ? 'lightgray' : 'white' }}>
-                {this.props.item.title} <br />
-                {this.props.item.description} |
-                Periodo: {this.props.item.index.start} - {this.props.item.index.end} |
-                Unidades: {this.props.item.units} |
-                Frecuencia: {this.props.item.accrualPeriodicity}
+            <div ref={(node) => { // change this when main.less contains highlight class or similar
+                    if (node) {
+                        node.style.setProperty("background-color", `${this.props.isHighlighted ? 'lightgray' : 'white'}`, "important");
+                    }}}>
+                <h4 className="font-1 title-xsm">{this.props.item.title}</h4>
+                <p className="small color-g no-mg">
+                    {this.props.item.description} |
+                    Periodo: {this.props.item.index.start} - {this.props.item.index.end} |
+                    Unidades: {this.props.item.units} |
+                    Frecuencia: {this.props.item.accrualPeriodicity}
+                </p>
             </div>
         );
     }
