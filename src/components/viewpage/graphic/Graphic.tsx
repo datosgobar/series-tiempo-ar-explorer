@@ -29,6 +29,10 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public highchartsConfig() {
         return ({
+            legend: {
+                enabled: false
+            },
+
             chart: {
                 zoomType: 'x'
             },
@@ -42,7 +46,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             },
 
             series: this.seriesValues(),
-
         });
     }
 

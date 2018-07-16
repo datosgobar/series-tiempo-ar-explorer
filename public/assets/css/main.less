@@ -149,7 +149,7 @@ ul, ol {
   list-style: none;
 }
 
-a, button { .transition(.25s); }
+a, button, i { .transition(.25s); }
 
 a, button { 
   text-decoration: none !important;
@@ -245,6 +245,27 @@ section#home {
               .box-shadow(none); 
             }
           }
+          // Autocomplete
+          .form-autocomplete {
+            z-index: 99999 !important;
+            position: relative !important;
+            & > div:first-of-type {
+              position: absolute !important;
+              z-index: 99999 !important;
+              left: 0 !important;
+              top: 100% !important;
+              width: 100% !important;
+              min-width: 0 !important;
+              max-height: 120px !important;
+              overflow-y: auto !important;
+              background: @white !important;
+              .box-shadow(0 5px 10px rgba(0,0,0,.25)) !important;
+              & > div {
+                padding: @gap/3 @gap/2 !important;
+                background: @white !important;
+              }
+            }
+          }
           i {
             position: absolute;
             top: 50%;
@@ -277,6 +298,7 @@ section#detalle {
           margin-bottom: 0;
           .form-control {
             font-size: 16px;
+            color: @white;
             background-color: transparent;
             padding: @gap/2;
             border: 0;
@@ -436,7 +458,11 @@ section#detalle {
         width: 100%;
         margin-bottom: @gap/2;
         dt, dd { text-align: left; }
-        dt { width: 250px; }
+        dt { 
+          width: 250px; 
+          font-family: 'Medium';
+          font-weight: normal;
+        }
         dd { margin-left: 280px; }
       }
       .title-and-actions {
@@ -624,6 +650,7 @@ section#detalle {
                     position: relative;
                     a {
                       &.link {
+                        border-bottom: 1px solid @white;
                         &.link-brown { background-color: @gui-brown; }
                         &.link-green1 { background-color: @gui-green1; }
                         &.link-blue { background-color: @gui-blue; }
@@ -659,6 +686,56 @@ section#detalle {
     &.has-panel-open {
       #detalle-panel { .translateX(0); }
     }
+  }
+  .share {
+    span, ul, a {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1em;
+      margin-right: @gap/3;
+      margin-bottom: @gap/3;
+    }
+    .caption, .legend { font-size: 11px; }
+    .social {
+      li {
+        display: inline-block;
+        a {
+          display: block;
+          margin: 0;
+          i {
+            display: table-cell;
+            .square(30px);
+            font-size: 14px;
+            text-align: center;
+            vertical-align: middle;
+            color: @white;
+            .border-radius(100%);
+            &.fa-twitter { background-color: #20A0EF; }
+            &.fa-facebook-f { background-color: #4468AE; }
+          }
+          &:hover i { background-color: @grayDarker; }
+        }
+      }
+    }
+    .url {
+      background-color: @grayLighter;
+      padding: @gap/2 @gap/1.5;
+      .border-radius(50px);
+      i, .url-text { 
+        display: inline-block; 
+        vertical-align: middle;
+        line-height: 1em;
+        margin: 0;
+      }
+      .url-text {
+        max-width: 270px;
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .legend { color: @color1; }
   }
 }
 /*------------------------------------------------------------------------------------*/
@@ -963,27 +1040,6 @@ header, section, aside, footer {
       display: block;
       .border-radius(0);
       background-color: @black;
-    }
-  }
-
-  .social {
-    li {
-      display: inline-block;
-      margin-left: 5px;
-      a {
-        display: block;
-        i.fa {
-          display: table-cell;
-          .square(35px);
-          font-size: 18px;
-          text-align: center;
-          vertical-align: middle;
-          color: @white;
-          background-color: @color1;
-          .border-radius(100%);
-        }
-        &:hover i.fa { background-color: @black; }
-      }
     }
   }
 

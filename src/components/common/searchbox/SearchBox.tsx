@@ -41,6 +41,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         this.triggerSearch = this.triggerSearch.bind(this);
         this.updateAutoCompleteItems = debounce(this.updateAutoCompleteItems, 500);
         this.onSelect = this.onSelect.bind(this);
+        this.renderItem = this.renderItem.bind(this);
     }
 
     public componentDidUpdate(prevProps: ISearchBoxProps) {
@@ -86,21 +87,34 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
                     onChange={this.onSearchTermChange}
                     getItemValue={getItemValue}
                     items={this.state.autoCompleteItems}
-                    renderItem={renderItem}
-                    onSelect={this.onSelect} />
+                    renderItem={this.renderItem}
+                    onSelect={this.onSelect}
+                    wrapperProps={{className: 'form-autocomplete'}}
+                />
 
                 <SearchIcon onClick={this.triggerSearch} />
             </HeroFormSearch>
         );
     }
+
+    private renderItem(item: SearchResult, isHighlighted: boolean) {
+        if (this.state.autoCompleteItems[0].id === item.id) {
+            return (
+                <div>
+                    <div style={{marginBottom: '10px'}}>Datasets más relevantes a tu búsqueda</div>
+
+                    <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} />
+                </div>
+            )
+        } else {
+            return (
+                <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} />
+            );
+        }
+    }
 }
 
 function getItemValue(item: SearchResult) { return item.title; }
 
-function renderItem(item: SearchResult, isHighlighted: boolean) {
-    return (
-        <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} />
-    );
-}
 
 export default SearchBox;
