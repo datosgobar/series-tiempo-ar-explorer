@@ -479,7 +479,8 @@ ol {
   list-style: none;
 }
 a,
-button {
+button,
+i {
   -webkit-transition: 0.25s;
   -o-transition: 0.25s;
   transition: 0.25s;
@@ -589,6 +590,27 @@ section#home #hero .hero-caption #form-hero-search .form-group .form-control:foc
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete {
+  z-index: 99999 !important;
+  position: relative !important;
+}
+section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type {
+  position: absolute !important;
+  z-index: 99999 !important;
+  left: 0 !important;
+  top: 100% !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-height: 120px !important;
+  overflow-y: auto !important;
+  background: #ffffff !important;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25) !important;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25) !important;
+}
+section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div {
+  padding: 5px 7.5px !important;
+  background: #ffffff !important;
+}
 section#home #hero .hero-caption #form-hero-search .form-group i {
   position: absolute;
   top: 50%;
@@ -627,6 +649,7 @@ section#detalle #hero .hero-caption #form-hero-search .form-group {
 section#listado #hero .hero-caption #form-hero-search .form-group .form-control,
 section#detalle #hero .hero-caption #form-hero-search .form-group .form-control {
   font-size: 16px;
+  color: #ffffff;
   background-color: transparent;
   padding: 7.5px;
   border: 0;
@@ -830,6 +853,8 @@ section#detalle #detalle-content .detalle-serie .dl-horizontal dd {
 }
 section#detalle #detalle-content .detalle-serie .dl-horizontal dt {
   width: 250px;
+  font-family: 'Medium';
+  font-weight: normal;
 }
 section#detalle #detalle-content .detalle-serie .dl-horizontal dd {
   margin-left: 280px;
@@ -1084,6 +1109,9 @@ section#detalle #detalle-content #detalle-panel .dp-body .tab-content .tab-pane 
 section#detalle #detalle-content #detalle-panel .dp-body .tab-content .tab-pane .dropdown.dd-colors .dropdown-menu li {
   position: relative;
 }
+section#detalle #detalle-content #detalle-panel .dp-body .tab-content .tab-pane .dropdown.dd-colors .dropdown-menu li a.link {
+  border-bottom: 1px solid #ffffff;
+}
 section#detalle #detalle-content #detalle-panel .dp-body .tab-content .tab-pane .dropdown.dd-colors .dropdown-menu li a.link.link-brown {
   background-color: #8e655e;
 }
@@ -1134,6 +1162,67 @@ section#detalle #detalle-content.has-panel-open #detalle-panel {
   -ms-transform: translateX(0);
   -o-transform: translateX(0);
   transform: translateX(0);
+}
+section#detalle .share span,
+section#detalle .share ul,
+section#detalle .share a {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1em;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+section#detalle .share .caption,
+section#detalle .share .legend {
+  font-size: 11px;
+}
+section#detalle .share .social li {
+  display: inline-block;
+}
+section#detalle .share .social li a {
+  display: block;
+  margin: 0;
+}
+section#detalle .share .social li a i {
+  display: table-cell;
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  text-align: center;
+  vertical-align: middle;
+  color: #ffffff;
+  border-radius: 100%;
+}
+section#detalle .share .social li a i.fa-twitter {
+  background-color: #20A0EF;
+}
+section#detalle .share .social li a i.fa-facebook-f {
+  background-color: #4468AE;
+}
+section#detalle .share .social li a:hover i {
+  background-color: #222222;
+}
+section#detalle .share .url {
+  background-color: #dddddd;
+  padding: 7.5px 10px;
+  border-radius: 50px;
+}
+section#detalle .share .url i,
+section#detalle .share .url .url-text {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1em;
+  margin: 0;
+}
+section#detalle .share .url .url-text {
+  max-width: 270px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+section#detalle .share .legend {
+  color: #0072bc;
 }
 /*------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------*/
@@ -1975,39 +2064,6 @@ footer .tooltip .tooltip-inner {
   padding: 5px 7.5px !important;
   display: block;
   border-radius: 0;
-  background-color: #000000;
-}
-header .social li,
-section .social li,
-aside .social li,
-footer .social li {
-  display: inline-block;
-  margin-left: 5px;
-}
-header .social li a,
-section .social li a,
-aside .social li a,
-footer .social li a {
-  display: block;
-}
-header .social li a i.fa,
-section .social li a i.fa,
-aside .social li a i.fa,
-footer .social li a i.fa {
-  display: table-cell;
-  width: 35px;
-  height: 35px;
-  font-size: 18px;
-  text-align: center;
-  vertical-align: middle;
-  color: #ffffff;
-  background-color: #0072bc;
-  border-radius: 100%;
-}
-header .social li a:hover i.fa,
-section .social li a:hover i.fa,
-aside .social li a:hover i.fa,
-footer .social li a:hover i.fa {
   background-color: #000000;
 }
 /*
