@@ -1,5 +1,6 @@
 import { ApiClient } from './ApiClient';
 import { ITSAPIResponse, ITSMeta } from './ITSAPIResponse'
+import QueryParams from "./QueryParams";
 import SearchResult from './SearchResult';
 import Serie, { ISerie } from "./Serie";
 
@@ -23,7 +24,7 @@ type DatasetSource = string;
 
 export interface ISerieApi {
 
-    fetchSeries: ((ids: string[]) => Promise<ISerie[]>);
+    fetchSeries: ((params: QueryParams) => Promise<ISerie[]>);
     searchSeries: ((q: string, searchOptions?: ISearchOptions) => Promise<SearchResult[]>);
     fetchSources: () => Promise<DatasetSource[]>;
     fetchThemes: () => Promise<DatasetTheme[]>;
@@ -41,15 +42,14 @@ export default class SerieApi implements ISerieApi {
         this.apiClient = apiClient;
     }
 
-    public fetchSeries(idsArray: string[], metadata: string = METADATA.FULL): Promise<Serie[]> {
-        const ids = idsArray.join(",");
+    public fetchSeries(params: QueryParams, metadata: string = METADATA.FULL): Promise<Serie[]> {
+        const ids = params.getIds();
         const options = {
-            qs: {
-                ids,
-                metadata,
-            },
+            qs: { metadata },
             uri: this.apiClient.endpoint('series'),
         };
+
+        Object.assign(options.qs, params.asQuery());
 
         return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
     }

@@ -3,10 +3,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, BrowserRouterProps, HashRouter } from 'react-router-dom';
 import { loadFeatured, setSeriesApi } from './actions/seriesActions';
+import QueryParams from "./api/QueryParams";
 import { ISerieApi } from './api/SerieApi';
-import routes from './routes';
-
 import Wrapper from './components/style/Common/Wrapper';
+import routes from './routes';
 
 interface IAppProps {
     featured: string[];
@@ -28,7 +28,8 @@ class App extends React.Component<IAppProps, any> {
     }
 
     public fetchFeaturedSeries() {
-        this.props.seriesApi.fetchSeries(this.props.featured).then(featuredSeries => this.props.dispatch(loadFeatured(featuredSeries)))
+        const params = new QueryParams(this.props.featured);
+        this.props.seriesApi.fetchSeries(params).then(featuredSeries => this.props.dispatch(loadFeatured(featuredSeries)))
     }
 
     public render(): any {

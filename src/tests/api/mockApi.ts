@@ -1,3 +1,4 @@
+import QueryParams from "../../api/QueryParams";
 import SearchResult from "../../api/SearchResult";
 import { ISerie } from "../../api/Serie";
 import { ISearchOptions, ISerieApi } from "../../api/SerieApi";
@@ -29,9 +30,9 @@ class MockApi implements ISerieApi {
         this.themes = themes || THEMES;
     }
 
-    public fetchSeries(ids: string[]): Promise<ISerie[]> {
+    public fetchSeries(params: QueryParams): Promise<ISerie[]> {
         return new Promise((resolve, reject) => {
-            setTimeout(resolve, this.delay, ids.map(toSerie))
+            setTimeout(resolve, this.delay, params.getIds().split(',').map(toSerie))
         })
     }
 
