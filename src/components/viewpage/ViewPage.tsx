@@ -17,7 +17,7 @@ import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
 import SearchBox from '../common/searchbox/SearchBox'
 import DetallePanel from './DetallePanel';
-import Graphic from './graphic/Graphic';
+import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
 import SeriesPicker, { ISeriesPickerProps } from './seriespicker/SeriesPicker';
 
@@ -103,7 +103,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
-                        <Graphic series={this.props.series} colorFor={this.colorFor} date={this.props.date}/>
+                        <GraphicAndShare series={this.props.series} colorFor={this.colorFor} date={this.props.date} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={
