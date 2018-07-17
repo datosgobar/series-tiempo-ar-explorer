@@ -30,7 +30,6 @@ export class Share extends React.Component<IShareProps, any> {
                 <span className="caption">Compartir en</span>
                 <ul className="social">
                     <li><a href={this.tweetMessage()} target="_blank"><i className="fab fa-twitter" /></a></li>&nbsp;
-                    <li><a><i className="fab fa-facebook-f" /></a></li>
                 </ul>
                 <CopyToClipboard text={this.props.url} onCopy={this.onCopy}>
                     <span className="url" style={{cursor: 'pointer'}} data-tip={this.copyMessage()} >
