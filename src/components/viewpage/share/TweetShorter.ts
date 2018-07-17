@@ -22,6 +22,7 @@ export class TweetShorter {
 
     public finalUrl(): string {
         const encodedUrl = encodeURIComponent(this.url);
-        return `http://twitter.com/intent/tweet?text=${this.shortenMessage()}&url=${encodedUrl}`;
+        const msg = encodeURIComponent(this.shortenMessage());
+        return `http://twitter.com/intent/tweet?text=${msg}&url=${encodedUrl}`;
     }
 }
