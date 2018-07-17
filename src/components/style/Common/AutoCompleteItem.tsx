@@ -17,7 +17,7 @@ export default class AutoCompleteItem extends React.Component<IAutoCompleteItemP
                 if (node) {
                     node.style.setProperty("background-color", `${this.props.isHighlighted ? 'lightgray' : 'white'}`, "important");
                 }}}>
-                <h4 className="font-1 title-xsm">{this.props.item.title}</h4>
+                <h4 className="font-1 title-xsm"><strong>{this.props.item.title}</strong></h4>
                 <p className="small color-g no-mg">
                     {this.props.item.description} |
                     Periodo: {this.props.item.index.start} - {this.props.item.index.end} |
