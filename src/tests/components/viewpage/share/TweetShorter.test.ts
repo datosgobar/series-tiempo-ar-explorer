@@ -8,7 +8,7 @@ describe("TweetShorter", () => {
         const tweetShorter = new TweetShorter("Test", url);
 
         expect(tweetShorter.shortenMessage()).toEqual("Test\n");
-        expect(tweetShorter.finalUrl()).toEqual(`http://twitter.com/intent/tweet?text=Test\n&url=${encodeURIComponent(url)}`)
+        expect(tweetShorter.finalUrl()).toEqual(`http://twitter.com/intent/tweet?text=Test%0A&url=${encodeURIComponent(url)}`)
     });
 
 });
