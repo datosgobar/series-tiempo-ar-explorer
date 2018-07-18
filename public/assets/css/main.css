@@ -640,6 +640,7 @@ section#detalle #hero .hero-caption {
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
   width: 100%;
+  z-index: 2;
 }
 section#listado #hero .hero-caption #form-hero-search .form-group,
 section#detalle #hero .hero-caption #form-hero-search .form-group {
@@ -783,6 +784,7 @@ section#listado #listado-list #list .series-card .card-desc {
 /*------------------------------------------------------------------------------------*/
 section#detalle #detalle-content {
   position: relative;
+  z-index: 1;
 }
 section#detalle #detalle-content #btn-config {
   font-family: 'Bold';
@@ -2321,6 +2323,12 @@ RESPONSIVE:
   section#detalle #hero .hero-caption #form-hero-search .form-group i {
     font-size: 20px;
   }
+}
+section#detalle #hero .hero-caption .col-sm-4 .form-autocomplete > div:first-of-type {
+  top: 115px !important;
+  width: 24% !important;
+  height: 100% !important;
+  max-height: 100% !important;
 }
 /* ------------------------------------------------------------------------------------
 NAV:
