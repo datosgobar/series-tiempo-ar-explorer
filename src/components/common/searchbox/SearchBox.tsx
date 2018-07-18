@@ -98,19 +98,9 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 
     private renderItem(item: SearchResult, isHighlighted: boolean) {
-        if (this.state.autoCompleteItems[0].id === item.id) {
-            return (
-                <div>
-                    <div style={{marginBottom: '10px'}}>Datasets más relevantes a tu búsqueda:</div>
-
-                    <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} />
-                </div>
-            )
-        } else {
-            return (
-                <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} />
-            );
-        }
+        return (
+            <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} />
+        );
     }
 }
 
