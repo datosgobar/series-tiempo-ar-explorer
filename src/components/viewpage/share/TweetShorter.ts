@@ -13,9 +13,9 @@ export class TweetShorter {
         const availableLength = Math.abs(this.url.length - this.maxTweetLength);
 
         if (this.message.length > availableLength) {
-            return `${this.message.slice(0, availableLength - 3)}...`
+            return `${this.message.slice(0, availableLength - 5)}...\n` // 5 = 3 dots + 1 break line + 1 space added by twitter before the url
         } else {
-            return this.message;
+            return `${this.message}\n`;
         }
     }
 

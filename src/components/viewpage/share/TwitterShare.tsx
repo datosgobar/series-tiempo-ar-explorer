@@ -20,7 +20,7 @@ export class TwitterShare extends React.Component<ITwitterShareProps> {
 
     public tweetMessage(): string {
         const url = window.location.href;
-        const titles = `${this.props.series.map(serie => serie.title).join('\n')}\n`;
+        const titles = `${this.props.series.map(serie => serie.title).join('\n')}`;
         const tweetShorter = new TweetShorter(titles, url);
 
         return tweetShorter.finalUrl();
