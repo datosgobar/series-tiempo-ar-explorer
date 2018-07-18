@@ -39,7 +39,6 @@ export class LinkShare extends React.Component<ILinkShareProps, ILinkShareState>
                         </span>
                     </span>
                 </CopyToClipboard>
-                <span className="legend">Guarda este link para automatizar la búsqueda</span>
                 <ReactTooltip effect="solid" getContent={this.copyMessage}/>
             </span>
         )
