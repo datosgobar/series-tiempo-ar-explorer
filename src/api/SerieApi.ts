@@ -8,7 +8,7 @@ import Serie, { ISerie } from "./Serie";
 export interface ISearchOptions {
     datasetSource?: string;
     datasetTheme?: string;
-    offset?: number;
+    offset: number;
     limit?: number;
 }
 
@@ -45,18 +45,21 @@ export default class SerieApi implements ISerieApi {
     public fetchSeries(params: QueryParams, metadata: string = METADATA.FULL): Promise<Serie[]> {
         const ids = params.getIds();
         const options = {
-            qs: { metadata },
+            qs: {
+                limit: 1000,
+                metadata,
+                start: 0
+            },
             uri: this.apiClient.endpoint('series'),
         };
 
         Object.assign(options.qs, params.asQuery());
 
-        return this.apiClient.get(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
+        return this.apiClient.getPaginated(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
     }
 
     public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<SearchResult[]> {
-
-        const limit = searchOptions && searchOptions.limit ? searchOptions.limit : 10;
+        const limit = searchOptions && searchOptions.limit ? searchOptions.limit : 1000;
         const offset = searchOptions && searchOptions.offset ? searchOptions.offset : 0;
         // tslint:disable-next-line:variable-name
         const dataset_source = searchOptions && searchOptions.datasetSource ? searchOptions.datasetSource : undefined;
@@ -74,7 +77,7 @@ export default class SerieApi implements ISerieApi {
             uri: this.apiClient.endpoint('search'),
         };
 
-        return this.apiClient.get<ITSAPIResponse>(options)
+        return this.apiClient.getPaginated<ITSAPIResponse>(options)
             .then(addPlaceHolders)
             .then(tsResponseToSearchResult)
     }
