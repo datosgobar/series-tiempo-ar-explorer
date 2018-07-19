@@ -56,7 +56,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     public updateAutoCompleteItems(searchTerm: string) {
         if (searchTerm.length) {
             this.props.seriesApi
-                .searchSeries(searchTerm, {offset: 0, limit: 4})
+                .searchSeries(searchTerm, {offset: 0, limit: 1000})
                 .then((autoCompleteItems: SearchResult[]) => {
                     this.setState({ autoCompleteItems })
                 });
