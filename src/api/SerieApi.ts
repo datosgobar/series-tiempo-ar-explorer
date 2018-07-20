@@ -55,9 +55,11 @@ export default class SerieApi implements ISerieApi {
 
         Object.assign(options.qs, params.asQuery());
 
-        return this.apiClient.getPaginated(options).then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
+        return this.apiClient.getAll(options, [])
+            .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
     }
 
+    // Todo: Usa paginacion
     public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<SearchResult[]> {
         const limit = searchOptions && searchOptions.limit ? searchOptions.limit : 1000;
         const offset = searchOptions && searchOptions.offset ? searchOptions.offset : 0;
@@ -77,7 +79,7 @@ export default class SerieApi implements ISerieApi {
             uri: this.apiClient.endpoint('search'),
         };
 
-        return this.apiClient.getPaginated<ITSAPIResponse>(options)
+        return this.apiClient.get(options)
             .then(addPlaceHolders)
             .then(tsResponseToSearchResult)
     }

@@ -19,32 +19,38 @@ export class ApiClient {
         then(axionResponse => Promise.resolve(axionResponse.data));
     }
 
-    public getPaginated<T>(options: IApiClientOpt): Promise<T> {
-        return this.getPaginatedSeries(options, []).
-        then(axionResponse => Promise.resolve(axionResponse.data));
-    }
-
     public endpoint(endpointPath: string, trailingSlash: boolean = true): string {
         const fullPath = urljoin(this.uri, endpointPath, '/');
         return trailingSlash? fullPath : fullPath.slice(0, -1);
     }
 
-    private getPaginatedSeries(options: IApiClientOpt, result: Array<Promise<any>>): Promise<any> {
-        return this.axiosInstance.get<any>(options.uri, {params: options.qs})
+    public getAll(options: IApiClientOpt, prevResults: Array<Promise<any>>): Promise<any> {
+        return this.get<any>(options)
             .then((response: any): Promise<any> => {
-                response.data = result.concat(response.data); // para series, la lista esta en response.data.data
 
-                if (response.data.length === response.count) {
-                    return Promise.resolve(response);
-                } else {
-                    if (options.qs.offset !== undefined) {
-                        options.qs.offset = options.qs.offset + options.qs.limit;
-                    } else {
-                        options.qs.start = options.qs.start + options.qs.limit;
-                    }
+                if (this.needToFetchMoreData(response.data, options.qs.limit)) {
+                    this.addData(response, prevResults);
+                    this.increaseOffset(options);
 
-                    return this.getPaginatedSeries(options, response.data);
+                    return this.getAll(options, response.data);
                 }
+
+                this.addData(response, prevResults);
+                return Promise.resolve(response);
             });
     }
+
+    private addData(response: any, result: any[]) {
+        response.data = result.concat(response.data);
+    }
+
+    private needToFetchMoreData(result: any[], limit: number): boolean {
+        return result.length === limit;
+    }
+
+    private increaseOffset(options: IApiClientOpt) {
+        options.qs.start = options.qs.start + options.qs.limit;
+    }
+
+
 }
