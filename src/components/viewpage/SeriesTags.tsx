@@ -16,7 +16,7 @@ interface ISeriesTagsProps extends React.Props<any> {
 
 export default (props: ISeriesTagsProps) =>
 
-    <div className="col-sm-6">
+    <div className="col-sm-12">
         <TagContainer>
             {props.series.map(serie =>
                 <Tag key={serie.id} pegColor={props.pegColorFor ? props.pegColorFor(serie) : NaC} onClose={closeHandler(serie.id, props.onTagClose)}>
