@@ -21,7 +21,7 @@ export default class AddAndCustomizeSeriesButton extends React.Component<{}, {}>
     public render() {
         return (
             <a id="btn-config" className="btn btn-link mg-b pull-right mg-t">
-                <i className="fas fa-bars" /> PERSONALIZAR Y AGREGAR SERIES
+                <i className="fas fa-bars" /> AGREGAR SERIES
             </a>
         );
     }
