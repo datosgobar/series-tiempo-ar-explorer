@@ -55,6 +55,8 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
     }
 
     public componentDidUpdate(prevProps: ISearcherProps) {
+        window.scrollTo(0, 0);
+
         if (this.props.q &&
             (prevProps.q !== this.props.q ||
                 prevProps.datasetTheme !== this.props.datasetTheme ||
