@@ -1,6 +1,7 @@
 import { ApiClient } from './ApiClient';
-import { ITSAPIResponse, ITSMeta } from './ITSAPIResponse'
+import {ISearchResponse, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
 import QueryParams from "./QueryParams";
+import ResponseResult from "./ResponseResult";
 import SearchResult from './SearchResult';
 import Serie, { ISerie } from "./Serie";
 
@@ -25,7 +26,7 @@ type DatasetSource = string;
 export interface ISerieApi {
 
     fetchSeries: ((params: QueryParams) => Promise<ISerie[]>);
-    searchSeries: ((q: string, searchOptions?: ISearchOptions) => Promise<SearchResult[]>);
+    searchSeries: ((q: string, searchOptions?: ISearchOptions) => Promise<ISearchResponse>);
     fetchSources: () => Promise<DatasetSource[]>;
     fetchThemes: () => Promise<DatasetTheme[]>;
 }
@@ -59,9 +60,8 @@ export default class SerieApi implements ISerieApi {
             .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
     }
 
-    // Todo: Usa paginacion
-    public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<SearchResult[]> {
-        const limit = searchOptions && searchOptions.limit ? searchOptions.limit : 1000;
+    public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<ISearchResponse> {
+        const limit = searchOptions && searchOptions.limit ? searchOptions.limit : 10;
         const offset = searchOptions && searchOptions.offset ? searchOptions.offset : 0;
         // tslint:disable-next-line:variable-name
         const dataset_source = searchOptions && searchOptions.datasetSource ? searchOptions.datasetSource : undefined;
@@ -87,7 +87,7 @@ export default class SerieApi implements ISerieApi {
     public fetchSources() {
         const options = {
             uri: this.apiClient.endpoint('search/dataset_source', false),
-        }
+        };
 
         return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
     }
@@ -95,7 +95,7 @@ export default class SerieApi implements ISerieApi {
     public fetchThemes() {
         const options = {
             uri: this.apiClient.endpoint('search/dataset_theme')
-        }
+        };
 
         return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
     }
@@ -107,8 +107,9 @@ function tsResponseToSeries(ids: string[], tsResponse: ITSAPIResponse): Serie[] 
     );
 }
 
-function tsResponseToSearchResult(tsResponse: ITSAPIResponse): SearchResult[] {
-    return tsResponse.data.map((searchResult: ITSMeta) => new SearchResult(searchResult));
+function tsResponseToSearchResult(tsResponse: ITSAPIResponse): ISearchResponse {
+    const result: SearchResult[] = tsResponse.data.map((searchResult: ITSMeta) => new SearchResult(searchResult));
+    return new ResponseResult(tsResponse.count, result);
 }
 
 function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {

@@ -81,6 +81,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
     };
 
     return {
+        count: 1,
         data,
         meta,
         params,
