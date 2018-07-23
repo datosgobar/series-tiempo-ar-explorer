@@ -1,11 +1,9 @@
 import * as React from "react";
 
 import SearchResult from "../../../api/SearchResult";
-import { ISerieApi } from "../../../api/SerieApi";
+import {ISerieApi} from "../../../api/SerieApi";
 import SearchBox from "../../common/searchbox/SearchBox";
-import DropDownSelector from "../selector/DropDownSelector";
-import Searcher, { ISearcherProps, ISearchParams } from "./Searcher";
-import SearchFilters from "./SearchFilters";
+import Searcher, {ISearcherProps, ISearchParams} from "./Searcher";
 
 
 interface IFullSearcherProps extends ISearchParams {
@@ -58,13 +56,6 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
             <div className="Searcher">
 
                 <SearchBox seriesApi={this.props.seriesApi} searchTerm={this.props.q} onSearch={this.onSearchTermPicked} onSelect={this.onSearchTermPicked}/>
-                <SearchFilters onThemePicked={this.onThemePicked}
-                               seriesApi={this.props.seriesApi}
-                               pickedTheme={this.state.datasetTheme}
-                               selector={DropDownSelector}
-                               onSourcePicked={this.onSourcePicked}
-                               pickedSource={this.state.datasetSource}
-                />
                 <Searcher {...this.searcherProps()}/>
                 <div className="dp-no-results pd-v-xlg">
                     <h3 className="title-lg font-1 text-center color-gl mg-xlg-t mg-xlg-b">Los resultados aparecerán aquí</h3>
