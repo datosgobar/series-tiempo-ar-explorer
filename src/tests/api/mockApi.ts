@@ -1,5 +1,5 @@
+import { ISearchResponse } from "../../api/ITSAPIResponse";
 import QueryParams from "../../api/QueryParams";
-import SearchResult from "../../api/SearchResult";
 import { ISerie } from "../../api/Serie";
 import { ISearchOptions, ISerieApi } from "../../api/SerieApi";
 
@@ -36,27 +36,20 @@ class MockApi implements ISerieApi {
         })
     }
 
-    public searchSeries(q: string, options?: ISearchOptions): Promise<SearchResult[]> {
+    public searchSeries(q: string, options?: ISearchOptions): Promise<ISearchResponse> {
 
         if (options && options.datasetSource) {
             return new Promise((resolve, reject) => {
-                setTimeout(resolve, this.delay, [
-                    toSerie("serie01"),
-                ]);
+                setTimeout(resolve, this.delay, {count:1, result: [toSerie("serie01")]});
             });
         }
         if (options && options.datasetTheme) {
             return new Promise((resolve, reject) => {
-                setTimeout(resolve, this.delay, [
-                    toSerie("serie02"),
-                ]);
+                setTimeout(resolve, this.delay, {count:1, result: [toSerie("serie02")]});
             });
         }
         return new Promise((resolve, reject) => {
-            setTimeout(resolve, this.delay, [
-                toSerie("serie01"),
-                toSerie("serie02"),
-            ]);
+            setTimeout(resolve, this.delay, {count:1, result: [toSerie("serie01"), toSerie("serie02")]});
         });
     }
 
@@ -73,7 +66,7 @@ class MockApi implements ISerieApi {
             setTimeout(resolve, this.delay, this.themes);
         });
     }
-};
+}
 
 function toSerie(id: string): ISerie {
 
@@ -91,7 +84,7 @@ function toSerie(id: string): ISerie {
         issued: `${id} issued`,
         landingPage: `${id} landingPage`,
         themes: [`${id} theme`],
-    }
+    };
 
     return self;
 }

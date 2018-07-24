@@ -3,6 +3,7 @@ const debounce = require('debounce');
 
 import * as React from 'react';
 
+import { ISearchResponse } from "../../../api/ITSAPIResponse";
 import AutoComplete from '../../style/Common/AutoComplete';
 import AutoCompleteItem from '../../style/Common/AutoCompleteItem';
 import SearchIcon from '../../style/Common/SearchIcon';
@@ -56,9 +57,9 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     public updateAutoCompleteItems(searchTerm: string) {
         if (searchTerm.length) {
             this.props.seriesApi
-                .searchSeries(searchTerm, {offset: 0, limit: 4})
-                .then((autoCompleteItems: SearchResult[]) => {
-                    this.setState({ autoCompleteItems })
+                .searchSeries(searchTerm, {offset: 0, limit: 10})
+                .then((response: ISearchResponse) => {
+                    this.setState({ autoCompleteItems:  response.result})
                 });
         }
     }

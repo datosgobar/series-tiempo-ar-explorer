@@ -1,4 +1,12 @@
+import SearchResult from "./SearchResult";
+
+export interface ISearchResponse {
+    count: number;
+    result: SearchResult[];
+}
+
 export interface ITSAPIResponse {
+    count: number;
     data: any[];
     meta: IMetaData[];
     params: any;
