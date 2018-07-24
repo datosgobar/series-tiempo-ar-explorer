@@ -114,7 +114,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
 
     private pageCount(): number {
         const count = this.state.count;
-        const pageSize = 10; // TODO: ver
+        const pageSize = 10; // TODO: Parametrizar el tamaño de página como parte de la inicialización de TSExplorer
 
         return Math.floor(count / pageSize) + Math.min(count % pageSize, 1);
     }
