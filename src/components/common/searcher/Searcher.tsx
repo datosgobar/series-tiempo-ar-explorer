@@ -84,7 +84,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
                                nextLabel={"Siguiente"}
                                breakLabel={<a href="">...</a>}
                                breakClassName={"break-me"}
-                               pageCount={this.state.count}
+                               pageCount={this.pageCount()}
                                marginPagesDisplayed={2}
                                pageRangeDisplayed={5}
                                onPageChange={this.handlePageClick}
@@ -102,6 +102,13 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
                     result: responseResult.result
                 });
             }).catch(alert);
+    }
+
+    private pageCount(): number {
+        const count = this.state.count;
+        const pageSize = 10; // TODO: ver
+
+        return Math.floor(count / pageSize) + Math.min(count % pageSize, 1);
     }
 
     private getOffsetByPage(pageNumber: number): number {
