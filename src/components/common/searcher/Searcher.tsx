@@ -22,6 +22,7 @@ export interface ISearcherProps extends ISearchParams {
 
 interface ISearcherState {
     count: number;
+    currentPage: number;
     result: SearchResult[];
 }
 
@@ -32,6 +33,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         this.handlePageClick = this.handlePageClick.bind(this);
         this.state = {
             count: 0,
+            currentPage: 0,
             result: []
         };
     }
@@ -57,6 +59,10 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
     public componentDidUpdate(prevProps: ISearcherProps) {
         window.scrollTo(0, 0);
 
+        if (this.props.q !== prevProps.q) {
+            this.setState({ currentPage: 0 });
+        }
+
         if (this.props.q &&
             (prevProps.q !== this.props.q ||
                 prevProps.datasetTheme !== this.props.datasetTheme ||
@@ -69,6 +75,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
     }
 
     public handlePageClick(btnClicked: any) {
+        this.setState({currentPage: btnClicked.selected});
         const newParams = {...this.props};
         newParams.offset = this.getOffsetByPage(btnClicked.selected);
 
@@ -89,7 +96,8 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
                                pageRangeDisplayed={5}
                                onPageChange={this.handlePageClick}
                                containerClassName={"pagination"}
-                               activeClassName={"active"} />
+                               activeClassName={"active"}
+                               forcePage={this.state.currentPage} />
             </div>
         );
     }
