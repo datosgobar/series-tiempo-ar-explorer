@@ -1,10 +1,11 @@
 import * as React from 'react';
 
+import Highlighter from "react-highlight-words";
 import SearchResult from '../../../api/SearchResult';
 
 
 interface IAutoCompleteItemProps extends React.Props<any> {
-
+    searchTerm: string;
     item: SearchResult;
     isHighlighted: boolean;
 }
@@ -19,7 +20,13 @@ export default class AutoCompleteItem extends React.Component<IAutoCompleteItemP
                 }}}>
 
                 <a href="#">
-                    <h4 className="font-1 title-xsm"><strong>{this.props.item.title}</strong></h4>
+                    <h4 className="font-1 title-xsm">
+                        <Highlighter highlightClassName="item-highlight"
+                                     searchWords={this.props.searchTerm.split(' ')}
+                                     autoEscape={true}
+                                     textToHighlight={this.props.item.title} />
+                    </h4>
+
                     <p className="small color-g no-mg">
                         Dataset: {this.props.item.description} |
                         Periodo: {this.props.item.index.start} - {this.props.item.index.end} |

@@ -1,3 +1,7 @@
+.item-highlight {
+  background-color: inherit ;
+  font-family: 'Bold';
+}
 /*
 ------------------------------------------------------------------------------------
 MIXINS:
