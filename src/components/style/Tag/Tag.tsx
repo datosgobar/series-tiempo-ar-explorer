@@ -1,17 +1,23 @@
 import * as React from 'react';
 
-import { Color } from '../Colors/Color';
+import {Color} from '../Colors/Color';
+import RemoveTagBtn from "./RemoveTagBtn";
 
 interface ITagProps extends React.Props<any> {
     pegColor?: Color;
     onClose?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
-export default (props: ITagProps) =>
+export default (props: ITagProps) => {
+    let removeBtn;
+    if (props.onClose) {
+        removeBtn = <RemoveTagBtn onClose={props.onClose} />
+    }
 
-    <span className={`tag ${props.pegColor ? `tag-${props.pegColor.name}` : ""}`}>
-        {props.children}
-        <a className="tag-close" onClick={props.onClose}>
-            <i className="far fa-times" />
-        </a>
-    </span>
+    return (
+        <span className={`tag ${props.pegColor ? `tag-${props.pegColor.name}` : ""}`}>
+            {props.children}
+            {removeBtn}
+        </span>
+    )
+}
