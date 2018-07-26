@@ -10,7 +10,7 @@ import { ISerie } from '../../api/Serie';
 interface ISeriesTagsProps extends React.Props<any> {
 
     series: ISerie[];
-    onTagClose: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void;
+    onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void;
     pegColorFor?: (serie: ISerie) => Color;
 }
 
@@ -27,11 +27,11 @@ export default (props: ISeriesTagsProps) =>
     </div>
 
 
-function closeHandler(serieId: string, onTagClose: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void): React.MouseEventHandler<HTMLAnchorElement> {
-    return (event: React.MouseEvent<HTMLAnchorElement>) => onTagClose(event, serieId)
+function closeHandler(serieId: string, onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void): React.MouseEventHandler<HTMLButtonElement> {
+    return (event: React.MouseEvent<HTMLButtonElement>) => onTagClose(event, serieId)
 }
 
-function getOnCloseFor(series: ISerie[], serieId: string, onTanClose: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void) {
+function getOnCloseFor(series: ISerie[], serieId: string, onTanClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void) {
     let fn;
     if (series.length > 1) {
         fn = closeHandler(serieId, onTanClose);

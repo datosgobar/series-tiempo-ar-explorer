@@ -100,7 +100,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
 
     private renderItem(item: SearchResult, isHighlighted: boolean) {
         return (
-            <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} />
+            <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} searchTerm={this.state.searchTerm} />
         );
     }
 }
