@@ -33,13 +33,20 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
             <div className='MetaData'>
                 {this.props.series.map((serie: ISerie, index: number) =>
                     <SerieDetails key={serie.id} serie={serie}
-                        pegColorFor={this.props.pegColorFor}
-                        actions={[
-                            <RemoveAction key={serie.id} onClick={this.handleRemove(serie.id)} />
-                        ]} />
+                                  pegColorFor={this.props.pegColorFor}
+                                  actions={this.actionsListFor(serie.id)} />
                 )}
             </div>
         );
+    }
+
+    private actionsListFor(serieId: string) {
+        const result = [];
+        if (this.props.series.length > 1) {
+            result.push(<RemoveAction key={serieId} onClick={this.handleRemove(serieId)} />);
+        }
+
+        return result;
     }
 }
 

@@ -16,10 +16,10 @@ interface ISeriesTagsProps extends React.Props<any> {
 
 export default (props: ISeriesTagsProps) =>
 
-    <div className="col-sm-6">
+    <div className="col-sm-12">
         <TagContainer>
             {props.series.map(serie =>
-                <Tag key={serie.id} pegColor={props.pegColorFor ? props.pegColorFor(serie) : NaC} onClose={closeHandler(serie.id, props.onTagClose)}>
+                <Tag key={serie.id} pegColor={props.pegColorFor ? props.pegColorFor(serie) : NaC} onClose={getOnCloseFor(props.series, serie.id, props.onTagClose)}>
                     {serie.title}
                 </Tag>
             )}
@@ -29,4 +29,13 @@ export default (props: ISeriesTagsProps) =>
 
 function closeHandler(serieId: string, onTagClose: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void): React.MouseEventHandler<HTMLAnchorElement> {
     return (event: React.MouseEvent<HTMLAnchorElement>) => onTagClose(event, serieId)
+}
+
+function getOnCloseFor(series: ISerie[], serieId: string, onTanClose: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void) {
+    let fn;
+    if (series.length > 1) {
+        fn = closeHandler(serieId, onTanClose);
+    }
+
+    return fn;
 }
