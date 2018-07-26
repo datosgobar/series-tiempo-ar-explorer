@@ -1,5 +1,5 @@
 import * as React from 'react';
 
-export default (props: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) =>
+export default (props: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) =>
 
-    <a href="#" className="action" {...props} />
+    <button className="btn btn-link action" {...props} />

@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 interface IRemoveTagProps {
-    onClose?: React.MouseEventHandler<HTMLAnchorElement>;
+    onClose?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export default (props: IRemoveTagProps) =>
     <span>
-        <a className="tag-close" onClick={props.onClose}>
+        <button className="btn btn-link tag-close" onClick={props.onClose}>
             <i className="far fa-times" />
-        </a>
+        </button>
     </span>

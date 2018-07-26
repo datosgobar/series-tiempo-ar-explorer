@@ -5,7 +5,7 @@ import RemoveTagBtn from "./RemoveTagBtn";
 
 interface ITagProps extends React.Props<any> {
     pegColor?: Color;
-    onClose?: React.MouseEventHandler<HTMLAnchorElement>;
+    onClose?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export default (props: ITagProps) => {

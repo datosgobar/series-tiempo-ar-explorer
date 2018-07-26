@@ -107,7 +107,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.props.history.push('/search/?' + urlSearchParams);
     }
 
-    public sourceRemoved(event: React.MouseEvent<HTMLAnchorElement>): void {
+    public sourceRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
         event.stopPropagation()
 
         let oldSearchParams: ISearchParams | undefined;
@@ -130,7 +130,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         }
     }
 
-    public themeRemoved(event: React.MouseEvent<HTMLAnchorElement>): void {
+    public themeRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
         event.stopPropagation();
 
         let oldSearchParams: ISearchParams | undefined;

@@ -69,13 +69,13 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.history.push("/view/?" + queryString);
     }
 
-    public addPickedSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
+    public addPickedSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
 
         const ids = getIDs(this.props.location as Location).concat(serieId);
         this.viewSeries(ids);
     }
 
-    public removeSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
+    public removeSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
 
         const ids = getIDs(this.props.location as Location).filter((val) => val !== serieId);
         if (ids.length) {

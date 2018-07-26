@@ -793,6 +793,12 @@ section#detalle #hero .hero-caption .col-sm-4 .form-autocomplete > div:first-of-
   height: 100% !important;
   max-height: 100% !important;
 }
+
+section#detalle #hero .hero-caption .col-sm-4 .form-autocomplete > div:first-of-type > div {
+  padding: 5px 7.5px !important;
+  background: #ffffff !important;
+}
+
 section#detalle #detalle-content {
   position: relative;
   z-index: 1;
