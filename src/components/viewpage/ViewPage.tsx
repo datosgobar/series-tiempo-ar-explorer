@@ -86,6 +86,10 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     public handleChangeDate(date: {start: string, end: string}) {
         this.props.dispatch(setDate(date));
+        const params = this.getQueryParams();
+        params.set('start_date', date.start);
+        params.set('end_date', date.end);
+        this.setQueryParams(params);
     }
 
     public redirectToSearchPage(searchTerm: string) {
