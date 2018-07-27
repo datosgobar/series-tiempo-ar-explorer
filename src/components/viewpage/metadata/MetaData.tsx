@@ -9,7 +9,7 @@ import { ISerie } from '../../../api/Serie';
 
 interface IMetaDataProps {
     series: ISerie[];
-    onRemove: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void;
+    onRemove: (event: React.MouseEvent<HTMLAnchorElement>, serieId: string) => void;
     pegColorFor?: (serie: ISerie) => Color;
 }
 
@@ -22,7 +22,7 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
     }
 
     public handleRemove(serieId: string) {
-        return ((event: React.MouseEvent<HTMLButtonElement>) => {
+        return ((event: React.MouseEvent<HTMLAnchorElement>) => {
             event.preventDefault();
             this.props.onRemove(event, serieId);
         });
@@ -33,20 +33,13 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
             <div className='MetaData'>
                 {this.props.series.map((serie: ISerie, index: number) =>
                     <SerieDetails key={serie.id} serie={serie}
-                                  pegColorFor={this.props.pegColorFor}
-                                  actions={this.actionsListFor(serie.id)} />
+                        pegColorFor={this.props.pegColorFor}
+                        actions={[
+                            <RemoveAction key={serie.id} onClick={this.handleRemove(serie.id)} />
+                        ]} />
                 )}
             </div>
         );
-    }
-
-    private actionsListFor(serieId: string) {
-        const result = [];
-        if (this.props.series.length > 1) {
-            result.push(<RemoveAction key={serieId} onClick={this.handleRemove(serieId)} />);
-        }
-
-        return result;
     }
 }
 

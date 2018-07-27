@@ -24,7 +24,7 @@ configure({ adapter: new Adapter() });
 
 describe('ViewPage', () => {
 
-    const clickEvent = ({} as React.MouseEvent<HTMLButtonElement>);
+    const clickEvent = ({} as React.MouseEvent<HTMLAnchorElement>);
     let mockApi: ISerieApi;
     let store: Store;
 

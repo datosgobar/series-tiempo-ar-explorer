@@ -26,7 +26,7 @@ export default (props: ISerieDetailsProp) =>
             {props.actions}
         </DetailsTitleAndActions>
         <Row>
-            <div className="col-md-12">
+            <div className="col-sm-10 col-md-8">
                 <dl className="dl-horizontal">
                     <dt>Temas</dt>
                     <dd>{props.serie.themes.join(', ')}</dd>

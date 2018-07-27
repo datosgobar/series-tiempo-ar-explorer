@@ -34,7 +34,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             },
 
             chart: {
-                height: 550,
                 zoomType: 'x'
             },
 
