@@ -12,7 +12,7 @@ export interface IDatePickerProps {
 
 export default (props: IDatePickerProps) =>
     <FormHorizontal>
-        {props.labelText ? <label className="col-sm-2 control-label">{props.labelText}</label> : ''}
+        {props.labelText ? <label className="col-sm-3 control-label">{props.labelText}</label> : ''}
         <div className="col-sm-6">
             <DatePicker selected={moment(props.date)}
                         onChange={props.onDateChange}

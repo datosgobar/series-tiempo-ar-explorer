@@ -13,7 +13,7 @@ export default class GraphicDatePicker extends React.Component<IGraphicDatePicke
 
     public render() {
         return (
-            <div style={{float: 'right'}} className="col-xs-6">
+            <div style={{float: 'right'}} className="col-xs-5">
                 <div className="col-xs-6 inline">
                     <DatePicker date={this.props.start} onDateChange={this.props.onStartChange} labelText="Del " />
                 </div>
