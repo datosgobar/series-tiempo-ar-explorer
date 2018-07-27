@@ -1,11 +1,11 @@
+import * as moment from "moment";
 import * as React from 'react';
-import { IHConfig, IHCSeries, ReactHighcharts } from './highcharts';
-
-import { Color } from '../../style/Colors/Color';
 
 import IDataPoint from '../../../api/DataPoint';
 import { IDateRange } from "../../../api/DateSerie";
 import { ISerie } from '../../../api/Serie';
+import { Color } from '../../style/Colors/Color';
+import { IHConfig, IHCSeries, ReactHighcharts } from './highcharts';
 
 
 interface IGraphicProps {
@@ -34,7 +34,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             },
 
             chart: {
-                height: 550,
                 zoomType: 'x'
             },
 
@@ -111,14 +110,14 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         let max = this.props.series[0].data.length - 1;
 
         if (this.props.date.start !== '') {
-            const start = stringToDate(this.props.date.start);
-            min = this.props.series[0].data.findIndex(serie => start <= stringToDate(serie.date));
+            const start = moment(this.props.date.start).format('YYYY-MM-DD');
+            min = this.props.series[0].data.findIndex(serie => start <= moment(serie.date).format('YYYY-MM-DD'));
             min = min === -1 ? 0 : min;
         }
 
         if (this.props.date.end !== '') {
-            const end = stringToDate(this.props.date.end);
-            max = this.props.series[0].data.findIndex(serie => end <= stringToDate(serie.date));
+            const end = moment(this.props.date.end).format('YYYY-MM-DD');
+            max = this.props.series[0].data.findIndex(serie => end <= moment(serie.date).format('YYYY-MM-DD'));
             max = max === -1 ? this.props.series[0].data.length : max;
         }
 
@@ -126,16 +125,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         chart.showResetZoom();
     };
 
-}
-
-// returns a date from string
-// '2010' => 01 Jan 2010
-// '2010-03' or '2010/03' => 01 Mar 2010
-// '2010-03-01' or '2010/03/01' => 01 Mar 2010
-function stringToDate(date: string): Date {
-    const parsedDate  = date.replace(/([\/\-])/g, '/');
-    const result = parsedDate.split('/').length === 1 ? `${parsedDate}/01` : parsedDate;
-    return new Date(result);
 }
 
 export default Graphic;

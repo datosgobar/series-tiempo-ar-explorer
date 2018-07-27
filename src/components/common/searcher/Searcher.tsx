@@ -4,7 +4,6 @@ import * as ReactPaginate from "react-paginate";
 import {ISearchResponse} from "../../../api/ITSAPIResponse";
 import SearchResult from "../../../api/SearchResult";
 import {ISearchOptions, ISerieApi} from "../../../api/SerieApi";
-import SearchResultCount from "../../style/Common/searchpage/SearchResultCount";
 
 
 export interface ISearchParams {
@@ -87,9 +86,6 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
     public render() {
         return (
             <div>
-                <div className="title-and-tags mg-b">
-                    <SearchResultCount totalResult={this.state.count}/>
-                </div>
                 {this.props.renderSearchResults(this.state.result)}
                 <ReactPaginate previousLabel={"Anterior"}
                                nextLabel={"Siguiente"}

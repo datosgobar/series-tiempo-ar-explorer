@@ -1,7 +1,3 @@
-.item-highlight {
-  background-color: inherit ;
-  font-family: 'Bold';
-}
 /*
 ------------------------------------------------------------------------------------
 MIXINS:
@@ -556,7 +552,6 @@ section#home #hero {
 }
 section#home #hero .hero-caption {
   position: absolute;
-  z-index: 2;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -606,7 +601,7 @@ section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplet
   top: 100% !important;
   width: 100% !important;
   min-width: 0 !important;
-  max-height: 30vh !important;
+  max-height: 120px !important;
   overflow-y: auto !important;
   background: #ffffff !important;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25) !important;
@@ -787,18 +782,6 @@ section#listado #listado-list #list .series-card .card-desc {
   height: auto;
 }
 /*------------------------------------------------------------------------------------*/
-section#detalle #hero .hero-caption .col-sm-4 .form-autocomplete > div:first-of-type {
-  top: 115px !important;
-  width: 24% !important;
-  height: 100% !important;
-  max-height: 100% !important;
-}
-
-section#detalle #hero .hero-caption .col-sm-4 .form-autocomplete > div:first-of-type > div {
-  padding: 5px 7.5px !important;
-  background: #ffffff !important;
-}
-
 section#detalle #detalle-content {
   position: relative;
   z-index: 1;
@@ -1900,7 +1883,6 @@ header select.form-control,
 section select.form-control,
 aside select.form-control,
 footer select.form-control {
-  cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
   background: url('../images/dropdown_arrow.png') right 10px center no-repeat !important;
@@ -2341,6 +2323,12 @@ RESPONSIVE:
   section#detalle #hero .hero-caption #form-hero-search .form-group i {
     font-size: 20px;
   }
+}
+section#detalle #hero .hero-caption .col-sm-4 .form-autocomplete > div:first-of-type {
+  top: 115px !important;
+  width: 24% !important;
+  height: 100% !important;
+  max-height: 100% !important;
 }
 /* ------------------------------------------------------------------------------------
 NAV:

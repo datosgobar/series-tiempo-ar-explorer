@@ -45,6 +45,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.isChecked = this.isChecked.bind(this);
         this.addPickedSerie = this.addPickedSerie.bind(this);
         this.colorFor = this.colorFor.bind(this);
+        this.handleChangeDate = this.handleChangeDate.bind(this);
     }
 
     public viewSeries(ids: string[]) {
@@ -69,18 +70,26 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.history.push("/view/?" + queryString);
     }
 
-    public addPickedSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
+    public addPickedSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
 
         const ids = getIDs(this.props.location as Location).concat(serieId);
         this.viewSeries(ids);
     }
 
-    public removeSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
+    public removeSerie(event: React.MouseEvent<HTMLAnchorElement>, serieId: string) {
 
         const ids = getIDs(this.props.location as Location).filter((val) => val !== serieId);
         if (ids.length) {
             this.viewSeries(ids);
         }
+    }
+
+    public handleChangeDate(date: {start: string, end: string}) {
+        this.props.dispatch(setDate(date));
+        const params = this.getQueryParams();
+        params.set('start_date', date.start);
+        params.set('end_date', date.end);
+        this.setQueryParams(params);
     }
 
     public redirectToSearchPage(searchTerm: string) {
@@ -103,7 +112,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
-                        <GraphicAndShare series={this.props.series} colorFor={this.colorFor} date={this.props.date} />
+                        <GraphicAndShare series={this.props.series} colorFor={this.colorFor} date={this.props.date} handleChangeDate={this.handleChangeDate} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={
