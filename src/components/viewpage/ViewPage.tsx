@@ -46,6 +46,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.addPickedSerie = this.addPickedSerie.bind(this);
         this.colorFor = this.colorFor.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
+        this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
     }
 
     public viewSeries(ids: string[]) {
@@ -92,6 +93,13 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.setQueryParams(params);
     }
 
+    public handleChangeFrequency(value: string) {
+        const ids = getIDs(this.props.location as Location);
+        const params = new QueryParams(ids);
+        params.setCollapse(value);
+        this.fetchSeries(params);
+    }
+
     public redirectToSearchPage(searchTerm: string) {
         this.props.history.push('/search/?q=' + searchTerm);
     }
@@ -112,7 +120,11 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
-                        <GraphicAndShare series={this.props.series} colorFor={this.colorFor} date={this.props.date} handleChangeDate={this.handleChangeDate} />
+                        <GraphicAndShare series={this.props.series}
+                                         colorFor={this.colorFor}
+                                         date={this.props.date}
+                                         handleChangeDate={this.handleChangeDate}
+                                         handleChangeFrequency={this.handleChangeFrequency} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={

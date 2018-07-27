@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {IDateRange} from "../../../api/DateSerie";
+import FrequencyPicker from "./FrequencyPicker";
 import Graphic from "./Graphic";
 import {IGraphicAndShareProps} from "./GraphicAndShare";
 import GraphicDatePicker from "./GraphicDatePicker";
@@ -24,12 +25,13 @@ export default class GraphicWithDate extends React.Component<IGraphicAndSharePro
 
     public render() {
         return(
-            <div>
+            <div className="row">
                 <Graphic series={this.props.series} colorFor={this.props.colorFor} date={this.parsedDate()} />
                 <GraphicDatePicker start={this.startDate()}
                                    end={this.endDate()}
                                    onStartChange={this.handleChangeStart}
                                    onEndChange={this.handleChangeEnd} />
+                <FrequencyPicker onChangeFrequency={this.props.handleChangeFrequency}/>
             </div>
         )
     }

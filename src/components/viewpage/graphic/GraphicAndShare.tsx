@@ -11,10 +11,11 @@ export interface IGraphicAndShareProps {
     colorFor: (serie: ISerie) => Color;
     date: IDateRange;
     handleChangeDate: ({}) => void;
+    handleChangeFrequency: (value: string) => void;
 }
 
 export default (props: IGraphicAndShareProps) =>
     <GraphContainer>
-        <GraphicWithDate series={props.series} colorFor={props.colorFor} date={props.date} handleChangeDate={props.handleChangeDate} />
+        <GraphicWithDate series={props.series} colorFor={props.colorFor} date={props.date} handleChangeDate={props.handleChangeDate} handleChangeFrequency={props.handleChangeFrequency}/>
         <Share url={window.location.href} series={props.series} />
     </GraphContainer>
