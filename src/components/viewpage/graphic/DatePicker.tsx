@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import * as moment from "moment";
 import DatePicker from 'react-datepicker';
+import FormHorizontal from "../../style/Common/FormHorizontal";
 
 export interface IDatePickerProps {
     date: string;
@@ -10,13 +11,15 @@ export interface IDatePickerProps {
 }
 
 export default (props: IDatePickerProps) =>
-    <span>
-        {props.labelText ? <span>{props.labelText}</span> : ''}
-        <DatePicker selected={moment(props.date)}
-                    onChange={props.onDateChange}
-                    className="form-control datepicker"
-                    todayButton="Hoy"
-                    dateFormat="YYYY-MM-DD"
-                    scrollableYearDropdown={true}
-                    showYearDropdown={true} />
-    </span>
+    <FormHorizontal>
+        {props.labelText ? <label className="col-sm-2 control-label">{props.labelText}</label> : ''}
+        <div className="col-sm-6">
+            <DatePicker selected={moment(props.date)}
+                        onChange={props.onDateChange}
+                        className="form-control datepicker"
+                        todayButton="Hoy"
+                        dateFormat="YYYY-MM-DD"
+                        scrollableYearDropdown={true}
+                        showYearDropdown={true} />
+        </div>
+    </FormHorizontal>
