@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {IDateRange} from "../../../api/DateSerie";
 import Graphic from "./Graphic";
 import {IGraphicAndShareProps} from "./GraphicAndShare";
 import GraphicDatePicker from "./GraphicDatePicker";
@@ -24,7 +25,7 @@ export default class GraphicWithDate extends React.Component<IGraphicAndSharePro
     public render() {
         return(
             <div>
-                <Graphic series={this.props.series} colorFor={this.props.colorFor} date={this.props.date} />
+                <Graphic series={this.props.series} colorFor={this.props.colorFor} date={this.parsedDate()} />
                 <GraphicDatePicker start={this.startDate()}
                                    end={this.endDate()}
                                    onStartChange={this.handleChangeStart}
@@ -33,23 +34,39 @@ export default class GraphicWithDate extends React.Component<IGraphicAndSharePro
         )
     }
 
-    public startDate() {
+    public parsedDate(): IDateRange {
+        return {
+            end: this.endDate(),
+            start: this.startDate()
+        }
+    }
+
+    public startDate(): string {
         let start = this.props.date.start;
         if ((start === undefined || start === '') && this.props.series.length > 0) {
             start = this.props.series[0].data[0].date;
         }
 
-        return start;
+        return formattedDateString(start);
     }
 
-    public endDate() {
+    public endDate(): string {
         let end = this.props.date.end;
 
         if ((end === undefined || end === '') && this.props.series.length > 0) {
             end = this.props.series[0].data[this.props.series[0].data.length - 1].date;
         }
 
-        return end;
+        return formattedDateString(end);
     }
 
+}
+
+// returns a string in format YYYY/MM/DD with the missing parts of date
+// '2010' => '2010/01/01
+// '2010-03' or '2010/03' => '2010/03/01'
+// '2010-03-01' or '2010/03/01' => '2010/03/01'
+function formattedDateString(date: string): string {
+    const parsedDate  = date.replace(/([\/\-])/g, '/');
+    return parsedDate.split('/').length === 1 ? `${parsedDate}/01` : parsedDate;
 }
