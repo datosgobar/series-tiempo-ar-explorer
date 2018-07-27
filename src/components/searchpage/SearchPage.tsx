@@ -107,7 +107,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.props.history.push('/search/?' + urlSearchParams);
     }
 
-    public sourceRemoved(event: React.MouseEvent<HTMLAnchorElement>): void {
+    public sourceRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
         event.stopPropagation()
 
         let oldSearchParams: ISearchParams | undefined;
@@ -130,7 +130,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         }
     }
 
-    public themeRemoved(event: React.MouseEvent<HTMLAnchorElement>): void {
+    public themeRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
         event.stopPropagation();
 
         let oldSearchParams: ISearchParams | undefined;
@@ -200,7 +200,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                             </div>
                             <div className="col-sm-8">
                                 <div id="list" className="pd-v-lg">
-                                    <div className="title-and-tags mg-b">
+                                    <div className="title-and-tags">
                                         <h2 className="title title-md font-2">Resultados de la búsqueda:</h2>
                                         {this.searchTags()}
                                     </div>

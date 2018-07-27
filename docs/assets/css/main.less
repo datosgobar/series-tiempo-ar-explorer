@@ -223,6 +223,7 @@ section#home {
     background-size: cover;
     .hero-caption {
       position: absolute;
+      z-index: 2;
       top: 50%;
       .translateY(-50%);
       width: 100%;
@@ -256,7 +257,7 @@ section#home {
               top: 100% !important;
               width: 100% !important;
               min-width: 0 !important;
-              max-height: 120px !important;
+              max-height: 30vh !important;
               overflow-y: auto !important;
               background: @white !important;
               .box-shadow(0 5px 10px rgba(0,0,0,.25)) !important;
@@ -414,8 +415,19 @@ section#listado {
 }
 /*------------------------------------------------------------------------------------*/
 section#detalle {
+  #hero {
+    .hero-caption {
+      .col-sm-4 .form-autocomplete > div:first-of-type {
+        top: 115px !important;
+        width: 24% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+      }
+    }
+  }
   #detalle-content {
     position: relative;
+    z-index: 1;
     #btn-config { font-family: 'Bold'; }
     .tag {
       display: inline-block;
@@ -948,6 +960,7 @@ header, section, aside, footer {
   }
 
   select, select.form-control {
+    cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
     background: url('../images/dropdown_arrow.png') right 10px center no-repeat !important;
