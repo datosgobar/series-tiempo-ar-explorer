@@ -1,5 +1,5 @@
 import DataPoint, { IDataPoint } from './DataPoint';
-import {IPublisher, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
+import {IExtraMeta, IPublisher, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
 
 
 export interface ISerie {
@@ -17,13 +17,14 @@ export interface ISerie {
     landingPage: string,
     issued: string,
     themes: string[],
+    frequency?: string,
 }
 
 
 export default class Serie implements ISerie {
 
     constructor(private responseIndex: number, private tsResponse: ITSAPIResponse) {
-        
+
     }
 
     private get meta(): ITSMeta {
@@ -98,11 +99,17 @@ export default class Serie implements ISerie {
         return this.datasetMeta.theme;
     }
 
+    get frequency(): string {
+        const extraMeta = this.tsResponse.meta[0] as IExtraMeta;
+        return extraMeta.frequency;
+    }
+
     public bake(): ISerie {
         return {
             accrualPeriodicity: this.accrualPeriodicity,
             data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
             description: this.description,
+            frequency: this.frequency,
             id: this.id,
             index: this.index,
             issued: this.issued,

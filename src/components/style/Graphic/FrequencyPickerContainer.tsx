@@ -3,6 +3,7 @@ import FormHorizontal from "../Common/FormHorizontal";
 
 interface IFrequencyContainerProps {
     labelText: string;
+    className: string;
 }
 
 export default (props: IFrequencyContainerProps) => {
@@ -11,9 +12,9 @@ export default (props: IFrequencyContainerProps) => {
     delete auxProps.labelText;
 
     return (
-        <div className="col-xs-4" style={{float: 'right'}}>
+        <div className={props.className}>
             <FormHorizontal>
-                <label className="col-sm-4 control-label">{labelText}</label>
+                <label className="col-sm-6 control-label">{labelText}</label>
                 <div className="col-sm-6" {...auxProps} />
             </FormHorizontal>
         </div>
