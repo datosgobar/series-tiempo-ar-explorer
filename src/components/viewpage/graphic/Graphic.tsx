@@ -46,6 +46,12 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 categories: this.categories(),
             },
 
+            yAxis: {
+                title: {
+                    text: 'Valores'
+                }
+            },
+
             series: this.seriesValues(),
         });
     }
