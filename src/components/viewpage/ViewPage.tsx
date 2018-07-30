@@ -37,6 +37,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         super(props, context);
 
         this.onSeriesFetchedSuccess = this.onSeriesFetchedSuccess.bind(this);
+        this.onSeriesFetchError = this.onSeriesFetchError.bind(this);
         this.handleUriChange = this.handleUriChange.bind(this);
         this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
         this.redirectToViewPage = this.redirectToViewPage.bind(this);
@@ -47,12 +48,16 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.colorFor = this.colorFor.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
         this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
+        this.state = {
+            lastSuccessfulUrl: this.getQueryParams()
+        }
     }
 
     public viewSeries(ids: string[]) {
         const params = this.getQueryParams();
 
         params.set('ids', ids.join(','));
+        deleteNonGeneralParams(params);
 
         this.setQueryParams(params);
     }
@@ -94,10 +99,10 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public handleChangeFrequency(value: string) {
-        const ids = getIDs(this.props.location as Location);
-        const params = new QueryParams(ids);
-        params.setCollapse(value);
-        this.fetchSeries(params);
+        const params = this.getQueryParams();
+        params.set('collapse', value);
+        params.set('collapse_aggregation', 'avg');
+        this.setQueryParams(params);
     }
 
     public redirectToSearchPage(searchTerm: string) {
@@ -166,7 +171,13 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public onSeriesFetchedSuccess(series: ISerie[]) {
+        this.setState({ lastSuccessQueryParams: this.getQueryParams() });
         this.props.dispatch(loadViewSeries(series));
+    }
+
+    private onSeriesFetchError(error: any) {
+        alert(error.response.data.errors[0].error);
+        this.setQueryParams(this.state.lastSuccessQueryParams); // rollback to the last successful state
     }
 
     private handleUriChange(location: Location) {
@@ -194,7 +205,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     private fetchSeries(params: QueryParams) {
         this.props.seriesApi.fetchSeries(params)
             .then(this.onSeriesFetchedSuccess)
-            .catch((error:any) => {alert(error.response.data.errors[0].error)});
+            .catch(this.onSeriesFetchError);
     }
 }
 
@@ -228,7 +239,10 @@ function collapseAggregationSpecified(location: Location): boolean {
     const ids = params.getAll('ids')[0].split(',');
     const collapseValues = ['avg', 'sum', 'end_of_period', 'min', 'max'];
 
-    return ids.some(id => collapseValues.indexOf(id.split(':')[1]) >= 0);
+    const specifiedInIds = ids.some(id => collapseValues.indexOf(id.split(':')[1]) >= 0);
+    const specifiedInUrl = params.get('collapse_aggregation') !== '' || params.get('collapse_aggregation') !== undefined;
+
+    return specifiedInIds || specifiedInUrl;
 }
 
 function getCollapseValue(location: Location): string {
@@ -250,5 +264,11 @@ function getParamsFromUrl(location: Location): URLSearchParams {
 function removeDuplicates(arr: any[]) {
     return Array.from(new Set(arr));
 }
+
+function deleteNonGeneralParams(params: URLSearchParams) {
+    params.delete('collapse');
+    params.delete('collapse_aggregation');
+}
+
 
 export default withRouter(connect(mapStateToProps)(ViewPage as any));
