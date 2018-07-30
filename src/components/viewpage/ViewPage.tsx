@@ -192,7 +192,9 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     private fetchSeries(params: QueryParams) {
-        this.props.seriesApi.fetchSeries(params).then(this.onSeriesFetchedSuccess).catch(alert);
+        this.props.seriesApi.fetchSeries(params)
+            .then(this.onSeriesFetchedSuccess)
+            .catch((error:any) => {alert(error.response.data.errors[0].error)});
     }
 }
 
