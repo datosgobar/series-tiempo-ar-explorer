@@ -50,6 +50,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                     description: `${tsID} distribution description`,
                     identifier: `${tsID} distribution identifier`,
                     issued: `${tsID} distribution issued`,
+                    modified: `${tsID} distribution issued`,
                     title: `${tsID} distribution title`,
                     units: `${tsID} distribution units`,
                 },

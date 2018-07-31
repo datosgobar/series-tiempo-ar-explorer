@@ -84,6 +84,7 @@ function toSerie(id: string): ISerie {
 
         issued: `${id} issued`,
         landingPage: `${id} landingPage`,
+        modified: `2018-01-01`,
         themes: [`${id} theme`],
     };
 

@@ -50,6 +50,7 @@ export interface IDistribution {
     title: string;
     identifier: string;
     issued: string;
+    modified: string;
 }
 
 export interface IField {

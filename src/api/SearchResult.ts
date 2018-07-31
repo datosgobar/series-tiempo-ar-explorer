@@ -52,6 +52,10 @@ export default class SearchResult implements ISerie {
         return [];
     }
 
+    public get modified() {
+        return "";
+    }
+
     public get datasetSource() {
         return this.searchResult.dataset.source;
     }
