@@ -87,7 +87,7 @@ export default class Serie implements ISerie {
     }
 
     get accrualPeriodicity() {
-        return this.formattedPeriodicity;
+        return this.formattedPeriodicity || 'No definido';
     }
 
     get units() {
