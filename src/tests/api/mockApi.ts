@@ -74,6 +74,7 @@ function toSerie(id: string): ISerie {
         accrualPeriodicity: `${id} accrualPeriodicity`,
         bake: () => self,
         data: [],
+        datasetSource: '',
         description: 'description' + id,
         id,
         index: {start: `${id} index start`, end: `${id} index end`},
