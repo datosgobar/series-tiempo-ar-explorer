@@ -20,6 +20,13 @@ export interface ISerie {
     themes: string[],
 }
 
+export const ACCRUAL_PERIODICITY_TRANSLATOR = {
+    'R/P1D': 'Diaria',
+    'R/P1M': 'Mensual',
+    'R/P1Y': 'Anual',
+    'R/P3M': "Trimestral",
+    'R/P6M': "Semestral",
+};
 
 export default class Serie implements ISerie {
 
@@ -41,6 +48,10 @@ export default class Serie implements ISerie {
 
     private get fieldMeta() {
         return this.meta.field;
+    }
+
+    private get formattedPeriodicity() {
+        return ACCRUAL_PERIODICITY_TRANSLATOR[this.datasetMeta.accrualPeriodicity];
     }
 
     get id(): string {
@@ -76,7 +87,7 @@ export default class Serie implements ISerie {
     }
 
     get accrualPeriodicity() {
-        return this.datasetMeta.accrualPeriodicity;
+        return this.formattedPeriodicity;
     }
 
     get units() {
