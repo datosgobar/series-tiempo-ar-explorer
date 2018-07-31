@@ -7,7 +7,6 @@ import CardSubtitle from '../CardSubtitle';
 import CardTitle from '../CardTitle';
 
 import { ISerie } from '../../../../api/Serie';
-import CardSourceTitle from "../CardSourceTitle";
 
 
 export interface ISerieCardProps extends ICardProps {
@@ -22,6 +21,6 @@ export default (props: ISerieCardProps) =>
         <CardSubtitle>{props.serie.publisher.name}</CardSubtitle>
         <CardBody>{props.serie.description}</CardBody>
 
-        <CardSourceTitle source={props.serie.datasetSource} />
+        <CardSubtitle>Fuente: {props.serie.datasetSource}</CardSubtitle>
         <CardFooter>{props.serie.id}</CardFooter>
     </Card>
