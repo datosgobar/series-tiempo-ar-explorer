@@ -45,7 +45,7 @@ export default (props: ISerieDetailsProp) =>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Fecha de actualización</dt>
-                    <dd>2018-01-01</dd>
+                    <dd>{props.serie.modified || "-"}</dd>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Página de referencia</dt>

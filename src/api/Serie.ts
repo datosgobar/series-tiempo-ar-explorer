@@ -16,6 +16,7 @@ export interface ISerie {
     units: string;
     landingPage: string,
     issued: string,
+    modified: string,
     themes: string[],
 }
 
@@ -94,6 +95,10 @@ export default class Serie implements ISerie {
         return this.distributionMeta.issued;
     }
 
+    get modified() {
+        return this.distributionMeta.modified;
+    }
+
     get themes() {
         return this.datasetMeta.theme;
     }
@@ -107,6 +112,7 @@ export default class Serie implements ISerie {
             index: this.index,
             issued: this.issued,
             landingPage: this.landingPage,
+            modified: this.modified,
             publisher: {...this.publisher},
             themes: [...this.themes],
             title: this.title,

@@ -51,4 +51,8 @@ export default class SearchResult implements ISerie {
     public get themes() {
         return [];
     }
+
+    public get modified() {
+        return "";
+    }
 }
