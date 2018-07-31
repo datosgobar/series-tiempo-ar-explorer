@@ -36,7 +36,7 @@ export default (props: ISerieDetailsProp) =>
                     <dd>{props.serie.accrualPeriodicity}</dd>
                 </dl>
                 <dl className="dl-horizontal">
-                    <dt>Responsable</dt>
+                    <dt>Responsable de publicación</dt>
                     <dd>{props.serie.publisher.name}</dd>
                 </dl>
                 <dl className="dl-horizontal">
@@ -46,6 +46,10 @@ export default (props: ISerieDetailsProp) =>
                 <dl className="dl-horizontal">
                     <dt>Fecha de actualización</dt>
                     <dd>{props.serie.modified || "-"}</dd>
+                </dl>
+                <dl className="dl-horizontal">
+                    <dt>Fuente primaria</dt>
+                    <dd>{props.serie.datasetSource}</dd>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Página de referencia</dt>

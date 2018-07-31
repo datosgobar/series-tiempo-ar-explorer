@@ -8,6 +8,7 @@ export interface ISerie {
     publisher: IPublisher;
     description: string;
     data: IDataPoint[];
+    datasetSource: string;
     accrualPeriodicity: string;
     index:{
         start: string,
@@ -78,6 +79,11 @@ export default class Serie implements ISerie {
         );
     }
 
+    get datasetSource(): string {
+        const source = this.datasetMeta.source;
+        return valueExist(source) ? source : this.publisher.name;
+    }
+
     get data(): DataPoint[] {
         return this.tsResponse.data
             .map((datapoint: any[]) => {
@@ -118,6 +124,7 @@ export default class Serie implements ISerie {
         return {
             accrualPeriodicity: this.accrualPeriodicity,
             data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
+            datasetSource: this.datasetSource,
             description: this.description,
             id: this.id,
             index: this.index,
@@ -130,4 +137,9 @@ export default class Serie implements ISerie {
             units: this.units,
         };
     }
+}
+
+
+function valueExist(value: string) {
+    return value !== '' && value !== undefined;
 }
