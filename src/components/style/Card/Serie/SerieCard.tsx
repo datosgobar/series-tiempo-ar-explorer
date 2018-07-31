@@ -20,5 +20,7 @@ export default (props: ISerieCardProps) =>
         <CardTitle>{props.serie.title}</CardTitle>
         <CardSubtitle>{props.serie.publisher.name}</CardSubtitle>
         <CardBody>{props.serie.description}</CardBody>
+
+        <CardSubtitle>Fuente: {props.serie.datasetSource}</CardSubtitle>
         <CardFooter>{props.serie.id}</CardFooter>
     </Card>
