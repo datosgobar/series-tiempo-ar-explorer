@@ -68,7 +68,8 @@ export default class Serie implements ISerie {
     }
 
     get datasetSource(): string {
-        return this.datasetMeta.source;
+        const source = this.datasetMeta.source;
+        return valueExist(source) ? source : this.publisher.name;
     }
 
     get data(): DataPoint[] {
@@ -119,4 +120,9 @@ export default class Serie implements ISerie {
             units: this.units,
         };
     }
+}
+
+
+function valueExist(value: string) {
+    return value !== '' && value !== undefined;
 }
