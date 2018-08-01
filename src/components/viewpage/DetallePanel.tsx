@@ -9,7 +9,7 @@ export default class DetallePanel extends React.Component<IDetallePanelProps, {}
 
     public render() {
         return (
-            <div id="detalle-panel" style={{ height: "1232px" }}>
+            <div id="detalle-panel" style={{ height: "14792px" }}>
                 <div className="dp-header">
                     <h3 className="title-xsm font-1">AGREGAR SERIES</h3>
                     <button className="btn btn-link dp-header-close">
