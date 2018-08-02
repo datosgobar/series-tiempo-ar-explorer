@@ -2,7 +2,7 @@ import * as React from "react";
 import {ISerie} from "../../api/Serie";
 import ShareContainer from "../style/Share/ShareContainer";
 import SocialNetworkShareContainer from "../style/Share/SocialNetworkShareContainer";
-import {LinkShare} from "./share/LinkShare";
+import ShareDropdown from "./share/ShareDropdown";
 import {TwitterShare} from "./share/TwitterShare";
 
 export interface IShareProps {
@@ -15,11 +15,11 @@ export class Share extends React.Component<IShareProps, any> {
     public render() {
         return (
             <ShareContainer>
+                <ShareDropdown url={window.location.href} />
                 <SocialNetworkShareContainer>
-                    <TwitterShare series={this.props.series} />&nbsp;
+                    <TwitterShare series={this.props.series} />
                     {/*<FacebookShare />*/}
                 </SocialNetworkShareContainer>
-                <LinkShare url={window.location.href} />
             </ShareContainer>
         )
     }
