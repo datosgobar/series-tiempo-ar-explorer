@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import * as ReactPaginate from "react-paginate";
 import {ISearchResponse} from "../../../api/ITSAPIResponse";
 import SearchResult from "../../../api/SearchResult";
 import {ISearchOptions, ISerieApi} from "../../../api/SerieApi";
-import SearchResultCount from "../../style/Common/searchpage/SearchResultCount";
+import InitialSearcher from "./InitialSearcher";
+import SearcherResults from "./SearcherResults";
 
 
 export interface ISearchParams {
@@ -25,6 +25,7 @@ interface ISearcherState {
     count: number;
     currentPage: number;
     result: SearchResult[];
+    searched: boolean;
 }
 
 export default class Searcher extends React.Component<ISearcherProps, ISearcherState> {
@@ -35,7 +36,8 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         this.state = {
             count: 0,
             currentPage: 0,
-            result: []
+            result: [],
+            searched: false
         };
     }
 
@@ -85,25 +87,17 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
     }
 
     public render() {
-        return (
-            <div>
-                <div className="title-and-tags mg-b">
-                    <SearchResultCount totalResult={this.state.count}/>
-                </div>
-                {this.props.renderSearchResults(this.state.result)}
-                <ReactPaginate previousLabel={"Anterior"}
-                               nextLabel={"Siguiente"}
-                               breakLabel={<a href="">...</a>}
-                               breakClassName={"break-me"}
-                               pageCount={this.pageCount()}
-                               marginPagesDisplayed={2}
-                               pageRangeDisplayed={5}
-                               onPageChange={this.handlePageClick}
-                               containerClassName={"pagination"}
-                               activeClassName={"active"}
-                               forcePage={this.state.currentPage} />
-            </div>
-        );
+        let component = <InitialSearcher />;
+        if (this.state.searched) {
+            component = <SearcherResults pageCount={this.pageCount()}
+                                         onPageChange={this.handlePageClick}
+                                         currentPage={this.state.currentPage}
+                                         totalFound={this.state.count}>
+                            {this.props.renderSearchResults(this.state.result)}
+                        </SearcherResults>
+        }
+
+        return component;
     }
 
     private performSearch(q: string, options?: ISearchOptions) {
@@ -111,7 +105,8 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
             .then((responseResult: ISearchResponse) => {
                 this.setState({
                     count: responseResult.count,
-                    result: responseResult.result
+                    result: responseResult.result,
+                    searched: true
                 });
             }).catch(alert);
     }
