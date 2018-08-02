@@ -979,6 +979,8 @@ section#detalle #detalle-content #detalle-panel {
   -webkit-transition: 0.25s;
   -o-transition: 0.25s;
   transition: 0.25s;
+  overflow: auto;
+  height: 100%;
 }
 section#detalle #detalle-content #detalle-panel .dp-header {
   position: relative;
