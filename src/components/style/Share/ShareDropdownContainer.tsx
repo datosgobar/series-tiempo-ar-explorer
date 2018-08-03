@@ -6,7 +6,6 @@ interface IShareDropdownContainerProps extends React.Props<any>{
 }
 
 export default (props: IShareDropdownContainerProps) => {
-    const copyMessage = () => "¡Copiado!";
     const text = props.text;
     const propsAux = {...props};
     delete propsAux.text;
@@ -18,7 +17,11 @@ export default (props: IShareDropdownContainerProps) => {
             </a>
             <ul className="dropdown-menu" {...propsAux} />
 
-            <ReactTooltip effect="solid" getContent={copyMessage} place="right" globalEventOff='click' />
+            <ReactTooltip effect="solid" getContent={tooltipContent} place="right" globalEventOff='click' />
         </div>
     )
+}
+
+function tooltipContent() {
+    return "Click para copiar";
 }

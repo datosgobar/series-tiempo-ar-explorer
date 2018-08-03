@@ -1,5 +1,20 @@
 import * as React from 'react';
+import * as CopyToClipboard from 'react-copy-to-clipboard';
 
-export default (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) =>
 
-    <li data-tip="Click me to show the tooltip"  data-event='click focus'><a className="pointer" {...props} /></li>
+interface ILinkShareProps {
+    url: string;
+    text: string;
+}
+
+export default (props: ILinkShareProps) =>
+
+    <CopyToClipboard text={props.url}>
+        <li data-tip="Click me to show the tooltip" >
+            <a className="pointer" >
+                <span>
+                    <i className="fas fa-link fa-lg"/> {props.text}
+                </span>
+            </a>
+        </li>
+    </CopyToClipboard>

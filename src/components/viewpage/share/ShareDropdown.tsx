@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import LinkShareItem from "../../style/Share/LinkShareItem";
 import ShareDropdownContainer from "../../style/Share/ShareDropdownContainer";
-import LinkShare from "./LinkShare";
 
 
 interface IShareDropdownProps {
@@ -11,7 +10,7 @@ interface IShareDropdownProps {
 
 export default (props: IShareDropdownProps) =>
     <ShareDropdownContainer text="Enlaces para compartir">
-        <LinkShareItem><LinkShare url={props.url} text="Enlace web" /></LinkShareItem>
-        <LinkShareItem><LinkShare url={props.url} text="Enlace CSV" /></LinkShareItem>
-        <LinkShareItem><LinkShare url={props.url} text="Enlace JSON" /></LinkShareItem>
+        <LinkShareItem url={props.url} text="Enlace web" />
+        <LinkShareItem url={props.url} text="Enlace CSV" />
+        <LinkShareItem url={props.url} text="Enlace JSON" />
     </ShareDropdownContainer>
