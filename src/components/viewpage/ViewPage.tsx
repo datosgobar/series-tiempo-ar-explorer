@@ -211,6 +211,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     private downloadDataURL(): string {
         const ids = this.getQueryParams().getAll('ids');
+        if (ids.length === 0) { return ''; }
+
         const params = new QueryParams(ids);
         params.setCollapse(getCollapseValue(this.props.location as Location));
 
