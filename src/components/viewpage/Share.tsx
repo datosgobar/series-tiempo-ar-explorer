@@ -15,7 +15,7 @@ export class Share extends React.Component<IShareProps, any> {
     public render() {
         return (
             <ShareContainer>
-                <ShareDropdown url={window.location.href} />
+                <ShareDropdown url={this.props.url} />
                 <SocialNetworkShareContainer>
                     <TwitterShare series={this.props.series} />
                     {/*<FacebookShare />*/}

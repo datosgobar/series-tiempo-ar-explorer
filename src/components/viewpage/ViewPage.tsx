@@ -129,7 +129,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                                          colorFor={this.colorFor}
                                          date={this.props.date}
                                          handleChangeDate={this.handleChangeDate}
-                                         handleChangeFrequency={this.handleChangeFrequency} />
+                                         handleChangeFrequency={this.handleChangeFrequency}
+                                         url={this.downloadDataURL()} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={
@@ -206,6 +207,14 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.seriesApi.fetchSeries(params)
             .then(this.onSeriesFetchedSuccess)
             .catch(this.onSeriesFetchError);
+    }
+
+    private downloadDataURL(): string {
+        const ids = this.getQueryParams().getAll('ids');
+        const params = new QueryParams(ids);
+        params.setCollapse(getCollapseValue(this.props.location as Location));
+
+        return this.props.seriesApi.downloadDataURL(params);
     }
 }
 

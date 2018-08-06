@@ -10,7 +10,22 @@ interface IShareDropdownProps {
 
 export default (props: IShareDropdownProps) =>
     <ShareDropdownContainer text="Enlaces para compartir">
-        <LinkShareItem url={props.url} text="Enlace web" />
-        <LinkShareItem url={props.url} text="Enlace CSV" />
-        <LinkShareItem url={props.url} text="Enlace JSON" />
+        <LinkShareItem url={webShareURL(props.url)} text="Enlace web" />
+        <LinkShareItem url={csvShareURL(props.url)} text="Enlace CSV" />
+        <LinkShareItem url={jsonShareURL(props.url)} text="Enlace JSON" />
     </ShareDropdownContainer>
+
+
+function webShareURL(url: string): string {
+    return window.location.href;
+}
+
+
+function csvShareURL(url: string): string {
+    return `${url}&format=csv`;
+}
+
+
+function jsonShareURL(url: string): string {
+    return `${url}&format=json`;
+}
