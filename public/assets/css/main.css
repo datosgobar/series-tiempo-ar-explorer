@@ -1198,7 +1198,7 @@ footer .series-card .card-title,
 header .series-card .card-section,
 section .series-card .card-section,
 aside .series-card .card-section,
-footer .series-card .card-section {
+footer .series-card .card-section, .card-source {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1211,14 +1211,14 @@ footer .series-card .card-section,
 header .series-card .card-count,
 section .series-card .card-count,
 aside .series-card .card-count,
-footer .series-card .card-count {
+footer .series-card .card-count, .card-source {
   display: block;
   font-size: 12px;
 }
 header .series-card .card-section,
 section .series-card .card-section,
 aside .series-card .card-section,
-footer .series-card .card-section {
+footer .series-card .card-section, .card-source {
   color: #999999;
 }
 header .series-card .card-count,
@@ -3257,4 +3257,14 @@ FLEX:
     -ms-flex-item-align: stretch !important;
     align-self: stretch !important;
   }
+}
+
+span.card-section {
+  white-space: normal !important;
+  -webkit-line-clamp: 2 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  /* -webkit-line-clamp: 3 !important; */
+  -webkit-box-orient: vertical !important;
 }
