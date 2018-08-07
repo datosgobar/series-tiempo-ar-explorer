@@ -47,39 +47,39 @@ describe('ViewPage', () => {
 
     it('renders without crashing', () => {
 
-        const wrapper = renderViewPage('/view/?ids=serie01');
+        const wrapper = renderViewPage('/series/?ids=serie01');
 
         expect(wrapper.find('#detalle').exists()).toBe(true);
     });
 
     it('fetches series on the url upon render', () => {
 
-        renderViewPage('/view/?ids=serie01');
+        renderViewPage('/series/?ids=serie01');
 
         expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01"], collapse: '', representationMode: ''});
     });
 
     describe('collapse', () => {
         it('does not fetch using collapse if collapse_aggregation is not specified', () => {
-            renderViewPage('/view/?ids=serie01:sum');
+            renderViewPage('/series/?ids=serie01:sum');
 
             expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: '', representationMode: ''});
         });
 
         it('does not fetch using collapse if collapse_aggregation is invalid', () => {
-            renderViewPage('/view/?ids=serie01:sum&collapse=foo');
+            renderViewPage('/series/?ids=serie01:sum&collapse=foo');
 
             expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: 'foo', representationMode: ''});
         });
 
         it('fetches using collapse', () => {
-            renderViewPage('/view/?ids=serie01:sum&collapse=year');
+            renderViewPage('/series/?ids=serie01:sum&collapse=year');
 
             expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: 'year', representationMode: ''});
         });
 
         it('fetches using collapse with multiple ids', () => {
-            renderViewPage('/view/?ids=serie01:sum,serie02&collapse=year');
+            renderViewPage('/series/?ids=serie01:sum,serie02&collapse=year');
 
             expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum", "serie02"], collapse: 'year', representationMode: ''});
         });
@@ -87,7 +87,7 @@ describe('ViewPage', () => {
 
     it('does not fetch series if no ids were provided in the url', () => {
 
-        renderViewPage('/view/');
+        renderViewPage('/series/');
 
         expect(mockApi.fetchSeries).not.toBeCalled();
     });
@@ -114,7 +114,7 @@ describe('ViewPage', () => {
 
         (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie01');
 
-        expect(history.push).toBeCalledWith('/view/?ids=serie01')
+        expect(history.push).toBeCalledWith('/series/?ids=serie01')
     });
 
     describe('path behaviour', () => {
@@ -160,16 +160,16 @@ describe('ViewPage', () => {
 
             (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie02');
 
-            expect(historyMock.push).toBeCalledWith('/view/?ids=serie01,serie02')
+            expect(historyMock.push).toBeCalledWith('/series/?ids=serie01,serie02')
         });
 
         it('keeps other params untouched', () => {
 
-            historyMock.push('/view/?ids=serie01&other=params');
+            historyMock.push('/series/?ids=serie01&other=params');
 
             (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie02');
 
-            expect(historyMock.push).toBeCalledWith('/view/?ids=serie01,serie02&other=params')
+            expect(historyMock.push).toBeCalledWith('/series/?ids=serie01,serie02&other=params')
         });
 
         it('observes history', () => {

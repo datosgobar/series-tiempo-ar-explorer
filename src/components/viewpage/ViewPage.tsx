@@ -73,7 +73,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
             .replace(new RegExp('%2C', 'g'), ',')
             .replace(new RegExp('%3A', 'g'), ':');
 
-        this.props.history.push("/view/?" + queryString);
+        this.props.history.push("/series/?" + queryString);
     }
 
     public addPickedSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
@@ -110,7 +110,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public redirectToViewPage(serieId: string) {
-        this.props.history.push('/view/?ids=' + serieId);
+        this.props.history.push('/series/?ids=' + serieId);
     }
 
     public render() {

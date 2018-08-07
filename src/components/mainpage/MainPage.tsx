@@ -30,7 +30,7 @@ export class MainPage extends React.Component<IMainPageProps, any> {
     }
 
     public redirectToViewPage(serieId: string) {
-        this.props.history.push('/view/?ids=' + serieId);
+        this.props.history.push('/series/?ids=' + serieId);
     }
 
     public render() {
