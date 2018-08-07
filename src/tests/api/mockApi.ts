@@ -76,15 +76,16 @@ function toSerie(id: string): ISerie {
         data: [],
         datasetSource: '',
         description: 'description' + id,
+        endDate: 'end',
         id,
-        index: {start: `${id} index start`, end: `${id} index end`},
+        issued: `${id} issued`,
         publisher: { mbox: 'mail' + id, name: 'publi' + id },
         title: 'title' + id,
         units: `${id} units`,
 
-        issued: `${id} issued`,
         landingPage: `${id} landingPage`,
         modified: `2018-01-01`,
+        startDate: 'start',
         themes: [`${id} theme`],
     };
 

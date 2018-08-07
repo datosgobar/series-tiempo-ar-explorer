@@ -122,8 +122,8 @@ function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {
         },
         field: {
             index:{
-                end: `index_end`,
-                start: `index_start`,
+                end: searchResult.field.end_date,
+                start: searchResult.field.start_date,
             },
             units: `units`,
             ...searchResult.field,

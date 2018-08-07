@@ -58,10 +58,8 @@ export interface IField {
     title: string;
     description: string;
     units: string;
-    index:{
-        start: string,
-        end: string,
-    };
+    start_date: string;
+    end_date: string;
 }
 
 export interface IPublisher {

@@ -10,10 +10,8 @@ export interface ISerie {
     data: IDataPoint[];
     datasetSource: string;
     accrualPeriodicity: string;
-    index:{
-        start: string,
-        end: string,
-    };
+    startDate: string;
+    endDate: string;
     units: string;
     landingPage: string,
     issued: string,
@@ -101,8 +99,12 @@ export default class Serie implements ISerie {
         return this.fieldMeta.units;
     }
 
-    get index() {
-        return this.fieldMeta.index
+    get startDate() {
+        return this.fieldMeta.start_date;
+    }
+
+    get endDate() {
+        return this.fieldMeta.end_date;
     }
 
     get landingPage(){
@@ -132,13 +134,14 @@ export default class Serie implements ISerie {
             data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
             datasetSource: this.datasetSource,
             description: this.description,
+            endDate: this.endDate,
             frequency: this.frequency,
             id: this.id,
-            index: this.index,
             issued: this.issued,
             landingPage: this.landingPage,
             modified: this.modified,
             publisher: {...this.publisher},
+            startDate: this.startDate,
             themes: [...this.themes],
             title: this.title,
             units: this.units,

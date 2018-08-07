@@ -56,11 +56,9 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                 },
                 field: {
                     description: `${tsID} field description`,
+                    end_date: `${tsID} field endDate`,
                     id: tsID,
-                    index: {
-                        end: `${tsID} field index end`,
-                        start: `${tsID} field index start`,
-                    },
+                    start_date: `${tsID} field startDate`,
                     title: `${tsID} field title`,
                     units: `${tsID} field units`,
                 },
