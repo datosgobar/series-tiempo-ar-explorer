@@ -221,6 +221,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
         const params = new QueryParams(ids);
         params.setCollapse(getCollapseValue(location));
+        params.setRepresentationMode(getRepresentationMode(location));
         if (this.validStartDateFilter(startDate)) { params.setStartDate(startDate) }
         if (this.validEndDateFilter(endDate)) { params.setEndDate(endDate) }
 
