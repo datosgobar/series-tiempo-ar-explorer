@@ -3,6 +3,7 @@ export default class QueryParams {
     private collapse: string;
     private startDate: string;
     private endDate: string;
+    private representationMode: string;
 
     constructor(ids: string[]) {
         this.ids = ids;
@@ -14,6 +15,10 @@ export default class QueryParams {
 
     public getCollapse(): string {
         return this.collapse;
+    }
+
+    public getRepresentationMode(): string {
+        return this.representationMode;
     }
 
     public setCollapse(collapse: string) {
@@ -28,12 +33,16 @@ export default class QueryParams {
         this.endDate = endDate;
     }
 
+    public setRepresentationMode(representationMode: string) {
+        this.representationMode = representationMode;
+    }
 
     public asJson(): {} {
         return {
             collapse: this.getCollapse(),
             endDate: this.endDate,
             ids: this.getIds(),
+            representation_mode: this.getRepresentationMode(),
             startDate: this.startDate
         }
     }

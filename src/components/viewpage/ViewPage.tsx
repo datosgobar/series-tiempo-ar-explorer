@@ -201,6 +201,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
         const params = new QueryParams(ids);
         params.setCollapse(getCollapseValue(location));
+        params.setRepresentationMode(getRepresentationMode(location));
         this.fetchSeries(params);
     }
 
@@ -287,6 +288,12 @@ function getCollapseValue(location: Location): string {
     }
 
     return collapseValue;
+}
+
+function getRepresentationMode(location: Location): string {
+    const params = getParamsFromUrl(location);
+
+    return params.get('representation_mode') || '';
 }
 
 function getParamsFromUrl(location: Location): URLSearchParams {
