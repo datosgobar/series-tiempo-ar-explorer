@@ -38,6 +38,14 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 zoomType: 'x'
             },
 
+            exporting: {
+                buttons: {
+                    contextButton: {
+                        menuItems: ['printChart', 'downloadPNG','downloadJPEG', 'downloadPDF', 'downloadSVG']
+                    },
+                }
+            },
+
             title: {
                 text: '',
             },
