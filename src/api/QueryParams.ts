@@ -1,6 +1,8 @@
 export default class QueryParams {
     private ids: string[];
     private collapse: string;
+    private startDate: string;
+    private endDate: string;
 
     constructor(ids: string[]) {
         this.ids = ids;
@@ -18,10 +20,21 @@ export default class QueryParams {
         this.collapse = collapse;
     }
 
+    public setStartDate(startDate: string) {
+        this.startDate = startDate;
+    }
+
+    public setEndDate(endDate: string) {
+        this.endDate = endDate;
+    }
+
+
     public asJson(): {} {
         return {
             collapse: this.getCollapse(),
-            ids: this.getIds()
+            endDate: this.endDate,
+            ids: this.getIds(),
+            startDate: this.startDate
         }
     }
 
