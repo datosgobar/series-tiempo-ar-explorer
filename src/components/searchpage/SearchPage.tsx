@@ -180,7 +180,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     }
 
     public redirectToViewPage(serieId: string) {
-        this.props.history.push('/view/?ids=' + serieId);
+        this.props.history.push('/series/?ids=' + serieId);
     }
 
     public render() {

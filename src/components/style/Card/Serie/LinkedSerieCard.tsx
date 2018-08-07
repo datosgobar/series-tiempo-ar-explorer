@@ -6,6 +6,6 @@ import SerieCard, { ISerieCardProps } from "./SerieCard";
 
 export default (props: ISerieCardProps) =>
 
-    <Link to={`/view/?ids=${props.serie.id}`}>
+    <Link to={`/series/?ids=${props.serie.id}`}>
         <SerieCard {...props} />
     </Link>
