@@ -24,7 +24,7 @@ export default class AutoCompleteItem extends React.Component<IAutoCompleteItemP
                     <strong> Dataset: </strong> {this.props.item.description} |
                     <strong> Periodo: </strong> {this.props.item.startDate} - {this.props.item.endDate} |
                     <strong> Unidades: </strong> {this.props.item.units} |
-                    <strong> Frecuencia: </strong> {this.props.item.accrualPeriodicity}
+                    <strong> Frecuencia: </strong> {this.props.item.fieldPeriodicity}
                 </p>
             </HighlightableItem>
         );

@@ -58,6 +58,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                     description: `${tsID} field description`,
                     end_date: `${tsID} field endDate`,
                     id: tsID,
+                    periodicity: `${tsID} field periodicity`,
                     start_date: `${tsID} field startDate`,
                     title: `${tsID} field title`,
                     units: `${tsID} field units`,

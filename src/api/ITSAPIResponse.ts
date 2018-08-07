@@ -60,6 +60,7 @@ export interface IField {
     units: string;
     start_date: string;
     end_date: string;
+    periodicity: string;
 }
 
 export interface IPublisher {

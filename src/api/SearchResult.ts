@@ -1,5 +1,6 @@
 import { IPublisher, ITSMeta } from "./ITSAPIResponse";
 import { ISerie } from "./Serie";
+import {PeriodicityParser} from "./utils/periodicityParser";
 
 
 export default class SearchResult implements ISerie {
@@ -62,5 +63,9 @@ export default class SearchResult implements ISerie {
 
     public get datasetSource() {
         return this.searchResult.dataset.source;
+    }
+
+    public get fieldPeriodicity() {
+        return PeriodicityParser.format(this.searchResult.field.periodicity);
     }
 }
