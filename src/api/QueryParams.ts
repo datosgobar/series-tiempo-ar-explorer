@@ -1,6 +1,7 @@
 export default class QueryParams {
     private ids: string[];
     private collapse: string;
+    private representationMode: string;
 
     constructor(ids: string[]) {
         this.ids = ids;
@@ -14,14 +15,23 @@ export default class QueryParams {
         return this.collapse;
     }
 
+    public getRepresentationMode(): string {
+        return this.representationMode;
+    }
+
     public setCollapse(collapse: string) {
         this.collapse = collapse;
+    }
+
+    public setRepresentationMode(representationMode: string) {
+        this.representationMode = representationMode;
     }
 
     public asJson(): {} {
         return {
             collapse: this.getCollapse(),
-            ids: this.getIds()
+            ids: this.getIds(),
+            representation_mode: this.getRepresentationMode()
         }
     }
 
