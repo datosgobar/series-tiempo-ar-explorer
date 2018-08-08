@@ -93,10 +93,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     public handleChangeDate(date: {start: string, end: string}) {
         this.props.dispatch(setDate(date));
-        const params = this.getQueryParams();
-        params.set('start_date', date.start);
-        params.set('end_date', date.end);
-        this.setQueryParams(params);
+        this.changeDateInUrl(date);
     }
 
     public handleChangeFrequency(value: string) {
@@ -240,6 +237,29 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return moment(endDate).isValid() && moment(endDate).isBefore(lastSeriesDate);
     }
 
+    private changeDateInUrl(date: {start: string, end: string}) {
+        const params = this.getQueryParams();
+        this.setDateParam(params, date);
+        this.setQueryParams(params);
+    }
+
+    private setDateParam(params: any, date: any) {
+        const firstSerieData = this.props.series[0].data[0];
+        const lastSerie = this.props.series[this.props.series.length - 1];
+        const lastSerieData = lastSerie.data[lastSerie.data.length - 1];
+
+        if (firstSerieData.date === date.start) {
+            params.delete('start_date');
+        } else {
+            params.set('start_date', date.start);
+        }
+
+        if (lastSerieData.date === date.end) {
+            params.delete('end_date');
+        } else {
+            params.set('end_date', date.end);
+        }
+    }
 
 }
 
