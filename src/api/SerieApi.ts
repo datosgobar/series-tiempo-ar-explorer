@@ -39,9 +39,15 @@ export default class SerieApi implements ISerieApi {
     }
 
     public apiClient: ApiClient;
+    private catalogId?: string;
 
     constructor(apiClient: ApiClient) {
         this.apiClient = apiClient;
+    }
+
+    public withCatalogID(catalogId?: string): SerieApi {
+        this.catalogId = catalogId;
+        return this;
     }
 
     public fetchSeries(params: QueryParams, metadata: string = METADATA.FULL): Promise<Serie[]> {
@@ -93,6 +99,7 @@ export default class SerieApi implements ISerieApi {
 
         const options = {
             qs: {
+                catalog_id: this.catalogId,
                 dataset_source,
                 dataset_theme,
                 limit,
