@@ -23,8 +23,10 @@ export interface ISerie {
 
 export default class Serie implements ISerie {
 
-    constructor(private responseIndex: number, private tsResponse: ITSAPIResponse) {
+    private periodicityParser: PeriodicityParser;
 
+    constructor(private responseIndex: number, private tsResponse: ITSAPIResponse) {
+        this.periodicityParser = new PeriodicityParser(this.fieldMeta.periodicity);
     }
 
     private get meta(): ITSMeta {
@@ -81,7 +83,7 @@ export default class Serie implements ISerie {
     }
 
     get accrualPeriodicity() {
-        return PeriodicityParser.format(this.datasetMeta.accrualPeriodicity);
+        return this.periodicityParser.formattedPeriodicity();
     }
 
     get units() {
@@ -89,11 +91,11 @@ export default class Serie implements ISerie {
     }
 
     get startDate() {
-        return this.fieldMeta.start_date;
+        return this.periodicityParser.formatDate(this.fieldMeta.index_start);
     }
 
     get endDate() {
-        return this.fieldMeta.end_date;
+        return this.periodicityParser.formatDate(this.fieldMeta.index_end);
     }
 
     get landingPage(){

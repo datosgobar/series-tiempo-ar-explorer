@@ -1,4 +1,9 @@
-const ACCRUAL_PERIODICITY_TRANSLATOR = {
+import * as moment from 'moment';
+
+
+const NOT_FOUND_PERIODICITY = 'No definido';
+
+const PERIODICITY_TRANSLATOR = {
     'R/P1D': 'Diaria',
     'R/P1M': 'Mensual',
     'R/P1Y': 'Anual',
@@ -6,12 +11,28 @@ const ACCRUAL_PERIODICITY_TRANSLATOR = {
     'R/P6M': "Semestral",
 };
 
-const NOT_FOUND_PERIODICITY = 'No definido';
+const PERIODICITY_DATE_FORMAT = {
+    'R/P1D': 'YYYY-MM-DD',
+    'R/P1M': 'YYYY-MM',
+    'R/P1Y': 'YYYY',
+    'R/P3M': 'YYYY-MM',
+    'R/P6M': 'YYYY-MM',
+};
 
 export class PeriodicityParser {
 
-    public static format(value: string) {
-        return ACCRUAL_PERIODICITY_TRANSLATOR[value] || NOT_FOUND_PERIODICITY;
+    private periodicity: string;
+
+    public constructor(periodicity: string) {
+        this.periodicity = periodicity;
+    }
+
+    public formattedPeriodicity(): string {
+        return PERIODICITY_TRANSLATOR[this.periodicity] || NOT_FOUND_PERIODICITY;
+    }
+
+    public formatDate(date: string) {
+        return moment(date).format(PERIODICITY_DATE_FORMAT[this.periodicity]);
     }
 
 }

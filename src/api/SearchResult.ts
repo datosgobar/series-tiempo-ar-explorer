@@ -5,8 +5,10 @@ import {PeriodicityParser} from "./utils/periodicityParser";
 
 export default class SearchResult implements ISerie {
 
-    constructor(private searchResult: ITSMeta) {
+    private periodicityParser: PeriodicityParser;
 
+    constructor(private searchResult: ITSMeta) {
+        this.periodicityParser = new PeriodicityParser(this.searchResult.field.periodicity);
     }
 
     public get id(): string {
@@ -66,6 +68,6 @@ export default class SearchResult implements ISerie {
     }
 
     public get fieldPeriodicity() {
-        return PeriodicityParser.format(this.searchResult.field.periodicity);
+        return this.periodicityParser.formattedPeriodicity();
     }
 }

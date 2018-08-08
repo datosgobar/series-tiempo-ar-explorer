@@ -61,6 +61,8 @@ export interface IField {
     start_date: string;
     end_date: string;
     periodicity: string;
+    index_start: string;
+    index_end: string;
 }
 
 export interface IPublisher {
