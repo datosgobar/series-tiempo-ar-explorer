@@ -52,6 +52,10 @@ export default (props: ISerieDetailsProp) =>
                     <dd>{props.serie.datasetSource}</dd>
                 </dl>
                 <dl className="dl-horizontal">
+                    <dt>Cobertura temporal</dt>
+                    <dd>{`${props.serie.startDate} a ${props.serie.endDate}`}</dd>
+                </dl>
+                <dl className="dl-horizontal">
                     <dt>Página de referencia</dt>
                     <dd><a href={props.serie.landingPage} className="color-1">{props.serie.landingPage}</a></dd>
                 </dl>
