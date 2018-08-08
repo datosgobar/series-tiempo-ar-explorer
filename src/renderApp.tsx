@@ -15,6 +15,7 @@ export interface IExplorerConfig {
     seriesApiUri: string;
     useBrowserRouter?: boolean;
     browserRouterConf?: BrowserRouterProps;
+    catalog_id?: string;
 }
 
 
@@ -38,14 +39,11 @@ export function getFeatured(config: IExplorerConfig) {
 
 
 function getSeriesApi(config: IExplorerConfig): ISerieApi {
-
     const uri: string = config.seriesApiUri;
 
-    if(!uri){
-        throw new ImproperlyConfiguredException("seriesApiUri is not set");
-    }
+    if (!uri) { throw new ImproperlyConfiguredException("seriesApiUri is not set"); }
 
-    return SerieApi.withUri(uri);
+    return  SerieApi.withUri(uri).withCatalogID(config.catalog_id);
 }
 
 class ImproperlyConfiguredException extends Error {}
