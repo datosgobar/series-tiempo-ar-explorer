@@ -6,7 +6,7 @@ import GraphContainer from "../../style/Graphic/GraphContainer";
 import { Share } from "../Share";
 import GraphicWithDate from "./GraphicWithDate";
 
-export interface IGraphicAndShareProps {
+export interface IGraphicWithDateProps {
     series: ISerie[];
     colorFor: (serie: ISerie) => Color;
     date: IDateRange;
@@ -14,8 +14,16 @@ export interface IGraphicAndShareProps {
     handleChangeFrequency: (value: string) => void;
 }
 
+export interface IGraphicAndShareProps extends IGraphicWithDateProps{
+    url: string;
+}
+
 export default (props: IGraphicAndShareProps) =>
     <GraphContainer>
-        <GraphicWithDate series={props.series} colorFor={props.colorFor} date={props.date} handleChangeDate={props.handleChangeDate} handleChangeFrequency={props.handleChangeFrequency}/>
-        <Share url={window.location.href} series={props.series} />
+        <GraphicWithDate series={props.series}
+                         colorFor={props.colorFor}
+                         date={props.date}
+                         handleChangeDate={props.handleChangeDate}
+                         handleChangeFrequency={props.handleChangeFrequency} />
+        <Share url={props.url} series={props.series} />
     </GraphContainer>

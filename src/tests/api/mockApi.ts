@@ -66,6 +66,10 @@ class MockApi implements ISerieApi {
             setTimeout(resolve, this.delay, this.themes);
         });
     }
+
+    public downloadDataURL(params: QueryParams):string {
+        return 'foo';
+    }
 }
 
 function toSerie(id: string): ISerie {

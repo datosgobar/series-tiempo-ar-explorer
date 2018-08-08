@@ -2,12 +2,12 @@ import * as React from 'react';
 import {IDateRange} from "../../../api/DateSerie";
 import FrequencyPicker from "./FrequencyPicker";
 import Graphic from "./Graphic";
-import {IGraphicAndShareProps} from "./GraphicAndShare";
+import {IGraphicWithDateProps} from "./GraphicAndShare";
 import GraphicDatePicker from "./GraphicDatePicker";
 
-export default class GraphicWithDate extends React.Component<IGraphicAndShareProps, any> {
+export default class GraphicWithDate extends React.Component<IGraphicWithDateProps, any> {
 
-    constructor(props: IGraphicAndShareProps) {
+    constructor(props: IGraphicWithDateProps) {
         super(props);
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleChangeEnd = this.handleChangeEnd.bind(this);

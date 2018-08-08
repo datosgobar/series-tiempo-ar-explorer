@@ -29,6 +29,7 @@ export interface ISerieApi {
     searchSeries: ((q: string, searchOptions?: ISearchOptions) => Promise<ISearchResponse>);
     fetchSources: () => Promise<DatasetSource[]>;
     fetchThemes: () => Promise<DatasetTheme[]>;
+    downloadDataURL: ((params: QueryParams) => string);
 }
 
 export default class SerieApi implements ISerieApi {
@@ -58,6 +59,28 @@ export default class SerieApi implements ISerieApi {
 
         return this.apiClient.getAll(options, [])
             .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
+    }
+
+    public downloadDataURL(params: QueryParams, metadata: string = METADATA.FULL): string {
+        const options = {
+            qs: {
+                limit: 1000,
+                metadata,
+                start: 0
+            },
+            uri: this.apiClient.endpoint('series'),
+        };
+
+        Object.assign(options.qs, params.asQuery());
+
+        let url = '?';
+        Object.keys(options.qs).forEach((key) => {
+            url = `${url}${key}=${options.qs[key]}&`;
+        });
+
+        url = url.slice(0, url.length-1); // remove the last "&" character
+
+        return `${options.uri}${url}`;
     }
 
     public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<ISearchResponse> {

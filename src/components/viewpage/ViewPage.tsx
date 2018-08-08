@@ -1,4 +1,5 @@
 import { Location } from 'history';
+import * as moment from "moment";
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouterProps, withRouter } from "react-router";
@@ -129,7 +130,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                                          colorFor={this.colorFor}
                                          date={this.props.date}
                                          handleChangeDate={this.handleChangeDate}
-                                         handleChangeFrequency={this.handleChangeFrequency} />
+                                         handleChangeFrequency={this.handleChangeFrequency}
+                                         url={this.downloadDataURL()} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={
@@ -208,6 +210,37 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
             .then(this.onSeriesFetchedSuccess)
             .catch(this.onSeriesFetchError);
     }
+
+    private downloadDataURL(): string {
+        const ids = this.getQueryParams().getAll('ids');
+        if (ids.length === 0 || this.props.series.length === 0) { return ''; }
+
+        const location = this.props.location as Location;
+        const startDate = getParamsFromUrl(location).get('start_date') || '';
+        const endDate = getParamsFromUrl(location).get('end_date') || '';
+
+        const params = new QueryParams(ids);
+        params.setCollapse(getCollapseValue(location));
+        params.setRepresentationMode(getRepresentationMode(location));
+        if (this.validStartDateFilter(startDate)) { params.setStartDate(startDate) }
+        if (this.validEndDateFilter(endDate)) { params.setEndDate(endDate) }
+
+        return this.props.seriesApi.downloadDataURL(params);
+    }
+
+    private validStartDateFilter(startDate: string): boolean {
+        const firstSeriesDate = moment(this.props.series[0].data[0].date);
+
+        return moment(startDate).isValid() && moment(startDate).isAfter(firstSeriesDate);
+    }
+
+    private validEndDateFilter(endDate: string): boolean {
+        const lastSeriesDate = moment(this.props.series[0].data[this.props.series[0].data.length - 1].date);
+
+        return moment(endDate).isValid() && moment(endDate).isBefore(lastSeriesDate);
+    }
+
+
 }
 
 function mapStateToProps(state: any, ownProps: any) {
