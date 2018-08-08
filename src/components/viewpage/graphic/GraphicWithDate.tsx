@@ -19,6 +19,8 @@ export default class GraphicWithDate extends React.Component<IGraphicWithDatePro
     }
 
     public handleChangeEnd(date: any) {
+        if (emptyValue(date)) { return }
+
         const newDate = { start: this.startDate(), end: date.format('YYYY-MM-DD') };
         this.props.handleChangeDate(newDate);
     }
@@ -80,6 +82,10 @@ export default class GraphicWithDate extends React.Component<IGraphicWithDatePro
 // '2010-03' or '2010/03' => '2010/03/01'
 // '2010-03-01' or '2010/03/01' => '2010/03/01'
 function formattedDateString(date: string): string {
-    const parsedDate  = date.replace(/([\/\-])/g, '/');
-    return parsedDate.split('/').length === 1 ? `${parsedDate}/01` : parsedDate;
+    const parsedDate  = date.replace(/([\/\-])/g, '-');
+    return parsedDate.split('-').length === 1 ? `${parsedDate}-01` : parsedDate;
+}
+
+function emptyValue(value: any): boolean {
+    return value === '' || value === null || value === undefined
 }
