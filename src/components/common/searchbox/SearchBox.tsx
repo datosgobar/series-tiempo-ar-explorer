@@ -83,15 +83,13 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     public render() {
         return (
             <HeroFormSearch onSubmit={this.triggerSearch} >
-                <AutoComplete
-                    value={this.state.searchTerm}
-                    onChange={this.onSearchTermChange}
-                    getItemValue={getItemValue}
-                    items={this.state.autoCompleteItems}
-                    renderItem={this.renderItem}
-                    onSelect={this.onSelect}
-                    wrapperProps={{className: 'form-autocomplete'}}
-                />
+                <AutoComplete value={this.state.searchTerm}
+                              onChange={this.onSearchTermChange}
+                              getItemValue={getItemValue}
+                              items={this.state.autoCompleteItems}
+                              renderItem={this.renderItem}
+                              onSelect={this.onSelect}
+                              wrapperProps={{className: 'form-autocomplete'}} />
 
                 <SearchIcon onClick={this.triggerSearch} />
             </HeroFormSearch>
@@ -99,8 +97,10 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 
     private renderItem(item: SearchResult, isHighlighted: boolean) {
+        const onClick = () => this.onSelect('', item);
+
         return (
-            <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} searchTerm={this.state.searchTerm} />
+            <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} searchTerm={this.state.searchTerm} handleClick={onClick} />
         );
     }
 }
