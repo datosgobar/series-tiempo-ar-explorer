@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface IHighlightableItemProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {
+interface IHighlightableItemProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
     isHighlighted: boolean;
 }
 
@@ -13,7 +13,7 @@ export default (props: IHighlightableItemProps) => {
             if (node) {
                 node.style.setProperty("background-color", `${props.isHighlighted ? 'lightgray' : 'white'}`, "important");
             }}}>
-            <a href="#" {...allProps}/>
+            <span className="pointer" {...allProps} />
         </div>
     )
 

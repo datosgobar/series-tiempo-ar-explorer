@@ -9,13 +9,14 @@ interface IAutoCompleteItemProps extends React.Props<any> {
     searchTerm: string;
     item: SearchResult;
     isHighlighted: boolean;
+    handleClick: () => void;
 }
 
 export default class AutoCompleteItem extends React.Component<IAutoCompleteItemProps> {
 
     public render() {
         return (
-            <HighlightableItem isHighlighted={this.props.isHighlighted}>
+            <HighlightableItem isHighlighted={this.props.isHighlighted} onClick={this.props.handleClick}>
                 <h4 className="font-1 title-xsm">
                     <HighlightWords text={this.props.item.title} words={this.props.searchTerm.split(' ')} />
                 </h4>
