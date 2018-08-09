@@ -5,15 +5,14 @@ Aplicación javascript para la búsqueda de series de tiempo, usando la API seri
 Demo: https://datosgobar.github.io/series-tiempo-ar-explorer/#/
 
 ## Desarrollo
-documentacion de desarrollo [aqui](./docs/react.md)
+Documentacion de desarrollo [aqui](development/readme_dev.md)
 
-## Generación de github pages
+## Generación de github pages (deploy)
 
-Para actualizar la documentación de github pages es necesario correr los siguientes comandos:
+El deploy se puede realizar de dos maneras. Ambas son iguales
 
-```
-npm run build-docs
-```
+- `npm run build-docs` 
+- `make build`
 
 Y finalmente subir todo al branch default.
 
@@ -21,6 +20,3 @@ Y finalmente subir todo al branch default.
 Te invitamos a [crearnos un issue](https://github.com/datosgobar/series-tiempo-ar-explorer/issues/new?title=Encontre-un-bug-en-api-gateway)
 en caso de que encuentres algún bug o tengas comentarios de alguna parte de `series-tiempo-ar-explorer`. Para todo lo demás, podés mandarnos tu sugerencia o consulta a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar).
 
-
-## Problemas comunes
-* `npm start`: Error al iniciar el server. [Solución](https://github.com/react-community/create-react-native-app/issues/533#issuecomment-362445585)
