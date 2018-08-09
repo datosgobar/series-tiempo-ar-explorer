@@ -538,7 +538,8 @@ section#detalle {
       position: absolute;
       top: 0;
       right: 0;
-      width: 380px;
+      .size(380px,100%);
+      overflow: auto;
       border-left: 1px solid @grayLight;
       background-color: @white;
       .translateX(100%);
@@ -864,6 +865,19 @@ header, section, aside, footer {
         }
       }
     }
+  }
+
+  .inline {
+    display: inline-block;
+  }
+
+  .item-highlight {
+    background-color: inherit ;
+    font-family: 'Bold';
+  }
+
+  .pointer {
+    cursor: pointer;
   }
 
 }

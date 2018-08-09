@@ -1,14 +1,5 @@
-.inline {
-  display: inline-block;
-}
-
-.item-highlight {
-  background-color: inherit ;
-  font-family: 'Bold';
-}
-
-.pointer {
-  cursor: pointer;
+.highlight-item {
+    background-color: #cecece !important;
 }
 
 /*
@@ -623,7 +614,7 @@ section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplet
 }
 section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div {
   padding: 5px 7.5px !important;
-  background: #ffffff !important;
+  background: #ffffff;
 }
 section#home #hero .hero-caption #form-hero-search .form-group i {
   position: absolute;
@@ -715,7 +706,7 @@ section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomp
 section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div,
 section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div {
   padding: 5px 7.5px !important;
-  background: #ffffff !important;
+  background: #ffffff;
 }
 section#listado #hero .hero-caption #form-hero-search .form-group i,
 section#detalle #hero .hero-caption #form-hero-search .form-group i {
@@ -970,6 +961,8 @@ section#detalle #detalle-content #detalle-panel {
   top: 0;
   right: 0;
   width: 380px;
+  height: 100%;
+  overflow: auto;
   border-left: 1px solid #999999;
   background-color: #ffffff;
   -webkit-transform: translateX(100%);
@@ -979,8 +972,6 @@ section#detalle #detalle-content #detalle-panel {
   -webkit-transition: 0.25s;
   -o-transition: 0.25s;
   transition: 0.25s;
-  overflow: auto;
-  height: 100%;
 }
 section#detalle #detalle-content #detalle-panel .dp-header {
   position: relative;
@@ -1162,6 +1153,11 @@ section#detalle .share .url .url-text {
 section#detalle .share .legend {
   color: #0072bc;
 }
+
+.form-autocomplete > div:first-of-type > div:hover {
+    background: #cecece !important;
+}
+
 /*------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------*/
@@ -1198,7 +1194,7 @@ footer .series-card .card-title,
 header .series-card .card-section,
 section .series-card .card-section,
 aside .series-card .card-section,
-footer .series-card .card-section, .card-source {
+footer .series-card .card-section {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1211,14 +1207,14 @@ footer .series-card .card-section,
 header .series-card .card-count,
 section .series-card .card-count,
 aside .series-card .card-count,
-footer .series-card .card-count, .card-source {
+footer .series-card .card-count {
   display: block;
   font-size: 12px;
 }
 header .series-card .card-section,
 section .series-card .card-section,
 aside .series-card .card-section,
-footer .series-card .card-section, .card-source {
+footer .series-card .card-section {
   color: #999999;
 }
 header .series-card .card-count,
@@ -1590,6 +1586,25 @@ section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4 {
   background: url('../images/tipo_linea4.png') center center no-repeat;
+}
+header .inline,
+section .inline,
+aside .inline,
+footer .inline {
+  display: inline-block;
+}
+header .item-highlight,
+section .item-highlight,
+aside .item-highlight,
+footer .item-highlight {
+  background-color: inherit ;
+  font-family: 'Bold';
+}
+header .pointer,
+section .pointer,
+aside .pointer,
+footer .pointer {
+  cursor: pointer;
 }
 /*------------------------------------------------------------------------------------*/
 header .bg.bg-w,
@@ -3257,14 +3272,4 @@ FLEX:
     -ms-flex-item-align: stretch !important;
     align-self: stretch !important;
   }
-}
-
-span.card-section {
-  white-space: normal !important;
-  -webkit-line-clamp: 2 !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  display: -webkit-box !important;
-  /* -webkit-line-clamp: 3 !important; */
-  -webkit-box-orient: vertical !important;
 }

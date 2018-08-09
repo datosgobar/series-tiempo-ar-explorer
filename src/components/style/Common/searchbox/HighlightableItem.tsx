@@ -9,10 +9,7 @@ export default (props: IHighlightableItemProps) => {
     delete allProps.isHighlighted;
 
     return (
-        <div ref={(node) => { // necessary to highlight the selected option
-            if (node) {
-                node.style.setProperty("background-color", `${props.isHighlighted ? 'lightgray' : 'white'}`, "important");
-            }}}>
+        <div className={props.isHighlighted ? 'highlight-item' : ''}>
             <span className="pointer" {...allProps} />
         </div>
     )
