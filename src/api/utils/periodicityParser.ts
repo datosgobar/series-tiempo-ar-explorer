@@ -3,6 +3,8 @@ import * as moment from 'moment';
 
 const NOT_FOUND_PERIODICITY = 'No definido';
 
+const DEFAULT_FORMAT_DATE = 'YYYY-MM-DD';
+
 const PERIODICITY_TRANSLATOR = {
     'R/P1D': 'Diaria',
     'R/P1M': 'Mensual',
@@ -21,18 +23,18 @@ const PERIODICITY_DATE_FORMAT = {
 
 export class PeriodicityParser {
 
-    private periodicity: string;
+    private frequency: string;
 
-    public constructor(periodicity: string) {
-        this.periodicity = periodicity;
+    public constructor(frequency: string) {
+        this.frequency = frequency;
     }
 
     public formattedPeriodicity(): string {
-        return PERIODICITY_TRANSLATOR[this.periodicity] || NOT_FOUND_PERIODICITY;
+        return PERIODICITY_TRANSLATOR[this.frequency] || NOT_FOUND_PERIODICITY;
     }
 
     public formatDate(date: string) {
-        return moment(date).format(PERIODICITY_DATE_FORMAT[this.periodicity]);
+        return moment(date).format(PERIODICITY_DATE_FORMAT[this.frequency]) || DEFAULT_FORMAT_DATE;
     }
 
 }

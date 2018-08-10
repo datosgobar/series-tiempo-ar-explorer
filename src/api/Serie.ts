@@ -26,7 +26,7 @@ export default class Serie implements ISerie {
     private periodicityParser: PeriodicityParser;
 
     constructor(private responseIndex: number, private tsResponse: ITSAPIResponse) {
-        this.periodicityParser = new PeriodicityParser(this.fieldMeta.periodicity);
+        this.periodicityParser = new PeriodicityParser(this.fieldMeta.frequency);
     }
 
     private get meta(): ITSMeta {
@@ -91,11 +91,11 @@ export default class Serie implements ISerie {
     }
 
     get startDate() {
-        return this.periodicityParser.formatDate(this.fieldMeta.index_start);
+        return this.periodicityParser.formatDate(this.fieldMeta.time_index_start);
     }
 
     get endDate() {
-        return this.periodicityParser.formatDate(this.fieldMeta.index_end);
+        return this.periodicityParser.formatDate(this.fieldMeta.time_index_end);
     }
 
     get landingPage(){
