@@ -49,6 +49,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.colorFor = this.colorFor.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
         this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
+        this.removeDateParams = this.removeDateParams.bind(this);
         this.state = {
             lastSuccessfulUrl: this.getQueryParams()
         }
@@ -128,6 +129,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                                          date={this.props.date}
                                          handleChangeDate={this.handleChangeDate}
                                          handleChangeFrequency={this.handleChangeFrequency}
+                                         onReset={this.removeDateParams}
                                          url={this.downloadDataURL()} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
@@ -259,6 +261,15 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         } else {
             params.set('end_date', date.end);
         }
+    }
+
+    private removeDateParams() {
+        const params = this.getQueryParams();
+        if (params.get('start_date') === null && params.get('end_date') === null) { return }
+
+        params.delete('start_date');
+        params.delete('end_date');
+        this.setQueryParams(params);
     }
 
 }

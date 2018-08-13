@@ -12,9 +12,10 @@ export interface IGraphicAndShareProps {
     series: ISerie[];
     colorFor: (serie: ISerie) => Color;
     date: IDateRange;
-    handleChangeDate: ({}) => void;
+    handleChangeDate: (date: {start: string, end: string}) => void;
     handleChangeFrequency: (value: string) => void;
     url: string;
+    onReset?: () => void;
 }
 
 export default class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
@@ -23,6 +24,7 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
         super(props);
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleChangeEnd = this.handleChangeEnd.bind(this);
+        this.onZoom = this.onZoom.bind(this);
     }
 
     public handleChangeStart(date: any) {
@@ -44,10 +46,21 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
         this.props.handleChangeDate(newDate);
     }
 
+    public onZoom(zoom: {max: number, min: number}) {
+        const start = this.props.series[0].data[zoom.min].date;
+        const end = this.props.series[this.props.series.length - 1].data[zoom.max].date;
+        this.props.handleChangeDate({start, end});
+    }
+
     public render() {
         return (
             <GraphContainer>
-                <Graphic series={this.props.series} colorFor={this.props.colorFor} date={this.parsedDate()} />
+                <Graphic series={this.props.series}
+                         colorFor={this.props.colorFor}
+                         date={this.parsedDate()}
+                         onReset={this.props.onReset}
+                         handleZoom={this.onZoom} />
+
                 <GraphicComplements url={this.props.url}
                                     series={this.props.series}
                                     start={this.startDate()}

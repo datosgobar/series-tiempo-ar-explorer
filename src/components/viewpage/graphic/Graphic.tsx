@@ -12,6 +12,8 @@ interface IGraphicProps {
     series: ISerie[];
     colorFor?: (serie: ISerie) => Color;
     date: IDateRange;
+    onReset?: () => void;
+    handleZoom?: ({}) => void;
 }
 
 export class Graphic extends React.Component<IGraphicProps, any> {
@@ -52,6 +54,15 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
             xAxis: {
                 categories: this.categories(),
+                events: {
+                    setExtremes: (e: any) => {
+                        if(typeof e.min === 'undefined' && typeof e.max === 'undefined' && this.props.onReset) {
+                            this.props.onReset();
+                        } else if (this.props.handleZoom){
+                            this.props.handleZoom({min: Math.round(e.min), max: Math.round(e.max)});
+                        }
+                    }
+                }
             },
 
             yAxis: {
@@ -136,7 +147,9 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             max = max === -1 ? this.props.series[0].data.length : max;
         }
 
-        chart.xAxis[0].setExtremes(min, max);
+        if (min === 0 && max === 0) { return; }
+
+        // chart.xAxis[0].setExtremes(min, max);
         chart.showResetZoom();
     };
 
