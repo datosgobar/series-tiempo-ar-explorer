@@ -16,7 +16,22 @@ El deploy se puede realizar de dos maneras. Ambas son iguales
 
 Y finalmente subir todo al branch default.
 
+## Generar build para el CDN
+
+Para una facil distribucion de la aplicacion, no alcanza con el paso anterior, ya que el distribuible final suele tener asociado un valor autogenerado, por ejemplo `main.31cd1498.js`.
+
+Para poder distribuir facilmente la aplicacion usaremos como proveedor de CDN https://cdn.jsdelivr.net.
+
+Este proveedor sirve los archivos desde github.
+Para que sirva nuestros archivos, debemos generar un `tag` de git.
+
+Por ejemplo, si quisieramos que sirva nuestro archivo en `docs/stable/js/main.js`, deberiamos copiar el ultimo *build* de la aplicacion a ese lugar en el repositorio y luego generar un `tag`.
+
+Si generaramos el `tag` con nombre `0.1`, nuestro archivo seria accesible desde https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@0.1/docs/stable/js/main.js.
+
+
 ## Contacto
 Te invitamos a [crearnos un issue](https://github.com/datosgobar/series-tiempo-ar-explorer/issues/new?title=Encontre-un-bug-en-api-gateway)
 en caso de que encuentres algún bug o tengas comentarios de alguna parte de `series-tiempo-ar-explorer`. Para todo lo demás, podés mandarnos tu sugerencia o consulta a [datos@modernizacion.gob.ar](mailto:datos@modernizacion.gob.ar).
 
+cd
