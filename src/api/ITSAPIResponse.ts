@@ -58,8 +58,6 @@ export interface IField {
     title: string;
     description: string;
     units: string;
-    start_date: string;
-    end_date: string;
     frequency: string;
     time_index_start: string;
     time_index_end: string;

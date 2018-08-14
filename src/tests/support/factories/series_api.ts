@@ -56,10 +56,8 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                 },
                 field: {
                     description: `${tsID} field description`,
-                    end_date: `${tsID} field endDate`,
                     frequency: `${tsID} field periodicity`,
                     id: tsID,
-                    start_date: `${tsID} field startDate`,
                     time_index_end: '',
                     time_index_start: '',
                     title: `${tsID} field title`,

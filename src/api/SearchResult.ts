@@ -36,11 +36,11 @@ export default class SearchResult implements ISerie {
     }
 
     public get startDate() {
-        return this.searchResult.field.start_date;
+        return this.searchResult.field.time_index_start;
     }
 
     public get endDate() {
-        return this.searchResult.field.end_date;
+        return this.searchResult.field.time_index_end;
     }
 
     public get units() {
