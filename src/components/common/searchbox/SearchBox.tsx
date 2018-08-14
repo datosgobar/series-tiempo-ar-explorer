@@ -77,7 +77,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 
     public onSelect(val: string, item: SearchResult) {
-        this.props.onSelect(item.id);
+        item.id === 'search' ? this.props.onSearch(this.state.searchTerm) : this.props.onSelect(item.id);
     }
 
     public render() {
@@ -86,7 +86,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
                 <AutoComplete value={this.state.searchTerm}
                               onChange={this.onSearchTermChange}
                               getItemValue={getItemValue}
-                              items={this.state.autoCompleteItems}
+                              items={this.itemsToRender()}
                               renderItem={this.renderItem}
                               onSelect={this.onSelect}
                               wrapperProps={{className: 'form-autocomplete'}} />
@@ -96,7 +96,22 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         );
     }
 
+    private itemsToRender() {
+        const firstItem = {id: 'search', title: `Buscar: ${this.state.searchTerm}`};
+        return [firstItem].concat(this.state.autoCompleteItems);
+    }
+
     private renderItem(item: SearchResult, isHighlighted: boolean) {
+        return item.id === 'search' ? this.renderSearch(item, isHighlighted) : this.renderItemResult(item, isHighlighted);
+    }
+
+    private renderSearch(item: SearchResult, isHighlighted: boolean) {
+        const onClick = () => this.props.onSearch(this.state.searchTerm);
+
+        return (<div id={item.id} key={item.id} onClick={onClick} className={isHighlighted ? 'highlight-item pointer' : 'pointer'}>{item.title}</div>)
+    }
+
+    private renderItemResult(item: SearchResult, isHighlighted: boolean) {
         const onClick = () => this.onSelect('', item);
 
         return (
