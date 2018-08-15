@@ -13,7 +13,6 @@ interface IGraphicProps {
     colorFor?: (serie: ISerie) => Color;
     date: IDateRange;
     onReset?: () => void;
-    handleZoom?: ({}) => void;
 }
 
 export class Graphic extends React.Component<IGraphicProps, any> {
@@ -58,8 +57,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                     setExtremes: (e: any) => {
                         if(typeof e.min === 'undefined' && typeof e.max === 'undefined' && this.props.onReset) {
                             this.props.onReset();
-                        } else if (this.props.handleZoom){
-                            this.props.handleZoom({min: Math.round(e.min), max: Math.round(e.max)});
                         }
                     }
                 }
@@ -149,7 +146,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
         if (min === 0 && max === 0) { return; }
 
-        // chart.xAxis[0].setExtremes(min, max);
+        chart.xAxis[0].setExtremes(min, max);
         chart.showResetZoom();
     };
 

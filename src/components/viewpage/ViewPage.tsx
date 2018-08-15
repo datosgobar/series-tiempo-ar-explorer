@@ -133,9 +133,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                                          url={this.downloadDataURL()} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
-                    <DetallePanel seriesPicker={
-                        <SeriesPicker {...this.seriesPickerProps()} />
-                    } />
+                    <DetallePanel seriesPicker={ <SeriesPicker {...this.seriesPickerProps()} /> } />
                 </div>
             </section>
         );
