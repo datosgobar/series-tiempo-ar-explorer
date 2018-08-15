@@ -40,10 +40,10 @@ export default class QueryParams {
     public asJson(): {} {
         return {
             collapse: this.getCollapse(),
-            endDate: this.endDate,
+            end_date: this.endDate,
             ids: this.getIds(),
             representation_mode: this.getRepresentationMode(),
-            startDate: this.startDate
+            start_date: this.startDate
         }
     }
 
