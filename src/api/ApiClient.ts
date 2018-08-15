@@ -45,7 +45,7 @@ export class ApiClient {
     }
 
     private needToFetchMoreData(result: any[], limit: number): boolean {
-        return result.length === limit;
+        return result.length >= limit;
     }
 
     private increaseOffset(options: IApiClientOpt) {
