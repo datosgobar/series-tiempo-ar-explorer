@@ -1,11 +1,3 @@
-.card-source {
-  color: #999999;
-}
-
-.highlight-item {
-    background-color: #cecece !important;
-}
-
 /*
 ------------------------------------------------------------------------------------
 MIXINS:
@@ -603,6 +595,9 @@ section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplet
   z-index: 99999 !important;
   position: relative !important;
 }
+section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete .highlight-item {
+  background-color: #cecece !important;
+}
 section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type {
   position: absolute !important;
   z-index: 99999 !important;
@@ -618,7 +613,13 @@ section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplet
 }
 section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div {
   padding: 5px 7.5px !important;
-  background: #ffffff;
+  -webkit-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div.active,
+section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div:hover {
+  background-color: #eeeeee;
 }
 section#home #hero .hero-caption #form-hero-search .form-group i {
   position: absolute;
@@ -693,6 +694,11 @@ section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomp
   z-index: 99999 !important;
   position: relative !important;
 }
+
+section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete .highlight-item {
+  background-color: #cecece !important;
+}
+
 section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type,
 section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type {
   position: absolute !important;
@@ -710,7 +716,15 @@ section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomp
 section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div,
 section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div {
   padding: 5px 7.5px !important;
-  background: #ffffff;
+  -webkit-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div.active,
+section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div.active,
+section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div:hover,
+section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div:hover {
+  background-color: #eeeeee;
 }
 section#listado #hero .hero-caption #form-hero-search .form-group i,
 section#detalle #hero .hero-caption #form-hero-search .form-group i {
@@ -815,19 +829,6 @@ section#listado #listado-list #list .series-card .card-desc {
   height: auto;
 }
 /*------------------------------------------------------------------------------------*/
-section#detalle {
-  /*#hero {
-    .hero-caption {
-      .col-sm-4 .form-autocomplete > div:first-of-type {
-        top: 115px !important;
-        width: 24% !important;
-        height: 100% !important;
-        max-height: 100% !important;
-      }
-    }
-  }*/
-  /*******/
-}
 section#detalle #detalle-content {
   position: relative;
   z-index: 1;
@@ -1157,22 +1158,74 @@ section#detalle .share .url .url-text {
 section#detalle .share .legend {
   color: #0072bc;
 }
-
-.form-autocomplete > div:first-of-type > div:hover {
-    background: #cecece !important;
+/*------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------*/
+header .v-clamp-1,
+section .v-clamp-1,
+aside .v-clamp-1,
+footer .v-clamp-1,
+header .v-clamp-2,
+section .v-clamp-2,
+aside .v-clamp-2,
+footer .v-clamp-2,
+header .v-clamp-3,
+section .v-clamp-3,
+aside .v-clamp-3,
+footer .v-clamp-3,
+header .v-clamp-4,
+section .v-clamp-4,
+aside .v-clamp-4,
+footer .v-clamp-4 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-
-/*------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------*/
+header .v-clamp-1,
+section .v-clamp-1,
+aside .v-clamp-1,
+footer .v-clamp-1 {
+  -webkit-line-clamp: 1;
+}
+header .v-clamp-2,
+section .v-clamp-2,
+aside .v-clamp-2,
+footer .v-clamp-2 {
+  -webkit-line-clamp: 2;
+}
+header .v-clamp-3,
+section .v-clamp-3,
+aside .v-clamp-3,
+footer .v-clamp-3 {
+  -webkit-line-clamp: 3;
+}
+header .v-clamp-4,
+section .v-clamp-4,
+aside .v-clamp-4,
+footer .v-clamp-4 {
+  -webkit-line-clamp: 4;
+}
+header .v-clamp-5,
+section .v-clamp-5,
+aside .v-clamp-5,
+footer .v-clamp-5 {
+  -webkit-line-clamp: 5;
+}
+header .v-clamp-6,
+section .v-clamp-6,
+aside .v-clamp-6,
+footer .v-clamp-6 {
+  -webkit-line-clamp: 6;
+}
 header .series-card,
 section .series-card,
 aside .series-card,
 footer .series-card {
   position: relative;
   display: block;
+  height: 185px;
   border: 1px solid #dddddd;
   padding: 22.5px;
   overflow: hidden;
@@ -1198,7 +1251,11 @@ footer .series-card .card-title,
 header .series-card .card-section,
 section .series-card .card-section,
 aside .series-card .card-section,
-footer .series-card .card-section {
+footer .series-card .card-section,
+header .series-card .card-count,
+section .series-card .card-count,
+aside .series-card .card-count,
+footer .series-card .card-count {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1224,7 +1281,11 @@ footer .series-card .card-section {
 header .series-card .card-count,
 section .series-card .card-count,
 aside .series-card .card-count,
-footer .series-card .card-count {
+footer .series-card .card-count,
+header .series-card .card-source,
+section .series-card .card-source,
+aside .series-card .card-source,
+footer .series-card .card-source {
   color: #aaaaaa;
 }
 header .series-card .card-title,
@@ -1234,18 +1295,12 @@ footer .series-card .card-title {
   font-family: 'Medium';
   font-size: 16px;
 }
-header .series-card .card-desc,
-section .series-card .card-desc,
-aside .series-card .card-desc,
-footer .series-card .card-desc {
-  height: 2.5em;
-  overflow: hidden;
-}
 header .series-card .card-desc p,
 section .series-card .card-desc p,
 aside .series-card .card-desc p,
 footer .series-card .card-desc p {
   color: #000000;
+  margin-bottom: 0;
 }
 header .series-card.card-small,
 section .series-card.card-small,
