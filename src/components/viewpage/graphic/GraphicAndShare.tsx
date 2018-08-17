@@ -12,9 +12,10 @@ export interface IGraphicAndShareProps {
     series: ISerie[];
     colorFor: (serie: ISerie) => Color;
     date: IDateRange;
-    handleChangeDate: ({}) => void;
+    handleChangeDate: (date: {start: string, end: string}) => void;
     handleChangeFrequency: (value: string) => void;
     url: string;
+    onReset?: () => void;
 }
 
 export default class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
@@ -47,15 +48,18 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
     public render() {
         return (
             <GraphContainer>
-                <Graphic series={this.props.series} colorFor={this.props.colorFor} date={this.parsedDate()} />
+                <Graphic series={this.props.series}
+                         colorFor={this.props.colorFor}
+                         date={this.parsedDate()}
+                         onReset={this.props.onReset} />
+
                 <GraphicComplements url={this.props.url}
                                     series={this.props.series}
                                     start={this.startDate()}
                                     end={this.endDate()}
                                     handleStartChange={this.handleChangeStart}
                                     handleEndChange={this.handleChangeEnd}
-                                    handleChangeFrequency={this.props.handleChangeFrequency}
-                />
+                                    handleChangeFrequency={this.props.handleChangeFrequency} />
             </GraphContainer>
         )
     }

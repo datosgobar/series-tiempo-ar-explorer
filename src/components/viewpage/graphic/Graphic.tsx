@@ -12,6 +12,7 @@ interface IGraphicProps {
     series: ISerie[];
     colorFor?: (serie: ISerie) => Color;
     date: IDateRange;
+    onReset?: () => void;
 }
 
 ReactHighcharts.Highcharts.setOptions({
@@ -68,6 +69,13 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
             xAxis: {
                 categories: this.categories(),
+                events: {
+                    setExtremes: (e: any) => {
+                        if(typeof e.min === 'undefined' && typeof e.max === 'undefined' && this.props.onReset) {
+                            this.props.onReset();
+                        }
+                    }
+                }
             },
 
             yAxis: {
@@ -151,6 +159,8 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             max = this.props.series[0].data.findIndex(serie => end <= moment(serie.date).format('YYYY-MM-DD'));
             max = max === -1 ? this.props.series[0].data.length : max;
         }
+
+        if (min === 0 && max === 0) { return; }
 
         chart.xAxis[0].setExtremes(min, max);
         chart.showResetZoom();
