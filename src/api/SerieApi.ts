@@ -91,7 +91,7 @@ export default class SerieApi implements ISerieApi {
 
     public searchSeries(q: string, searchOptions?: ISearchOptions): Promise<ISearchResponse> {
         const limit = searchOptions && searchOptions.limit ? searchOptions.limit : 10;
-        const offset = searchOptions && searchOptions.offset ? searchOptions.offset : 0;
+        const start = searchOptions && searchOptions.offset ? searchOptions.offset : 0;
         // tslint:disable-next-line:variable-name
         const dataset_source = searchOptions && searchOptions.datasetSource ? searchOptions.datasetSource : undefined;
         // tslint:disable-next-line:variable-name
@@ -103,8 +103,8 @@ export default class SerieApi implements ISerieApi {
                 dataset_source,
                 dataset_theme,
                 limit,
-                offset,
                 q,
+                start,
             },
             uri: this.apiClient.endpoint('search'),
         };
@@ -147,13 +147,13 @@ function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {
     const data = apiResponse.data.map((searchResult: ITSMeta) => ({
         ...searchResult,
         dataset: {
-            accrualPeriodicity: searchResult.field.periodicity,
+            accrualPeriodicity: searchResult.field.frequency,
             ...searchResult.dataset
         },
         field: {
             index:{
-                end: searchResult.field.end_date,
-                start: searchResult.field.start_date,
+                end: searchResult.field.time_index_end,
+                start: searchResult.field.time_index_start,
             },
             units: `units`,
             ...searchResult.field,

@@ -58,11 +58,9 @@ export interface IField {
     title: string;
     description: string;
     units: string;
-    start_date: string;
-    end_date: string;
-    periodicity: string;
-    index_start: string;
-    index_end: string;
+    frequency: string;
+    time_index_start: string;
+    time_index_end: string;
 }
 
 export interface IPublisher {

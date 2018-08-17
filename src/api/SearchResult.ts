@@ -8,7 +8,7 @@ export default class SearchResult implements ISerie {
     private periodicityParser: PeriodicityParser;
 
     constructor(private searchResult: ITSMeta) {
-        this.periodicityParser = new PeriodicityParser(this.searchResult.field.periodicity);
+        this.periodicityParser = new PeriodicityParser(this.searchResult.field.frequency);
     }
 
     public get id(): string {
@@ -36,11 +36,11 @@ export default class SearchResult implements ISerie {
     }
 
     public get startDate() {
-        return this.searchResult.field.start_date;
+        return this.searchResult.field.time_index_start;
     }
 
     public get endDate() {
-        return this.searchResult.field.end_date;
+        return this.searchResult.field.time_index_end;
     }
 
     public get units() {

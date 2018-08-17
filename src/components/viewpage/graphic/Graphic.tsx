@@ -15,6 +15,18 @@ interface IGraphicProps {
     onReset?: () => void;
 }
 
+ReactHighcharts.Highcharts.setOptions({
+    lang: {
+        contextButtonTitle: 'Opciones',
+        downloadJPEG: 'Descargar JPEG',
+        downloadPDF: 'Descargar PDF',
+        downloadPNG: 'Descargar PNG',
+        downloadSVG: 'Descargar SVG',
+        printChart: 'Imprimir gráfico',
+        resetZoom: 'Reiniciar zoom',
+    }
+});
+
 export class Graphic extends React.Component<IGraphicProps, any> {
 
     public render() {
@@ -36,6 +48,10 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
             chart: {
                 height: 550,
+                resetZoomButton: {
+                    position: { x: -50, y: 10 },
+                    relativeTo: 'chart'
+                },
                 zoomType: 'x'
             },
 
