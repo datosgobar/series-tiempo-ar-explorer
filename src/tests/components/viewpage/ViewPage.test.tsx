@@ -56,32 +56,32 @@ describe('ViewPage', () => {
 
         renderViewPage('/series/?ids=serie01');
 
-        expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01"], collapse: '', representationMode: ''});
+        expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01"], collapse: '', collapseAggregation: '', representationMode: ''});
     });
 
     describe('collapse', () => {
         it('does not fetch using collapse if collapse_aggregation is not specified', () => {
             renderViewPage('/series/?ids=serie01:sum');
 
-            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: '', representationMode: ''});
+            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: '', collapseAggregation: '', representationMode: ''});
         });
 
         it('does not fetch using collapse if collapse_aggregation is invalid', () => {
             renderViewPage('/series/?ids=serie01:sum&collapse=foo');
 
-            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: 'foo', representationMode: ''});
+            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: 'foo', collapseAggregation: '', representationMode: ''});
         });
 
         it('fetches using collapse', () => {
             renderViewPage('/series/?ids=serie01:sum&collapse=year');
 
-            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: 'year', representationMode: ''});
+            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum"], collapse: 'year', collapseAggregation: '', representationMode: ''});
         });
 
         it('fetches using collapse with multiple ids', () => {
             renderViewPage('/series/?ids=serie01:sum,serie02&collapse=year');
 
-            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum", "serie02"], collapse: 'year', representationMode: ''});
+            expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01:sum", "serie02"], collapse: 'year', collapseAggregation: '', representationMode: ''});
         });
     });
 

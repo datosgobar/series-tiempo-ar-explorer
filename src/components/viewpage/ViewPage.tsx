@@ -56,20 +56,18 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     public viewSeries(ids: string[]) {
         const params = this.getQueryParams();
-
         params.set('ids', ids.join(','));
-        deleteNonGeneralParams(params);
+        params.delete('collapse');
+        params.delete('collapse_aggregation');
 
         this.setQueryParams(params);
     }
 
     public getQueryParams(): URLSearchParams {
-
         return new URLSearchParams(this.props.location.search);
     }
 
     public setQueryParams(params: URLSearchParams) {
-
         const queryString = params.toString()
             .replace(new RegExp('%2C', 'g'), ',')
             .replace(new RegExp('%3A', 'g'), ':');
@@ -78,13 +76,11 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public addPickedSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
-
         const ids = getIDs(this.props.location as Location).concat(serieId);
         this.viewSeries(ids);
     }
 
     public removeSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
-
         const ids = getIDs(this.props.location as Location).filter((val) => val !== serieId);
         if (ids.length) {
             this.viewSeries(ids);
@@ -131,9 +127,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                                          url={this.downloadDataURL()} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
-                    <DetallePanel seriesPicker={
-                        <SeriesPicker {...this.seriesPickerProps()} />
-                    } />
+                    <DetallePanel seriesPicker={<SeriesPicker {...this.seriesPickerProps()} />} />
                 </div>
             </section>
         );
@@ -182,9 +176,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     private handleUriChange(location: Location) {
         const ids = getIDs(location);
 
-        if (ids.length === 0) {
-            return
-        }
+        if (ids.length === 0) { return }
 
         this.props.dispatch(setDate(getDateFromUrl(location)));
 
@@ -195,11 +187,14 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         }
 
         this.props.dispatch(clearViewSeries()); // clear cached series
+        this.setParamsAndFetch(ids, location);
+    }
 
-        const params = new QueryParams(ids);
-        params.setCollapse(getCollapseValue(location));
-        params.setRepresentationMode(getRepresentationMode(location));
-        this.fetchSeries(params);
+    private setParamsAndFetch(ids: string[], location: Location) {
+        const queryParams = new QueryParams(ids);
+        queryParams.extractParams(getParamsFromUrl(location));
+
+        this.fetchSeries(queryParams);
     }
 
     private fetchSeries(params: QueryParams) {
@@ -216,13 +211,12 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         const startDate = getParamsFromUrl(location).get('start_date') || '';
         const endDate = getParamsFromUrl(location).get('end_date') || '';
 
-        const params = new QueryParams(ids);
-        params.setCollapse(getCollapseValue(location));
-        params.setRepresentationMode(getRepresentationMode(location));
-        if (this.validStartDateFilter(startDate)) { params.setStartDate(startDate) }
-        if (this.validEndDateFilter(endDate)) { params.setEndDate(endDate) }
+        const queryParams = new QueryParams(ids);
+        queryParams.extractParams(getParamsFromUrl(location));
+        if (this.validStartDateFilter(startDate)) { queryParams.setStartDate(startDate) }
+        if (this.validEndDateFilter(endDate)) { queryParams.setEndDate(endDate) }
 
-        return this.props.seriesApi.downloadDataURL(params);
+        return this.props.seriesApi.downloadDataURL(queryParams);
     }
 
     private validStartDateFilter(startDate: string): boolean {
@@ -288,46 +282,12 @@ function getDateFromUrl(location: Location): IDateRange {
     return { start, end };
 }
 
-function collapseAggregationSpecified(location: Location): boolean {
-    const params = getParamsFromUrl(location);
-    const ids = params.getAll('ids')[0].split(',');
-    const collapseValues = ['avg', 'sum', 'end_of_period', 'min', 'max'];
-
-    const specifiedInIds = ids.some(id => collapseValues.indexOf(id.split(':')[1]) >= 0);
-    const specifiedInUrl = params.get('collapse_aggregation') !== '' || params.get('collapse_aggregation') !== undefined;
-
-    return specifiedInIds || specifiedInUrl;
-}
-
-function getCollapseValue(location: Location): string {
-    const params = getParamsFromUrl(location);
-
-    let collapseValue = params.get('collapse') || '';
-
-    if(!collapseAggregationSpecified(location)) {
-        collapseValue = '';
-    }
-
-    return collapseValue;
-}
-
-function getRepresentationMode(location: Location): string {
-    const params = getParamsFromUrl(location);
-
-    return params.get('representation_mode') || '';
-}
-
 function getParamsFromUrl(location: Location): URLSearchParams {
     return new URLSearchParams(location.search);
 }
 
 function removeDuplicates(arr: any[]) {
     return Array.from(new Set(arr));
-}
-
-function deleteNonGeneralParams(params: URLSearchParams) {
-    params.delete('collapse');
-    params.delete('collapse_aggregation');
 }
 
 
