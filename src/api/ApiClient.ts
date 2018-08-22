@@ -11,6 +11,7 @@ export interface IApiClientOpt {
 export class ApiClient {
 
     constructor(private uri: string, private axiosInstance: AxiosInstance = axios) {
+        axiosInstance.defaults.headers['X-Source'] = 'series-tiempo-explorer';
     }
 
     public get<T>(options: IApiClientOpt): Promise<T> {
