@@ -1,6 +1,9 @@
 // tslint:disable-next-line:no-var-requires
 export const ReactHighcharts = require('react-highcharts');
 
+// tslint:disable-next-line:no-var-requires
+export const ReactHighStock = require('react-highcharts/ReactHighstock');
+
 // Highcharts more
 // tslint:disable-next-line:no-var-requires
 require('highcharts-more')(ReactHighcharts.Highcharts);
@@ -14,7 +17,7 @@ require('highcharts-exporting')(ReactHighcharts.Highcharts);
 require('highcharts-export-csv')(ReactHighcharts.Highcharts);
 
 export interface IHCSeries {
-    data: number[];
+    data: number[][];
     name: string;
     type: string;
     color: string;

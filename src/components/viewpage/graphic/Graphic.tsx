@@ -5,7 +5,7 @@ import IDataPoint from '../../../api/DataPoint';
 import { IDateRange } from "../../../api/DateSerie";
 import { ISerie } from '../../../api/Serie';
 import { Color } from '../../style/Colors/Color';
-import { IHConfig, IHCSeries, ReactHighcharts } from './highcharts';
+import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 
 
 interface IGraphicProps {
@@ -15,7 +15,7 @@ interface IGraphicProps {
     onReset?: () => void;
 }
 
-ReactHighcharts.Highcharts.setOptions({
+ReactHighStock.Highcharts.setOptions({
     lang: {
         contextButtonTitle: 'Opciones',
         downloadJPEG: 'Descargar JPEG',
@@ -31,7 +31,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public render() {
         return (
-            <ReactHighcharts config={this.highchartsConfig()} callback={this.afterRender} />
+            <ReactHighStock config={this.highchartsConfig()} callback={this.afterRender} />
         );
     }
 
@@ -48,10 +48,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
             chart: {
                 height: 550,
-                resetZoomButton: {
-                    position: { x: -50, y: 10 },
-                    relativeTo: 'chart'
-                },
                 zoomType: 'x'
             },
 
@@ -104,7 +100,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     }
 
     public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
-        const data = serie.data.map(datapoint => datapoint.value);
+        const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
         return {
             ...this.defaultHCSeriesConfig(),
             ...hcConfig,
@@ -169,3 +165,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 }
 
 export default Graphic;
+
+function timestamp(date: string): number {
+    return new Date(date).getTime()
+}
