@@ -22,27 +22,19 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
 
     constructor(props: IGraphicAndShareProps) {
         super(props);
-        this.handleChangeStart = this.handleChangeStart.bind(this);
-        this.handleChangeEnd = this.handleChangeEnd.bind(this);
+        this.handleZoom = this.handleZoom.bind(this);
     }
 
-    public handleChangeStart(date: any) {
-        if (emptyValue(date)) {
-            date = moment(this.firstSerie().data[0].date);
-        }
-
-        const newDate = { start: date.format('YYYY-MM-DD'), end: this.endDate() };
-        this.props.handleChangeDate(newDate);
+    public findSerieDate(value: number): string {
+        const serieData = this.props.series[0].data.find((data) => data.date >= timestampToDateString(value));
+        return serieData !== undefined ? serieData.date : '';
     }
 
-    public handleChangeEnd(date: any) {
-        if (emptyValue(date)) {
-            const lastSerie = this.props.series[this.props.series.length - 1];
-            date = moment(lastSerie.data[lastSerie.data.length - 1].date);
-        }
+    public handleZoom(extremes: {min: number, max: number}) {
+        const start = emptyValue(extremes.min) ? this.firstDateOfSerie() : this.findSerieDate(extremes.min);
+        const end = emptyValue(extremes.max) ? this.lastDateOfSerie() : this.findSerieDate(extremes.max);
 
-        const newDate = { start: this.startDate(), end: date.format('YYYY-MM-DD') };
-        this.props.handleChangeDate(newDate);
+        this.props.handleChangeDate({ start: formattedMoment(start), end: formattedMoment(end) });
     }
 
     public render() {
@@ -51,14 +43,11 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
                 <Graphic series={this.props.series}
                          colorFor={this.props.colorFor}
                          date={this.parsedDate()}
-                         onReset={this.props.onReset} />
+                         onReset={this.props.onReset}
+                         onZoom={this.handleZoom} />
 
                 <GraphicComplements url={this.props.url}
                                     series={this.props.series}
-                                    start={this.startDate()}
-                                    end={this.endDate()}
-                                    handleStartChange={this.handleChangeStart}
-                                    handleEndChange={this.handleChangeEnd}
                                     handleChangeFrequency={this.props.handleChangeFrequency} />
             </GraphContainer>
         )
@@ -72,26 +61,34 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
     }
 
     public startDate(): string {
-        let start = this.props.date.start;
-        if ((start === undefined || start === '') && this.props.series.length > 0) {
-            start = this.firstSerie().data[0].date;
-        }
-
-        return formattedDateString(start);
+        return this.getSelectedDate(this.props.date.start, () => this.firstDateOfSerie());
     }
 
     public endDate(): string {
-        let end = this.props.date.end;
+        return this.getSelectedDate(this.props.date.end, () => this.lastDateOfSerie());
+    }
 
-        if ((end === undefined || end === '') && this.props.series.length > 0) {
-            end = this.firstSerie().data[this.firstSerie().data.length - 1].date;
+    private getSelectedDate(selected: string, getDefault: () => string): string {
+       let result = selected;
+
+        if ((emptyValue(result)) && this.props.series.length > 0) {
+            result = getDefault();
         }
 
-        return formattedDateString(end);
+        return formattedDateString(result);
     }
 
     private firstSerie(): ISerie {
         return this.props.series[0];
+    }
+
+    private firstDateOfSerie(): string {
+        return this.firstSerie().data[0].date;
+    }
+
+    private lastDateOfSerie(): string {
+        const lastSerie = this.props.series[this.props.series.length - 1];
+        return lastSerie.data[lastSerie.data.length - 1].date;
     }
 
 }
@@ -108,4 +105,12 @@ function formattedDateString(date: string): string {
 
 function emptyValue(value: any): boolean {
     return value === '' || value === null || value === undefined
+}
+
+function timestampToDateString(value: any): string {
+    return formattedMoment(new Date(value));
+}
+
+function formattedMoment(date: any): string {
+    return moment(date).format('YYYY-MM-DD');
 }

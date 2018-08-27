@@ -13,6 +13,7 @@ interface IGraphicProps {
     colorFor?: (serie: ISerie) => Color;
     date: IDateRange;
     onReset?: () => void;
+    onZoom?: ({}) => void;
 }
 
 ReactHighStock.Highcharts.setOptions({
@@ -67,8 +68,13 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 categories: this.categories(),
                 events: {
                     setExtremes: (e: any) => {
-                        if(typeof e.min === 'undefined' && typeof e.max === 'undefined' && this.props.onReset) {
+                        const resetZoom = e.rangeSelectorButton && e.rangeSelectorButton.type === 'all';
+                        const rangeSelected = e.rangeSelectorButton === undefined;
+
+                        if(resetZoom && this.props.onReset) {
                             this.props.onReset();
+                        } else if (rangeSelected && this.props.onZoom) {
+                            this.props.onZoom({min: Math.ceil(e.min), max: Math.ceil(e.max)});
                         }
                     }
                 }
@@ -134,12 +140,8 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         }
     }
 
-    private hasDateFilter(): boolean {
-        return this.props.date.start !== '' || this.props.date.end !== '';
-    }
-
     private applyZoom(chart: any) {
-        if(this.props.series.length === 0 || !this.hasDateFilter()) { return; }
+        if(this.props.series.length === 0 ) { return; }
 
         let min = 0;
         let max = this.props.series[0].data.length - 1;
@@ -159,7 +161,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         if (min === 0 && max === 0) { return; }
 
         chart.xAxis[0].setExtremes(min, max);
-        chart.showResetZoom();
     };
 
 }
