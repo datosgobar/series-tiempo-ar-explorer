@@ -1,8 +1,6 @@
-import * as moment from "moment";
 import * as React from 'react';
 
 import IDataPoint from '../../../api/DataPoint';
-import { IDateRange } from "../../../api/DateSerie";
 import { ISerie } from '../../../api/Serie';
 import { Color } from '../../style/Colors/Color';
 import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
@@ -11,7 +9,7 @@ import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 interface IGraphicProps {
     series: ISerie[];
     colorFor?: (serie: ISerie) => Color;
-    date: IDateRange;
+    range: {min: number, max: number};
     onReset?: () => void;
     onZoom?: ({}) => void;
 }
@@ -74,6 +72,11 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                         if(resetZoom && this.props.onReset) {
                             this.props.onReset();
                         } else if (rangeSelected && this.props.onZoom) {
+                            const defaultMin = e.min === 0 || e.min === this.props.range.min;
+                            const defaultMax = e.max === 0 || e.max === this.props.range.max;
+                            if (e.min === e.max || defaultMin && defaultMax) { return }
+
+
                             this.props.onZoom({min: Math.ceil(e.min), max: Math.ceil(e.max)});
                         }
                     }
@@ -141,27 +144,8 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     }
 
     private applyZoom(chart: any) {
-        if(this.props.series.length === 0 ) { return; }
-
-        let min = 0;
-        let max = this.props.series[0].data.length - 1;
-
-        if (this.props.date.start !== '') {
-            const start = moment(this.props.date.start).format('YYYY-MM-DD');
-            min = this.props.series[0].data.findIndex(serie => start <= moment(serie.date).format('YYYY-MM-DD'));
-            min = min === -1 ? 0 : min;
-        }
-
-        if (this.props.date.end !== '') {
-            const end = moment(this.props.date.end).format('YYYY-MM-DD');
-            max = this.props.series[0].data.findIndex(serie => end <= moment(serie.date).format('YYYY-MM-DD'));
-            max = max === -1 ? this.props.series[0].data.length : max;
-        }
-
-        if (min === 0 && max === 0) { return; }
-
-        chart.xAxis[0].setExtremes(min, max);
-    };
+        chart.xAxis[0].setExtremes(this.props.range.min, this.props.range.max);
+    }
 
 }
 

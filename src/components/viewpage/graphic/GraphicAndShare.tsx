@@ -23,14 +23,12 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
     constructor(props: IGraphicAndShareProps) {
         super(props);
         this.handleZoom = this.handleZoom.bind(this);
-    }
-
-    public findSerieDate(value: number): string {
-        const serieData = this.props.series[0].data.find((data) => data.date >= timestampToDateString(value));
-        return serieData !== undefined ? serieData.date : '';
+        this.chartExtremes = this.chartExtremes.bind(this);
     }
 
     public handleZoom(extremes: {min: number, max: number}) {
+        if (this.props.series.length === 0) {return }
+
         const start = emptyValue(extremes.min) ? this.firstDateOfSerie() : this.findSerieDate(extremes.min);
         const end = emptyValue(extremes.max) ? this.lastDateOfSerie() : this.findSerieDate(extremes.max);
 
@@ -42,7 +40,7 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
             <GraphContainer>
                 <Graphic series={this.props.series}
                          colorFor={this.props.colorFor}
-                         date={this.parsedDate()}
+                         range={this.chartExtremes()}
                          onReset={this.props.onReset}
                          onZoom={this.handleZoom} />
 
@@ -53,11 +51,17 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
         )
     }
 
-    public parsedDate(): IDateRange {
-        return {
-            end: this.endDate(),
-            start: this.startDate()
-        }
+    public chartExtremes(): {min: number, max: number} {
+        if (this.props.series.length === 0) {return {min: 0, max: 0}}
+
+        const minDataIndex = this.props.series[0].data.findIndex((data) => data.date >= this.props.date.start);
+        let maxDataIndex = this.props.series[0].data.findIndex((data) => data.date >= this.props.date.end);
+        if (maxDataIndex === 0) { maxDataIndex = this.props.series[0].data.length - 1}
+
+        const min = new Date(this.props.series[0].data[minDataIndex].date).getTime();
+        const max = new Date(this.props.series[0].data[maxDataIndex].date).getTime();
+
+        return {min, max};
     }
 
     public startDate(): string {
@@ -76,6 +80,11 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
         }
 
         return formattedDateString(result);
+    }
+
+    private findSerieDate(value: number): string {
+        const serieData = this.props.series[0].data.find((data) => data.date >= timestampToDateString(value));
+        return serieData !== undefined ? serieData.date : '';
     }
 
     private firstSerie(): ISerie {
