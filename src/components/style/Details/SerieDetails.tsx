@@ -29,7 +29,7 @@ export default (props: ISerieDetailsProp) =>
             <div className="col-md-12">
                 <dl className="dl-horizontal">
                     <dt>Temas</dt>
-                    <dd>{props.serie.themes.map((theme) => theme.label)}</dd>
+                    <dd>{props.serie.themes.map((theme) => theme.label).join(', ')}</dd>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Frecuencia de actualización</dt>
