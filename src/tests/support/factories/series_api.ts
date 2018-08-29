@@ -43,7 +43,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                         name: `${tsID} dataset publisher name`
                     },
                     source: `${tsID} dataset source`,
-                    theme: [`${tsID} dataset theme`],
+                    theme: [{id: `${tsID} theme`, label: `${tsID} theme`, descripcion: `${tsID} theme`}],
                     title: `${tsID} dataset title`,
                 },
                 distribution: {

@@ -1,5 +1,5 @@
 import DataPoint, { IDataPoint } from './DataPoint';
-import {IExtraMeta, IPublisher, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
+import {IDataSetTheme, IExtraMeta, IPublisher, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
 import {PeriodicityParser} from "./utils/periodicityParser";
 
 
@@ -17,7 +17,7 @@ export interface ISerie {
     landingPage: string,
     issued: string,
     modified: string,
-    themes: string[],
+    themes: IDataSetTheme[],
     frequency?: string,
 }
 
