@@ -66,10 +66,12 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 categories: this.categories(),
                 events: {
                     setExtremes: (e: any) => {
-                        const resetZoom = e.rangeSelectorButton && e.rangeSelectorButton.type === 'all';
+                        if (e.trigger === 'navigator' && e.DOMEvent.DOMType === 'mousemove') { return } // trigger events only when the user stop selecting
+
+                        const resetClicked = e.rangeSelectorButton && e.rangeSelectorButton.type === 'all';
                         const rangeSelected = e.rangeSelectorButton === undefined;
 
-                        if(resetZoom && this.props.onReset) {
+                        if(resetClicked && this.props.onReset) {
                             this.props.onReset();
                         } else if (rangeSelected && this.props.onZoom) {
                             const defaultMin = e.min === 0 || e.min === this.props.range.min;
