@@ -90,7 +90,7 @@ function toSerie(id: string): ISerie {
         landingPage: `${id} landingPage`,
         modified: `2018-01-01`,
         startDate: 'start',
-        themes: [`${id} theme`],
+        themes: [{id: `${id} theme`, label: `${id} theme`, descripcion: `${id} theme`}],
     };
 
     return self;

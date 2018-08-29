@@ -35,13 +35,19 @@ export interface ICatalog {
     identifier: string;
 }
 
+export interface IDataSetTheme {
+    id: string;
+    descripcion: string;
+    label: string;
+}
+
 export interface IDataSet {
     publisher: IPublisher;
     title: string;
     source: string;
     identifier: string;
     landingPage: string;
-    theme: string[];
+    theme: IDataSetTheme[];
     accrualPeriodicity: string;
 }
 
