@@ -1,4 +1,15 @@
 export default class QueryParams {
+
+    public static distinctURLs(prevLocation: string, currentLocation: string) {
+        const prevParams = new URLSearchParams(prevLocation);
+        const currentParams = new URLSearchParams(currentLocation);
+
+        return prevParams.getAll('ids').every((id) => currentParams.getAll('ids').every((id2) => id !== id2)) ||
+               prevParams.get('collapse')             !== currentParams.get('collapse') ||
+               prevParams.get('collapse_aggregation') !== currentParams.get('collapse_aggregation') ||
+               prevParams.get('representation_mode')  !== currentParams.get('representation_mode');
+    }
+
     private ids: string[];
     private collapse: string;
     private collapseAggregation: string;
