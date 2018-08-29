@@ -47,6 +47,10 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
             chart: {
                 height: 550,
+                resetZoomButton: {
+                    position: { x: -320, y: 5 },
+                    relativeTo: 'chart'
+                },
                 zoomType: 'x'
             },
 
@@ -66,12 +70,13 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 categories: this.categories(),
                 events: {
                     setExtremes: (e: any) => {
-                        if (e.trigger === 'navigator' && e.DOMEvent.DOMType === 'mousemove') { return } // trigger events only when the user stop selecting
+                        if (e.trigger === 'navigator' && e.DOMEvent && e.DOMEvent.DOMType === 'mousemove') { return } // trigger events only when the user stop selecting
 
-                        const resetClicked = e.rangeSelectorButton && e.rangeSelectorButton.type === 'all';
+                        const zoomBtnClicked = e.min === undefined && e.max === undefined && e.trigger === 'zoom';
+                        const viewAllClicked = e.trigger === 'rangeSelectorButton' && e.rangeSelectorButton.type === 'all';
                         const rangeSelected = e.rangeSelectorButton === undefined;
 
-                        if(resetClicked && this.props.onReset) {
+                        if((zoomBtnClicked || viewAllClicked) && this.props.onReset) {
                             this.props.onReset();
                         } else if (rangeSelected && this.props.onZoom) {
                             const defaultMin = e.min === 0 || e.min === this.props.range.min;
@@ -147,6 +152,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     private applyZoom(chart: any) {
         chart.xAxis[0].setExtremes(this.props.range.min, this.props.range.max);
+        chart.showResetZoom();
     }
 
 }
