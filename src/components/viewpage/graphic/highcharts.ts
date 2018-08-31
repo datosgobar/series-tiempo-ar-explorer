@@ -6,15 +6,15 @@ export const ReactHighStock = require('react-highcharts/ReactHighstock');
 
 // Highcharts more
 // tslint:disable-next-line:no-var-requires
-require('highcharts-more')(ReactHighcharts.Highcharts);
+require('highcharts-more')(ReactHighStock.Highcharts);
 
 // Highcharts exporting
 // tslint:disable-next-line:no-var-requires
-require('highcharts-exporting')(ReactHighcharts.Highcharts);
+require('highcharts-exporting')(ReactHighStock.Highcharts);
 
 // Highcharts export csv
 // tslint:disable-next-line:no-var-requires
-require('highcharts-export-csv')(ReactHighcharts.Highcharts);
+require('highcharts-export-csv')(ReactHighStock.Highcharts);
 
 export interface IHCSeries {
     data: number[][];

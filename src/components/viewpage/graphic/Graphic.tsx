@@ -51,6 +51,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                     position: { x: -320, y: 5 },
                     relativeTo: 'chart'
                 },
+                width: 1150,
                 zoomType: 'x'
             },
 
