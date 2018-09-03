@@ -21,8 +21,12 @@ ReactHighStock.Highcharts.setOptions({
         downloadPDF: 'Descargar PDF',
         downloadPNG: 'Descargar PNG',
         downloadSVG: 'Descargar SVG',
+        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         printChart: 'Imprimir gráfico',
+        rangeSelectorFrom: 'Desde',
+        rangeSelectorTo: 'Hasta',
         resetZoom: 'Reiniciar zoom',
+        shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
     }
 });
 
@@ -48,7 +52,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             chart: {
                 height: 550,
                 resetZoomButton: {
-                    position: { x: -320, y: 5 },
+                    position: { x: -350, y: 5 },
                     relativeTo: 'chart'
                 },
                 zoomType: 'x'
@@ -60,6 +64,17 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                         menuItems: ['printChart', 'downloadPNG','downloadJPEG', 'downloadPDF', 'downloadSVG']
                     },
                 }
+            },
+
+            rangeSelector:{
+                buttons: [
+                    { count: 1, text: '1m', type: 'month'},
+                    { count: 3, text: '3m', type: 'month'},
+                    { count: 6, text: '6m', type: 'month' },
+                    { text: 'YTD', type: 'ytd' },
+                    { count: 1, text: '1y', type: 'year' },
+                    { text: 'Todo', type: 'all' }
+                ]
             },
 
             title: {
