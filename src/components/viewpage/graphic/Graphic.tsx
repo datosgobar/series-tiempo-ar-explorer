@@ -26,7 +26,8 @@ ReactHighStock.Highcharts.setOptions({
         rangeSelectorFrom: 'Desde',
         rangeSelectorTo: 'Hasta',
         resetZoom: 'Reiniciar zoom',
-        shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+        shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
     }
 });
 
