@@ -36,6 +36,18 @@ export default (props: ISerieDetailsProp) =>
                     <dd>{props.serie.accrualPeriodicity}</dd>
                 </dl>
                 <dl className="dl-horizontal">
+                    <dt>Unidades</dt>
+                    <dd>{props.serie.units}</dd>
+                </dl>
+                <dl className="dl-horizontal">
+                    <dt>Dataset</dt>
+                    <dd>{props.serie.description}</dd>
+                </dl>
+                <dl className="dl-horizontal">
+                    <dt>Destribución</dt>
+                    <dd>{props.serie.distributionTitle}</dd>
+                </dl>
+                <dl className="dl-horizontal">
                     <dt>Responsable de publicación</dt>
                     <dd>{props.serie.publisher.name}</dd>
                 </dl>
@@ -53,7 +65,7 @@ export default (props: ISerieDetailsProp) =>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Cobertura temporal</dt>
-                    <dd>{`${props.serie.startDate} a ${props.serie.endDate}`}</dd>
+                    <dd>{`${props.serie.startDate} a ${props.serie.endDate}`} ({props.serie.timeIndexSize} valores)</dd>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Página de referencia</dt>

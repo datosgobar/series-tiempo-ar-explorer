@@ -59,6 +59,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                     frequency: `${tsID} field periodicity`,
                     id: tsID,
                     time_index_end: '',
+                    time_index_size: 0,
                     time_index_start: '',
                     title: `${tsID} field title`,
                     units: `${tsID} field units`,

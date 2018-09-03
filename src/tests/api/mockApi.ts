@@ -80,6 +80,7 @@ function toSerie(id: string): ISerie {
         data: [],
         datasetSource: '',
         description: 'description' + id,
+        distributionTitle: '',
         endDate: 'end',
         id,
         issued: `${id} issued`,
@@ -91,6 +92,7 @@ function toSerie(id: string): ISerie {
         modified: `2018-01-01`,
         startDate: 'start',
         themes: [{id: `${id} theme`, label: `${id} theme`, descripcion: `${id} theme`}],
+        timeIndexSize: 0,
     };
 
     return self;
