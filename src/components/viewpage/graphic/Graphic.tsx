@@ -1,21 +1,20 @@
-import * as moment from "moment";
 import * as React from 'react';
 
 import IDataPoint from '../../../api/DataPoint';
-import { IDateRange } from "../../../api/DateSerie";
 import { ISerie } from '../../../api/Serie';
 import { Color } from '../../style/Colors/Color';
-import { IHConfig, IHCSeries, ReactHighcharts } from './highcharts';
+import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 
 
 interface IGraphicProps {
     series: ISerie[];
     colorFor?: (serie: ISerie) => Color;
-    date: IDateRange;
+    range: {min: number, max: number};
     onReset?: () => void;
+    onZoom?: ({}) => void;
 }
 
-ReactHighcharts.Highcharts.setOptions({
+ReactHighStock.Highcharts.setOptions({
     lang: {
         contextButtonTitle: 'Opciones',
         downloadJPEG: 'Descargar JPEG',
@@ -31,7 +30,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public render() {
         return (
-            <ReactHighcharts config={this.highchartsConfig()} callback={this.afterRender} />
+            <ReactHighStock config={this.highchartsConfig()} callback={this.afterRender} />
         );
     }
 
@@ -49,7 +48,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             chart: {
                 height: 550,
                 resetZoomButton: {
-                    position: { x: -50, y: 10 },
+                    position: { x: -320, y: 5 },
                     relativeTo: 'chart'
                 },
                 zoomType: 'x'
@@ -71,8 +70,21 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 categories: this.categories(),
                 events: {
                     setExtremes: (e: any) => {
-                        if(typeof e.min === 'undefined' && typeof e.max === 'undefined' && this.props.onReset) {
+                        if (e.trigger === 'navigator' && e.DOMEvent && e.DOMEvent.DOMType === 'mousemove') { return } // trigger events only when the user stop selecting
+
+                        const zoomBtnClicked = e.min === undefined && e.max === undefined && e.trigger === 'zoom';
+                        const viewAllClicked = e.trigger === 'rangeSelectorButton' && e.rangeSelectorButton.type === 'all';
+                        const rangeSelected = e.rangeSelectorButton === undefined;
+
+                        if((zoomBtnClicked || viewAllClicked) && this.props.onReset) {
                             this.props.onReset();
+                        } else if (rangeSelected && this.props.onZoom) {
+                            const defaultMin = e.min === 0 || e.min === this.props.range.min;
+                            const defaultMax = e.max === 0 || e.max === this.props.range.max;
+                            if (e.min === e.max || defaultMin && defaultMax) { return }
+
+
+                            this.props.onZoom({min: Math.ceil(e.min), max: Math.ceil(e.max)});
                         }
                     }
                 }
@@ -104,7 +116,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     }
 
     public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
-        const data = serie.data.map(datapoint => datapoint.value);
+        const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
         return {
             ...this.defaultHCSeriesConfig(),
             ...hcConfig,
@@ -138,34 +150,15 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         }
     }
 
-    private hasDateFilter(): boolean {
-        return this.props.date.start !== '' || this.props.date.end !== '';
-    }
-
     private applyZoom(chart: any) {
-        if(this.props.series.length === 0 || !this.hasDateFilter()) { return; }
-
-        let min = 0;
-        let max = this.props.series[0].data.length - 1;
-
-        if (this.props.date.start !== '') {
-            const start = moment(this.props.date.start).format('YYYY-MM-DD');
-            min = this.props.series[0].data.findIndex(serie => start <= moment(serie.date).format('YYYY-MM-DD'));
-            min = min === -1 ? 0 : min;
-        }
-
-        if (this.props.date.end !== '') {
-            const end = moment(this.props.date.end).format('YYYY-MM-DD');
-            max = this.props.series[0].data.findIndex(serie => end <= moment(serie.date).format('YYYY-MM-DD'));
-            max = max === -1 ? this.props.series[0].data.length : max;
-        }
-
-        if (min === 0 && max === 0) { return; }
-
-        chart.xAxis[0].setExtremes(min, max);
+        chart.xAxis[0].setExtremes(this.props.range.min, this.props.range.max);
         chart.showResetZoom();
-    };
+    }
 
 }
 
 export default Graphic;
+
+function timestamp(date: string): number {
+    return new Date(date).getTime()
+}

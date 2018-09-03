@@ -156,7 +156,11 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public componentDidMount() {
-        this.unlisten = this.props.history.listen(l => this.handleUriChange(l)); // se subscribe
+        this.unlisten = this.props.history.listen(l => {  // se subscribe
+            if (QueryParams.distinctURLs(this.props.location.search, l.search)) {
+                this.handleUriChange(l)
+            }
+        });
         this.handleUriChange(this.props.location as Location);
     }
 
