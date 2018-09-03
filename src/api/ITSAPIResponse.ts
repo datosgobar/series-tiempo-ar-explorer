@@ -67,6 +67,7 @@ export interface IField {
     frequency: string;
     time_index_start: string;
     time_index_end: string;
+    time_index_size: number;
 }
 
 export interface IPublisher {

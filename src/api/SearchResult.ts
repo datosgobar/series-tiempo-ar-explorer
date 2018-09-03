@@ -70,4 +70,12 @@ export default class SearchResult implements ISerie {
     public get fieldPeriodicity() {
         return this.periodicityParser.formattedPeriodicity();
     }
+
+    public get timeIndexSize() {
+        return this.searchResult.field.time_index_size;
+    }
+
+    public get distributionTitle() {
+        return '';
+    }
 }
