@@ -21,7 +21,7 @@ export default (props: ISerieDetailsProp) =>
     <Details key={props.serie.id}>
         <DetailsTitleAndActions pegColor={props.pegColorFor && props.pegColorFor(props.serie)}>
             <DetailsTitle>
-                {props.serie.title}
+                {props.serie.title} ({props.serie.id})
             </DetailsTitle>
             {props.actions}
         </DetailsTitleAndActions>
