@@ -10,6 +10,7 @@ export interface ISerie {
     description: string;
     data: IDataPoint[];
     datasetSource: string;
+    distributionTitle: string;
     accrualPeriodicity: string;
     startDate: string;
     endDate: string;
@@ -19,6 +20,7 @@ export interface ISerie {
     modified: string,
     themes: IDataSetTheme[],
     frequency?: string,
+    timeIndexSize: number
 }
 
 export default class Serie implements ISerie {
@@ -110,6 +112,10 @@ export default class Serie implements ISerie {
         return this.distributionMeta.modified;
     }
 
+    get distributionTitle() {
+        return this.distributionMeta.title;
+    }
+
     get themes() {
         return this.datasetMeta.theme;
     }
@@ -119,12 +125,17 @@ export default class Serie implements ISerie {
         return extraMeta.frequency;
     }
 
+    get timeIndexSize(): number {
+        return this.fieldMeta.time_index_size
+    }
+
     public bake(): ISerie {
         return {
             accrualPeriodicity: this.accrualPeriodicity,
             data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
             datasetSource: this.datasetSource,
             description: this.description,
+            distributionTitle: this.distributionTitle,
             endDate: this.endDate,
             frequency: this.frequency,
             id: this.id,
@@ -134,6 +145,7 @@ export default class Serie implements ISerie {
             publisher: {...this.publisher},
             startDate: this.startDate,
             themes: [...this.themes],
+            timeIndexSize: this.timeIndexSize,
             title: this.title,
             units: this.units,
         };
