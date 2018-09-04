@@ -1,9 +1,10 @@
 import * as React from 'react';
+import {RefObject} from 'react';
 
 import IDataPoint from '../../../api/DataPoint';
-import { ISerie } from '../../../api/Serie';
-import { Color } from '../../style/Colors/Color';
-import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
+import {ISerie} from '../../../api/Serie';
+import {Color} from '../../style/Colors/Color';
+import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
 
 
 interface IGraphicProps {
@@ -33,9 +34,16 @@ ReactHighStock.Highcharts.setOptions({
 
 export class Graphic extends React.Component<IGraphicProps, any> {
 
+    private myRef: RefObject<any>;
+
+    constructor(props: IGraphicProps) {
+        super(props);
+        this.myRef = React.createRef();
+    }
+
     public render() {
         return (
-            <ReactHighStock config={this.highchartsConfig()} callback={this.afterRender} />
+            <ReactHighStock ref={this.myRef} config={this.highchartsConfig()} callback={this.afterRender} />
         );
     }
 
@@ -76,7 +84,24 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                     { text: 'YTD', type: 'ytd' },
                     { count: 1, text: '1y', type: 'year' },
                     { text: 'Todo', type: 'all' }
-                ]
+                ],
+
+                inputDateParser: (date: string): number => {
+                    const formattedDate = formattedDateString(date);
+                    const chartRef = this.myRef.current.chartRef;
+                    const inputFrom = chartRef.getElementsByClassName('highcharts-range-selector')[0];
+                    let dateOfSerie: string;
+
+                    if (inputFrom.value === formattedDate) { // editing 'from' input
+                        dateOfSerie = this.props.series[0].data[0].date;
+                    } else { // editing 'to' input
+                        const lastSerie = this.props.series[this.props.series.length - 1];
+                        dateOfSerie = lastSerie.data[lastSerie.data.length - 1].date;
+                    }
+
+                    const result = formattedDate === '' ? dateOfSerie : formattedDate;
+                    return new Date(result).getTime();
+                },
             },
 
             title: {
@@ -178,4 +203,13 @@ export default Graphic;
 
 function timestamp(date: string): number {
     return new Date(date).getTime()
+}
+
+// returns a string in format YYYY/MM/DD with the missing parts of date
+// '2010' => '2010/01/01
+// '2010-03' or '2010/03' => '2010/03/01'
+// '2010-03-01' or '2010/03/01' => '2010/03/01'
+function formattedDateString(date: string): string {
+    const parsedDate  = date.replace(/([\/\-])/g, '-');
+    return parsedDate.split('-').length === 1 ? `${parsedDate}-01` : parsedDate;
 }
