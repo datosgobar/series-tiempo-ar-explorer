@@ -44,7 +44,7 @@ export default (props: ISerieDetailsProp) =>
                     <dd>{props.serie.description}</dd>
                 </dl>
                 <dl className="dl-horizontal">
-                    <dt>Destribución</dt>
+                    <dt>Distribución</dt>
                     <dd>{props.serie.distributionTitle}</dd>
                 </dl>
                 <dl className="dl-horizontal">
