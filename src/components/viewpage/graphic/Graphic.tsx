@@ -87,20 +87,19 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 ],
 
                 inputDateParser: (date: string): number => {
-                    const formattedDate = formattedDateString(date);
                     const chartRef = this.myRef.current.chartRef;
                     const inputFrom = chartRef.getElementsByClassName('highcharts-range-selector')[0];
                     let dateOfSerie: string;
 
-                    if (inputFrom.value === formattedDate) { // editing 'from' input
+                    if (inputFrom.value === date) { // editing 'from' input
                         dateOfSerie = this.props.series[0].data[0].date;
                     } else { // editing 'to' input
                         const lastSerie = this.props.series[this.props.series.length - 1];
                         dateOfSerie = lastSerie.data[lastSerie.data.length - 1].date;
                     }
 
-                    const result = formattedDate === '' ? dateOfSerie : formattedDate;
-                    return new Date(result).getTime();
+                    const result = date === '' ? dateOfSerie : formattedDateString(date);
+                    return new Date(`${result} 00:00:00`).getTime();
                 },
             },
 
