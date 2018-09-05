@@ -7,4 +7,7 @@ setup:
 watch:
 	npm start
 
+release:
+	npm run release
+
 .PHONY: all build clean
