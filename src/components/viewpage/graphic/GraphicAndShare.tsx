@@ -30,8 +30,8 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
     public handleZoom(extremes: {min: number, max: number}) {
         if (this.props.series.length === 0) {return }
 
-        const start = emptyValue(extremes.min) ? this.firstDateOfSerie() : this.findSerieDate(extremes.min);
-        const end = emptyValue(extremes.max) ? this.lastDateOfSerie() : this.findSerieDate(extremes.max);
+        const start = this.findSerieDate(extremes.min);
+        const end = this.findSerieDate(extremes.max);
 
         this.props.handleChangeDate({ start: formattedMoment(start), end: formattedMoment(end) });
     }
@@ -65,8 +65,8 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
         return {min, max};
     }
 
-    private findSerieDate(value: number): string {
-        const serieData = this.firstSerieData().find((data) => data.date >= formattedMoment(new Date(value)));
+    private findSerieDate(timestamp: number): string {
+        const serieData = this.firstSerieData().find((data) => data.date >= formattedMoment(new Date(timestamp)));
         return serieData !== undefined ? serieData.date : '';
     }
 
@@ -74,21 +74,8 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
         return this.props.series[0].data;
     }
 
-    private firstDateOfSerie(): string {
-        return this.firstSerieData()[0].date;
-    }
-
-    private lastDateOfSerie(): string {
-        const lastSerie = this.props.series[this.props.series.length - 1];
-        return lastSerie.data[lastSerie.data.length - 1].date;
-    }
-
 }
 
-
-function emptyValue(value: any): boolean {
-    return value === '' || value === null || value === undefined
-}
 
 function formattedMoment(date: any): string {
     return moment(date).format('YYYY-MM-DD');
