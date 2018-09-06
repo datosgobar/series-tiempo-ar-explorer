@@ -66,7 +66,7 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
     }
 
     private findSerieDate(timestamp: number): string {
-        const serieData = this.firstSerieData().find((data) => data.date >= formattedMoment(new Date(timestamp)));
+        const serieData = this.firstSerieData().find((data) => data.date >= formattedMoment(localDate(timestamp)));
         return serieData !== undefined ? serieData.date : '';
     }
 
@@ -79,4 +79,8 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
 
 function formattedMoment(date: any): string {
     return moment(date).format('YYYY-MM-DD');
+}
+
+function localDate(timestamp: number): number {
+    return new Date(timestamp).setUTCHours(3);
 }

@@ -99,7 +99,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                     }
 
                     const result = date === '' ? dateOfSerie : formattedDateString(date);
-                    return new Date(`${result} 00:00:00`).getTime();
+                    return new Date(result).getTime();
                 },
             },
 
