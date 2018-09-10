@@ -268,6 +268,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         params.delete('start_date');
         params.delete('end_date');
         this.setQueryParams(params);
+        this.props.dispatch(setDate({ start: '', end: '' }));
     }
 
 }
