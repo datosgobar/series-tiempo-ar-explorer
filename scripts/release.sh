@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-rm -rf dist
 npm run build
-
 
 echo "Creating release folder structure..."
 
