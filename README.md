@@ -47,7 +47,7 @@ Crear un tag:
 
 Con el nombre del tag ya podemos acceder a los archivos que necesitemos:
 
-https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@nombreDelTag/dist/js/main.js
+<https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@nombreDelTag/dist/js/main.js>
 
 
 ## Contacto
