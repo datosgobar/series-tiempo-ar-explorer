@@ -7,31 +7,49 @@ Demo: https://datosgobar.github.io/series-tiempo-ar-explorer/#/
 ## Desarrollo
 Documentación de desarrollo [aqui](development/readme_dev.md)
 
-## Generación de github pages (deploy)
+## Staging
+
+[series-tiempo-ar-explorer-demo](https://github.com/datosgobar/series-tiempo-ar-explorer-demo)
+
+## Deploy
+
+Tenemos 2 formas de deploy: Generación de github pages y generación de release para subir al [CDN](https://www.jsdelivr.com/).
+
+#### Github pages
 
 El deploy se puede realizar de dos maneras. Ambas son iguales
 
-- `npm run build-docs` 
+- `npm run build-docs`
 - `make build`
 
-Y finalmente subir todo al branch default.
+Y finalmente subir todo al branch default:
+- `git add .`
+- `git commit -m "Deploy a github pages"`
+- `git push`
 
-## Generar build para el CDN
+#### Release para CDN
 
-Para una facil distribución de la aplicación, no alcanza con el paso anterior, ya que el distribuible final suele tener asociado un valor autogenerado, por ejemplo `main.31cd1498.js`.
+Crear un branch desde la versión que queremos salir:
+- `git checkout -b <nombre>`
 
-Para poder distribuir facilmente la aplicación usaremos como proveedor de CDN https://cdn.jsdelivr.net.
+Generar los archivos para distribuir. Tenemos dos maneras, ambas son iguales:
+- `npm run release`
+- `make release`
 
-Este proveedor sirve los archivos desde github.
-Para que sirva nuestros archivos, debemos generar un `tag` de git.
+Agregar los archivos:
+- `git add dist` (basta con agregar sólo la carpeta a distribuir)
+- `git commit -m "Actualizo carpeta dist"`
+- `git push origin <nombre del branch>`
 
-Por ejemplo, si quisieramos que sirva nuestro archivo en `docs/stable/js/main.js`, deberiamos copiar el ultimo *build* de la aplicación a ese lugar en el repositorio y luego generar un `tag`.
+Crear un tag:
+- `git tag <nombreDeTag>`
+- `git push --tags`
 
-Si generaramos el `tag` con nombre `0.1`, nuestro archivo seria accesible desde https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@0.1/docs/stable/js/main.js.
+Con el nombre del tag ya podemos acceder a los archivos que necesitemos:
+
+<https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@nombreDelTag/dist/js/main.js>
 
 
 ## Contacto
 Te invitamos a [crearnos un issue](https://github.com/datosgobar/series-tiempo-ar-explorer/issues/new?title=Encontre-un-bug-en-api-gateway)
 en caso de que encuentres algún bug o tengas comentarios de alguna parte de `series-tiempo-ar-explorer`. Para todo lo demás, podés mandarnos tu sugerencia o consulta a [datos@modernización.gob.ar](mailto:datos@modernización.gob.ar).
-
-cd
