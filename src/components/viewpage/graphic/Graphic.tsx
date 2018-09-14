@@ -32,6 +32,15 @@ ReactHighStock.Highcharts.setOptions({
     }
 });
 
+const DATE_FORMAT_BY_PERIODICITY= {
+    day:      '%Y-%m-%d',
+    month:    '%Y-%m',
+    quarter:  '%Y-%m',
+    semester: '%Y-%m',
+    year:     '%Y',
+};
+
+
 export class Graphic extends React.Component<IGraphicProps, any> {
 
     private myRef: RefObject<any>;
@@ -85,6 +94,8 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                     { count: 1, text: '1y', type: 'year' },
                     { text: 'Todo', type: 'all' }
                 ],
+
+                inputEditDateFormat: dateFormatByPeriodicity(this),
 
                 inputDateParser: (date: string): number => {
                     const chartRef = this.myRef.current.chartRef;
@@ -211,4 +222,10 @@ function timestamp(date: string): number {
 function formattedDateString(date: string): string {
     const parsedDate  = date.replace(/([\/\-])/g, '-');
     return parsedDate.split('-').length === 1 ? `${parsedDate}-01` : parsedDate;
+}
+
+function dateFormatByPeriodicity(component: Graphic) {
+    const frequency = component.props.series.length > 0 ? component.props.series[0].frequency || 'day' : 'day';
+
+    return DATE_FORMAT_BY_PERIODICITY[frequency];
 }
