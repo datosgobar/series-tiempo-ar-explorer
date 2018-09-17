@@ -3,6 +3,7 @@ import * as React from "react";
 import {ISearchResponse} from "../../../api/ITSAPIResponse";
 import SearchResult from "../../../api/SearchResult";
 import {ISearchOptions, ISerieApi} from "../../../api/SerieApi";
+import LoadingSpinner from "../LoadingSpinner";
 import InitialSearcher from "./InitialSearcher";
 import SearcherResults from "./SearcherResults";
 
@@ -26,6 +27,7 @@ interface ISearcherState {
     currentPage: number;
     result: SearchResult[];
     searched: boolean;
+    loading: boolean;
 }
 
 export default class Searcher extends React.Component<ISearcherProps, ISearcherState> {
@@ -36,6 +38,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         this.state = {
             count: 0,
             currentPage: 0,
+            loading: false,
             result: [],
             searched: false
         };
@@ -97,17 +100,21 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
                         </SearcherResults>
         }
 
+        if (this.state.loading) { component = <LoadingSpinner />; }
+
         return component;
     }
 
     private performSearch(q: string, options?: ISearchOptions) {
+        this.setState({loading: true});
         this.props.seriesApi.searchSeries(q, options)
             .then((responseResult: ISearchResponse) => {
                 this.setState({
                     count: responseResult.count,
+                    loading: false,
                     result: responseResult.result,
                     searched: true
-                });
+                })
             }).catch(alert);
     }
 

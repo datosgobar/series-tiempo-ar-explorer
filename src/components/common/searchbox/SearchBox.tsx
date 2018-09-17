@@ -4,13 +4,13 @@ const debounce = require('debounce');
 import * as React from 'react';
 
 import { ISearchResponse } from "../../../api/ITSAPIResponse";
+import SearchResult from '../../../api/SearchResult';
+import { ISerieApi } from '../../../api/SerieApi';
 import AutoComplete from '../../style/Common/AutoComplete';
 import AutoCompleteItem from '../../style/Common/AutoCompleteItem';
 import SearchIcon from '../../style/Common/SearchIcon';
 import HeroFormSearch from '../../style/Hero/HeroFormSearch';
-
-import SearchResult from '../../../api/SearchResult';
-import { ISerieApi } from '../../../api/SerieApi';
+import LoadingSpinner from "../LoadingSpinner";
 
 
 interface ISearchBoxProps {
@@ -22,19 +22,19 @@ interface ISearchBoxProps {
 }
 
 interface ISearchBoxState {
-
     searchTerm: string;
     autoCompleteItems: SearchResult[];
+    loading: boolean;
 }
 
 class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
-
 
     constructor(props: ISearchBoxProps) {
         super(props);
 
         this.state = {
             autoCompleteItems: [],
+            loading: false,
             searchTerm: this.props.searchTerm || "",
         };
 
@@ -46,7 +46,6 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 
     public componentDidUpdate(prevProps: ISearchBoxProps) {
-
         if (this.props.searchTerm && (this.props.searchTerm !== prevProps.searchTerm)) {
             this.setState({
                 searchTerm: this.props.searchTerm
@@ -59,14 +58,14 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
             this.props.seriesApi
                 .searchSeries(searchTerm, {offset: 0, limit: 10})
                 .then((response: ISearchResponse) => {
-                    this.setState({ autoCompleteItems:  response.result})
+                    this.setState({ autoCompleteItems:  response.result, loading: false })
                 });
         }
     }
 
     public onSearchTermChange(event: any) {
         const searchTerm: string = event.target.value;
-        this.setState({ searchTerm });
+        this.setState({ searchTerm, loading: true });
 
         this.updateAutoCompleteItems(searchTerm);
     }
@@ -106,9 +105,12 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 
     private renderSearch(item: SearchResult, isHighlighted: boolean) {
-        const onClick = () => this.props.onSearch(this.state.searchTerm);
-
-        return (<div id={item.id} key={item.id} onClick={onClick} className={isHighlighted ? 'highlight-item pointer' : 'pointer'}>{item.title}</div>)
+        if (this.state.searchTerm !== "" && this.state.loading) {
+            return <LoadingSpinner />
+        } else {
+            const onClick = () => this.props.onSearch(this.state.searchTerm);
+            return (<div id={item.id} key={item.id} onClick={onClick} className={isHighlighted ? 'highlight-item pointer' : 'pointer'}>{item.title}</div>)
+        }
     }
 
     private renderItemResult(item: SearchResult, isHighlighted: boolean) {
