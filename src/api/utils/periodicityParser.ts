@@ -37,4 +37,13 @@ export class PeriodicityParser {
         return moment(date).format(PERIODICITY_DATE_FORMAT[this.frequency]) || DEFAULT_FORMAT_DATE;
     }
 
+ }
+
+// returns if `higher` is higher than `newFrequency`
+export function isHigherFrequency(higher: string, newFrequency: string): boolean {
+    return (higher === 'Anual') ||
+        (higher === 'Semestral' && newFrequency !== 'Anual') ||
+        ((higher === 'Trimestral') && ((newFrequency !== 'Anual') && newFrequency !== 'Semestral')) ||
+        (higher === 'Mensual' && ((newFrequency !== 'Anual') && (newFrequency !== 'Semestral') && (newFrequency !== 'Trimestral'))) ||
+        higher !== 'Diaria'
 }
