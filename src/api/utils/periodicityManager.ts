@@ -21,7 +21,7 @@ const PERIODICITY_DATE_FORMAT = {
     'R/P6M': 'YYYY-MM',
 };
 
-export class PeriodicityParser {
+export class PeriodicityManager {
 
     private frequency: string;
 

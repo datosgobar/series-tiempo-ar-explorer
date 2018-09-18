@@ -1,6 +1,6 @@
 import DataPoint, { IDataPoint } from './DataPoint';
 import {IDataSetTheme, IExtraMeta, IPublisher, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
-import {PeriodicityParser} from "./utils/periodicityParser";
+import {PeriodicityManager} from "./utils/periodicityManager";
 
 
 export interface ISerie {
@@ -25,10 +25,10 @@ export interface ISerie {
 
 export default class Serie implements ISerie {
 
-    private periodicityParser: PeriodicityParser;
+    private periodicityParser: PeriodicityManager;
 
     constructor(private responseIndex: number, private tsResponse: ITSAPIResponse) {
-        this.periodicityParser = new PeriodicityParser(this.fieldMeta.frequency);
+        this.periodicityParser = new PeriodicityManager(this.fieldMeta.frequency);
     }
 
     private get meta(): ITSMeta {

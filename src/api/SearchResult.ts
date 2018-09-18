@@ -1,14 +1,14 @@
 import { IPublisher, ITSMeta } from "./ITSAPIResponse";
 import { ISerie } from "./Serie";
-import {PeriodicityParser} from "./utils/periodicityParser";
+import {PeriodicityManager} from "./utils/periodicityManager";
 
 
 export default class SearchResult implements ISerie {
 
-    private periodicityParser: PeriodicityParser;
+    private periodicityParser: PeriodicityManager;
 
     constructor(private searchResult: ITSMeta) {
-        this.periodicityParser = new PeriodicityParser(this.searchResult.field.frequency);
+        this.periodicityParser = new PeriodicityManager(this.searchResult.field.frequency);
     }
 
     public get id(): string {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ISerie} from "../../../api/Serie";
-import {isHigherFrequency} from "../../../api/utils/periodicityParser";
+import {isHigherFrequency} from "../../../api/utils/periodicityManager";
 import {Share} from "../Share";
 import FrequencyPicker from "./FrequencyPicker";
 
