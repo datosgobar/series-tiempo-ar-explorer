@@ -10,24 +10,67 @@ export interface IGraphicComplementsProps {
     url: string;
 }
 
+export interface IFrequencyOption {
+    value: string;
+    title: string;
+    available: boolean;
+}
+
+
 export default class GraphicComplements extends React.Component<IGraphicComplementsProps, any> {
 
     public render() {
+        if (this.props.series.length === 0) { return null }
+
         return (
             <div className="row">
                 <Share url={this.props.url} series={this.props.series} />
-                <FrequencyPicker onChangeFrequency={this.props.handleChangeFrequency} frequency={this.frequency()} />
+                <FrequencyPicker onChangeFrequency={this.props.handleChangeFrequency} frequency={this.frequency()} frequencyOptions={this.frequencyOptions()}/>
             </div>
         )
     }
 
+    // Initial selected value on select box
     public frequency(): string {
-        let frequency = 'year';
-        if (this.props.series.length > 0) {
-            frequency = this.props.series[0].frequency || 'year';
-        }
-
-        return frequency;
+        return this.props.series[0].frequency || 'year';
     }
 
+    public frequencyOptions(): IFrequencyOption[] {
+        const accrualPeriodicity = this.appropiatedFrequency();
+        // noinspection TsLint
+        const options = [
+            { value: 'year',     title: 'Anual',      available: false },
+            { value: 'semester', title: 'Semestral',  available: false },
+            { value: 'quarter',  title: 'Trimestral', available: false },
+            { value: 'month',    title: 'Mensual',    available: false },
+            { value: 'day',      title: 'Diaria',     available: false },
+        ];
+
+        const optionIndex = options.findIndex((option: IFrequencyOption) => option.title === accrualPeriodicity);
+        options.forEach((option: IFrequencyOption) => {
+            option.available = options.indexOf(option) <= optionIndex;
+        });
+
+        return options;
+    }
+
+    private appropiatedFrequency(): string {
+        let higherFrequency = this.props.series[0].accrualPeriodicity;
+        this.props.series.forEach((serie: ISerie) => {
+            if (isHigherFrequency(serie.accrualPeriodicity, higherFrequency)) {
+                higherFrequency = serie.accrualPeriodicity;
+            }
+        });
+
+        return higherFrequency;
+    }
+}
+
+// returns if `higher` is higher than `newFrequency`
+function isHigherFrequency(higher: string, newFrequency: string): boolean {
+    return (higher === 'Anual') ||
+        (higher === 'Semestral' && newFrequency !== 'Anual') ||
+        ((higher === 'Trimestral') && ((newFrequency !== 'Anual') && newFrequency !== 'Semestral')) ||
+        (higher === 'Mensual' && ((newFrequency !== 'Anual') && (newFrequency !== 'Semestral') && (newFrequency !== 'Trimestral'))) ||
+        higher !== 'Diaria'
 }

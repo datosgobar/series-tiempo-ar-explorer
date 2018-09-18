@@ -1,10 +1,12 @@
 import * as React from 'react';
 import FrequencyPickerContainer from "../../style/Graphic/FrequencyPickerContainer";
+import {IFrequencyOption} from "./GraphicComplements";
 
 
 interface IFrequencyPickerProps {
     onChangeFrequency: (value: string) => void;
     frequency: string;
+    frequencyOptions: IFrequencyOption[]
 }
 
 export default class FrequencyPicker extends React.Component<IFrequencyPickerProps, any> {
@@ -22,11 +24,9 @@ export default class FrequencyPicker extends React.Component<IFrequencyPickerPro
         return (
             <FrequencyPickerContainer labelText="Frecuencia" className="col-xs-12 col-sm-6 col-md-5">
                 <select name="frequencyList" id="" className="form-control" onChange={this.handleChangeFrequency} value={this.props.frequency}>
-                    <option value="year">Anual</option>
-                    <option value="semester">Semestral</option>
-                    <option value="quarter">Trimestral</option>
-                    <option value="month">Mensual</option>
-                    <option value="day">Diaria</option>
+                    {this.props.frequencyOptions.map((option: IFrequencyOption) =>
+                        <option key={option.value} value={option.value} disabled={!option.available}>{option.title}</option>
+                    )}
                 </select>
             </FrequencyPickerContainer>
         )
