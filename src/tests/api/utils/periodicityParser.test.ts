@@ -1,12 +1,12 @@
-import {PeriodicityParser} from "../../../api/utils/periodicityParser";
+import {PeriodicityManager} from "../../../api/utils/periodicityManager";
 
 
-describe("PeriodicityParser", () => {
-    let periodicityParser: PeriodicityParser;
+describe("PeriodicityManager", () => {
+    let periodicityParser: PeriodicityManager;
 
 
     describe("Diaria", () => {
-        beforeEach(() => { periodicityParser = new PeriodicityParser('R/P1D'); });
+        beforeEach(() => { periodicityParser = new PeriodicityManager('R/P1D'); });
 
         it("returns Diaria", () => {
             expect(periodicityParser.formattedPeriodicity()).toEqual('Diaria');
@@ -18,7 +18,7 @@ describe("PeriodicityParser", () => {
     });
 
     describe("Mensual", () => {
-        beforeEach(() => { periodicityParser = new PeriodicityParser('R/P1M'); });
+        beforeEach(() => { periodicityParser = new PeriodicityManager('R/P1M'); });
 
         it("returns Mensual", () => {
             expect(periodicityParser.formattedPeriodicity()).toEqual('Mensual');
@@ -30,7 +30,7 @@ describe("PeriodicityParser", () => {
     });
 
     describe("Anual", () => {
-        beforeEach(() => { periodicityParser = new PeriodicityParser('R/P1Y'); });
+        beforeEach(() => { periodicityParser = new PeriodicityManager('R/P1Y'); });
 
         it("returns Anual", () => {
             expect(periodicityParser.formattedPeriodicity()).toEqual('Anual');
@@ -42,7 +42,7 @@ describe("PeriodicityParser", () => {
     });
 
     describe("Trimestral", () => {
-        beforeEach(() => { periodicityParser = new PeriodicityParser('R/P3M'); });
+        beforeEach(() => { periodicityParser = new PeriodicityManager('R/P3M'); });
 
         it("returns Trimestral", () => {
             expect(periodicityParser.formattedPeriodicity()).toEqual('Trimestral');
@@ -54,7 +54,7 @@ describe("PeriodicityParser", () => {
     });
 
     describe("Semestral", () => {
-        beforeEach(() => { periodicityParser = new PeriodicityParser('R/P6M'); });
+        beforeEach(() => { periodicityParser = new PeriodicityManager('R/P6M'); });
 
         it("returns Semestral", () => {
             expect(periodicityParser.formattedPeriodicity()).toEqual('Semestral');
