@@ -62,8 +62,6 @@ module.exports = {
   entry: [
     require.resolve('./polyfills'),
     paths.appIndexJs,
-    `${paths.appPublic}/assets/css/normalize.css`,
-    `${paths.appPublic}/assets/css/main.css`,
   ],
   output: {
     // The build folder.
@@ -206,7 +204,6 @@ module.exports = {
                         importLoaders: 1,
                         minimize: true,
                         sourceMap: shouldUseSourceMap,
-                        url: false
                       },
                     },
                     {
