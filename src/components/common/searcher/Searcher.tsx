@@ -9,12 +9,11 @@ import SearcherResults from "./SearcherResults";
 
 
 export interface ISearchParams {
-
     datasetSource: string;
     datasetTheme: string;
     limit: number;
     offset: number;
-    q: string;
+    q?: string;
 }
 
 export interface ISearcherProps extends ISearchParams {
@@ -54,11 +53,6 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
     }
 
     public componentDidMount() {
-
-        if (!this.props.q) {
-            return;
-        }
-
         this.performSearch(this.props.q, this.searchOptions());
     }
 
@@ -105,9 +99,11 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         return component;
     }
 
-    private performSearch(q: string, options?: ISearchOptions) {
+    private performSearch(q?: string, options?: ISearchOptions) {
         this.setState({loading: true});
-        this.props.seriesApi.searchSeries(q, options)
+        const query = q || null;
+
+        this.props.seriesApi.searchSeries(query, options)
             .then((responseResult: ISearchResponse) => {
                 this.setState({
                     count: responseResult.count,

@@ -14,9 +14,8 @@ import LoadingSpinner from "../LoadingSpinner";
 
 
 interface ISearchBoxProps {
-
     onSelect: (serieId: string) => void;
-    onSearch: (searchTerm: string) => void;
+    onSearch: (searchTerm?: string) => void;
     searchTerm?: string;
     seriesApi: ISerieApi;
 }
@@ -35,7 +34,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         this.state = {
             autoCompleteItems: [],
             loading: false,
-            searchTerm: this.props.searchTerm || "",
+            searchTerm: this.props.searchTerm || '',
         };
 
         this.onSearchTermChange = this.onSearchTermChange.bind(this);
@@ -46,9 +45,9 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 
     public componentDidUpdate(prevProps: ISearchBoxProps) {
-        if (this.props.searchTerm && (this.props.searchTerm !== prevProps.searchTerm)) {
+        if (this.props.searchTerm !== prevProps.searchTerm) {
             this.setState({
-                searchTerm: this.props.searchTerm
+                searchTerm: this.props.searchTerm || ''
             });
         }
     }
@@ -106,7 +105,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
 
     private renderSearch(item: SearchResult, isHighlighted: boolean) {
         if (this.state.searchTerm !== "" && this.state.loading) {
-            return <div key={this.state.searchTerm}><LoadingSpinner /></div>
+            return <div key={this.state.searchTerm || 'all-values'}><LoadingSpinner /></div>
         } else {
             const onClick = () => this.props.onSearch(this.state.searchTerm);
             return (<div id={item.id} key={item.id} onClick={onClick} className={isHighlighted ? 'highlight-item pointer' : 'pointer'}>{item.title}</div>)
@@ -117,7 +116,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         const onClick = () => this.onSelect('', item);
 
         return (
-            <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} searchTerm={this.state.searchTerm} handleClick={onClick} />
+            <AutoCompleteItem key={item.id} item={item} isHighlighted={isHighlighted} searchTerm={this.state.searchTerm || ''} handleClick={onClick} />
         );
     }
 }
