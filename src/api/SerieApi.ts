@@ -96,6 +96,7 @@ export default class SerieApi implements ISerieApi {
         const dataset_source = searchOptions && searchOptions.datasetSource ? searchOptions.datasetSource : undefined;
         // tslint:disable-next-line:variable-name
         const dataset_theme = searchOptions && searchOptions.datasetTheme ? searchOptions.datasetTheme : undefined;
+        const query = q ? q : null;
 
         const options = {
             qs: {
@@ -103,7 +104,7 @@ export default class SerieApi implements ISerieApi {
                 dataset_source,
                 dataset_theme,
                 limit,
-                q,
+                q: query,
                 start,
             },
             uri: this.apiClient.endpoint('search'),
