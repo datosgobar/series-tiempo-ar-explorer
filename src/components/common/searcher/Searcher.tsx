@@ -52,10 +52,6 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         }
     }
 
-    public componentDidMount() {
-        this.performSearch(this.props.q, this.searchOptions());
-    }
-
     public componentDidUpdate(prevProps: ISearcherProps) {
         window.scrollTo(0, 0);
 
