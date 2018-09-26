@@ -9,7 +9,6 @@ import SearcherResults from "./SearcherResults";
 
 
 export interface ISearchParams {
-
     datasetSource: string;
     datasetTheme: string;
     limit: number;
@@ -53,15 +52,6 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         }
     }
 
-    public componentDidMount() {
-
-        if (!this.props.q) {
-            return;
-        }
-
-        this.performSearch(this.props.q, this.searchOptions());
-    }
-
     public componentDidUpdate(prevProps: ISearcherProps) {
         window.scrollTo(0, 0);
 
@@ -69,13 +59,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
             this.setState({ currentPage: 0 });
         }
 
-        if (this.props.q &&
-            (prevProps.q !== this.props.q ||
-                prevProps.datasetTheme !== this.props.datasetTheme ||
-                prevProps.datasetSource !== this.props.datasetSource ||
-                prevProps.offset !== this.props.offset ||
-                prevProps.limit !== this.props.limit
-            )) {
+        if (queryChanged(prevProps, this.props)) {
             this.performSearch(this.props.q, this.searchOptions());
         }
     }
@@ -132,4 +116,13 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
     private clearResults() {
         this.setState({result: []});
     }
+}
+
+
+function queryChanged(prevQuery: ISearcherProps, newQuery: ISearcherProps): boolean {
+    return prevQuery.q              !== newQuery.q ||
+            prevQuery.datasetTheme  !== newQuery.datasetTheme ||
+            prevQuery.datasetSource !== newQuery.datasetSource ||
+            prevQuery.offset        !== newQuery.offset ||
+            prevQuery.limit         !== newQuery.limit
 }
