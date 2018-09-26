@@ -13,7 +13,6 @@ configure({ adapter: new Adapter() });
 
 
 describe('SeriesPicker', () => {
-
     let mockSeriesApi: ISerieApi;
     let q: string;
     let offset: number;
@@ -24,7 +23,6 @@ describe('SeriesPicker', () => {
     let renderSearchResults: any;
 
     beforeEach(() => {
-
         mockSeriesApi = new MockApi(0);
         mockSeriesApi.searchSeries = jest.fn().mockImplementation(mockSeriesApi.searchSeries);
         mockSeriesApi.fetchSeries = jest.fn().mockImplementation(mockSeriesApi.fetchSeries);
@@ -38,22 +36,19 @@ describe('SeriesPicker', () => {
         renderSearchResults = jest.fn();
     });
 
-    it('searchs upon render', () => {
-
+    it('does not search upon render', () => {
         mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
-        expect(mockSeriesApi.searchSeries).toBeCalledWith(q, { datasetTheme, datasetSource, offset, limit });
+        expect(mockSeriesApi.searchSeries).not.toBeCalledWith(q, { datasetTheme, datasetSource, offset, limit });
     });
 
     it('do not queries api if q is falsy', () => {
-
         mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={""} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
         expect(mockSeriesApi.searchSeries).not.toBeCalled();
     });
 
     describe('search behaviour when props change', () => {
-
         let node: any;
 
         beforeEach(() => {
@@ -68,23 +63,21 @@ describe('SeriesPicker', () => {
         });
 
         it('do not search if props dont change', () => {
-
             ReactDOM.render(
                 <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
-            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
+            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(0);
         });
 
         it('searchs again if props change', () => {
-
             q = "exportaciones";
 
             ReactDOM.render(
                 <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
-            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(2);
+            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
         });
     });
 });
