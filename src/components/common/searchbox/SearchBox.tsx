@@ -105,7 +105,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
 
     private renderSearch(item: SearchResult, isHighlighted: boolean) {
         if (this.state.searchTerm !== "" && this.state.loading) {
-            return <div key={this.state.searchTerm || 'all-values'}><LoadingSpinner /></div>
+            return <div key={this.state.searchTerm}><LoadingSpinner /></div>
         } else {
             const onClick = () => this.props.onSearch(this.state.searchTerm);
             return (<div id={item.id} key={item.id} onClick={onClick} className={isHighlighted ? 'highlight-item pointer' : 'pointer'}>{item.title}</div>)
