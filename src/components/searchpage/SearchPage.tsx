@@ -176,18 +176,13 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
 
     public render() {
         return (
-
             <section id="listado">
-
                 <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} onSelect={this.redirectToViewPage} />} />
-
                 <div id="listado-list">
                     <Container>
                         <Row>
                             <div className="col-sm-4">
-
                                 <SeriesFilters selector={Selector} seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
-
                             </div>
                             <div className="col-sm-8">
                                 <div id="list" className="pd-v-lg">
@@ -196,15 +191,13 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                                         {this.searchTags()}
                                     </div>
 
-                                    <Searcher
-                                        datasetSource={this.props.datasetSource}
-                                        datasetTheme={this.props.datasetTheme}
-                                        limit={this.props.limit}
-                                        offset={this.props.offset}
-                                        q={this.props.q}
-                                        seriesApi={this.props.seriesApi}
-                                        renderSearchResults={renderSearchResults} />
-
+                                    <Searcher datasetSource={this.props.datasetSource}
+                                              datasetTheme={this.props.datasetTheme}
+                                              limit={this.props.limit}
+                                              offset={this.props.offset}
+                                              q={this.props.q}
+                                              seriesApi={this.props.seriesApi}
+                                              renderSearchResults={renderSearchResults} />
                                 </div>
                             </div>
                         </Row>
