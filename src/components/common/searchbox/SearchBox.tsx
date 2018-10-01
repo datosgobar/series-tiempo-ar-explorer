@@ -53,7 +53,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 
     public updateAutoCompleteItems(searchTerm: string) {
-        if (searchTerm.length) {
+        if (searchTerm.length > 2) {
             this.props.seriesApi
                 .searchSeries(searchTerm, {offset: 0, limit: 10})
                 .then((response: ISearchResponse) => {
@@ -104,7 +104,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     }
 
     private renderSearch(item: SearchResult, isHighlighted: boolean) {
-        if (this.state.searchTerm !== "" && this.state.loading) {
+        if (this.state.searchTerm.length > 2 && this.state.loading) {
             return <div key={this.state.searchTerm || 'all-values'}><LoadingSpinner /></div>
         } else {
             const onClick = () => this.props.onSearch(this.state.searchTerm);
