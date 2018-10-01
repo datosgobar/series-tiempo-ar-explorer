@@ -52,8 +52,12 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         }
     }
 
-    public componentDidMount() {
-        this.performSearch(this.props.q, this.searchOptions());
+    public componentDidMount() { // this is to avoid searching with the default value ("")
+        setTimeout(() => {
+            if (!this.state.searched) {
+                this.performSearch(this.props.q, this.searchOptions());
+            }
+        }, 0);
     }
 
     public componentDidUpdate(prevProps: ISearcherProps) {
