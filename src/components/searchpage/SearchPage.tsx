@@ -69,7 +69,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     public getUriSearchParams(location: Location): ISearchParams | undefined {
         const search: string = location.search; // could be '?foo=bar'
         const params: URLSearchParams = URLSearchParams(search);
-        const q: string = params.get('q') || '';
+        const q: string | undefined = params.get('q') || undefined;
         const offsetString: string | null = params.get('offset');
         const limitString: string | null = params.get('limit');
         const offset = offsetString ? parseInt(offsetString, 10) : initialState.searchParams.offset;
@@ -86,7 +86,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         });
     }
 
-    public updateUriParams(q: string, datasetSource: string, datasetTheme: string, offset: number, limit: number) {
+    public updateUriParams(q: string | null, datasetSource: string, datasetTheme: string, offset: number, limit: number) {
         const urlSearchParams = URLSearchParams();
 
         urlSearchParams.setOrDelete('q', q);
@@ -106,7 +106,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         oldSearchParams = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q, "", oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, "", oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
@@ -117,7 +117,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         oldSearchParams = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
@@ -129,7 +129,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         oldSearchParams = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, "", oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, "", oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
@@ -140,7 +140,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         oldSearchParams = this.getUriSearchParams(this.props.location)
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 

@@ -26,7 +26,7 @@ type DatasetSource = string;
 export interface ISerieApi {
 
     fetchSeries: ((params: QueryParams) => Promise<ISerie[]>);
-    searchSeries: ((q: string, searchOptions?: ISearchOptions) => Promise<ISearchResponse>);
+    searchSeries: ((q: string | null, searchOptions?: ISearchOptions) => Promise<ISearchResponse>);
     fetchSources: () => Promise<DatasetSource[]>;
     fetchThemes: () => Promise<DatasetTheme[]>;
     downloadDataURL: ((params: QueryParams) => string);

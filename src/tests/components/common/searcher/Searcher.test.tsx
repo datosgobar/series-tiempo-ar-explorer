@@ -19,7 +19,6 @@ describe('SeriesPicker', () => {
     let limit: number;
     let datasetSource: string;
     let datasetTheme: string;
-
     let renderSearchResults: any;
 
     beforeEach(() => {
@@ -36,10 +35,11 @@ describe('SeriesPicker', () => {
         renderSearchResults = jest.fn();
     });
 
-    it('does not search upon render', () => {
+    it('searches upon render', () => {
         mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
-
-        expect(mockSeriesApi.searchSeries).not.toBeCalledWith(q, { datasetTheme, datasetSource, offset, limit });
+        setTimeout(() =>
+            expect(mockSeriesApi.searchSeries).toBeCalledWith(q, { datasetTheme, datasetSource, offset, limit })
+        , 0);
     });
 
     it('do not queries api if q is falsy', () => {
@@ -67,7 +67,9 @@ describe('SeriesPicker', () => {
                 <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
-            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(0);
+            setTimeout(() =>
+                expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1)
+            , 0);
         });
 
         it('searchs again if props change', () => {
@@ -77,7 +79,9 @@ describe('SeriesPicker', () => {
                 <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
-            expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(1);
+            setTimeout(() =>
+                expect(mockSeriesApi.searchSeries).toHaveBeenCalledTimes(2)
+            , 0)
         });
     });
 });
