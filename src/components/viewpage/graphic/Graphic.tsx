@@ -70,7 +70,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             chart: {
                 height: '43%',
                 resetZoomButton: {
-                    position: { x: -350, y: 5 },
+                    position: { x: -700, y: 5 },
                     relativeTo: 'chart'
                 },
                 width: 1150,
@@ -142,11 +142,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 }
             },
 
-            yAxis: {
-                title: {
-                    text: 'Valores'
-                }
-            },
+            yAxis: generateYAxisBySeries(this.props.series),
 
             series: this.seriesValues(),
         });
@@ -164,10 +160,10 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     }
 
     public seriesValues(): IHCSeries[] {
-        return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {}));
+        return this.props.series.map((serie, index) => this.hcSerieFromISerie(serie, {}, index));
     }
 
-    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
+    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig, yAxis: number): IHCSeries {
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
         return {
             ...this.defaultHCSeriesConfig(),
@@ -175,6 +171,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             color: this.props.colorFor ? this.props.colorFor(serie).code : this.defaultHCSeriesConfig().color,
             data,
             name: serie.title,
+            yAxis
         }
 
     }
@@ -228,4 +225,15 @@ function dateFormatByPeriodicity(component: Graphic) {
     const frequency = component.props.series.length > 0 ? component.props.series[0].frequency || 'day' : 'day';
 
     return DATE_FORMAT_BY_PERIODICITY[frequency];
+}
+
+function generateYAxisBySeries(series: ISerie[]): any[] {
+    return series.map((serie, index) => {
+        return {
+            opposite: (index > 0),
+            title: {
+                text: serie.units
+            }
+        }
+    });
 }
