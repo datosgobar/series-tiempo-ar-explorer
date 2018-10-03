@@ -68,12 +68,11 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             },
 
             chart: {
-                height: '43%',
+                height: '450',
                 resetZoomButton: {
                     position: { x: -700, y: 5 },
                     relativeTo: 'chart'
                 },
-                width: 1150,
                 zoomType: 'x'
             },
 

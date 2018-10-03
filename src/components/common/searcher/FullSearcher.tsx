@@ -7,9 +7,7 @@ import Searcher, {ISearcherProps, ISearchParams} from "./Searcher";
 
 
 interface IFullSearcherProps extends ISearchParams {
-
     seriesApi: ISerieApi;
-
     renderSearchResults: (searchResults: SearchResult[]) => JSX.Element | JSX.Element[];
 }
 
@@ -24,7 +22,7 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
             limit: this.props.limit,
             offset: this.props.offset,
             q: this.props.q,
-        }
+        };
 
         this.onSearchTermPicked = this.onSearchTermPicked.bind(this);
         this.onSourcePicked = this.onSourcePicked.bind(this);

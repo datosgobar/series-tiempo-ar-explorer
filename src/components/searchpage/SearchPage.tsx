@@ -42,6 +42,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.themeRemoved = this.themeRemoved.bind(this);
         this.sourceRemoved = this.sourceRemoved.bind(this);
         this.redirectToViewPage = this.redirectToViewPage.bind(this);
+        this.searchTagPicked = this.searchTagPicked.bind(this);
     }
 
     public componentDidMount() {
@@ -53,9 +54,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     }
 
     public updateSearchParams(location: Location) {
-        let searchParams: ISearchParams | undefined;
-
-        searchParams = this.getUriSearchParams(location);
+        const searchParams: ISearchParams | undefined = this.getUriSearchParams(location);
 
         if (searchParams) {
             this.props.dispatch(setSearchParams(searchParams));
@@ -69,7 +68,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     public getUriSearchParams(location: Location): ISearchParams | undefined {
         const search: string = location.search; // could be '?foo=bar'
         const params: URLSearchParams = URLSearchParams(search);
-        const q: string = params.get('q') || '';
+        const q: string | undefined = params.get('q') || undefined;
         const offsetString: string | null = params.get('offset');
         const limitString: string | null = params.get('limit');
         const offset = offsetString ? parseInt(offsetString, 10) : initialState.searchParams.offset;
@@ -86,7 +85,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         });
     }
 
-    public updateUriParams(q: string, datasetSource: string, datasetTheme: string, offset: number, limit: number) {
+    public updateUriParams(q: string | null, datasetSource: string, datasetTheme: string, offset: number, limit: number) {
         const urlSearchParams = URLSearchParams();
 
         urlSearchParams.setOrDelete('q', q);
@@ -101,69 +100,62 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     public sourceRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
         event.stopPropagation();
 
-        let oldSearchParams: ISearchParams | undefined;
-
-        oldSearchParams = this.getUriSearchParams(this.props.location);
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q, "", oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, "", oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
     public sourcePicked(newDatasetSource: string): void {
-
-        let oldSearchParams: ISearchParams | undefined;
-
-        oldSearchParams = this.getUriSearchParams(this.props.location);
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
     public themeRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
         event.stopPropagation();
 
-        let oldSearchParams: ISearchParams | undefined;
-
-        oldSearchParams = this.getUriSearchParams(this.props.location);
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, "", oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, "", oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
     public themePicked(newTheme: string): void {
-
-        let oldSearchParams: ISearchParams | undefined;
-
-        oldSearchParams = this.getUriSearchParams(this.props.location)
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
     public searchTermPicked(newSearchTerm: string): void {
-        let oldSearchParams: ISearchParams | undefined;
-
-        oldSearchParams = this.getUriSearchParams(this.props.location);
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
             this.updateUriParams(newSearchTerm, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
+    public searchTagPicked(event: React.MouseEvent<HTMLButtonElement>): void {
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
+
+        if (oldSearchParams) {
+            this.updateUriParams("", oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
     public searchTags(): JSX.Element[] {
         let tags: JSX.Element[] = [];
-        let searchParams: ISearchParams | undefined;
+        const searchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
-        searchParams = this.getUriSearchParams(this.props.location);
-        if (!searchParams) {
-            return tags;
-        }
+        if (!searchParams) { return tags }
 
-        tags = searchParams.q ? tags.concat(<Tag key={searchParams.q}>{searchParams.q}</Tag>) : tags;
+        tags = searchParams.q ? tags.concat(<Tag key={searchParams.q} onClose={this.searchTagPicked}>{searchParams.q}</Tag>) : tags;
         tags = searchParams.datasetTheme ? tags.concat(<Tag key={searchParams.datasetTheme} onClose={this.themeRemoved}>{searchParams.datasetTheme}</Tag>) : tags;
         tags = searchParams.datasetSource ? tags.concat(<Tag key={searchParams.datasetSource} onClose={this.sourceRemoved}>{searchParams.datasetSource}</Tag>) : tags;
 
