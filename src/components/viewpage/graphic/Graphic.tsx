@@ -51,10 +51,10 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     }
 
     public render() {
-        const yAxisConf = generateYAxisBySeries(this.props.series);
+        const yAxisBySeries = generateYAxisBySeries(this.props.series);
 
         return (
-            <ReactHighStock ref={this.myRef} config={this.highchartsConfig(yAxisConf)} callback={this.afterRender} />
+            <ReactHighStock ref={this.myRef} config={this.highchartsConfig(yAxisBySeries)} callback={this.afterRender} />
         );
     }
 
@@ -63,7 +63,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         this.applyZoom(chart);
     };
 
-    public highchartsConfig(yAxisConf: any) {
+    public highchartsConfig(yAxisBySeries: any) {
         return ({
             legend: {
                 enabled: false
@@ -143,9 +143,9 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 }
             },
 
-            yAxis: Object.keys(yAxisConf),
+            yAxis: yAxisConf(yAxisBySeries),
 
-            series: this.seriesValues(yAxisConf),
+            series: this.seriesValues(yAxisBySeries),
         });
     }
 
@@ -160,11 +160,11 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         );
     }
 
-    public seriesValues(yAxisConf:any): IHCSeries[] {
-        return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {},yAxisConf));
+    public seriesValues(yAxisBySeries:any): IHCSeries[] {
+        return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {},yAxisBySeries));
     }
 
-    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig,yAxisConf:any): IHCSeries {
+    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig,yAxisBySeries:any): IHCSeries {
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
         return {
             ...this.defaultHCSeriesConfig(),
@@ -172,7 +172,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             color: this.props.colorFor ? this.props.colorFor(serie).code : this.defaultHCSeriesConfig().color,
             data,
             name: serie.title,
-            yAxis: yAxisConf[serie.id].yAxis
+            yAxis: yAxisBySeries[serie.id].yAxis
         }
 
     }
@@ -263,4 +263,33 @@ function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
 
         return result;
     }, {});
+}
+
+function yAxisConf(yAxisBySeries: {}): any[] {
+    const configs = valuesFromObject(yAxisBySeries);
+    if (configs.length === 0) { return []}
+
+    let ejeIzq: any[] = [];
+    let ejeDer: any[] = [];
+
+    configs.forEach((config: any) => {
+        config.opposite ? ejeDer.push(config) : ejeIzq.push(config);
+    });
+
+    const ejeIzqTitles = ejeIzq.map((v:any)=> v.title.text);
+    const ejeDerTitles = ejeDer.map((v:any)=> v.title.text);
+
+    ejeIzq = ejeIzq.filter((e: any, index: number) => chartTitleOnYAXis(ejeIzqTitles, index, e.title.text));
+    ejeDer = ejeDer.filter((e: any, index: number) => chartTitleOnYAXis(ejeDerTitles, index, e.title.text));
+
+    return ejeIzq.concat(ejeDer);
+}
+
+function chartTitleOnYAXis(list: any[], index: number, text: string): boolean {
+    return index === 0 || (list.indexOf(text) !== 0 && list.indexOf(text) !== -1);
+}
+
+
+export function valuesFromObject(obj: {}): any[] {
+    return Object.keys(obj).map(k => obj[k])
 }
