@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { connect } from 'react-redux';
-import { BrowserRouter, BrowserRouterProps, HashRouter } from 'react-router-dom';
-import { loadFeatured, setSeriesApi } from './actions/seriesActions';
+import {connect} from 'react-redux';
+import {BrowserRouter, BrowserRouterProps, HashRouter} from 'react-router-dom';
+import {loadFeatured, setSeriesApi} from './actions/seriesActions';
 import QueryParams from "./api/QueryParams";
-import { ISerieApi } from './api/SerieApi';
+import {ISerieApi} from './api/SerieApi';
+import LoadingSpinner from "./components/common/LoadingSpinner";
 import Wrapper from './components/style/Common/Wrapper';
 import routes from './routes';
 
@@ -21,6 +22,10 @@ class App extends React.Component<IAppProps, any> {
     constructor(props: IAppProps) {
         super(props);
         this.props.dispatch(setSeriesApi(this.props.seriesApi));
+
+        this.state = {
+            loading: true
+        };
     }
 
     public componentDidMount() {
@@ -29,10 +34,15 @@ class App extends React.Component<IAppProps, any> {
 
     public fetchFeaturedSeries() {
         const params = new QueryParams(this.props.featured);
-        this.props.seriesApi.fetchSeries(params).then(featuredSeries => this.props.dispatch(loadFeatured(featuredSeries)))
+        this.props.seriesApi.fetchSeries(params).then(featuredSeries => {
+            this.props.dispatch(loadFeatured(featuredSeries));
+            this.setState({loading: false});
+        })
     }
 
     public render(): any {
+        if(this.state.loading) { return <div className="app-loading"><LoadingSpinner /></div> }
+
         return (
             <Wrapper>
                 {this.renderRouter()}
