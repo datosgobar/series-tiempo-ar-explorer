@@ -239,7 +239,7 @@ function generateYAxisBySeries(series: ISerie[]): {} {
         const outOfScale = isOutOfScale(series[0].id, serie.id, minAndMaxValues);
 
         result[serie.id] = {
-            opposite: outOfScale,
+            opposite: series[0].id !== serie.id, // opposite = false => left side. left side is just for the original serie
             title: { text: serie.units },
             yAxis: outOfScale ? 1 : 0
         };
@@ -279,14 +279,10 @@ function yAxisConf(yAxisBySeries: {}): any[] {
     const ejeIzqTitles = ejeIzq.map((v:any)=> v.title.text);
     const ejeDerTitles = ejeDer.map((v:any)=> v.title.text);
 
-    ejeIzq = ejeIzq.filter((e: any, index: number) => chartTitleOnYAXis(ejeIzqTitles, index, e.title.text));
-    ejeDer = ejeDer.filter((e: any, index: number) => chartTitleOnYAXis(ejeDerTitles, index, e.title.text));
+    ejeIzq = ejeIzq.filter((item: any, pos: number) => ejeIzqTitles.indexOf(item.title.text) === pos);
+    ejeDer = ejeDer.filter((item: any, pos: number) => ejeDerTitles.indexOf(item.title.text) === pos);
 
     return ejeIzq.concat(ejeDer);
-}
-
-function chartTitleOnYAXis(list: any[], index: number, text: string): boolean {
-    return index === 0 || (list.indexOf(text) !== 0 && list.indexOf(text) !== -1);
 }
 
 
