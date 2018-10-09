@@ -120,9 +120,10 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                 <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} onSelect={this.redirectToViewPage} />} />
                 <div id="detalle-content">
                     <Container>
-                        <AddAndCustomizeSeriesButton />
-                        <ClearFix />
-                        <SeriesTags series={this.props.series} onTagClose={this.removeSerie} pegColorFor={this.colorFor} />
+                        <div className="row mg-t">
+                            <AddAndCustomizeSeriesButton />
+                            <SeriesTags series={this.props.series} onTagClose={this.removeSerie} pegColorFor={this.colorFor} />
+                        </div>
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
