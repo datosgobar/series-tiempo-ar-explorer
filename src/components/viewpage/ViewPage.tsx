@@ -55,6 +55,12 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         }
     }
 
+    public shouldComponentUpdate(nextProps: IViewPageProps) {
+        return this.props.series.every((serie1: ISerie) => {
+            return nextProps.series.every((serie2: ISerie) => serie1.id !== serie2.id)
+        });
+    }
+
     public viewSeries(ids: string[]) {
         const params = this.getQueryParams();
         params.set('ids', ids.join(','));

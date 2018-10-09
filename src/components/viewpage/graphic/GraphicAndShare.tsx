@@ -57,7 +57,7 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
 
         const minDataIndex = this.firstSerieData().findIndex((data) => data.date >= this.props.date.start);
         let maxDataIndex = this.firstSerieData().findIndex((data) => data.date >= this.props.date.end);
-        if (maxDataIndex === 0) { maxDataIndex = this.firstSerieData().length - 1}
+        if (maxDataIndex <= 0) { maxDataIndex = this.firstSerieData().length - 1}
 
         const min = new Date(this.firstSerieData()[minDataIndex].date).getTime();
         const max = new Date(this.firstSerieData()[maxDataIndex].date).getTime();
