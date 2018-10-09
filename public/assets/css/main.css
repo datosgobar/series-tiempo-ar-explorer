@@ -1,3 +1,7 @@
+.app-loading {
+  margin-top: 25%;
+}
+
 .loading-spinner {
   background-color: transparent;
   display: inline-block;
