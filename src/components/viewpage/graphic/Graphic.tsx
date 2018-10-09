@@ -51,8 +51,10 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     }
 
     public render() {
+        const yAxisBySeries = generateYAxisBySeries(this.props.series);
+
         return (
-            <ReactHighStock ref={this.myRef} config={this.highchartsConfig()} callback={this.afterRender} />
+            <ReactHighStock ref={this.myRef} config={this.highchartsConfig(yAxisBySeries)} callback={this.afterRender} />
         );
     }
 
@@ -61,7 +63,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         this.applyZoom(chart);
     };
 
-    public highchartsConfig() {
+    public highchartsConfig(yAxisBySeries: any) {
         return ({
             legend: {
                 enabled: false
@@ -69,10 +71,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
             chart: {
                 height: '450',
-                resetZoomButton: {
-                    position: { x: -700, y: 5 },
-                    relativeTo: 'chart'
-                },
                 zoomType: 'x'
             },
 
@@ -141,9 +139,9 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 }
             },
 
-            yAxis: generateYAxisBySeries(this.props.series),
+            yAxis: yAxisConf(yAxisBySeries),
 
-            series: this.seriesValues(),
+            series: this.seriesValues(yAxisBySeries),
         });
     }
 
@@ -158,11 +156,11 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         );
     }
 
-    public seriesValues(): IHCSeries[] {
-        return this.props.series.map((serie, index) => this.hcSerieFromISerie(serie, {}, index));
+    public seriesValues(yAxisBySeries:any): IHCSeries[] {
+        return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {},yAxisBySeries));
     }
 
-    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig, yAxis: number): IHCSeries {
+    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig,yAxisBySeries:any): IHCSeries {
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
         return {
             ...this.defaultHCSeriesConfig(),
@@ -170,7 +168,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             color: this.props.colorFor ? this.props.colorFor(serie).code : this.defaultHCSeriesConfig().color,
             data,
             name: serie.title,
-            yAxis
+            yAxis: yAxisBySeries[serie.id].yAxis
         }
 
     }
@@ -226,13 +224,64 @@ function dateFormatByPeriodicity(component: Graphic) {
     return DATE_FORMAT_BY_PERIODICITY[frequency];
 }
 
-function generateYAxisBySeries(series: ISerie[]): any[] {
-    return series.map((serie, index) => {
-        return {
-            opposite: (index > 0),
-            title: {
-                text: serie.units
-            }
+function generateYAxisBySeries(series: ISerie[]): {} {
+    const minAndMaxValues = series.reduce((result: any, serie: ISerie) => {
+        result[serie.id] = smartMinAndMaxFinder(serie.data);
+
+        return result;
+    }, {});
+
+    return series.reduce((result: any, serie: ISerie) => {
+        const outOfScale = isOutOfScale(series[0].id, serie.id, minAndMaxValues);
+
+        result[serie.id] = {
+            opposite: series[0].id !== serie.id, // opposite = false => left side. left side is just for the original serie
+            title: { text: serie.units },
+            yAxis: outOfScale ? 1 : 0
+        };
+
+        return result;
+    }, {});
+}
+
+function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues: {}): boolean {
+    return minAndMaxValues[originalSerieId].min > minAndMaxValues[serieId].max ||
+           minAndMaxValues[originalSerieId].max < minAndMaxValues[serieId].min;
+}
+
+// returns the min and max values of the passed list in just one iteration, even if some of them is null or undefined
+function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
+    return data.reduce((result: any, e: IDataPoint) => {
+        if (e.value !== null && e.value !== undefined) {
+            result.min = result.min < e.value ? result.min : e.value;
+            result.max = result.max > e.value ? result.max : e.value;
         }
+
+        return result;
+    }, {});
+}
+
+function yAxisConf(yAxisBySeries: {}): any[] {
+    const configs = valuesFromObject(yAxisBySeries);
+    if (configs.length === 0) { return []}
+
+    let leftAxis: any[] = [];
+    let rightAxis: any[] = [];
+
+    configs.forEach((config: any) => {
+        config.opposite ? rightAxis.push(config) : leftAxis.push(config);
     });
+
+    const leftAxisTitles = leftAxis.map((v:any)=> v.title.text);
+    const rightAxisTitles = rightAxis.map((v:any)=> v.title.text);
+
+    leftAxis = leftAxis.filter((item: any, pos: number) => leftAxisTitles.indexOf(item.title.text) === pos);
+    rightAxis = rightAxis.filter((item: any, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
+
+    return leftAxis.concat(rightAxis);
+}
+
+
+export function valuesFromObject(obj: {}): any[] {
+    return Object.keys(obj).map(k => obj[k])
 }
