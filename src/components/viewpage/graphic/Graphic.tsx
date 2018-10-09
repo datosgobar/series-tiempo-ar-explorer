@@ -265,20 +265,20 @@ function yAxisConf(yAxisBySeries: {}): any[] {
     const configs = valuesFromObject(yAxisBySeries);
     if (configs.length === 0) { return []}
 
-    let ejeIzq: any[] = [];
-    let ejeDer: any[] = [];
+    let leftAxis: any[] = [];
+    let rightAxis: any[] = [];
 
     configs.forEach((config: any) => {
-        config.opposite ? ejeDer.push(config) : ejeIzq.push(config);
+        config.opposite ? rightAxis.push(config) : leftAxis.push(config);
     });
 
-    const ejeIzqTitles = ejeIzq.map((v:any)=> v.title.text);
-    const ejeDerTitles = ejeDer.map((v:any)=> v.title.text);
+    const leftAxisTitles = leftAxis.map((v:any)=> v.title.text);
+    const rightAxisTitles = rightAxis.map((v:any)=> v.title.text);
 
-    ejeIzq = ejeIzq.filter((item: any, pos: number) => ejeIzqTitles.indexOf(item.title.text) === pos);
-    ejeDer = ejeDer.filter((item: any, pos: number) => ejeDerTitles.indexOf(item.title.text) === pos);
+    leftAxis = leftAxis.filter((item: any, pos: number) => leftAxisTitles.indexOf(item.title.text) === pos);
+    rightAxis = rightAxis.filter((item: any, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
 
-    return ejeIzq.concat(ejeDer);
+    return leftAxis.concat(rightAxis);
 }
 
 
