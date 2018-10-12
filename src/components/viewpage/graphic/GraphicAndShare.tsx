@@ -55,8 +55,9 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
     public chartExtremes(): {min: number, max: number} {
         if (this.props.series.length === 0) {return {min: 0, max: 0}}
 
-        const minDataIndex = this.firstSerieData().findIndex((data) => data.date >= this.props.date.start);
+        let minDataIndex = this.firstSerieData().findIndex((data) => data.date >= this.props.date.start);
         let maxDataIndex = this.firstSerieData().findIndex((data) => data.date >= this.props.date.end);
+        if (minDataIndex <= 0) { minDataIndex = 0 }
         if (maxDataIndex <= 0) { maxDataIndex = this.firstSerieData().length - 1}
 
         const min = new Date(this.firstSerieData()[minDataIndex].date).getTime();
