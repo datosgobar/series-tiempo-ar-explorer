@@ -123,11 +123,10 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
                         const zoomBtnClicked = e.min === undefined && e.max === undefined && e.trigger === 'zoom';
                         const viewAllClicked = e.trigger === 'rangeSelectorButton' && e.rangeSelectorButton.type === 'all';
-                        const rangeSelected = e.rangeSelectorButton === undefined;
 
                         if((zoomBtnClicked || viewAllClicked) && this.props.onReset) {
                             this.props.onReset();
-                        } else if (rangeSelected && this.props.onZoom) {
+                        } else if (this.props.onZoom) {
                             const defaultMin = e.min === 0 || e.min === this.props.range.min;
                             const defaultMax = e.max === 0 || e.max === this.props.range.max;
                             if (e.min === e.max || defaultMin && defaultMax) { return }
