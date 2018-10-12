@@ -88,7 +88,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     }
 
     public removeSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
-        const ids = getIDs(this.props.location as Location).filter((val) => val !== serieId);
+        const ids = getIDs(this.props.location as Location).filter((val) => serieIdSanitizer(val) !== serieId);
         if (ids.length) {
             this.viewSeries(ids);
         }
@@ -313,5 +313,8 @@ function removeDuplicates(arr: any[]) {
     return Array.from(new Set(arr));
 }
 
+function serieIdSanitizer(serieId: string): string {
+    return serieId.split(':')[0];
+}
 
 export default withRouter(connect(mapStateToProps)(ViewPage as any));
