@@ -234,7 +234,7 @@ function generateYAxisBySeries(series: ISerie[]): {} {
         const outOfScale = isOutOfScale(series[0].id, serie.id, minAndMaxValues);
 
         result[serie.id] = {
-            opposite: series[0].id !== serie.id, // opposite = false => left side. left side is just for the original serie
+            opposite: outOfScale,
             title: { text: serie.units },
             yAxis: outOfScale ? 1 : 0
         };
