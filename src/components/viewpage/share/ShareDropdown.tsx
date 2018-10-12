@@ -22,10 +22,21 @@ function webShareURL(url: string): string {
 
 
 function csvShareURL(url: string): string {
-    return `${url}&format=csv`;
+    const urlSearchParams = new URLSearchParams(url);
+    urlSearchParams.delete('metadata');
+    urlSearchParams.delete('start');
+
+    return `${urlToString(urlSearchParams.toString())}&format=csv`;
 }
 
 
 function jsonShareURL(url: string): string {
     return `${url}&format=json`;
+}
+
+function urlToString(url: string): string {
+    return url.replace(new RegExp('%2C', 'g'), ',')
+              .replace(new RegExp('%3A', 'g'), ':')
+              .replace(new RegExp('%2F', 'g'), '/')
+              .replace(new RegExp('%3F', 'g'), '?');
 }
