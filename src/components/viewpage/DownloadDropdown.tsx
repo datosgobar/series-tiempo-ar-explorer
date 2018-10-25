@@ -4,7 +4,7 @@ import * as React from 'react';
 export default (props: React.Props<any>) =>
 
     <div className="dropdown mg-lg-b pull-right">
-        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">DESCARGAR <i className="far fa-angle-down" /></button>
+        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">DESCARGAR <i className="fas fa-angle-down" /></button>
         <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a href="#">.CSV</a></li>
             <li><a href="#">.JSON</a></li>
