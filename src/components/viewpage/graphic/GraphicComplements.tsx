@@ -33,7 +33,15 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
 
     // Initial selected value on select box
     public frequency(): string {
-        return this.props.series[0].frequency || 'year';
+        const validOptions = this.frequencyOptions().filter((e: any) => e.available);
+        let minIndex = 99;
+        this.props.series.forEach((serie: ISerie) => {
+            const index = validOptions.findIndex((option: any) => option.available && option.value === (serie.frequency || 'year'));
+            minIndex = Math.min(minIndex, index);
+            minIndex = Math.max(0, minIndex); // because findIndex could return -1
+        });
+
+        return validOptions[minIndex].value;
     }
 
     public frequencyOptions(): IFrequencyOption[] {

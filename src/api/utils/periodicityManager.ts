@@ -44,6 +44,5 @@ export function isHigherFrequency(higher: string, newFrequency: string): boolean
     return (higher === 'Anual') ||
         (higher === 'Semestral' && newFrequency !== 'Anual') ||
         ((higher === 'Trimestral') && ((newFrequency !== 'Anual') && newFrequency !== 'Semestral')) ||
-        (higher === 'Mensual' && ((newFrequency !== 'Anual') && (newFrequency !== 'Semestral') && (newFrequency !== 'Trimestral'))) ||
-        higher !== 'Diaria'
+        (higher === 'Mensual' && ((newFrequency !== 'Anual') && (newFrequency !== 'Semestral') && (newFrequency !== 'Trimestral')))
 }
