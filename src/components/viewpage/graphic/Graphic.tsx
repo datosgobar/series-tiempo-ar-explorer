@@ -3,6 +3,7 @@ import {RefObject} from 'react';
 
 import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
+import SerieConfig from "../../../api/SerieConfig";
 import {Color} from '../../style/Colors/Color';
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
 
@@ -13,6 +14,8 @@ interface IGraphicProps {
     range: {min: number, max: number};
     onReset?: () => void;
     onZoom?: ({}) => void;
+    seriesConfig: SerieConfig[];
+    formatUnits?:boolean;
 }
 
 ReactHighStock.Highcharts.setOptions({
@@ -51,7 +54,8 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     }
 
     public render() {
-        const yAxisBySeries = generateYAxisBySeries(this.props.series);
+        const formatUnits = this.props.formatUnits || false;
+        const yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, formatUnits);
 
         return (
             <ReactHighStock ref={this.myRef} config={this.highchartsConfig(yAxisBySeries)} callback={this.afterRender} />
@@ -223,7 +227,7 @@ function dateFormatByPeriodicity(component: Graphic) {
     return DATE_FORMAT_BY_PERIODICITY[frequency];
 }
 
-function generateYAxisBySeries(series: ISerie[]): {} {
+function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], formatUnits: boolean): {} {
     const minAndMaxValues = series.reduce((result: any, serie: ISerie) => {
         result[serie.id] = smartMinAndMaxFinder(serie.data);
 
@@ -239,8 +243,22 @@ function generateYAxisBySeries(series: ISerie[]): {} {
             yAxis: outOfScale ? 1 : 0
         };
 
+        const formatUnitsBySerie = serie.data.some((e: IDataPoint) => e.value > 0.0001 && e.value < 1);
+        const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
+
+        if (mustFormatUnits(formatUnits, formatUnitsBySerie, serieConfig)) {
+            result[serie.id].labels = { format: "{value}%" };
+        }
+
         return result;
     }, {});
+}
+
+function mustFormatUnits(formatUnits: boolean, formatUnitsBySerie: boolean, serieConfig?: SerieConfig):boolean {
+    const percentChange: boolean = serieConfig !== undefined && serieConfig.getPercentChange();
+    const percentChangeAYearAgo: boolean = serieConfig  !== undefined && serieConfig.getPercentChangeAYearAgo();
+
+    return formatUnits && (formatUnitsBySerie || percentChange || percentChangeAYearAgo);
 }
 
 function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues: {}): boolean {
@@ -251,7 +269,7 @@ function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues:
 // returns the min and max values of the passed list in just one iteration, even if some of them is null or undefined
 function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
     return data.reduce((result: any, e: IDataPoint) => {
-        if (e.value !== null && e.value !== undefined) {
+        if (e.value !== undefined) {
             result.min = result.min < e.value ? result.min : e.value;
             result.max = result.max > e.value ? result.max : e.value;
         }

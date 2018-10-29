@@ -9,11 +9,13 @@ export interface IStore {
     viewSeries: ISerie[],
     seriesApi: ISerieApi | null,
     searchParams: ISearchParams,
+    formatChartUnits: boolean
 }
 
 const initialState: IStore = {
     date: { start: '', end: '' },
     featured: [],
+    formatChartUnits: true,
     searchParams: {
         datasetSource: "",
         datasetTheme: "",
