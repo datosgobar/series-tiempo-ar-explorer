@@ -4,6 +4,7 @@ import {RefObject} from 'react';
 import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
+import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
 import {Color} from '../../style/Colors/Color';
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
 
@@ -269,9 +270,9 @@ function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues:
 // returns the min and max values of the passed list in just one iteration, even if some of them is null or undefined
 function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
     return data.reduce((result: any, e: IDataPoint) => {
-        if (e.value !== undefined) {
-            result.min = result.min < e.value ? result.min : e.value;
-            result.max = result.max > e.value ? result.max : e.value;
+        if (valueExist(e.value)) {
+            result.min = minNotNull(result.min, e.value);
+            result.max = maxNotNull(result.min, e.value);
         }
 
         return result;
@@ -296,9 +297,4 @@ function yAxisConf(yAxisBySeries: {}): any[] {
     rightAxis = rightAxis.filter((item: any, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
 
     return leftAxis.concat(rightAxis);
-}
-
-
-export function valuesFromObject(obj: {}): any[] {
-    return Object.keys(obj).map(k => obj[k])
 }
