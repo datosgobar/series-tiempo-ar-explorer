@@ -5,6 +5,7 @@ import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
 import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
+import {formattedDateString, timestamp} from "../../../helpers/dateFunctions";
 import {Color} from '../../style/Colors/Color';
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
 
@@ -208,19 +209,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 }
 
 export default Graphic;
-
-function timestamp(date: string): number {
-    return new Date(date).getTime()
-}
-
-// returns a string in format YYYY/MM/DD with the missing parts of date
-// '2010' => '2010/01/01
-// '2010-03' or '2010/03' => '2010/03/01'
-// '2010-03-01' or '2010/03/01' => '2010/03/01'
-function formattedDateString(date: string): string {
-    const parsedDate  = date.replace(/([\/\-])/g, '-');
-    return parsedDate.split('-').length === 1 ? `${parsedDate}-01` : parsedDate;
-}
 
 function dateFormatByPeriodicity(component: Graphic) {
     const frequency = component.props.series.length > 0 ? component.props.series[0].frequency || 'day' : 'day';

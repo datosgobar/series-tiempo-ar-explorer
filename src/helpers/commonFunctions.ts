@@ -13,3 +13,7 @@ export function maxNotNull(value1: any, value2: any): any {
 export function valueExist(value: any) {
     return value !== '' && value !== undefined && value !== null;
 }
+
+export function removeDuplicates(arr: any[]) {
+    return Array.from(new Set(arr));
+}

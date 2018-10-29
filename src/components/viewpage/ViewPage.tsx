@@ -17,6 +17,7 @@ import QueryParams from "../../api/QueryParams";
 import {ISerie} from '../../api/Serie';
 import {ISerieApi} from '../../api/SerieApi';
 import SerieConfig from '../../api/SerieConfig';
+import {removeDuplicates} from "../../helpers/commonFunctions";
 import SearchBox from '../common/searchbox/SearchBox'
 import DetallePanel from './DetallePanel';
 import GraphicAndShare from "./graphic/GraphicAndShare";
@@ -323,10 +324,6 @@ function getDateFromUrl(location: Location): IDateRange {
 
 function getParamsFromUrl(location: Location): URLSearchParams {
     return new URLSearchParams(location.search);
-}
-
-function removeDuplicates(arr: any[]) {
-    return Array.from(new Set(arr));
 }
 
 function serieIdSanitizer(serieId: string): string {

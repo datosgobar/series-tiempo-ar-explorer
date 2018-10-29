@@ -1,4 +1,4 @@
-import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
+import {maxNotNull, minNotNull, removeDuplicates, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
 
 
 describe("QueryParams", () => {
@@ -23,4 +23,9 @@ describe("QueryParams", () => {
         expect(valueExist(undefined)).toEqual(false);
         expect(valueExist("")).toEqual(false);
     });
+
+    it("returns [1,2,3,4]", () => {
+        expect(removeDuplicates([1,2,1,3,3,4])).toEqual([1,2,3,4]);
+    });
+
 });
