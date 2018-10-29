@@ -9,6 +9,7 @@ export interface IStore {
     viewSeries: ISerie[],
     seriesApi: ISerieApi | null,
     searchParams: ISearchParams,
+    tagNames: string[]
 }
 
 const initialState: IStore = {
@@ -22,6 +23,7 @@ const initialState: IStore = {
         q: "",
     },
     seriesApi: null,
+    tagNames: [''],
     viewSeries: [],
 };
 

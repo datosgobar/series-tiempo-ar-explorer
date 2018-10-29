@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {RefObject} from 'react';
 
+import {setTagNames} from "../../../actions/seriesActions";
 import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
 import {Color} from '../../style/Colors/Color';
@@ -13,6 +14,7 @@ interface IGraphicProps {
     range: {min: number, max: number};
     onReset?: () => void;
     onZoom?: ({}) => void;
+    readonly dispatch?: (action: object) => void;
 }
 
 ReactHighStock.Highcharts.setOptions({
@@ -52,10 +54,31 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public render() {
         const yAxisBySeries = generateYAxisBySeries(this.props.series);
+        this.notifyChangeSeriesNames(yAxisBySeries);
 
         return (
             <ReactHighStock ref={this.myRef} config={this.highchartsConfig(yAxisBySeries)} callback={this.afterRender} />
         );
+    }
+
+    public notifyChangeSeriesNames(yAXisBySeries: {}) {
+        if (this.props.dispatch) {
+            const foo = Object.keys(yAXisBySeries).map((serieId: string) => ({
+                id: serieId,
+                opposite: yAXisBySeries[serieId].opposite
+            }));
+            if (foo.some((e: any) => e.opposite)) {
+                const result: string[] = [];
+
+                foo.forEach((e: any) => {
+                    const serie: ISerie | undefined = this.props.series.find((s: ISerie) => s.id === e.id);
+                    const title = serie ? serie.title : '';
+                    result.push(e.opposite ? `${title} (der)` : `${title} (izq)`);
+                });
+
+                this.props.dispatch(setTagNames(result))
+            }
+        }
     }
 
     public afterRender = (chart: any) => {

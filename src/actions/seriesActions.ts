@@ -32,6 +32,14 @@ export interface ISerieApiAction extends Action<string> {
     seriesApi: ISerieApi;
 }
 
+export interface ITagNamesAction extends Action<string> {
+    tagNames: string[];
+}
+
 export function setSeriesApi(seriesApi: ISerieApi): ISerieApiAction {
     return { type: actionTypes.SET_SERIES_API, seriesApi };
+}
+
+export function setTagNames(tagNames: string[]): ITagNamesAction {
+    return { type: actionTypes.SET_TAG_NAMES, tagNames };
 }

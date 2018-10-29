@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { Color, NaC } from '../style/Colors/Color';
+import {connect} from "react-redux";
+import {ISerie} from '../../api/Serie';
+import {Color, NaC} from '../style/Colors/Color';
 import Tag from '../style/Tag/Tag';
 import TagContainer from '../style/Tag/TagContainer';
-
-import { ISerie } from '../../api/Serie';
+import {valuesFromObject} from "./graphic/Graphic";
 
 
 interface ISeriesTagsProps extends React.Props<any> {
@@ -12,19 +13,38 @@ interface ISeriesTagsProps extends React.Props<any> {
     series: ISerie[];
     onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void;
     pegColorFor?: (serie: ISerie) => Color;
+    tagNames: string[];
 }
 
-export default (props: ISeriesTagsProps) =>
+class SeriesTags extends React.Component<ISeriesTagsProps, any> {
+    public constructor(props: ISeriesTagsProps) {
+        super(props)
+    }
 
-    <div className="col-xs-8 col-sm-10">
-        <TagContainer>
-            {props.series.map(serie =>
-                <Tag key={serie.id} pegColor={props.pegColorFor ? props.pegColorFor(serie) : NaC} onClose={getOnCloseFor(props.series, serie.id, props.onTagClose)}>
-                    {serie.title}
-                </Tag>
-            )}
-        </TagContainer>
-    </div>
+    public render() {
+        return (
+            <div className="col-xs-8 col-sm-10">
+                <TagContainer>
+                    {valuesFromObject(this.props.tagNames).map((tagName:string, index:number) =>
+                        <Tag key={index}
+                             pegColor={NaC}
+                             onClose={getOnCloseFor(this.props.series, tagName, this.props.onTagClose)}>
+                            {tagName}
+                        </Tag>
+                    )}
+                </TagContainer>
+            </div>
+        )
+    }
+}
+
+function mapStateToProps(state: any, ownProps: any) {
+    return {
+        tagNames: state.tagNames,
+    };
+}
+
+export default connect(mapStateToProps)(SeriesTags as any);
 
 
 function closeHandler(serieId: string, onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void): React.MouseEventHandler<HTMLButtonElement> {

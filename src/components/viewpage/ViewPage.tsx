@@ -133,7 +133,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                                          handleChangeDate={this.handleChangeDate}
                                          handleChangeFrequency={this.handleChangeFrequency}
                                          onReset={this.removeDateParams}
-                                         url={this.downloadDataURL()} />
+                                         url={this.downloadDataURL()}
+                                         dispatch={this.props.dispatch} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
                     <DetallePanel seriesPicker={ <SeriesPicker {...this.seriesPickerProps()} /> } />

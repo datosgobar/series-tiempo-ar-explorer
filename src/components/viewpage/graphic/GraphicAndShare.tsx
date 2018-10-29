@@ -17,6 +17,7 @@ export interface IGraphicAndShareProps {
     handleChangeFrequency: (value: string) => void;
     url: string;
     onReset?: () => void;
+    readonly dispatch: (action: object) => void;
 }
 
 export default class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
@@ -43,7 +44,8 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
                          colorFor={this.props.colorFor}
                          range={this.chartExtremes()}
                          onReset={this.props.onReset}
-                         onZoom={this.handleZoom} />
+                         onZoom={this.handleZoom}
+                         dispatch={this.props.dispatch} />
 
                 <GraphicComplements url={this.props.url}
                                     series={this.props.series}
