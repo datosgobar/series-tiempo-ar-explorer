@@ -1,4 +1,4 @@
-import { ApiClient } from './ApiClient';
+import {ApiClient, IApiClientOpt} from './ApiClient';
 import {ISearchResponse, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
 import QueryParams from "./QueryParams";
 import ResponseResult from "./ResponseResult";
@@ -63,8 +63,7 @@ export default class SerieApi implements ISerieApi {
 
         Object.assign(options.qs, params.asQuery());
 
-        return this.apiClient.getAll(options, [])
-            .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
+        return this.performGetWithRetry(options, ids);
     }
 
     public downloadDataURL(params: QueryParams, metadata: string = METADATA.FULL): string {
@@ -130,6 +129,24 @@ export default class SerieApi implements ISerieApi {
 
         return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
     }
+
+    private performGet(options: IApiClientOpt, ids: string): Promise<Serie[]> {
+        return this.apiClient
+                   .getAll(options, [])
+                   .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
+    }
+
+    private performGetWithRetry(options: IApiClientOpt, ids: string): Promise<Serie[]> {
+        return this.performGet(options, ids)
+                   .catch((error: any) => {
+                       const failedIds: string[] = error.response.data.errors.failed_series;
+                       const successIds = ids.split(',').filter((id: string) => failedIds.indexOf(id) !== -1);
+
+                       return this.apiClient.getAll(options, [])
+                           .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(successIds, tsResponse));
+                   });
+    }
+
 }
 
 function tsResponseToSeries(ids: string[], tsResponse: ITSAPIResponse): Serie[] {
@@ -144,7 +161,6 @@ function tsResponseToSearchResult(tsResponse: ITSAPIResponse): ISearchResponse {
 }
 
 function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {
-
     const data = apiResponse.data.map((searchResult: ITSMeta) => ({
         ...searchResult,
         dataset: {
@@ -160,7 +176,6 @@ function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {
             ...searchResult.field,
         },
     }));
-
 
     return { ...apiResponse, data };
 }
