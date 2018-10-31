@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-import { Color } from '../../style/Colors/Color';
+import {Color} from '../../style/Colors/Color';
 import RemoveAction from '../../style/Details/RemoveAction';
 import SerieDetails from '../../style/Details/SerieDetails';
 
-import { ISerie } from '../../../api/Serie';
+import {ISerie} from '../../../api/Serie';
 
 
 interface IMetaDataProps {
     series: ISerie[];
     onRemove: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void;
-    pegColorFor?: (serie: ISerie) => Color;
+    pegColorFor?: (serieId: string) => Color;
 }
 
 export class MetaData extends React.Component<IMetaDataProps, any> {

@@ -122,7 +122,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                     <Container>
                         <div className="row mg-t">
                             <AddAndCustomizeSeriesButton />
-                            <SeriesTags series={this.props.series} onTagClose={this.removeSerie} pegColorFor={this.colorFor} />
+                            <SeriesTags onTagClose={this.removeSerie} pegColorFor={this.colorFor} />
                         </div>
                         <div className="col-sm-6">
                             <ClearFix />
@@ -156,9 +156,9 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return this.props.series.map(serie => serie.id).indexOf(serieId) >= 0;
     }
 
-    public colorFor(serie: ISerie): Color {
+    public colorFor(serieId: string): Color {
         const colors = (Object as any).values(Colors);
-        const index = this.props.series.findIndex(viewSerie => viewSerie.id === serie.id) % colors.length;
+        const index = this.props.series.findIndex(viewSerie => viewSerie.id === serieId) % colors.length;
 
         return colors[index];
     }

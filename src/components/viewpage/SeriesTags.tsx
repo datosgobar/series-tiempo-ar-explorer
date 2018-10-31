@@ -1,61 +1,46 @@
 import * as React from 'react';
 
 import {connect} from "react-redux";
-import {ISerie} from '../../api/Serie';
 import {Color, NaC} from '../style/Colors/Color';
 import Tag from '../style/Tag/Tag';
-import TagContainer from '../style/Tag/TagContainer';
-import {valuesFromObject} from "./graphic/Graphic";
 
 
-interface ISeriesTagsProps extends React.Props<any> {
-
-    series: ISerie[];
-    onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void;
-    pegColorFor?: (serie: ISerie) => Color;
-    tagNames: string[];
+export interface ISerieTag {
+    id: string;
+    title: string;
 }
 
-class SeriesTags extends React.Component<ISeriesTagsProps, any> {
-    public constructor(props: ISeriesTagsProps) {
-        super(props)
-    }
+interface ISeriesTagsProps extends React.Props<any> {
+    onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void;
+    pegColorFor?: (serieId: string) => Color;
+    serieTags: ISerieTag[];
+}
 
-    public render() {
-        return (
-            <div className="col-xs-8 col-sm-10">
-                <TagContainer>
-                    {valuesFromObject(this.props.tagNames).map((tagName:string, index:number) =>
-                        <Tag key={index}
-                             pegColor={NaC}
-                             onClose={getOnCloseFor(this.props.series, tagName, this.props.onTagClose)}>
-                            {tagName}
-                        </Tag>
-                    )}
-                </TagContainer>
-            </div>
-        )
-    }
+function seriesTags(props: ISeriesTagsProps, state: any) {
+    return (
+        <span>
+            {props.serieTags.map((serieTag: ISerieTag, index: number) =>
+                <Tag key={index} pegColor={props.pegColorFor ? props.pegColorFor(serieTag.id) : NaC} onClose={getOnCloseFor(props.serieTags, serieTag.id, props.onTagClose)}>
+                    {serieTag.title}
+                </Tag>
+            )}
+        </span>
+    )
 }
 
 function mapStateToProps(state: any, ownProps: any) {
     return {
-        tagNames: state.tagNames,
+        serieTags: state.serieTags,
     };
 }
 
-export default connect(mapStateToProps)(SeriesTags as any);
-
-
-function closeHandler(serieId: string, onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void): React.MouseEventHandler<HTMLButtonElement> {
-    return (event: React.MouseEvent<HTMLButtonElement>) => onTagClose(event, serieId)
-}
-
-function getOnCloseFor(series: ISerie[], serieId: string, onTanClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void) {
+function getOnCloseFor(serieTags: ISerieTag[], serieId: string, onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void) {
     let fn;
-    if (series.length > 1) {
-        fn = closeHandler(serieId, onTanClose);
+    if (serieTags.length > 1) { // this is to prevent show a 'close btn' with just one serie tag
+        fn = (event: React.MouseEvent<HTMLButtonElement>) => onTagClose(event, serieId)
     }
 
     return fn;
 }
+
+export default connect(mapStateToProps)(seriesTags);

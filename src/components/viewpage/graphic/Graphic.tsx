@@ -1,16 +1,17 @@
 import * as React from 'react';
 import {RefObject} from 'react';
 
-import {setTagNames} from "../../../actions/seriesActions";
+import {setSerieTags} from "../../../actions/seriesActions";
 import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
 import {Color} from '../../style/Colors/Color';
+import {ISerieTag} from "../SeriesTags";
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
 
 
 interface IGraphicProps {
     series: ISerie[];
-    colorFor?: (serie: ISerie) => Color;
+    colorFor?: (serieId: string) => Color;
     range: {min: number, max: number};
     onReset?: () => void;
     onZoom?: ({}) => void;
@@ -46,39 +47,23 @@ const DATE_FORMAT_BY_PERIODICITY= {
 export class Graphic extends React.Component<IGraphicProps, any> {
 
     private myRef: RefObject<any>;
+    private yAxisBySeries: any;
 
     constructor(props: IGraphicProps) {
         super(props);
         this.myRef = React.createRef();
     }
 
-    public render() {
-        const yAxisBySeries = generateYAxisBySeries(this.props.series);
-        this.notifyChangeSeriesNames(yAxisBySeries);
-
-        return (
-            <ReactHighStock ref={this.myRef} config={this.highchartsConfig(yAxisBySeries)} callback={this.afterRender} />
-        );
+    public componentDidUpdate() {
+        this.notifyChangeSeriesNames(this.yAxisBySeries);
     }
 
-    public notifyChangeSeriesNames(yAXisBySeries: {}) {
-        if (this.props.dispatch) {
-            const foo = Object.keys(yAXisBySeries).map((serieId: string) => ({
-                id: serieId,
-                opposite: yAXisBySeries[serieId].opposite
-            }));
-            if (foo.some((e: any) => e.opposite)) {
-                const result: string[] = [];
+    public render() {
+        this.yAxisBySeries = generateYAxisBySeries(this.props.series);
 
-                foo.forEach((e: any) => {
-                    const serie: ISerie | undefined = this.props.series.find((s: ISerie) => s.id === e.id);
-                    const title = serie ? serie.title : '';
-                    result.push(e.opposite ? `${title} (der)` : `${title} (izq)`);
-                });
-
-                this.props.dispatch(setTagNames(result))
-            }
-        }
+        return (
+            <ReactHighStock ref={this.myRef} config={this.highchartsConfig()} callback={this.afterRender} />
+        );
     }
 
     public afterRender = (chart: any) => {
@@ -86,7 +71,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         this.applyZoom(chart);
     };
 
-    public highchartsConfig(yAxisBySeries: any) {
+    public highchartsConfig() {
         return ({
             legend: {
                 enabled: false
@@ -161,9 +146,9 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 }
             },
 
-            yAxis: yAxisConf(yAxisBySeries),
+            yAxis: yAxisConf(this.yAxisBySeries),
 
-            series: this.seriesValues(yAxisBySeries),
+            series: this.seriesValues(),
         });
     }
 
@@ -178,19 +163,19 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         );
     }
 
-    public seriesValues(yAxisBySeries:any): IHCSeries[] {
-        return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {},yAxisBySeries));
+    public seriesValues(): IHCSeries[] {
+        return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {}));
     }
 
-    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig,yAxisBySeries:any): IHCSeries {
+    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
         return {
             ...this.defaultHCSeriesConfig(),
             ...hcConfig,
-            color: this.props.colorFor ? this.props.colorFor(serie).code : this.defaultHCSeriesConfig().color,
+            color: this.props.colorFor ? this.props.colorFor(serie.id).code : this.defaultHCSeriesConfig().color,
             data,
             name: serie.title,
-            yAxis: yAxisBySeries[serie.id].yAxis
+            yAxis: this.yAxisBySeries[serie.id].yAxis
         }
 
     }
@@ -223,6 +208,22 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         chart.showResetZoom();
     }
 
+    private notifyChangeSeriesNames(yAXisBySeries: {}) {
+        if (!this.props.dispatch) { return }
+
+        let titlesResult: ISerieTag[] = [];
+
+        if (this.props.series.some((serie: ISerie) => yAXisBySeries[serie.id].opposite)) {
+            this.props.series.forEach((serie: ISerie) => {
+                const title = yAXisBySeries[serie.id].opposite ? `${serie.title} (der)` : `${serie.title} (izq)`;
+                titlesResult.push({id: serie.id, title});
+            });
+        } else {
+            titlesResult = this.props.series.map((serie: ISerie) => ({id: serie.id, title: serie.title}));
+        }
+
+        this.props.dispatch(setSerieTags(titlesResult))
+    }
 }
 
 export default Graphic;

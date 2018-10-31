@@ -2,6 +2,7 @@ import { Action } from "redux";
 import { IDateRange } from "../api/DateSerie";
 import { ISerie } from "../api/Serie";
 import { ISerieApi } from "../api/SerieApi";
+import {ISerieTag} from "../components/viewpage/SeriesTags";
 import actionTypes from "./actionTypes";
 
 export interface ISeriesAction extends Action<string> {
@@ -33,13 +34,13 @@ export interface ISerieApiAction extends Action<string> {
 }
 
 export interface ITagNamesAction extends Action<string> {
-    tagNames: string[];
+    serieTags: ISerieTag[];
 }
 
 export function setSeriesApi(seriesApi: ISerieApi): ISerieApiAction {
     return { type: actionTypes.SET_SERIES_API, seriesApi };
 }
 
-export function setTagNames(tagNames: string[]): ITagNamesAction {
-    return { type: actionTypes.SET_TAG_NAMES, tagNames };
+export function setSerieTags(serieTags: ISerieTag[]): ITagNamesAction {
+    return { type: actionTypes.SET_SERIE_TAGS, serieTags };
 }

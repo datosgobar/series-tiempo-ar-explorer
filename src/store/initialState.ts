@@ -1,7 +1,8 @@
-import { IDateRange } from "../api/DateSerie";
-import { ISerie } from "../api/Serie";
-import { ISerieApi } from "../api/SerieApi";
-import { ISearchParams } from "../components/common/searcher/Searcher";
+import {IDateRange} from "../api/DateSerie";
+import {ISerie} from "../api/Serie";
+import {ISerieApi} from "../api/SerieApi";
+import {ISearchParams} from "../components/common/searcher/Searcher";
+import {ISerieTag} from "../components/viewpage/SeriesTags";
 
 export interface IStore {
     date: IDateRange,
@@ -9,7 +10,7 @@ export interface IStore {
     viewSeries: ISerie[],
     seriesApi: ISerieApi | null,
     searchParams: ISearchParams,
-    tagNames: string[]
+    tagNames: ISerieTag[]
 }
 
 const initialState: IStore = {
@@ -23,7 +24,7 @@ const initialState: IStore = {
         q: "",
     },
     seriesApi: null,
-    tagNames: [''],
+    tagNames: [{id: '', title: ''}],
     viewSeries: [],
 };
 

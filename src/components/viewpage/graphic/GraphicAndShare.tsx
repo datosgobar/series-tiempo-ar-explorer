@@ -1,9 +1,9 @@
 import * as moment from 'moment';
 import * as React from 'react';
 import {IDataPoint} from "../../../api/DataPoint";
-import { IDateRange } from "../../../api/DateSerie";
-import { ISerie } from "../../../api/Serie";
-import { Color } from "../../style/Colors/Color";
+import {IDateRange} from "../../../api/DateSerie";
+import {ISerie} from "../../../api/Serie";
+import {Color} from "../../style/Colors/Color";
 import GraphContainer from "../../style/Graphic/GraphContainer";
 import Graphic from "./Graphic";
 import GraphicComplements from "./GraphicComplements";
@@ -11,7 +11,7 @@ import GraphicComplements from "./GraphicComplements";
 
 export interface IGraphicAndShareProps {
     series: ISerie[];
-    colorFor: (serie: ISerie) => Color;
+    colorFor: (serieId: string) => Color;
     date: IDateRange;
     handleChangeDate: (date: {start: string, end: string}) => void;
     handleChangeFrequency: (value: string) => void;

@@ -1,25 +1,25 @@
 import * as React from 'react';
 
 import Row from '../../style/Common/Row';
-import { Color } from '../Colors/Color';
+import {Color} from '../Colors/Color';
 import Details from './Details';
 import DetailsTitle from './DetailsTitle';
 import DetailsTitleAndActions from './DetailsTitleAndActions';
 
-import { ISerie } from '../../../api/Serie';
+import {ISerie} from '../../../api/Serie';
 
 
 interface ISerieDetailsProp extends React.Props<any> {
     serie: ISerie;
     actions?: JSX.Element[];
-    pegColorFor?: (serie: ISerie) => Color;
+    pegColorFor?: (serieId: string) => Color;
 }
 
 
 export default (props: ISerieDetailsProp) =>
 
     <Details key={props.serie.id}>
-        <DetailsTitleAndActions pegColor={props.pegColorFor && props.pegColorFor(props.serie)}>
+        <DetailsTitleAndActions pegColor={props.pegColorFor && props.pegColorFor(props.serie.id)}>
             <DetailsTitle>
                 {props.serie.title} ({props.serie.id})
             </DetailsTitle>
