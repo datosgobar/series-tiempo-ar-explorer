@@ -1,4 +1,4 @@
-import { mount } from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
@@ -102,7 +102,7 @@ describe('ViewPage', () => {
             push: jest.fn(),
         };
 
-        const wrapper = mount(
+        const wrapper = shallow(
             <UnconnectedViewPage
                 series={[]}
                 seriesApi={mockApi}
@@ -143,7 +143,7 @@ describe('ViewPage', () => {
                 }),
             };
 
-            wrapper = mount(
+            wrapper = shallow(
                 <UnconnectedViewPage
                     series={[]}
                     seriesApi={mockApi}
