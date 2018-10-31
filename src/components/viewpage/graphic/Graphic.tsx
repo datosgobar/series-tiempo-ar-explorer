@@ -235,19 +235,12 @@ function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], fo
         const formatUnitsBySerie = serie.data.some((e: IDataPoint) => e.value > 0.0001 && e.value < 1);
         const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
 
-        if (mustFormatUnits(formatUnits, formatUnitsBySerie, serieConfig)) {
+        if (serieConfig && serieConfig.mustFormatUnits(formatUnits, formatUnitsBySerie)) {
             result[serie.id].labels = { format: "{value}%" };
         }
 
         return result;
     }, {});
-}
-
-function mustFormatUnits(formatUnits: boolean, formatUnitsBySerie: boolean, serieConfig?: SerieConfig):boolean {
-    const percentChange: boolean = serieConfig !== undefined && serieConfig.getPercentChange();
-    const percentChangeAYearAgo: boolean = serieConfig  !== undefined && serieConfig.getPercentChangeAYearAgo();
-
-    return formatUnits && (formatUnitsBySerie || percentChange || percentChangeAYearAgo);
 }
 
 function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues: {}): boolean {

@@ -60,7 +60,7 @@ class App extends React.Component<IAppProps, any> {
 
         if (useBrowserRouter) {
             router = BrowserRouter;
-            Object.assign(props, {...browserRouterConf});
+            Object.assign(props, browserRouterConf);
         } else {
             router = HashRouter;
         }

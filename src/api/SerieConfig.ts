@@ -28,4 +28,8 @@ export default class SerieConfig {
         this.percentChangeAYearAgo = percentChangeAYearAgo;
     }
 
+    public mustFormatUnits(formatUnits: boolean, formatUnitsBySerie: boolean):boolean {
+        return formatUnits && (formatUnitsBySerie || this.getPercentChange() || this.getPercentChangeAYearAgo());
+    }
+
 }
