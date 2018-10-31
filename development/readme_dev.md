@@ -30,3 +30,5 @@ Para mas info: [react documentation](react_doc.md)
 ### Problemas comunes
 * `npm start`: Error al iniciar el server. 
 Solución: ` echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
+* Para correr los tests de un archivo en particular: 
+  - `npm test -- -- <name of describe>` [why the "--" magick incantation](https://stackoverflow.com/a/28775887)
