@@ -1,18 +1,15 @@
-import {mount, shallow} from 'enzyme';
-import * as React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router';
-import { Store } from 'redux';
-
-import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
+import * as React from 'react';
 
-import MockApi from '../../api/mockApi';
-
-import { setSeriesApi } from '../../../actions/seriesActions';
-import { ISerieApi } from '../../../api/SerieApi';
-import ViewPage, { ViewPage as UnconnectedViewPage } from '../../../components/viewpage/ViewPage';
+import {configure, mount, shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {MemoryRouter} from 'react-router';
+import {Store} from 'redux';
+import {setSeriesApi} from '../../../actions/seriesActions';
+import {ISerieApi} from '../../../api/SerieApi';
+import ViewPage, {ViewPage as UnconnectedViewPage} from '../../../components/viewpage/ViewPage';
 import configureStore from '../../../store/configureStore';
+import MockApi from '../../api/mockApi';
 
 import * as $ from 'jquery'; // Necessary because DetallePanel and AddAndCustomizeSeriesButton access to jquery directly
 
@@ -23,7 +20,6 @@ globalAny.$ = $;
 configure({ adapter: new Adapter() });
 
 describe('ViewPage', () => {
-
     const clickEvent = ({} as React.MouseEvent<HTMLButtonElement>);
     let mockApi: ISerieApi;
     let store: Store;
@@ -46,14 +42,12 @@ describe('ViewPage', () => {
     }
 
     it('renders without crashing', () => {
-
         const wrapper = renderViewPage('/series/?ids=serie01');
 
         expect(wrapper.find('#detalle').exists()).toBe(true);
     });
 
     it('fetches series on the url upon render', () => {
-
         renderViewPage('/series/?ids=serie01');
 
         expect(mockApi.fetchSeries).toBeCalledWith({ids: ["serie01"], collapse: '', collapseAggregation: '', representationMode: ''});
@@ -86,22 +80,18 @@ describe('ViewPage', () => {
     });
 
     it('does not fetch series if no ids were provided in the url', () => {
-
         renderViewPage('/series/');
 
         expect(mockApi.fetchSeries).not.toBeCalled();
     });
 
     it('on Serie picked adds id to ids queryParam', () => {
-
         const dispatch = jest.fn();
-
         const unlisten = jest.fn();
         const history = {
             listen: jest.fn().mockImplementation(unlisten),
             push: jest.fn(),
         };
-
         const wrapper = shallow(
             <UnconnectedViewPage
                 series={[]}
@@ -118,24 +108,16 @@ describe('ViewPage', () => {
     });
 
     describe('path behaviour', () => {
-
         const dispatch = jest.fn();
-
         const unlistenMock = jest.fn();
         let locationMock: {search: string};
-
         let historyMock: any;
-
         let wrapper: any;
 
         beforeEach(() => {
             dispatch.mockReset();
             unlistenMock.mockReset();
-
-            locationMock = {
-                search: "",
-            };
-
+            locationMock = { search: "" };
             historyMock = {
                 listen: jest.fn(() => unlistenMock),
                 push: jest.fn((path: string) => {
@@ -155,30 +137,24 @@ describe('ViewPage', () => {
         });
 
         it('on Serie picked adds id to ids queryParam', () => {
-
             (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie01');
-
             (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie02');
 
             expect(historyMock.push).toBeCalledWith('/series/?ids=serie01,serie02')
         });
 
         it('keeps other params untouched', () => {
-
             historyMock.push('/series/?ids=serie01&other=params');
-
             (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie02');
 
             expect(historyMock.push).toBeCalledWith('/series/?ids=serie01,serie02&other=params')
         });
 
         it('observes history', () => {
-
             expect(historyMock.listen).toHaveBeenCalledTimes(1);
         });
 
         it('unsubscribe of history when unmounted', () => {
-
             wrapper.unmount();
 
             expect(unlistenMock).toHaveBeenCalledTimes(1);
