@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import {connect} from 'react-redux';
 import {BrowserRouter, BrowserRouterProps, HashRouter} from 'react-router-dom';
-import {loadFeatured, setSeriesApi} from './actions/seriesActions';
+import {loadFeatured, setFormatChartUnits, setSeriesApi} from './actions/seriesActions';
 import QueryParams from "./api/QueryParams";
 import {ISerieApi} from './api/SerieApi';
 import LoadingSpinner from "./components/common/LoadingSpinner";
@@ -15,6 +15,7 @@ interface IAppProps {
     seriesApi: ISerieApi;
     useBrowserRouter?: boolean;
     browserRouterConf?: BrowserRouterProps;
+    formatChartUnits?: boolean;
 }
 
 class App extends React.Component<IAppProps, any> {
@@ -22,6 +23,7 @@ class App extends React.Component<IAppProps, any> {
     constructor(props: IAppProps) {
         super(props);
         this.props.dispatch(setSeriesApi(this.props.seriesApi));
+        this.props.dispatch(setFormatChartUnits(this.props.formatChartUnits || false));
 
         this.state = {
             loading: true
@@ -51,15 +53,16 @@ class App extends React.Component<IAppProps, any> {
     }
 
     public renderRouter() {
-        const { useBrowserRouter, browserRouterConf } = this.props;
+        const { useBrowserRouter, browserRouterConf, formatChartUnits } = this.props;
         let router;
-        let props;
+        const props = {};
+        Object.assign(props, {formatChartUnits});
+
         if (useBrowserRouter) {
             router = BrowserRouter;
-            props = browserRouterConf;
+            Object.assign(props, browserRouterConf);
         } else {
             router = HashRouter;
-            props = {};
         }
         return React.createElement(router, props, routes)
     }

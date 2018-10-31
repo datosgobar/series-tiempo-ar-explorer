@@ -1,26 +1,28 @@
-import { Location } from 'history';
+import {Location} from 'history';
 import * as moment from "moment";
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { RouterProps, withRouter } from "react-router";
+import {connect} from 'react-redux';
+import {RouterProps, withRouter} from "react-router";
 
 import ClearFix from '../style/ClearFix';
-import Colors, { Color } from '../style/Colors/Color';
+import Colors, {Color} from '../style/Colors/Color';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
 import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
 import SeriesTags from './SeriesTags'
 
 import {clearViewSeries, loadViewSeries, setDate} from '../../actions/seriesActions';
-import { IDateRange } from "../../api/DateSerie";
+import {IDateRange} from "../../api/DateSerie";
 import QueryParams from "../../api/QueryParams";
-import { ISerie } from '../../api/Serie';
-import { ISerieApi } from '../../api/SerieApi';
+import {ISerie} from '../../api/Serie';
+import {ISerieApi} from '../../api/SerieApi';
+import SerieConfig from '../../api/SerieConfig';
+import {removeDuplicates} from "../../helpers/commonFunctions";
 import SearchBox from '../common/searchbox/SearchBox'
 import DetallePanel from './DetallePanel';
 import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
-import SeriesPicker, { ISeriesPickerProps } from './seriespicker/SeriesPicker';
+import SeriesPicker, {ISeriesPickerProps} from './seriespicker/SeriesPicker';
 
 interface IViewPageProps extends RouterProps {
     series: ISerie[];
@@ -28,6 +30,7 @@ interface IViewPageProps extends RouterProps {
     date: IDateRange
     readonly location: { search: string };
     readonly dispatch: (action: object) => void;
+    formatChartUnits?: boolean;
 }
 
 export class ViewPage extends React.Component<IViewPageProps, any> {
@@ -128,6 +131,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                             <ClearFix />
                         </div>
                         <GraphicAndShare series={this.props.series}
+                                         seriesConfig={this.seriesConfig()}
+                                         formatUnits={this.props.formatChartUnits || false}
                                          colorFor={this.colorFor}
                                          date={this.props.date}
                                          handleChangeDate={this.handleChangeDate}
@@ -278,11 +283,23 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.dispatch(setDate({ start: '', end: '' }));
     }
 
+    private seriesConfig(): SerieConfig[] {
+        const search = this.props.location.search.split(',');
+
+        return this.props.series.map((serie: ISerie) => {
+            const seriesConfig = new SerieConfig(serie.id);
+            seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
+            seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
+            return seriesConfig;
+        });
+    }
+
 }
 
 function mapStateToProps(state: any, ownProps: any) {
     return {
         date: state.date,
+        formatChartUnits: state.formatUnits,
         series: state.viewSeries,
         seriesApi: state.seriesApi,
     };
@@ -307,10 +324,6 @@ function getDateFromUrl(location: Location): IDateRange {
 
 function getParamsFromUrl(location: Location): URLSearchParams {
     return new URLSearchParams(location.search);
-}
-
-function removeDuplicates(arr: any[]) {
-    return Array.from(new Set(arr));
 }
 
 function serieIdSanitizer(serieId: string): string {
