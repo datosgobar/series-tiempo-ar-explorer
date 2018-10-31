@@ -1,8 +1,9 @@
-import * as moment from 'moment';
 import * as React from 'react';
 import {IDataPoint} from "../../../api/DataPoint";
 import {IDateRange} from "../../../api/DateSerie";
 import {ISerie} from "../../../api/Serie";
+import SerieConfig from "../../../api/SerieConfig";
+import {formattedMoment, localDate} from "../../../helpers/dateFunctions";
 import {Color} from "../../style/Colors/Color";
 import GraphContainer from "../../style/Graphic/GraphContainer";
 import Graphic from "./Graphic";
@@ -18,6 +19,8 @@ export interface IGraphicAndShareProps {
     url: string;
     onReset?: () => void;
     readonly dispatch: (action: object) => void;
+    seriesConfig: SerieConfig[];
+    formatUnits: boolean;
 }
 
 export default class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
@@ -41,6 +44,8 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
         return (
             <GraphContainer>
                 <Graphic series={this.props.series}
+                         seriesConfig={this.props.seriesConfig}
+                         formatUnits={this.props.formatUnits}
                          colorFor={this.props.colorFor}
                          range={this.chartExtremes()}
                          onReset={this.props.onReset}
@@ -79,11 +84,3 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
 
 }
 
-
-function formattedMoment(date: any): string {
-    return moment(date).format('YYYY-MM-DD');
-}
-
-function localDate(timestamp: number): number {
-    return new Date(timestamp).setUTCHours(3);
-}

@@ -13,6 +13,10 @@ export interface IDateAction extends Action<string> {
     date: IDateRange;
 }
 
+export interface IUnitFormat extends Action<string> {
+    formatChartUnits: boolean;
+}
+
 export function loadFeatured(series: ISerie[]): ISeriesAction {
     return { type: actionTypes.LOAD_FEATURED, series };
 }
@@ -43,4 +47,8 @@ export function setSeriesApi(seriesApi: ISerieApi): ISerieApiAction {
 
 export function setSerieTags(serieTags: ISerieTag[]): ITagNamesAction {
     return { type: actionTypes.SET_SERIE_TAGS, serieTags };
+}
+
+export function setFormatChartUnits(formatChartUnits: boolean): IUnitFormat {
+    return { type: actionTypes.SET_UNIT_FORMAT, formatChartUnits };
 }

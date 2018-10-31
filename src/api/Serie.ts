@@ -1,3 +1,4 @@
+import {valueExist} from "../helpers/commonFunctions";
 import DataPoint, { IDataPoint } from './DataPoint';
 import {IDataSetTheme, IExtraMeta, IPublisher, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
 import {PeriodicityManager} from "./utils/periodicityManager";
@@ -150,9 +151,4 @@ export default class Serie implements ISerie {
             units: this.units,
         };
     }
-}
-
-
-function valueExist(value: string) {
-    return value !== '' && value !== undefined;
 }

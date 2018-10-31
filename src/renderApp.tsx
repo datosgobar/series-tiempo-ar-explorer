@@ -16,6 +16,7 @@ export interface IExplorerConfig {
     useBrowserRouter?: boolean;
     browserRouterConf?: BrowserRouterProps;
     catalogId?: string;
+    formatChartUnits: boolean
 }
 
 
@@ -23,7 +24,11 @@ export function render(selector: string, config: IExplorerConfig) {
 
     ReactDOM.render(
         <Provider store={ configureStore() } >
-            <App useBrowserRouter={config.useBrowserRouter} browserRouterConf={config.browserRouterConf} seriesApi={ getSeriesApi(config) } featured={ getFeatured(config) } />
+            <App useBrowserRouter={config.useBrowserRouter}
+                 browserRouterConf={config.browserRouterConf}
+                 seriesApi={ getSeriesApi(config) }
+                 featured={ getFeatured(config) }
+                 formatChartUnits={ config.formatChartUnits } />
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );

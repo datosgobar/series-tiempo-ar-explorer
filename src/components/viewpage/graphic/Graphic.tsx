@@ -4,6 +4,9 @@ import {RefObject} from 'react';
 import {setSerieTags} from "../../../actions/seriesActions";
 import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
+import SerieConfig from "../../../api/SerieConfig";
+import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
+import {formattedDateString, timestamp} from "../../../helpers/dateFunctions";
 import {Color} from '../../style/Colors/Color';
 import {ISerieTag} from "../SeriesTags";
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
@@ -16,6 +19,8 @@ interface IGraphicProps {
     onReset?: () => void;
     onZoom?: ({}) => void;
     readonly dispatch?: (action: object) => void;
+    seriesConfig: SerieConfig[];
+    formatUnits?:boolean;
 }
 
 interface IYAxis {
@@ -71,7 +76,8 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     }
 
     public render() {
-        this.yAxisBySeries = generateYAxisBySeries(this.props.series);
+        const formatUnits = this.props.formatUnits || false;
+        this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, formatUnits);
 
         return (
             <ReactHighStock ref={this.myRef} config={this.highchartsConfig()} callback={this.afterRender} />
@@ -240,26 +246,13 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
 export default Graphic;
 
-function timestamp(date: string): number {
-    return new Date(date).getTime()
-}
-
-// returns a string in format YYYY/MM/DD with the missing parts of date
-// '2010' => '2010/01/01
-// '2010-03' or '2010/03' => '2010/03/01'
-// '2010-03-01' or '2010/03/01' => '2010/03/01'
-function formattedDateString(date: string): string {
-    const parsedDate  = date.replace(/([\/\-])/g, '-');
-    return parsedDate.split('-').length === 1 ? `${parsedDate}-01` : parsedDate;
-}
-
 function dateFormatByPeriodicity(component: Graphic) {
     const frequency = component.props.series.length > 0 ? component.props.series[0].frequency || 'day' : 'day';
 
     return DATE_FORMAT_BY_PERIODICITY[frequency];
 }
 
-function generateYAxisBySeries(series: ISerie[]): IYAxisConf {
+function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], formatUnits: boolean): {} {
     const minAndMaxValues = series.reduce((result: any, serie: ISerie) => {
         result[serie.id] = smartMinAndMaxFinder(serie.data);
 
@@ -275,6 +268,13 @@ function generateYAxisBySeries(series: ISerie[]): IYAxisConf {
             yAxis: outOfScale ? 1 : 0
         };
 
+        const formatUnitsBySerie = serie.data.some((e: IDataPoint) => e.value > 0.0001 && e.value < 1);
+        const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
+
+        if (serieConfig && serieConfig.mustFormatUnits(formatUnits, formatUnitsBySerie)) {
+            result[serie.id].labels = { format: "{value}%" };
+        }
+
         return result;
     }, {});
 }
@@ -287,9 +287,9 @@ function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues:
 // returns the min and max values of the passed list in just one iteration, even if some of them is null or undefined
 function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
     return data.reduce((result: any, e: IDataPoint) => {
-        if (e.value !== null && e.value !== undefined) {
-            result.min = result.min < e.value ? result.min : e.value;
-            result.max = result.max > e.value ? result.max : e.value;
+        if (valueExist(e.value)) {
+            result.min = minNotNull(result.min, e.value);
+            result.max = maxNotNull(result.min, e.value);
         }
 
         return result;
@@ -314,9 +314,4 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
     rightAxis = rightAxis.filter((item: IYAxis, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
 
     return leftAxis.concat(rightAxis);
-}
-
-
-export function valuesFromObject(obj: {}): any[] {
-    return Object.keys(obj).map(k => obj[k])
 }
