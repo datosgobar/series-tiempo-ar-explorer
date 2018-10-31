@@ -18,6 +18,18 @@ interface IGraphicProps {
     readonly dispatch?: (action: object) => void;
 }
 
+interface IYAxis {
+    opposite: boolean;
+    title: {text: string};
+    yAxis: number;
+    labels?: { format: string }
+}
+
+interface IYAxisConf {
+    [clave: string]: IYAxis
+}
+
+
 ReactHighStock.Highcharts.setOptions({
     lang: {
         contextButtonTitle: 'Opciones',
@@ -47,7 +59,7 @@ const DATE_FORMAT_BY_PERIODICITY= {
 export class Graphic extends React.Component<IGraphicProps, any> {
 
     private myRef: RefObject<any>;
-    private yAxisBySeries: any;
+    private yAxisBySeries: IYAxisConf;
 
     constructor(props: IGraphicProps) {
         super(props);
@@ -208,7 +220,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         chart.showResetZoom();
     }
 
-    private notifyChangeSeriesNames(yAXisBySeries: {}) {
+    private notifyChangeSeriesNames(yAXisBySeries: IYAxisConf) {
         if (!this.props.dispatch) { return }
 
         let titlesResult: ISerieTag[] = [];
@@ -247,14 +259,14 @@ function dateFormatByPeriodicity(component: Graphic) {
     return DATE_FORMAT_BY_PERIODICITY[frequency];
 }
 
-function generateYAxisBySeries(series: ISerie[]): {} {
+function generateYAxisBySeries(series: ISerie[]): IYAxisConf {
     const minAndMaxValues = series.reduce((result: any, serie: ISerie) => {
         result[serie.id] = smartMinAndMaxFinder(serie.data);
 
         return result;
     }, {});
 
-    return series.reduce((result: any, serie: ISerie) => {
+    return series.reduce((result: IYAxisConf, serie: ISerie) => {
         const outOfScale = isOutOfScale(series[0].id, serie.id, minAndMaxValues);
 
         result[serie.id] = {
@@ -284,22 +296,22 @@ function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
     }, {});
 }
 
-function yAxisConf(yAxisBySeries: {}): any[] {
+function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
     const configs = valuesFromObject(yAxisBySeries);
     if (configs.length === 0) { return []}
 
-    let leftAxis: any[] = [];
-    let rightAxis: any[] = [];
+    let leftAxis: IYAxis[] = [];
+    let rightAxis: IYAxis[] = [];
 
-    configs.forEach((config: any) => {
+    configs.forEach((config: IYAxis) => {
         config.opposite ? rightAxis.push(config) : leftAxis.push(config);
     });
 
-    const leftAxisTitles = leftAxis.map((v:any)=> v.title.text);
-    const rightAxisTitles = rightAxis.map((v:any)=> v.title.text);
+    const leftAxisTitles = leftAxis.map((v:IYAxis)=> v.title.text);
+    const rightAxisTitles = rightAxis.map((v:IYAxis)=> v.title.text);
 
-    leftAxis = leftAxis.filter((item: any, pos: number) => leftAxisTitles.indexOf(item.title.text) === pos);
-    rightAxis = rightAxis.filter((item: any, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
+    leftAxis = leftAxis.filter((item: IYAxis, pos: number) => leftAxisTitles.indexOf(item.title.text) === pos);
+    rightAxis = rightAxis.filter((item: IYAxis, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
 
     return leftAxis.concat(rightAxis);
 }
