@@ -140,7 +140,7 @@ export default class SerieApi implements ISerieApi {
                    .catch((error: any) => {
                        if (error.response.data.failed_series) {
                            const failedIds: string[] = error.response.data.failed_series;
-                           options.qs.ids = options.qs.ids.split(',').filter((id: string) => failedIds.indexOf(id) === -1).join(',');
+                           options.qs.ids = options.qs.ids.split(',').filter((id: string) => failedIds.indexOf(sanitizedSerieId(id)) === -1).join(',');
 
                            return this.performGetWithRetry(options);
                        } else {
@@ -180,4 +180,9 @@ function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {
     }));
 
     return { ...apiResponse, data };
+}
+
+// removes serie id transformations
+function sanitizedSerieId(id: string): string {
+    return id.split(':')[0];
 }
