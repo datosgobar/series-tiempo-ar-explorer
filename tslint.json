@@ -7,6 +7,7 @@
     ]
   },
   "rules": {
-    "jsx-wrap-multiline": false
+    "jsx-wrap-multiline": false,
+    "no-debugger": false
   }
 }
