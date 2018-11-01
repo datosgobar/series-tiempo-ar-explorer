@@ -18,6 +18,7 @@ interface ISearchBoxProps {
     onSearch: (searchTerm?: string) => void;
     searchTerm?: string;
     seriesApi: ISerieApi;
+    enterRequired?: boolean;
 }
 
 interface ISearchBoxState {
@@ -65,8 +66,9 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     public onSearchTermChange(event: any) {
         const searchTerm: string = event.target.value;
         this.setState({ searchTerm, loading: true });
+        if (this.props.enterRequired === false && searchTerm.length > 2) { this.props.onSearch(searchTerm); return } // search without press Enter
 
-        this.updateAutoCompleteItems(searchTerm);
+        this.updateAutoCompleteItems(searchTerm); // search and show the preview items
     }
 
     public triggerSearch(event: any) {
