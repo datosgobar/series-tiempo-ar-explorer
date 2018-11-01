@@ -51,7 +51,6 @@ export default class SerieApi implements ISerieApi {
     }
 
     public fetchSeries(params: QueryParams, metadata: string = METADATA.FULL): Promise<Serie[]> {
-        const ids = params.getIds();
         const options = {
             qs: {
                 limit: 1000,
@@ -63,7 +62,7 @@ export default class SerieApi implements ISerieApi {
 
         Object.assign(options.qs, params.asQuery());
 
-        return this.performGetWithRetry(options, ids);
+        return this.performGetWithRetry(options);
     }
 
     public downloadDataURL(params: QueryParams, metadata: string = METADATA.FULL): string {
@@ -130,20 +129,23 @@ export default class SerieApi implements ISerieApi {
         return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
     }
 
-    private performGet(options: IApiClientOpt, ids: string): Promise<Serie[]> {
+    private performGet(options: IApiClientOpt): Promise<Serie[]> {
         return this.apiClient
                    .getAll(options, [])
-                   .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(ids.split(","), tsResponse));
+                   .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(options.qs.ids.split(","), tsResponse));
     }
 
-    private performGetWithRetry(options: IApiClientOpt, ids: string): Promise<Serie[]> {
-        return this.performGet(options, ids)
+    private performGetWithRetry(options: IApiClientOpt): Promise<Serie[]> {
+        return this.performGet(options)
                    .catch((error: any) => {
-                       const failedIds: string[] = error.response.data.errors.failed_series;
-                       const successIds = ids.split(',').filter((id: string) => failedIds.indexOf(id) !== -1);
+                       if (error.response.data.failed_series) {
+                           const failedIds: string[] = error.response.data.failed_series;
+                           options.qs.ids = options.qs.ids.split(',').filter((id: string) => failedIds.indexOf(id) === -1).join(',');
 
-                       return this.apiClient.getAll(options, [])
-                           .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(successIds, tsResponse));
+                           return this.performGetWithRetry(options);
+                       } else {
+                           throw error.response;
+                       }
                    });
     }
 

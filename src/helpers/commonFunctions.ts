@@ -17,3 +17,7 @@ export function valueExist(value: any) {
 export function removeDuplicates(arr: any[]) {
     return Array.from(new Set(arr));
 }
+
+export function getId(value: any) {
+    return value.id;
+}

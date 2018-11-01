@@ -75,7 +75,7 @@ export default class QueryParams {
         }
     }
 
-    public asQuery(): {} {
+    public asQuery(): any {
         const result = this.asJson();
         for(const value in result) {
             if (result[value] === '' || result[value] === undefined) {
