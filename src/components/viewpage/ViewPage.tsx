@@ -17,9 +17,10 @@ import QueryParams from "../../api/QueryParams";
 import {ISerie} from '../../api/Serie';
 import {ISerieApi} from '../../api/SerieApi';
 import SerieConfig from '../../api/SerieConfig';
-import {removeDuplicates} from "../../helpers/commonFunctions";
+import {getId, removeDuplicates} from "../../helpers/commonFunctions";
 import SearchBox from '../common/searchbox/SearchBox'
 import DetallePanel from './DetallePanel';
+import FailedSeries from "./FailedSeries";
 import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
 import SeriesPicker, {ISeriesPickerProps} from './seriespicker/SeriesPicker';
@@ -54,6 +55,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
         this.removeDateParams = this.removeDateParams.bind(this);
         this.state = {
+            failedSeries: [],
             lastSuccessfulUrl: this.getQueryParams()
         }
     }
@@ -123,6 +125,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                 <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} onSelect={this.redirectToViewPage} />} />
                 <div id="detalle-content">
                     <Container>
+                        <FailedSeries ids={this.state.failedSeries} />
                         <div className="row mg-t">
                             <AddAndCustomizeSeriesButton />
                             <SeriesTags onTagClose={this.removeSerie} pegColorFor={this.colorFor} />
@@ -187,9 +190,11 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.dispatch(loadViewSeries(series));
     }
 
-    private onSeriesFetchError(error: any) {
-        alert(error.response.data.errors[0].error);
-        this.setQueryParams(this.state.lastSuccessQueryParams); // rollback to the last successful state
+    private onSeriesFetchError(response: any) {
+        alert(response.data.errors[0].error);
+        if (this.state.lastSuccessQueryParams) {
+            this.setQueryParams(this.state.lastSuccessQueryParams); // rollback to the last successful state
+        }
     }
 
     private handleUriChange(location: Location) {
@@ -218,8 +223,20 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     private fetchSeries(params: QueryParams) {
         this.props.seriesApi.fetchSeries(params)
-            .then(this.onSeriesFetchedSuccess)
+            .then((series: ISerie[]) => {
+                this.handleFailedSeries(params.getIds().split(','), series);
+                this.onSeriesFetchedSuccess(series);
+            })
             .catch(this.onSeriesFetchError);
+    }
+
+    private handleFailedSeries(requestedIds: string[], series: ISerie[]) {
+        if (requestedIds.length > series.length) {
+            const foundSeries = series.map(getId);
+            const failedSeries = requestedIds.filter((id: string) => foundSeries.indexOf(id) === -1);
+
+            this.setState({failedSeries});
+        }
     }
 
     private downloadDataURL(): string {
