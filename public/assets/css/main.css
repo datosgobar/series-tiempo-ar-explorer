@@ -1,3 +1,10 @@
+@media (max-width: 600px)  {
+  .share {
+    width: 100%;
+    display: block;
+  }
+}
+
 .dp-results {
   animation-name: fadeInOpacity;
   animation-iteration-count: 1;

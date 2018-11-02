@@ -10,6 +10,7 @@ export default (props: IFrequencyContainerProps) => {
     const auxProps = Object.assign({}, props);
     const labelText = props.labelText;
     delete auxProps.labelText;
+    delete auxProps.className;
 
     return (
         <div className={props.className}>
