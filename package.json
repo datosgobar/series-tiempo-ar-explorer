@@ -52,7 +52,7 @@
     "react-select": "^1.2.1",
     "react-tooltip": "^3.6.1",
     "redux": "^4.0.0",
-    "request": "^2.86.0",
+    "request": "^2.88.0",
     "resolve": "1.6.0",
     "source-map-loader": "^0.2.1",
     "style-loader": "0.19.0",
