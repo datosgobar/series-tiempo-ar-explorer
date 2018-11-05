@@ -110,6 +110,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 chartOptions: {
                     navigator: {enabled: false},
                     rangeSelector: {enabled: false},
+                    scrollbar: { enabled: false },
                 }
             },
 

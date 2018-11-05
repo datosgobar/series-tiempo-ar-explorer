@@ -1,6 +1,15 @@
 @media print
 {
-  .highcharts-range-selector-group, .highcharts-reset-zoom, .highcharts-navigator {
+  .highcharts-range-selector-group,
+  .highcharts-reset-zoom,
+
+  /* Hide navigation bar */
+  .highcharts-grid.highcharts-xaxis-grid.highcharts-navigator-xaxis
+  ,.highcharts-series.highcharts-series-1.highcharts-areaspline-series.highcharts-navigator-series
+  ,.highcharts-axis-labels.highcharts-xaxis-labels.highcharts-navigator-xaxis
+  ,.highcharts-navigator
+  ,.highcharts-scrollbar
+  {
     display: none !important;
     visibility: hidden;
   }
