@@ -1,3 +1,11 @@
+@media print
+{
+  .highcharts-range-selector-group, .highcharts-reset-zoom, .highcharts-navigator {
+    display: none !important;
+    visibility: hidden;
+  }
+}
+
 @media (max-width: 600px)  {
   .share {
     width: 100%;

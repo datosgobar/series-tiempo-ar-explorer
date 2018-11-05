@@ -105,6 +105,11 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                     contextButton: {
                         menuItems: ['printChart', 'downloadPNG','downloadJPEG', 'downloadPDF', 'downloadSVG']
                     },
+                },
+
+                chartOptions: {
+                    navigator: {enabled: false},
+                    rangeSelector: {enabled: false},
                 }
             },
 
