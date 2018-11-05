@@ -86,7 +86,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public afterRender = (chart: any) => {
         this.showLoading(chart);
-        this.applyZoom(chart);
+        this.setExtremes(chart);
     };
 
     public highchartsConfig() {
@@ -105,6 +105,12 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                     contextButton: {
                         menuItems: ['printChart', 'downloadPNG','downloadJPEG', 'downloadPDF', 'downloadSVG']
                     },
+                },
+
+                chartOptions: {
+                    navigator: {enabled: false},
+                    rangeSelector: {enabled: false},
+                    scrollbar: { enabled: false },
                 }
             },
 
@@ -221,9 +227,8 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         }
     }
 
-    private applyZoom(chart: any) {
+    private setExtremes(chart: any) {
         chart.xAxis[0].setExtremes(this.props.range.min, this.props.range.max);
-        chart.showResetZoom();
     }
 
     private notifyChangeSeriesNames(yAXisBySeries: IYAxisConf) {
