@@ -216,6 +216,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             color: '#7CB5EC',
             dashStyle: 'Solid',
             lineWidth: 2,
+            showInNavigator: true,
             type: 'line',
         }
     }

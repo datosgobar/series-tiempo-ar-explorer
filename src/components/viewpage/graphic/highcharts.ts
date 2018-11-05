@@ -23,7 +23,8 @@ export interface IHCSeries {
     color: string;
     lineWidth: number;
     dashStyle: string;
-    yAxis: number
+    yAxis: number;
+    showInNavigator: boolean;
 }
 
 export interface IHConfig {
