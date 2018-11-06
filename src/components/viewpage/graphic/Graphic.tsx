@@ -73,6 +73,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
 
     public componentDidUpdate() {
         this.notifyChangeSeriesNames(this.yAxisBySeries);
+        this.fixAnimation();
     }
 
     public render() {
@@ -247,6 +248,10 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         }
 
         this.props.dispatch(setSerieTags(titlesResult))
+    }
+
+    private fixAnimation() {
+        this.myRef.current.chart.reflow = () => { return }; // https://github.com/kirjs/react-highcharts/issues/171 ¯\_(ツ)_/¯
     }
 }
 
