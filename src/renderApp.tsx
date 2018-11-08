@@ -21,13 +21,12 @@ export interface IExplorerConfig {
 
 
 export function render(selector: string, config: IExplorerConfig) {
-
     ReactDOM.render(
         <Provider store={ configureStore() } >
             <App useBrowserRouter={config.useBrowserRouter}
                  browserRouterConf={config.browserRouterConf}
                  seriesApi={ getSeriesApi(config) }
-                 featured={ getFeatured(config) }
+                 featuredIds={ getFeatured(config) }
                  formatChartUnits={ config.formatChartUnits } />
         </Provider>,
         document.getElementById(selector) as HTMLElement
@@ -38,7 +37,6 @@ export function render(selector: string, config: IExplorerConfig) {
 
 
 export function getFeatured(config: IExplorerConfig) {
-
     return config.featured;
 }
 

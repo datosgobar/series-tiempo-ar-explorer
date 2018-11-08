@@ -20,7 +20,7 @@ const series: ISerie[] = ids.map((id, index) => new Serie(index+1, response));
 describe('Featured ', () => {
 
   it('renders without crashing', () => {
-    const wrapper = mount(<Featured featured={[]} />);
+    const wrapper = mount(<Featured featured={[]} featuredLoaded={true} />);
 
     expect(wrapper.find(Card).exists()).toBeFalsy();
   });
@@ -29,7 +29,7 @@ describe('Featured ', () => {
 
     const wrapper = mount(
       <MemoryRouter>
-        <Featured featured={[series[0]]} />
+        <Featured featured={[series[0]]} featuredLoaded={true}/>
       </MemoryRouter>
     );
 
@@ -40,7 +40,7 @@ describe('Featured ', () => {
 
     const wrapper = mount(
       <MemoryRouter>
-        <Featured featured={series} />
+        <Featured featured={series} featuredLoaded={true}/>
       </MemoryRouter>
     );
 
