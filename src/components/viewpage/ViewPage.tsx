@@ -20,6 +20,7 @@ import SerieConfig from '../../api/SerieConfig';
 import {getId, removeDuplicates} from "../../helpers/commonFunctions";
 import SearchBox from '../common/searchbox/SearchBox'
 import DetallePanel from './DetallePanel';
+import EmptySeries from "./EmptySeries";
 import FailedSeries from "./FailedSeries";
 import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
@@ -55,6 +56,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
         this.removeDateParams = this.removeDateParams.bind(this);
         this.state = {
+            emptySeries: [],
             failedSeries: [],
             lastSuccessfulUrl: this.getQueryParams()
         }
@@ -126,6 +128,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                 <div id="detalle-content">
                     <Container>
                         <FailedSeries ids={this.state.failedSeries} />
+                        <EmptySeries ids={this.state.emptySeries} />
                         <div className="row mg-t">
                             <AddAndCustomizeSeriesButton />
                             <SeriesTags onTagClose={this.removeSerie} pegColorFor={this.colorFor} />
@@ -185,9 +188,12 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.dispatch(clearViewSeries());
     }
 
-    public onSeriesFetchedSuccess(series: ISerie[]) {
+    public onSeriesFetchedSuccess(params: QueryParams, series: ISerie[]) {
+        const ids = params.getIds().split(',');
+        const validSeries = this.getValidSeries(ids, series);
+
         this.setState({ lastSuccessQueryParams: this.getQueryParams() });
-        this.props.dispatch(loadViewSeries(series));
+        this.props.dispatch(loadViewSeries(validSeries));
     }
 
     private onSeriesFetchError(response: any) {
@@ -223,20 +229,39 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     private fetchSeries(params: QueryParams) {
         this.props.seriesApi.fetchSeries(params)
-            .then((series: ISerie[]) => {
-                this.handleFailedSeries(params.getIds().split(','), series);
-                this.onSeriesFetchedSuccess(series);
-            })
+            .then((series: ISerie[]) => this.onSeriesFetchedSuccess(params, series))
             .catch(this.onSeriesFetchError);
     }
 
-    private handleFailedSeries(requestedIds: string[], series: ISerie[]) {
+    private getValidSeries(ids: string[], series: ISerie[]): ISerie[] {
+        return this.handleEmptySeries(this.handleFailedSeries(ids, series))
+    }
+
+    private handleEmptySeries(series: ISerie[]): ISerie[] {
+        const nonEmptySeries: ISerie[] = [];
+        const emptySeries: ISerie[] = [];
+
+        series.forEach((serie: ISerie, index: number) => {
+            const list = emptySerie(serie, index) ? emptySeries : nonEmptySeries;
+            list.push(serie);
+        });
+
+        if (emptySeries.length > 0) {
+            this.setState({ emptySeries: emptySeries.map(getId)});
+        }
+
+        return nonEmptySeries;
+    }
+
+    private handleFailedSeries(requestedIds: string[], series: ISerie[]): ISerie[] {
         if (requestedIds.length > series.length) {
             const foundSeries = series.map(getId);
             const failedSeries = requestedIds.filter((id: string) => foundSeries.indexOf(id) === -1);
 
             this.setState({failedSeries});
         }
+
+        return series;
     }
 
     private downloadDataURL(): string {
@@ -346,6 +371,10 @@ function getParamsFromUrl(location: Location): URLSearchParams {
 
 function serieIdSanitizer(serieId: string): string {
     return serieId.split(':')[0];
+}
+
+function emptySerie(serie: ISerie, position: number): boolean {
+    return serie.data.length === 0 || serie.data.every((d: any) => d.datapoint[position+1] === null)
 }
 
 export default withRouter(connect(mapStateToProps)(ViewPage as any));
