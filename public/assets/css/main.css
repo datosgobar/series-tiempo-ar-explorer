@@ -16,7 +16,14 @@
   }
 }
 
-@media (max-width: 600px)  {
+@media (max-width: 600px) and (min-width: 461px) {
+  .share {
+    width: 57%;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 460px) {
   .share {
     width: 100%;
     display: block;

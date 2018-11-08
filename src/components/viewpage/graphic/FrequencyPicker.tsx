@@ -22,7 +22,7 @@ export default class FrequencyPicker extends React.Component<IFrequencyPickerPro
 
     public render() {
         return (
-            <FrequencyPickerContainer labelText="Frecuencia" className="col-xs-6">
+            <FrequencyPickerContainer labelText="Frecuencia" className="col-xs-5">
                 <select name="frequencyList" id="" className="form-control" onChange={this.handleChangeFrequency} value={this.props.frequency}>
                     {this.props.frequencyOptions.map((option: IFrequencyOption) =>
                         <option key={option.value} value={option.value} disabled={!option.available}>{option.title}</option>
