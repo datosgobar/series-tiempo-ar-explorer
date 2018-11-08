@@ -188,21 +188,6 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.dispatch(clearViewSeries());
     }
 
-    public onSeriesFetchedSuccess(params: QueryParams, series: ISerie[]) {
-        const ids = params.getIds().split(',');
-        const validSeries = this.getValidSeries(ids, series);
-
-        this.setState({ lastSuccessQueryParams: this.getQueryParams() });
-        this.props.dispatch(loadViewSeries(validSeries));
-    }
-
-    private onSeriesFetchError(response: any) {
-        alert(response.data.errors[0].error);
-        if (this.state.lastSuccessQueryParams) {
-            this.setQueryParams(this.state.lastSuccessQueryParams); // rollback to the last successful state
-        }
-    }
-
     private handleUriChange(location: Location) {
         const ids = getIDs(location);
 
@@ -233,35 +218,39 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
             .catch(this.onSeriesFetchError);
     }
 
-    private getValidSeries(ids: string[], series: ISerie[]): ISerie[] {
-        return this.handleEmptySeries(this.handleFailedSeries(ids, series))
+    private onSeriesFetchedSuccess(params: QueryParams, series: ISerie[]) {
+        const ids = params.getIds().split(',');
+
+        this.saveFailedSeries(ids, series);
+        this.saveEmptySeries(series);
+        this.saveLastSuccessQuery();
+
+        this.props.dispatch(loadViewSeries(series.filter(serieWithData)));
     }
 
-    private handleEmptySeries(series: ISerie[]): ISerie[] {
-        const nonEmptySeries: ISerie[] = [];
-        const emptySeries: ISerie[] = [];
-
-        series.forEach((serie: ISerie, index: number) => {
-            const list = emptySerie(serie, index) ? emptySeries : nonEmptySeries;
-            list.push(serie);
-        });
-
-        if (emptySeries.length > 0) {
-            this.setState({ emptySeries: emptySeries.map(getId)});
+    private onSeriesFetchError(response: any) {
+        alert(response.data.errors[0].error);
+        if (this.state.lastSuccessQueryParams) {
+            this.setQueryParams(this.state.lastSuccessQueryParams); // rollback to the last successful state
         }
-
-        return nonEmptySeries;
     }
 
-    private handleFailedSeries(requestedIds: string[], series: ISerie[]): ISerie[] {
+    private saveFailedSeries(requestedIds: string[], series: ISerie[]) {
         if (requestedIds.length > series.length) {
             const foundSeries = series.map(getId);
             const failedSeries = requestedIds.filter((id: string) => foundSeries.indexOf(id) === -1);
 
             this.setState({failedSeries});
         }
+    }
 
-        return series;
+    private saveEmptySeries(series: ISerie[]) {
+        const emptySeries = series.filter(emptySerie);
+        this.setState({ emptySeries: emptySeries.map(getId)});
+    }
+
+    private saveLastSuccessQuery() {
+        this.setState({ lastSuccessQueryParams: this.getQueryParams() });
     }
 
     private downloadDataURL(): string {
@@ -375,6 +364,10 @@ function serieIdSanitizer(serieId: string): string {
 
 function emptySerie(serie: ISerie, position: number): boolean {
     return serie.data.length === 0 || serie.data.every((d: any) => d.datapoint[position+1] === null)
+}
+
+function serieWithData(serie: ISerie, position: number): boolean {
+    return serie.data.length > 0 && serie.data.some((d: any) => d.datapoint[position+1])
 }
 
 export default withRouter(connect(mapStateToProps)(ViewPage as any));
