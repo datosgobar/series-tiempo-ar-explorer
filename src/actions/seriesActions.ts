@@ -1,12 +1,16 @@
-import { Action } from "redux";
-import { IDateRange } from "../api/DateSerie";
-import { ISerie } from "../api/Serie";
-import { ISerieApi } from "../api/SerieApi";
+import {Action} from "redux";
+import {IDateRange} from "../api/DateSerie";
+import {ISerie} from "../api/Serie";
+import {ISerieApi} from "../api/SerieApi";
 import {ISerieTag} from "../components/viewpage/SeriesTags";
 import actionTypes from "./actionTypes";
 
 export interface ISeriesAction extends Action<string> {
     series: ISerie[];
+}
+
+export interface IFeaturedIdsAction extends Action<string> {
+    featuredIds: string[]
 }
 
 export interface IDateAction extends Action<string> {
@@ -17,8 +21,8 @@ export interface IUnitFormat extends Action<string> {
     formatChartUnits: boolean;
 }
 
-export function loadFeatured(series: ISerie[]): ISeriesAction {
-    return { type: actionTypes.LOAD_FEATURED, series };
+export function loadFeaturedIds(featuredIds: string[]): IFeaturedIdsAction {
+    return { type: actionTypes.LOAD_FEATURED_IDS, featuredIds };
 }
 
 export function clearViewSeries(): ISeriesAction {

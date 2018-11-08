@@ -6,7 +6,7 @@ import {ISerieTag} from "../components/viewpage/SeriesTags";
 
 export interface IStore {
     date: IDateRange,
-    featured: ISerie[],
+    featured: string[],
     viewSeries: ISerie[],
     seriesApi: ISerieApi | null,
     searchParams: ISearchParams,
