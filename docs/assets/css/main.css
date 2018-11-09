@@ -4,18 +4,26 @@
   .highcharts-reset-zoom,
 
   /* Hide navigation bar */
-  .highcharts-grid.highcharts-xaxis-grid.highcharts-navigator-xaxis
-  ,.highcharts-series.highcharts-series-1.highcharts-areaspline-series.highcharts-navigator-series
-  ,.highcharts-axis-labels.highcharts-xaxis-labels.highcharts-navigator-xaxis
-  ,.highcharts-navigator
-  ,.highcharts-scrollbar
+  .highcharts-grid.highcharts-xaxis-grid.highcharts-navigator-xaxis,
+  .highcharts-series.highcharts-series-1.highcharts-areaspline-series.highcharts-navigator-series,
+  .highcharts-areaspline-series.highcharts-navigator-series,
+  .highcharts-axis-labels.highcharts-xaxis-labels.highcharts-navigator-xaxis,
+  .highcharts-navigator,
+  .highcharts-scrollbar
   {
     display: none !important;
     visibility: hidden;
   }
 }
 
-@media (max-width: 600px)  {
+@media (max-width: 600px) and (min-width: 461px) {
+  .share {
+    width: 57%;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 460px) {
   .share {
     width: 100%;
     display: block;
@@ -36,10 +44,6 @@
   100% {
     opacity: 1;
   }
-}
-
-.app-loading {
-  margin-top: 25%;
 }
 
 .loading-spinner {
