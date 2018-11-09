@@ -20,6 +20,7 @@ import SerieConfig from '../../api/SerieConfig';
 import {getId, removeDuplicates} from "../../helpers/commonFunctions";
 import SearchBox from '../common/searchbox/SearchBox'
 import DetallePanel from './DetallePanel';
+import EmptySeries from "./EmptySeries";
 import FailedSeries from "./FailedSeries";
 import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
@@ -55,6 +56,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
         this.removeDateParams = this.removeDateParams.bind(this);
         this.state = {
+            emptySeries: [],
             failedSeries: [],
             lastSuccessfulUrl: this.getQueryParams()
         }
@@ -126,6 +128,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                 <div id="detalle-content">
                     <Container>
                         <FailedSeries ids={this.state.failedSeries} />
+                        <EmptySeries ids={this.state.emptySeries} />
                         <div className="row mg-t">
                             <AddAndCustomizeSeriesButton />
                             <SeriesTags onTagClose={this.removeSerie} pegColorFor={this.colorFor} />
@@ -185,18 +188,6 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.dispatch(clearViewSeries());
     }
 
-    public onSeriesFetchedSuccess(series: ISerie[]) {
-        this.setState({ lastSuccessQueryParams: this.getQueryParams() });
-        this.props.dispatch(loadViewSeries(series));
-    }
-
-    private onSeriesFetchError(response: any) {
-        alert(response.data.errors[0].error);
-        if (this.state.lastSuccessQueryParams) {
-            this.setQueryParams(this.state.lastSuccessQueryParams); // rollback to the last successful state
-        }
-    }
-
     private handleUriChange(location: Location) {
         const ids = getIDs(location);
 
@@ -223,20 +214,43 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     private fetchSeries(params: QueryParams) {
         this.props.seriesApi.fetchSeries(params)
-            .then((series: ISerie[]) => {
-                this.handleFailedSeries(params.getIds().split(','), series);
-                this.onSeriesFetchedSuccess(series);
-            })
+            .then((series: ISerie[]) => this.onSeriesFetchedSuccess(params, series))
             .catch(this.onSeriesFetchError);
     }
 
-    private handleFailedSeries(requestedIds: string[], series: ISerie[]) {
+    private onSeriesFetchedSuccess(params: QueryParams, series: ISerie[]) {
+        const ids = params.getIds().split(',');
+
+        this.saveFailedSeries(ids, series);
+        this.saveEmptySeries(series);
+        this.saveLastSuccessQuery();
+
+        this.props.dispatch(loadViewSeries(series.filter(serieWithData)));
+    }
+
+    private onSeriesFetchError(response: any) {
+        alert(response.data.errors[0].error);
+        if (this.state.lastSuccessQueryParams) {
+            this.setQueryParams(this.state.lastSuccessQueryParams); // rollback to the last successful state
+        }
+    }
+
+    private saveFailedSeries(requestedIds: string[], series: ISerie[]) {
         if (requestedIds.length > series.length) {
             const foundSeries = series.map(getId);
             const failedSeries = requestedIds.filter((id: string) => foundSeries.indexOf(id) === -1);
 
             this.setState({failedSeries});
         }
+    }
+
+    private saveEmptySeries(series: ISerie[]) {
+        const emptySeries = series.filter(emptySerie);
+        this.setState({ emptySeries: emptySeries.map(getId)});
+    }
+
+    private saveLastSuccessQuery() {
+        this.setState({ lastSuccessQueryParams: this.getQueryParams() });
     }
 
     private downloadDataURL(): string {
@@ -346,6 +360,14 @@ function getParamsFromUrl(location: Location): URLSearchParams {
 
 function serieIdSanitizer(serieId: string): string {
     return serieId.split(':')[0];
+}
+
+function emptySerie(serie: ISerie, position: number): boolean {
+    return serie.data.length === 0 || serie.data.every((d: any) => d.datapoint[position+1] === null)
+}
+
+function serieWithData(serie: ISerie, position: number): boolean {
+    return serie.data.length > 0 && serie.data.some((d: any) => d.datapoint[position+1])
 }
 
 export default withRouter(connect(mapStateToProps)(ViewPage as any));
