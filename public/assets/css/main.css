@@ -1,3 +1,11 @@
+.error-series {
+  margin: 20px -15px 20px -15px;
+  padding: 20px;
+  background-color: #ffdddd;
+  border: 1px solid #ff9999;
+  color: #ff5555;
+}
+
 @media print
 {
   .highcharts-range-selector-group,
