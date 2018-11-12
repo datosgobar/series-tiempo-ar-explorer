@@ -12,7 +12,7 @@ import {ISerieTag} from "../SeriesTags";
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
 
 
-interface IGraphicProps {
+export interface IGraphicProps {
     series: ISerie[];
     colorFor?: (serieId: string) => Color;
     range: {min: number, max: number};
@@ -21,6 +21,7 @@ interface IGraphicProps {
     readonly dispatch?: (action: object) => void;
     seriesConfig: SerieConfig[];
     formatUnits?:boolean;
+    chartOptions?: any;
 }
 
 interface IYAxis {
@@ -91,7 +92,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     };
 
     public highchartsConfig() {
-        return ({
+        const ownConfig = {
             legend: {
                 enabled: false
             },
@@ -174,7 +175,9 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             yAxis: yAxisConf(this.yAxisBySeries),
 
             series: this.seriesValues(),
-        });
+        };
+
+        return Object.assign(ownConfig, this.props.chartOptions); // chartOptions overrides ownConfig
     }
 
 

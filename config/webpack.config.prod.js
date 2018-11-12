@@ -59,10 +59,10 @@ module.exports = {
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
   // Also, we want to generate only one css file.
-  entry: [
-    require.resolve('./polyfills'),
-    paths.appIndexJs,
-  ],
+  entry: {
+    main: [require.resolve('./polyfills'), paths.appIndexJs],
+    graphic: paths.graphicIndexJs
+  },
   output: {
     // The build folder.
     path: paths.appBuild,

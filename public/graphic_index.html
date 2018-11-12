@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="manifest" href="assets/ico/site.webmanifest">
+    <meta name="msapplication-config" content="assets/ico/browserconfig.xml">
+</head>
+
+<body>
+<noscript>
+    You need to enable JavaScript to run this app.
+</noscript>
+<div id="root"></div>
+<script>
+    window.onload = function() {
+        TSGraphic.render('root', {
+            serieIds: [
+                "103.1_I2N_2016_M_15",
+                "168.1_T_CAMBIOR_D_0_0_26",
+                "308.1_PIB_IMPORTNES_0_T_17"
+            ],
+            seriesApiUri: "https://apis-stg.datos.gob.ar/series/api",
+            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/
+            }
+        })
+    }
+</script>
+</body>
+
+</html>
