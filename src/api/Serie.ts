@@ -78,11 +78,7 @@ export default class Serie implements ISerie {
     }
 
     get data(): DataPoint[] {
-        return this.tsResponse.data
-            .map((datapoint: any[]) => {
-                return new DataPoint(datapoint, this.responseIndex)
-            }
-            );
+        return this.tsResponse.data.map((datapoint: any[]) => new DataPoint(datapoint, this.responseIndex));
     }
 
     get accrualPeriodicity() {

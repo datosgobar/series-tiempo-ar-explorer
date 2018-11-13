@@ -36,32 +36,37 @@ class MockApi implements ISerieApi {
         })
     }
 
-    public searchSeries(q: string, options?: ISearchOptions): Promise<ISearchResponse> {
+    public fetchMetadata(params: QueryParams): Promise<ISerie[]> {
+        return new Promise((resolve, reject) => {
+            setTimeout(resolve, this.delay, params.getIds().split(',').map(toSerie))
+        })
+    }
 
+    public searchSeries(q: string, options?: ISearchOptions): Promise<ISearchResponse> {
         if (options && options.datasetSource) {
             return new Promise((resolve, reject) => {
                 setTimeout(resolve, this.delay, {count:1, result: [toSerie("serie01")]});
             });
         }
+
         if (options && options.datasetTheme) {
             return new Promise((resolve, reject) => {
                 setTimeout(resolve, this.delay, {count:1, result: [toSerie("serie02")]});
             });
         }
+
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, {count:1, result: [toSerie("serie01"), toSerie("serie02")]});
         });
     }
 
     public fetchSources(): Promise<string[]> {
-
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, this.sources);
         });
     }
 
     public fetchThemes(): Promise<string[]> {
-
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, this.themes);
         });
@@ -73,7 +78,6 @@ class MockApi implements ISerieApi {
 }
 
 function toSerie(id: string): ISerie {
-
     const self = {
         accrualPeriodicity: `${id} accrualPeriodicity`,
         bake: () => self,
