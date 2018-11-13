@@ -4,6 +4,7 @@ import SearchResult from "../../../api/SearchResult";
 import {ISerieApi} from "../../../api/SerieApi";
 import SearchBox from "../../common/searchbox/SearchBox";
 import Searcher, {ISearcherProps, ISearchParams} from "./Searcher";
+import Timer = NodeJS.Timer;
 
 
 interface IFullSearcherProps extends ISearchParams {
@@ -12,6 +13,7 @@ interface IFullSearcherProps extends ISearchParams {
 }
 
 export default class FullSearcher extends React.Component<IFullSearcherProps, ISearchParams> {
+    private timer: Timer;
 
     constructor(props: IFullSearcherProps) {
         super(props);
@@ -38,7 +40,9 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
     }
 
     public onSearchTermPicked(q: string){
-        this.setState({q});
+        clearTimeout(this.timer);
+
+        this.timer = setTimeout(() => this.setState({q}),500)
     }
 
     public onSourcePicked(datasetSource: string): void{
