@@ -93,7 +93,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     public highchartsConfig() {
         return ({
             legend: {
-                enabled: false
+                enabled: true
             },
 
             chart: {
@@ -109,6 +109,7 @@ export class Graphic extends React.Component<IGraphicProps, any> {
                 },
 
                 chartOptions: {
+                    legend: { itemStyle: { width: 300 } },
                     navigator: {enabled: false},
                     rangeSelector: {enabled: false},
                     scrollbar: { enabled: false },
