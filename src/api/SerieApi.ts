@@ -57,7 +57,7 @@ export default class SerieApi implements ISerieApi {
     }
 
     public fetchMetadata(params: QueryParams): Promise<Serie[]> {
-        const options = this.getSeriesParams(params, METADATA.ONLY);
+        const options = this.getSeriesParams(params, METADATA.FULL);
 
         return this.performGetWithRetry(options);
     }
