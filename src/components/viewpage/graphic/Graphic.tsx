@@ -297,7 +297,7 @@ function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues:
 }
 
 // returns the min and max values of the passed list in just one iteration, even if some of them is null or undefined
-function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
+export function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
     return data.reduce((result: any, e: IDataPoint) => {
         if (valueExist(e.value)) {
             result.min = minNotNull(result.min, e.value);

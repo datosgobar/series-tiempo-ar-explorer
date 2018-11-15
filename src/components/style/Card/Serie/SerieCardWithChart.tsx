@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {IDataPoint} from "../../../../api/DataPoint";
 import D3SeriesChart from "../../../d3_charts/D3SeriesChart";
 import Row from "../../Common/Row";
 import Card from "../Card";
@@ -27,7 +28,12 @@ export default (props: ISerieCardProps) =>
             </div>
 
             <div className="col-xs-3">
-                <D3SeriesChart serie={props.serie} />
+                <D3SeriesChart data={notNullData(props.serie.data)} frequency={props.serie.accrualPeriodicity} />
             </div>
         </Row>
     </Card>
+
+
+function notNullData(data: IDataPoint[]): IDataPoint[] {
+    return data.filter((d: IDataPoint) => d.value !== null);
+}

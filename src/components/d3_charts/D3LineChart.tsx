@@ -7,13 +7,12 @@ import {IDataPoint} from "../../api/DataPoint";
 interface ID3LineChart {
     renderTo: RefObject<any>;
     data: IDataPoint[];
-    laps: number;
 }
 
 export default class D3LineChart extends React.Component<ID3LineChart, any> {
 
     public componentDidMount() {
-        drawLineChart(this.props.renderTo.current, this.props.data, this.props.laps);
+        drawLineChart(this.props.renderTo.current, this.props.data);
     }
 
     public render() {
@@ -22,8 +21,7 @@ export default class D3LineChart extends React.Component<ID3LineChart, any> {
 }
 
 
-function drawLineChart(selector: string, input: IDataPoint[], laps: number) {
-    const data = input.splice(0, Math.min(laps, input.length - 1));
+function drawLineChart(selector: string, data: IDataPoint[]) {
     const container = d3.select(selector);
     const margin = { bottom: 10, left: 10, right: 10, top: 10 };
     const width = 100;

@@ -1,3 +1,10 @@
+.series-card {
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: .1s;
+}
+
 .card-desc {
   height: 35px;
 }
@@ -12,7 +19,7 @@
 }
 
 .d3-line-chart {
-  margin-top: 35px;
+  margin-top: 25px;
   float: right;
 }
 
