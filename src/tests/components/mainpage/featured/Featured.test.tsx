@@ -1,26 +1,20 @@
-import { mount } from 'enzyme';
-import * as React from 'react';
-import Featured from '../../../../components/mainpage/featured/Featured';
-
-import { configure } from 'enzyme';
+import {configure, mount} from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
-import { MemoryRouter } from 'react-router';
-import Serie, { ISerie } from '../../../../api/Serie';
+import * as React from 'react';
+import {MemoryRouter} from 'react-router';
+import Featured from '../../../../components/mainpage/featured/Featured';
 import Card from '../../../../components/style/Card/Card';
-
-import { generateITSAPIResponse } from '../../../support/factories/series_api';
+import MockApi from "../../../api/mockApi";
 
 
 configure({ adapter: new Adapter() });
 
 const ids = ["serie01", "serie02"];
-const response = generateITSAPIResponse(ids);
-const series: ISerie[] = ids.map((id, index) => new Serie(index+1, response));
 
 describe('Featured ', () => {
 
   it('renders without crashing', () => {
-    const wrapper = mount(<Featured featured={[]} featuredLoaded={true} />);
+    const wrapper = mount(<Featured featured={ids} seriesApi={new MockApi(0)} />);
 
     expect(wrapper.find(Card).exists()).toBeFalsy();
   });
@@ -29,7 +23,7 @@ describe('Featured ', () => {
 
     const wrapper = mount(
       <MemoryRouter>
-        <Featured featured={[series[0]]} featuredLoaded={true}/>
+        <Featured featured={ids} seriesApi={new MockApi(0)}/>
       </MemoryRouter>
     );
 
@@ -40,7 +34,7 @@ describe('Featured ', () => {
 
     const wrapper = mount(
       <MemoryRouter>
-        <Featured featured={series} featuredLoaded={true}/>
+        <Featured featured={ids} seriesApi={new MockApi(0)}/>
       </MemoryRouter>
     );
 
