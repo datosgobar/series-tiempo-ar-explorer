@@ -11,15 +11,13 @@ configure({ adapter: new Adapter() });
 
 it('renders without crashing', () => {
   const seriesApi = new MockApi(0);
-  seriesApi.fetchMetadata = jest.fn(seriesApi.fetchMetadata);
   seriesApi.fetchSeries = jest.fn(seriesApi.fetchSeries);
 
   const wrapper = mount(
     <MemoryRouter>
-      <MainPage featured={[]} seriesApi={seriesApi} />
+      <MainPage featured={['id1', 'id2']} seriesApi={seriesApi} />
     </MemoryRouter>);
 
   expect(wrapper.find(MainPage).find('h1').text()).toBe('Series de tiempo');
-  expect(seriesApi.fetchMetadata).toBeCalled();
-  expect(seriesApi.fetchSeries).not.toBeCalled();
+  expect(seriesApi.fetchSeries).toHaveBeenCalledTimes(2);
 });

@@ -1,11 +1,9 @@
 import * as React from 'react';
 import QueryParams from "../../../api/QueryParams";
-import {ISerie} from '../../../api/Serie';
 import {ISerieApi} from "../../../api/SerieApi";
-import FeaturedSerieCard from '../../style/Card/Serie/FeaturedSerieCard';
-import Row from '../../style/Common/Row';
 import FeaturedContainer from '../../style/Featured/FeaturedContainer';
 import FeaturedTitle from '../../style/Featured/FeaturedTitle';
+import FeaturedCardList from "./FeaturedCardList";
 
 
 interface IFeaturedProps {
@@ -32,14 +30,7 @@ export default class Featured extends React.Component<IFeaturedProps, any> {
         return (
             <FeaturedContainer>
                 <FeaturedTitle>Series Destacadas:</FeaturedTitle>
-
-                <Row>
-                    {this.props.featured.map((id: string) => {
-                        const serie = this.state.featuredSeries.find((s: ISerie) => s.id === id);
-
-                        return serie ? <FeaturedSerieCard key={serie.id} serie={serie} /> : null
-                    })}
-                </Row>
+                <FeaturedCardList seriesOrder={this.props.featured} series={this.state.featuredSeries} />
             </FeaturedContainer>
         );
     }

@@ -77,7 +77,7 @@ class MockApi implements ISerieApi {
     }
 }
 
-function toSerie(id: string): ISerie {
+export function toSerie(id: string): ISerie {
     const self = {
         accrualPeriodicity: `${id} accrualPeriodicity`,
         bake: () => self,
