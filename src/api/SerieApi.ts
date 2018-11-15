@@ -25,7 +25,6 @@ type DatasetSource = string;
 
 export interface ISerieApi {
     fetchSeries: ((params: QueryParams) => Promise<ISerie[]>);
-    fetchMetadata: ((params: QueryParams) => Promise<ISerie[]>);
     searchSeries: ((q: string | null, searchOptions?: ISearchOptions) => Promise<ISearchResponse>);
     fetchSources: () => Promise<DatasetSource[]>;
     fetchThemes: () => Promise<DatasetTheme[]>;
@@ -54,12 +53,6 @@ export default class SerieApi implements ISerieApi {
         const options = this.getSeriesParams(params, metadata);
 
         return this.performGetAllWithRetry(options);
-    }
-
-    public fetchMetadata(params: QueryParams): Promise<Serie[]> {
-        const options = this.getSeriesParams(params, METADATA.FULL);
-
-        return this.performGetWithRetry(options);
     }
 
     public downloadDataURL(params: QueryParams, metadata: string = METADATA.FULL): string {
@@ -129,13 +122,6 @@ export default class SerieApi implements ISerieApi {
 
         Object.assign(options.qs, params.asQuery());
         return options;
-    }
-
-    private performGetWithRetry(options: IApiClientOpt): Promise<Serie[]> {
-        return this.apiClient
-                    .get(options)
-                    .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(options.qs.ids.split(","), tsResponse))
-                    .catch((error: any) => retryFailedRequest(error, options, this.performGetWithRetry.bind(this)));
     }
 
     private performGetAll(options: IApiClientOpt): Promise<Serie[]> {
