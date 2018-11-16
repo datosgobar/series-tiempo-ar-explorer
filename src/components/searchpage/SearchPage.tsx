@@ -1,24 +1,21 @@
-import { Location } from 'history';
+import {Location} from 'history';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-
+import {connect} from 'react-redux';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {setSearchParams} from '../../actions/searchActions';
+import SearchResult from '../../api/SearchResult';
+import {ISerieApi} from '../../api/SerieApi';
+import URLSearchParams from '../../helpers/URLSearchParams';
+import initialState, {IStore} from '../../store/initialState';
+import SearchBox from '../common/searchbox/SearchBox';
+import Searcher, {ISearchParams} from '../common/searcher/Searcher';
+import SearcherResultsWithChart from "../common/searcher/SearcherResultsWithChart";
+import Selector from '../common/selector/Selector';
 import Container from '../style/Common/Container';
 import Row from '../style/Common/Row';
 import SeriesHero from '../style/Hero/SeriesHero';
 import Tag from '../style/Tag/Tag';
-
-import { setSearchParams } from '../../actions/searchActions';
-import SearchResult from '../../api/SearchResult';
-import { ISerieApi } from '../../api/SerieApi';
-import URLSearchParams from '../../helpers/URLSearchParams';
-import initialState, { IStore } from '../../store/initialState';
-import SearchBox from '../common/searchbox/SearchBox';
-import Searcher, { ISearchParams } from '../common/searcher/Searcher';
-import Selector from '../common/selector/Selector';
-import LinkedSerieCard from '../style/Card/Serie/LinkedSerieCard';
 import SeriesFilters from './filters/SeriesFilters';
-
 
 
 interface ISearchPageProps extends RouteComponentProps<any> {
@@ -43,6 +40,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.sourceRemoved = this.sourceRemoved.bind(this);
         this.redirectToViewPage = this.redirectToViewPage.bind(this);
         this.searchTagPicked = this.searchTagPicked.bind(this);
+        this.renderSearchResults = this.renderSearchResults.bind(this);
     }
 
     public componentDidMount() {
@@ -189,7 +187,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                                               offset={this.props.offset}
                                               q={this.props.q}
                                               seriesApi={this.props.seriesApi}
-                                              renderSearchResults={renderSearchResults} />
+                                              renderSearchResults={this.renderSearchResults} />
                                 </div>
                             </div>
                         </Row>
@@ -197,6 +195,10 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                 </div>
             </section>
         );
+    }
+
+    private renderSearchResults(searchResults: SearchResult[]) {
+        return <SearcherResultsWithChart searchResults={searchResults} seriesApi={this.props.seriesApi} />
     }
 }
 
@@ -209,16 +211,3 @@ function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
 }
 
 export default withRouter<ISearchPageProps>(connect(mapStateToProps)(SearchPage));
-
-
-function renderSearchResults(searchResults: SearchResult[]) {
-    return (
-        searchResults.map(toCard)
-    );
-}
-
-function toCard(searchResult: SearchResult) {
-    return (
-        <LinkedSerieCard key={searchResult.id} serie={searchResult} />
-    );
-}
