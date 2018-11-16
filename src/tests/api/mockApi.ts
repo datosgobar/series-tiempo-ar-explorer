@@ -36,6 +36,12 @@ class MockApi implements ISerieApi {
         })
     }
 
+    public simpleFetchSeries(params: QueryParams): Promise<ISerie[]> {
+        return new Promise((resolve, reject) => {
+            setTimeout(resolve, this.delay, params.getIds().split(',').map(toSerie))
+        })
+    }
+
     public searchSeries(q: string, options?: ISearchOptions): Promise<ISearchResponse> {
         if (options && options.datasetSource) {
             return new Promise((resolve, reject) => {

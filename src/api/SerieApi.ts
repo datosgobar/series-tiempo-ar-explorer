@@ -25,6 +25,7 @@ type DatasetSource = string;
 
 export interface ISerieApi {
     fetchSeries: ((params: QueryParams) => Promise<ISerie[]>);
+    simpleFetchSeries: ((params: QueryParams) => Promise<ISerie[]>);
     searchSeries: ((q: string | null, searchOptions?: ISearchOptions) => Promise<ISearchResponse>);
     fetchSources: () => Promise<DatasetSource[]>;
     fetchThemes: () => Promise<DatasetTheme[]>;
@@ -53,6 +54,12 @@ export default class SerieApi implements ISerieApi {
         const options = this.getSeriesParams(params, metadata);
 
         return this.performGetAllWithRetry(options);
+    }
+
+    public simpleFetchSeries(params: QueryParams, metadata: string = METADATA.FULL): Promise<Serie[]> {
+        const options = this.getSeriesParams(params, metadata);
+
+        return this.performGetAll(options);
     }
 
     public downloadDataURL(params: QueryParams, metadata: string = METADATA.FULL): string {

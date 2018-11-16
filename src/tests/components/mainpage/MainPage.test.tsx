@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() });
 
 it('renders without crashing', () => {
   const seriesApi = new MockApi(0);
-  seriesApi.fetchSeries = jest.fn(seriesApi.fetchSeries);
+  seriesApi.simpleFetchSeries = jest.fn(seriesApi.simpleFetchSeries);
 
   const wrapper = mount(
     <MemoryRouter>
@@ -19,5 +19,5 @@ it('renders without crashing', () => {
     </MemoryRouter>);
 
   expect(wrapper.find(MainPage).find('h1').text()).toBe('Series de tiempo');
-  expect(seriesApi.fetchSeries).toHaveBeenCalledTimes(2);
+  expect(seriesApi.simpleFetchSeries).toHaveBeenCalledTimes(2);
 });
