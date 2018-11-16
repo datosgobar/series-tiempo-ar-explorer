@@ -17,6 +17,9 @@ export default class QueryParams {
     private endDate: string;
     private representationMode: string;
     private metadata: string;
+    private last: number;
+    private start: number;
+    private limit: number;
 
     constructor(ids: string[]) {
         this.ids = ids;
@@ -40,6 +43,26 @@ export default class QueryParams {
 
     public getMetadata(): string {
         return this.metadata;
+    }
+
+    public getLast(): number {
+        return this.last;
+    }
+
+    public getStart(): number {
+        if (this.getLast()) {
+            return this.start
+        } else {
+            return 0;
+        }
+    }
+
+    public getLimit(): number {
+        if (this.getLast()) {
+            return this.limit
+        } else {
+            return 1000;
+        }
     }
 
     public setCollapse(collapse: string) {
@@ -66,6 +89,18 @@ export default class QueryParams {
         this.metadata = metadata;
     }
 
+    public setLast(last: number) {
+        this.last = last;
+    }
+
+    public setStart(start: number) {
+        this.start = start;
+    }
+
+    public setLimit(limit: number) {
+        this.limit = limit;
+    }
+
     public extractParams(params: any) {
         this.setCollapse(params.get('collapse') || '');
         this.setCollapseAggregation(params.get('collapse_aggregation') || '');
@@ -78,8 +113,11 @@ export default class QueryParams {
             collapse_aggregation: this.getCollapseAggregation(),
             end_date: this.endDate,
             ids: this.getIds(),
+            last: this.getLast(),
+            limit: this.getLimit(),
             metadata: this.getMetadata(),
             representation_mode: this.getRepresentationMode(),
+            start: this.getStart(),
             start_date: this.startDate
         }
     }
