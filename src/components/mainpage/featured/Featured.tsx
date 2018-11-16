@@ -37,7 +37,9 @@ export default class Featured extends React.Component<IFeaturedProps, any> {
 
     private fetchFeaturedSeries() {
         this.props.featured.forEach((id: string) => {
-            this.props.seriesApi.fetchSeries(new QueryParams([id])).then(featuredSeries => {
+            const params = new QueryParams([id]);
+            params.setLast(24);
+            this.props.seriesApi.fetchSeries(params).then(featuredSeries => {
                 this.setState({featuredSeries: Array.from(this.state.featuredSeries).concat(featuredSeries)});
             })
         });
