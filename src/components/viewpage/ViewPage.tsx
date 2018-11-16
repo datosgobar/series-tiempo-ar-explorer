@@ -281,9 +281,9 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return moment(endDate).isValid() && moment(endDate).isBefore(lastSeriesDate);
     }
 
-    private changeDateInUrl(date: {start: string, end: string}) {
+    private changeDateInUrl(d: {start: string, end: string}) {
         const params = this.getQueryParams();
-        this.setDateParam(params, date);
+        this.setDateParam(params, d);
         this.setQueryParams(params);
     }
 
