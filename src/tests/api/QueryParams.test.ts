@@ -18,10 +18,10 @@ describe("QueryParams", () => {
     });
 
     it("returns all values even the empty", () => {
-        expect(params.asJson()).toEqual({'ids': 'serie01,serie02,serie03', 'collapse': undefined});
+        expect(params.asJson()).toEqual({'ids': 'serie01,serie02,serie03', 'collapse': undefined, 'limit': 1000, 'start': 0});
     });
 
     it("returns all values without empty", () => {
-        expect(params.asQuery()).toEqual({'ids': 'serie01,serie02,serie03'});
+        expect(params.asQuery()).toEqual({'ids': 'serie01,serie02,serie03', 'limit': 1000, 'start': 0});
     });
 });
