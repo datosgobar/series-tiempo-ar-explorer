@@ -43,7 +43,7 @@ function urlToString(url: string): string {
 }
 
 function webCodeUrl(): string {
-    return "<script type='javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@graphic/dist/js/graphic.js'/>\n" +
+    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@graphic/dist/js/graphic.js'></script>\n" +
         "<div id=\"root\"></div>\n" +
         "<script>\n" +
         "    window.onload = function() {\n" +
