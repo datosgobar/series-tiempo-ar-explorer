@@ -215,7 +215,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
     private fetchSeries(params: QueryParams) {
         this.props.seriesApi.fetchSeries(params)
             .then((series: ISerie[]) => this.onSeriesFetchedSuccess(params, series))
-            .catch(this.onSeriesFetchError);
+            .catch((response: any) => this.onSeriesFetchError(params, response));
     }
 
     private onSeriesFetchedSuccess(params: QueryParams, series: ISerie[]) {
@@ -228,8 +228,14 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.props.dispatch(loadViewSeries(series.filter(serieWithData)));
     }
 
-    private onSeriesFetchError(response: any) {
-        alert(response.data.errors[0].error);
+    private onSeriesFetchError(params: QueryParams, response: any) {
+        const ids = params.getIds().split(',');
+        if (ids.length && ids[0] === "") {
+            alert("No se especificó una serie de tiempo");
+        } else {
+            this.saveFailedSeries(ids, []);
+        }
+
         if (this.state.lastSuccessQueryParams) {
             this.setQueryParams(this.state.lastSuccessQueryParams); // rollback to the last successful state
         }
