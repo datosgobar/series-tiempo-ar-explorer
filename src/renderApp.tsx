@@ -1,11 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {Provider} from "react-redux";
-
 import {BrowserRouterProps} from 'react-router-dom';
 import SerieApi, { ISerieApi } from "./api/SerieApi";
 import App from "./App";
-
+import {ILapsProps} from "./components/mainpage/featured/Featured";
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
 
@@ -16,7 +15,8 @@ export interface IExplorerConfig {
     useBrowserRouter?: boolean;
     browserRouterConf?: BrowserRouterProps;
     catalogId?: string;
-    formatChartUnits: boolean
+    formatChartUnits: boolean;
+    laps: ILapsProps;
 }
 
 
@@ -27,7 +27,8 @@ export function render(selector: string, config: IExplorerConfig) {
                  browserRouterConf={config.browserRouterConf}
                  seriesApi={ getSeriesApi(config) }
                  featuredIds={ getFeatured(config) }
-                 formatChartUnits={ config.formatChartUnits } />
+                 formatChartUnits={ config.formatChartUnits }
+                 laps={config.laps} />
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );

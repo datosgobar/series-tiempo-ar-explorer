@@ -1,18 +1,30 @@
 import * as React from 'react';
+import {connect} from "react-redux";
 import QueryParams from "../../../api/QueryParams";
 import {ISerieApi} from "../../../api/SerieApi";
+import {valuesFromObject} from "../../../helpers/commonFunctions";
+import {IStore} from "../../../store/initialState";
 import FeaturedContainer from '../../style/Featured/FeaturedContainer';
 import FeaturedTitle from '../../style/Featured/FeaturedTitle';
 import FeaturedCardList from "./FeaturedCardList";
 
 
+export interface ILapsProps {
+    Diaria: number;
+    Mensual: number;
+    Trimestral: number;
+    Semestral: number;
+    Anual: number;
+}
+
 interface IFeaturedProps {
     featured: string[];
     seriesApi: ISerieApi;
+    laps: ILapsProps;
 }
 
 
-export default class Featured extends React.Component<IFeaturedProps, any> {
+class Featured extends React.Component<IFeaturedProps, any> {
 
     public constructor(props: IFeaturedProps) {
         super(props);
@@ -38,7 +50,7 @@ export default class Featured extends React.Component<IFeaturedProps, any> {
     private fetchFeaturedSeries() {
         this.props.featured.forEach((id: string) => {
             const params = new QueryParams([id]);
-            params.setLast(24);
+            params.setLast(getBiggestLaps(this.props.laps));
             this.props.seriesApi.simpleFetchSeries(params).then(featuredSeries => {
                 this.setState({featuredSeries: Array.from(this.state.featuredSeries).concat(featuredSeries)});
             })
@@ -46,3 +58,18 @@ export default class Featured extends React.Component<IFeaturedProps, any> {
     }
 
 }
+
+// As we don't know the frequency at this point, we select the max laps value from the dictionary
+function getBiggestLaps(lapsDic: ILapsProps): number {
+    return Math.max.apply(null, valuesFromObject(lapsDic));
+}
+
+
+function mapStateToProps(state: IStore) {
+    return {
+        laps: state.laps,
+    };
+}
+
+
+export default connect(mapStateToProps)(Featured);

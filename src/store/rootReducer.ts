@@ -5,6 +5,7 @@ import date from "../components/viewpage/DateReducer";
 import serieTags from "../components/viewpage/SerieTagsReducer";
 import viewSeries from '../components/viewpage/ViewPageReducer';
 import formatUnits from "../FormatUnitsReducer";
+import laps from '../lapsReducer'
 import seriesApi from '../SerieApiReducer';
 
 
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     date,
     featured,
     formatUnits,
+    laps,
     searchParams,
     serieTags,
     seriesApi,

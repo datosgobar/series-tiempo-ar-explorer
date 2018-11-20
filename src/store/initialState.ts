@@ -2,6 +2,7 @@ import {IDateRange} from "../api/DateSerie";
 import {ISerie} from "../api/Serie";
 import {ISerieApi} from "../api/SerieApi";
 import {ISearchParams} from "../components/common/searcher/Searcher";
+import {ILapsProps} from "../components/mainpage/featured/Featured";
 import {ISerieTag} from "../components/viewpage/SeriesTags";
 
 export interface IStore {
@@ -12,12 +13,20 @@ export interface IStore {
     searchParams: ISearchParams,
     tagNames: ISerieTag[]
     formatChartUnits: boolean
+    laps: ILapsProps;
 }
 
 const initialState: IStore = {
     date: { start: '', end: '' },
     featured: [],
     formatChartUnits: true,
+    laps: {
+        Anual: 10,
+        Diaria: 90,
+        Mensual: 24,
+        Semestral: 10,
+        Trimestral: 20,
+    },
     searchParams: {
         datasetSource: "",
         datasetTheme: "",
