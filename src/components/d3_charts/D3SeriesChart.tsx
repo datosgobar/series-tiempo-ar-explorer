@@ -1,7 +1,10 @@
 import * as React from 'react';
 import {RefObject} from 'react';
+import {connect} from "react-redux";
 import {IDataPoint} from "../../api/DataPoint";
 import {parseFormatDate} from "../../api/utils/periodicityManager";
+import {IStore} from "../../store/initialState";
+import {ILapsProps} from "../mainpage/featured/Featured";
 import {smartMinAndMaxFinder} from "../viewpage/graphic/Graphic";
 import D3LineChart from "./D3LineChart";
 
@@ -9,11 +12,10 @@ import D3LineChart from "./D3LineChart";
 interface ID3Chart {
     data: IDataPoint[];
     frequency: string;
+    laps: ILapsProps;
 }
 
-const LAPS = 24;
-
-export default class D3SeriesChart extends React.Component<ID3Chart, any> {
+class D3SeriesChart extends React.Component<ID3Chart, any> {
 
     private readonly myRef: RefObject<any>;
 
@@ -24,7 +26,7 @@ export default class D3SeriesChart extends React.Component<ID3Chart, any> {
     }
 
     public render() {
-        const data = shortDataList(this.props.data);
+        const data = this.shortDataList(this.props.data);
         if (data.length === 0) { return <div className="d3-line-chart">Esta serie no trajo datos</div> }
 
         return (
@@ -34,14 +36,22 @@ export default class D3SeriesChart extends React.Component<ID3Chart, any> {
                     <div className="value">{lastFormattedValue(data)}</div>
                 </div>
                 <D3LineChart renderTo={this.myRef} data={data} />
-                <div className="frequency">{`ÚLTIMOS ${LAPS} ${periodFromFrequency(this.props.frequency)}`}</div>
+                <div className="frequency">{`ÚLTIMOS ${this.getLaps()} ${findPeriod(this.props.frequency)}`}</div>
             </div>
         )
+    }
+
+    private shortDataList(data: IDataPoint[]): IDataPoint[] {
+        return data.slice(Math.max(data.length - this.getLaps(), 0));
+    }
+
+    private getLaps(): number {
+        return this.props.laps[this.props.frequency];
     }
 }
 
 
-function periodFromFrequency(frequency: string): string {
+function findPeriod(frequency: string): string {
     const options = {
         'Anual': 'años',
         'Diaria': 'días',
@@ -64,6 +74,12 @@ function intTwoDecimals(value: number): number {
     return Math.round(value * 100) / 100
 }
 
-function shortDataList(data: IDataPoint[]): IDataPoint[] {
-    return data.slice(Math.max(data.length - LAPS, 0));
+
+function mapStateToProps(state: IStore) {
+    return {
+        laps: state.laps,
+    };
 }
+
+
+export default connect(mapStateToProps)(D3SeriesChart);
