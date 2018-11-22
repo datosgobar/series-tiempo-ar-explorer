@@ -57,7 +57,7 @@ export default class QueryParams {
         this.collapseAggregation = collapseAggregation;
     }
 
-    public extractParams(params: any) {
+    public addParamsFrom(params: any) {
         this.setCollapse(params.get('collapse') || '');
         this.setCollapseAggregation(params.get('collapse_aggregation') || '');
         this.setRepresentationMode(params.get('representation_mode') || '');

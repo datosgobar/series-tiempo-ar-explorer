@@ -49,7 +49,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             this.setState({dateRange: {start, end}})
         }
 
-        params.extractParams(url);
+        params.addParamsFrom(url);
         this.fetchSeries(params);
     }
 

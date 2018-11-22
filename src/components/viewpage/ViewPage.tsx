@@ -207,7 +207,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     private setParamsAndFetch(ids: string[], location: Location) {
         const queryParams = new QueryParams(ids);
-        queryParams.extractParams(getParamsFromUrl(location));
+        queryParams.addParamsFrom(getParamsFromUrl(location));
 
         this.fetchSeries(queryParams);
     }
@@ -262,7 +262,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         const endDate = getParamsFromUrl(location).get('end_date') || '';
 
         const queryParams = new QueryParams(ids);
-        queryParams.extractParams(getParamsFromUrl(location));
+        queryParams.addParamsFrom(getParamsFromUrl(location));
         if (this.validStartDateFilter(startDate)) { queryParams.setStartDate(startDate) }
         if (this.validEndDateFilter(endDate)) { queryParams.setEndDate(endDate) }
 
