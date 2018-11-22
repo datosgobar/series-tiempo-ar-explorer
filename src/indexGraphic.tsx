@@ -5,9 +5,10 @@ import GraphicExportable, {IGraphicExportableProps} from "./components/exportabl
 
 export function render(selector: string, config: IGraphicExportableProps) {
     ReactDOM.render(
-        <GraphicExportable serieIds={config.serieIds}
+        <GraphicExportable graphicUrl={config.graphicUrl}
                                    seriesApiUri={config.seriesApiUri}
-                                   chartOptions={config.chartOptions} />,
+                                   chartOptions={config.chartOptions}
+                                   navigator={config.navigator} />,
         document.getElementById(selector) as HTMLElement
     )
 }
