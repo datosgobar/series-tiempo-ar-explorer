@@ -12,7 +12,6 @@ cp -r build/assets/images dist/
 cp -r build/assets/css/main.css dist/css/main.css
 cp -r build/static/js/main.*.js dist/js/main.js
 cp -r build/static/js/graphic.*.js dist/js/graphic.js
-rm build/static/js/graphic.*.js
 
 mkdir -p dist/fonts/roboto dist/fonts/gotham
 cp -r build/assets/fonts/roboto/* dist/fonts/roboto/
