@@ -3,6 +3,8 @@ import {ApiClient} from "../../api/ApiClient";
 import QueryParams from "../../api/QueryParams";
 import {ISerie} from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
+import {Color} from "../style/Colors/Color";
+import Colors from "../style/Colors/Color";
 import Graphic from "../viewpage/graphic/Graphic";
 import {chartExtremes} from "../viewpage/graphic/GraphicAndShare";
 
@@ -25,6 +27,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
     public constructor(props: any) {
         super(props);
+        this.colorFor = this.colorFor.bind(this);
+
         this.seriesApi = new SerieApi(new ApiClient(this.props.seriesApiUri));
         this.state = {
             dateRange: { start: '', end: '' },
@@ -37,18 +41,18 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const ids = extractIdsFromUrl(this.props.graphicUrl);
         const params = new QueryParams(ids);
 
+        const start = url.get('start_date') || '';
+        const end = url.get('end_date') || '';
+
         if (this.props.navigator) {
             url.delete('start_date');
             url.delete('end_date');
         } else {
-            const start = url.get('start_date') || '';
-            const end = url.get('end_date') || '';
             params.setStartDate(start);
             params.setEndDate(end);
-
-            this.setState({dateRange: {start, end}})
         }
 
+        this.setState({dateRange: {start, end}});
         params.addParamsFrom(url);
         this.fetchSeries(params);
     }
@@ -58,8 +62,16 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             <Graphic series={this.state.series}
                      range={chartExtremes(this.state.series, this.state.dateRange)}
                      seriesConfig={[]}
-                     chartOptions={this.props.chartOptions} />
+                     chartOptions={this.props.chartOptions}
+                     colorFor={this.colorFor} />
         )
+    }
+
+    private colorFor(serieId: string): Color {
+        const colors = (Object as any).values(Colors);
+        const index = this.state.series.findIndex(viewSerie => viewSerie.id === serieId) % colors.length;
+
+        return colors[index];
     }
 
     private fetchSeries(params: QueryParams) {
