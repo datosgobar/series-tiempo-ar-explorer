@@ -96,6 +96,12 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         this.setExtremes(chart);
     };
 
+    public shouldComponentUpdate(nextProps: IGraphicProps) {
+        return this.props.series.every((serie1: ISerie) => {
+            return nextProps.series.every((serie2: ISerie) => serie1.id !== serie2.id)
+        });
+    }
+
     public highchartsConfig() {
         const ownConfig = {
             legend: {

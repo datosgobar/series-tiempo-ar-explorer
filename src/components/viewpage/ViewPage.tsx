@@ -39,7 +39,6 @@ interface IViewPageState {
     emptySeries: string[];
     failedSeries: string[];
     lastSuccessQueryParams: URLSearchParams;
-    urlToShare: string;
 }
 
 export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
@@ -66,14 +65,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
             emptySeries: [],
             failedSeries: [],
             lastSuccessQueryParams: this.getQueryParams(),
-            urlToShare: '',
         }
-    }
-
-    public shouldComponentUpdate(nextProps: IViewPageProps) {
-        return this.props.series.every((serie1: ISerie) => {
-            return nextProps.series.every((serie2: ISerie) => serie1.id !== serie2.id)
-        });
     }
 
     public viewSeries(ids: string[]) {
@@ -112,7 +104,6 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
     public handleChangeDate(date: IDateRange) {
         this.props.dispatch(setDate(date));
         this.changeDateInUrl(date);
-        this.setState({urlToShare: this.downloadDataURL()});
     }
 
     public handleChangeFrequency(value: string) {
@@ -153,7 +144,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                          handleChangeDate={this.handleChangeDate}
                                          handleChangeFrequency={this.handleChangeFrequency}
                                          onReset={this.removeDateParams}
-                                         url={this.state.urlToShare}
+                                         url={this.downloadDataURL()}
                                          dispatch={this.props.dispatch} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
