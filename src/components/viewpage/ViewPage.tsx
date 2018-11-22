@@ -35,7 +35,14 @@ interface IViewPageProps extends RouterProps {
     formatChartUnits?: boolean;
 }
 
-export class ViewPage extends React.Component<IViewPageProps, any> {
+interface IViewPageState {
+    emptySeries: string[];
+    failedSeries: string[];
+    lastSuccessQueryParams: URLSearchParams;
+    urlToShare: string;
+}
+
+export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
 
     private unlisten: (() => void);
 
@@ -58,7 +65,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.state = {
             emptySeries: [],
             failedSeries: [],
-            lastSuccessfulUrl: this.getQueryParams()
+            lastSuccessQueryParams: this.getQueryParams(),
+            urlToShare: '',
         }
     }
 
@@ -101,9 +109,10 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         }
     }
 
-    public handleChangeDate(date: {start: string, end: string}) {
+    public handleChangeDate(date: IDateRange) {
         this.props.dispatch(setDate(date));
         this.changeDateInUrl(date);
+        this.setState({urlToShare: this.downloadDataURL()});
     }
 
     public handleChangeFrequency(value: string) {
@@ -144,7 +153,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                                          handleChangeDate={this.handleChangeDate}
                                          handleChangeFrequency={this.handleChangeFrequency}
                                          onReset={this.removeDateParams}
-                                         url={this.downloadDataURL()}
+                                         url={this.state.urlToShare}
                                          dispatch={this.props.dispatch} />
                         <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
                     </Container>
@@ -281,7 +290,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return moment(endDate).isValid() && moment(endDate).isBefore(lastSeriesDate);
     }
 
-    private changeDateInUrl(date: {start: string, end: string}) {
+    private changeDateInUrl(date: IDateRange) {
         const params = this.getQueryParams();
         this.setDateParam(params, date);
         this.setQueryParams(params);
