@@ -6,7 +6,7 @@ import SerieConfig from "../../../api/SerieConfig";
 import {formattedMoment, localDate} from "../../../helpers/dateFunctions";
 import {Color} from "../../style/Colors/Color";
 import GraphContainer from "../../style/Graphic/GraphContainer";
-import Graphic from "./Graphic";
+import Graphic, {IChartExtremeProps} from "./Graphic";
 import GraphicComplements from "./GraphicComplements";
 
 
@@ -28,14 +28,13 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
     constructor(props: IGraphicAndShareProps) {
         super(props);
         this.handleZoom = this.handleZoom.bind(this);
-        this.chartExtremes = this.chartExtremes.bind(this);
     }
 
-    public handleZoom(extremes: {min: number, max: number}) {
+    public handleZoom(extremes: IChartExtremeProps) {
         if (this.props.series.length === 0) {return }
 
-        const start = this.findSerieDate(extremes.min);
-        const end = this.findSerieDate(extremes.max);
+        const start = findSerieDate(this.props.series, extremes.min);
+        const end = findSerieDate(this.props.series, extremes.max);
 
         this.props.handleChangeDate({ start: formattedMoment(start), end: formattedMoment(end) });
     }
@@ -47,7 +46,7 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
                          seriesConfig={this.props.seriesConfig}
                          formatUnits={this.props.formatUnits}
                          colorFor={this.props.colorFor}
-                         range={this.chartExtremes()}
+                         range={chartExtremes(this.props.series, this.props.date)}
                          onReset={this.props.onReset}
                          onZoom={this.handleZoom}
                          dispatch={this.props.dispatch} />
@@ -58,29 +57,26 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
             </GraphContainer>
         )
     }
-
-    public chartExtremes(): {min: number, max: number} {
-        if (this.props.series.length === 0) {return {min: 0, max: 0}}
-
-        let minDataIndex = this.firstSerieData().findIndex((data) => data.date >= this.props.date.start);
-        let maxDataIndex = this.firstSerieData().findIndex((data) => data.date >= this.props.date.end);
-        if (minDataIndex <= 0) { minDataIndex = 0 }
-        if (maxDataIndex <= 0) { maxDataIndex = this.firstSerieData().length - 1}
-
-        const min = new Date(this.firstSerieData()[minDataIndex].date).getTime();
-        const max = new Date(this.firstSerieData()[maxDataIndex].date).getTime();
-
-        return {min, max};
-    }
-
-    private findSerieDate(timestamp: number): string {
-        const serieData = this.firstSerieData().find((data) => data.date >= formattedMoment(localDate(timestamp)));
-        return serieData !== undefined ? serieData.date : '';
-    }
-
-    private firstSerieData(): IDataPoint[] {
-        return this.props.series[0].data;
-    }
-
 }
 
+// returns the date matching with the passed timestamp if the date exists
+function findSerieDate(series: ISerie[], timestamp: number): string {
+    const firstSerieData = series[0].data;
+    const serieData = firstSerieData.find((data) => data.date >= formattedMoment(localDate(timestamp)));
+    return serieData !== undefined ? serieData.date : '';
+}
+
+export function chartExtremes(series: ISerie[], dateRange: { start: string, end: string }): IChartExtremeProps {
+    if (series.length === 0) {return {min: 0, max: 0}}
+
+    const firstSerieData = series[0].data;
+    let minDataIndex = firstSerieData.findIndex((data: IDataPoint) => data.date >= dateRange.start);
+    let maxDataIndex = firstSerieData.findIndex((data: IDataPoint) => data.date >= dateRange.end);
+    if (minDataIndex <= 0) { minDataIndex = 0 }
+    if (maxDataIndex <= 0) { maxDataIndex = firstSerieData.length - 1}
+
+    const min = new Date(firstSerieData[minDataIndex].date).getTime();
+    const max = new Date(firstSerieData[maxDataIndex].date).getTime();
+
+    return {min, max};
+}
