@@ -137,7 +137,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                             <ClearFix />
                         </div>
                         <GraphicAndShare series={this.props.series}
-                                         seriesConfig={this.seriesConfig()}
+                                         seriesConfig={seriesConfigByUrl(this.props.series, this.props.location.search)}
                                          formatUnits={this.props.formatChartUnits || false}
                                          colorFor={this.colorFor}
                                          date={this.props.date}
@@ -315,17 +315,6 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.props.dispatch(setDate({ start: '', end: '' }));
     }
 
-    private seriesConfig(): SerieConfig[] {
-        const search = this.props.location.search.split(',');
-
-        return this.props.series.map((serie: ISerie) => {
-            const seriesConfig = new SerieConfig(serie.id);
-            seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
-            seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
-            return seriesConfig;
-        });
-    }
-
 }
 
 function mapStateToProps(state: any, ownProps: any) {
@@ -369,5 +358,17 @@ function emptySerie(serie: ISerie, position: number): boolean {
 function serieWithData(serie: ISerie, position: number): boolean {
     return serie.data.length > 0 && serie.data.some((d: any) => d.datapoint[position+1])
 }
+
+export function seriesConfigByUrl(series: ISerie[], url: string): SerieConfig[] {
+    const search = url.split(',');
+
+    return series.map((serie: ISerie) => {
+        const seriesConfig = new SerieConfig(serie.id);
+        seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
+        seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
+        return seriesConfig;
+    });
+}
+
 
 export default withRouter(connect(mapStateToProps)(ViewPage as any));

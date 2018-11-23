@@ -3,10 +3,10 @@ import {ApiClient} from "../../api/ApiClient";
 import QueryParams from "../../api/QueryParams";
 import {ISerie} from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
-import {Color} from "../style/Colors/Color";
-import Colors from "../style/Colors/Color";
+import Colors, {Color} from "../style/Colors/Color";
 import Graphic from "../viewpage/graphic/Graphic";
 import {chartExtremes} from "../viewpage/graphic/GraphicAndShare";
+import {seriesConfigByUrl} from "../viewpage/ViewPage";
 
 
 export interface IGraphicExportableProps {
@@ -61,9 +61,10 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         return (
             <Graphic series={this.state.series}
                      range={chartExtremes(this.state.series, this.state.dateRange)}
-                     seriesConfig={[]}
+                     seriesConfig={seriesConfigByUrl(this.state.series, this.props.graphicUrl)}
                      chartOptions={this.props.chartOptions}
-                     colorFor={this.colorFor} />
+                     colorFor={this.colorFor}
+                     formatUnits={true} />
         )
     }
 
