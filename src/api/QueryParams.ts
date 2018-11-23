@@ -16,6 +16,7 @@ export default class QueryParams {
     private startDate: string;
     private endDate: string;
     private representationMode: string;
+    private metadata: string;
 
     constructor(ids: string[]) {
         this.ids = ids;
@@ -35,6 +36,10 @@ export default class QueryParams {
 
     public getRepresentationMode(): string {
         return this.representationMode;
+    }
+
+    public getMetadata(): string {
+        return this.metadata;
     }
 
     public setCollapse(collapse: string) {
@@ -57,11 +62,14 @@ export default class QueryParams {
         this.collapseAggregation = collapseAggregation;
     }
 
+    public setMetadata(metadata: string) {
+        this.metadata = metadata;
+    }
+
     public addParamsFrom(params: any) {
         this.setCollapse(params.get('collapse') || '');
         this.setCollapseAggregation(params.get('collapse_aggregation') || '');
         this.setRepresentationMode(params.get('representation_mode') || '');
-
     }
 
     public asJson(): {} {
@@ -70,6 +78,7 @@ export default class QueryParams {
             collapse_aggregation: this.getCollapseAggregation(),
             end_date: this.endDate,
             ids: this.getIds(),
+            metadata: this.getMetadata(),
             representation_mode: this.getRepresentationMode(),
             start_date: this.startDate
         }

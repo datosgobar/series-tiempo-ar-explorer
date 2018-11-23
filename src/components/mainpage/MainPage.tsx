@@ -54,7 +54,7 @@ export class MainPage extends React.Component<IMainPageProps, any> {
 
     private fetchFeaturedSeries() {
         const params = new QueryParams(this.props.featured);
-        this.props.seriesApi.fetchSeries(params).then(featuredSeries => {
+        this.props.seriesApi.fetchMetadata(params).then(featuredSeries => {
             this.setState({featuredLoaded: true, featuredSeries});
         })
     }

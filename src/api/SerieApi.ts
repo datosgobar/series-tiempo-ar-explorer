@@ -24,8 +24,8 @@ type DatasetTheme = string;
 type DatasetSource = string;
 
 export interface ISerieApi {
-
     fetchSeries: ((params: QueryParams) => Promise<ISerie[]>);
+    fetchMetadata: ((params: QueryParams) => Promise<ISerie[]>);
     searchSeries: ((q: string | null, searchOptions?: ISearchOptions) => Promise<ISearchResponse>);
     fetchSources: () => Promise<DatasetSource[]>;
     fetchThemes: () => Promise<DatasetTheme[]>;
@@ -51,31 +51,19 @@ export default class SerieApi implements ISerieApi {
     }
 
     public fetchSeries(params: QueryParams, metadata: string = METADATA.FULL): Promise<Serie[]> {
-        const options = {
-            qs: {
-                limit: 1000,
-                metadata,
-                start: 0
-            },
-            uri: this.apiClient.endpoint('series'),
-        };
+        const options = this.getSeriesParams(params, metadata);
 
-        Object.assign(options.qs, params.asQuery());
+        return this.performGetAllWithRetry(options);
+    }
+
+    public fetchMetadata(params: QueryParams): Promise<Serie[]> {
+        const options = this.getSeriesParams(params, METADATA.ONLY);
 
         return this.performGetWithRetry(options);
     }
 
     public downloadDataURL(params: QueryParams, metadata: string = METADATA.FULL): string {
-        const options = {
-            qs: {
-                limit: 1000,
-                metadata,
-                start: 0
-            },
-            uri: this.apiClient.endpoint('series'),
-        };
-
-        Object.assign(options.qs, params.asQuery());
+        const options = this.getSeriesParams(params, metadata);
 
         let url = '?';
         Object.keys(options.qs).forEach((key) => {
@@ -129,24 +117,36 @@ export default class SerieApi implements ISerieApi {
         return this.apiClient.get<ITSAPIResponse>(options).then((tsResponse: ITSAPIResponse) => tsResponse.data);
     }
 
-    private performGet(options: IApiClientOpt): Promise<Serie[]> {
+    private getSeriesParams(params: QueryParams, metadata: string = METADATA.FULL) {
+        const options = {
+            qs: {
+                limit: 1000,
+                metadata,
+                start: 0
+            },
+            uri: this.apiClient.endpoint('series'),
+        };
+
+        Object.assign(options.qs, params.asQuery());
+        return options;
+    }
+
+    private performGetWithRetry(options: IApiClientOpt): Promise<Serie[]> {
+        return this.apiClient
+                    .get(options)
+                    .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(options.qs.ids.split(","), tsResponse))
+                    .catch((error: any) => retryFailedRequest(error, options, this.performGetWithRetry.bind(this)));
+    }
+
+    private performGetAll(options: IApiClientOpt): Promise<Serie[]> {
         return this.apiClient
                    .getAll(options, [])
                    .then((tsResponse: ITSAPIResponse) => tsResponseToSeries(options.qs.ids.split(","), tsResponse));
     }
 
-    private performGetWithRetry(options: IApiClientOpt): Promise<Serie[]> {
-        return this.performGet(options)
-                   .catch((error: any) => {
-                       if (error.response.data.failed_series) {
-                           const failedIds: string[] = error.response.data.failed_series;
-                           options.qs.ids = options.qs.ids.split(',').filter((id: string) => failedIds.indexOf(sanitizedSerieId(id)) === -1).join(',');
-
-                           return this.performGetWithRetry(options);
-                       } else {
-                           throw error.response;
-                       }
-                   });
+    private performGetAllWithRetry(options: IApiClientOpt): Promise<Serie[]> {
+        return this.performGetAll(options)
+                   .catch((error: any) => retryFailedRequest(error, options, this.performGetAllWithRetry.bind(this)));
     }
 
 }
@@ -185,4 +185,15 @@ function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {
 // removes serie id transformations
 function sanitizedSerieId(id: string): string {
     return id.split(':')[0];
+}
+
+function retryFailedRequest(error: any, options: IApiClientOpt, performGetFn: (options: IApiClientOpt) => Promise<Serie[]>) {
+    if (error.response.data.failed_series) {
+        const failedIds: string[] = error.response.data.failed_series;
+        options.qs.ids = options.qs.ids.split(',').filter((id: string) => failedIds.indexOf(sanitizedSerieId(id)) === -1).join(',');
+
+        return performGetFn(options);
+    } else {
+        throw error.response;
+    }
 }

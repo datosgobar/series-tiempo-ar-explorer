@@ -1,3 +1,7 @@
+.highcharts-legend {
+  display: none;
+}
+
 .error-series {
   margin: 20px -15px 20px -15px;
   padding: 20px;
@@ -21,6 +25,10 @@
   {
     display: none !important;
     visibility: hidden;
+  }
+
+  .highcharts-legend {
+    display: block;
   }
 }
 
