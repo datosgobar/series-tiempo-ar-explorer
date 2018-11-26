@@ -1,25 +1,38 @@
-import { mount } from 'enzyme';
-import * as React from 'react';
-import { MemoryRouter } from 'react-router';
-import { MainPage } from '../../../components/mainpage/MainPage';
-
-import { configure } from 'enzyme';
+import {configure, mount} from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
+import * as React from 'react';
+import {Provider} from "react-redux";
+import {MemoryRouter} from 'react-router';
+import {Store} from "redux";
+import {setLaps} from "../../../actions/seriesActions";
+import {MainPage} from '../../../components/mainpage/MainPage';
+import configureStore from "../../../store/configureStore";
 import MockApi from '../../api/mockApi';
 
 configure({ adapter: new Adapter() });
 
+let store: Store;
+
 it('renders without crashing', () => {
   const seriesApi = new MockApi(0);
-  seriesApi.fetchMetadata = jest.fn(seriesApi.fetchMetadata);
-  seriesApi.fetchSeries = jest.fn(seriesApi.fetchSeries);
+  seriesApi.simpleFetchSeries = jest.fn(seriesApi.simpleFetchSeries);
+  store = configureStore();
+  const laps = {
+      Anual: 10,
+      Diaria: 90,
+      Mensual: 24,
+      Semestral: 10,
+      Trimestral: 20,
+  };
+  store.dispatch(setLaps(laps));
 
   const wrapper = mount(
     <MemoryRouter>
-      <MainPage featured={[]} seriesApi={seriesApi} />
+        <Provider store={store}>
+          <MainPage featured={['id1', 'id2']} seriesApi={seriesApi} />
+        </Provider>
     </MemoryRouter>);
 
   expect(wrapper.find(MainPage).find('h1').text()).toBe('Series de tiempo');
-  expect(seriesApi.fetchMetadata).toBeCalled();
-  expect(seriesApi.fetchSeries).not.toBeCalled();
+  expect(seriesApi.simpleFetchSeries).toHaveBeenCalledTimes(2);
 });

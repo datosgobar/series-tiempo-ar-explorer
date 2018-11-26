@@ -2,6 +2,7 @@ import {Action} from "redux";
 import {IDateRange} from "../api/DateSerie";
 import {ISerie} from "../api/Serie";
 import {ISerieApi} from "../api/SerieApi";
+import {ILapsProps} from "../components/mainpage/featured/Featured";
 import {ISerieTag} from "../components/viewpage/SeriesTags";
 import actionTypes from "./actionTypes";
 
@@ -19,6 +20,10 @@ export interface IDateAction extends Action<string> {
 
 export interface IUnitFormat extends Action<string> {
     formatChartUnits: boolean;
+}
+
+export interface ILapsAction extends Action<string> {
+    laps: ILapsProps;
 }
 
 export function loadFeaturedIds(featuredIds: string[]): IFeaturedIdsAction {
@@ -55,4 +60,8 @@ export function setSerieTags(serieTags: ISerieTag[]): ITagNamesAction {
 
 export function setFormatChartUnits(formatChartUnits: boolean): IUnitFormat {
     return { type: actionTypes.SET_UNIT_FORMAT, formatChartUnits };
+}
+
+export function setLaps(laps: ILapsProps): ILapsAction {
+    return { type: actionTypes.SET_LAPS, laps };
 }

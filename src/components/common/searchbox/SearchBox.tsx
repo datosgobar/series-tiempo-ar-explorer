@@ -40,7 +40,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
 
         this.onSearchTermChange = this.onSearchTermChange.bind(this);
         this.triggerSearch = this.triggerSearch.bind(this);
-        this.updateAutoCompleteItems = debounce(this.updateAutoCompleteItems, 500);
+        this.searchPreviewItems = debounce(this.searchPreviewItems, 500);
         this.onSelect = this.onSelect.bind(this);
         this.renderItem = this.renderItem.bind(this);
     }
@@ -53,7 +53,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         }
     }
 
-    public updateAutoCompleteItems(searchTerm: string) {
+    public searchPreviewItems(searchTerm: string) {
         if (searchTerm.length > 2) {
             this.props.seriesApi
                 .searchSeries(searchTerm, {offset: 0, limit: 10})
@@ -66,9 +66,12 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     public onSearchTermChange(event: any) {
         const searchTerm: string = event.target.value;
         this.setState({ searchTerm, loading: true });
-        if (this.props.enterRequired === false && searchTerm.length > 2) { this.props.onSearch(searchTerm); return } // search without press Enter
+        if (this.props.enterRequired === false && searchTerm.length > 2) { // triggers onSearch to search without press Enter
+            this.props.onSearch(searchTerm);
+            return
+        }
 
-        this.updateAutoCompleteItems(searchTerm); // search and show the preview items
+        this.searchPreviewItems(searchTerm);
     }
 
     public triggerSearch(event: any) {

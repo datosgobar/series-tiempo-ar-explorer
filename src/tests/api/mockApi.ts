@@ -36,7 +36,7 @@ class MockApi implements ISerieApi {
         })
     }
 
-    public fetchMetadata(params: QueryParams): Promise<ISerie[]> {
+    public simpleFetchSeries(params: QueryParams): Promise<ISerie[]> {
         return new Promise((resolve, reject) => {
             setTimeout(resolve, this.delay, params.getIds().split(',').map(toSerie))
         })
@@ -77,7 +77,7 @@ class MockApi implements ISerieApi {
     }
 }
 
-function toSerie(id: string): ISerie {
+export function toSerie(id: string): ISerie {
     const self = {
         accrualPeriodicity: `${id} accrualPeriodicity`,
         bake: () => self,

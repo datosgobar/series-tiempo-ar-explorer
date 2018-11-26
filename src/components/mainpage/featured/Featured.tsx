@@ -1,34 +1,75 @@
 import * as React from 'react';
-
-import { ISerie } from '../../../api/Serie';
-
-import LoadingSpinner from "../../common/LoadingSpinner";
-import FeaturedSerieCard from '../../style/Card/Serie/FeaturedSerieCard';
-import Row from '../../style/Common/Row';
+import {connect} from "react-redux";
+import QueryParams from "../../../api/QueryParams";
+import {ISerieApi} from "../../../api/SerieApi";
+import {valuesFromObject} from "../../../helpers/commonFunctions";
+import {IStore} from "../../../store/initialState";
 import FeaturedContainer from '../../style/Featured/FeaturedContainer';
 import FeaturedTitle from '../../style/Featured/FeaturedTitle';
+import FeaturedCardList from "./FeaturedCardList";
 
 
-interface IFeaturedProps {
-    featured: ISerie[];
-    featuredLoaded: boolean;
+export interface ILapsProps {
+    Diaria: number;
+    Mensual: number;
+    Trimestral: number;
+    Semestral: number;
+    Anual: number;
 }
 
+interface IFeaturedProps {
+    featured: string[];
+    seriesApi: ISerieApi;
+    laps: ILapsProps;
+}
+
+
 class Featured extends React.Component<IFeaturedProps, any> {
+
+    public constructor(props: IFeaturedProps) {
+        super(props);
+
+        this.state = {
+            featuredSeries: []
+        }
+    }
+
+    public componentWillMount() {
+        this.fetchFeaturedSeries();
+    }
 
     public render() {
         return (
             <FeaturedContainer>
                 <FeaturedTitle>Series Destacadas:</FeaturedTitle>
-
-                {(!this.props.featuredLoaded) ? <LoadingSpinner /> : null }
-
-                <Row>
-                    {this.props.featured.map((serie: ISerie) => <FeaturedSerieCard key={serie.id} serie={serie} />)}
-                </Row>
+                <FeaturedCardList seriesOrder={this.props.featured} series={this.state.featuredSeries} />
             </FeaturedContainer>
         );
     }
+
+    private fetchFeaturedSeries() {
+        this.props.featured.forEach((id: string) => {
+            const params = new QueryParams([id]);
+            params.setLast(getBiggestLaps(this.props.laps));
+            this.props.seriesApi.simpleFetchSeries(params).then(featuredSeries => {
+                this.setState({featuredSeries: Array.from(this.state.featuredSeries).concat(featuredSeries)});
+            })
+        });
+    }
+
 }
 
-export default Featured;
+// As we don't know the frequency at this point, we select the max laps value from the dictionary
+function getBiggestLaps(lapsDic: ILapsProps): number {
+    return Math.max.apply(null, valuesFromObject(lapsDic));
+}
+
+
+function mapStateToProps(state: IStore) {
+    return {
+        laps: state.laps,
+    };
+}
+
+
+export default connect(mapStateToProps)(Featured);
