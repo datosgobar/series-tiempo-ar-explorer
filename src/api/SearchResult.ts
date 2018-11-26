@@ -32,7 +32,7 @@ export default class SearchResult implements ISerie {
     }
 
     public get accrualPeriodicity() {
-        return this.searchResult.dataset.accrualPeriodicity;
+        return this.fieldPeriodicity;
     }
 
     public get startDate() {
