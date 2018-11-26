@@ -103,7 +103,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
 
         this.props.seriesApi.searchSeries(query, options)
             .then((responseResult: ISearchResponse) => {
-                if (this.props.q !== query) { return } // prevent show old data on slow networks
+                if (this.props.q && this.props.q !== query) { return } // prevent show old data on slow networks
 
                 this.setState({
                     count: responseResult.count,
