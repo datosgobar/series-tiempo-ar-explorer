@@ -27,7 +27,7 @@ interface IYAxis {
     opposite: boolean;
     title: {text: string};
     yAxis: number;
-    labels?: { format: string }
+    labels?: { formatter: ()=>string }
 }
 
 interface IYAxisConf {
@@ -284,7 +284,7 @@ function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], fo
         const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
 
         if (serieConfig && serieConfig.mustFormatUnits(formatUnits, formatUnitsBySerie)) {
-            result[serie.id].labels = { format: "{value}%" };
+            result[serie.id].labels = { formatter: highchartsLabelFormatter};
         }
 
         return result;
@@ -326,4 +326,9 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
     rightAxis = rightAxis.filter((item: IYAxis, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
 
     return leftAxis.concat(rightAxis);
+}
+
+function highchartsLabelFormatter(): string {
+    // @ts-ignore
+    return `${this.value*100}%`
 }
