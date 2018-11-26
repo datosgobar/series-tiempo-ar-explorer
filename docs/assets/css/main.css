@@ -1,3 +1,57 @@
+.series-card {
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: .1s;
+}
+
+.card-desc {
+  height: 35px;
+}
+
+.card-title {
+  height: 30px;
+}
+
+.card-info {
+  color: #999999;
+  font-size: 12px;
+}
+
+.d3-line-chart {
+  margin-top: 25px;
+  float: right;
+}
+
+.d3-line-chart .frequency {
+  color: #686868;
+  font-size: 10px;
+}
+
+.d3-line-chart .units .date {
+  color: #686868;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.d3-line-chart .units .value {
+  color: #1a96d2;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.highcharts-legend {
+  display: none;
+}
+
+.error-series {
+  margin: 20px -15px 20px -15px;
+  padding: 20px;
+  background-color: #ffdddd;
+  border: 1px solid #ff9999;
+  color: #ff5555;
+}
+
 @media print
 {
   .highcharts-range-selector-group,
@@ -13,6 +67,10 @@
   {
     display: none !important;
     visibility: hidden;
+  }
+
+  .highcharts-legend {
+    display: block;
   }
 }
 
@@ -1407,7 +1465,7 @@ aside .series-card,
 footer .series-card {
   position: relative;
   display: block;
-  height: 185px;
+  height: 250px;
   border: 1px solid #dddddd;
   padding: 22.5px;
   overflow: hidden;
