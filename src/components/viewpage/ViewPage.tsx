@@ -366,6 +366,8 @@ function serieWithData(serie: ISerie, position: number): boolean {
 }
 
 export function seriesConfigByUrl(series: ISerie[], url: string): SerieConfig[] {
+    if (url === undefined) { return [] }
+
     const search = url.split(',');
 
     return series.map((serie: ISerie) => {
