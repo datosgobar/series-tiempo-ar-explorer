@@ -63,7 +63,12 @@
   .highcharts-areaspline-series.highcharts-navigator-series,
   .highcharts-axis-labels.highcharts-xaxis-labels.highcharts-navigator-xaxis,
   .highcharts-navigator,
-  .highcharts-scrollbar
+  .highcharts-scrollbar,
+
+  .share,
+  #btn-config,
+  .fa-search,
+  #detalle-panel
   {
     display: none !important;
     visibility: hidden;
