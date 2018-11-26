@@ -35,7 +35,13 @@ interface IViewPageProps extends RouterProps {
     formatChartUnits?: boolean;
 }
 
-export class ViewPage extends React.Component<IViewPageProps, any> {
+interface IViewPageState {
+    emptySeries: string[];
+    failedSeries: string[];
+    lastSuccessQueryParams: URLSearchParams;
+}
+
+export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
 
     private unlisten: (() => void);
 
@@ -58,14 +64,8 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         this.state = {
             emptySeries: [],
             failedSeries: [],
-            lastSuccessfulUrl: this.getQueryParams()
+            lastSuccessQueryParams: this.getQueryParams(),
         }
-    }
-
-    public shouldComponentUpdate(nextProps: IViewPageProps) {
-        return this.props.series.every((serie1: ISerie) => {
-            return nextProps.series.every((serie2: ISerie) => serie1.id !== serie2.id)
-        });
     }
 
     public viewSeries(ids: string[]) {
@@ -101,7 +101,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         }
     }
 
-    public handleChangeDate(date: {start: string, end: string}) {
+    public handleChangeDate(date: IDateRange) {
         this.props.dispatch(setDate(date));
         this.changeDateInUrl(date);
     }
@@ -137,7 +137,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
                             <ClearFix />
                         </div>
                         <GraphicAndShare series={this.props.series}
-                                         seriesConfig={this.seriesConfig()}
+                                         seriesConfig={seriesConfigByUrl(this.props.series, this.props.location.search)}
                                          formatUnits={this.props.formatChartUnits || false}
                                          colorFor={this.colorFor}
                                          date={this.props.date}
@@ -207,7 +207,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
 
     private setParamsAndFetch(ids: string[], location: Location) {
         const queryParams = new QueryParams(ids);
-        queryParams.extractParams(getParamsFromUrl(location));
+        queryParams.addParamsFrom(getParamsFromUrl(location));
 
         this.fetchSeries(queryParams);
     }
@@ -268,7 +268,7 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         const endDate = getParamsFromUrl(location).get('end_date') || '';
 
         const queryParams = new QueryParams(ids);
-        queryParams.extractParams(getParamsFromUrl(location));
+        queryParams.addParamsFrom(getParamsFromUrl(location));
         if (this.validStartDateFilter(startDate)) { queryParams.setStartDate(startDate) }
         if (this.validEndDateFilter(endDate)) { queryParams.setEndDate(endDate) }
 
@@ -287,9 +287,9 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         return moment(endDate).isValid() && moment(endDate).isBefore(lastSeriesDate);
     }
 
-    private changeDateInUrl(d: {start: string, end: string}) {
+    private changeDateInUrl(date: IDateRange) {
         const params = this.getQueryParams();
-        this.setDateParam(params, d);
+        this.setDateParam(params, date);
         this.setQueryParams(params);
     }
 
@@ -319,17 +319,6 @@ export class ViewPage extends React.Component<IViewPageProps, any> {
         params.delete('end_date');
         this.setQueryParams(params);
         this.props.dispatch(setDate({ start: '', end: '' }));
-    }
-
-    private seriesConfig(): SerieConfig[] {
-        const search = this.props.location.search.split(',');
-
-        return this.props.series.map((serie: ISerie) => {
-            const seriesConfig = new SerieConfig(serie.id);
-            seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
-            seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
-            return seriesConfig;
-        });
     }
 
 }
@@ -375,5 +364,17 @@ function emptySerie(serie: ISerie, position: number): boolean {
 function serieWithData(serie: ISerie, position: number): boolean {
     return serie.data.length > 0 && serie.data.some((d: any) => d.datapoint[position+1])
 }
+
+export function seriesConfigByUrl(series: ISerie[], url: string): SerieConfig[] {
+    const search = url.split(',');
+
+    return series.map((serie: ISerie) => {
+        const seriesConfig = new SerieConfig(serie.id);
+        seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
+        seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
+        return seriesConfig;
+    });
+}
+
 
 export default withRouter(connect(mapStateToProps)(ViewPage as any));

@@ -12,15 +12,21 @@ import {ISerieTag} from "../SeriesTags";
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
 
 
-interface IGraphicProps {
+export interface IGraphicProps {
     series: ISerie[];
     colorFor?: (serieId: string) => Color;
-    range: {min: number, max: number};
+    range: IChartExtremeProps;
     onReset?: () => void;
     onZoom?: ({}) => void;
     readonly dispatch?: (action: object) => void;
     seriesConfig: SerieConfig[];
     formatUnits?:boolean;
+    chartOptions?: any;
+}
+
+export interface IChartExtremeProps {
+    min: number;
+    max: number;
 }
 
 interface IYAxis {
@@ -90,8 +96,14 @@ export class Graphic extends React.Component<IGraphicProps, any> {
         this.setExtremes(chart);
     };
 
+    public shouldComponentUpdate(nextProps: IGraphicProps) {
+        return this.props.series.every((serie1: ISerie) => {
+            return nextProps.series.every((serie2: ISerie) => serie1.id !== serie2.id)
+        });
+    }
+
     public highchartsConfig() {
-        return ({
+        const ownConfig = {
             legend: {
                 enabled: true
             },
@@ -175,7 +187,9 @@ export class Graphic extends React.Component<IGraphicProps, any> {
             yAxis: yAxisConf(this.yAxisBySeries),
 
             series: this.seriesValues(),
-        });
+        };
+
+        return Object.assign(ownConfig, this.props.chartOptions); // chartOptions overrides ownConfig
     }
 
 
@@ -297,7 +311,7 @@ function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues:
 }
 
 // returns the min and max values of the passed list in just one iteration, even if some of them is null or undefined
-function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
+function smartMinAndMaxFinder(data: any[]): IChartExtremeProps {
     return data.reduce((result: any, e: IDataPoint) => {
         if (valueExist(e.value)) {
             result.min = minNotNull(result.min, e.value);
