@@ -66,7 +66,7 @@ module.exports = {
   output: {
     // The build folder.
     path: paths.appBuild,
-    library: "TSExplorer",
+    library: process.env.library_name || 'TSExplorer',
     libraryTarget: "var",
     // Generated JS file names (with nested folders).
     // There will be one main bundle, and one file per asynchronous chunk.
@@ -277,6 +277,7 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true,
       },
+      excludeChunks: ['graphic']
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.

@@ -78,6 +78,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "build-docs": "env PUBLIC_URL=https://datosgobar.github.io/series-tiempo-ar-explorer/ npm run build && cp build/* docs/ -r",
+    "release-graphic": "env library_name=TSGraphic sh scripts/release-graphic.sh",
     "release": "sh scripts/release.sh",
     "test": "node scripts/test.js --env=jsdom",
     "jscpd": "jscpd",
