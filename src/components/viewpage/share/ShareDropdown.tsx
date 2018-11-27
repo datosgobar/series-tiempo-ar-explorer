@@ -45,7 +45,7 @@ function webCodeUrl(url: string): string {
         "<div id=\"root\"></div>\n" +
         "<script>\n" +
         "    window.onload = function() {\n" +
-        "        TSExplorer.render('root', {\n" +
+        "        TSGraphic.render('root', {\n" +
         "            graphicUrl: '" + url +"',\n"+
         "            seriesApiUri: \"https://apis-stg.datos.gob.ar/series/api\",\n" +
         "            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/\n" +
