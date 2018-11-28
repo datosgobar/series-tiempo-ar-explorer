@@ -10,7 +10,7 @@
 }
 
 .card-title {
-  height: 30px;
+  height: 37px;
 }
 
 .card-info {
@@ -19,7 +19,7 @@
 }
 
 .d3-line-chart {
-  margin-top: 40px;
+  margin-top: 20px;
   float: right;
 }
 
@@ -1509,10 +1509,6 @@ aside .series-card .card-desc,
 footer .series-card .card-desc {
   margin-bottom: 7.5px;
 }
-header .series-card .card-title,
-section .series-card .card-title,
-aside .series-card .card-title,
-footer .series-card .card-title,
 header .series-card .card-section,
 section .series-card .card-section,
 aside .series-card .card-section,
