@@ -11,7 +11,6 @@ import {seriesConfigByUrl} from "../viewpage/ViewPage";
 
 export interface IGraphicExportableProps {
     graphicUrl: string;
-    seriesApiUri: string;
     chartOptions: any;
     navigator: boolean;
 }
@@ -29,7 +28,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         super(props);
         this.colorFor = this.colorFor.bind(this);
 
-        this.seriesApi = new SerieApi(new ApiClient(this.props.seriesApiUri));
+        this.seriesApi = new SerieApi(new ApiClient(extractUriFromUrl(props.graphicUrl)));
         this.state = {
             dateRange: { start: '', end: '' },
             series: []
@@ -58,11 +57,13 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     }
 
     public render() {
+        const chartOptions = buildChartOptions(this.props.chartOptions, this.props.navigator);
+
         return (
             <Graphic series={this.state.series}
                      range={chartExtremes(this.state.series, this.state.dateRange)}
                      seriesConfig={seriesConfigByUrl(this.state.series, this.props.graphicUrl)}
-                     chartOptions={this.props.chartOptions}
+                     chartOptions={chartOptions}
                      colorFor={this.colorFor}
                      formatUnits={true} />
         )
@@ -85,4 +86,19 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
 function extractIdsFromUrl(url: string): string[] {
     return url.split('ids=')[1].split('&')[0].split(',')
+}
+
+function extractUriFromUrl(url: string): string {
+    return url.split('series/?')[0];
+}
+
+function buildChartOptions(chartOptions: any, useNavigator: boolean): any {
+    const options = chartOptions;
+
+    if (!useNavigator) {
+        options.navigator = { enabled: false };
+        options.scrollbar = { enabled: false };
+    }
+
+    return options;
 }
