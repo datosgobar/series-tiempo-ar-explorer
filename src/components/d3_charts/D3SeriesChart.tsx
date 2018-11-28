@@ -65,13 +65,17 @@ function findPeriod(frequency: string): string {
 
 function lastFormattedValue(data: IDataPoint[]): string {
     const minAndMax = smartMinAndMaxFinder(data);
-    const value = intTwoDecimals(data[data.length-1].value);
+    const value = formattedPercentage(intTwoDecimals(data[data.length-1].value));
 
     return (minAndMax.min > -1 && minAndMax.max < 1) ? `${value}%` : `${value}`;
 }
 
 function intTwoDecimals(value: number): number {
     return Math.round(value * 100) / 100
+}
+
+function formattedPercentage(value: number): number {
+    return value < 1 && value > -1 ? value * 100 : value;
 }
 
 
