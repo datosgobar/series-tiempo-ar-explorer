@@ -77,6 +77,12 @@
   .highcharts-legend {
     display: block;
   }
+
+  .highcharts-container,
+  .highcharts-root,
+  .highcharts-background {
+    width: 700px;
+  }
 }
 
 @media (max-width: 600px) and (min-width: 461px) {
