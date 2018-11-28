@@ -19,7 +19,7 @@
 }
 
 .d3-line-chart {
-  margin-top: 25px;
+  margin-top: 40px;
   float: right;
 }
 
@@ -77,6 +77,12 @@
   .highcharts-legend {
     display: block;
   }
+
+  .highcharts-container,
+  .highcharts-root,
+  .highcharts-background {
+    width: 700px;
+  }
 }
 
 @media (max-width: 600px) and (min-width: 461px) {
@@ -90,6 +96,20 @@
   .share {
     width: 100%;
     display: block;
+  }
+
+  .d3-line-chart-container {
+    display: block;
+    width: 100%;
+  }
+
+  .d3-line-chart {
+    float: none !important;
+    margin-top: 15px !important;
+  }
+
+  .series-card {
+    height: auto !important;
   }
 }
 
