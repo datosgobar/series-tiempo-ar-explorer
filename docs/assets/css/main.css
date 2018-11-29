@@ -1,3 +1,9 @@
+.card-body-serie {
+  font-size: 12px;
+  color: #797979;
+  display: block;
+}
+
 .series-card {
   animation-name: fadeInOpacity;
   animation-iteration-count: 1;
@@ -1490,7 +1496,7 @@ aside .series-card,
 footer .series-card {
   position: relative;
   display: block;
-  height: 250px;
+  height: 265px;
   border: 1px solid #dddddd;
   padding: 22.5px;
   overflow: hidden;
@@ -1517,7 +1523,6 @@ header .series-card .card-count,
 section .series-card .card-count,
 aside .series-card .card-count,
 footer .series-card .card-count {
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
@@ -1555,12 +1560,13 @@ aside .series-card .card-title,
 footer .series-card .card-title {
   font-family: 'Medium';
   font-size: 16px;
+  color: #3e3e3e;
 }
 header .series-card .card-desc p,
 section .series-card .card-desc p,
 aside .series-card .card-desc p,
 footer .series-card .card-desc p {
-  color: #000000;
+  color: #757575;
   margin-bottom: 0;
 }
 header .series-card.card-small,
