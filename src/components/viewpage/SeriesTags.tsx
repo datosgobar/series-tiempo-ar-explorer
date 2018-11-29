@@ -11,7 +11,7 @@ export interface ISerieTag {
 }
 
 interface ISeriesTagsProps extends React.Props<any> {
-    onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void;
+    onTagClose: (serieId: string) => void;
     pegColorFor?: (serieId: string) => Color;
     serieTags: ISerieTag[];
 }
@@ -34,10 +34,10 @@ function mapStateToProps(state: any, ownProps: any) {
     };
 }
 
-function getOnCloseFor(serieTags: ISerieTag[], serieId: string, onTagClose: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void) {
+function getOnCloseFor(serieTags: ISerieTag[], serieId: string, onTagClose: (serieId: string) => void) {
     let fn;
     if (serieTags.length > 1) { // this is to prevent show a 'close btn' with just one serie tag
-        fn = (event: React.MouseEvent<HTMLButtonElement>) => onTagClose(event, serieId)
+        fn = () => onTagClose(serieId)
     }
 
     return fn;

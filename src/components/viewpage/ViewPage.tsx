@@ -94,7 +94,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.viewSeries(ids);
     }
 
-    public removeSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
+    public removeSerie(serieId: string) {
         const ids = getIDs(this.props.location as Location).filter((val) => serieIdSanitizer(val) !== serieId);
         if (ids.length) {
             this.viewSeries(ids);
@@ -158,6 +158,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         return {
             isChecked: this.isChecked,
             onPick: this.addPickedSerie,
+            onRemoveSerie: this.removeSerie,
             pegColorFor: this.colorFor,
             seriesApi: this.props.seriesApi,
         }

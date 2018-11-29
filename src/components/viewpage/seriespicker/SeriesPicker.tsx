@@ -9,11 +9,11 @@ import {Color, NaC} from '../../style/Colors/Color';
 
 
 export interface ISeriesPickerProps {
-
     seriesApi: ISerieApi;
     onPick: (event: React.MouseEvent<HTMLElement>, serieId: string) => void;
     isChecked?: (serieId: string) => boolean;
     pegColorFor?: (serieId: string) => Color;
+    onRemoveSerie: (serieId: string) => void;
 }
 
 class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
@@ -50,6 +50,7 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
         return {
             checked: this.props.isChecked && this.props.isChecked(searchResult.id),
             onClick: this.handlePick(searchResult.id),
+            onRemoveSerie: () => this.props.onRemoveSerie(searchResult.id),
             pegColor: this.props.pegColorFor ? this.props.pegColorFor(searchResult.id) : NaC,
             serie: searchResult,
         }

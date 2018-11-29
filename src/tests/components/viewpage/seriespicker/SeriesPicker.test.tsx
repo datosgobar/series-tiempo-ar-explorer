@@ -41,7 +41,7 @@ describe('SeriesPicker', () => {
 
         const wrapper = mount(
             <Provider store={store}>
-                <SeriesPicker seriesApi={mockSeriesApi} onPick={onPick} />
+                <SeriesPicker seriesApi={mockSeriesApi} onPick={onPick} onRemoveSerie={jest.fn()}/>
             </Provider>);
 
         wrapper.find(AutoComplete).find('input').simulate('change', { target: { value: searchTerm } });

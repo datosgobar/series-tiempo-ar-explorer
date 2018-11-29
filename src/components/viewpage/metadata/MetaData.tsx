@@ -9,7 +9,7 @@ import {ISerie} from '../../../api/Serie';
 
 interface IMetaDataProps {
     series: ISerie[];
-    onRemove: (event: React.MouseEvent<HTMLButtonElement>, serieId: string) => void;
+    onRemove: (serieId: string) => void;
     pegColorFor?: (serieId: string) => Color;
 }
 
@@ -24,7 +24,7 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
     public handleRemove(serieId: string) {
         return ((event: React.MouseEvent<HTMLButtonElement>) => {
             event.preventDefault();
-            this.props.onRemove(event, serieId);
+            this.props.onRemove(serieId);
         });
     }
 
