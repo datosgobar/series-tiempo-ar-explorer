@@ -30,7 +30,7 @@ export default (props: ISerieCardProps) =>
                     <span><strong>Fuente: </strong>{props.serie.datasetSource}</span>
                 </CardBodySerie>
                 <CardBodySerie>
-                    <span><strong>Período: </strong>{props.serie.startDate}-{props.serie.endDate}</span>
+                    <span><strong>Período: </strong>{props.serie.startDate} a {props.serie.endDate}</span>
                 </CardBodySerie>
                 <CardBodySerie>
                     <span><strong>Unidades: </strong>{props.serie.units}</span>
