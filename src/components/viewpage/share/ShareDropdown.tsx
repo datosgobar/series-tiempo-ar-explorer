@@ -48,7 +48,8 @@ function webCodeUrl(url: string): string {
         "        TSGraphic.render('root', {\n" +
         "            graphicUrl: '" + url +"',\n"+
         "            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/\n" +
-        "            }\n" +
+        "            },\n" +
+        "            navigator: false\n" +
         "        })\n" +
         "    }\n" +
         "</script>\n"
