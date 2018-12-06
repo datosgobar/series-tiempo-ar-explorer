@@ -294,7 +294,7 @@ function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], fo
             yAxis: outOfScale ? 1 : 0
         };
 
-        const formatUnitsBySerie = serie.data.some((e: IDataPoint) => e.value > 0.0001 && e.value < 1);
+        const formatUnitsBySerie = serie.data.every((e: IDataPoint) => e.value > -1 && e.value < 1);
         const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
 
         if (serieConfig && serieConfig.mustFormatUnits(formatUnits, formatUnitsBySerie)) {
