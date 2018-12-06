@@ -315,7 +315,7 @@ export function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
     return data.reduce((result: any, e: IDataPoint) => {
         if (valueExist(e.value)) {
             result.min = minNotNull(result.min, e.value);
-            result.max = maxNotNull(result.min, e.value);
+            result.max = maxNotNull(result.max, e.value);
         }
 
         return result;
