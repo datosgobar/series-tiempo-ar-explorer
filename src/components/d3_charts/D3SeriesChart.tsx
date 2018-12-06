@@ -3,8 +3,8 @@ import {RefObject} from 'react';
 import {connect} from "react-redux";
 import {IDataPoint} from "../../api/DataPoint";
 import {parseFormatDate} from "../../api/utils/periodicityManager";
-import {isInt, toFixedDecimals} from "../../helpers/commonFunctions";
 import {IStore} from "../../store/initialState";
+import {buildLocale} from "../common/locale/LocaleAR";
 import {ILapsProps} from "../mainpage/featured/Featured";
 import {smartMinAndMaxFinder} from "../viewpage/graphic/Graphic";
 import D3LineChart from "./D3LineChart";
@@ -14,6 +14,7 @@ interface ID3Chart {
     data: IDataPoint[];
     frequency: string;
     laps: ILapsProps;
+    locale: string;
 }
 
 class D3SeriesChart extends React.Component<ID3Chart, any> {
@@ -22,7 +23,6 @@ class D3SeriesChart extends React.Component<ID3Chart, any> {
 
     public constructor(props: ID3Chart) {
         super(props);
-
         this.myRef = React.createRef();
     }
 
@@ -34,7 +34,7 @@ class D3SeriesChart extends React.Component<ID3Chart, any> {
             <div className="d3-line-chart">
                 <div className="units">
                     <div className="date">{parseFormatDate(this.props.frequency, data[data.length - 1].date)}</div>
-                    <div className="value">{lastFormattedValue(data)}</div>
+                    <div className="value">{lastFormattedValue(data, this.props.locale)}</div>
                 </div>
                 <D3LineChart renderTo={this.myRef} data={data} />
                 <div className="frequency">{`ÚLTIMOS ${this.getLaps()} ${findPeriod(this.props.frequency)}`}</div>
@@ -64,23 +64,20 @@ function findPeriod(frequency: string): string {
     return options[frequency].toUpperCase()
 }
 
-function lastFormattedValue(data: IDataPoint[]): string {
+function lastFormattedValue(data: IDataPoint[], locale: string): string {
+    const dataValue = data[data.length-1].value;
     const minAndMax = smartMinAndMaxFinder(data);
-    const value = formattedPercentage(data[data.length-1].value);
+    const value = dataValue < 1 && dataValue > -1 ? dataValue * 100 : dataValue;
+    const result = buildLocale(locale).toFloat(value);
 
-    return (minAndMax.min > -1 && minAndMax.max < 1) ? `${value}%` : `${value}`;
+    return minAndMax.min > -1 && minAndMax.max < 1 ? `${result}%` : `${result}`;
 }
 
-function formattedPercentage(value: number): string {
-    const result = isInt(value) ? value : toFixedDecimals(value, 2);
-
-    // @ts-ignore
-    return result < 1 && result > -1 ? toFixedDecimals(result * 100, 2) : result;
-}
 
 function mapStateToProps(state: IStore) {
     return {
         laps: state.laps,
+        locale: state.locale,
     };
 }
 

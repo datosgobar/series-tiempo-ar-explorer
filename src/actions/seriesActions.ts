@@ -26,6 +26,11 @@ export interface ILapsAction extends Action<string> {
     laps: ILapsProps;
 }
 
+export interface ILocaleAction extends Action<string> {
+    locale: string;
+}
+
+
 export function loadFeaturedIds(featuredIds: string[]): IFeaturedIdsAction {
     return { type: actionTypes.LOAD_FEATURED_IDS, featuredIds };
 }
@@ -64,4 +69,8 @@ export function setFormatChartUnits(formatChartUnits: boolean): IUnitFormat {
 
 export function setLaps(laps: ILapsProps): ILapsAction {
     return { type: actionTypes.SET_LAPS, laps };
+}
+
+export function setLocale(locale: string): ILocaleAction {
+    return { type: actionTypes.SET_LOCALE, locale };
 }

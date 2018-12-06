@@ -17,6 +17,7 @@ export interface IExplorerConfig {
     catalogId?: string;
     formatChartUnits: boolean;
     laps: ILapsProps;
+    locale: string;
 }
 
 
@@ -28,7 +29,8 @@ export function render(selector: string, config: IExplorerConfig) {
                  seriesApi={ getSeriesApi(config) }
                  featuredIds={ getFeatured(config) }
                  formatChartUnits={ config.formatChartUnits }
-                 laps={config.laps} />
+                 laps={config.laps}
+                 locale={config.locale} />
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );
