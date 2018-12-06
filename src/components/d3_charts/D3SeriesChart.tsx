@@ -3,6 +3,7 @@ import {RefObject} from 'react';
 import {connect} from "react-redux";
 import {IDataPoint} from "../../api/DataPoint";
 import {parseFormatDate} from "../../api/utils/periodicityManager";
+import {isInt, toFixedDecimals} from "../../helpers/commonFunctions";
 import {IStore} from "../../store/initialState";
 import {ILapsProps} from "../mainpage/featured/Featured";
 import {smartMinAndMaxFinder} from "../viewpage/graphic/Graphic";
@@ -65,19 +66,17 @@ function findPeriod(frequency: string): string {
 
 function lastFormattedValue(data: IDataPoint[]): string {
     const minAndMax = smartMinAndMaxFinder(data);
-    const value = formattedPercentage(intTwoDecimals(data[data.length-1].value));
+    const value = formattedPercentage(data[data.length-1].value);
 
     return (minAndMax.min > -1 && minAndMax.max < 1) ? `${value}%` : `${value}`;
 }
 
-function intTwoDecimals(value: number): number {
-    return Math.round(value * 100) / 100
-}
+function formattedPercentage(value: number): string {
+    const result = isInt(value) ? value : toFixedDecimals(value, 2);
 
-function formattedPercentage(value: number): number {
-    return value < 1 && value > -1 ? value * 100 : value;
+    // @ts-ignore
+    return result < 1 && result > -1 ? toFixedDecimals(result * 100, 2) : result;
 }
-
 
 function mapStateToProps(state: IStore) {
     return {

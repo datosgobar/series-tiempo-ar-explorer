@@ -21,3 +21,11 @@ export function removeDuplicates(arr: any[]) {
 export function getId(value: any) {
     return value.id;
 }
+
+export function toFixedDecimals(value: number, decimals: number): string {
+    return value.toFixed(decimals);
+}
+
+export function isInt(n: number): boolean {
+    return n % 1 === 0;
+}
