@@ -66,11 +66,11 @@ function findPeriod(frequency: string): string {
 
 function lastFormattedValue(data: IDataPoint[], locale: string): string {
     const dataValue = data[data.length-1].value;
-    const minAndMax = smartMinAndMaxFinder(data);
+    const minAndMaxData = smartMinAndMaxFinder(data);
     const value = dataValue < 1 && dataValue > -1 ? dataValue * 100 : dataValue;
-    const result = buildLocale(locale).toFloat(value);
+    const result = buildLocale(locale).toDecimalString(value);
 
-    return minAndMax.min > -1 && minAndMax.max < 1 ? `${result}%` : `${result}`;
+    return minAndMaxData.min > -1 && minAndMaxData.max < 1 ? `${result}%` : `${result}`;
 }
 
 

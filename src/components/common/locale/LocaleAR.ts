@@ -1,7 +1,7 @@
 export interface ILocale {
     toLocaleString: (value: number) => string;
     decimalSeparator: () => string;
-    toFloat: (value: number, decimals?: number) => string;
+    toDecimalString: (value: number, decimals?: number) => string;
 }
 
 export default class LocaleAR implements ILocale {
@@ -14,13 +14,13 @@ export default class LocaleAR implements ILocale {
         return ',';
     }
 
-    public toFloat(value: number, decimals: number = 2): string {
+    public toDecimalString(value: number, decimals: number = 2): string {
         let result = this.toLocaleString(parseFloat(value.toFixed(decimals)));
         const totalDecimals = result.split(this.decimalSeparator())[1];
 
-        if (totalDecimals.length === 0) {
-            result = `${result}00`
-        } else if (totalDecimals.length === 1) {
+        if (!totalDecimals || totalDecimals.length === 0) {
+            result = `${result},00`
+        } else if (totalDecimals && totalDecimals.length === 1) {
             result = `${result}0`;
         }
 
