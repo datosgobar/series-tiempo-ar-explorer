@@ -7,7 +7,8 @@ export function render(selector: string, config: IGraphicExportableProps) {
     ReactDOM.render(
         <GraphicExportable graphicUrl={config.graphicUrl}
                                    chartOptions={config.chartOptions}
-                                   navigator={config.navigator} />,
+                                   navigator={config.navigator}
+                                   locale={config.locale} />,
         document.getElementById(selector) as HTMLElement
     )
 }

@@ -13,6 +13,7 @@ export interface IGraphicExportableProps {
     graphicUrl: string;
     chartOptions: any;
     navigator: boolean;
+    locale: string;
 }
 
 interface IGraphicExportableState {
@@ -65,7 +66,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                      seriesConfig={seriesConfigByUrl(this.state.series, this.props.graphicUrl)}
                      chartOptions={chartOptions}
                      colorFor={this.colorFor}
-                     formatUnits={true} />
+                     formatUnits={true}
+                     locale={this.props.locale} />
         )
     }
 

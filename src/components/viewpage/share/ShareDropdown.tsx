@@ -41,7 +41,7 @@ function urlToString(url: string): string {
 }
 
 function webCodeUrl(url: string): string {
-    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@graphic_2.1/dist/js/graphic.js'></script>\n" +
+    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@graphic_2.2/dist/js/graphic.js'></script>\n" +
         "<div id=\"root\"></div>\n" +
         "<script>\n" +
         "    window.onload = function() {\n" +
@@ -49,7 +49,8 @@ function webCodeUrl(url: string): string {
         "            graphicUrl: '" + url +"',\n"+
         "            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/\n" +
         "            },\n" +
-        "            navigator: false\n" +
+        "            navigator: false,\n" +
+        "            locale: 'AR'\n" +
         "        })\n" +
         "    }\n" +
         "</script>\n"
