@@ -3,7 +3,7 @@ import LocaleDefault from "./LocaleDefault";
 export default class LocaleUS extends LocaleDefault{
 
     public toLocaleString(value: number): string {
-        return value.toLocaleString('us-US');
+        return value.toLocaleString('en-US');
     }
 
     public decimalSeparator(): string {
