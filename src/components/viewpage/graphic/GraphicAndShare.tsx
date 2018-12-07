@@ -1,9 +1,11 @@
 import * as React from 'react';
+import {connect} from "react-redux";
 import {IDataPoint} from "../../../api/DataPoint";
 import {IDateRange} from "../../../api/DateSerie";
 import {ISerie} from "../../../api/Serie";
 import SerieConfig from "../../../api/SerieConfig";
 import {formattedMoment, localDate} from "../../../helpers/dateFunctions";
+import {IStore} from "../../../store/initialState";
 import {Color} from "../../style/Colors/Color";
 import GraphContainer from "../../style/Graphic/GraphContainer";
 import Graphic, {IChartExtremeProps} from "./Graphic";
@@ -21,9 +23,10 @@ export interface IGraphicAndShareProps {
     readonly dispatch: (action: object) => void;
     seriesConfig: SerieConfig[];
     formatUnits: boolean;
+    locale: string;
 }
 
-export default class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
+class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
 
     constructor(props: IGraphicAndShareProps) {
         super(props);
@@ -49,7 +52,8 @@ export default class GraphicAndShare extends React.Component<IGraphicAndSharePro
                          range={chartExtremes(this.props.series, this.props.date)}
                          onReset={this.props.onReset}
                          onZoom={this.handleZoom}
-                         dispatch={this.props.dispatch} />
+                         dispatch={this.props.dispatch}
+                         locale={this.props.locale} />
 
                 <GraphicComplements url={this.props.url}
                                     series={this.props.series}
@@ -80,3 +84,13 @@ export function chartExtremes(series: ISerie[], dateRange: { start: string, end:
 
     return {min, max};
 }
+
+
+
+function mapStateToProps(state: IStore) {
+    return {
+        locale: state.locale,
+    };
+}
+
+export default connect(mapStateToProps, {})(GraphicAndShare);

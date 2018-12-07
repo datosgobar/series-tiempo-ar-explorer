@@ -1,6 +1,7 @@
 export interface ILocale {
     toLocaleString: (value: number) => string;
     decimalSeparator: () => string;
+    thousandSeparator: () => string;
     toDecimalString: (value: number, decimals?: number) => string;
 }
 
@@ -12,6 +13,10 @@ export default class LocaleAR implements ILocale {
 
     public decimalSeparator(): string {
         return ',';
+    }
+
+    public thousandSeparator(): string {
+        return '.';
     }
 
     public toDecimalString(value: number, decimals: number = 2): string {
