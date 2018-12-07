@@ -16,5 +16,17 @@ describe("LocaleAR", () => {
         const locale = buildLocale('AR');
         expect(locale.toLocaleString(12300.5919999)).toEqual('12,300.592');
     });
+});
+
+describe("LocaleUS", () => {
+    it("returns a dot as decimal separator", () => {
+        const locale = buildLocale('US');
+        expect(locale.decimalSeparator()).toEqual('.');
+    });
+
+    it("returns a comma as thousand separator", () => {
+        const locale = buildLocale('US');
+        expect(locale.thousandSeparator()).toEqual(',');
+    });
 
 });
