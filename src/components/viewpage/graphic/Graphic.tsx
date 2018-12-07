@@ -6,7 +6,7 @@ import {ISerie} from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
 import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
 import {formattedDateString, timestamp} from "../../../helpers/dateFunctions";
-import {buildLocale} from "../../common/locale/LocaleAR";
+import {buildLocale} from "../../common/locale/buildLocale";
 import {Color} from '../../style/Colors/Color';
 import {ISerieTag} from "../SeriesTags";
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';

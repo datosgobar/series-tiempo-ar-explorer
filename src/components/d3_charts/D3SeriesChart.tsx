@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {IDataPoint} from "../../api/DataPoint";
 import {parseFormatDate} from "../../api/utils/periodicityManager";
 import {IStore} from "../../store/initialState";
-import {buildLocale} from "../common/locale/LocaleAR";
+import {buildLocale} from "../common/locale/buildLocale";
 import {ILapsProps} from "../mainpage/featured/Featured";
 import {smartMinAndMaxFinder} from "../viewpage/graphic/Graphic";
 import D3LineChart from "./D3LineChart";

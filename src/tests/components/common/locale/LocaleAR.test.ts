@@ -1,4 +1,4 @@
-import {buildLocale} from "../../../../components/common/locale/LocaleAR";
+import {buildLocale} from "../../../../components/common/locale/buildLocale";
 
 
 describe("LocaleAR", () => {

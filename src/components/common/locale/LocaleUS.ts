@@ -1,17 +1,17 @@
 import LocaleDefault from "./LocaleDefault";
 
-export default class LocaleAR extends LocaleDefault {
+export default class LocaleUS extends LocaleDefault{
 
     public toLocaleString(value: number): string {
-        return value.toLocaleString('es-AR');
+        return value.toLocaleString('us-US');
     }
 
     public decimalSeparator(): string {
-        return ',';
+        return '.';
     }
 
     public thousandSeparator(): string {
-        return '.';
+        return ',';
     }
 
 }
