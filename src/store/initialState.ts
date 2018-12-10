@@ -14,6 +14,7 @@ export interface IStore {
     tagNames: ISerieTag[]
     formatChartUnits: boolean
     laps: ILapsProps;
+    locale: string;
 }
 
 const initialState: IStore = {
@@ -27,6 +28,7 @@ const initialState: IStore = {
         Semestral: 10,
         Trimestral: 20,
     },
+    locale: '',
     searchParams: {
         datasetSource: "",
         datasetTheme: "",

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {RefObject} from 'react';
-
 import {setSerieTags} from "../../../actions/seriesActions";
 import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
 import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
 import {formattedDateString, timestamp} from "../../../helpers/dateFunctions";
+import {buildLocale} from "../../common/locale/buildLocale";
 import {Color} from '../../style/Colors/Color';
 import {ISerieTag} from "../SeriesTags";
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
@@ -22,6 +22,7 @@ export interface IGraphicProps {
     seriesConfig: SerieConfig[];
     formatUnits?:boolean;
     chartOptions?: any;
+    locale: string;
 }
 
 export interface IChartExtremeProps {
@@ -41,23 +42,6 @@ interface IYAxisConf {
 }
 
 
-ReactHighStock.Highcharts.setOptions({
-    lang: {
-        contextButtonTitle: 'Opciones',
-        downloadJPEG: 'Descargar JPEG',
-        downloadPDF: 'Descargar PDF',
-        downloadPNG: 'Descargar PNG',
-        downloadSVG: 'Descargar SVG',
-        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        printChart: 'Imprimir gráfico',
-        rangeSelectorFrom: 'Desde',
-        rangeSelectorTo: 'Hasta',
-        resetZoom: 'Reiniciar zoom',
-        shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-        weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-    }
-});
-
 const DATE_FORMAT_BY_PERIODICITY= {
     day:      '%Y-%m-%d',
     month:    '%Y-%m',
@@ -67,7 +51,7 @@ const DATE_FORMAT_BY_PERIODICITY= {
 };
 
 
-export class Graphic extends React.Component<IGraphicProps, any> {
+export default class Graphic extends React.Component<IGraphicProps> {
 
     private myRef: RefObject<any>;
     private yAxisBySeries: IYAxisConf;
@@ -75,6 +59,8 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     constructor(props: IGraphicProps) {
         super(props);
         this.myRef = React.createRef();
+
+        setHighchartsGlobalConfig(props.locale);
     }
 
     public componentDidUpdate() {
@@ -270,7 +256,6 @@ export class Graphic extends React.Component<IGraphicProps, any> {
     }
 }
 
-export default Graphic;
 
 function dateFormatByPeriodicity(component: Graphic) {
     const frequency = component.props.series.length > 0 ? component.props.series[0].frequency || 'day' : 'day';
@@ -345,4 +330,28 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
 function highchartsLabelFormatter(): string {
     // @ts-ignore
     return `${this.value*100}%`
+}
+
+
+function setHighchartsGlobalConfig(locale: string) {
+    const localeObj = buildLocale(locale);
+
+    ReactHighStock.Highcharts.setOptions({
+        lang: {
+            contextButtonTitle: 'Opciones',
+            decimalPoint: localeObj.decimalSeparator(),
+            downloadJPEG: 'Descargar JPEG',
+            downloadPDF: 'Descargar PDF',
+            downloadPNG: 'Descargar PNG',
+            downloadSVG: 'Descargar SVG',
+            months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            printChart: 'Imprimir gráfico',
+            rangeSelectorFrom: 'Desde',
+            rangeSelectorTo: 'Hasta',
+            resetZoom: 'Reiniciar zoom',
+            shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            thousandsSep: localeObj.thousandSeparator(),
+            weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+        }
+    });
 }

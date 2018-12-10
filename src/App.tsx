@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import {connect} from 'react-redux';
 import {BrowserRouter, BrowserRouterProps, HashRouter} from 'react-router-dom';
-import {loadFeaturedIds, setFormatChartUnits, setLaps, setSeriesApi} from './actions/seriesActions';
+import {loadFeaturedIds, setFormatChartUnits, setLaps, setLocale, setSeriesApi} from './actions/seriesActions';
 import {ISerieApi} from './api/SerieApi';
 import {ILapsProps} from "./components/mainpage/featured/Featured";
 import Wrapper from './components/style/Common/Wrapper';
@@ -16,6 +16,7 @@ interface IAppProps {
     browserRouterConf?: BrowserRouterProps;
     formatChartUnits?: boolean;
     laps: ILapsProps;
+    locale?: string;
 }
 
 class App extends React.Component<IAppProps, any> {
@@ -26,6 +27,7 @@ class App extends React.Component<IAppProps, any> {
         this.props.dispatch(setFormatChartUnits(this.props.formatChartUnits || false));
         this.props.dispatch(loadFeaturedIds(this.props.featuredIds));
         this.props.dispatch(setLaps(this.props.laps));
+        this.props.dispatch(setLocale(this.props.locale || "AR"));
     }
 
     public render(): any {
