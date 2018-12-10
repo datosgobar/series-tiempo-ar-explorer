@@ -1,3 +1,140 @@
+.bg-gray {
+  color: #cecece !important;
+}
+
+.card-body-serie {
+  font-size: 12px;
+  color: #797979;
+  display: block;
+}
+
+.series-card {
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: .1s;
+}
+
+.card-desc {
+  height: 35px;
+}
+
+.card-info {
+  color: #999999;
+  font-size: 12px;
+}
+
+.d3-line-chart {
+  margin-top: 20px;
+  float: right;
+}
+
+.d3-line-chart .frequency {
+  color: #686868;
+  font-size: 10px;
+}
+
+.d3-line-chart .units .date {
+  color: #686868;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.d3-line-chart .units .value {
+  color: #1a96d2;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.highcharts-legend {
+  display: none;
+}
+
+.error-series {
+  margin: 20px -15px 20px -15px;
+  padding: 20px;
+  background-color: #ffdddd;
+  border: 1px solid #ff9999;
+  color: #ff5555;
+}
+
+@media print
+{
+  .highcharts-range-selector-group,
+  .highcharts-reset-zoom,
+
+  /* Hide navigation bar */
+  .highcharts-grid.highcharts-xaxis-grid.highcharts-navigator-xaxis,
+  .highcharts-series.highcharts-series-1.highcharts-areaspline-series.highcharts-navigator-series,
+  .highcharts-areaspline-series.highcharts-navigator-series,
+  .highcharts-axis-labels.highcharts-xaxis-labels.highcharts-navigator-xaxis,
+  .highcharts-navigator,
+  .highcharts-scrollbar,
+
+  .share,
+  #btn-config,
+  .fa-search,
+  #detalle-panel
+  {
+    display: none !important;
+    visibility: hidden;
+  }
+
+  .highcharts-legend {
+    display: block;
+  }
+
+  .highcharts-container,
+  .highcharts-root,
+  .highcharts-background {
+    width: 700px;
+  }
+}
+
+@media (max-width: 600px) and (min-width: 461px) {
+  .share {
+    width: 57%;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 460px) {
+  .share {
+    width: 100%;
+    display: block;
+  }
+
+  .d3-line-chart-container {
+    display: block;
+    width: 100%;
+  }
+
+  .d3-line-chart {
+    float: none !important;
+    margin-top: 15px !important;
+  }
+
+  .series-card {
+    height: auto !important;
+  }
+}
+
+.dp-results {
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: .1s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .loading-spinner {
   background-color: transparent;
   display: inline-block;
@@ -1359,7 +1496,7 @@ aside .series-card,
 footer .series-card {
   position: relative;
   display: block;
-  height: 185px;
+  height: 280px;
   border: 1px solid #dddddd;
   padding: 22.5px;
   overflow: hidden;
@@ -1378,10 +1515,6 @@ aside .series-card .card-desc,
 footer .series-card .card-desc {
   margin-bottom: 7.5px;
 }
-header .series-card .card-title,
-section .series-card .card-title,
-aside .series-card .card-title,
-footer .series-card .card-title,
 header .series-card .card-section,
 section .series-card .card-section,
 aside .series-card .card-section,
@@ -1390,7 +1523,6 @@ header .series-card .card-count,
 section .series-card .card-count,
 aside .series-card .card-count,
 footer .series-card .card-count {
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
@@ -1428,12 +1560,13 @@ aside .series-card .card-title,
 footer .series-card .card-title {
   font-family: 'Medium';
   font-size: 16px;
+  color: #3e3e3e;
 }
 header .series-card .card-desc p,
 section .series-card .card-desc p,
 aside .series-card .card-desc p,
 footer .series-card .card-desc p {
-  color: #000000;
+  color: #757575;
   margin-bottom: 0;
 }
 header .series-card.card-small,
