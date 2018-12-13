@@ -14,6 +14,8 @@ export interface IGraphicExportableProps {
     chartOptions: any;
     navigator: boolean;
     locale: string;
+    zoom: boolean;
+    exportable: boolean;
 }
 
 interface IGraphicExportableState {
@@ -58,7 +60,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     }
 
     public render() {
-        const chartOptions = buildChartOptions(this.props.chartOptions, this.props.navigator);
+        const chartOptions = buildChartOptions(this.props.chartOptions, this.props);
 
         return (
             <Graphic series={this.state.series}
@@ -94,13 +96,13 @@ function extractUriFromUrl(url: string): string {
     return url.split('series/?')[0];
 }
 
-function buildChartOptions(chartOptions: any, useNavigator: boolean): any {
+function buildChartOptions(chartOptions: any, componentProps: IGraphicExportableProps): any {
     const options = chartOptions;
-
-    if (!useNavigator) {
-        options.navigator = { enabled: false };
-        options.scrollbar = { enabled: false };
-    }
+    options.navigator = Object.assign({}, options.navigator, { enabled: componentProps.navigator });
+    options.scrollbar = Object.assign({}, options.scrollbar, { enabled: componentProps.navigator });
+    options.exporting = Object.assign({}, options.exporting, { enabled: componentProps.exportable });
+    options.chart = Object.assign({}, options.chart, { zoomType: componentProps.zoom ? 'x' : '' });
+    options.rangeSelector = Object.assign({}, options.rangeSelector, { enabled: componentProps.zoom });
 
     return options;
 }

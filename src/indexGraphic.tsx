@@ -8,7 +8,9 @@ export function render(selector: string, config: IGraphicExportableProps) {
         <GraphicExportable graphicUrl={config.graphicUrl}
                                    chartOptions={config.chartOptions}
                                    navigator={config.navigator}
-                                   locale={config.locale} />,
+                                   locale={config.locale}
+                                   zoom={config.zoom}
+                                   exportable={config.exportable} />,
         document.getElementById(selector) as HTMLElement
     )
 }

@@ -50,7 +50,9 @@ function webCodeUrl(url: string): string {
         "            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/\n" +
         "            },\n" +
         "            navigator: false,\n" +
-        "            locale: 'AR'\n" +
+        "            locale: 'AR',\n" +
+        "            zoom: true,\n" +
+        "            exportable: true,\n" +
         "        })\n" +
         "    }\n" +
         "</script>\n"
