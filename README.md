@@ -1,5 +1,7 @@
 # Explorador de Series de Tiempo AR
 
+[![Build Status](https://travis-ci.org/datosgobar/series-tiempo-ar-explorer.svg?branch=master)](https://travis-ci.org/datosgobar/series-tiempo-ar-explorer)
+
 Aplicación javascript para la búsqueda de series de tiempo, usando la API series-tiempo-ar-api
 
 Demo: https://datosgobar.github.io/series-tiempo-ar-explorer/#/
