@@ -61,12 +61,12 @@ module.exports = {
   // Also, we want to generate only one css file.
   entry: {
     main: [require.resolve('./polyfills'), paths.appIndexJs],
-    graphic: paths.graphicIndexJs
+    components: paths.componentsIndexJs
   },
   output: {
     // The build folder.
     path: paths.appBuild,
-    library: process.env.library_name || 'TSExplorer',
+    library: process.env.library_name ? ["TSComponents"] : "TSExplorer",
     libraryTarget: "var",
     // Generated JS file names (with nested folders).
     // There will be one main bundle, and one file per asynchronous chunk.
@@ -277,7 +277,7 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true,
       },
-      excludeChunks: ['graphic']
+      excludeChunks: ['components']
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.

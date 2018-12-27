@@ -10,8 +10,8 @@ watch:
 release:
 	npm run release
 
-release-graphic:
-	npm run release-graphic
+release-components:
+	npm run release-components
 
 
 .PHONY: all build clean
