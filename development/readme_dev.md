@@ -11,6 +11,9 @@ Está alojado en el CDN por versiones: https://cdn.jsdelivr.net/gh/datosgobar/se
 - Instanciarlo:
   - `TSExplorer.render(...)`
 
+### Demo online
+https://jsfiddle.net/sv6ua42q/1/
+
 ### Ejemplo de uso:
 ```
 <html>

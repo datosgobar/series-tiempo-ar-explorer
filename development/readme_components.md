@@ -3,11 +3,12 @@
 El objeto exportado se llama `TSComponents` y contiene a su vez más componentes. El mismo está en el archivo llamado `components.js`.
 Está alojado en el CDN por versiones: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.0/dist/js/components.js
 
-
 ### Componentes independientes
-
 - Graphic
   - Gráfico usado en el explorador de series de tiempo con todas sus funcionalidades
+
+### Demo online
+https://jsfiddle.net/qbe9ydm5/
 
 ### ¿Cómo los uso?
 Para todos los componentes es igual.
