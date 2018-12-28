@@ -9,8 +9,11 @@ Demo: https://datosgobar.github.io/series-tiempo-ar-explorer/#/
 ## Instalación
 Documentación de instalación [aqui](development/install.md)
 
-## Desarrollo
+## Uso del componente `TSExplorer`
 Documentación de desarrollo [aqui](development/readme_dev.md)
+
+## Uso de la librería `TSComponents`
+Documentación de componentes [aqui](development/readme_components.md)
 
 ## Staging
 
