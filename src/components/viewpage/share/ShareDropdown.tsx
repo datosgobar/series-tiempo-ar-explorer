@@ -41,11 +41,11 @@ function urlToString(url: string): string {
 }
 
 function webCodeUrl(url: string): string {
-    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@graphic_2.3/dist/js/graphic.js'></script>\n" +
+    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.0/dist/js/components.js'></script>\n" +
         "<div id=\"root\"></div>\n" +
         "<script>\n" +
         "    window.onload = function() {\n" +
-        "        TSGraphic.render('root', {\n" +
+        "        TSComponents.Graphic.render('root', {\n" +
         "            graphicUrl: '" + url +"',\n"+
         "            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/\n" +
         "            },\n" +
