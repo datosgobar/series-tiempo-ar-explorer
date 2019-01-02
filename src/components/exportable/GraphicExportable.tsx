@@ -3,19 +3,30 @@ import {ApiClient} from "../../api/ApiClient";
 import QueryParams from "../../api/QueryParams";
 import {ISerie} from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
-import Colors, {Color} from "../style/Colors/Color";
+import {valuesFromObject} from "../../helpers/commonFunctions";
+import {Color} from "../style/Colors/Color";
 import Graphic from "../viewpage/graphic/Graphic";
 import {chartExtremes} from "../viewpage/graphic/GraphicAndShare";
 import {seriesConfigByUrl} from "../viewpage/ViewPage";
 
 
+const Colors = {
+    aBlue: new Color("blue", "#0072BB"),
+    bGreen: new Color("green","#2E7D33"),
+    cRed: new Color("red", "#C62828"),
+    dOrange: new Color("orange", "#F9A822"),
+    eViolet: new Color("violet", "#6A1B99"),
+};
+
+
 export interface IGraphicExportableProps {
     graphicUrl: string;
     chartOptions: any;
-    navigator: boolean;
+    navigator?: boolean;
     locale: string;
-    zoom: boolean;
-    exportable: boolean;
+    zoom?: boolean;
+    exportable?: boolean;
+    colors?: string[];
 }
 
 interface IGraphicExportableState {
@@ -74,7 +85,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     }
 
     private colorFor(serieId: string): Color {
-        const colors = (Object as any).values(Colors);
+        const colors = this.props.colors ? buildColors(this.props.colors) : valuesFromObject(Colors);
         const index = this.state.series.findIndex(viewSerie => viewSerie.id === serieId) % colors.length;
 
         return colors[index];
@@ -105,4 +116,8 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
     options.rangeSelector = Object.assign({}, options.rangeSelector, { enabled: componentProps.zoom });
 
     return options;
+}
+
+function buildColors(colors: string[]): Color[] {
+    return colors.map((color: string) => new Color('customColor', color));
 }
