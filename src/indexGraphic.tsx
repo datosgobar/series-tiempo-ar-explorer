@@ -11,7 +11,8 @@ export function render(selector: string, config: IGraphicExportableProps) {
                                    locale={config.locale}
                                    zoom={config.zoom}
                                    exportable={config.exportable}
-                                   colors={config.colors} />,
+                                   colors={config.colors}
+                                   backgroundColor={config.backgroundColor} />,
         document.getElementById(selector) as HTMLElement
     )
 }

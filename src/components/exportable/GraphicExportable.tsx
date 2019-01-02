@@ -27,6 +27,7 @@ export interface IGraphicExportableProps {
     zoom?: boolean;
     exportable?: boolean;
     colors?: string[];
+    backgroundColor?: string;
 }
 
 interface IGraphicExportableState {
@@ -112,7 +113,10 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
     options.navigator = Object.assign({}, options.navigator, { enabled: componentProps.navigator });
     options.scrollbar = Object.assign({}, options.scrollbar, { enabled: componentProps.navigator });
     options.exporting = Object.assign({}, options.exporting, { enabled: componentProps.exportable });
-    options.chart = Object.assign({}, options.chart, { zoomType: componentProps.zoom ? 'x' : '' });
+    options.chart = Object.assign({}, options.chart, {
+        backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : '#ffffff00',
+        zoomType: componentProps.zoom ? 'x' : ''
+    });
     options.rangeSelector = Object.assign({}, options.rangeSelector, { enabled: componentProps.zoom });
 
     return options;
