@@ -24,7 +24,7 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         if (this.props.series.length === 0) { return null }
 
         return (
-            <div className="row">
+            <div className="row graphic-complements">
                 <Share url={this.props.url} series={this.props.series} />
                 <FrequencyPicker onChangeFrequency={this.props.handleChangeFrequency} frequency={this.frequency()} frequencyOptions={this.frequencyOptions()}/>
             </div>
