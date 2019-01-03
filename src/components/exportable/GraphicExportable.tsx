@@ -29,6 +29,7 @@ export interface IGraphicExportableProps {
     colors?: string[];
     backgroundColor?: string;
     datePickerEnabled?: boolean;
+    legendField?: string;
 }
 
 interface IGraphicExportableState {
@@ -82,7 +83,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                      chartOptions={chartOptions}
                      colorFor={this.colorFor}
                      formatUnits={true}
-                     locale={this.props.locale} />
+                     locale={this.props.locale}
+                     legendField={legendValue(this.props.legendField)} />
         )
     }
 
@@ -131,4 +133,9 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
 
 function buildColors(colors: string[]): Color[] {
     return colors.map((color: string) => new Color('customColor', color));
+}
+
+function legendValue(field?: string): ((serie: ISerie) => string) {
+    const f = field || 'title';
+    return (serie: ISerie) => serie[f];
 }

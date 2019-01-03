@@ -13,7 +13,8 @@ export function render(selector: string, config: IGraphicExportableProps) {
                                    exportable={config.exportable}
                                    colors={config.colors}
                                    backgroundColor={config.backgroundColor}
-                                   datePickerEnabled={config.datePickerEnabled} />,
+                                   datePickerEnabled={config.datePickerEnabled}
+                                   legendField={config.legendField} />,
         document.getElementById(selector) as HTMLElement
     )
 }

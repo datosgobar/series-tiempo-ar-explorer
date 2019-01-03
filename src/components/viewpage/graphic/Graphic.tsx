@@ -23,6 +23,7 @@ export interface IGraphicProps {
     formatUnits?:boolean;
     chartOptions?: any;
     locale: string;
+    legendField?: (serie: ISerie) => string;
 }
 
 export interface IChartExtremeProps {
@@ -204,7 +205,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
             ...hcConfig,
             color: this.props.colorFor ? this.props.colorFor(serie.id).code : this.defaultHCSeriesConfig().color,
             data,
-            name: serie.title,
+            name: this.props.legendField ? this.props.legendField(serie) : 'title',
             yAxis: this.yAxisBySeries[serie.id].yAxis
         }
 
