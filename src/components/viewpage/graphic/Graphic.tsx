@@ -95,8 +95,12 @@ export default class Graphic extends React.Component<IGraphicProps> {
             },
 
             chart: {
-                height: '450',
+                height: '500',
                 zoomType: 'x'
+            },
+
+            credits: {
+                enabled: false
             },
 
             exporting: {
