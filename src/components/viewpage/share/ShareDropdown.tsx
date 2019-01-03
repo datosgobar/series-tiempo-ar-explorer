@@ -41,7 +41,7 @@ function urlToString(url: string): string {
 }
 
 function webCodeUrl(url: string): string {
-    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.2/dist/js/components.js'></script>\n" +
+    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.3/dist/js/components.js'></script>\n" +
         "<div id=\"root\"></div>\n" +
         "<script>\n" +
         "    window.onload = function() {\n" +
@@ -52,6 +52,7 @@ function webCodeUrl(url: string): string {
         "            navigator: false,\n" +
         "            locale: 'AR',\n" +
         "            zoom: true,\n" +
+        "            datePickerEnabled: true,\n" +
         "            exportable: true,\n" +
         "            colors: ['#0072BB', '#2E7D33', '#C62828', '#F9A822', '#6A1B99'],\n" +
         "            backgroundColor: '#ffffff00',\n" +

@@ -12,7 +12,8 @@ export function render(selector: string, config: IGraphicExportableProps) {
                                    zoom={config.zoom}
                                    exportable={config.exportable}
                                    colors={config.colors}
-                                   backgroundColor={config.backgroundColor} />,
+                                   backgroundColor={config.backgroundColor}
+                                   datePickerEnabled={config.datePickerEnabled} />,
         document.getElementById(selector) as HTMLElement
     )
 }

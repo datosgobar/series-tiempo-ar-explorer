@@ -28,6 +28,7 @@ export interface IGraphicExportableProps {
     exportable?: boolean;
     colors?: string[];
     backgroundColor?: string;
+    datePickerEnabled?: boolean;
 }
 
 interface IGraphicExportableState {
@@ -117,7 +118,13 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
         backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : '#ffffff00',
         zoomType: componentProps.zoom ? 'x' : ''
     });
-    options.rangeSelector = Object.assign({}, options.rangeSelector, { enabled: componentProps.zoom });
+
+    options.rangeSelector = Object.assign({}, options.rangeSelector);
+    if (!componentProps.zoom) {
+        options.rangeSelector.buttonTheme = {visibility: 'hidden'};
+        options.rangeSelector.labelStyle = {visibility: 'hidden'};
+    }
+    options.rangeSelector.inputEnabled = componentProps.datePickerEnabled;
 
     return options;
 }
