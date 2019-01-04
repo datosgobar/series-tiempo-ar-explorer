@@ -111,26 +111,6 @@ function extractUriFromUrl(url: string): string {
     return url.split('series/?')[0];
 }
 
-function buildChartOptions(chartOptions: any, componentProps: IGraphicExportableProps): any {
-    const options = chartOptions;
-    options.navigator = Object.assign({}, options.navigator, { enabled: componentProps.navigator });
-    options.scrollbar = Object.assign({}, options.scrollbar, { enabled: componentProps.navigator });
-    options.exporting = Object.assign({}, options.exporting, { enabled: componentProps.exportable });
-    options.chart = Object.assign({}, options.chart, {
-        backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : '#ffffff00',
-        zoomType: componentProps.zoom ? 'x' : ''
-    });
-
-    options.rangeSelector = Object.assign({}, options.rangeSelector);
-    if (!componentProps.zoom) {
-        options.rangeSelector.buttonTheme = {visibility: 'hidden'};
-        options.rangeSelector.labelStyle = {visibility: 'hidden'};
-    }
-    options.rangeSelector.inputEnabled = componentProps.datePickerEnabled;
-
-    return options;
-}
-
 function buildColors(colors: string[]): Color[] {
     return colors.map((color: string) => new Color('customColor', color));
 }
@@ -138,4 +118,49 @@ function buildColors(colors: string[]): Color[] {
 function legendValue(field?: string): ((serie: ISerie) => string) {
     const f = field || 'title';
     return (serie: ISerie) => serie[f];
+}
+
+function buildChartOptions(chartOptions: any, componentProps: IGraphicExportableProps): any {
+    const options = chartOptions;
+    options.navigator = Object.assign({}, options.navigator, { enabled: componentProps.navigator });
+    options.scrollbar = Object.assign({}, options.scrollbar, { enabled: componentProps.navigator });
+    options.exporting = Object.assign({}, options.exporting, exportingProps(componentProps));
+    options.chart = Object.assign({}, options.chart, chartProps(componentProps));
+    options.rangeSelector = Object.assign({}, rangeSelectorProps(componentProps));
+
+    return options;
+}
+
+function chartProps(componentProps: any) {
+    return {
+        backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : '#ffffff00',
+        zoomType: componentProps.zoom ? 'x' : ''
+    }
+}
+
+function exportingProps(componentProps: any) {
+    return {
+        buttons: {
+            contextButton: {
+                theme: {
+                    fill: {
+                        background: componentProps.backgroundColor ? componentProps.backgroundColor : 'none'
+                    }
+                }
+            }
+
+        },
+        enabled: componentProps.exportable,
+    }
+}
+
+function rangeSelectorProps(componentProps: any) {
+    const options = Object.assign({}, componentProps.rangeSelector);
+    options.inputEnabled = componentProps.datePickerEnabled;
+    if (!componentProps.zoom) {
+        options.buttonTheme = { visibility: 'hidden' };
+        options.labelStyle = { visibility: 'hidden' };
+    }
+    return options;
+
 }
