@@ -116,7 +116,7 @@ function buildColors(colors: string[]): Color[] {
 }
 
 function legendValue(field?: string): ((serie: ISerie) => string) {
-    const f = field || 'title';
+    const f = field || 'description';
     return (serie: ISerie) => serie[f];
 }
 
@@ -160,7 +160,6 @@ function rangeSelectorProps(componentProps: any) {
     options.inputEnabled = componentProps.datePickerEnabled;
     if (!componentProps.zoom) {
         options.buttonTheme = { visibility: 'hidden' };
-        options.labelStyle = { visibility: 'hidden' };
     }
     return options;
 
