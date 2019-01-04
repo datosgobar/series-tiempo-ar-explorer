@@ -126,7 +126,8 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
     options.scrollbar = Object.assign({}, options.scrollbar, { enabled: componentProps.navigator });
     options.exporting = Object.assign({}, options.exporting, exportingProps(componentProps));
     options.chart = Object.assign({}, options.chart, chartProps(componentProps));
-    options.rangeSelector = Object.assign({}, rangeSelectorProps(componentProps));
+    options.rangeSelector = Object.assign({}, options.rangeSelector, rangeSelectorProps(componentProps));
+    options.title = Object.assign({}, options.title, titleOptions(componentProps));
 
     return options;
 }
@@ -163,4 +164,12 @@ function rangeSelectorProps(componentProps: any) {
     }
     return options;
 
+}
+
+function titleOptions(componentProps: any) {
+    const options = Object.assign({}, componentProps.title);
+    if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
+        options.margin = -20;
+    }
+    return options;
 }
