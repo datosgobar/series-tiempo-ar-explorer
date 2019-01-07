@@ -21,7 +21,7 @@ export default (props: ISerieDetailsProp) =>
     <Details key={props.serie.id}>
         <DetailsTitleAndActions pegColor={props.pegColorFor && props.pegColorFor(props.serie.id)}>
             <DetailsTitle>
-                {props.serie.title} ({props.serie.id})
+                {props.serie.description} ({props.serie.id})
             </DetailsTitle>
             {props.actions}
         </DetailsTitleAndActions>
@@ -41,10 +41,10 @@ export default (props: ISerieDetailsProp) =>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Dataset</dt>
-                    <dd>{props.serie.description}</dd>
+                    <dd>{props.serie.datasetTitle}</dd>
                 </dl>
                 <dl className="dl-horizontal">
-                    <dt>Destribución</dt>
+                    <dt>Distribución</dt>
                     <dd>{props.serie.distributionTitle}</dd>
                 </dl>
                 <dl className="dl-horizontal">

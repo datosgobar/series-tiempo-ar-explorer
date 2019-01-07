@@ -78,4 +78,8 @@ export default class SearchResult implements ISerie {
     public get distributionTitle() {
         return '';
     }
+
+    public get datasetTitle() {
+        return '';
+    }
 }

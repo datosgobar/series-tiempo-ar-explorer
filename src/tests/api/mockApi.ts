@@ -83,6 +83,7 @@ export function toSerie(id: string): ISerie {
         bake: () => self,
         data: [],
         datasetSource: '',
+        datasetTitle: '',
         description: 'description' + id,
         distributionTitle: '',
         endDate: 'end',

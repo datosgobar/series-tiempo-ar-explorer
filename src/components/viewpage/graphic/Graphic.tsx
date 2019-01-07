@@ -205,7 +205,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
             ...hcConfig,
             color: this.props.colorFor ? this.props.colorFor(serie.id).code : this.defaultHCSeriesConfig().color,
             data,
-            name: this.props.legendField ? this.props.legendField(serie) : 'title',
+            name: this.props.legendField ? this.props.legendField(serie) : serie.description,
             yAxis: this.yAxisBySeries[serie.id].yAxis
         }
 
@@ -246,11 +246,11 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
         if (this.props.series.some((serie: ISerie) => yAXisBySeries[serie.id].opposite)) {
             this.props.series.forEach((serie: ISerie) => {
-                const title = yAXisBySeries[serie.id].opposite ? `${serie.title} (der)` : `${serie.title} (izq)`;
+                const title = yAXisBySeries[serie.id].opposite ? `${serie.description} (der)` : `${serie.description} (izq)`;
                 titlesResult.push({id: serie.id, title});
             });
         } else {
-            titlesResult = this.props.series.map((serie: ISerie) => ({id: serie.id, title: serie.title}));
+            titlesResult = this.props.series.map((serie: ISerie) => ({id: serie.id, title: serie.description}));
         }
 
         this.props.dispatch(setSerieTags(titlesResult))

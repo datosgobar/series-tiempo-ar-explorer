@@ -7,6 +7,7 @@ import {PeriodicityManager} from "./utils/periodicityManager";
 export interface ISerie {
     id: string;
     title: string;
+    datasetTitle: string;
     publisher: IPublisher;
     description: string;
     data: IDataPoint[];
@@ -56,7 +57,13 @@ export default class Serie implements ISerie {
 
     get title(): string {
         return (
-            this.fieldMeta.description
+            this.fieldMeta.title
+        );
+    }
+
+    get datasetTitle(): string {
+        return (
+            this.datasetMeta.title
         );
     }
 
@@ -68,7 +75,7 @@ export default class Serie implements ISerie {
 
     get description(): string {
         return (
-            this.datasetMeta.title
+            this.fieldMeta.description
         );
     }
 
@@ -131,6 +138,7 @@ export default class Serie implements ISerie {
             accrualPeriodicity: this.accrualPeriodicity,
             data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
             datasetSource: this.datasetSource,
+            datasetTitle: this.datasetTitle,
             description: this.description,
             distributionTitle: this.distributionTitle,
             endDate: this.endDate,
