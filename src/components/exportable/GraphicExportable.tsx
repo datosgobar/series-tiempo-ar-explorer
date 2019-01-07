@@ -5,7 +5,7 @@ import {ISerie} from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
 import {valuesFromObject} from "../../helpers/commonFunctions";
 import {Color} from "../style/Colors/Color";
-import Graphic from "../viewpage/graphic/Graphic";
+import Graphic, {IChartTypeProps} from "../viewpage/graphic/Graphic";
 import {chartExtremes} from "../viewpage/graphic/GraphicAndShare";
 import {seriesConfigByUrl} from "../viewpage/ViewPage";
 
@@ -30,6 +30,7 @@ export interface IGraphicExportableProps {
     backgroundColor?: string;
     datePickerEnabled?: boolean;
     legendField?: string;
+    chartTypes: IChartTypeProps;
 }
 
 interface IGraphicExportableState {
@@ -84,7 +85,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                      colorFor={this.colorFor}
                      formatUnits={true}
                      locale={this.props.locale}
-                     legendField={legendValue(this.props.legendField)} />
+                     legendField={legendValue(this.props.legendField)}
+                     chartTypes={this.props.chartTypes} />
         )
     }
 
