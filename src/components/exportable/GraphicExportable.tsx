@@ -170,7 +170,7 @@ function rangeSelectorProps(componentProps: any) {
 function titleOptions(componentProps: any) {
     const options = Object.assign({}, componentProps.title);
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
-        options.margin = -10;
+        options.margin = 0;
     }
     return options;
 }
