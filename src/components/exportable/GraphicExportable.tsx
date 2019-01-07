@@ -159,7 +159,7 @@ function rangeSelectorProps(componentProps: any) {
     const options = Object.assign({}, componentProps.rangeSelector);
     options.inputEnabled = componentProps.datePickerEnabled;
     if (!componentProps.zoom) {
-        options.buttonTheme = { visibility: 'hidden' };
+        options.buttonTheme = { visibility: 'hidden', display: 'none' };
     }
     return options;
 
