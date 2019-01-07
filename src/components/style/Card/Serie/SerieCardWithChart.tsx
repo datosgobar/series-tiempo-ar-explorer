@@ -13,8 +13,8 @@ export default (props: ISerieCardProps) =>
     <Card title={props.serie.title} {...props}>
         <Row>
             <div className="col-xs-12">
-                <CardTitle>{props.serie.title}</CardTitle>
-                <CardBody>{props.serie.description}</CardBody>
+                <CardTitle>{props.serie.description}</CardTitle>
+                <CardBody>{props.serie.title}</CardBody>
             </div>
         </Row>
         <Row>
