@@ -353,6 +353,7 @@ function setHighchartsGlobalConfig(locale: string) {
             printChart: 'Imprimir gráfico',
             rangeSelectorFrom: 'Desde',
             rangeSelectorTo: 'Hasta',
+            rangeSelectorZoom: '',
             resetZoom: 'Reiniciar zoom',
             shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
             thousandsSep: localeObj.thousandSeparator(),
