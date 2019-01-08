@@ -152,6 +152,24 @@ export default class Graphic extends React.Component<IGraphicProps> {
                 text: '',
             },
 
+            tooltip:{
+                pointFormat: `
+                            <table style="width: 300px;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="tooltip-content">
+                                                <span style="color:{point.color};display:inline !important;">\u25CF</span>
+                                                {series.name}
+                                            </div>
+                                        </td>
+                                        <td><div class="tooltip-value">{point.y}</div></td>
+                                    </tr>
+                                </tbody>
+                            </table>`,
+                useHTML: true,
+            },
+
             xAxis: {
                 categories: this.categories(),
                 events: {
