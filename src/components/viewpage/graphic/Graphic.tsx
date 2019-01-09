@@ -4,6 +4,7 @@ import {setSerieTags} from "../../../actions/seriesActions";
 import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
+import {parseFormatDate} from "../../../api/utils/periodicityManager";
 import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
 import {formattedDateString, timestamp} from "../../../helpers/dateFunctions";
 import {buildLocale} from "../../common/locale/buildLocale";
@@ -153,20 +154,35 @@ export default class Graphic extends React.Component<IGraphicProps> {
             },
 
             tooltip:{
-                pointFormat: `
-                            <table style="width: 300px;">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="tooltip-content">
-                                                <span style="color:{point.color};display:inline !important;">\u25CF</span>
-                                                {series.name}
-                                            </div>
-                                        </td>
-                                        <td><div class="tooltip-value">{point.y}</div></td>
-                                    </tr>
-                                </tbody>
-                            </table>`,
+                formatter () {
+                    const self: any = this;
+                    // @ts-ignore
+                    const graphic: Graphic = _this;
+                    const formatUnits = graphic.props.formatUnits || false;
+                    const seriesConfigFn = (serieId: string) => graphic.props.seriesConfig.find((config: SerieConfig) => config.getSerieId() === serieId);
+
+                    let result = "";
+                    self.points.forEach((point: any, index: number) => {
+                        const serieConfig = seriesConfigFn(point.series.options.serieId);
+                        let value = (point.y).toFixed(2);
+
+                        if (serieConfig) {
+                            if(serieConfig.mustFormatUnits(formatUnits)) {
+                                value = `${(value * 100).toFixed(2)}%`;
+                            }
+
+                            result += tooltipFormatter(point, tooltipDateValue(serieConfig.getSeriePeriodicity(), point.x), value);
+                        }
+
+                        if (index < self.points.length -1) {
+                            result += "<br>";
+                        }
+                    });
+
+                    return result;
+
+                },
+                shared: true,
                 useHTML: true,
             },
 
@@ -224,6 +240,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
             color: this.props.colorFor ? this.props.colorFor(serie.id).code : this.defaultHCSeriesConfig().color,
             data,
             name: this.props.legendField ? this.props.legendField(serie) : serie.description,
+            serieId: serie.id,
             yAxis: this.yAxisBySeries[serie.id].yAxis
         }
 
@@ -302,10 +319,9 @@ function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], fo
             yAxis: outOfScale ? 1 : 0
         };
 
-        const formatUnitsBySerie = serie.data.every((e: IDataPoint) => e.value > -1 && e.value < 1);
         const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
 
-        if (serieConfig && serieConfig.mustFormatUnits(formatUnits, formatUnitsBySerie)) {
+        if (serieConfig && serieConfig.mustFormatUnits(formatUnits)) {
             result[serie.id].labels = { formatter: highchartsLabelFormatter};
         }
 
@@ -378,4 +394,24 @@ function setHighchartsGlobalConfig(locale: string) {
             weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
         }
     });
+}
+
+function tooltipFormatter(point: any, key: string, value: string) {
+    return `<table style="width: 300px;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="tooltip-content">
+                                <span style="color:${point.color};display:inline !important;">\u25CF</span> ${point.series.name}
+                            </div>
+                        </td>
+                        <td><span>${key} </span><span class="tooltip-value">${value}</span></td>
+                    </tr>
+                </tbody>
+            </table>`
+}
+
+function tooltipDateValue(periodicity: string, timest: number): string {
+    const date = parseFormatDate(periodicity, new Date(timest).toLocaleString());
+    return `<i>(${date})</i>`
 }
