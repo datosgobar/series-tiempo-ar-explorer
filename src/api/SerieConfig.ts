@@ -1,15 +1,19 @@
+import {IDataPoint} from "./DataPoint";
+import {ISerie} from "./Serie";
+import {i18nFrequency} from "./utils/periodicityManager";
+
 export default class SerieConfig {
 
-    private serieId: string;
+    private serie: ISerie;
     private percentChange: boolean;
     private percentChangeAYearAgo: boolean;
 
-    public constructor(serieId: string) {
-        this.serieId = serieId;
+    public constructor(serie: ISerie) {
+        this.serie = serie;
     }
 
     public getSerieId() {
-        return this.serieId;
+        return this.serie.id;
     }
 
     public getPercentChange() {
@@ -28,8 +32,16 @@ export default class SerieConfig {
         this.percentChangeAYearAgo = percentChangeAYearAgo;
     }
 
-    public mustFormatUnits(formatUnits: boolean, formatUnitsBySerie: boolean):boolean {
-        return formatUnits && (formatUnitsBySerie || this.getPercentChange() || this.getPercentChangeAYearAgo());
+    public mustFormatUnits(formatUnits: boolean):boolean {
+        return formatUnits && (this.canFormatSerie() || this.getPercentChange() || this.getPercentChangeAYearAgo());
+    }
+
+    public getSeriePeriodicity(): string {
+        return i18nFrequency(this.serie.frequency || 'year');
+    }
+
+    private canFormatSerie(): boolean {
+        return this.serie.data.every((data: IDataPoint) => data.value > -1 && data.value < 1);
     }
 
 }

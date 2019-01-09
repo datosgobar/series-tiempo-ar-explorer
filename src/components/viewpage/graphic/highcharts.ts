@@ -25,6 +25,7 @@ export interface IHCSeries {
     dashStyle: string;
     yAxis: number;
     showInNavigator: boolean;
+    serieId: string;
 }
 
 export interface IHConfig {

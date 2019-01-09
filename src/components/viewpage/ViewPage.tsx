@@ -3,14 +3,6 @@ import * as moment from "moment";
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {RouterProps, withRouter} from "react-router";
-
-import ClearFix from '../style/ClearFix';
-import Colors, {Color} from '../style/Colors/Color';
-import Container from '../style/Common/Container';
-import SeriesHero from '../style/Hero/SeriesHero';
-import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
-import SeriesTags from './SeriesTags'
-
 import {clearViewSeries, loadViewSeries, setDate} from '../../actions/seriesActions';
 import {IDateRange} from "../../api/DateSerie";
 import QueryParams from "../../api/QueryParams";
@@ -19,12 +11,18 @@ import {ISerieApi} from '../../api/SerieApi';
 import SerieConfig from '../../api/SerieConfig';
 import {getId, removeDuplicates} from "../../helpers/commonFunctions";
 import SearchBox from '../common/searchbox/SearchBox'
+import ClearFix from '../style/ClearFix';
+import Colors, {Color} from '../style/Colors/Color';
+import Container from '../style/Common/Container';
+import SeriesHero from '../style/Hero/SeriesHero';
+import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
 import DetallePanel from './DetallePanel';
 import EmptySeries from "./EmptySeries";
 import FailedSeries from "./FailedSeries";
 import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
 import SeriesPicker, {ISeriesPickerProps} from './seriespicker/SeriesPicker';
+import SeriesTags from './SeriesTags'
 
 interface IViewPageProps extends RouterProps {
     series: ISerie[];
@@ -372,7 +370,7 @@ export function seriesConfigByUrl(series: ISerie[], url: string): SerieConfig[] 
     const search = url.split(',');
 
     return series.map((serie: ISerie) => {
-        const seriesConfig = new SerieConfig(serie.id);
+        const seriesConfig = new SerieConfig(serie);
         seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
         seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
         return seriesConfig;
