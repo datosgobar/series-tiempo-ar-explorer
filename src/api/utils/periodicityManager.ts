@@ -21,6 +21,14 @@ const PERIODICITY_DATE_FORMAT = {
     'R/P6M': 'YYYY-MM',
 };
 
+const PERIODICITY_LANG = {
+    'day': 'Diaria',
+    'month': 'Mensual',
+    'quarter': 'Trimestral',
+    'semester': 'Semestral',
+    'year': 'Anual',
+};
+
 export class PeriodicityManager {
 
     private frequency: string;
@@ -77,4 +85,8 @@ export function parseFormatDate(format: string, dateString: string) {
     }
 
     return 'Frecuencia no soportada';
+}
+
+export function i18nFrequency(frequency: string): string {
+    return PERIODICITY_LANG[frequency];
 }
