@@ -12,6 +12,7 @@ import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
 import SeriesTags from './SeriesTags'
 
 import {clearViewSeries, loadViewSeries, setDate} from '../../actions/seriesActions';
+import {IDataPoint} from "../../api/DataPoint";
 import {IDateRange} from "../../api/DateSerie";
 import QueryParams from "../../api/QueryParams";
 import {ISerie} from '../../api/Serie';
@@ -372,9 +373,10 @@ export function seriesConfigByUrl(series: ISerie[], url: string): SerieConfig[] 
     const search = url.split(',');
 
     return series.map((serie: ISerie) => {
-        const seriesConfig = new SerieConfig(serie.id);
+        const seriesConfig = new SerieConfig(serie);
         seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
         seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
+        seriesConfig.setMustFormatUnits(serie.data.every((e: IDataPoint) => e.value > -1 && e.value < 1));
         return seriesConfig;
     });
 }
