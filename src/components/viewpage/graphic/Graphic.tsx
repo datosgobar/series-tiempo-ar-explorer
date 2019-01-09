@@ -159,11 +159,10 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     // @ts-ignore
                     const graphic: Graphic = _this;
                     const formatUnits = graphic.props.formatUnits || false;
-                    const seriesConfigFn = (serieId: string) => graphic.props.seriesConfig.find((config: SerieConfig) => config.getSerieId() === serieId);
 
                     let result = "";
                     self.points.forEach((point: any, index: number) => {
-                        const serieConfig = seriesConfigFn(point.series.options.serieId);
+                        const serieConfig = findSerieConfig(graphic.props.seriesConfig, point.series.options.serieId);
                         let value = (point.y).toFixed(2);
 
                         if (serieConfig) {
@@ -180,7 +179,6 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     });
 
                     return result;
-
                 },
                 shared: true,
                 useHTML: true,
@@ -414,4 +412,8 @@ function tooltipFormatter(point: any, key: string, value: string) {
 function tooltipDateValue(periodicity: string, timest: number): string {
     const date = parseFormatDate(periodicity, new Date(timest).toLocaleString());
     return `<i>(${date})</i>`
+}
+
+function findSerieConfig(configs: SerieConfig[], serieId: string) {
+    return configs.find((config: SerieConfig) => config.getSerieId() === serieId);
 }
