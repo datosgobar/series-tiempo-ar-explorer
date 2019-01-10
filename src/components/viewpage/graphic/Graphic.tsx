@@ -4,7 +4,7 @@ import {setSerieTags} from "../../../actions/seriesActions";
 import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
-import {parseFormatDate} from "../../../api/utils/periodicityManager";
+import {i18nFrequency, parseFormatDate} from "../../../api/utils/periodicityManager";
 import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
 import {formattedDateString, timestamp} from "../../../helpers/dateFunctions";
 import {buildLocale} from "../../common/locale/buildLocale";
@@ -165,7 +165,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     const graphic: Graphic = _this;
                     const formatUnits = graphic.props.formatUnits || false;
 
-                    let result = "";
+                    let contentTooltip = "";
                     self.points.forEach((point: any, index: number) => {
                         const serieConfig = findSerieConfig(graphic.props.seriesConfig, point.series.options.serieId);
                         let value = point.y;
@@ -177,15 +177,16 @@ export default class Graphic extends React.Component<IGraphicProps> {
                                 value = (value).toFixed(2)
                             }
 
-                            result += tooltipFormatter(point, tooltipDateValue(serieConfig.getSeriePeriodicity(), point.x), value);
+                            contentTooltip += tooltipFormatter(point, value);
                         }
 
                         if (index < self.points.length -1) {
-                            result += "<br>";
+                            contentTooltip += "<br>";
                         }
                     });
 
-                    return result;
+                    const frequency = i18nFrequency(graphic.props.series[0].frequency || 'year');
+                    return [tooltipDateValue(frequency, self.points[0].x), contentTooltip];
                 },
                 shared: true,
                 useHTML: true,
@@ -404,7 +405,7 @@ function setHighchartsGlobalConfig(locale: string) {
     });
 }
 
-function tooltipFormatter(point: any, key: string, value: string) {
+function tooltipFormatter(point: any, value: string) {
     return `<table style="width: 300px;">
                 <tbody>
                     <tr>
@@ -413,7 +414,7 @@ function tooltipFormatter(point: any, key: string, value: string) {
                                 <span style="color:${point.color};display:inline !important;">\u25CF</span> ${point.series.name}
                             </div>
                         </td>
-                        <td><span>${key} </span><span class="tooltip-value">${value}</span></td>
+                        <td><span class="tooltip-value">${value}</span></td>
                     </tr>
                 </tbody>
             </table>`
