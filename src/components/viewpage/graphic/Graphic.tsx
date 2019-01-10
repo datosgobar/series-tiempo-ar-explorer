@@ -4,9 +4,9 @@ import {setSerieTags} from "../../../actions/seriesActions";
 import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
-import {i18nFrequency, parseFormatDate} from "../../../api/utils/periodicityManager";
+import {i18nFrequency} from "../../../api/utils/periodicityManager";
 import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
-import {formattedDateString, formattedMoment, localDate, timestamp} from "../../../helpers/dateFunctions";
+import {formattedDateString, fullLocaleDate, localTimestamp, timestamp,} from "../../../helpers/dateFunctions";
 import {buildLocale} from "../../common/locale/buildLocale";
 import {Color} from '../../style/Colors/Color';
 import {ISerieTag} from "../SeriesTags";
@@ -420,9 +420,8 @@ function tooltipFormatter(point: any, value: string) {
             </table>`
 }
 
-function tooltipDateValue(periodicity: string, timest: number): string {
-    const date = parseFormatDate(periodicity, formattedMoment(localDate(timest)));
-    return `<i>(${date})</i>`
+function tooltipDateValue(frequency: string, timest: number): string {
+    return `${fullLocaleDate(frequency, localTimestamp(timest))}`
 }
 
 function findSerieConfig(configs: SerieConfig[], serieId: string) {

@@ -29,3 +29,9 @@ export function toFixedDecimals(value: number, decimals: number): string {
 export function isInt(n: number): boolean {
     return n % 1 === 0;
 }
+
+// TODO: testear
+export function capitalize(value: string, position: number|undefined = 0): string {
+    const uppercaseChar = value.charAt(position).toUpperCase();
+    return value.slice(0, position) + uppercaseChar + value.slice(position+1, value.length);
+}

@@ -4,7 +4,7 @@ import {IDataPoint} from "../../../api/DataPoint";
 import {IDateRange} from "../../../api/DateSerie";
 import {ISerie} from "../../../api/Serie";
 import SerieConfig from "../../../api/SerieConfig";
-import {formattedMoment, localDate} from "../../../helpers/dateFunctions";
+import {formattedMoment, localTimestamp} from "../../../helpers/dateFunctions";
 import {IStore} from "../../../store/initialState";
 import {Color} from "../../style/Colors/Color";
 import GraphContainer from "../../style/Graphic/GraphContainer";
@@ -66,7 +66,7 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
 // returns the date matching with the passed timestamp if the date exists
 function findSerieDate(series: ISerie[], timestamp: number): string {
     const firstSerieData = series[0].data;
-    const serieData = firstSerieData.find((data) => data.date >= formattedMoment(localDate(timestamp)));
+    const serieData = firstSerieData.find((data) => data.date >= formattedMoment(localTimestamp(timestamp)));
     return serieData !== undefined ? serieData.date : '';
 }
 
