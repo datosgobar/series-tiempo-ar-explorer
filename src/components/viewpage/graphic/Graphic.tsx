@@ -25,6 +25,11 @@ export interface IGraphicProps {
     chartOptions?: any;
     locale: string;
     legendField?: (serie: ISerie) => string;
+    chartTypes?: IChartTypeProps;
+}
+
+export interface IChartTypeProps {
+    [clave: string]: string;
 }
 
 export interface IChartExtremeProps {
@@ -232,14 +237,18 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
+        const chartType = getChartType(serie.id, this.props.chartTypes);
+
         return {
             ...this.defaultHCSeriesConfig(),
             ...hcConfig,
             color: this.props.colorFor ? this.props.colorFor(serie.id).code : this.defaultHCSeriesConfig().color,
             data,
             name: this.props.legendField ? this.props.legendField(serie) : serie.description,
+            navigatorOptions: { type: chartType },
             serieId: serie.id,
-            yAxis: this.yAxisBySeries[serie.id].yAxis
+            type: chartType,
+            yAxis: this.yAxisBySeries[serie.id].yAxis,
         }
 
     }
@@ -257,7 +266,6 @@ export default class Graphic extends React.Component<IGraphicProps> {
             dashStyle: 'Solid',
             lineWidth: 2,
             showInNavigator: true,
-            type: 'line',
         }
     }
 
@@ -416,4 +424,10 @@ function tooltipDateValue(periodicity: string, timest: number): string {
 
 function findSerieConfig(configs: SerieConfig[], serieId: string) {
     return configs.find((config: SerieConfig) => config.getSerieId() === serieId);
+}
+
+function getChartType(serieId: string, types?: IChartTypeProps): string {
+    if (!types) { return 'line' }
+
+    return types[serieId];
 }
