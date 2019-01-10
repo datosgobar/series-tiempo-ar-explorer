@@ -168,11 +168,13 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     let result = "";
                     self.points.forEach((point: any, index: number) => {
                         const serieConfig = findSerieConfig(graphic.props.seriesConfig, point.series.options.serieId);
-                        let value = (point.y).toFixed(2);
+                        let value = point.y;
 
                         if (serieConfig) {
                             if(serieConfig.mustFormatUnits(formatUnits)) {
                                 value = `${(value * 100).toFixed(2)}%`;
+                            } else {
+                                value = (value).toFixed(2)
                             }
 
                             result += tooltipFormatter(point, tooltipDateValue(serieConfig.getSeriePeriodicity(), point.x), value);
