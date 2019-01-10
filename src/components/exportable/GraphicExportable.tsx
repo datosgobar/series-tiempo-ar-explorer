@@ -5,6 +5,7 @@ import {ISerie} from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
 import {valuesFromObject} from "../../helpers/commonFunctions";
 import {Color} from "../style/Colors/Color";
+import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
 import Graphic from "../viewpage/graphic/Graphic";
 import {chartExtremes} from "../viewpage/graphic/GraphicAndShare";
 import {seriesConfigByUrl} from "../viewpage/ViewPage";
@@ -77,14 +78,17 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const chartOptions = buildChartOptions(this.props.chartOptions, this.props);
 
         return (
-            <Graphic series={this.state.series}
-                     range={chartExtremes(this.state.series, this.state.dateRange)}
-                     seriesConfig={seriesConfigByUrl(this.state.series, this.props.graphicUrl)}
-                     chartOptions={chartOptions}
-                     colorFor={this.colorFor}
-                     formatUnits={true}
-                     locale={this.props.locale}
-                     legendField={legendValue(this.props.legendField)} />
+            <ExportableGraphicContainer>
+                <Graphic series={this.state.series}
+                         range={chartExtremes(this.state.series, this.state.dateRange)}
+                         seriesConfig={seriesConfigByUrl(this.state.series, this.props.graphicUrl)}
+                         chartOptions={chartOptions}
+                         colorFor={this.colorFor}
+                         formatUnits={true}
+                         locale={this.props.locale}
+                         legendField={legendValue(this.props.legendField)} />
+            </ExportableGraphicContainer>
+
         )
     }
 
