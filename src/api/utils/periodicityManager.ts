@@ -56,7 +56,7 @@ export function isHigherFrequency(higher: string, newFrequency: string): boolean
 }
 
 export function parseFormatDate(format: string, dateString: string) {
-    const date = moment(dateString).utcOffset('+00:00');
+    const date = moment(dateString, 'YYYY-MM-DD').utcOffset('+00:00');
 
     if (format === 'Anual') {
         return date.format('YYYY');
