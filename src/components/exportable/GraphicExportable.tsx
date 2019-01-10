@@ -6,7 +6,7 @@ import SerieApi from "../../api/SerieApi";
 import {valuesFromObject} from "../../helpers/commonFunctions";
 import {Color} from "../style/Colors/Color";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
-import Graphic from "../viewpage/graphic/Graphic";
+import Graphic, {IChartTypeProps} from "../viewpage/graphic/Graphic";
 import {chartExtremes} from "../viewpage/graphic/GraphicAndShare";
 import {seriesConfigByUrl} from "../viewpage/ViewPage";
 
@@ -31,6 +31,7 @@ export interface IGraphicExportableProps {
     backgroundColor?: string;
     datePickerEnabled?: boolean;
     legendField?: string;
+    chartTypes: IChartTypeProps;
 }
 
 interface IGraphicExportableState {
@@ -86,9 +87,9 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          colorFor={this.colorFor}
                          formatUnits={true}
                          locale={this.props.locale}
-                         legendField={legendValue(this.props.legendField)} />
+                         legendField={legendValue(this.props.legendField)}
+                         chartTypes={this.props.chartTypes} />
             </ExportableGraphicContainer>
-
         )
     }
 
@@ -172,7 +173,7 @@ function rangeSelectorProps(componentProps: any) {
 function titleOptions(componentProps: any) {
     const options = Object.assign({}, componentProps.title);
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
-        options.margin = -20;
+        options.margin = 0;
     }
     return options;
 }
