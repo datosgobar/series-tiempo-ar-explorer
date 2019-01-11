@@ -150,7 +150,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     }
 
                     const result = date === '' ? dateOfSerie : formattedDateString(date);
-                    return new Date(result).getTime();
+                    return timestamp(result);
                 },
             },
 

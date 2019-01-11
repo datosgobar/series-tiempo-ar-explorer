@@ -23,8 +23,6 @@ export function localTimestamp(timestmp: number): number {
     return new Date(timestmp).setUTCHours(3);
 }
 
-
-// TODO: testear
 export function fullLocaleDate(frequency: string, datetime: string|number) {
     moment.locale('es');
     const date = moment(datetime).utcOffset('+00:00');
@@ -49,11 +47,44 @@ export function fullLocaleDate(frequency: string, datetime: string|number) {
     }
 
     if (frequency === 'Mensual') {
-        result = capitalize(date.format('MMMM YY'));
+        result = capitalize(date.format('MMMM YYYY'));
     }
 
     if (frequency === 'Diaria') {
         result = capitalize(date.format('DD MMMM, YYYY'), 3);
+    }
+
+    return result;
+}
+
+export function shortLocaleDate(format: string, dateString: string) {
+    const date = moment(dateString, 'YYYY-MM-DD').utcOffset('+00:00');
+    let result = 'Frecuencia no soportada';
+
+    if (format === 'Anual') {
+        result = date.format('YYYY');
+    }
+
+    if (format === 'Semestral') {
+        const numberOfMonth = parseInt(date.format('M'), 10);
+        const semester = Math.ceil(numberOfMonth / 6);
+
+        result = semester + 'S ' + date.format('YY');
+    }
+
+    if (format === 'Trimestral') {
+        const numberOfMonth = parseInt(date.format('M'), 10);
+        const trimester = Math.ceil(numberOfMonth / 3);
+
+        result = trimester + 'T ' + date.format('YY');
+    }
+
+    if (format === 'Mensual') {
+        result = date.format('MMM YY');
+    }
+
+    if (format === 'Diaria') {
+        result = date.format('D MMM YY');
     }
 
     return result;
