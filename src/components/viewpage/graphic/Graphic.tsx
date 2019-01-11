@@ -177,7 +177,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
                                 value = (value).toFixed(2)
                             }
 
-                            contentTooltip += tooltipFormatter(point, value);
+                            contentTooltip += tooltipFormatter(point, value); // TODO: usar locale
                         }
 
                         if (index < self.points.length -1) {
@@ -406,7 +406,7 @@ function setHighchartsGlobalConfig(locale: string) {
 }
 
 function tooltipFormatter(point: any, value: string) {
-    return `<table style="width: 300px;">
+    return `<table>
                 <tbody>
                     <tr>
                         <td>
@@ -421,7 +421,7 @@ function tooltipFormatter(point: any, value: string) {
 }
 
 function tooltipDateValue(frequency: string, timest: number): string {
-    return `${fullLocaleDate(frequency, localTimestamp(timest))}`
+    return `<span id="tooltip-date">${fullLocaleDate(frequency, localTimestamp(timest))}</span>`
 }
 
 function findSerieConfig(configs: SerieConfig[], serieId: string) {
