@@ -164,6 +164,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     // @ts-ignore
                     const graphic: Graphic = _this;
                     const formatUnits = graphic.props.formatUnits || false;
+                    const locale = buildLocale(graphic.props.locale);
 
                     let contentTooltip = "";
                     self.points.forEach((point: any, index: number) => {
@@ -172,12 +173,12 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
                         if (serieConfig) {
                             if(serieConfig.mustFormatUnits(formatUnits)) {
-                                value = `${(value * 100).toFixed(2)}%`;
+                                value = `${locale.toDecimalString(value * 100)}%`;
                             } else {
-                                value = (value).toFixed(2)
+                                value = locale.toDecimalString(value);
                             }
 
-                            contentTooltip += tooltipFormatter(point, value); // TODO: usar locale
+                            contentTooltip += tooltipFormatter(point, value);
                         }
 
                         if (index < self.points.length -1) {
