@@ -3,12 +3,19 @@
 }
 
 .highcharts-tooltip .tooltip-content {
-  width: 200px;
+  width: 240px;
   white-space: normal !important;
   display: -webkit-box !important;
   -webkit-box-orient: vertical;
   overflow: hidden;
   -webkit-line-clamp: 3;
+}
+
+/* reduce width of text on small screens */
+@media (max-width: 650px) {
+  .highcharts-tooltip .tooltip-content {
+    width: 165px;
+  }
 }
 
 .highcharts-tooltip td {
@@ -23,4 +30,14 @@
 
 .highcharts-tooltip table {
   font-size: 13px;
+}
+
+/* tooltip overlaps other elements */
+.highcharts-container, svg:not(:root) {
+  overflow: visible !important;
+}
+
+/* show tooltip over other elements. Without this, tooltip has full transparency */
+.highcharts-container:hover {
+  z-index: 99 !important;
 }
