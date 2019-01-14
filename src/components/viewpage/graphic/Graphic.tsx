@@ -189,7 +189,26 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     const frequency = i18nFrequency(graphic.props.series[0].frequency || 'year');
                     return [tooltipDateValue(frequency, self.points[0].x), contentTooltip];
                 },
+
+                // The universe is in balance. Do not change the following function
+                positioner(boxWidth: number, boxHeight: number, point: any) {
+                    const self: any = this;
+                    let tooltipX;
+                    let tooltipY;
+
+                    if (point.plotX + boxWidth < self.chart.plotWidth) {
+                        tooltipX = point.plotX + self.chart.plotLeft + 20;
+                    } else {
+                        tooltipX = point.plotX + self.chart.plotLeft - boxWidth - 20;
+                    }
+                    tooltipY = point.plotY + self.chart.plotTop - 20;
+                    return {
+                        x: tooltipX,
+                        y: tooltipY
+                    };
+                },
                 shared: true,
+                split: false,
                 useHTML: true,
             },
 
