@@ -208,7 +208,6 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     };
                 },
                 shared: true,
-                split: false,
                 useHTML: true,
             },
 
