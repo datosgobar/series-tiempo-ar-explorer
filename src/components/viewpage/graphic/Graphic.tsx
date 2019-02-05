@@ -12,6 +12,9 @@ import {Color} from '../../style/Colors/Color';
 import {ISerieTag} from "../SeriesTags";
 import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
 
+// tslint:disable-next-line:no-var-requires
+const deepMerge = require('deepmerge');
+
 
 export interface IGraphicProps {
     series: ISerie[];
@@ -239,7 +242,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
             series: this.seriesValues(),
         };
 
-        return Object.assign(ownConfig, this.props.chartOptions); // chartOptions overrides ownConfig
+        return deepMerge(ownConfig, this.props.chartOptions || {}); // chartOptions overrides ownConfig
     }
 
 
