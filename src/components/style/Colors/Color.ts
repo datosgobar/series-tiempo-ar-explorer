@@ -3,14 +3,16 @@ export class Color {
 }
 
 const Colors = {
-    Blue: new Color("blue", "#417798"),
-    Brown: new Color("brown","#8e655e"),
-    Green1: new Color("green1", "#009488"),
-    Green2: new Color("green2", "#898d5d"),
-    Magenta: new Color("magenta", "#ef0065"),
-    Orange: new Color("orange", "#c96339"),
-    Purple: new Color("purple", "#8b5172"),
-    Violet: new Color("violet", "#7b52a4"),
+    Blue1: new Color("blue1", "#0072BB"),
+    Blue2: new Color("blue2", "#039BE5"),
+    Green1: new Color("green1","#2E7D33"),
+    Green2: new Color("green2", "#6EA100"),
+    Orange: new Color("orange", "#F9A822"),
+    Pink: new Color("pink", "#EC407A"),
+    Purple: new Color("purple", "#C2185B"),
+    Red: new Color("red", "#C62828"),
+    Violet1: new Color("violet1", "#6A1B99"),
+    Violet2: new Color("violet2", "#6A1B99"),
 };
 export const NaC = new Color("", "");
 
