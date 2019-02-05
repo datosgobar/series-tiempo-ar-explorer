@@ -6,6 +6,7 @@ import ShareDropdownContainer from "../../style/Share/ShareDropdownContainer";
 
 interface IShareDropdownProps {
     url: string;
+    legendField: string;
 }
 
 export default (props: IShareDropdownProps) =>
@@ -13,7 +14,7 @@ export default (props: IShareDropdownProps) =>
         <LinkShareItem url={webShareURL(props.url)} text="Enlace web" />
         <LinkShareItem url={csvShareURL(props.url)} text="Enlace CSV" />
         <LinkShareItem url={jsonShareURL(props.url)} text="Enlace JSON" />
-        <LinkShareItem url={webCodeUrl(props.url)} text="Código web" />
+        <LinkShareItem url={webCodeUrl(props.url, props.legendField)} text="Código web" />
     </ShareDropdownContainer>
 
 
@@ -40,7 +41,7 @@ function urlToString(url: string): string {
               .replace(new RegExp('%3F', 'g'), '?');
 }
 
-function webCodeUrl(url: string): string {
+function webCodeUrl(url: string, legendField: string): string {
     return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.6.5/dist/js/components.js'></script>\n" +
         "<script type='text/css' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.6.5/dist/css/components.css'></script>\n" +
         "<div id=\"root\"></div>\n" +
@@ -57,7 +58,7 @@ function webCodeUrl(url: string): string {
         "            exportable: true,\n" +
         "            colors: ['#0072BB', '#2E7D33', '#C62828', '#F9A822', '#6A1B99'],\n" +
         "            backgroundColor: '#ffffff00',\n" +
-        "            legendField: 'description',\n" +
+        "            legendField: '" + legendField + "',\n" +
         "        })\n" +
         "    }\n" +
         "</script>\n"
