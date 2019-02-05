@@ -47,7 +47,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         super(props);
         this.colorFor = this.colorFor.bind(this);
 
-        this.seriesApi = new SerieApi(new ApiClient(extractUriFromUrl(props.graphicUrl)));
+        this.seriesApi = new SerieApi(new ApiClient(extractUriFromUrl(props.graphicUrl), 'ts-components'));
         this.state = {
             dateRange: { start: '', end: '' },
             series: []
