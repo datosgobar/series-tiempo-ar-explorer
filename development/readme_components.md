@@ -35,6 +35,11 @@ Para todos los componentes es igual.
         locale: 'AR',
         zoom: true,
         exportable: true,
+        colors: ['#cecece', '#8d6b22', '#62848d'],
+        backgroundColor: '#cdcdcd',
+        datePickerEnabled: true,
+        legendField: 'title',
+        chartTypes: {'103.1_I2N_2016_M_15': 'column'}
       })
     }
   </script>
@@ -46,7 +51,7 @@ Para todos los componentes es igual.
 - `graphicUrl: string`
   - url completa del llamado a la API
 - `chartOptions: {}`
-  - cualquier opción válida para [Highcharts](https://api.highcharts.com/highcharts/).
+  - cualquier opción válida para [Highcharts](https://api.highcharts.com/highcharts/)
 - `navigator: boolean`
   - indica si está habilitada la funcionalidad de navegación de la serie
 - `locale: string`
@@ -55,3 +60,13 @@ Para todos los componentes es igual.
   - indica si tiene habilitada la funcionalidad de zoom
 - `exportable: boolean`
   - indica si tiene habilitada la funcionalidad de exportar el gráfico
+- `colors: string[]`
+  - colores en formato hexadecimal. Ej: `"#000000"`
+- `backgroundColor: string`
+  - color de fondo del gráfico en formato hexadecimal
+- `datePickerEnabled: boolean`
+  - indica si el selector de fechas está habilitado
+- `legendField: string`
+  - indica el campo de la serie a usar para mostrar la leyenda
+- `chartTypes: {<id de serie>: <tipo de gráfico>}`
+  - especifica el tipo de gráfico a usar para cada serie
