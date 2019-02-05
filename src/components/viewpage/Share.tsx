@@ -10,18 +10,15 @@ export interface IShareProps {
     series: ISerie[]
 }
 
-export class Share extends React.Component<IShareProps, any> {
+export default (props: IShareProps) =>
+    <ShareContainer>
+        <ShareDropdown url={props.url} legendField={calculateLegendField(props.series)}/>
+        <SocialNetworkShareContainer>
+            <TwitterShare series={props.series} />
+        </SocialNetworkShareContainer>
+    </ShareContainer>
 
-    public render() {
-        return (
-            <ShareContainer>
-                <ShareDropdown url={this.props.url} />
-                <SocialNetworkShareContainer>
-                    <TwitterShare series={this.props.series} />
-                    {/*<FacebookShare />*/}
-                </SocialNetworkShareContainer>
-            </ShareContainer>
-        )
-    }
 
+function calculateLegendField(series: ISerie[]): string {
+    return series.length > 1 ? 'dataset_title' : 'field_description';
 }
