@@ -11,8 +11,7 @@ const Colors = {
     Pink: new Color("pink", "#EC407A"),
     Purple: new Color("purple", "#C2185B"),
     Red: new Color("red", "#C62828"),
-    Violet1: new Color("violet1", "#6A1B99"),
-    Violet2: new Color("violet2", "#6A1B99"),
+    Violet: new Color("violet", "#6A1B99"),
 };
 export const NaC = new Color("", "");
 
