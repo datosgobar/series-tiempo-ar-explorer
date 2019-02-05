@@ -56,7 +56,7 @@ function webCodeUrl(url: string, legendField: string): string {
         "            zoom: true,\n" +
         "            datePickerEnabled: true,\n" +
         "            exportable: true,\n" +
-        "            colors: ['#0072BB', '#2E7D33', '#C62828', '#F9A822', '#6A1B99'],\n" +
+        "            colors: ['#0072BB','#039BE5','#2E7D33','#6EA100','#F9A822','#EC407A','#C2185B','#C62828','#6A1B99'],\n" +
         "            backgroundColor: '#ffffff00',\n" +
         "            legendField: '" + legendField + "',\n" +
         "        })\n" +
