@@ -32,6 +32,7 @@ export interface IGraphicExportableProps {
     datePickerEnabled?: boolean;
     legendField?: string;
     chartTypes: IChartTypeProps;
+    title?: string;
 }
 
 interface IGraphicExportableState {
@@ -137,14 +138,14 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
     return options;
 }
 
-function chartProps(componentProps: any) {
+function chartProps(componentProps: IGraphicExportableProps) {
     return {
         backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : '#ffffff00',
         zoomType: componentProps.zoom ? 'x' : ''
     }
 }
 
-function exportingProps(componentProps: any) {
+function exportingProps(componentProps: IGraphicExportableProps) {
     return {
         buttons: {
             contextButton: {
@@ -172,6 +173,7 @@ function rangeSelectorProps(componentProps: any) {
 
 function titleOptions(componentProps: any) {
     const options = Object.assign({}, componentProps.title);
+    options.text = componentProps.title;
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
         options.margin = 0;
     }

@@ -12,13 +12,13 @@ export interface IShareProps {
 
 export default (props: IShareProps) =>
     <ShareContainer>
-        <ShareDropdown url={props.url} legendField={calculateLegendField(props.series)}/>
+        <ShareDropdown url={props.url} chartTitle={calculateChartTitle(props.series)}/>
         <SocialNetworkShareContainer>
             <TwitterShare series={props.series} />
         </SocialNetworkShareContainer>
     </ShareContainer>
 
 
-function calculateLegendField(series: ISerie[]): string {
+function calculateChartTitle(series: ISerie[]): string {
     return series.length > 1 ? 'dataset_title' : 'field_description';
 }
