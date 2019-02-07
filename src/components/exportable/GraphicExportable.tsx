@@ -197,7 +197,13 @@ function subtitleOptions(componentProps: IGraphicExportableProps) {
 
 function creditsOptions(componentProps: IGraphicExportableProps) {
     return {
-        href: componentProps.graphicUrl,
+        href: productionUrl(componentProps.graphicUrl),
         text: "Ver en datos.gob.ar"
     }
+}
+
+function productionUrl(apiCall: string): string {
+    const url = apiCall.split('apis.datos.gob.ar')[1];
+
+    return `https://datos.gob.ar${url}`;
 }
