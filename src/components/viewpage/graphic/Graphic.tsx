@@ -110,7 +110,9 @@ export default class Graphic extends React.Component<IGraphicProps> {
             },
 
             credits: {
-                enabled: false
+                enabled: true,
+                href: window.location.href,
+                text: "Ver en datos.gob.ar"
             },
 
             exporting: {

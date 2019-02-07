@@ -136,6 +136,7 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
     options.rangeSelector = Object.assign({}, options.rangeSelector, rangeSelectorProps(componentProps));
     options.title = Object.assign({}, options.title, titleOptions(componentProps));
     options.subtitle = Object.assign({}, options.subtitle, subtitleOptions(componentProps));
+    options.credits = Object.assign({}, options.credits, creditsOptions(componentProps));
 
     return options;
 }
@@ -192,4 +193,11 @@ function subtitleOptions(componentProps: IGraphicExportableProps) {
     }
 
     return options
+}
+
+function creditsOptions(componentProps: IGraphicExportableProps) {
+    return {
+        href: componentProps.graphicUrl,
+        text: "Ver en datos.gob.ar"
+    }
 }
