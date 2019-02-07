@@ -33,6 +33,7 @@ export interface IGraphicExportableProps {
     legendField?: string;
     chartTypes: IChartTypeProps;
     title?: string;
+    source?: string;
 }
 
 interface IGraphicExportableState {
@@ -134,6 +135,7 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
     options.chart = Object.assign({}, options.chart, chartProps(componentProps));
     options.rangeSelector = Object.assign({}, options.rangeSelector, rangeSelectorProps(componentProps));
     options.title = Object.assign({}, options.title, titleOptions(componentProps));
+    options.subtitle = Object.assign({}, options.subtitle, subtitleOptions(componentProps));
 
     return options;
 }
@@ -178,4 +180,16 @@ function titleOptions(componentProps: any) {
         options.margin = 0;
     }
     return options;
+}
+
+function subtitleOptions(componentProps: any) {
+    const options = Object.assign({}, componentProps.source);
+    if (componentProps.source) {
+        options.text = componentProps.source;
+        options.y = 15;
+        options.align = "center";
+        options.verticalAlign = "bottom";
+    }
+
+    return options
 }

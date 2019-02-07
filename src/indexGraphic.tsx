@@ -16,7 +16,8 @@ export function render(selector: string, config: IGraphicExportableProps) {
                                    datePickerEnabled={config.datePickerEnabled}
                                    legendField={config.legendField}
                                    chartTypes={config.chartTypes}
-                                   title={config.title} />,
+                                   title={config.title}
+                                   source={config.source} />,
         document.getElementById(selector) as HTMLElement
     )
 }

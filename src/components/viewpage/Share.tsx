@@ -12,7 +12,7 @@ export interface IShareProps {
 
 export default (props: IShareProps) =>
     <ShareContainer>
-        <ShareDropdown url={props.url} chartTitle={calculateChartTitle(props.series)}/>
+        <ShareDropdown url={props.url} chartTitle={calculateChartTitle(props.series)} chartSource={calculateChartSource(props.series)} />
         <SocialNetworkShareContainer>
             <TwitterShare series={props.series} />
         </SocialNetworkShareContainer>
@@ -21,4 +21,8 @@ export default (props: IShareProps) =>
 
 function calculateChartTitle(series: ISerie[]): string {
     return series.length > 1 ? 'dataset_title' : 'field_description';
+}
+
+function calculateChartSource(series: ISerie[]): string {
+    return Array.from(new Set(series.map((serie: ISerie) => serie.datasetSource))).join(', ')
 }
