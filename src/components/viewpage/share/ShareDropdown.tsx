@@ -42,7 +42,6 @@ function urlToString(url: string): string {
               .replace(new RegExp('%3F', 'g'), '?');
 }
 
-// TODO: Hacer un componente que reciba <series> y calcule todo esto.
 function webCodeUrl(url: string, chartTitle: string, chartSource: string): string {
     return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.7.0/dist/js/components.js'></script>\n" +
         "<script type='text/css' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.7.0/dist/css/components.css'></script>\n" +

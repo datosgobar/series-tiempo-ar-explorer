@@ -173,8 +173,8 @@ function rangeSelectorProps(componentProps: any) {
 
 }
 
-function titleOptions(componentProps: any) {
-    const options = Object.assign({}, componentProps.title);
+function titleOptions(componentProps: IGraphicExportableProps) {
+    const options: any = Object.assign({}, componentProps.title);
     options.text = componentProps.title;
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
         options.margin = 0;
@@ -182,8 +182,8 @@ function titleOptions(componentProps: any) {
     return options;
 }
 
-function subtitleOptions(componentProps: any) {
-    const options = Object.assign({}, componentProps.source);
+function subtitleOptions(componentProps: IGraphicExportableProps) {
+    const options: any = Object.assign({}, componentProps.source);
     if (componentProps.source) {
         options.text = componentProps.source;
         options.y = 15;
