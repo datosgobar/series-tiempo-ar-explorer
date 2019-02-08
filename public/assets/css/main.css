@@ -7,12 +7,6 @@
   -webkit-line-clamp: 3;
 }
 
-@media (max-width: 650px) {
-  .highcharts-tooltip .tooltip-content {
-    width: 165px;
-  }
-}
-
 .highcharts-tooltip td {
   vertical-align: top;
 }

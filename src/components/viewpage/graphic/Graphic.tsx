@@ -168,6 +168,11 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     const self: any = this;
                     // @ts-ignore
                     const graphic: Graphic = _this;
+                    const smallTooltip = graphic.myRef.current.chart.chartWidth < 560;
+                    if (smallTooltip) {
+                        graphic.myRef.current.chart.tooltip.options.style.width = '80px';
+                    }
+                    // else: tomar el elemento y cambiarle el width con JS
                     const formatUnits = graphic.props.formatUnits || false;
                     const locale = buildLocale(graphic.props.locale);
 
@@ -183,7 +188,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
                                 value = locale.toDecimalString(value);
                             }
 
-                            contentTooltip += tooltipFormatter(point, value);
+                            contentTooltip += tooltipFormatter(point, value, smallTooltip);
                         }
 
                         if (index < self.points.length -1) {
@@ -429,13 +434,13 @@ function setHighchartsGlobalConfig(locale: string) {
     });
 }
 
-function tooltipFormatter(point: any, value: string) {
+function tooltipFormatter(point: any, value: string, smallTooltip?: boolean) {
     return `<table>
                 <tbody>
                     <tr>
                         <td>
                             <div class="tooltip-content">
-                                <span style="color:${point.color};display:inline !important;">\u25CF</span> ${point.series.name}
+                                <span style="color:${point.color};display:inline !important;">\u25CF</span> ${smallTooltip ? '' : point.series.name}
                             </div>
                         </td>
                         <td><span class="tooltip-value">${value}</span></td>
