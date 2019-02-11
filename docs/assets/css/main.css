@@ -1,16 +1,9 @@
 .highcharts-tooltip .tooltip-content {
-  width: 240px;
   white-space: normal !important;
   display: -webkit-box !important;
   -webkit-box-orient: vertical;
   overflow: hidden;
   -webkit-line-clamp: 3;
-}
-
-@media (max-width: 650px) {
-  .highcharts-tooltip .tooltip-content {
-    width: 165px;
-  }
 }
 
 .highcharts-tooltip td {
