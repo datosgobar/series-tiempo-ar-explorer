@@ -48,6 +48,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     public constructor(props: any) {
         super(props);
         this.colorFor = this.colorFor.bind(this);
+        this.afterRender = this.afterRender.bind(this);
 
         this.seriesApi = new SerieApi(new ApiClient(extractUriFromUrl(props.graphicUrl), 'ts-components'));
         this.state = {
@@ -90,9 +91,34 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          formatUnits={true}
                          locale={this.props.locale}
                          legendField={legendValue(this.props.legendField)}
-                         chartTypes={this.props.chartTypes} />
+                         chartTypes={this.props.chartTypes}
+                         afterRender={this.afterRender} />
             </ExportableGraphicContainer>
         )
+    }
+
+    private afterRender(chart: any) {
+        const zoomAvailable = chart.chartWidth > 620;
+        const navigatorAvailable = chart.chartWidth > 500;
+        const datepickerAvailable = chart.chartWidth > 400;
+
+        if (this.props.zoom === undefined && !zoomAvailable) {
+            const zoomBtns = chart.container.getElementsByClassName('highcharts-range-selector-buttons')[0];
+            zoomBtns.style.display = 'none';
+            zoomBtns.style.visibility = 'hidden';
+        }
+
+        if (this.props.navigator === undefined && !navigatorAvailable) {
+            const navigator = chart.container.getElementsByClassName('highcharts-navigator')[0];
+            navigator.style.display = 'none';
+            navigator.style.visibility = 'hidden';
+        }
+
+        if (this.props.datePickerEnabled === undefined && !datepickerAvailable) {
+            const datepicker = chart.container.getElementsByClassName('highcharts-input-group')[0];
+            datepicker.style.display = 'none';
+            datepicker.style.visibility = 'hidden';
+        }
     }
 
     private colorFor(serieId: string): Color {

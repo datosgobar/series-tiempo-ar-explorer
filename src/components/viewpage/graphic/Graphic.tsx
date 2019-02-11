@@ -29,6 +29,7 @@ export interface IGraphicProps {
     locale: string;
     legendField?: (serie: ISerie) => string;
     chartTypes?: IChartTypeProps;
+    afterRender?: (chart: any) => void;
 }
 
 export interface IChartTypeProps {
@@ -90,6 +91,9 @@ export default class Graphic extends React.Component<IGraphicProps> {
     public afterRender = (chart: any) => {
         this.showLoading(chart);
         this.setExtremes(chart);
+        if (this.props.afterRender) {
+            this.props.afterRender(chart);
+        }
     };
 
     public shouldComponentUpdate(nextProps: IGraphicProps) {
