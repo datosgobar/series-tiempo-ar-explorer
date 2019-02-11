@@ -168,11 +168,8 @@ export default class Graphic extends React.Component<IGraphicProps> {
                     const self: any = this;
                     // @ts-ignore
                     const graphic: Graphic = _this;
-                    const smallTooltip = graphic.myRef.current.chart.chartWidth < 560;
-                    if (smallTooltip) {
-                        graphic.myRef.current.chart.tooltip.options.style.width = '80px';
-                    }
-                    // else: tomar el elemento y cambiarle el width con JS
+                    const chartElement = graphic.myRef.current.chart;
+                    const smallTooltip = chartElement.chartWidth < 560;
                     const formatUnits = graphic.props.formatUnits || false;
                     const locale = buildLocale(graphic.props.locale);
 
@@ -439,7 +436,7 @@ function tooltipFormatter(point: any, value: string, smallTooltip?: boolean) {
                 <tbody>
                     <tr>
                         <td>
-                            <div class="tooltip-content">
+                            <div class="tooltip-content" style="${smallTooltip ? 'width: 20px' : 'width: 240px'}">
                                 <span style="color:${point.color};display:inline !important;">\u25CF</span> ${smallTooltip ? '' : point.series.name}
                             </div>
                         </td>
