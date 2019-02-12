@@ -103,21 +103,18 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const datepickerAvailable = chart.chartWidth > 400;
 
         if (this.props.zoom === undefined && !zoomAvailable) {
-            const zoomBtns = chart.container.getElementsByClassName('highcharts-range-selector-buttons')[0];
-            zoomBtns.style.display = 'none';
-            zoomBtns.style.visibility = 'hidden';
+            const zoomBtn = chart.container.getElementsByClassName('highcharts-range-selector-buttons')[0];
+            hideDOMElement(zoomBtn)
         }
 
         if (this.props.navigator === undefined && !navigatorAvailable) {
             const navigator = chart.container.getElementsByClassName('highcharts-navigator')[0];
-            navigator.style.display = 'none';
-            navigator.style.visibility = 'hidden';
+            hideDOMElement(navigator)
         }
 
         if (this.props.datePickerEnabled === undefined && !datepickerAvailable) {
             const datepicker = chart.container.getElementsByClassName('highcharts-input-group')[0];
-            datepicker.style.display = 'none';
-            datepicker.style.visibility = 'hidden';
+            hideDOMElement(datepicker)
         }
     }
 
@@ -155,8 +152,8 @@ function legendValue(field?: string): ((serie: ISerie) => string) {
 
 function buildChartOptions(chartOptions: any, componentProps: IGraphicExportableProps): any {
     const options = chartOptions;
-    options.navigator = Object.assign({}, options.navigator, { enabled: componentProps.navigator });
-    options.scrollbar = Object.assign({}, options.scrollbar, { enabled: componentProps.navigator });
+    options.navigator = Object.assign({}, options.navigator, { enabled: defaultChartValue(componentProps.navigator) });
+    options.scrollbar = Object.assign({}, options.scrollbar, { enabled: defaultChartValue(componentProps.navigator) });
     options.exporting = Object.assign({}, options.exporting, exportingProps(componentProps));
     options.chart = Object.assign({}, options.chart, chartProps(componentProps));
     options.rangeSelector = Object.assign({}, options.rangeSelector, rangeSelectorProps(componentProps));
@@ -170,7 +167,7 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
 function chartProps(componentProps: IGraphicExportableProps) {
     return {
         backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : '#ffffff00',
-        zoomType: componentProps.zoom ? 'x' : ''
+        zoomType: defaultChartValue(componentProps.zoom) ? 'x' : ''
     }
 }
 
@@ -192,18 +189,17 @@ function exportingProps(componentProps: IGraphicExportableProps) {
 
 function rangeSelectorProps(componentProps: any) {
     const options = Object.assign({}, componentProps.rangeSelector);
-    options.inputEnabled = componentProps.datePickerEnabled;
-    if (!componentProps.zoom) {
+    options.inputEnabled = defaultChartValue(componentProps.datePickerEnabled);
+    if (!defaultChartValue(componentProps.zoom)) {
         options.buttonTheme = { visibility: 'hidden', display: 'none' };
     }
     return options;
-
 }
 
 function titleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.title);
     options.text = componentProps.title;
-    if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
+    if (!defaultChartValue(componentProps.zoom) && !defaultChartValue(componentProps.datePickerEnabled)) { // remove margin between title and chart
         options.margin = 0;
     }
     return options;
@@ -232,4 +228,15 @@ function productionUrl(apiCall: string): string {
     const url = apiCall.split('apis.datos.gob.ar')[1];
 
     return `https://datos.gob.ar${url}`;
+}
+
+function hideDOMElement(element: any) {
+    if (!element) { return }
+
+    element.style.display = 'none';
+    element.style.visibility = 'hidden';
+}
+
+function defaultChartValue(value: boolean|undefined): boolean|undefined {
+    return typeof value === 'boolean' ? value : true;
 }
