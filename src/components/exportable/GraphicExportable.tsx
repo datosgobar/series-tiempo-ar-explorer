@@ -4,20 +4,11 @@ import QueryParams from "../../api/QueryParams";
 import {ISerie} from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
 import {valuesFromObject} from "../../helpers/commonFunctions";
-import {Color} from "../style/Colors/Color";
+import Colors, {Color} from "../style/Colors/Color";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
 import Graphic, {IChartTypeProps} from "../viewpage/graphic/Graphic";
 import {chartExtremes} from "../viewpage/graphic/GraphicAndShare";
 import {seriesConfigByUrl} from "../viewpage/ViewPage";
-
-
-const Colors = {
-    aBlue: new Color("blue", "#0072BB"),
-    bGreen: new Color("green","#2E7D33"),
-    cRed: new Color("red", "#C62828"),
-    dOrange: new Color("orange", "#F9A822"),
-    eViolet: new Color("violet", "#6A1B99"),
-};
 
 
 export interface IGraphicExportableProps {
