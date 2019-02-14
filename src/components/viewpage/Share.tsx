@@ -20,7 +20,7 @@ export default (props: IShareProps) =>
 
 
 function calculateChartTitle(series: ISerie[]): string {
-    return series.length > 1 ? 'dataset_title' : 'field_description';
+    return series.length > 1 ? series[0].datasetTitle : series[0].description;
 }
 
 function calculateChartSource(series: ISerie[]): string {
