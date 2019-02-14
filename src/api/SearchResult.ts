@@ -82,4 +82,9 @@ export default class SearchResult implements ISerie {
     public get datasetTitle() {
         return '';
     }
+
+    get representationModeUnits() {
+        return '';
+    }
+
 }

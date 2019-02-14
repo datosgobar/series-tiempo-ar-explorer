@@ -22,7 +22,8 @@ export interface ISerie {
     modified: string,
     themes: IDataSetTheme[],
     frequency?: string,
-    timeIndexSize: number
+    timeIndexSize: number,
+    representationModeUnits: string
 }
 
 export default class Serie implements ISerie {
@@ -96,6 +97,10 @@ export default class Serie implements ISerie {
         return this.fieldMeta.units;
     }
 
+    get representationModeUnits() {
+        return this.fieldMeta.representation_mode_units;
+    }
+
     get startDate() {
         return this.periodicityParser.formatDate(this.fieldMeta.time_index_start);
     }
@@ -148,6 +153,7 @@ export default class Serie implements ISerie {
             landingPage: this.landingPage,
             modified: this.modified,
             publisher: {...this.publisher},
+            representationModeUnits: this.representationModeUnits,
             startDate: this.startDate,
             themes: [...this.themes],
             timeIndexSize: this.timeIndexSize,
