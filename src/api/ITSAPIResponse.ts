@@ -64,6 +64,7 @@ export interface IField {
     title: string;
     description: string;
     units: string;
+    representation_mode_units: string;
     frequency: string;
     time_index_start: string;
     time_index_end: string;

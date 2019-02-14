@@ -37,7 +37,7 @@ export default (props: ISerieDetailsProp) =>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Unidades</dt>
-                    <dd>{props.serie.units}</dd>
+                    <dd>{props.serie.representationModeUnits}</dd>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Dataset</dt>
