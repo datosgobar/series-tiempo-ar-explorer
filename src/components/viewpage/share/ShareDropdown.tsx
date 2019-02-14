@@ -43,8 +43,8 @@ function urlToString(url: string): string {
 }
 
 function webCodeUrl(url: string, chartTitle: string, chartSource: string): string {
-    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.9.0/dist/js/components.js'></script>\n" +
-        "<script type='text/css' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.9.0/dist/css/components.css'></script>\n" +
+    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.10.2/dist/js/components.js'></script>\n" +
+        "<script type='text/css' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.10.2/dist/css/components.css'></script>\n" +
         "<div id=\"root\"></div>\n" +
         "<script>\n" +
         "    window.onload = function() {\n" +
@@ -52,11 +52,7 @@ function webCodeUrl(url: string, chartTitle: string, chartSource: string): strin
         "            graphicUrl: '" + url +"',\n"+
         "            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/\n" +
         "            },\n" +
-        "            navigator: false,\n" +
         "            locale: 'AR',\n" +
-        "            zoom: true,\n" +
-        "            datePickerEnabled: true,\n" +
-        "            exportable: true,\n" +
         "            colors: ['#0072BB','#039BE5','#2E7D33','#6EA100','#F9A822','#EC407A','#C2185B','#C62828','#6A1B99'],\n" +
         "            backgroundColor: '#ffffff00',\n" +
         "            title: '" + chartTitle + "',\n" +
