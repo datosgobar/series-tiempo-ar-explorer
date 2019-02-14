@@ -407,7 +407,7 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
 
 function highchartsLabelFormatter(): string {
     // @ts-ignore
-    return `${this.value*100}%`
+    return `${(this.value*100).toFixed(2)}%`
 }
 
 
