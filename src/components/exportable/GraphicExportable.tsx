@@ -89,23 +89,25 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     }
 
     private afterRender(chart: any) {
-        const zoomAvailable = chart.chartWidth > 620;
-        const navigatorAvailable = chart.chartWidth > 500;
-        const datepickerAvailable = chart.chartWidth > 400;
+        const zoomEnabled = this.props.zoom || (this.props.zoom === undefined && chart.chartWidth >= 620);
+        const navigatorEnabled = this.props.navigator || (this.props.navigator === undefined && chart.chartHeight >= 500);
+        const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
 
-        if (this.props.zoom === undefined && !zoomAvailable) {
+        chart.update({
+           chart: {
+               zoomType: zoomEnabled ? 'x' : 'none'
+           },
+            navigator: { enabled: navigatorEnabled },
+            rangeSelector: {
+                buttonTheme: { visibility: zoomEnabled ? 'inherit' : 'hidden', display: zoomEnabled ? 'inherit' : 'none' },
+                inputEnabled: datepickerEnabled
+            },
+            scrollbar: { enabled: navigatorEnabled }
+        });
+
+        if (!zoomEnabled) {
             const zoomBtn = chart.container.getElementsByClassName('highcharts-range-selector-buttons')[0];
-            hideDOMElement(zoomBtn)
-        }
-
-        if (this.props.navigator === undefined && !navigatorAvailable) {
-            const navigator = chart.container.getElementsByClassName('highcharts-navigator')[0];
-            hideDOMElement(navigator)
-        }
-
-        if (this.props.datePickerEnabled === undefined && !datepickerAvailable) {
-            const datepicker = chart.container.getElementsByClassName('highcharts-input-group')[0];
-            hideDOMElement(datepicker)
+            zoomBtn.remove();
         }
     }
 
@@ -190,7 +192,7 @@ function rangeSelectorProps(componentProps: any) {
 function titleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.title);
     options.text = componentProps.title;
-    if (!defaultChartValue(componentProps.zoom) && !defaultChartValue(componentProps.datePickerEnabled)) { // remove margin between title and chart
+    if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
         options.margin = 0;
     }
     return options;
@@ -219,13 +221,6 @@ function productionUrl(apiCall: string): string {
     const url = apiCall.split('apis.datos.gob.ar')[1];
 
     return `https://datos.gob.ar${url}`;
-}
-
-function hideDOMElement(element: any) {
-    if (!element) { return }
-
-    element.style.display = 'none';
-    element.style.visibility = 'hidden';
 }
 
 function defaultChartValue(value: boolean|undefined): boolean|undefined {
