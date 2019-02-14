@@ -155,6 +155,7 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
     options.title = Object.assign({}, options.title, titleOptions(componentProps));
     options.subtitle = Object.assign({}, options.subtitle, subtitleOptions(componentProps));
     options.credits = Object.assign({}, options.credits, creditsOptions(componentProps));
+    options.legend = Object.assign({}, options.legendredits, legendOptions(componentProps));
 
     return options;
 }
@@ -227,4 +228,14 @@ function productionUrl(apiCall: string): string {
 
 function defaultChartValue(value: boolean|undefined): boolean|undefined {
     return typeof value === 'boolean' ? value : true;
+}
+
+function legendOptions(componentProps: IGraphicExportableProps) {
+    return {
+        enabled: seriesLength(componentProps.graphicUrl) > 1
+    }
+}
+
+function seriesLength(apiCall: string): number {
+    return apiCall.split('ids')[1].split(',').length;
 }
