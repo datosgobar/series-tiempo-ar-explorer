@@ -203,6 +203,7 @@ function titleOptions(componentProps: IGraphicExportableProps) {
 
 function subtitleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.source);
+    options.useHTML = true;
     if (componentProps.source) {
         options.text = componentProps.source;
         options.y = 15;

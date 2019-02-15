@@ -41,3 +41,10 @@
 .highcharts-container:hover {
   z-index: 99 !important;
 }
+
+.highcharts-subtitle {
+  width: 70% !important;
+  white-space: pre-wrap !important;
+  text-align: center;
+  margin-top: 10px !important;
+}
