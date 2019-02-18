@@ -163,7 +163,7 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
     options.title = Object.assign({}, options.title, titleOptions(componentProps));
     options.subtitle = Object.assign({}, options.subtitle, subtitleOptions(componentProps));
     options.credits = Object.assign({}, options.credits, creditsOptions(componentProps));
-    options.legend = Object.assign({}, options.legendredits, legendOptions(componentProps));
+    options.legend = Object.assign({}, options.legend, legendOptions(componentProps));
 
     return options;
 }
