@@ -354,7 +354,7 @@ function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], fo
 
         result[serie.id] = {
             opposite: outOfScale,
-            title: { text: serie.units },
+            title: { text: serie.representationModeUnits },
             yAxis: outOfScale ? 1 : 0
         };
 

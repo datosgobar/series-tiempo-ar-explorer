@@ -93,6 +93,9 @@ export default class Serie implements ISerie {
         return this.periodicityParser.formattedPeriodicity();
     }
 
+    /**
+     * @deprecated use representationModeUnits instead.
+     */
     get units() {
         return this.fieldMeta.units;
     }
