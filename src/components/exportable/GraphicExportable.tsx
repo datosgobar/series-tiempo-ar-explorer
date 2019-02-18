@@ -15,7 +15,7 @@ export interface IGraphicExportableProps {
     graphicUrl: string;
     chartOptions: any;
     navigator?: boolean;
-    locale: string;
+    locale?: string;
     zoom?: boolean;
     exportable?: boolean;
     colors?: string[];
@@ -80,7 +80,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          chartOptions={chartOptions}
                          colorFor={this.colorFor}
                          formatUnits={true}
-                         locale={this.props.locale}
+                         locale={this.props.locale || 'AR'}
                          legendField={legendValue(this.props.legendField)}
                          chartTypes={this.props.chartTypes}
                          afterRender={this.afterRender} />

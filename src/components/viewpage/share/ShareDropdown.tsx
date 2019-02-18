@@ -52,9 +52,6 @@ function webCodeUrl(url: string, chartTitle: string, chartSource: string): strin
         "            graphicUrl: '" + url +"',\n"+
         "            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/\n" +
         "            },\n" +
-        "            locale: 'AR',\n" +
-        "            colors: ['#0072BB','#039BE5','#2E7D33','#6EA100','#F9A822','#EC407A','#C2185B','#C62828','#6A1B99'],\n" +
-        "            backgroundColor: '#ffffff00',\n" +
         "            title: '" + chartTitle + "',\n" +
         "            source: '" + chartSource + "',\n" +
         "        })\n" +
