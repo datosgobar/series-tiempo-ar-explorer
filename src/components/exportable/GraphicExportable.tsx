@@ -93,18 +93,26 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const zoomEnabled = this.props.zoom || (this.props.zoom === undefined && chart.chartWidth >= 620);
         const navigatorEnabled = this.props.navigator || (this.props.navigator === undefined && chartHeight >= 500);
         const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
+        const smallChart = chart.chartWidth <= 700;
 
         chart.update({
-           chart: {
-               height: chartHeight, // force to set container's height
-               zoomType: zoomEnabled ? 'x' : 'none'
-           },
+            chart: {
+                height: chartHeight, // force to set container's height
+                zoomType: zoomEnabled ? 'x' : 'none'
+            },
             navigator: { enabled: navigatorEnabled },
             rangeSelector: {
                 buttonTheme: { visibility: zoomEnabled ? 'inherit' : 'hidden', display: zoomEnabled ? 'inherit' : 'none' },
                 inputEnabled: datepickerEnabled
             },
-            scrollbar: { enabled: navigatorEnabled }
+            scrollbar: { enabled: navigatorEnabled },
+            title: {
+                style: {
+                    height: smallChart ? 35 : 'auto',
+                    overflow: smallChart ? 'auto' : 'hidden',
+                },
+                useHTML: smallChart,
+            }
         });
 
         if (!zoomEnabled) {
@@ -195,11 +203,6 @@ function rangeSelectorProps(componentProps: any) {
 function titleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.title);
     options.text = componentProps.title;
-    options.useHTML = true;
-    options.style = {
-        height: 35,
-        overflow: 'auto',
-    };
 
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
         options.margin = 0;
