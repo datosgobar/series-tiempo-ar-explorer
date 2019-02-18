@@ -102,6 +102,10 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             },
             navigator: { enabled: navigatorEnabled },
             rangeSelector: {
+                buttonPosition: smallChart && datepickerEnabled ? {
+                    align: 'right',
+                    x: -45
+                }:{},
                 buttonTheme: { visibility: zoomEnabled ? 'inherit' : 'hidden', display: zoomEnabled ? 'inherit' : 'none' },
                 inputEnabled: datepickerEnabled
             },
