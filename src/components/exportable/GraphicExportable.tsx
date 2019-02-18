@@ -93,18 +93,30 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const zoomEnabled = this.props.zoom || (this.props.zoom === undefined && chart.chartWidth >= 620);
         const navigatorEnabled = this.props.navigator || (this.props.navigator === undefined && chartHeight >= 500);
         const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
+        const smallChart = chart.chartWidth <= 700;
 
         chart.update({
-           chart: {
-               height: chartHeight, // force to set container's height
-               zoomType: zoomEnabled ? 'x' : 'none'
-           },
+            chart: {
+                height: chartHeight, // force to set container's height
+                zoomType: zoomEnabled ? 'x' : 'none'
+            },
             navigator: { enabled: navigatorEnabled },
             rangeSelector: {
+                buttonPosition: smallChart && datepickerEnabled ? {
+                    align: 'right',
+                    x: -45
+                }:{},
                 buttonTheme: { visibility: zoomEnabled ? 'inherit' : 'hidden', display: zoomEnabled ? 'inherit' : 'none' },
                 inputEnabled: datepickerEnabled
             },
-            scrollbar: { enabled: navigatorEnabled }
+            scrollbar: { enabled: navigatorEnabled },
+            title: {
+                style: {
+                    height: smallChart ? 35 : 'auto',
+                    overflow: smallChart ? 'auto' : 'hidden',
+                },
+                useHTML: smallChart,
+            }
         });
 
         if (!zoomEnabled) {
@@ -155,7 +167,7 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
     options.title = Object.assign({}, options.title, titleOptions(componentProps));
     options.subtitle = Object.assign({}, options.subtitle, subtitleOptions(componentProps));
     options.credits = Object.assign({}, options.credits, creditsOptions(componentProps));
-    options.legend = Object.assign({}, options.legendredits, legendOptions(componentProps));
+    options.legend = Object.assign({}, options.legend, legendOptions(componentProps));
 
     return options;
 }
@@ -194,6 +206,7 @@ function rangeSelectorProps(componentProps: any) {
 function titleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.title);
     options.text = componentProps.title;
+
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
         options.margin = 0;
     }
