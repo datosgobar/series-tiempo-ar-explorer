@@ -178,7 +178,7 @@ function exportingProps(componentProps: IGraphicExportableProps) {
                 }
             }
         },
-        enabled: defaultChartValue(componentProps.exportable),
+        enabled: componentProps.exportable || false,
     }
 }
 
