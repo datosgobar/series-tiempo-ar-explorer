@@ -107,6 +107,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             },
             scrollbar: { enabled: navigatorEnabled },
             title: {
+                align: 'center',
                 style: {
                     height: smallChart ? 35 : 'auto',
                     overflow: smallChart ? 'auto' : 'hidden',
