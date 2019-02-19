@@ -1,3 +1,25 @@
+.highcharts-tooltip .tooltip-content {
+  white-space: normal !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+}
+
+.highcharts-tooltip td {
+  vertical-align: top;
+}
+
+.tooltip-value {
+  text-align: right;
+  vertical-align:top;
+  font-weight: bold;
+}
+
+.graphic-complements {
+  margin-top: -25px;
+}
+
 .bg-gray {
   color: #cecece !important;
 }
