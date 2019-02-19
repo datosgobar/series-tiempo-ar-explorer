@@ -37,7 +37,7 @@ export default (props: ISerieDetailsProp) =>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Unidades</dt>
-                    <dd>{props.serie.representationModeUnits}</dd>
+                    <dd>{serieUnits(props.serie)}</dd>
                 </dl>
                 <dl className="dl-horizontal">
                     <dt>Dataset</dt>
@@ -74,3 +74,8 @@ export default (props: ISerieDetailsProp) =>
             </div>
         </Row>
     </Details>
+
+
+function serieUnits(serie: ISerie): string {
+    return serie.representationModeUnits === serie.units ? serie.representationModeUnits : `${serie.representationModeUnits} (Original: ${serie.units})`
+}
