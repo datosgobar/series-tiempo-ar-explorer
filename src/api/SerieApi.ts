@@ -66,8 +66,10 @@ export default class SerieApi implements ISerieApi {
         const options = this.getSeriesParams(params, metadata);
 
         let url = '?';
-        Object.keys(options.qs).forEach((key) => {
-            url = `${url}${key}=${options.qs[key]}&`;
+        Object.keys(options.qs).forEach((key: string) => {
+            if (validParamToShare(key)) {
+                url = `${url}${key}=${options.qs[key]}&`;
+            }
         });
 
         url = url.slice(0, url.length-1); // remove the last "&" character
@@ -185,4 +187,8 @@ function retryFailedRequest(error: any, options: IApiClientOpt, performGetFn: (o
     } else {
         throw error.response;
     }
+}
+
+function validParamToShare(param: string): boolean {
+    return param !== 'metadata' && param !== 'start';
 }
