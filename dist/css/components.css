@@ -48,3 +48,9 @@
   text-align: center;
   margin-top: 10px !important;
 }
+
+.highcharts-title {
+  width: 75%;
+  text-align: center;
+  left: 15% !important;
+}
