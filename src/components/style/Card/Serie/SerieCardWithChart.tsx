@@ -14,7 +14,7 @@ export default (props: ISerieCardProps) =>
         <Row>
             <div className="col-xs-12">
                 <CardTitle>{props.serie.description}</CardTitle>
-                <CardBody>{props.serie.title}</CardBody>
+                <CardBody>{props.serie.datasetTitle}</CardBody>
             </div>
         </Row>
         <Row>
