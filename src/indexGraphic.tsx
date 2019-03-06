@@ -6,7 +6,7 @@ import GraphicExportable, {IGraphicExportableProps} from "./components/exportabl
 export function render(selector: string, config: IGraphicExportableProps) {
     ReactDOM.render(
         <GraphicExportable graphicUrl={config.graphicUrl}
-                                   chartOptions={config.chartOptions}
+                                   chartOptions={config.chartOptions || {}}
                                    navigator={config.navigator}
                                    locale={config.locale}
                                    zoom={config.zoom}
