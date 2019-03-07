@@ -25,6 +25,7 @@ export interface IGraphicExportableProps {
     chartTypes: IChartTypeProps;
     title?: string;
     source?: string;
+    displayUnits?: boolean;
 }
 
 interface IGraphicExportableState {
@@ -94,6 +95,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const navigatorEnabled = this.props.navigator || (this.props.navigator === undefined && chartHeight >= 500);
         const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
         const smallChart = chart.chartWidth <= 700;
+        const displayUnits = this.props.displayUnits || (this.props.displayUnits === undefined && chart.chartWidth > 450);
 
         chart.update({
             chart: {
@@ -116,6 +118,12 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                 useHTML: smallChart,
             }
         });
+
+        if (!displayUnits) {
+            chart.update({
+                yAxis: { title: { text: null } }
+            })
+        }
 
         if (!zoomEnabled) {
             const zoomBtn = chart.container.getElementsByClassName('highcharts-range-selector-buttons')[0];
