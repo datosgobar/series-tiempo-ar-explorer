@@ -1,3 +1,6 @@
+const DEFAULT_LIMIT = 5000;
+
+
 export default class QueryParams {
 
     public static distinctURLs(prevLocation: string, currentLocation: string) {
@@ -61,7 +64,7 @@ export default class QueryParams {
         if (this.getLast()) {
             return this.limit
         } else {
-            return 1000;
+            return DEFAULT_LIMIT;
         }
     }
 
