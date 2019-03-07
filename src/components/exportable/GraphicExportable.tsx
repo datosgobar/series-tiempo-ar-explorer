@@ -90,7 +90,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     }
 
     private afterRender(chart: any) {
-        const chartHeight = chart.container.parentElement.clientHeight;
+        const chartHeight = chart.container.parentElement.clientHeight - chart.subtitle.element.clientHeight;
         const zoomEnabled = this.props.zoom || (this.props.zoom === undefined && chart.chartWidth >= 620);
         const navigatorEnabled = this.props.navigator || (this.props.navigator === undefined && chartHeight >= 500);
         const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
