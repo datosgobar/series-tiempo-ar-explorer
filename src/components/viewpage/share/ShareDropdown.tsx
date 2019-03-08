@@ -8,6 +8,7 @@ interface IShareDropdownProps {
     url: string;
     chartTitle: string;
     chartSource: string;
+    chartTypes: any;
 }
 
 export default (props: IShareDropdownProps) =>
@@ -15,7 +16,7 @@ export default (props: IShareDropdownProps) =>
         <LinkShareItem url={webShareURL(props.url)} text="Enlace web" />
         <LinkShareItem url={csvShareURL(props.url)} text="Enlace CSV" />
         <LinkShareItem url={jsonShareURL(props.url)} text="Enlace JSON" />
-        <LinkShareItem url={webCodeUrl(props.url, props.chartTitle, props.chartSource)} text="Código web" />
+        <LinkShareItem url={webCodeUrl(props.url, props.chartTitle, props.chartSource, props.chartTypes)} text="Código web" />
     </ShareDropdownContainer>
 
 
@@ -42,7 +43,7 @@ function urlToString(url: string): string {
               .replace(new RegExp('%3F', 'g'), '?');
 }
 
-function webCodeUrl(url: string, chartTitle: string, chartSource: string): string {
+function webCodeUrl(url: string, chartTitle: string, chartSource: string, chartTypes: any): string {
     return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.13.0/dist/js/components.js'></script>\n" +
         "<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.12.2/dist/css/components.css'/>\n" +
         "<div id=\"root\"></div>\n" +
@@ -54,6 +55,7 @@ function webCodeUrl(url: string, chartTitle: string, chartSource: string): strin
         "            },\n" +
         "            title: '" + chartTitle + "',\n" +
         "            source: '" + chartSource + "',\n" +
+        "            chartTypes: " + JSON.stringify(chartTypes) + ",\n" +
         "        })\n" +
         "    }\n" +
         "</script>\n"
