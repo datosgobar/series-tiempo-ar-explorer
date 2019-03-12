@@ -120,9 +120,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         });
 
         if (!displayUnits) {
-            chart.update({
-                yAxis: { title: { text: null } }
-            })
+            chart.yAxis.forEach((yAxis: any) => yAxis.update({ title: { text: null } }))
         }
 
         if (!zoomEnabled) {
