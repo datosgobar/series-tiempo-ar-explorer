@@ -48,6 +48,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                 },
                 distribution: {
                     description: `${tsID} distribution description`,
+                    downloadURL: `${tsID} distribution download URL`,
                     identifier: `${tsID} distribution identifier`,
                     issued: `${tsID} distribution issued`,
                     modified: `${tsID} distribution issued`,

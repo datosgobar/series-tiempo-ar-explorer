@@ -87,4 +87,8 @@ export default class SearchResult implements ISerie {
         return '';
     }
 
+    get downloadURL() {
+        return '';
+    }
+
 }

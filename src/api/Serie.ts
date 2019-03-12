@@ -23,7 +23,8 @@ export interface ISerie {
     themes: IDataSetTheme[],
     frequency?: string,
     timeIndexSize: number,
-    representationModeUnits: string
+    representationModeUnits: string,
+    downloadURL: string,
 }
 
 export default class Serie implements ISerie {
@@ -141,6 +142,10 @@ export default class Serie implements ISerie {
         return this.fieldMeta.time_index_size
     }
 
+    get downloadURL(): string {
+        return this.distributionMeta.downloadURL;
+    }
+
     public bake(): ISerie {
         return {
             accrualPeriodicity: this.accrualPeriodicity,
@@ -149,6 +154,7 @@ export default class Serie implements ISerie {
             datasetTitle: this.datasetTitle,
             description: this.description,
             distributionTitle: this.distributionTitle,
+            downloadURL: this.downloadURL,
             endDate: this.endDate,
             frequency: this.frequency,
             id: this.id,

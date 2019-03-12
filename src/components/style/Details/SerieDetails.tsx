@@ -68,6 +68,10 @@ export default (props: ISerieDetailsProp) =>
                     <dd>{`${props.serie.startDate} a ${props.serie.endDate}`} ({props.serie.timeIndexSize} valores)</dd>
                 </dl>
                 <dl className="dl-horizontal">
+                    <dt>Distribución original</dt>
+                    <dd><a href={props.serie.downloadURL} className="color-1">{props.serie.downloadURL}</a></dd>
+                </dl>
+                <dl className="dl-horizontal">
                     <dt>Página de referencia</dt>
                     <dd><a href={props.serie.landingPage} className="color-1">{props.serie.landingPage}</a></dd>
                 </dl>

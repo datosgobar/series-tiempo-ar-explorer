@@ -86,6 +86,7 @@ export function toSerie(id: string): ISerie {
         datasetTitle: '',
         description: 'description' + id,
         distributionTitle: '',
+        downloadURL: '',
         endDate: 'end',
         id,
         issued: `${id} issued`,

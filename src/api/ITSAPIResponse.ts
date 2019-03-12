@@ -57,6 +57,7 @@ export interface IDistribution {
     identifier: string;
     issued: string;
     modified: string;
+    downloadURL: string;
 }
 
 export interface IField {
