@@ -179,6 +179,7 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
 function chartProps(componentProps: IGraphicExportableProps) {
     return {
         backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : '#ffffff00',
+        marginBottom: multipleSeries(componentProps) ? 60 : 15,
         zoomType: defaultChartValue(componentProps.zoom) ? 'x' : ''
     }
 }
@@ -249,10 +250,14 @@ function defaultChartValue(value: boolean|undefined): boolean|undefined {
 
 function legendOptions(componentProps: IGraphicExportableProps) {
     return {
-        enabled: seriesLength(componentProps.graphicUrl) > 1
+        enabled: multipleSeries(componentProps)
     }
 }
 
 function seriesLength(apiCall: string): number {
     return apiCall.split('ids')[1].split(',').length;
+}
+
+function multipleSeries(componentProps: IGraphicExportableProps): boolean {
+    return seriesLength(componentProps.graphicUrl) > 1
 }
