@@ -99,7 +99,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
         chart.update({
             chart: {
-                height: chartHeight, // force to set container's height
+                height: chartHeight, // force to set container's height,
+                marginBottom: multipleSeries(this.props) ? null : 15,
                 zoomType: zoomEnabled ? 'x' : 'none'
             },
             navigator: { enabled: navigatorEnabled },
@@ -179,7 +180,6 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
 function chartProps(componentProps: IGraphicExportableProps) {
     return {
         backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : '#ffffff00',
-        marginBottom: multipleSeries(componentProps) ? 60 : 15,
         zoomType: defaultChartValue(componentProps.zoom) ? 'x' : ''
     }
 }
