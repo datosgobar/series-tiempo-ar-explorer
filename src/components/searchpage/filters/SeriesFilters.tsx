@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ISerieApi } from '../../../api/SerieApi';
-import FilterSources from '../../common/filters/filtersources/FilterSources';
-import FilterThemes from '../../common/filters/filterthemes/FilterThemes';
+import FilterSources from '../../common/filters/FilterSources';
+import FilterThemes from '../../common/filters/FilterThemes';
 import { ISelectorProps } from '../../common/selector/Selector';
 import Filters from '../../style/Filters/Filters';
 import FilterSubTitle from '../../style/Filters/FilterSubTitle';

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { IAggregationValue } from "../../../../api/ITSAPIResponse";
-import { ISerieApi } from "../../../../api/SerieApi";
-import { same } from "../../../../helpers/commonFunctions";
-import { IStore } from "../../../../store/initialState";
+import { IAggregationValue } from "../../../api/ITSAPIResponse";
+import { ISerieApi } from "../../../api/SerieApi";
+import { same } from "../../../helpers/commonFunctions";
+import { IStore } from "../../../store/initialState";
 
 
 export interface IFilterProps extends React.Props<{}> {
