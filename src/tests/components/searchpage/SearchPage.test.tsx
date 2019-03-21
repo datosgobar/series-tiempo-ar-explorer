@@ -65,7 +65,7 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset: 0, limit: 10 });
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset: 0, limit: 10, aggregations: true });
   });
 
 
@@ -85,6 +85,6 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset, limit });
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset, limit, aggregations: true });
   });
 });
