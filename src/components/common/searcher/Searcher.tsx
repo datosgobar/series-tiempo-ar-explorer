@@ -8,7 +8,6 @@ import InitialSearcher from "./InitialSearcher";
 import SearcherResults from "./SearcherResults";
 
 
-
 export interface ISearchParams {
     datasetSource: string;
     datasetTheme: string;

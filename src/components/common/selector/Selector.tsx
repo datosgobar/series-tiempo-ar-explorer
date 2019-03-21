@@ -1,9 +1,14 @@
 import * as React from "react";
 
-import ISelectorProps from "./SelectorProps";
 
+export interface ISelectorProps<T> {
+    selected: T;
+    items: T[];
+    onChange: (item: T | null) => void;
+    renderItem: (item: T) => JSX.Element | string;
+}
 
-class Selector<T> extends React.Component<ISelectorProps<T>, any> {
+export default class Selector<T> extends React.Component<ISelectorProps<T>, any> {
 
     constructor(props: ISelectorProps<T>) {
         super(props);
@@ -40,5 +45,3 @@ class Selector<T> extends React.Component<ISelectorProps<T>, any> {
         );
     }
 }
-
-export default Selector;

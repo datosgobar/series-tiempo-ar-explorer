@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { IAggregationValue } from "../../../../api/ITSAPIResponse";
 import { same } from "../../../../helpers/commonFunctions";
 import { IStore } from "../../../../store/initialState";
-import IFilterProps from "../FilterProps";
+import { IFilterProps } from "../filterthemes/FilterThemes";
 
 
 interface IFilterSourcesProps extends IFilterProps {

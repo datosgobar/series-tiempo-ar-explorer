@@ -1,10 +1,16 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IAggregationValue } from "../../../../api/ITSAPIResponse";
+import { ISerieApi } from "../../../../api/SerieApi";
 import { same } from "../../../../helpers/commonFunctions";
 import { IStore } from "../../../../store/initialState";
-import IFilterProps from "../FilterProps";
 
+
+export interface IFilterProps extends React.Props<{}> {
+    seriesApi: ISerieApi;
+    picked: string;
+    selector: any;
+}
 
 interface IFilterThemesProps extends IFilterProps {
     onThemePicked: (theme: string) => void;
