@@ -11,6 +11,7 @@ export interface ISearchOptions {
     datasetTheme?: string;
     offset: number;
     limit?: number;
+    aggregations?: boolean;
 }
 
 export const METADATA = {
@@ -85,9 +86,11 @@ export default class SerieApi implements ISerieApi {
         // tslint:disable-next-line:variable-name
         const dataset_theme = searchOptions && searchOptions.datasetTheme ? searchOptions.datasetTheme : undefined;
         const query = q ? q : null;
+        const aggregations = searchOptions && searchOptions.aggregations ? {aggregations: true} : null;
 
         const options = {
             qs: {
+                ...aggregations,
                 catalog_id: this.catalogId,
                 dataset_source,
                 dataset_theme,
@@ -150,7 +153,10 @@ function tsResponseToSeries(ids: string[], tsResponse: ITSAPIResponse): Serie[] 
 
 function tsResponseToSearchResult(tsResponse: ITSAPIResponse): ISearchResponse {
     const result: SearchResult[] = tsResponse.data.map((searchResult: ITSMeta) => new SearchResult(searchResult));
-    return new ResponseResult(tsResponse.count, result);
+    const responseResult = new ResponseResult(tsResponse.count, result);
+    responseResult.setAggregations(tsResponse.aggregations);
+
+    return responseResult;
 }
 
 function addPlaceHolders(apiResponse: ITSAPIResponse): ITSAPIResponse {
