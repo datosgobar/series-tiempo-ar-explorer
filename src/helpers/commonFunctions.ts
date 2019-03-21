@@ -35,3 +35,8 @@ export function capitalize(value: string, position: number|undefined = 0): strin
     const uppercaseChar = value.charAt(position).toUpperCase();
     return value.slice(0, position) + uppercaseChar + value.slice(position+1, value.length);
 }
+
+
+export function same(value: any): any {
+    return value;
+}
