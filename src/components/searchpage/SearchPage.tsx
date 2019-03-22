@@ -10,7 +10,6 @@ import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import Searcher, { ISearchParams } from '../common/searcher/Searcher';
 import SearcherResultsWithChart from "../common/searcher/SearcherResultsWithChart";
-import Selector from '../common/selector/Selector';
 import Container from '../style/Common/Container';
 import Row from '../style/Common/Row';
 import SeriesHero from '../style/Hero/SeriesHero';
@@ -172,7 +171,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                     <Container>
                         <Row>
                             <div className="col-sm-4">
-                                <SeriesFilters selector={Selector} seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
+                                <SeriesFilters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
                             </div>
                             <div className="col-sm-8">
                                 <div id="list" className="pd-v-lg">

@@ -3,7 +3,6 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from "react";
 import { ISerieApi } from "../../../../../api/SerieApi";
 import { FilterSources } from "../../../../../components/common/filters/FilterSources";
-import Selector from "../../../../../components/common/selector/Selector";
 import MockApi from "../../../../api/mockApi";
 import { generateMockAggregations } from "../../../../support/factories/series_api";
 
@@ -22,7 +21,6 @@ describe('FilterSources', () => {
     it('renders a list with all the sources', () => {
         const wrapper = mount(
             <FilterSources
-                selector={Selector}
                 seriesApi={seriesApi}
                 picked=""
                 onSourcePicked={onSourcePicked}
@@ -37,7 +35,6 @@ describe('FilterSources', () => {
         it('calls onSourcePicked(event, sourceId) when a source is clicked', () => {
             const wrapper = mount(
                 <FilterSources
-                    selector={Selector}
                     seriesApi={seriesApi}
                     picked=""
                     onSourcePicked={onSourcePicked}

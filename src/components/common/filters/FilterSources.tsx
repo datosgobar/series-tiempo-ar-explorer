@@ -4,6 +4,7 @@ import { IAggregationValue } from "../../../api/ITSAPIResponse";
 import { same } from "../../../helpers/commonFunctions";
 import { IStore } from "../../../store/initialState";
 import { IFilterProps } from "./FilterThemes";
+import SearchFilter from "./SearchFilter";
 
 
 interface IFilterSourcesProps extends IFilterProps {
@@ -18,14 +19,11 @@ export class FilterSources extends React.Component<IFilterSourcesProps, any> {
     }
 
     public render() {
-        const Selector = this.props.selector;
         return (
-                <Selector
-                    selected={this.props.picked}
-                    items={this.props.sources.map((e:any)=>e.label)}
-                    onChange={this.props.onSourcePicked}
-                    renderItem={same}
-                />
+            <SearchFilter selected={this.props.picked}
+                            items={this.props.sources}
+                            onChange={this.props.onSourcePicked}
+                            renderItem={same} />
         );
     }
 }

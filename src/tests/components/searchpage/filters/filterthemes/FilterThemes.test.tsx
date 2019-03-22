@@ -3,7 +3,6 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from "react";
 import { ISerieApi } from "../../../../../api/SerieApi";
 import { FilterThemes } from "../../../../../components/common/filters/FilterThemes";
-import Selector from "../../../../../components/common/selector/Selector";
 import MockApi from "../../../../api/mockApi";
 import { generateMockAggregations } from "../../../../support/factories/series_api";
 
@@ -21,7 +20,6 @@ describe('FilterThemes', () => {
 
         wrapper = mount(
             <FilterThemes
-                selector={Selector}
                 seriesApi={seriesApi}
                 picked=""
                 onThemePicked={onThemePicked}
