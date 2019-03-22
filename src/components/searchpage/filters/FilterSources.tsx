@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { IAggregationValue } from "../../../api/ITSAPIResponse";
 import { same } from "../../../helpers/commonFunctions";
 import { IStore } from "../../../store/initialState";
+import SearchFilter from "../../common/selector/SearchFilter";
 import { IFilterProps } from "./FilterThemes";
-import SearchFilter from "./SearchFilter";
 
 
 interface IFilterSourcesProps extends IFilterProps {
@@ -19,12 +19,10 @@ export class FilterSources extends React.Component<IFilterSourcesProps, any> {
     }
 
     public render() {
-        return (
-            <SearchFilter selected={this.props.picked}
-                            items={this.props.sources}
-                            onChange={this.props.onSourcePicked}
-                            renderItem={same} />
-        );
+        return <SearchFilter selected={this.props.picked}
+                                items={this.props.sources}
+                                onChange={this.props.onSourcePicked}
+                                renderItem={same} />
     }
 }
 

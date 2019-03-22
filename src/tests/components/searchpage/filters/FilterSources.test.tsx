@@ -1,10 +1,10 @@
 import { configure, mount } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from "react";
-import { ISerieApi } from "../../../../../api/SerieApi";
-import { FilterSources } from "../../../../../components/common/filters/FilterSources";
-import MockApi from "../../../../api/mockApi";
-import { generateMockAggregations } from "../../../../support/factories/series_api";
+import { ISerieApi } from "../../../../api/SerieApi";
+import { FilterSources } from "../../../../components/searchpage/filters/FilterSources";
+import MockApi from "../../../api/mockApi";
+import { generateMockAggregations } from "../../../support/factories/series_api";
 
 
 configure({ adapter: new Adapter() });
