@@ -3,10 +3,9 @@ import { IAggregationValue } from "../../../api/ITSAPIResponse";
 
 
 export interface ISearchFilterProps {
-    selected: any;
+    selected: string;
     items: IAggregationValue[];
-    onChange: (item: string | null) => void;
-    renderItem: (IAggregationValue: any) => JSX.Element | string;
+    onChange: (item: string) => void;
 }
 
 export default class SearchFilter extends React.Component<ISearchFilterProps, any> {
@@ -34,7 +33,7 @@ export default class SearchFilter extends React.Component<ISearchFilterProps, an
         return (
             <li key={item.label}>
                 <a onClick={this.handleClick(item.label)}>
-                    <label>{this.props.renderItem(item.label)} <span className='result-filter-count'>({item.series_count})</span></label>
+                    <label>{item.label} <span className='result-filter-count'>({item.series_count})</span></label>
                 </a>
             </li>
         );

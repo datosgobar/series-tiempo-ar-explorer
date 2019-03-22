@@ -171,7 +171,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                     <Container>
                         <Row>
                             <div className="col-sm-4">
-                                <SeriesFilters seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
+                                <SeriesFilters onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
                             </div>
                             <div className="col-sm-8">
                                 <div id="list" className="pd-v-lg">
