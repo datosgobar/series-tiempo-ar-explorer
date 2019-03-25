@@ -1,3 +1,9 @@
+.result-filter-count {
+  color: gray;
+  font-weight: 100;
+  font-size: 12px;
+}
+
 .highcharts-tooltip .tooltip-content {
   white-space: normal !important;
   display: -webkit-box !important;
