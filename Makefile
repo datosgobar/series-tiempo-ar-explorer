@@ -1,3 +1,5 @@
+.PHONY: all build clean docs
+
 build:
 	npm run build-docs
 
@@ -13,5 +15,11 @@ release:
 release-components:
 	npm run release-components
 
+servedocs:
+	mkdocs serve
 
-.PHONY: all build clean
+docs:
+	mkdocs build
+	rsync -vau --remove-source-files site/ docs/
+	rm -rf site
+

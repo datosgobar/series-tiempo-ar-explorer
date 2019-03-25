@@ -1,0 +1,31 @@
+site_name: Explorador de Series de Tiempo
+site_url: https://datos.gob.ar/series
+site_description: Interfaz web para buscar, visualizar y compartir indicadores disponibles en la API de Series de Tiempo.
+site_author: Datos Argentina
+repo_url: https://github.com/datosgobar/series-tiempo-ar-explorer
+
+nav:
+  - Inicio: docs.md
+  - Usuarios:
+    - Referencia:
+      - TSExplorer: 'reference/ts-explorer.md'
+      - TSComponents: 'reference/ts-components.md'
+  #   - Condiciones de uso: terms.md
+  # - Aplicaciones: applications.md
+  - Desarrolladores:
+    - Instalación: 'developers/install.md'
+    - Despliegue: 'developers/deploy.md'
+    - React: 'developers/react_doc.md'
+  # - Historial de versiones: 'history.md'
+
+theme: datosgobar_docs
+
+markdown_extensions:
+  - markdown.extensions.toc:
+      anchorlink: true
+      permalink: '&#128279;'
+  - fenced_code
+  - codehilite
+  - admonition
+
+google_analytics: ['UA-91435482-1', "https://datosgobar.github.io/series-tiempo-ar-explorer/"]
