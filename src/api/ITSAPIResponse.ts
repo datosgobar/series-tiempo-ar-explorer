@@ -3,6 +3,7 @@ import SearchResult from "./SearchResult";
 export interface ISearchResponse {
     count: number;
     result: SearchResult[];
+    aggregations: IAggregations;
 }
 
 export interface ITSAPIResponse {
@@ -10,6 +11,17 @@ export interface ITSAPIResponse {
     data: any[];
     meta: IMetaData[];
     params: any;
+    aggregations: IAggregations;
+}
+
+export interface IAggregations {
+    dataset_theme: IAggregationValue[];
+    dataset_source: IAggregationValue[];
+}
+
+export interface IAggregationValue {
+    label: string;
+    series_count: number;
 }
 
 export interface IExtraMeta {

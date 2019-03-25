@@ -1,8 +1,8 @@
 import * as React from "react";
-
-import {ISearchResponse} from "../../../api/ITSAPIResponse";
+import { setSourceFilters } from "../../../actions/searchActions";
+import { ISearchResponse } from "../../../api/ITSAPIResponse";
 import SearchResult from "../../../api/SearchResult";
-import {ISearchOptions, ISerieApi} from "../../../api/SerieApi";
+import { ISearchOptions, ISerieApi } from "../../../api/SerieApi";
 import LoadingSpinner from "../LoadingSpinner";
 import InitialSearcher from "./InitialSearcher";
 import SearcherResults from "./SearcherResults";
@@ -19,6 +19,7 @@ export interface ISearchParams {
 export interface ISearcherProps extends ISearchParams {
     seriesApi: ISerieApi;
     renderSearchResults: (searchResults: SearchResult[]) => JSX.Element | JSX.Element[];
+    dispatch?: any;
 }
 
 interface ISearcherState {
@@ -45,6 +46,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
 
     public searchOptions(params=this.props) {
         return {
+            aggregations: true,
             datasetSource: params.datasetSource,
             datasetTheme: params.datasetTheme,
             limit: params.limit,
@@ -104,6 +106,10 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         this.props.seriesApi.searchSeries(query, options)
             .then((responseResult: ISearchResponse) => {
                 if (this.props.q && this.props.q !== query) { return } // prevent show old data on slow networks
+
+                if (this.props.dispatch) {
+                    this.props.dispatch(setSourceFilters(responseResult.aggregations));
+                }
 
                 this.setState({
                     count: responseResult.count,

@@ -1,35 +1,37 @@
 import * as React from 'react';
-
+import { connect } from "react-redux";
+import { IAggregationValue } from '../../../api/ITSAPIResponse';
+import { IStore } from "../../../store/initialState";
+import SearchFilter from '../../common/selector/SearchFilter';
 import Filters from '../../style/Filters/Filters';
+import FilterSubTitle from '../../style/Filters/FilterSubTitle';
 import FilterTitle from '../../style/Filters/FilterTitle';
 
-import { ISerieApi } from '../../../api/SerieApi';
-import FilterSources from '../../common/filters/filtersources/FilterSources';
-import FilterThemes from '../../common/filters/filterthemes/FilterThemes';
-import ISelectorProps from '../../common/selector/SelectorProps';
-import FilterSubTitle from '../../style/Filters/FilterSubTitle';
 
 interface IFilterProps {
-
-    seriesApi: ISerieApi;
     onSourcePicked: (source: string) => void;
     onThemePicked: (theme: string) => void;
-    selector: React.ComponentClass<ISelectorProps<string>>;
+    picked: string;
+    sources: IAggregationValue[];
+    themes: IAggregationValue[];
 }
 
-function SeriesFilters(props: IFilterProps) {
+const SeriesFilters = (props: IFilterProps) =>
+    <Filters>
+        <FilterTitle>Filtros:</FilterTitle>
+        <FilterSubTitle>Fuentes:</FilterSubTitle>
+        <SearchFilter onChange={props.onThemePicked} items={props.themes} selected={props.picked} />
+        <FilterSubTitle>Temas:</FilterSubTitle>
+        <SearchFilter onChange={props.onSourcePicked} items={props.sources} selected={props.picked} />
+    </Filters>
 
-    const Selector = props.selector
-    return (
 
-        <Filters>
-            <FilterTitle>Filtros:</FilterTitle>
-            <FilterSubTitle>Fuentes:</FilterSubTitle>
-            <FilterSources  selector={Selector} seriesApi={props.seriesApi} onSourcePicked={props.onSourcePicked} />
-            <FilterSubTitle>Temas:</FilterSubTitle>
-            <FilterThemes  selector={Selector} seriesApi={props.seriesApi} onThemePicked={props.onThemePicked} />
-        </Filters>
-    );
-};
+function mapStateToProps(state: IStore) {
+    return {
+        picked: state.searchParams.datasetTheme,
+        sources: state.aggregations.dataset_source,
+        themes: state.aggregations.dataset_theme,
+    };
+}
 
-export default SeriesFilters
+export default connect(mapStateToProps)(SeriesFilters);

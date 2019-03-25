@@ -1,4 +1,4 @@
-import { IMetaData, ITSAPIResponse } from "../../../api/ITSAPIResponse";
+import { IAggregations, IMetaData, ITSAPIResponse } from "../../../api/ITSAPIResponse";
 import Serie from "../../../api/Serie";
 
 export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPIResponse {
@@ -85,6 +85,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
     };
 
     return {
+        aggregations: generateMockAggregations(),
         count: 1,
         data,
         meta,
@@ -97,4 +98,20 @@ export const tsResponseMock: ITSAPIResponse = generateITSAPIResponse();
 export function generateSeries(seriesIds = ["serie01", "serie02"]){
     const response = generateITSAPIResponse(seriesIds);
     return seriesIds.map((id, index) => new Serie(index+1, response));
+}
+
+export function generateMockAggregations(): IAggregations {
+    return {
+        dataset_source: [{
+            label: 'A source',
+            series_count: 1
+        },{
+            label: 'Another source',
+            series_count: 4
+        }],
+        dataset_theme: [{
+            label: 'Actividad',
+            series_count: 2
+        }]
+    }
 }

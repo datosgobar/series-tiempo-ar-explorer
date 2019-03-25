@@ -1,16 +1,15 @@
-import {Location} from 'history';
+import { Location } from 'history';
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {setSearchParams} from '../../actions/searchActions';
+import { connect } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { setSearchParams } from '../../actions/searchActions';
 import SearchResult from '../../api/SearchResult';
-import {ISerieApi} from '../../api/SerieApi';
+import { ISerieApi } from '../../api/SerieApi';
 import URLSearchParams from '../../helpers/URLSearchParams';
-import initialState, {IStore} from '../../store/initialState';
+import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
-import Searcher, {ISearchParams} from '../common/searcher/Searcher';
+import Searcher, { ISearchParams } from '../common/searcher/Searcher';
 import SearcherResultsWithChart from "../common/searcher/SearcherResultsWithChart";
-import Selector from '../common/selector/Selector';
 import Container from '../style/Common/Container';
 import Row from '../style/Common/Row';
 import SeriesHero from '../style/Hero/SeriesHero';
@@ -172,7 +171,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                     <Container>
                         <Row>
                             <div className="col-sm-4">
-                                <SeriesFilters selector={Selector} seriesApi={this.props.seriesApi} onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
+                                <SeriesFilters onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
                             </div>
                             <div className="col-sm-8">
                                 <div id="list" className="pd-v-lg">
@@ -187,7 +186,8 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                                               offset={this.props.offset}
                                               q={this.props.q}
                                               seriesApi={this.props.seriesApi}
-                                              renderSearchResults={this.renderSearchResults} />
+                                              renderSearchResults={this.renderSearchResults}
+                                              dispatch={this.props.dispatch} />
                                 </div>
                             </div>
                         </Row>
