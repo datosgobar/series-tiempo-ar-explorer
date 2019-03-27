@@ -15,7 +15,7 @@ export default (props: ITagProps) => {
     }
 
     return (
-        <span className={`tag ${props.pegColor ? `tag-${props.pegColor.name}` : ""}`}>
+        <span className={"tag"} style={{borderLeftColor: props.pegColor ? props.pegColor.code : ''}}>
             {props.children}
             {removeBtn}
         </span>
