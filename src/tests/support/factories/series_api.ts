@@ -114,5 +114,6 @@ export function generateMockAggregations(): IAggregations {
             label: 'Actividad',
             series_count: 2
         }],
+        units: [],
     }
 }

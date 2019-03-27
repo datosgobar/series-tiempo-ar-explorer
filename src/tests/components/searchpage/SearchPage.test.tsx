@@ -25,6 +25,7 @@ describe("SearchPage", () => {
   let datasetSource: string;
   let datasetTheme: string;
   let publisher: string;
+  let units: string;
 
   beforeEach(() => {
 
@@ -38,6 +39,7 @@ describe("SearchPage", () => {
     datasetSource = "";
     datasetTheme = "";
     publisher = "";
+    units = "";
   });
 
   it('renders without crashing', () => {
@@ -67,7 +69,7 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset: 0, limit: 10, aggregations: true, publisher });
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset: 0, limit: 10, aggregations: true, publisher, units });
   });
 
 
@@ -87,6 +89,6 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset, limit, aggregations: true, publisher });
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset, limit, aggregations: true, publisher, units });
   });
 });

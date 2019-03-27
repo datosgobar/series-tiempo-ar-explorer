@@ -12,10 +12,12 @@ interface IFilterProps {
     onSourcePicked: (source: string) => void;
     onThemePicked: (theme: string) => void;
     onPublisherPicked: (theme: string) => void;
+    onUnitsPicked: (theme: string) => void;
     picked: string;
     sources: IAggregationValue[];
     themes: IAggregationValue[];
     publishers: IAggregationValue[];
+    units: IAggregationValue[];
 }
 
 const SeriesFilters = (props: IFilterProps) =>
@@ -27,6 +29,8 @@ const SeriesFilters = (props: IFilterProps) =>
         <SearchFilter onChange={props.onSourcePicked} items={props.sources} selected={props.picked} />
         <FilterSubTitle>Publicadores:</FilterSubTitle>
         <SearchFilter onChange={props.onPublisherPicked} items={props.publishers} selected={props.picked} />
+        <FilterSubTitle>Uidades:</FilterSubTitle>
+        <SearchFilter onChange={props.onUnitsPicked} items={props.units} selected={props.picked} />
     </Filters>
 
 
@@ -36,6 +40,7 @@ function mapStateToProps(state: IStore) {
         publishers: state.aggregations.dataset_publisher_name,
         sources: state.aggregations.dataset_source,
         themes: state.aggregations.dataset_theme,
+        units: state.aggregations.units,
     };
 }
 

@@ -35,7 +35,8 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
                 offset={initialState.searchParams.offset}
                 q={initialState.searchParams.q}
                 renderSearchResults={this.renderPickeableItems}
-                publisher={initialState.searchParams.publisher} />
+                publisher={initialState.searchParams.publisher}
+                units={initialState.searchParams.units}  />
         );
     }
 

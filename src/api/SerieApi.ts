@@ -13,6 +13,7 @@ export interface ISearchOptions {
     limit?: number;
     aggregations?: boolean;
     publisher?: string;
+    units?: string;
 }
 
 export const METADATA = {
@@ -90,6 +91,7 @@ export default class SerieApi implements ISerieApi {
         const aggregations = searchOptions && searchOptions.aggregations ? {aggregations: true} : null;
         // tslint:disable-next-line:variable-name
         const dataset_publisher_name = searchOptions && searchOptions.publisher ? searchOptions.publisher : undefined;
+        const units = searchOptions && searchOptions.units ? searchOptions.units : undefined;
 
         const options = {
             qs: {
@@ -101,6 +103,7 @@ export default class SerieApi implements ISerieApi {
                 limit,
                 q: query,
                 start,
+                units,
             },
             uri: this.apiClient.endpoint('search'),
         };
