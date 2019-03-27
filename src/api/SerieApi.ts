@@ -12,6 +12,7 @@ export interface ISearchOptions {
     offset: number;
     limit?: number;
     aggregations?: boolean;
+    publisher?: string;
 }
 
 export const METADATA = {
@@ -87,11 +88,14 @@ export default class SerieApi implements ISerieApi {
         const dataset_theme = searchOptions && searchOptions.datasetTheme ? searchOptions.datasetTheme : undefined;
         const query = q ? q : null;
         const aggregations = searchOptions && searchOptions.aggregations ? {aggregations: true} : null;
+        // tslint:disable-next-line:variable-name
+        const dataset_publisher_name = searchOptions && searchOptions.publisher ? searchOptions.publisher : undefined;
 
         const options = {
             qs: {
                 ...aggregations,
                 catalog_id: this.catalogId,
+                dataset_publisher_name,
                 dataset_source,
                 dataset_theme,
                 limit,

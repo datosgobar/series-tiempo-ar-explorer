@@ -11,9 +11,11 @@ import FilterTitle from '../../style/Filters/FilterTitle';
 interface IFilterProps {
     onSourcePicked: (source: string) => void;
     onThemePicked: (theme: string) => void;
+    onPublisherPicked: (theme: string) => void;
     picked: string;
     sources: IAggregationValue[];
     themes: IAggregationValue[];
+    publishers: IAggregationValue[];
 }
 
 const SeriesFilters = (props: IFilterProps) =>
@@ -23,12 +25,15 @@ const SeriesFilters = (props: IFilterProps) =>
         <SearchFilter onChange={props.onThemePicked} items={props.themes} selected={props.picked} />
         <FilterSubTitle>Fuentes:</FilterSubTitle>
         <SearchFilter onChange={props.onSourcePicked} items={props.sources} selected={props.picked} />
+        <FilterSubTitle>Publicadores:</FilterSubTitle>
+        <SearchFilter onChange={props.onPublisherPicked} items={props.publishers} selected={props.picked} />
     </Filters>
 
 
 function mapStateToProps(state: IStore) {
     return {
         picked: state.searchParams.datasetTheme,
+        publishers: state.aggregations.dataset_publisher_name,
         sources: state.aggregations.dataset_source,
         themes: state.aggregations.dataset_theme,
     };

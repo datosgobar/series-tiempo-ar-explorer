@@ -23,12 +23,11 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
             datasetTheme: this.props.datasetTheme,
             limit: this.props.limit,
             offset: this.props.offset,
+            publisher: this.props.publisher,
             q: this.props.q,
         };
 
         this.onSearchTermPicked = this.onSearchTermPicked.bind(this);
-        this.onSourcePicked = this.onSourcePicked.bind(this);
-        this.onThemePicked = this.onThemePicked.bind(this);
     }
 
     public searcherProps(): ISearcherProps {
@@ -43,14 +42,6 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
         clearTimeout(this.timer);
 
         this.timer = setTimeout(() => this.setState({q}),500)
-    }
-
-    public onSourcePicked(datasetSource: string): void{
-        this.setState({datasetSource});
-    }
-
-    public onThemePicked(datasetTheme: string): void {
-        this.setState({datasetTheme});
     }
 
     public render() {

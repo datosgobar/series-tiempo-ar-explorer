@@ -21,6 +21,7 @@ export interface IStore {
 
 const initialState: IStore = {
     aggregations: {
+        dataset_publisher_name: [],
         dataset_source: [],
         dataset_theme: [],
     },
@@ -40,6 +41,7 @@ const initialState: IStore = {
         datasetTheme: "",
         limit: 10,
         offset: 0,
+        publisher: "",
         q: "",
     },
     seriesApi: null,

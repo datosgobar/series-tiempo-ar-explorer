@@ -14,6 +14,7 @@ export interface ISearchParams {
     limit: number;
     offset: number;
     q?: string;
+    publisher: string;
 }
 
 export interface ISearcherProps extends ISearchParams {
@@ -51,6 +52,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
             datasetTheme: params.datasetTheme,
             limit: params.limit,
             offset: params.offset,
+            publisher: params.publisher,
         }
     }
 
@@ -142,5 +144,6 @@ function queryChanged(prevQuery: ISearcherProps, newQuery: ISearcherProps): bool
             prevQuery.datasetTheme  !== newQuery.datasetTheme ||
             prevQuery.datasetSource !== newQuery.datasetSource ||
             prevQuery.offset        !== newQuery.offset ||
-            prevQuery.limit         !== newQuery.limit
+            prevQuery.limit         !== newQuery.limit ||
+            prevQuery.publisher     !== newQuery.publisher
 }

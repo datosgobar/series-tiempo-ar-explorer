@@ -20,6 +20,7 @@ describe('SeriesPicker', () => {
     let datasetSource: string;
     let datasetTheme: string;
     let renderSearchResults: any;
+    let publisher: string;
 
     beforeEach(() => {
         mockSeriesApi = new MockApi(0);
@@ -31,19 +32,20 @@ describe('SeriesPicker', () => {
         offset = 0;
         datasetSource = "";
         datasetTheme = "";
+        publisher = "";
 
         renderSearchResults = jest.fn();
     });
 
     it('searches upon render', () => {
-        mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+        mount(<Searcher publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
         setTimeout(() =>
             expect(mockSeriesApi.searchSeries).toBeCalledWith(q, { datasetTheme, datasetSource, offset, limit })
         , 0);
     });
 
     it('do not queries api if q is falsy', () => {
-        mount(<Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={""} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+        mount(<Searcher publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={""} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
 
         expect(mockSeriesApi.searchSeries).not.toBeCalled();
     });
@@ -54,7 +56,7 @@ describe('SeriesPicker', () => {
         beforeEach(() => {
             node = document.createElement('div');
             ReactDOM.render(
-                <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
+                <Searcher publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
         });
 
@@ -64,7 +66,7 @@ describe('SeriesPicker', () => {
 
         it('do not search if props dont change', () => {
             ReactDOM.render(
-                <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
+                <Searcher publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
             setTimeout(() =>
@@ -76,7 +78,7 @@ describe('SeriesPicker', () => {
             q = "exportaciones";
 
             ReactDOM.render(
-                <Searcher datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
+                <Searcher publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />,
                 node);
 
             setTimeout(() =>
