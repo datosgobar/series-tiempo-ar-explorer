@@ -40,6 +40,12 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.redirectToViewPage = this.redirectToViewPage.bind(this);
         this.searchTagPicked = this.searchTagPicked.bind(this);
         this.renderSearchResults = this.renderSearchResults.bind(this);
+        this.publisherPicked = this.publisherPicked.bind(this);
+        this.publisherRemoved = this.publisherRemoved.bind(this);
+        this.unitsPicked = this.unitsPicked.bind(this);
+        this.unitsRemoved = this.unitsRemoved.bind(this);
+        this.catalogPicked = this.catalogPicked.bind(this);
+        this.catalogRemoved = this.catalogRemoved.bind(this);
     }
 
     public componentDidMount() {
@@ -72,17 +78,23 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const limit: number = limitString ? parseInt(limitString, 10) : initialState.searchParams.limit;
         const datasetSource = params.get('dataset_source') || "";
         const datasetTheme = params.get('dataset_theme') || "";
+        const publisher = params.get('dataset_publisher_name') || "";
+        const units = params.get('units') || "";
+        const catalogId = params.get('catalog_id') || "";
 
         return ({
+            catalogId,
             datasetSource,
             datasetTheme,
             limit,
             offset,
+            publisher,
             q,
+            units,
         });
     }
 
-    public updateUriParams(q: string | null, datasetSource: string, datasetTheme: string, offset: number, limit: number) {
+    public updateUriParams(q: string | null, datasetSource: string, datasetTheme: string, publisher: string, units: string, catalogId: string, offset: number, limit: number) {
         const urlSearchParams = URLSearchParams();
 
         urlSearchParams.setOrDelete('q', q);
@@ -90,6 +102,9 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         urlSearchParams.setOrDelete('offset', offset.toString());
         urlSearchParams.setOrDelete('limit', limit.toString());
         urlSearchParams.setOrDelete('dataset_theme', datasetTheme);
+        urlSearchParams.setOrDelete('dataset_publisher_name', publisher);
+        urlSearchParams.setOrDelete('units', units);
+        urlSearchParams.setOrDelete('catalog_id', catalogId);
 
         this.props.history.push('/search/?' + urlSearchParams);
     }
@@ -100,7 +115,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, "", oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, "", oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
@@ -108,7 +123,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
@@ -118,7 +133,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, "", oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, "", oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
@@ -126,7 +141,61 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
 
         if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, newTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, newTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public publisherPicked(newPublisher: string): void {
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
+
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, newPublisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public publisherRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
+        event.stopPropagation();
+
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
+
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, "", oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public unitsPicked(newUnits: string): void {
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
+
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, newUnits, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public unitsRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
+        event.stopPropagation();
+
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
+
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, "", oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public catalogPicked(newCatalog: string): void {
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
+
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, newCatalog, oldSearchParams.offset, oldSearchParams.limit);
+        }
+    }
+
+    public catalogRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
+        event.stopPropagation();
+
+        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
+
+        if (oldSearchParams) {
+            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, "", oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
@@ -134,7 +203,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams(newSearchTerm, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams(newSearchTerm, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
@@ -142,7 +211,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
 
         if (oldSearchParams) {
-            this.updateUriParams("", oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.offset, oldSearchParams.limit);
+            this.updateUriParams("", oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
         }
     }
 
@@ -155,6 +224,9 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         tags = searchParams.q ? tags.concat(<Tag key={searchParams.q} onClose={this.searchTagPicked}>{searchParams.q}</Tag>) : tags;
         tags = searchParams.datasetTheme ? tags.concat(<Tag key={searchParams.datasetTheme} onClose={this.themeRemoved}>{searchParams.datasetTheme}</Tag>) : tags;
         tags = searchParams.datasetSource ? tags.concat(<Tag key={searchParams.datasetSource} onClose={this.sourceRemoved}>{searchParams.datasetSource}</Tag>) : tags;
+        tags = searchParams.publisher ? tags.concat(<Tag key={searchParams.publisher} onClose={this.publisherRemoved}>{searchParams.publisher}</Tag>) : tags;
+        tags = searchParams.units ? tags.concat(<Tag key={searchParams.units} onClose={this.unitsRemoved}>{searchParams.units}</Tag>) : tags;
+        tags = searchParams.catalogId ? tags.concat(<Tag key={searchParams.catalogId} onClose={this.catalogRemoved}>{searchParams.catalogId}</Tag>) : tags;
 
         return tags;
     }
@@ -171,7 +243,11 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                     <Container>
                         <Row>
                             <div className="col-sm-4">
-                                <SeriesFilters onSourcePicked={this.sourcePicked} onThemePicked={this.themePicked} />
+                                <SeriesFilters onSourcePicked={this.sourcePicked}
+                                                onThemePicked={this.themePicked}
+                                                onPublisherPicked={this.publisherPicked}
+                                                onUnitsPicked={this.unitsPicked}
+                                                onCatalogPicked={this.catalogPicked} />
                             </div>
                             <div className="col-sm-8">
                                 <div id="list" className="pd-v-lg">
@@ -187,7 +263,10 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                                               q={this.props.q}
                                               seriesApi={this.props.seriesApi}
                                               renderSearchResults={this.renderSearchResults}
-                                              dispatch={this.props.dispatch} />
+                                              dispatch={this.props.dispatch}
+                                              publisher={this.props.publisher}
+                                              units={this.props.units}
+                                              catalogId={this.props.catalogId} />
                                 </div>
                             </div>
                         </Row>

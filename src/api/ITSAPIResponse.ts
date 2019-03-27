@@ -17,6 +17,9 @@ export interface ITSAPIResponse {
 export interface IAggregations {
     dataset_theme: IAggregationValue[];
     dataset_source: IAggregationValue[];
+    dataset_publisher_name: IAggregationValue[];
+    units: IAggregationValue[];
+    catalog_id: IAggregationValue[];
 }
 
 export interface IAggregationValue {

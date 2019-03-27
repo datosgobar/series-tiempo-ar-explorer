@@ -102,6 +102,8 @@ export function generateSeries(seriesIds = ["serie01", "serie02"]){
 
 export function generateMockAggregations(): IAggregations {
     return {
+        catalog_id: [],
+        dataset_publisher_name: [],
         dataset_source: [{
             label: 'A source',
             series_count: 1
@@ -112,6 +114,7 @@ export function generateMockAggregations(): IAggregations {
         dataset_theme: [{
             label: 'Actividad',
             series_count: 2
-        }]
+        }],
+        units: [],
     }
 }
