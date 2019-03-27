@@ -19,9 +19,9 @@ interface IFilterProps {
 const SeriesFilters = (props: IFilterProps) =>
     <Filters>
         <FilterTitle>Filtros:</FilterTitle>
-        <FilterSubTitle>Fuentes:</FilterSubTitle>
-        <SearchFilter onChange={props.onThemePicked} items={props.themes} selected={props.picked} />
         <FilterSubTitle>Temas:</FilterSubTitle>
+        <SearchFilter onChange={props.onThemePicked} items={props.themes} selected={props.picked} />
+        <FilterSubTitle>Fuentes:</FilterSubTitle>
         <SearchFilter onChange={props.onSourcePicked} items={props.sources} selected={props.picked} />
     </Filters>
 
