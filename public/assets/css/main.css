@@ -1164,30 +1164,6 @@ section#detalle #detalle-content .tag .tag-close:hover i,
 section#detalle #detalle-content .tag .tag-close:focus i {
   background-color: #767676;
 }
-section#detalle #detalle-content .tag.tag-brown {
-  border-left-color: #8e655e;
-}
-section#detalle #detalle-content .tag.tag-green1 {
-  border-left-color: #009488;
-}
-section#detalle #detalle-content .tag.tag-blue {
-  border-left-color: #417798;
-}
-section#detalle #detalle-content .tag.tag-purple {
-  border-left-color: #8b5172;
-}
-section#detalle #detalle-content .tag.tag-violet {
-  border-left-color: #7b52a4;
-}
-section#detalle #detalle-content .tag.tag-green2 {
-  border-left-color: #898d5d;
-}
-section#detalle #detalle-content .tag.tag-orange {
-  border-left-color: #c96339;
-}
-section#detalle #detalle-content .tag.tag-magenta {
-  border-left-color: #ef0065;
-}
 section#detalle #detalle-content .detalle-serie {
   margin-bottom: 30px;
 }
@@ -1235,30 +1211,6 @@ section#detalle #detalle-content .detalle-serie .title-and-actions .action:focus
 section#detalle #detalle-content .detalle-serie .title-and-actions .title-warning i {
   font-size: 21px;
   color: #F3B125;
-}
-section#detalle #detalle-content .detalle-serie .title-and-actions.title-brown .title {
-  border-left-color: #8e655e;
-}
-section#detalle #detalle-content .detalle-serie .title-and-actions.title-green1 .title {
-  border-left-color: #009488;
-}
-section#detalle #detalle-content .detalle-serie .title-and-actions.title-blue .title {
-  border-left-color: #417798;
-}
-section#detalle #detalle-content .detalle-serie .title-and-actions.title-purple .title {
-  border-left-color: #8b5172;
-}
-section#detalle #detalle-content .detalle-serie .title-and-actions.title-violet .title {
-  border-left-color: #7b52a4;
-}
-section#detalle #detalle-content .detalle-serie .title-and-actions.title-green2 .title {
-  border-left-color: #898d5d;
-}
-section#detalle #detalle-content .detalle-serie .title-and-actions.title-orange .title {
-  border-left-color: #c96339;
-}
-section#detalle #detalle-content .detalle-serie .title-and-actions.title-magenta .title {
-  border-left-color: #ef0065;
 }
 section#detalle #detalle-content #detalle-panel {
   position: absolute;
@@ -1629,54 +1581,6 @@ footer .series-card.card-has-check .card-check i {
   font-size: 30px;
   color: #0897D7;
 }
-header .series-card.sc-brown,
-section .series-card.sc-brown,
-aside .series-card.sc-brown,
-footer .series-card.sc-brown {
-  border-right-color: #8e655e;
-}
-header .series-card.sc-green1,
-section .series-card.sc-green1,
-aside .series-card.sc-green1,
-footer .series-card.sc-green1 {
-  border-right-color: #009488;
-}
-header .series-card.sc-blue,
-section .series-card.sc-blue,
-aside .series-card.sc-blue,
-footer .series-card.sc-blue {
-  border-right-color: #417798;
-}
-header .series-card.sc-purple,
-section .series-card.sc-purple,
-aside .series-card.sc-purple,
-footer .series-card.sc-purple {
-  border-right-color: #8b5172;
-}
-header .series-card.sc-violet,
-section .series-card.sc-violet,
-aside .series-card.sc-violet,
-footer .series-card.sc-violet {
-  border-right-color: #7b52a4;
-}
-header .series-card.sc-green2,
-section .series-card.sc-green2,
-aside .series-card.sc-green2,
-footer .series-card.sc-green2 {
-  border-right-color: #898d5d;
-}
-header .series-card.sc-orange,
-section .series-card.sc-orange,
-aside .series-card.sc-orange,
-footer .series-card.sc-orange {
-  border-right-color: #c96339;
-}
-header .series-card.sc-magenta,
-section .series-card.sc-magenta,
-aside .series-card.sc-magenta,
-footer .series-card.sc-magenta {
-  border-right-color: #ef0065;
-}
 header .series-card:hover,
 section .series-card:hover,
 aside .series-card:hover,
@@ -1726,54 +1630,6 @@ footer .dropdown.dd-series .dropdown-menu li a.link {
   border-left-style: solid;
   border-left-color: #999999;
 }
-header .dropdown.dd-series .dropdown-menu li a.link.link-brown,
-section .dropdown.dd-series .dropdown-menu li a.link.link-brown,
-aside .dropdown.dd-series .dropdown-menu li a.link.link-brown,
-footer .dropdown.dd-series .dropdown-menu li a.link.link-brown {
-  border-left-color: #8e655e;
-}
-header .dropdown.dd-series .dropdown-menu li a.link.link-green1,
-section .dropdown.dd-series .dropdown-menu li a.link.link-green1,
-aside .dropdown.dd-series .dropdown-menu li a.link.link-green1,
-footer .dropdown.dd-series .dropdown-menu li a.link.link-green1 {
-  border-left-color: #009488;
-}
-header .dropdown.dd-series .dropdown-menu li a.link.link-blue,
-section .dropdown.dd-series .dropdown-menu li a.link.link-blue,
-aside .dropdown.dd-series .dropdown-menu li a.link.link-blue,
-footer .dropdown.dd-series .dropdown-menu li a.link.link-blue {
-  border-left-color: #417798;
-}
-header .dropdown.dd-series .dropdown-menu li a.link.link-purple,
-section .dropdown.dd-series .dropdown-menu li a.link.link-purple,
-aside .dropdown.dd-series .dropdown-menu li a.link.link-purple,
-footer .dropdown.dd-series .dropdown-menu li a.link.link-purple {
-  border-left-color: #8b5172;
-}
-header .dropdown.dd-series .dropdown-menu li a.link.link-violet,
-section .dropdown.dd-series .dropdown-menu li a.link.link-violet,
-aside .dropdown.dd-series .dropdown-menu li a.link.link-violet,
-footer .dropdown.dd-series .dropdown-menu li a.link.link-violet {
-  border-left-color: #7b52a4;
-}
-header .dropdown.dd-series .dropdown-menu li a.link.link-green2,
-section .dropdown.dd-series .dropdown-menu li a.link.link-green2,
-aside .dropdown.dd-series .dropdown-menu li a.link.link-green2,
-footer .dropdown.dd-series .dropdown-menu li a.link.link-green2 {
-  border-left-color: #898d5d;
-}
-header .dropdown.dd-series .dropdown-menu li a.link.link-orange,
-section .dropdown.dd-series .dropdown-menu li a.link.link-orange,
-aside .dropdown.dd-series .dropdown-menu li a.link.link-orange,
-footer .dropdown.dd-series .dropdown-menu li a.link.link-orange {
-  border-left-color: #c96339;
-}
-header .dropdown.dd-series .dropdown-menu li a.link.link-magenta,
-section .dropdown.dd-series .dropdown-menu li a.link.link-magenta,
-aside .dropdown.dd-series .dropdown-menu li a.link.link-magenta,
-footer .dropdown.dd-series .dropdown-menu li a.link.link-magenta {
-  border-left-color: #ef0065;
-}
 header .dropdown.dd-series .dropdown-menu li a.btn-delete,
 section .dropdown.dd-series .dropdown-menu li a.btn-delete,
 aside .dropdown.dd-series .dropdown-menu li a.btn-delete,
@@ -1785,54 +1641,6 @@ footer .dropdown.dd-series .dropdown-menu li a.btn-delete {
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-header .dropdown.dd-colors .dropdown-toggle.toggle-active-brown,
-section .dropdown.dd-colors .dropdown-toggle.toggle-active-brown,
-aside .dropdown.dd-colors .dropdown-toggle.toggle-active-brown,
-footer .dropdown.dd-colors .dropdown-toggle.toggle-active-brown {
-  background-color: #8e655e !important;
-}
-header .dropdown.dd-colors .dropdown-toggle.toggle-active-green1,
-section .dropdown.dd-colors .dropdown-toggle.toggle-active-green1,
-aside .dropdown.dd-colors .dropdown-toggle.toggle-active-green1,
-footer .dropdown.dd-colors .dropdown-toggle.toggle-active-green1 {
-  background-color: #009488 !important;
-}
-header .dropdown.dd-colors .dropdown-toggle.toggle-active-blue,
-section .dropdown.dd-colors .dropdown-toggle.toggle-active-blue,
-aside .dropdown.dd-colors .dropdown-toggle.toggle-active-blue,
-footer .dropdown.dd-colors .dropdown-toggle.toggle-active-blue {
-  background-color: #417798 !important;
-}
-header .dropdown.dd-colors .dropdown-toggle.toggle-active-purple,
-section .dropdown.dd-colors .dropdown-toggle.toggle-active-purple,
-aside .dropdown.dd-colors .dropdown-toggle.toggle-active-purple,
-footer .dropdown.dd-colors .dropdown-toggle.toggle-active-purple {
-  background-color: #8b5172 !important;
-}
-header .dropdown.dd-colors .dropdown-toggle.toggle-active-violet,
-section .dropdown.dd-colors .dropdown-toggle.toggle-active-violet,
-aside .dropdown.dd-colors .dropdown-toggle.toggle-active-violet,
-footer .dropdown.dd-colors .dropdown-toggle.toggle-active-violet {
-  background-color: #7b52a4 !important;
-}
-header .dropdown.dd-colors .dropdown-toggle.toggle-active-green2,
-section .dropdown.dd-colors .dropdown-toggle.toggle-active-green2,
-aside .dropdown.dd-colors .dropdown-toggle.toggle-active-green2,
-footer .dropdown.dd-colors .dropdown-toggle.toggle-active-green2 {
-  background-color: #898d5d !important;
-}
-header .dropdown.dd-colors .dropdown-toggle.toggle-active-orange,
-section .dropdown.dd-colors .dropdown-toggle.toggle-active-orange,
-aside .dropdown.dd-colors .dropdown-toggle.toggle-active-orange,
-footer .dropdown.dd-colors .dropdown-toggle.toggle-active-orange {
-  background-color: #c96339 !important;
-}
-header .dropdown.dd-colors .dropdown-toggle.toggle-active-magenta,
-section .dropdown.dd-colors .dropdown-toggle.toggle-active-magenta,
-aside .dropdown.dd-colors .dropdown-toggle.toggle-active-magenta,
-footer .dropdown.dd-colors .dropdown-toggle.toggle-active-magenta {
-  background-color: #ef0065 !important;
 }
 header .dropdown.dd-colors .dropdown-menu,
 section .dropdown.dd-colors .dropdown-menu,
@@ -1853,54 +1661,6 @@ section .dropdown.dd-colors .dropdown-menu li a.link,
 aside .dropdown.dd-colors .dropdown-menu li a.link,
 footer .dropdown.dd-colors .dropdown-menu li a.link {
   border-bottom: 1px solid #ffffff;
-}
-header .dropdown.dd-colors .dropdown-menu li a.link.link-brown,
-section .dropdown.dd-colors .dropdown-menu li a.link.link-brown,
-aside .dropdown.dd-colors .dropdown-menu li a.link.link-brown,
-footer .dropdown.dd-colors .dropdown-menu li a.link.link-brown {
-  background-color: #8e655e;
-}
-header .dropdown.dd-colors .dropdown-menu li a.link.link-green1,
-section .dropdown.dd-colors .dropdown-menu li a.link.link-green1,
-aside .dropdown.dd-colors .dropdown-menu li a.link.link-green1,
-footer .dropdown.dd-colors .dropdown-menu li a.link.link-green1 {
-  background-color: #009488;
-}
-header .dropdown.dd-colors .dropdown-menu li a.link.link-blue,
-section .dropdown.dd-colors .dropdown-menu li a.link.link-blue,
-aside .dropdown.dd-colors .dropdown-menu li a.link.link-blue,
-footer .dropdown.dd-colors .dropdown-menu li a.link.link-blue {
-  background-color: #417798;
-}
-header .dropdown.dd-colors .dropdown-menu li a.link.link-purple,
-section .dropdown.dd-colors .dropdown-menu li a.link.link-purple,
-aside .dropdown.dd-colors .dropdown-menu li a.link.link-purple,
-footer .dropdown.dd-colors .dropdown-menu li a.link.link-purple {
-  background-color: #8b5172;
-}
-header .dropdown.dd-colors .dropdown-menu li a.link.link-violet,
-section .dropdown.dd-colors .dropdown-menu li a.link.link-violet,
-aside .dropdown.dd-colors .dropdown-menu li a.link.link-violet,
-footer .dropdown.dd-colors .dropdown-menu li a.link.link-violet {
-  background-color: #7b52a4;
-}
-header .dropdown.dd-colors .dropdown-menu li a.link.link-green2,
-section .dropdown.dd-colors .dropdown-menu li a.link.link-green2,
-aside .dropdown.dd-colors .dropdown-menu li a.link.link-green2,
-footer .dropdown.dd-colors .dropdown-menu li a.link.link-green2 {
-  background-color: #898d5d;
-}
-header .dropdown.dd-colors .dropdown-menu li a.link.link-orange,
-section .dropdown.dd-colors .dropdown-menu li a.link.link-orange,
-aside .dropdown.dd-colors .dropdown-menu li a.link.link-orange,
-footer .dropdown.dd-colors .dropdown-menu li a.link.link-orange {
-  background-color: #c96339;
-}
-header .dropdown.dd-colors .dropdown-menu li a.link.link-magenta,
-section .dropdown.dd-colors .dropdown-menu li a.link.link-magenta,
-aside .dropdown.dd-colors .dropdown-menu li a.link.link-magenta,
-footer .dropdown.dd-colors .dropdown-menu li a.link.link-magenta {
-  background-color: #ef0065;
 }
 header .dropdown.dd-colors .dropdown-menu li a.link:hover,
 section .dropdown.dd-colors .dropdown-menu li a.link:hover,
