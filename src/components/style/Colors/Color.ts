@@ -17,3 +17,7 @@ const Colors = {
 export const NaC = new Color("", "");
 
 export default Colors;
+
+export function getColorBySerieId(serieId: string, colorForFn?: (serieId: string) => Color): string {
+    return colorForFn ? colorForFn(serieId).code : '';
+}

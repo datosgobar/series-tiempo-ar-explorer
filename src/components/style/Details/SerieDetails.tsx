@@ -1,12 +1,10 @@
 import * as React from 'react';
-
+import { ISerie } from '../../../api/Serie';
 import Row from '../../style/Common/Row';
-import {Color} from '../Colors/Color';
+import { Color, getColorBySerieId } from '../Colors/Color';
 import Details from './Details';
 import DetailsTitle from './DetailsTitle';
 import DetailsTitleAndActions from './DetailsTitleAndActions';
-
-import {ISerie} from '../../../api/Serie';
 
 
 interface ISerieDetailsProp extends React.Props<any> {
@@ -19,8 +17,8 @@ interface ISerieDetailsProp extends React.Props<any> {
 export default (props: ISerieDetailsProp) =>
 
     <Details key={props.serie.id}>
-        <DetailsTitleAndActions pegColor={props.pegColorFor && props.pegColorFor(props.serie.id)}>
-            <DetailsTitle>
+        <DetailsTitleAndActions>
+            <DetailsTitle style={{borderLeftColor: getColorBySerieId(props.serie.id, props.pegColorFor)}}>
                 {props.serie.description} ({props.serie.id})
             </DetailsTitle>
             {props.actions}

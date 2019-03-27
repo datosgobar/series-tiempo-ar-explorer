@@ -43,7 +43,7 @@ const initialState: IStore = {
         q: "",
     },
     seriesApi: null,
-    tagNames: [{id: '', title: ''}],
+    tagNames: [],
     viewSeries: [],
 };
 
