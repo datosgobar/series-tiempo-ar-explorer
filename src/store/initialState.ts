@@ -21,6 +21,7 @@ export interface IStore {
 
 const initialState: IStore = {
     aggregations: {
+        catalog_id: [],
         dataset_publisher_name: [],
         dataset_source: [],
         dataset_theme: [],
@@ -38,6 +39,7 @@ const initialState: IStore = {
     },
     locale: '',
     searchParams: {
+        catalogId: "",
         datasetSource: "",
         datasetTheme: "",
         limit: 10,

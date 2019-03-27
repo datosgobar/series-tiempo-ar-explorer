@@ -19,6 +19,7 @@ export interface IAggregations {
     dataset_source: IAggregationValue[];
     dataset_publisher_name: IAggregationValue[];
     units: IAggregationValue[];
+    catalog_id: IAggregationValue[];
 }
 
 export interface IAggregationValue {

@@ -19,6 +19,7 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
         super(props);
 
         this.state = {
+            catalogId: this.props.catalogId,
             datasetSource: this.props.datasetSource,
             datasetTheme: this.props.datasetTheme,
             limit: this.props.limit,

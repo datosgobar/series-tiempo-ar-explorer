@@ -16,6 +16,7 @@ export interface ISearchParams {
     q?: string;
     publisher: string;
     units: string;
+    catalogId: string;
 }
 
 export interface ISearcherProps extends ISearchParams {
@@ -148,5 +149,6 @@ function queryChanged(prevQuery: ISearcherProps, newQuery: ISearcherProps): bool
             prevQuery.offset        !== newQuery.offset ||
             prevQuery.limit         !== newQuery.limit ||
             prevQuery.publisher     !== newQuery.publisher ||
-            prevQuery.units         !== newQuery.units
+            prevQuery.units         !== newQuery.units ||
+            prevQuery.catalogId     !== newQuery.catalogId
 }
