@@ -39,7 +39,10 @@ Para todos los componentes es igual.
         backgroundColor: '#cdcdcd',
         datePickerEnabled: true,
         legendField: 'title',
-        chartTypes: {'103.1_I2N_2016_M_15': 'column'}
+        chartTypes: {'103.1_I2N_2016_M_15': 'column'},
+        title: 'Un título personalizado',
+        source: 'Un pie de gráfico personalizado',
+        displayUnits: true
       })
     }
   </script>
@@ -70,3 +73,19 @@ Para todos los componentes es igual.
   - indica el campo de la serie a usar para mostrar la leyenda
 - `chartTypes: {<id de serie>: <tipo de gráfico>}`
   - especifica el tipo de gráfico a usar para cada serie
+- `title: string`
+  - especifica el título el gráfico
+- `source: string`
+  - especifica el texto al pie del gráfico
+- `displayUnits: boolean`
+  - indica si se muestran las unidades del gráfico
+
+### Asignación dinámica de atributos
+
+Para la mejor visualización del gráfico, varios componentes del mismo se muestran/ocultan dependiendo de su tamaño.
+**Nota:** Son dinámicos sólo si no se especifica su valor de inicialización. Si un campo tiene como valor `true` va a ser mostrado siempre, si tiene `false` no va a ser mostrado nunca. Si no se especifica, corren las siguientes reglas:
+- zoom: Se muestra si el ancho es mayor o igual a 620px
+- navigator: Se muestra si el ancho es mayor o igual a 500px
+- datePickerEnabled: Se muestra si el ancho es mayor o igual a 400px
+- displayUnits: Se muestra si el ancho es mayor o igual a 450px
+- leyenda: Este no es un campo que se pueda ocultar mediante la API de `TSComponents.Graphic`, pero los valores de la leyenda se muestran sólo si hay más de una serie aplicada.
