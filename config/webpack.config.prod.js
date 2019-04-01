@@ -60,7 +60,7 @@ module.exports = {
   // In production, we only want to load the polyfills and the app code.
   // Also, we want to generate only one css file.
   entry: {
-    main: [require.resolve('./polyfills'), paths.appIndexJs],
+    main: ["@babel/polyfill", require.resolve('./polyfills'), paths.appIndexJs],
     components: paths.componentsIndexJs
   },
   output: {
@@ -109,7 +109,7 @@ module.exports = {
       '.jsx',
     ],
     alias: {
-      
+
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/polyfill": "^7.4.0",
     "@types/d3": "^5.0.1",
     "@types/react-copy-to-clipboard": "^4.2.5",
     "@types/react-highlight-words": "^0.11.0",
