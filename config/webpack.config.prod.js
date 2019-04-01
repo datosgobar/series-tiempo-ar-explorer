@@ -61,7 +61,7 @@ module.exports = {
   // Also, we want to generate only one css file.
   entry: {
     main: ["@babel/polyfill", require.resolve('./polyfills'), paths.appIndexJs],
-    components: paths.componentsIndexJs
+    components: ["@babel/polyfill", require.resolve('./polyfills'), paths.componentsIndexJs]
   },
   output: {
     // The build folder.

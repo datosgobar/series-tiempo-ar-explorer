@@ -126,7 +126,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
         if (!zoomEnabled) {
             const zoomBtn = chart.container.getElementsByClassName('highcharts-range-selector-buttons')[0];
-            zoomBtn.remove();
+            zoomBtn.parentNode.removeChild(zoomBtn)
         }
     }
 
@@ -179,7 +179,7 @@ function buildChartOptions(chartOptions: any, componentProps: IGraphicExportable
 
 function chartProps(componentProps: IGraphicExportableProps) {
     return {
-        backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : '#ffffff00',
+        backgroundColor: componentProps.backgroundColor ? componentProps.backgroundColor : "none",
         zoomType: defaultChartValue(componentProps.zoom) ? 'x' : ''
     }
 }
