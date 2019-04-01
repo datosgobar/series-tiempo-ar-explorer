@@ -1,6 +1,7 @@
-import 'url-search-params-polyfill';
-
 'use strict';
+
+import './polyfill_scripts/url_search_params';
+
 
 if (typeof Promise === 'undefined') {
   // Rejection tracking prevents a common issue where React gets into an
