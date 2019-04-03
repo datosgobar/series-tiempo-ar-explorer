@@ -25,6 +25,8 @@ export interface ISerie {
     timeIndexSize: number,
     representationModeUnits: string,
     downloadURL: string,
+    minValue: number,
+    maxValue: number,
 }
 
 export default class Serie implements ISerie {
@@ -116,7 +118,7 @@ export default class Serie implements ISerie {
     get landingPage(){
         return this.datasetMeta.landingPage;
     }
-    
+
     get issued() {
         return this.distributionMeta.issued;
     }
@@ -146,6 +148,14 @@ export default class Serie implements ISerie {
         return this.distributionMeta.downloadURL;
     }
 
+    get minValue(): number {
+        return parseFloat(this.fieldMeta.min_value);
+    }
+
+    get maxValue(): number {
+        return parseFloat(this.fieldMeta.max_value);
+    }
+
     public bake(): ISerie {
         return {
             accrualPeriodicity: this.accrualPeriodicity,
@@ -160,6 +170,8 @@ export default class Serie implements ISerie {
             id: this.id,
             issued: this.issued,
             landingPage: this.landingPage,
+            maxValue: this.maxValue,
+            minValue: this.minValue,
             modified: this.modified,
             publisher: {...this.publisher},
             representationModeUnits: this.representationModeUnits,

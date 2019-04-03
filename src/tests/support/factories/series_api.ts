@@ -60,6 +60,8 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                     description: `${tsID} field description`,
                     frequency: `${tsID} field periodicity`,
                     id: tsID,
+                    max_value: "2",
+                    min_value: "0",
                     representation_mode_units: `${tsID} distribution representation_mode_units`,
                     time_index_end: '',
                     time_index_size: 0,

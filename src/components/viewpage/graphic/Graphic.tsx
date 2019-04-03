@@ -5,7 +5,7 @@ import IDataPoint from '../../../api/DataPoint';
 import {ISerie} from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
 import {i18nFrequency} from "../../../api/utils/periodicityManager";
-import {maxNotNull, minNotNull, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
+import {valuesFromObject} from "../../../helpers/commonFunctions";
 import {formattedDateString, fullLocaleDate, localTimestamp, timestamp,} from "../../../helpers/dateFunctions";
 import {buildLocale} from "../../common/locale/buildLocale";
 import {Color} from '../../style/Colors/Color';
@@ -344,7 +344,7 @@ function dateFormatByPeriodicity(component: Graphic) {
 
 function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], formatUnits: boolean): {} {
     const minAndMaxValues = series.reduce((result: any, serie: ISerie) => {
-        result[serie.id] = smartMinAndMaxFinder(serie.data);
+        result[serie.id] = { min: serie.minValue, max: serie.maxValue };
 
         return result;
     }, {});
@@ -371,18 +371,6 @@ function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], fo
 function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues: {}): boolean {
     return minAndMaxValues[originalSerieId].min > minAndMaxValues[serieId].max ||
            minAndMaxValues[originalSerieId].max < minAndMaxValues[serieId].min;
-}
-
-// returns the min and max values of the passed list in just one iteration, even if some of them is null or undefined
-export function smartMinAndMaxFinder(data: any[]): {min: number, max: number} {
-    return data.reduce((result: any, e: IDataPoint) => {
-        if (valueExist(e.value)) {
-            result.min = minNotNull(result.min, e.value);
-            result.max = maxNotNull(result.max, e.value);
-        }
-
-        return result;
-    }, {});
 }
 
 function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
