@@ -85,6 +85,8 @@ export interface IField {
     time_index_start: string;
     time_index_end: string;
     time_index_size: number;
+    min_value: string;
+    max_value: string;
 }
 
 export interface IPublisher {

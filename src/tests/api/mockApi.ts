@@ -95,6 +95,8 @@ export function toSerie(id: string): ISerie {
         units: `${id} units`,
 
         landingPage: `${id} landingPage`,
+        maxValue: 1,
+        minValue: 0,
         modified: `2018-01-01`,
         representationModeUnits: `${id} rep mode units`,
         startDate: 'start',

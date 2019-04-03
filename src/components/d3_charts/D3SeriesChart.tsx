@@ -1,17 +1,17 @@
 import * as React from 'react';
-import {RefObject} from 'react';
-import {connect} from "react-redux";
-import {IDataPoint} from "../../api/DataPoint";
-import {shortLocaleDate} from "../../helpers/dateFunctions";
-import {IStore} from "../../store/initialState";
-import {buildLocale} from "../common/locale/buildLocale";
-import {ILapsProps} from "../mainpage/featured/Featured";
-import {smartMinAndMaxFinder} from "../viewpage/graphic/Graphic";
+import { RefObject } from 'react';
+import { connect } from "react-redux";
+import { IDataPoint } from "../../api/DataPoint";
+import { ISerie } from '../../api/Serie';
+import { shortLocaleDate } from "../../helpers/dateFunctions";
+import { IStore } from "../../store/initialState";
+import { buildLocale } from "../common/locale/buildLocale";
+import { ILapsProps } from "../mainpage/featured/Featured";
 import D3LineChart from "./D3LineChart";
 
 
 interface ID3Chart {
-    data: IDataPoint[];
+    serie: ISerie;
     frequency: string;
     laps: ILapsProps;
     locale: string;
@@ -27,14 +27,14 @@ class D3SeriesChart extends React.Component<ID3Chart, any> {
     }
 
     public render() {
-        const data = this.shortDataList(this.props.data);
+        const data = this.shortDataList(this.props.serie.data);
         if (data.length === 0) { return <div className="d3-line-chart">Esta serie no trajo datos</div> }
 
         return (
             <div className="d3-line-chart">
                 <div className="units">
                     <div className="date">{shortLocaleDate(this.props.frequency, data[data.length - 1].date)}</div>
-                    <div className="value">{lastFormattedValue(data, this.props.locale)}</div>
+                    <div className="value">{lastFormattedValue(this.props.serie, data, this.props.locale)}</div>
                 </div>
                 <D3LineChart renderTo={this.myRef} data={data} />
                 <div className="frequency">{`ÚLTIMOS ${this.getLaps()} ${findPeriod(this.props.frequency)}`}</div>
@@ -43,7 +43,9 @@ class D3SeriesChart extends React.Component<ID3Chart, any> {
     }
 
     private shortDataList(data: IDataPoint[]): IDataPoint[] {
-        return data.slice(Math.max(data.length - this.getLaps(), 0));
+        const result = data.slice(Math.max(data.length - this.getLaps(), 0));
+
+        return notNullData(result);
     }
 
     private getLaps(): number {
@@ -64,15 +66,18 @@ function findPeriod(frequency: string): string {
     return options[frequency].toUpperCase()
 }
 
-function lastFormattedValue(data: IDataPoint[], locale: string): string {
+function lastFormattedValue(serie: ISerie, data: IDataPoint[], locale: string): string {
     const dataValue = data[data.length-1].value;
-    const minAndMaxData = smartMinAndMaxFinder(data);
+    const minAndMaxData = {min: serie.minValue, max: serie.maxValue};
     const value = dataValue < 1 && dataValue > -1 ? dataValue * 100 : dataValue;
     const result = buildLocale(locale).toDecimalString(value);
 
     return minAndMaxData.min > -1 && minAndMaxData.max < 1 ? `${result}%` : `${result}`;
 }
 
+function notNullData(data: IDataPoint[]): IDataPoint[] {
+    return data.filter((d: IDataPoint) => d.value !== null);
+}
 
 function mapStateToProps(state: IStore) {
     return {
