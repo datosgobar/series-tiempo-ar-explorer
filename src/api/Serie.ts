@@ -104,7 +104,7 @@ export default class Serie implements ISerie {
     }
 
     get representationModeUnits() {
-        return this.fieldMeta.representation_mode_units;
+        return this.fieldMeta.representation_mode_units || 'Cantidad'; // default porque a veces viene null. Podríamos llegar a querer usar otro
     }
 
     get startDate() {
