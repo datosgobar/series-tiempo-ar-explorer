@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="no-js">
   <head>
     
@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.6">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
       
       
     
@@ -55,7 +55,7 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
     
     <script src="../../js/extra.js"></script>
 
@@ -67,6 +67,35 @@
       
     
     <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-91435482-1", "https://datosgobar.github.io/series-tiempo-ar-explorer/")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -123,22 +152,19 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                Explorador de Series de Tiempo
-              </span>
-              <span class="md-header-nav__topic">
-                TSComponents
-              </span>
-            
+            <span class="md-header-nav__topic">
+              Explorador de Series de Tiempo
+            </span>
+            <span class="md-header-nav__topic">
+              TSComponents
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -161,7 +187,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -172,20 +197,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/series-tiempo-ar-explorer/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/series-tiempo-ar-explorer/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         </div>
       
@@ -249,20 +272,18 @@
 
   
 
-
-  <a href="https://github.com/datosgobar/series-tiempo-ar-explorer/" title="Ir al repositorio" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
+<a href="https://github.com/datosgobar/series-tiempo-ar-explorer/" title="Ir al repositorio" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
           </div>
         
       
@@ -403,6 +424,13 @@
           <li class="md-nav__item">
   <a href="#parametros-de-tscomponentsgraphic" title="Parámetros de TSComponents.Graphic" class="md-nav__link">
     Parámetros de TSComponents.Graphic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asignacion-dinamica-de-atributos" title="Asignación dinámica de atributos" class="md-nav__link">
+    Asignación dinámica de atributos
   </a>
   
 </li>
@@ -557,6 +585,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#asignacion-dinamica-de-atributos" title="Asignación dinámica de atributos" class="md-nav__link">
+    Asignación dinámica de atributos
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -621,7 +656,10 @@ Está alojado en el CDN por versiones: https://cdn.jsdelivr.net/gh/datosgobar/se
         backgroundColor: &#39;#cdcdcd&#39;,
         datePickerEnabled: true,
         legendField: &#39;title&#39;,
-        chartTypes: {&#39;103.1_I2N_2016_M_15&#39;: &#39;column&#39;}
+        chartTypes: {&#39;103.1_I2N_2016_M_15&#39;: &#39;column&#39;},
+        title: &#39;Un título personalizado&#39;,
+        source: &#39;Un pie de gráfico personalizado&#39;,
+        displayUnits: true
       })
     }
   <span class="nt">&lt;/script&gt;</span>
@@ -654,7 +692,21 @@ Está alojado en el CDN por versiones: https://cdn.jsdelivr.net/gh/datosgobar/se
 <li>indica el campo de la serie a usar para mostrar la leyenda</li>
 <li><code>chartTypes: {&lt;id de serie&gt;: &lt;tipo de gráfico&gt;}</code></li>
 <li>especifica el tipo de gráfico a usar para cada serie</li>
+<li><code>title: string</code></li>
+<li>especifica el título el gráfico</li>
+<li><code>source: string</code></li>
+<li>especifica el texto al pie del gráfico</li>
+<li><code>displayUnits: boolean</code></li>
+<li>indica si se muestran las unidades del gráfico</li>
 </ul>
+<h3 id="asignacion-dinamica-de-atributos"><a class="toclink" href="#asignacion-dinamica-de-atributos">Asignación dinámica de atributos</a><a class="headerlink" href="#asignacion-dinamica-de-atributos" title="Permanent link">&#128279;</a></h3>
+<p>Para la mejor visualización del gráfico, varios componentes del mismo se muestran/ocultan dependiendo de su tamaño.
+<strong>Nota:</strong> Son dinámicos sólo si no se especifica su valor de inicialización. Si un campo tiene como valor <code>true</code> va a ser mostrado siempre, si tiene <code>false</code> no va a ser mostrado nunca. Si no se especifica, corren las siguientes reglas:
+- zoom: Se muestra si el ancho es mayor o igual a 620px
+- navigator: Se muestra si el ancho es mayor o igual a 500px
+- datePickerEnabled: Se muestra si el ancho es mayor o igual a 400px
+- displayUnits: Se muestra si el ancho es mayor o igual a 450px
+- leyenda: Este no es un campo que se pueda ocultar mediante la API de <code>TSComponents.Graphic</code>, pero los valores de la leyenda se muestran sólo si hay más de una serie aplicada.</p>
                 
                   
                 
@@ -718,15 +770,13 @@ Está alojado en el CDN por versiones: https://cdn.jsdelivr.net/gh/datosgobar/se
           Material for MkDocs</a>
       </div>
       
-        
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../../assets/javascripts/application.5e60981f.js"></script>
+      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
       
         
         
@@ -744,11 +794,6 @@ Está alojado en el CDN por versiones: https://cdn.jsdelivr.net/gh/datosgobar/se
         
       
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
-      
-    
-    
-      
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-91435482-1","https://datosgobar.github.io/series-tiempo-ar-explorer/"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
       
     
   </body>
