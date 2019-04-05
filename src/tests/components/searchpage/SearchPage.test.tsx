@@ -26,6 +26,7 @@ describe("SearchPage", () => {
   let datasetTheme: string;
   let publisher: string;
   let units: string;
+  let catalogId: string;
 
   beforeEach(() => {
 
@@ -40,6 +41,7 @@ describe("SearchPage", () => {
     datasetTheme = "";
     publisher = "";
     units = "";
+    catalogId = "";
   });
 
   it('renders without crashing', () => {
@@ -69,7 +71,7 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset: 0, limit: 10, aggregations: true, publisher, units });
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { catalogId, datasetTheme, datasetSource, offset: 0, limit: 10, aggregations: true, publisher, units });
   });
 
 
@@ -89,6 +91,6 @@ describe("SearchPage", () => {
       </MemoryRouter>
     );
 
-    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { datasetTheme, datasetSource, offset, limit, aggregations: true, publisher, units });
+    expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { catalogId, datasetTheme, datasetSource, offset, limit, aggregations: true, publisher, units });
   });
 });
