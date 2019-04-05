@@ -27,10 +27,10 @@ const SeriesFilters = (props: IFilterProps) =>
         <FilterTitle>Filtros</FilterTitle>
         <FilterSubTitle>Temas</FilterSubTitle>
         <SearchFilter onChange={props.onThemePicked} items={props.themes} selected={props.picked} />
-        <FilterSubTitle>Fuentes</FilterSubTitle>
-        <SearchFilter onChange={props.onSourcePicked} items={props.sources} selected={props.picked} />
         <FilterSubTitle>Publicadores</FilterSubTitle>
         <SearchFilter onChange={props.onPublisherPicked} items={props.publishers} selected={props.picked} />
+        <FilterSubTitle>Fuentes</FilterSubTitle>
+        <SearchFilter onChange={props.onSourcePicked} items={props.sources} selected={props.picked} />
         <FilterSubTitle>Catálogos</FilterSubTitle>
         <SearchFilter onChange={props.onCatalogPicked} items={props.catalogId} selected={props.picked} />
         <FilterSubTitle>Unidades</FilterSubTitle>
