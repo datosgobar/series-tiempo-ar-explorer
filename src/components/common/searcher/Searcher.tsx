@@ -50,6 +50,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
     public searchOptions(params=this.props) {
         return {
             aggregations: true,
+            catalogId: params.catalogId,
             datasetSource: params.datasetSource,
             datasetTheme: params.datasetTheme,
             limit: params.limit,
