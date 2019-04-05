@@ -24,17 +24,17 @@ interface IFilterProps {
 
 const SeriesFilters = (props: IFilterProps) =>
     <Filters>
-        <FilterTitle>Filtros:</FilterTitle>
-        <FilterSubTitle>Temas:</FilterSubTitle>
+        <FilterTitle>Filtros</FilterTitle>
+        <FilterSubTitle>Temas</FilterSubTitle>
         <SearchFilter onChange={props.onThemePicked} items={props.themes} selected={props.picked} />
-        <FilterSubTitle>Fuentes:</FilterSubTitle>
+        <FilterSubTitle>Fuentes</FilterSubTitle>
         <SearchFilter onChange={props.onSourcePicked} items={props.sources} selected={props.picked} />
-        <FilterSubTitle>Publicadores:</FilterSubTitle>
+        <FilterSubTitle>Publicadores</FilterSubTitle>
         <SearchFilter onChange={props.onPublisherPicked} items={props.publishers} selected={props.picked} />
-        <FilterSubTitle>Uidades:</FilterSubTitle>
-        <SearchFilter onChange={props.onUnitsPicked} items={props.units} selected={props.picked} />
-        <FilterSubTitle>Catálogos:</FilterSubTitle>
+        <FilterSubTitle>Catálogos</FilterSubTitle>
         <SearchFilter onChange={props.onCatalogPicked} items={props.catalogId} selected={props.picked} />
+        <FilterSubTitle>Unidades</FilterSubTitle>
+        <SearchFilter onChange={props.onUnitsPicked} items={props.units} selected={props.picked} />
     </Filters>
 
 
