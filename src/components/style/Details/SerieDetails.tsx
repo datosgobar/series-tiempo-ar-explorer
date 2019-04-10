@@ -79,5 +79,6 @@ export default (props: ISerieDetailsProp) =>
 
 
 function serieUnits(serie: ISerie): string {
-    return serie.representationModeUnits === serie.units ? serie.representationModeUnits : `${serie.representationModeUnits} (Original: ${serie.units})`
+    const units = serie.units || 'No especificado';
+    return serie.representationModeUnits === serie.units ? serie.representationModeUnits : `${serie.representationModeUnits} (Original: ${units})`
 }
