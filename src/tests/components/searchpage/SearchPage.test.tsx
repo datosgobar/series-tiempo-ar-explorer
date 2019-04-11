@@ -12,6 +12,8 @@ import configureStore from '../../../store/configureStore';
 import MockApi from '../../api/mockApi';
 
 
+window.scrollTo = () => { return } // Mute error "Not implemented: window.scrollTo"
+
 configure({ adapter: new Adapter() });
 
 describe("SearchPage", () => {
