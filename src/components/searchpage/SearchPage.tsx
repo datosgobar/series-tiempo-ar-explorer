@@ -10,8 +10,9 @@ import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import Searcher, { ISearchParams, ISearchParamsItem } from '../common/searcher/Searcher';
 import SearcherResultsWithChart from "../common/searcher/SearcherResultsWithChart";
-import Container from '../style/Common/Container';
-import Row from '../style/Common/Row';
+import FiltersListContainer from '../style/Filters/FiltersListContainer';
+import SearchFiltersResult from '../style/Filters/SearchFiltersResult';
+import SelectedFiltersList from '../style/Filters/SelectedFiltersList';
 import SeriesHero from '../style/Hero/SeriesHero';
 import Tag from '../style/Tag/Tag';
 import SeriesFilters from './filters/SeriesFilters';
@@ -176,39 +177,28 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         return (
             <section id="listado">
                 <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} onSelect={this.redirectToViewPage} />} />
-                <div id="listado-list">
-                    <Container>
-                        <Row>
-                            <div className="col-sm-4">
-                                <SeriesFilters onSourcePicked={this.sourcePicked}
-                                                onThemePicked={this.themePicked}
-                                                onPublisherPicked={this.publisherPicked}
-                                                onUnitsPicked={this.unitsPicked}
-                                                onCatalogPicked={this.catalogPicked} />
-                            </div>
-                            <div className="col-sm-8">
-                                <div id="list" className="pd-v-lg">
-                                    <div className="title-and-tags">
-                                        <h2 className="title title-md font-2">Resultados de la búsqueda:</h2>
-                                        {this.searchTags()}
-                                    </div>
+                <FiltersListContainer>
+                    <SeriesFilters onSourcePicked={this.sourcePicked}
+                                    onThemePicked={this.themePicked}
+                                    onPublisherPicked={this.publisherPicked}
+                                    onUnitsPicked={this.unitsPicked}
+                                    onCatalogPicked={this.catalogPicked} />
+                    <SearchFiltersResult>
+                        <SelectedFiltersList tagList={this.searchTags()} />
 
-                                    <Searcher datasetSource={this.props.datasetSource}
-                                              datasetTheme={this.props.datasetTheme}
-                                              limit={this.props.limit}
-                                              offset={this.props.offset}
-                                              q={this.props.q}
-                                              seriesApi={this.props.seriesApi}
-                                              renderSearchResults={this.renderSearchResults}
-                                              dispatch={this.props.dispatch}
-                                              publisher={this.props.publisher}
-                                              units={this.props.units}
-                                              catalogId={this.props.catalogId} />
-                                </div>
-                            </div>
-                        </Row>
-                    </Container>
-                </div>
+                        <Searcher datasetSource={this.props.datasetSource}
+                                    datasetTheme={this.props.datasetTheme}
+                                    limit={this.props.limit}
+                                    offset={this.props.offset}
+                                    q={this.props.q}
+                                    seriesApi={this.props.seriesApi}
+                                    renderSearchResults={this.renderSearchResults}
+                                    dispatch={this.props.dispatch}
+                                    publisher={this.props.publisher}
+                                    units={this.props.units}
+                                    catalogId={this.props.catalogId} />
+                    </SearchFiltersResult>
+                </FiltersListContainer>
             </section>
         );
     }
