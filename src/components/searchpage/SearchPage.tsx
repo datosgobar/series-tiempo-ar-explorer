@@ -104,51 +104,51 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.updateUriParams(searchParams);
     }
 
-    public sourceRemoved(): void {
+    public sourceRemoved() {
         this.filterChanged({key: "datasetSource", value: ""});
     }
 
-    public sourcePicked(newDatasetSource: string): void {
+    public sourcePicked(newDatasetSource: string) {
         this.filterChanged({key: "datasetSource", value: newDatasetSource});
     }
 
-    public themeRemoved(): void {
+    public themeRemoved() {
         this.filterChanged({key: "datasetTheme", value: ""});
     }
 
-    public themePicked(newTheme: string): void {
+    public themePicked(newTheme: string) {
         this.filterChanged({key: "datasetTheme", value: newTheme});
     }
 
-    public publisherPicked(newPublisher: string): void {
+    public publisherPicked(newPublisher: string) {
         this.filterChanged({key: "publisher", value: newPublisher});
     }
 
-    public publisherRemoved(): void {
+    public publisherRemoved() {
         this.filterChanged({key: "publisher", value: ""});
     }
 
-    public unitsPicked(newUnits: string): void {
+    public unitsPicked(newUnits: string) {
         this.filterChanged({key: "units", value: newUnits});
     }
 
-    public unitsRemoved(): void {
+    public unitsRemoved() {
         this.filterChanged({key: "units", value: ""});
     }
 
-    public catalogPicked(newCatalog: string): void {
+    public catalogPicked(newCatalog: string) {
         this.filterChanged({key: "catalogId", value: newCatalog});
     }
 
-    public catalogRemoved(): void {
+    public catalogRemoved() {
         this.filterChanged({key: "catalogId", value: ""});
     }
 
-    public searchTermPicked(newSearchTerm: string): void {
+    public searchTermPicked(newSearchTerm: string) {
         this.filterChanged({key: "q", value: newSearchTerm});
     }
 
-    public searchTagPicked(): void {
+    public searchTagPicked() {
         this.filterChanged({key: "q", value: ""});
     }
 
