@@ -16,7 +16,7 @@ import LoadingSpinner from "../LoadingSpinner";
 interface ISearchBoxProps {
     onSelect: (serieId: string) => void;
     onSearch: (searchTerm?: string) => void;
-    searchTerm?: string;
+    searchTerm?: string|null;
     seriesApi: ISerieApi;
     enterRequired?: boolean;
 }

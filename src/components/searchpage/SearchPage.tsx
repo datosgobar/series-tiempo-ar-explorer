@@ -8,7 +8,7 @@ import { ISerieApi } from '../../api/SerieApi';
 import URLSearchParams from '../../helpers/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
-import Searcher, { ISearchParams } from '../common/searcher/Searcher';
+import Searcher, { ISearchParams, ISearchParamsItem } from '../common/searcher/Searcher';
 import SearcherResultsWithChart from "../common/searcher/SearcherResultsWithChart";
 import Container from '../style/Common/Container';
 import Row from '../style/Common/Row';
@@ -57,21 +57,19 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     }
 
     public updateSearchParams(location: Location) {
-        const searchParams: ISearchParams | undefined = this.getUriSearchParams(location);
+        const searchParams = this.getUriSearchParams(location);
 
-        if (searchParams) {
-            this.props.dispatch(setSearchParams(searchParams));
-        }
+        this.props.dispatch(setSearchParams(searchParams));
     }
 
     public componentWillUnmount() {
         this.unListen();
     }
 
-    public getUriSearchParams(location: Location): ISearchParams | undefined {
+    public getUriSearchParams(location: Location): ISearchParams {
         const search: string = location.search; // could be '?foo=bar'
         const params: URLSearchParams = URLSearchParams(search);
-        const q: string | undefined = params.get('q') || undefined;
+        const q: string | null = params.get('q') || null;
         const offsetString: string | null = params.get('offset');
         const limitString: string | null = params.get('limit');
         const offset = offsetString ? parseInt(offsetString, 10) : initialState.searchParams.offset;
@@ -82,142 +80,81 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const units = params.get('units') || "";
         const catalogId = params.get('catalog_id') || "";
 
-        return ({
-            catalogId,
-            datasetSource,
-            datasetTheme,
-            limit,
-            offset,
-            publisher,
-            q,
-            units,
-        });
+        return { catalogId, datasetSource, datasetTheme, limit, offset, publisher, q, units }
     }
 
-    public updateUriParams(q: string | null, datasetSource: string, datasetTheme: string, publisher: string, units: string, catalogId: string, offset: number, limit: number) {
+    public updateUriParams(params: ISearchParams) {
         const urlSearchParams = URLSearchParams();
 
-        urlSearchParams.setOrDelete('q', q);
-        urlSearchParams.setOrDelete('dataset_source', datasetSource);
-        urlSearchParams.setOrDelete('offset', offset.toString());
-        urlSearchParams.setOrDelete('limit', limit.toString());
-        urlSearchParams.setOrDelete('dataset_theme', datasetTheme);
-        urlSearchParams.setOrDelete('dataset_publisher_name', publisher);
-        urlSearchParams.setOrDelete('units', units);
-        urlSearchParams.setOrDelete('catalog_id', catalogId);
+        urlSearchParams.setOrDelete('q', params.q);
+        urlSearchParams.setOrDelete('dataset_source', params.datasetSource);
+        urlSearchParams.setOrDelete('offset', params.offset.toString());
+        urlSearchParams.setOrDelete('limit', params.limit.toString());
+        urlSearchParams.setOrDelete('dataset_theme', params.datasetTheme);
+        urlSearchParams.setOrDelete('dataset_publisher_name', params.publisher);
+        urlSearchParams.setOrDelete('units', params.units);
+        urlSearchParams.setOrDelete('catalog_id', params.catalogId);
 
         this.props.history.push('/search/?' + urlSearchParams);
     }
 
-    public sourceRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
+    public filterChanged(newAttribute: ISearchParamsItem) {
+        const searchParams = this.getUriSearchParams(this.props.location);
+        searchParams[newAttribute.key] = newAttribute.value;
+        this.updateUriParams(searchParams);
+    }
 
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, "", oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public sourceRemoved(): void {
+        this.filterChanged({key: "datasetSource", value: ""});
     }
 
     public sourcePicked(newDatasetSource: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+        this.filterChanged({key: "datasetSource", value: newDatasetSource});
     }
 
-    public themeRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
-
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, "", oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public themeRemoved(): void {
+        this.filterChanged({key: "datasetTheme", value: ""});
     }
 
     public themePicked(newTheme: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, newTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+        this.filterChanged({key: "datasetTheme", value: newTheme});
     }
 
     public publisherPicked(newPublisher: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, newPublisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+        this.filterChanged({key: "publisher", value: newPublisher});
     }
 
-    public publisherRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
-
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, "", oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public publisherRemoved(): void {
+        this.filterChanged({key: "publisher", value: ""});
     }
 
     public unitsPicked(newUnits: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, newUnits, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+        this.filterChanged({key: "units", value: newUnits});
     }
 
-    public unitsRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
-
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, "", oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public unitsRemoved(): void {
+        this.filterChanged({key: "units", value: ""});
     }
 
     public catalogPicked(newCatalog: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, newCatalog, oldSearchParams.offset, oldSearchParams.limit);
-        }
+        this.filterChanged({key: "catalogId", value: newCatalog});
     }
 
-    public catalogRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
-
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, "", oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public catalogRemoved(): void {
+        this.filterChanged({key: "catalogId", value: ""});
     }
 
     public searchTermPicked(newSearchTerm: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(newSearchTerm, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+        this.filterChanged({key: "q", value: newSearchTerm});
     }
 
-    public searchTagPicked(event: React.MouseEvent<HTMLButtonElement>): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams("", oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public searchTagPicked(): void {
+        this.filterChanged({key: "q", value: ""});
     }
 
     public searchTags(): JSX.Element[] {
         let tags: JSX.Element[] = [];
-        const searchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
+        const searchParams = this.getUriSearchParams(this.props.location);
 
         if (!searchParams) { return tags }
 
