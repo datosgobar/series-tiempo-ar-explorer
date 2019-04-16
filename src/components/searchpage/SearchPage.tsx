@@ -8,10 +8,11 @@ import { ISerieApi } from '../../api/SerieApi';
 import URLSearchParams from '../../helpers/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
-import Searcher, { ISearchParams } from '../common/searcher/Searcher';
+import Searcher, { ISearchParams, ISearchParamsItem } from '../common/searcher/Searcher';
 import SearcherResultsWithChart from "../common/searcher/SearcherResultsWithChart";
-import Container from '../style/Common/Container';
-import Row from '../style/Common/Row';
+import FiltersListContainer from '../style/Filters/FiltersListContainer';
+import SearchFiltersResult from '../style/Filters/SearchFiltersResult';
+import SelectedFiltersList from '../style/Filters/SelectedFiltersList';
 import SeriesHero from '../style/Hero/SeriesHero';
 import Tag from '../style/Tag/Tag';
 import SeriesFilters from './filters/SeriesFilters';
@@ -57,21 +58,19 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     }
 
     public updateSearchParams(location: Location) {
-        const searchParams: ISearchParams | undefined = this.getUriSearchParams(location);
+        const searchParams = this.getUriSearchParams(location);
 
-        if (searchParams) {
-            this.props.dispatch(setSearchParams(searchParams));
-        }
+        this.props.dispatch(setSearchParams(searchParams));
     }
 
     public componentWillUnmount() {
         this.unListen();
     }
 
-    public getUriSearchParams(location: Location): ISearchParams | undefined {
+    public getUriSearchParams(location: Location): ISearchParams {
         const search: string = location.search; // could be '?foo=bar'
         const params: URLSearchParams = URLSearchParams(search);
-        const q: string | undefined = params.get('q') || undefined;
+        const q: string | null = params.get('q') || null;
         const offsetString: string | null = params.get('offset');
         const limitString: string | null = params.get('limit');
         const offset = offsetString ? parseInt(offsetString, 10) : initialState.searchParams.offset;
@@ -82,142 +81,81 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const units = params.get('units') || "";
         const catalogId = params.get('catalog_id') || "";
 
-        return ({
-            catalogId,
-            datasetSource,
-            datasetTheme,
-            limit,
-            offset,
-            publisher,
-            q,
-            units,
-        });
+        return { catalogId, datasetSource, datasetTheme, limit, offset, publisher, q, units }
     }
 
-    public updateUriParams(q: string | null, datasetSource: string, datasetTheme: string, publisher: string, units: string, catalogId: string, offset: number, limit: number) {
+    public updateUriParams(params: ISearchParams) {
         const urlSearchParams = URLSearchParams();
 
-        urlSearchParams.setOrDelete('q', q);
-        urlSearchParams.setOrDelete('dataset_source', datasetSource);
-        urlSearchParams.setOrDelete('offset', offset.toString());
-        urlSearchParams.setOrDelete('limit', limit.toString());
-        urlSearchParams.setOrDelete('dataset_theme', datasetTheme);
-        urlSearchParams.setOrDelete('dataset_publisher_name', publisher);
-        urlSearchParams.setOrDelete('units', units);
-        urlSearchParams.setOrDelete('catalog_id', catalogId);
+        urlSearchParams.setOrDelete('q', params.q);
+        urlSearchParams.setOrDelete('dataset_source', params.datasetSource);
+        urlSearchParams.setOrDelete('offset', params.offset.toString());
+        urlSearchParams.setOrDelete('limit', params.limit.toString());
+        urlSearchParams.setOrDelete('dataset_theme', params.datasetTheme);
+        urlSearchParams.setOrDelete('dataset_publisher_name', params.publisher);
+        urlSearchParams.setOrDelete('units', params.units);
+        urlSearchParams.setOrDelete('catalog_id', params.catalogId);
 
         this.props.history.push('/search/?' + urlSearchParams);
     }
 
-    public sourceRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
-
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, "", oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public filterChanged(newAttribute: ISearchParamsItem) {
+        const searchParams = this.getUriSearchParams(this.props.location);
+        searchParams[newAttribute.key] = newAttribute.value;
+        this.updateUriParams(searchParams);
     }
 
-    public sourcePicked(newDatasetSource: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, newDatasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public sourceRemoved() {
+        this.filterChanged({key: "datasetSource", value: ""});
     }
 
-    public themeRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
-
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, "", oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public sourcePicked(newDatasetSource: string) {
+        this.filterChanged({key: "datasetSource", value: newDatasetSource});
     }
 
-    public themePicked(newTheme: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, newTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public themeRemoved() {
+        this.filterChanged({key: "datasetTheme", value: ""});
     }
 
-    public publisherPicked(newPublisher: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, newPublisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public themePicked(newTheme: string) {
+        this.filterChanged({key: "datasetTheme", value: newTheme});
     }
 
-    public publisherRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
-
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, "", oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public publisherPicked(newPublisher: string) {
+        this.filterChanged({key: "publisher", value: newPublisher});
     }
 
-    public unitsPicked(newUnits: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, newUnits, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public publisherRemoved() {
+        this.filterChanged({key: "publisher", value: ""});
     }
 
-    public unitsRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
-
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, "", oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public unitsPicked(newUnits: string) {
+        this.filterChanged({key: "units", value: newUnits});
     }
 
-    public catalogPicked(newCatalog: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location)
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, newCatalog, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public unitsRemoved() {
+        this.filterChanged({key: "units", value: ""});
     }
 
-    public catalogRemoved(event: React.MouseEvent<HTMLButtonElement>): void {
-        event.stopPropagation();
-
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(oldSearchParams.q || null, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, "", oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public catalogPicked(newCatalog: string) {
+        this.filterChanged({key: "catalogId", value: newCatalog});
     }
 
-    public searchTermPicked(newSearchTerm: string): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
-
-        if (oldSearchParams) {
-            this.updateUriParams(newSearchTerm, oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public catalogRemoved() {
+        this.filterChanged({key: "catalogId", value: ""});
     }
 
-    public searchTagPicked(event: React.MouseEvent<HTMLButtonElement>): void {
-        const oldSearchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
+    public searchTermPicked(newSearchTerm: string) {
+        this.filterChanged({key: "q", value: newSearchTerm});
+    }
 
-        if (oldSearchParams) {
-            this.updateUriParams("", oldSearchParams.datasetSource, oldSearchParams.datasetTheme, oldSearchParams.publisher, oldSearchParams.units, oldSearchParams.catalogId, oldSearchParams.offset, oldSearchParams.limit);
-        }
+    public searchTagPicked() {
+        this.filterChanged({key: "q", value: ""});
     }
 
     public searchTags(): JSX.Element[] {
         let tags: JSX.Element[] = [];
-        const searchParams: ISearchParams | undefined = this.getUriSearchParams(this.props.location);
+        const searchParams = this.getUriSearchParams(this.props.location);
 
         if (!searchParams) { return tags }
 
@@ -239,39 +177,28 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         return (
             <section id="listado">
                 <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} onSelect={this.redirectToViewPage} />} />
-                <div id="listado-list">
-                    <Container>
-                        <Row>
-                            <div className="col-sm-4">
-                                <SeriesFilters onSourcePicked={this.sourcePicked}
-                                                onThemePicked={this.themePicked}
-                                                onPublisherPicked={this.publisherPicked}
-                                                onUnitsPicked={this.unitsPicked}
-                                                onCatalogPicked={this.catalogPicked} />
-                            </div>
-                            <div className="col-sm-8">
-                                <div id="list" className="pd-v-lg">
-                                    <div className="title-and-tags">
-                                        <h2 className="title title-md font-2">Resultados de la búsqueda:</h2>
-                                        {this.searchTags()}
-                                    </div>
+                <FiltersListContainer>
+                    <SeriesFilters onSourcePicked={this.sourcePicked}
+                                    onThemePicked={this.themePicked}
+                                    onPublisherPicked={this.publisherPicked}
+                                    onUnitsPicked={this.unitsPicked}
+                                    onCatalogPicked={this.catalogPicked} />
+                    <SearchFiltersResult>
+                        <SelectedFiltersList tagList={this.searchTags()} />
 
-                                    <Searcher datasetSource={this.props.datasetSource}
-                                              datasetTheme={this.props.datasetTheme}
-                                              limit={this.props.limit}
-                                              offset={this.props.offset}
-                                              q={this.props.q}
-                                              seriesApi={this.props.seriesApi}
-                                              renderSearchResults={this.renderSearchResults}
-                                              dispatch={this.props.dispatch}
-                                              publisher={this.props.publisher}
-                                              units={this.props.units}
-                                              catalogId={this.props.catalogId} />
-                                </div>
-                            </div>
-                        </Row>
-                    </Container>
-                </div>
+                        <Searcher datasetSource={this.props.datasetSource}
+                                    datasetTheme={this.props.datasetTheme}
+                                    limit={this.props.limit}
+                                    offset={this.props.offset}
+                                    q={this.props.q}
+                                    seriesApi={this.props.seriesApi}
+                                    renderSearchResults={this.renderSearchResults}
+                                    dispatch={this.props.dispatch}
+                                    publisher={this.props.publisher}
+                                    units={this.props.units}
+                                    catalogId={this.props.catalogId} />
+                    </SearchFiltersResult>
+                </FiltersListContainer>
             </section>
         );
     }

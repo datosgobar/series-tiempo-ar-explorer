@@ -34,4 +34,14 @@ describe('FilterSources', () => {
             expect(onSourcePicked).toBeCalledWith(source.label);
         });
     });
+
+    it('shows result count', () => {
+        const wrapper = mount(<SearchFilter selected=""
+                                            onChange={onSourcePicked}
+                                            items={generateMockAggregations().dataset_source} />);
+        wrapper.update();
+        const resultList = wrapper.find(SearchFilter).find('li');
+        expect(resultList.at(0).find('.result-filter-count').text()).toBe("(1)");
+        expect(resultList.at(1).find('.result-filter-count').text()).toBe("(4)");
+    })
 });

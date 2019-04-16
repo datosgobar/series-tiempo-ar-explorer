@@ -18,7 +18,7 @@ describe("QueryParams", () => {
     });
 
     it("tests fullLocaleDate", () => {
-        const date = '2018/04/25';
+        const date = new Date('2018/04/25').setHours(3);
         expect(fullLocaleDate('Anual', date)).toEqual('2018');
         expect(fullLocaleDate('Semestral', date)).toEqual('1° semestre 2018');
         expect(fullLocaleDate('Trimestral', date)).toEqual('2° trimestre 2018');

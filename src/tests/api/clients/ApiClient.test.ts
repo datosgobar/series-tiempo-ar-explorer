@@ -30,7 +30,7 @@ describe("ApiClient", () => {
     it("calls get with uri", () => {
         const mockCallback = jest.fn();
 
-        apiClient.get({uri: path, qs: {}}).then(mockCallback);
+        apiClient.get({uri: path, qs: {}}).then(mockCallback).catch(mockCallback);
         wait( () => {
             expect(mockCallback.mock.calls[0][0].data).toBe(response);
         })

@@ -8,12 +8,17 @@ import InitialSearcher from "./InitialSearcher";
 import SearcherResults from "./SearcherResults";
 
 
+export interface ISearchParamsItem {
+    key: string;
+    value: string|number|null;
+}
+
 export interface ISearchParams {
     datasetSource: string;
     datasetTheme: string;
     limit: number;
     offset: number;
-    q?: string;
+    q: string | null;
     publisher: string;
     units: string;
     catalogId: string;
@@ -105,7 +110,7 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         return component;
     }
 
-    private performSearch(q?: string, options?: ISearchOptions) {
+    private performSearch(q: string|null, options?: ISearchOptions) {
         this.setState({loading: true});
         const query = q || null;
 

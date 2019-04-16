@@ -1,21 +1,17 @@
+import { configure, mount, shallow } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
-
-import {configure, mount, shallow} from 'enzyme';
-import {Provider} from 'react-redux';
-import {MemoryRouter} from 'react-router';
-import {Store} from 'redux';
-import {setSeriesApi} from '../../../actions/seriesActions';
-import {ISerieApi} from '../../../api/SerieApi';
-import ViewPage, {ViewPage as UnconnectedViewPage} from '../../../components/viewpage/ViewPage';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
+import { Store } from 'redux';
+import { setSeriesApi } from '../../../actions/seriesActions';
+import { ISerieApi } from '../../../api/SerieApi';
+import ViewPage, { ViewPage as UnconnectedViewPage } from '../../../components/viewpage/ViewPage';
 import configureStore from '../../../store/configureStore';
 import MockApi from '../../api/mockApi';
 
-import * as $ from 'jquery'; // Necessary because DetallePanel and AddAndCustomizeSeriesButton access to jquery directly
 
-const globalAny:any = global;
-
-globalAny.$ = $;
+window.scrollTo = () => { return } // Mute error: "Not implemented: window.scrollTo"
 
 configure({ adapter: new Adapter() });
 
