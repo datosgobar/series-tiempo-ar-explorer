@@ -1,6 +1,5 @@
 import { configure, mount, shallow } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
-import * as $ from 'jquery'; // Necessary because DetallePanel and AddAndCustomizeSeriesButton access to jquery directly
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
@@ -11,9 +10,6 @@ import ViewPage, { ViewPage as UnconnectedViewPage } from '../../../components/v
 import configureStore from '../../../store/configureStore';
 import MockApi from '../../api/mockApi';
 
-
-const globalAny:any = global;
-globalAny.$ = $;
 
 window.scrollTo = () => { return } // Mute error: "Not implemented: window.scrollTo"
 
