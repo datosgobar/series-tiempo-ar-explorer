@@ -96,16 +96,11 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
         const smallChart = chart.chartWidth <= 700;
         const displayUnits = this.props.displayUnits || (this.props.displayUnits === undefined && chart.chartWidth > 450);
-        let marginBottom = multipleSeries(this.props) ? null : 15;
-
-        if (!navigatorEnabled && this.props.navigator === undefined) {
-            marginBottom = 45
-        }
 
         chart.update({
             chart: {
                 height: chartHeight, // force the settings of container's height,
-                marginBottom,
+                marginBottom: getMarginBottom(this.props, navigatorEnabled),
                 zoomType: zoomEnabled ? 'x' : 'none'
             },
             navigator: { enabled: navigatorEnabled },
@@ -265,4 +260,14 @@ function seriesLength(apiCall: string): number {
 
 function multipleSeries(componentProps: IGraphicExportableProps): boolean {
     return seriesLength(componentProps.graphicUrl) > 1
+}
+
+function getMarginBottom(props: IGraphicExportableProps, navigatorEnabled: boolean): number|null {
+    let marginBottom = multipleSeries(props) ? null : 15;
+
+    if (!navigatorEnabled && props.navigator === undefined) {
+        marginBottom = 45
+    }
+
+    return marginBottom;
 }
