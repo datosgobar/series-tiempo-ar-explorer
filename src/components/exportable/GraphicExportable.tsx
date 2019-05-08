@@ -96,11 +96,16 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
         const smallChart = chart.chartWidth <= 700;
         const displayUnits = this.props.displayUnits || (this.props.displayUnits === undefined && chart.chartWidth > 450);
+        let marginBottom = multipleSeries(this.props) ? null : 15;
+
+        if (!navigatorEnabled && this.props.navigator === undefined) {
+            marginBottom = 45
+        }
 
         chart.update({
             chart: {
-                height: chartHeight, // force to set container's height,
-                marginBottom: multipleSeries(this.props) ? null : 15,
+                height: chartHeight, // force the settings of container's height,
+                marginBottom,
                 zoomType: zoomEnabled ? 'x' : 'none'
             },
             navigator: { enabled: navigatorEnabled },
