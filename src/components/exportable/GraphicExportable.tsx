@@ -99,8 +99,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
         chart.update({
             chart: {
-                height: chartHeight, // force to set container's height,
-                marginBottom: multipleSeries(this.props) ? null : 15,
+                height: chartHeight, // force the settings of container's height,
+                marginBottom: getMarginBottom(this.props, navigatorEnabled),
                 zoomType: zoomEnabled ? 'x' : 'none'
             },
             navigator: { enabled: navigatorEnabled },
@@ -260,4 +260,14 @@ function seriesLength(apiCall: string): number {
 
 function multipleSeries(componentProps: IGraphicExportableProps): boolean {
     return seriesLength(componentProps.graphicUrl) > 1
+}
+
+function getMarginBottom(props: IGraphicExportableProps, navigatorEnabled: boolean): number|null {
+    let marginBottom = multipleSeries(props) ? null : 15;
+
+    if (!navigatorEnabled && props.navigator === undefined) {
+        marginBottom = 45
+    }
+
+    return marginBottom;
 }
