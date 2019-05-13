@@ -44,8 +44,8 @@ function urlToString(url: string): string {
 }
 
 function webCodeUrl(url: string, chartTitle: string, chartSource: string, chartTypes: any): string {
-    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.17.2/dist/js/components.js'></script>\n" +
-        "<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.17.2/dist/css/components.css'/>\n" +
+    return "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.18.0/dist/js/components.js'></script>\n" +
+        "<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.18.0/dist/css/components.css'/>\n" +
         "<div id=\"root\"></div>\n" +
         "<script>\n" +
         "    window.onload = function() {\n" +
