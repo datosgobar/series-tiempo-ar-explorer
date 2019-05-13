@@ -1,14 +1,14 @@
 import * as React from "react";
-import {ApiClient} from "../../api/ApiClient";
+import { ApiClient } from "../../api/ApiClient";
 import QueryParams from "../../api/QueryParams";
-import {ISerie} from "../../api/Serie";
+import { ISerie } from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
-import {valuesFromObject} from "../../helpers/commonFunctions";
-import Colors, {Color} from "../style/Colors/Color";
+import { valuesFromObject } from "../../helpers/commonFunctions";
+import Colors, { Color } from "../style/Colors/Color";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
-import Graphic, {IChartTypeProps} from "../viewpage/graphic/Graphic";
-import {chartExtremes} from "../viewpage/graphic/GraphicAndShare";
-import {seriesConfigByUrl} from "../viewpage/ViewPage";
+import Graphic, { IChartTypeProps, ILegendLabel } from "../viewpage/graphic/Graphic";
+import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
+import { seriesConfigByUrl } from "../viewpage/ViewPage";
 
 
 export interface IGraphicExportableProps {
@@ -26,6 +26,7 @@ export interface IGraphicExportableProps {
     title?: string;
     source?: string;
     displayUnits?: boolean;
+    legendLabel?: ILegendLabel;
 }
 
 interface IGraphicExportableState {
@@ -84,7 +85,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          locale={this.props.locale || 'AR'}
                          legendField={legendValue(this.props.legendField)}
                          chartTypes={this.props.chartTypes}
-                         afterRender={this.afterRender} />
+                         afterRender={this.afterRender}
+                         legendLabel={this.props.legendLabel} />
             </ExportableGraphicContainer>
         )
     }

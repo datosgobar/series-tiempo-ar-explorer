@@ -18,7 +18,8 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            chartTypes={config.chartTypes}
                            title={config.title}
                            source={config.source}
-                           displayUnits={config.displayUnits} />,
+                           displayUnits={config.displayUnits}
+                           legendLabel={config.legendLabel} />,
         document.getElementById(selector) as HTMLElement
     )
 }
