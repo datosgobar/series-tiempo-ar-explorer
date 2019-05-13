@@ -15,6 +15,10 @@ import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
 
+export interface ILegendLabel {
+    [clave: string]: string;
+}
+
 
 export interface IGraphicProps {
     series: ISerie[];
@@ -30,6 +34,7 @@ export interface IGraphicProps {
     legendField?: (serie: ISerie) => string;
     chartTypes?: IChartTypeProps;
     afterRender?: (chart: any) => void;
+    legendLabel?: ILegendLabel;
 }
 
 export interface IChartTypeProps {
@@ -277,7 +282,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
             ...hcConfig,
             color: this.props.colorFor ? this.props.colorFor(serie.id).code : this.defaultHCSeriesConfig().color,
             data,
-            name: this.props.legendField ? this.props.legendField(serie) : serie.description,
+            name: getLegendLabel(serie, this.props),
             navigatorOptions: { type: chartType },
             serieId: serie.id,
             type: chartType,
@@ -450,4 +455,17 @@ function getChartType(serieId: string, types?: IChartTypeProps): string {
     if (!types) { return 'line' }
 
     return types[serieId];
+}
+
+function getLegendLabel(serie: ISerie, props: IGraphicProps): string {
+    let label = serie.description;
+    if (props.legendLabel) {
+        if (props.legendLabel[serie.id]) {
+            label = props.legendLabel[serie.id];
+        }
+    } else if(props.legendField) {
+        label = props.legendField(serie);
+    }
+
+    return label;
 }
