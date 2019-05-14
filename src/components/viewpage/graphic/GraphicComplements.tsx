@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {ISerie} from "../../../api/Serie";
-import {isHigherFrequency} from "../../../api/utils/periodicityManager";
+import { ISerie } from "../../../api/Serie";
+import { isHigherFrequency } from "../../../api/utils/periodicityManager";
+import OptionsPicker, { IPickerOptionsProps } from '../../common/picker/OptionsPicker';
 import Share from "../Share";
-import FrequencyPicker from "./FrequencyPicker";
 
 
 export interface IGraphicComplementsProps {
@@ -10,13 +10,6 @@ export interface IGraphicComplementsProps {
     handleChangeFrequency: (value: string) => void;
     url: string;
 }
-
-export interface IFrequencyOption {
-    value: string;
-    title: string;
-    available: boolean;
-}
-
 
 export default class GraphicComplements extends React.Component<IGraphicComplementsProps, any> {
 
@@ -26,7 +19,7 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         return (
             <div className="row graphic-complements">
                 <Share url={this.props.url} series={this.props.series} />
-                <FrequencyPicker onChangeFrequency={this.props.handleChangeFrequency} frequency={this.frequency()} frequencyOptions={this.frequencyOptions()}/>
+                <OptionsPicker onChangeOption={this.props.handleChangeFrequency} selected={this.frequency()} availableOptions={this.frequencyOptions()} label="Frecuencia" />
             </div>
         )
     }
@@ -44,7 +37,7 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         return validOptions[minIndex].value;
     }
 
-    public frequencyOptions(): IFrequencyOption[] {
+    public frequencyOptions(): IPickerOptionsProps[] {
         const accrualPeriodicity = this.appropiatedFrequency();
         // noinspection TsLint
         const options = [
@@ -55,8 +48,8 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
             { value: 'day',      title: 'Diaria',     available: false },
         ];
 
-        const optionIndex = options.findIndex((option: IFrequencyOption) => option.title === accrualPeriodicity);
-        options.forEach((option: IFrequencyOption) => {
+        const optionIndex = options.findIndex((option: IPickerOptionsProps) => option.title === accrualPeriodicity);
+        options.forEach((option: IPickerOptionsProps) => {
             option.available = options.indexOf(option) <= optionIndex;
         });
 
