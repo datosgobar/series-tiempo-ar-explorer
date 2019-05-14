@@ -1,5 +1,5 @@
 import * as React from 'react';
-import FrequencyPickerContainer from "../../style/Graphic/FrequencyPickerContainer";
+import FrequencyPickerContainer from "../../style/picker/OptionsPickerContainer";
 
 
 export interface IPickerOptionsProps {

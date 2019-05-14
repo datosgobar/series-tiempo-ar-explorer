@@ -1,12 +1,12 @@
 import * as React from 'react';
 import FormHorizontal from "../Common/FormHorizontal";
 
-interface IFrequencyContainerProps {
+interface IOptionsContainerProps extends React.Props<any> {
     labelText: string;
     className: string;
 }
 
-export default (props: IFrequencyContainerProps) => {
+export default (props: IOptionsContainerProps) => {
     const auxProps = Object.assign({}, props);
     const labelText = props.labelText;
     delete auxProps.labelText;
