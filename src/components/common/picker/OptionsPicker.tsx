@@ -28,7 +28,7 @@ export default class OptionsPicker extends React.Component<IOptionsPickerProps, 
 
     public render() {
         return (
-            <FrequencyPickerContainer labelText={this.props.label} className="col-xs-5">
+            <FrequencyPickerContainer labelText={this.props.label} className="col-xs-4">
                 <select name="frequencyList" id="" className="form-control" onChange={this.handleChangeOption} value={this.props.selected}>
                     {this.props.availableOptions.map((option: IPickerOptionsProps) =>
                         <option key={option.value} value={option.value} disabled={!option.available}>{option.title}</option>

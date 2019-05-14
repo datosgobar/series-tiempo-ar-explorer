@@ -15,8 +15,8 @@ export default (props: IFrequencyContainerProps) => {
     return (
         <div className={props.className}>
             <FormHorizontal>
-                <label className="col-sm-6 control-label">{labelText}</label>
-                <div className="col-sm-6" {...auxProps} />
+                <label className="col-sm-3 control-label">{labelText}</label>
+                <div className="col-sm-9" {...auxProps} />
             </FormHorizontal>
         </div>
     )

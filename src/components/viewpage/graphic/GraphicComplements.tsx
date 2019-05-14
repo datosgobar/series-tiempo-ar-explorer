@@ -8,6 +8,7 @@ import Share from "../Share";
 export interface IGraphicComplementsProps {
     series: ISerie[];
     handleChangeFrequency: (value: string) => void;
+    handleChangeUnits: (value: string) => void;
     url: string;
 }
 
@@ -19,6 +20,7 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         return (
             <div className="row graphic-complements">
                 <Share url={this.props.url} series={this.props.series} />
+                <OptionsPicker onChangeOption={this.props.handleChangeUnits} selected={this.selectedUnit()} availableOptions={this.unitOptions()} label="Unidad" />
                 <OptionsPicker onChangeOption={this.props.handleChangeFrequency} selected={this.frequency()} availableOptions={this.frequencyOptions()} label="Frecuencia" />
             </div>
         )
@@ -35,6 +37,20 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         });
 
         return validOptions[minIndex].value;
+    }
+
+    public selectedUnit(): string {
+        return this.props.series[0].representationMode;
+    }
+
+    public unitOptions(): IPickerOptionsProps[] {
+        return [
+            { value: "value", title: "Unidades originales", available: true },
+            { value: "change", title: "Variación", available: true },
+            { value: "change_a_year_ago", title: "Variación interanual", available: true },
+            { value: "percent_change", title: "Variación porcentual", available: true },
+            { value: "percent_change_a_year_ago", title: "Variación porcentual interanual", available: true }
+        ];
     }
 
     public frequencyOptions(): IPickerOptionsProps[] {
