@@ -58,6 +58,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.colorFor = this.colorFor.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
         this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
+        this.handleChangeUnits = this.handleChangeUnits.bind(this);
         this.removeDateParams = this.removeDateParams.bind(this);
         this.state = {
             emptySeries: [],
@@ -111,6 +112,12 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.setQueryParams(params);
     }
 
+    public handleChangeUnits(value: string) {
+        const params = this.getQueryParams();
+        params.set('representation_mode', value);
+        this.setQueryParams(params);
+    }
+
     public redirectToSearchPage(searchTerm: string) {
         this.props.history.push('/search/?q=' + searchTerm);
     }
@@ -141,6 +148,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                          date={this.props.date}
                                          handleChangeDate={this.handleChangeDate}
                                          handleChangeFrequency={this.handleChangeFrequency}
+                                         handleChangeUnits={this.handleChangeUnits}
                                          onReset={this.removeDateParams}
                                          url={this.downloadDataURL()}
                                          dispatch={this.props.dispatch} />

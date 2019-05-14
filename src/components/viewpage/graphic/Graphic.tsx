@@ -96,6 +96,8 @@ export default class Graphic extends React.Component<IGraphicProps> {
     public afterRender = (chart: any) => {
         this.showLoading(chart);
         this.setExtremes(chart);
+        changeCreditsPosition(chart);
+
         if (this.props.afterRender) {
             this.props.afterRender(chart);
         }
@@ -468,4 +470,8 @@ function getLegendLabel(serie: ISerie, props: IGraphicProps): string {
     }
 
     return label;
+}
+
+function changeCreditsPosition(chart: any) {
+    chart.container.getElementsByClassName('highcharts-credits')[0].setAttribute('y', 460); // change position of 'credits'
 }
