@@ -154,11 +154,21 @@ export default class Serie implements ISerie {
     }
 
     get minValue(): number {
-        return parseFloat(this.fieldMeta.min_value);
+        let result = parseFloat(this.fieldMeta.min_value);
+        if (this.representationModeUnits.includes('porcentual')) {
+            result = -1;
+        }
+
+        return result;
     }
 
     get maxValue(): number {
-        return parseFloat(this.fieldMeta.max_value);
+        let result = parseFloat(this.fieldMeta.max_value);
+        if (this.representationModeUnits.includes('porcentual')) {
+            result = 1;
+        }
+
+        return result;
     }
 
     public bake(): ISerie {
