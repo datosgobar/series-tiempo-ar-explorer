@@ -265,10 +265,11 @@ function multipleSeries(componentProps: IGraphicExportableProps): boolean {
 }
 
 function getMarginBottom(props: IGraphicExportableProps, navigatorEnabled: boolean): number|null {
-    let marginBottom = multipleSeries(props) ? null : 15;
+    const activeLegend = multipleSeries(props);
+    let marginBottom = activeLegend ? null : 15;
 
-    if (!navigatorEnabled && props.navigator === undefined) {
-        marginBottom = 45
+    if (activeLegend && (!navigatorEnabled && props.navigator === undefined)) {
+        marginBottom = 55;
     }
 
     return marginBottom;
