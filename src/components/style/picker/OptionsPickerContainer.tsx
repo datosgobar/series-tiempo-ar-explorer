@@ -3,7 +3,7 @@ import FormHorizontal from "../Common/FormHorizontal";
 
 interface IOptionsContainerProps extends React.Props<any> {
     labelText: string;
-    className: string;
+    className?: string;
 }
 
 export default (props: IOptionsContainerProps) => {
@@ -13,10 +13,10 @@ export default (props: IOptionsContainerProps) => {
     delete auxProps.className;
 
     return (
-        <div className={props.className}>
+        <div className={`g-complement col-xs-4 ${props.className}`}>
             <FormHorizontal>
-                <label className="col-xs-4 control-label">{labelText}</label>
-                <div className="col-xs-8" {...auxProps} />
+                <label>{labelText}</label>
+                <span {...auxProps} />
             </FormHorizontal>
         </div>
     )
