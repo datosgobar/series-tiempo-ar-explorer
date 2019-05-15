@@ -81,6 +81,7 @@ export function toSerie(id: string): ISerie {
     const self = {
         accrualPeriodicity: `${id} accrualPeriodicity`,
         bake: () => self,
+        collapseAggregation: "end_of_period",
         data: [],
         datasetSource: '',
         datasetTitle: '',

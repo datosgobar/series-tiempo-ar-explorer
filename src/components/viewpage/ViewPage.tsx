@@ -59,6 +59,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.handleChangeDate = this.handleChangeDate.bind(this);
         this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
         this.handleChangeUnits = this.handleChangeUnits.bind(this);
+        this.handleChangeAggregation = this.handleChangeAggregation.bind(this);
         this.removeDateParams = this.removeDateParams.bind(this);
         this.state = {
             emptySeries: [],
@@ -118,6 +119,12 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.setQueryParams(params);
     }
 
+    public handleChangeAggregation(value: string) {
+        const params = this.getQueryParams();
+        params.set('collapse_aggregation', value);
+        this.setQueryParams(params);
+    }
+
     public redirectToSearchPage(searchTerm: string) {
         this.props.history.push('/search/?q=' + searchTerm);
     }
@@ -149,6 +156,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                          handleChangeDate={this.handleChangeDate}
                                          handleChangeFrequency={this.handleChangeFrequency}
                                          handleChangeUnits={this.handleChangeUnits}
+                                         handleChangeAggregation={this.handleChangeAggregation}
                                          onReset={this.removeDateParams}
                                          url={this.downloadDataURL()}
                                          dispatch={this.props.dispatch} />
