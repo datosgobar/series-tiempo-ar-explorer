@@ -94,4 +94,7 @@ export default class SearchResult implements ISerie {
     get minValue() { return 0; }
     get maxValue() { return 0; }
 
+    get representationMode(): string {
+        return "";
+    }
 }

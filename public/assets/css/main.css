@@ -130,10 +130,16 @@
   }
 }
 
-@media (max-width: 600px) and (min-width: 461px) {
+@media (max-width: 630px) {
   .share {
-    width: 57%;
+    width: 100%;
     display: inline-block;
+  }
+}
+
+@media (min-width: 630px) and (max-width: 994px) {
+  .share {
+    width: 50%;
   }
 }
 

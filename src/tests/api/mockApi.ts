@@ -98,6 +98,7 @@ export function toSerie(id: string): ISerie {
         maxValue: 1,
         minValue: 0,
         modified: `2018-01-01`,
+        representationMode: `${id} rep mode`,
         representationModeUnits: `${id} rep mode units`,
         startDate: 'start',
         themes: [{id: `${id} theme`, label: `${id} theme`, descripcion: `${id} theme`}],

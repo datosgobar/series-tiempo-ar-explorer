@@ -23,6 +23,7 @@ export interface ISerie {
     themes: IDataSetTheme[],
     frequency?: string,
     timeIndexSize: number,
+    representationMode: string,
     representationModeUnits: string,
     downloadURL: string,
     minValue: number,
@@ -107,6 +108,10 @@ export default class Serie implements ISerie {
         return this.fieldMeta.representation_mode_units || 'Cantidad'; // default porque a veces viene null. Podríamos llegar a querer usar otro
     }
 
+    get representationMode(): string {
+        return this.tsResponse.params.representation_mode;
+    }
+
     get startDate() {
         return this.periodicityParser.formatDate(this.fieldMeta.time_index_start);
     }
@@ -149,11 +154,21 @@ export default class Serie implements ISerie {
     }
 
     get minValue(): number {
-        return parseFloat(this.fieldMeta.min_value);
+        let result = parseFloat(this.fieldMeta.min_value);
+        if (this.representationModeUnits.includes('porcentual')) {
+            result = -1;
+        }
+
+        return result;
     }
 
     get maxValue(): number {
-        return parseFloat(this.fieldMeta.max_value);
+        let result = parseFloat(this.fieldMeta.max_value);
+        if (this.representationModeUnits.includes('porcentual')) {
+            result = 1;
+        }
+
+        return result;
     }
 
     public bake(): ISerie {
@@ -174,6 +189,7 @@ export default class Serie implements ISerie {
             minValue: this.minValue,
             modified: this.modified,
             publisher: {...this.publisher},
+            representationMode: this.representationMode,
             representationModeUnits: this.representationModeUnits,
             startDate: this.startDate,
             themes: [...this.themes],
