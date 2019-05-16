@@ -9,6 +9,7 @@ export interface IGraphicComplementsProps {
     series: ISerie[];
     handleChangeFrequency: (value: string) => void;
     handleChangeUnits: (value: string) => void;
+    handleChangeAggregation: (value: string) => void;
     url: string;
 }
 
@@ -20,8 +21,9 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         return (
             <div className="row graphic-complements">
                 <Share url={this.props.url} series={this.props.series} />
-                <OptionsPicker onChangeOption={this.props.handleChangeUnits} selected={this.selectedUnit()} availableOptions={this.unitOptions()} label="Unidad" />
-                <OptionsPicker onChangeOption={this.props.handleChangeFrequency} selected={this.frequency()} availableOptions={this.frequencyOptions()} label="Frecuencia" />
+                <OptionsPicker className="col-sm-3" onChangeOption={this.props.handleChangeAggregation} selected={this.selectedAggregation()} availableOptions={this.aggregationOptions()} label="Agregación" />
+                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeUnits} selected={this.selectedUnit()} availableOptions={this.unitOptions()} label="Unidad" />
+                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeFrequency} selected={this.frequency()} availableOptions={this.frequencyOptions()} label="Frecuencia" />
             </div>
         )
     }
@@ -43,6 +45,10 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         return this.props.series[0].representationMode;
     }
 
+    public selectedAggregation(): string {
+        return this.props.series[0].collapseAggregation;
+    }
+
     public unitOptions(): IPickerOptionsProps[] {
         return [
             { value: "value", title: "Unidades originales", available: true },
@@ -50,6 +56,16 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
             { value: "change_a_year_ago", title: "Variación interanual", available: true },
             { value: "percent_change", title: "Variación porcentual", available: true },
             { value: "percent_change_a_year_ago", title: "Variación porcentual interanual", available: true }
+        ];
+    }
+
+    public aggregationOptions(): IPickerOptionsProps[] {
+        return [
+            { value: "avg", title: "Promedio", available: true },
+            { value: "sum", title: "Suma", available: true },
+            { value: "min", title: "Mínimo", available: true },
+            { value: "max", title: "Máximo", available: true },
+            { value: "end_of_period", title: "Último valor del período", available: true }
         ];
     }
 

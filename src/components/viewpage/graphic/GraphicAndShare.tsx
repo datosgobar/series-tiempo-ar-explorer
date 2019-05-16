@@ -19,6 +19,7 @@ export interface IGraphicAndShareProps {
     handleChangeDate: (date: {start: string, end: string}) => void;
     handleChangeFrequency: (value: string) => void;
     handleChangeUnits: (value: string) => void;
+    handleChangeAggregation: (value: string) => void;
     url: string;
     onReset?: () => void;
     readonly dispatch: (action: object) => void;
@@ -59,7 +60,8 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
                 <GraphicComplements url={this.props.url}
                                     series={this.props.series}
                                     handleChangeFrequency={this.props.handleChangeFrequency}
-                                    handleChangeUnits={this.props.handleChangeUnits} />
+                                    handleChangeUnits={this.props.handleChangeUnits}
+                                    handleChangeAggregation={this.props.handleChangeAggregation} />
             </GraphContainer>
         )
     }

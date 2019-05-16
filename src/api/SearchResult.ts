@@ -97,4 +97,8 @@ export default class SearchResult implements ISerie {
     get representationMode(): string {
         return "";
     }
+
+    get collapseAggregation(): string {
+        return "";
+    }
 }

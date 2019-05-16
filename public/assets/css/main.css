@@ -1,3 +1,22 @@
+@media (max-width: 990px) {
+  .g-complement {
+    width: 30%;
+  }
+}
+
+@media (max-width: 526px) {
+  .g-complement {
+    width: 90%;
+    margin-left: 15px;
+    float: none !important;
+  }
+}
+
+.g-complement {
+  margin-right: 10px;
+  float: right;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -134,12 +153,6 @@
   .share {
     width: 100%;
     display: inline-block;
-  }
-}
-
-@media (min-width: 630px) and (max-width: 994px) {
-  .share {
-    width: 50%;
   }
 }
 

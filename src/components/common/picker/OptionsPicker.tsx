@@ -12,7 +12,8 @@ interface IOptionsPickerProps {
     label: string;
     onChangeOption: (value: string) => void;
     selected: string;
-    availableOptions: IPickerOptionsProps[]
+    availableOptions: IPickerOptionsProps[];
+    className?: string;
 }
 
 export default class OptionsPicker extends React.Component<IOptionsPickerProps, any> {
@@ -28,8 +29,8 @@ export default class OptionsPicker extends React.Component<IOptionsPickerProps, 
 
     public render() {
         return (
-            <FrequencyPickerContainer labelText={this.props.label} className="col-xs-4 share">
-                <select name="frequencyList" id="" className="form-control" onChange={this.handleChangeOption} value={this.props.selected}>
+            <FrequencyPickerContainer labelText={this.props.label} className={this.props.className}>
+                <select name="frequencyList" className="form-control" onChange={this.handleChangeOption} value={this.props.selected}>
                     {this.props.availableOptions.map((option: IPickerOptionsProps) =>
                         <option key={option.value} value={option.value} disabled={!option.available}>{option.title}</option>
                     )}

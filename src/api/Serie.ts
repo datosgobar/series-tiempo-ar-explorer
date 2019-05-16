@@ -28,6 +28,7 @@ export interface ISerie {
     downloadURL: string,
     minValue: number,
     maxValue: number,
+    collapseAggregation: string,
 }
 
 export default class Serie implements ISerie {
@@ -112,6 +113,10 @@ export default class Serie implements ISerie {
         return this.tsResponse.params.representation_mode;
     }
 
+    get collapseAggregation(): string {
+        return this.tsResponse.params.collapse_aggregation;
+    }
+
     get startDate() {
         return this.periodicityParser.formatDate(this.fieldMeta.time_index_start);
     }
@@ -174,6 +179,7 @@ export default class Serie implements ISerie {
     public bake(): ISerie {
         return {
             accrualPeriodicity: this.accrualPeriodicity,
+            collapseAggregation: this.collapseAggregation,
             data: this.data.map((datapoint: DataPoint) => datapoint.bake()),
             datasetSource: this.datasetSource,
             datasetTitle: this.datasetTitle,
