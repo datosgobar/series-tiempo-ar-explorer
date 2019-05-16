@@ -1,9 +1,12 @@
 ## Documentación de desarrollo
 
+**Versión**: 2.3.0
+
 El objeto exportado se llama `TSExplorer`, y el mismo está en el archivo `main.js`.
 Está alojado en el CDN por versiones: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@1.1.0/dist/js/main.js
 
 ### ¿Cómo lo uso?
+
 - Importar el archivo:
   - `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@1.1.0/dist/js/main.js'></script>`
 - Definir dónde se va a dibujar:

@@ -1,8 +1,6 @@
 # Explorador de Series de Tiempo
 
-**Versión:** 1.16.1
-
-El Explorador de Series de Tiempo es una familia de componentes _front-end_ que permite desarrollar fácilmente experiencias web que consumen datos de la [API de Series de Tiempo de la República Argentina](https://apis.datos.gob.ar/series), donde los organismos de la Administración Pública Nacional publican indicadores en formatos abiertos.
+El Explorador de Series de Tiempo es una familia de componentes _front-end_ para desarrollar experiencias web a partir de los datos de la [API de Series de Tiempo de la República Argentina](https://apis.datos.gob.ar/series), donde los organismos de la Administración Pública Nacional publican indicadores en formatos abiertos.
 
 Si querés **integrar un explorador completo en tu sitio web** (como el de [Datos Argentina](https://datos.gob.ar/series)) leé la referencia de **[TSExplorer](reference/ts-explorer.md)**.
 
