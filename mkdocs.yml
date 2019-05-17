@@ -10,6 +10,7 @@ nav:
     - Referencia:
       - TSExplorer: 'reference/ts-explorer.md'
       - TSComponents: 'reference/ts-components.md'
+      - "TSComponents: graphic": 'reference/ts-components/graphic.md'
   #   - Condiciones de uso: terms.md
   # - Aplicaciones: applications.md
   - Desarrolladores:

@@ -131,7 +131,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#documentacion-de-desarrollo" tabindex="1" class="md-skip">
+      <a href="#tsexplorer" tabindex="1" class="md-skip">
         Saltar a contenido
       </a>
     
@@ -356,6 +356,8 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
+      
+    
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         TSExplorer
@@ -369,48 +371,37 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#documentacion-de-desarrollo" title="Documentación de desarrollo" class="md-nav__link">
-    Documentación de desarrollo
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#como-lo-uso" title="¿Cómo lo uso?" class="md-nav__link">
     ¿Cómo lo uso?
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-de-uso" title="Ejemplo de uso" class="md-nav__link">
+    Ejemplo de uso
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabla-de-parametros" title="Tabla de parámetros" class="md-nav__link">
+    Tabla de parámetros
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#demo-online" title="Demo online" class="md-nav__link">
     Demo online
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ejemplo-de-uso" title="Ejemplo de uso:" class="md-nav__link">
-    Ejemplo de uso:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parametros-de-tsexplorer" title="Parámetros de TSExplorer" class="md-nav__link">
-    Parámetros de TSExplorer
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -433,6 +424,18 @@
   <li class="md-nav__item">
     <a href="../ts-components/" title="TSComponents" class="md-nav__link">
       TSComponents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ts-components/graphic/" title="TSComponents: graphic" class="md-nav__link">
+      TSComponents: graphic
     </a>
   </li>
 
@@ -524,48 +527,37 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#documentacion-de-desarrollo" title="Documentación de desarrollo" class="md-nav__link">
-    Documentación de desarrollo
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#como-lo-uso" title="¿Cómo lo uso?" class="md-nav__link">
     ¿Cómo lo uso?
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-de-uso" title="Ejemplo de uso" class="md-nav__link">
+    Ejemplo de uso
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabla-de-parametros" title="Tabla de parámetros" class="md-nav__link">
+    Tabla de parámetros
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#demo-online" title="Demo online" class="md-nav__link">
     Demo online
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ejemplo-de-uso" title="Ejemplo de uso:" class="md-nav__link">
-    Ejemplo de uso:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parametros-de-tsexplorer" title="Parámetros de TSExplorer" class="md-nav__link">
-    Parámetros de TSExplorer
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -588,70 +580,133 @@
                   <a href="https://github.com/datosgobar/series-tiempo-ar-explorer/edit/master/docs/reference/ts-explorer.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>TSExplorer</h1>
-                
-                <h2 id="documentacion-de-desarrollo"><a class="toclink" href="#documentacion-de-desarrollo">Documentación de desarrollo</a><a class="headerlink" href="#documentacion-de-desarrollo" title="Permanent link">&#128279;</a></h2>
+                <h1 id="tsexplorer"><a class="toclink" href="#tsexplorer">TSExplorer</a><a class="headerlink" href="#tsexplorer" title="Permanent link">&#128279;</a></h1>
 <p><strong>Versión</strong>: 2.3.0</p>
-<p>El objeto exportado se llama <code>TSExplorer</code>, y el mismo está en el archivo <code>main.js</code>.
-Está alojado en el CDN por versiones: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@1.1.0/dist/js/main.js</p>
-<h3 id="como-lo-uso"><a class="toclink" href="#como-lo-uso">¿Cómo lo uso?</a><a class="headerlink" href="#como-lo-uso" title="Permanent link">&#128279;</a></h3>
+<p>El objeto <code>TSExplorer</code> contiene una <em>one page application</em> con un explorador de series de tiempo, que permite buscar y visualizar series de un catálogo de datos abiertos.</p>
+<p>Está en el archivo llamado <code>main.js</code> y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.3.0/dist/js/main.js</p>
+<h2 id="como-lo-uso"><a class="toclink" href="#como-lo-uso">¿Cómo lo uso?</a><a class="headerlink" href="#como-lo-uso" title="Permanent link">&#128279;</a></h2>
 <ul>
-<li>Importar el archivo:</li>
-<li><code>&lt;script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@1.1.0/dist/js/main.js'&gt;&lt;/script&gt;</code></li>
-<li>Definir dónde se va a dibujar:</li>
-<li><code>&lt;div id="explorer-container"&gt;&lt;/div&gt;</code></li>
-<li>Instanciarlo:</li>
-<li><code>TSExplorer.render(...)</code></li>
+<li>Importar librería JS:</li>
 </ul>
-<h3 id="demo-online"><a class="toclink" href="#demo-online">Demo online</a><a class="headerlink" href="#demo-online" title="Permanent link">&#128279;</a></h3>
-<p>https://jsfiddle.net/sv6ua42q/1/</p>
-<h3 id="ejemplo-de-uso"><a class="toclink" href="#ejemplo-de-uso">Ejemplo de uso:</a><a class="headerlink" href="#ejemplo-de-uso" title="Permanent link">&#128279;</a></h3>
-<div class="codehilite"><pre><span></span><span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="n">script</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="n">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@1.1.0/dist/js/main.js&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
-
-  <span class="o">&lt;</span><span class="n">div</span> <span class="kt">id</span><span class="o">=</span><span class="s">&quot;root&quot;</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span>
-    <span class="n">window</span><span class="p">.</span><span class="n">onload</span> <span class="o">=</span> <span class="n">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">TSExplorer</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="err">&#39;</span><span class="n">root</span><span class="err">&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="nl">featured</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s">&quot;103.1_I2N_2016_M_15&quot;</span><span class="p">,</span>
-                <span class="s">&quot;168.1_T_CAMBIOR_D_0_0_26&quot;</span><span class="p">,</span>
-            <span class="p">],</span>
-            <span class="nl">seriesApiUri</span><span class="p">:</span> <span class="s">&quot;https://apis-stg.datos.gob.ar/series/api&quot;</span><span class="p">,</span>
-            <span class="nl">catalogId</span><span class="p">:</span> <span class="err">&#39;</span><span class="n">datosgobar</span><span class="err">&#39;</span><span class="p">,</span>
-            <span class="nl">formatChartUnits</span><span class="p">:</span> <span class="nb">true</span><span class="p">,</span>
-            <span class="nl">laps</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nl">Diaria</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
-                <span class="nl">Mensual</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
-                <span class="nl">Trimestral</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-                <span class="nl">Semestral</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-                <span class="nl">Anual</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-            <span class="p">},</span>
-            <span class="nl">locale</span><span class="p">:</span> <span class="err">&#39;</span><span class="n">AR</span><span class="err">&#39;</span>
-        <span class="p">})</span>
-    <span class="p">}</span>
-  <span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">html</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.3.0/dist/js/main.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 
 
-<h3 id="parametros-de-tsexplorer"><a class="toclink" href="#parametros-de-tsexplorer">Parámetros de <code>TSExplorer</code></a><a class="headerlink" href="#parametros-de-tsexplorer" title="Permanent link">&#128279;</a></h3>
 <ul>
-<li><code>featured: string[]</code></li>
-<li>indica los IDs de las series destacadas</li>
-<li><code>seriesApiUri: string</code></li>
-<li>uri a la API donde buscamos los datos</li>
-<li><code>catalogId: string</code></li>
-<li>representa el id del catálogo de donde busca las series</li>
-<li><code>formatChartUnits: boolean</code></li>
-<li>indica si debe formatear a porcentaje los valores entre -1 y 1</li>
-<li><code>laps: { Diaria: number, Mensual: number, Trimestral: number, Semestral: number, Anual: number }</code></li>
-<li>información para traer los últimos <em>n</em> valores de la serie, con <em>n</em> igual al valor por frecuencia</li>
-<li><code>locale: string</code></li>
-<li>valores posibles: <code>"AR"</code> o <code>"US"</code> (pendientes nuevos valores). Representan qué <em>locale</em> usar para formatear números, es decir, separadores de miles o de decimales.</li>
+<li>Definir dónde se va a dibujar:</li>
 </ul>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;explorer-container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<ul>
+<li>Instanciar el explorador:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="nx">TSExplorer</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;explorer-container&#39;</span><span class="p">,</span> <span class="p">{</span>
+<span class="p">...</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<h2 id="ejemplo-de-uso"><a class="toclink" href="#ejemplo-de-uso">Ejemplo de uso</a><a class="headerlink" href="#ejemplo-de-uso" title="Permanent link">&#128279;</a></h2>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.3.0/dist/js/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;explorer-container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">TSExplorer</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;explorer-container&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">featured</span><span class="o">:</span> <span class="p">[</span>
+                <span class="s2">&quot;103.1_I2N_2016_M_15&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;168.1_T_CAMBIOR_D_0_0_26&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="nx">seriesApiUri</span><span class="o">:</span> <span class="s2">&quot;https://apis.datos.gob.ar/series/api&quot;</span><span class="p">,</span>
+            <span class="nx">catalogId</span><span class="o">:</span> <span class="s1">&#39;datosgobar&#39;</span><span class="p">,</span>
+            <span class="nx">formatChartUnits</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">laps</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">Diaria</span><span class="o">:</span> <span class="mi">90</span><span class="p">,</span>
+                <span class="nx">Mensual</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
+                <span class="nx">Trimestral</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+                <span class="nx">Semestral</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="nx">Anual</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="nx">locale</span><span class="o">:</span> <span class="s1">&#39;AR&#39;</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<h2 id="tabla-de-parametros"><a class="toclink" href="#tabla-de-parametros">Tabla de parámetros</a><a class="headerlink" href="#tabla-de-parametros" title="Permanent link">&#128279;</a></h2>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Requerido</th>
+        <th style="min-width: 20em;">Descripción</th>
+        <th>Tipo</th>
+        <th>Default</th>
+        <th>Ejemplos</th>
+    </tr>
+    <tr>
+        <td>seriesApiUri</td>
+        <td>Si</td>
+        <td>URI a la API donde buscamos los datos.</td>
+        <td>string</td>
+        <td>Ninguno</td>
+        <td>https://apis.datos.gob.ar/series/api</td>
+    </tr>
+    <tr>
+        <td>featured</td>
+        <td>No</td>
+        <td>Indica los IDs de las series destacadas</td>
+        <td>string[]</td>
+        <td>[]</td>
+        <td>["103.1_I2N_2016_M_15", "168.1_T_CAMBIOR_D_0_0_26"]</td>
+    </tr>
+    <tr>
+        <td>catalogId</td>
+        <td>No</td>
+        <td>Representa el id del catálogo de donde busca las series</td>
+        <td>string</td>
+        <td>Ninguno</td>
+        <td>datosgobar</td>
+    </tr>
+    <tr>
+        <td>formatChartUnits</td>
+        <td>No</td>
+        <td>Indica si debe formatear a porcentaje los valores entre -1 y 1.</td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>true / false</td>
+    </tr>
+    <tr>
+        <td>laps</td>
+        <td>No</td>
+        <td>Información para traer los últimos _n_ valores de la serie, con _n_ igual al valor por frecuencia.
+        <br>
+        <br>
+        {Diaria: number, Mensual: number, Trimestral: number, Semestral: number, Anual: number}
+        </td>
+        <td>object</td>
+        <td>true</td>
+        <td>true / false</td>
+    </tr>
+    <tr>
+        <td>locale</td>
+        <td>No</td>
+        <td>Valores posibles: `"AR"` o `"US"` (pendientes nuevos valores). Representan qué _locale_ usar para formatear números, es decir, separadores de miles o de decimales.</td>
+        <td>string</td>
+        <td>"AR"</td>
+        <td>"AR" / "US"</td>
+    </tr>
+</table>
+
+<h2 id="demo-online"><a class="toclink" href="#demo-online">Demo online</a><a class="headerlink" href="#demo-online" title="Permanent link">&#128279;</a></h2>
+<p>https://jsfiddle.net/sv6ua42q/1/</p>
                 
                   
                 
