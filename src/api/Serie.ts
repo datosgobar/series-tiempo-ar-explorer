@@ -142,7 +142,7 @@ export default class Serie implements ISerie {
     }
 
     get themes() {
-        return this.datasetMeta.theme;
+        return this.datasetMeta.theme || emptyDatasetThemes();
     }
 
     get frequency(): string {
@@ -204,4 +204,8 @@ export default class Serie implements ISerie {
             units: this.units,
         };
     }
+}
+
+function emptyDatasetThemes(): IDataSetTheme[] {
+    return [{descripcion: '-', id: '-', label: '-'}]
 }
