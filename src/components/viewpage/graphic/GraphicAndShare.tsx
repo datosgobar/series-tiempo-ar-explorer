@@ -20,11 +20,7 @@ import GraphicComplements from "./GraphicComplements";
 export interface IGraphicAndShareProps {
     series: ISerie[];
     date: IDateRange;
-    updateDateInUrl: (params: URLSearchParams) => void;
-    handleChangeFrequency: (value: string) => void;
-    handleChangeUnits: (value: string) => void;
-    handleChangeAggregation: (value: string) => void;
-    onReset?: () => void;
+    updateParamsInUrl: (params: URLSearchParams) => void;
     readonly dispatch: (action: object) => void;
     seriesConfig: (series: ISerie[]) => SerieConfig[];
     formatUnits: boolean;
@@ -38,6 +34,10 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
     constructor(props: IGraphicAndShareProps) {
         super(props);
         this.handleZoom = this.handleZoom.bind(this);
+        this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
+        this.handleChangeUnits = this.handleChangeUnits.bind(this);
+        this.handleChangeAggregation = this.handleChangeAggregation.bind(this);
+        this.removeDateParams = this.removeDateParams.bind(this);
     }
 
     public handleZoom(extremes: IChartExtremeProps) {
@@ -51,7 +51,29 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         this.setDateParam(params, date);
         this.props.dispatch(setDate(date));
 
-        this.props.updateDateInUrl(params);
+        this.props.updateParamsInUrl(params);
+    }
+
+    public handleChangeFrequency(value: string) {
+        const params = getQueryParams(this.props.location);
+        params.set('collapse', value);
+        params.set('collapse_aggregation', 'avg');
+
+        this.props.updateParamsInUrl(params);
+    }
+
+    public handleChangeUnits(value: string) {
+        const params = getQueryParams(this.props.location);
+        params.set('representation_mode', value);
+
+        this.props.updateParamsInUrl(params);
+    }
+
+    public handleChangeAggregation(value: string) {
+        const params = getQueryParams(this.props.location);
+        params.set('collapse_aggregation', value);
+
+        this.props.updateParamsInUrl(params);
     }
 
     public render() {
@@ -61,18 +83,29 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
                          seriesConfig={this.props.seriesConfig(this.props.series)}
                          formatUnits={this.props.formatUnits}
                          range={chartExtremes(this.props.series, this.props.date)}
-                         onReset={this.props.onReset}
+                         onReset={this.removeDateParams}
                          onZoom={this.handleZoom}
                          dispatch={this.props.dispatch}
                          locale={this.props.locale} />
 
                 <GraphicComplements url={this.downloadDataURL()}
                                     series={this.props.series}
-                                    handleChangeFrequency={this.props.handleChangeFrequency}
-                                    handleChangeUnits={this.props.handleChangeUnits}
-                                    handleChangeAggregation={this.props.handleChangeAggregation} />
+                                    handleChangeFrequency={this.handleChangeFrequency}
+                                    handleChangeUnits={this.handleChangeUnits}
+                                    handleChangeAggregation={this.handleChangeAggregation} />
             </GraphContainer>
         )
+    }
+
+    private removeDateParams() {
+        const params = getQueryParams(this.props.location);
+        if (params.get('start_date') === null && params.get('end_date') === null) { return }
+
+        params.delete('start_date');
+        params.delete('end_date');
+        this.props.dispatch(setDate({ start: '', end: '' }));
+
+        this.props.updateParamsInUrl(params);
     }
 
     private downloadDataURL(): string {

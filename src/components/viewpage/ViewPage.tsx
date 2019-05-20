@@ -51,16 +51,26 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.redirectToViewPage = this.redirectToViewPage.bind(this);
         this.removeSerie = this.removeSerie.bind(this);
         this.addPickedSerie = this.addPickedSerie.bind(this);
-        this.updateDateInUrl = this.updateDateInUrl.bind(this);
-        this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
-        this.handleChangeUnits = this.handleChangeUnits.bind(this);
-        this.handleChangeAggregation = this.handleChangeAggregation.bind(this);
-        this.removeDateParams = this.removeDateParams.bind(this);
+        this.setQueryParams = this.setQueryParams.bind(this);
         this.state = {
             emptySeries: [],
             failedSeries: [],
             lastSuccessQueryParams: getQueryParams(this.props.location),
         }
+    }
+
+    public componentDidMount() {
+        this.unlisten = this.props.history.listen(l => {  // se subscribe
+            if (QueryParams.distinctURLs(this.props.location.search, l.search)) {
+                this.handleUriChange(l)
+            }
+        });
+        this.handleUriChange(this.props.location as Location);
+    }
+
+    public componentWillUnmount() {
+        this.unlisten(); // se dessubscribe
+        this.props.dispatch(clearViewSeries());
     }
 
     public viewSeries(ids: string[]) {
@@ -92,29 +102,6 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         }
     }
 
-    public updateDateInUrl(params: URLSearchParams) {
-        this.setQueryParams(params);
-    }
-
-    public handleChangeFrequency(value: string) {
-        const params = getQueryParams(this.props.location);
-        params.set('collapse', value);
-        params.set('collapse_aggregation', 'avg');
-        this.setQueryParams(params);
-    }
-
-    public handleChangeUnits(value: string) {
-        const params = getQueryParams(this.props.location);
-        params.set('representation_mode', value);
-        this.setQueryParams(params);
-    }
-
-    public handleChangeAggregation(value: string) {
-        const params = getQueryParams(this.props.location);
-        params.set('collapse_aggregation', value);
-        this.setQueryParams(params);
-    }
-
     public redirectToSearchPage(searchTerm: string) {
         this.props.history.push('/search/?q=' + searchTerm);
     }
@@ -140,11 +127,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                         </div>
                         <GraphicAndShare seriesConfig={seriesConfigByUrl(this.props.location.search)}
                                          formatUnits={this.props.formatChartUnits || false}
-                                         updateDateInUrl={this.updateDateInUrl}
-                                         handleChangeFrequency={this.handleChangeFrequency}
-                                         handleChangeUnits={this.handleChangeUnits}
-                                         handleChangeAggregation={this.handleChangeAggregation}
-                                         onReset={this.removeDateParams}
+                                         updateParamsInUrl={this.setQueryParams}
                                          dispatch={this.props.dispatch}
                                          location={this.props.location}
                                          seriesApi={this.props.seriesApi} />
@@ -156,20 +139,6 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                 </div>
             </section>
         );
-    }
-
-    public componentDidMount() {
-        this.unlisten = this.props.history.listen(l => {  // se subscribe
-            if (QueryParams.distinctURLs(this.props.location.search, l.search)) {
-                this.handleUriChange(l)
-            }
-        });
-        this.handleUriChange(this.props.location as Location);
-    }
-
-    public componentWillUnmount() {
-        this.unlisten(); // se dessubscribe
-        this.props.dispatch(clearViewSeries());
     }
 
     private handleUriChange(location: Location) {
@@ -241,16 +210,6 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
 
     private saveLastSuccessQuery() {
         this.setState({ lastSuccessQueryParams: getQueryParams(this.props.location) });
-    }
-
-    private removeDateParams() {
-        const params = getQueryParams(this.props.location);
-        if (params.get('start_date') === null && params.get('end_date') === null) { return }
-
-        params.delete('start_date');
-        params.delete('end_date');
-        this.setQueryParams(params);
-        this.props.dispatch(setDate({ start: '', end: '' }));
     }
 
 }
