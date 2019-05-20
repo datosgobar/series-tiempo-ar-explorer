@@ -1,16 +1,14 @@
 import * as React from 'react';
-
-import {Color} from '../../style/Colors/Color';
+import { connect } from "react-redux";
+import { ISerie } from '../../../api/Serie';
+import { IStore } from '../../../store/initialState';
 import RemoveAction from '../../style/Details/RemoveAction';
 import SerieDetails from '../../style/Details/SerieDetails';
-
-import {ISerie} from '../../../api/Serie';
 
 
 interface IMetaDataProps {
     series: ISerie[];
     onRemove: (serieId: string) => void;
-    pegColorFor?: (serieId: string) => Color;
 }
 
 export class MetaData extends React.Component<IMetaDataProps, any> {
@@ -32,9 +30,7 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
         return (
             <div className='MetaData'>
                 {this.props.series.map((serie: ISerie, index: number) =>
-                    <SerieDetails key={serie.id} serie={serie}
-                                  pegColorFor={this.props.pegColorFor}
-                                  actions={this.actionsListFor(serie.id)} />
+                    <SerieDetails key={serie.id} serie={serie} series={this.props.series} actions={this.actionsListFor(serie.id)} />
                 )}
             </div>
         );
@@ -50,4 +46,11 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
     }
 }
 
-export default MetaData;
+
+function mapStateToProps(state: IStore) {
+    return {
+        series: state.viewSeries
+    };
+}
+
+export default connect(mapStateToProps, {})(MetaData);

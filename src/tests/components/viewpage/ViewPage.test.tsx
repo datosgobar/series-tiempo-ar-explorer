@@ -120,12 +120,10 @@ describe('ViewPage', () => {
         };
         const wrapper = shallow(
             <UnconnectedViewPage
-                series={[]}
                 seriesApi={mockApi}
                 location={location}
                 dispatch={dispatch}
                 history={history as any}
-                date={{start: '', end: ''}}
             />);
 
         (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie01');
@@ -153,12 +151,10 @@ describe('ViewPage', () => {
 
             wrapper = shallow(
                 <UnconnectedViewPage
-                    series={[]}
                     seriesApi={mockApi}
                     location={locationMock}
                     dispatch={dispatch}
                     history={historyMock as any}
-                    date={{start: '', end: ''}}
                 />);
         });
 

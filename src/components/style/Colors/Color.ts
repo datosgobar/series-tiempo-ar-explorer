@@ -1,3 +1,6 @@
+import { ISerie } from "../../../api/Serie";
+import { colorFor } from "../../viewpage/ViewPage";
+
 export class Color {
     constructor(public name: string, public code: string){}
 }
@@ -18,6 +21,6 @@ export const NaC = new Color("", "");
 
 export default Colors;
 
-export function getColorBySerieId(serieId: string, colorForFn?: (serieId: string) => Color): string {
-    return colorForFn ? colorForFn(serieId).code : '';
+export function getColorBySerieId(series: ISerie[], serieId: string): string {
+    return colorFor(series, serieId).code;
 }

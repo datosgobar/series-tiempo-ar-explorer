@@ -1,16 +1,16 @@
 import * as React from 'react';
-import {RefObject} from 'react';
-import {setSerieTags} from "../../../actions/seriesActions";
+import { RefObject } from 'react';
+import { setSerieTags } from "../../../actions/seriesActions";
 import IDataPoint from '../../../api/DataPoint';
-import {ISerie} from '../../../api/Serie';
+import { ISerie } from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
-import {i18nFrequency} from "../../../api/utils/periodicityManager";
-import {valuesFromObject} from "../../../helpers/commonFunctions";
-import {formattedDateString, fullLocaleDate, localTimestamp, timestamp,} from "../../../helpers/dateFunctions";
-import {buildLocale} from "../../common/locale/buildLocale";
-import {Color} from '../../style/Colors/Color';
-import {ISerieTag} from "../SeriesTags";
-import {IHConfig, IHCSeries, ReactHighStock} from './highcharts';
+import { i18nFrequency } from "../../../api/utils/periodicityManager";
+import { valuesFromObject } from "../../../helpers/commonFunctions";
+import { formattedDateString, fullLocaleDate, localTimestamp, timestamp } from "../../../helpers/dateFunctions";
+import { buildLocale } from "../../common/locale/buildLocale";
+import { ISerieTag } from "../SeriesTags";
+import { colorFor } from '../ViewPage';
+import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
@@ -22,7 +22,6 @@ export interface ILegendLabel {
 
 export interface IGraphicProps {
     series: ISerie[];
-    colorFor?: (serieId: string) => Color;
     range: IChartExtremeProps;
     onReset?: () => void;
     onZoom?: ({}) => void;
@@ -282,7 +281,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
         return {
             ...this.defaultHCSeriesConfig(),
             ...hcConfig,
-            color: this.props.colorFor ? this.props.colorFor(serie.id).code : this.defaultHCSeriesConfig().color,
+            color: colorFor(this.props.series, serie.id).code,
             data,
             name: getLegendLabel(serie, this.props),
             navigatorOptions: { type: chartType },

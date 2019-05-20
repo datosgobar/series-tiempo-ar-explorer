@@ -1,8 +1,8 @@
 import * as React from 'react';
-
-import {connect} from "react-redux";
-import {Color, NaC} from '../style/Colors/Color';
+import { connect } from "react-redux";
+import { ISerie } from '../../api/Serie';
 import Tag from '../style/Tag/Tag';
+import { colorFor } from './ViewPage';
 
 
 export interface ISerieTag {
@@ -12,15 +12,15 @@ export interface ISerieTag {
 
 interface ISeriesTagsProps extends React.Props<any> {
     onTagClose: (serieId: string) => void;
-    pegColorFor?: (serieId: string) => Color;
     serieTags: ISerieTag[];
+    series: ISerie[];
 }
 
 function seriesTags(props: ISeriesTagsProps, state: any) {
     return (
         <span>
             {props.serieTags.map((serieTag: ISerieTag, index: number) =>
-                <Tag key={index} pegColor={props.pegColorFor ? props.pegColorFor(serieTag.id) : NaC} onClose={getOnCloseFor(props.serieTags, serieTag.id, props.onTagClose)}>
+                <Tag key={index} pegColor={colorFor(props.series, serieTag.id)} onClose={getOnCloseFor(props.serieTags, serieTag.id, props.onTagClose)}>
                     {serieTag.title}
                 </Tag>
             )}
@@ -28,15 +28,16 @@ function seriesTags(props: ISeriesTagsProps, state: any) {
     )
 }
 
-function mapStateToProps(state: any, ownProps: any) {
+function mapStateToProps(state: any) {
     return {
         serieTags: state.serieTags,
+        series: state.viewSeries
     };
 }
 
 function getOnCloseFor(serieTags: ISerieTag[], serieId: string, onTagClose: (serieId: string) => void) {
     let fn;
-    if (serieTags.length > 1) { // this is to prevent show a 'close btn' with just one serie tag
+    if (serieTags.length > 1) { // this is to prevent show a 'close btn' with only one serie tag
         fn = () => onTagClose(serieId)
     }
 

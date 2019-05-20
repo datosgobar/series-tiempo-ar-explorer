@@ -1,31 +1,36 @@
+import { Location } from 'history';
+import * as moment from "moment";
 import * as React from 'react';
-import {connect} from "react-redux";
-import {IDataPoint} from "../../../api/DataPoint";
-import {IDateRange} from "../../../api/DateSerie";
-import {ISerie} from "../../../api/Serie";
+import { connect } from "react-redux";
+import { setDate } from "../../../actions/seriesActions";
+import { IDataPoint } from "../../../api/DataPoint";
+import { IDateRange } from "../../../api/DateSerie";
+import QueryParams from '../../../api/QueryParams';
+import { ISerie } from "../../../api/Serie";
+import { ISerieApi } from "../../../api/SerieApi";
 import SerieConfig from "../../../api/SerieConfig";
-import {formattedMoment, localTimestamp} from "../../../helpers/dateFunctions";
-import {IStore} from "../../../store/initialState";
-import {Color} from "../../style/Colors/Color";
+import { formattedMoment, localTimestamp } from "../../../helpers/dateFunctions";
+import { IStore } from "../../../store/initialState";
 import GraphContainer from "../../style/Graphic/GraphContainer";
-import Graphic, {IChartExtremeProps} from "./Graphic";
+import { getQueryParams } from '../ViewPage';
+import Graphic, { IChartExtremeProps } from "./Graphic";
 import GraphicComplements from "./GraphicComplements";
 
 
 export interface IGraphicAndShareProps {
     series: ISerie[];
-    colorFor: (serieId: string) => Color;
     date: IDateRange;
-    handleChangeDate: (date: {start: string, end: string}) => void;
+    updateDateInUrl: (params: URLSearchParams) => void;
     handleChangeFrequency: (value: string) => void;
     handleChangeUnits: (value: string) => void;
     handleChangeAggregation: (value: string) => void;
-    url: string;
     onReset?: () => void;
     readonly dispatch: (action: object) => void;
-    seriesConfig: SerieConfig[];
+    seriesConfig: (series: ISerie[]) => SerieConfig[];
     formatUnits: boolean;
     locale: string;
+    readonly location: { search: string };
+    seriesApi: ISerieApi;
 }
 
 class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
@@ -36,28 +41,32 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
     }
 
     public handleZoom(extremes: IChartExtremeProps) {
-        if (this.props.series.length === 0) {return }
+        if (this.props.series.length === 0) { return }
 
         const start = findSerieDate(this.props.series, extremes.min);
         const end = findSerieDate(this.props.series, extremes.max);
+        const date = { start: formattedMoment(start), end: formattedMoment(end) };
 
-        this.props.handleChangeDate({ start: formattedMoment(start), end: formattedMoment(end) });
+        const params = getQueryParams(this.props.location);
+        this.setDateParam(params, date);
+        this.props.dispatch(setDate(date));
+
+        this.props.updateDateInUrl(params);
     }
 
     public render() {
         return (
             <GraphContainer>
                 <Graphic series={this.props.series}
-                         seriesConfig={this.props.seriesConfig}
+                         seriesConfig={this.props.seriesConfig(this.props.series)}
                          formatUnits={this.props.formatUnits}
-                         colorFor={this.props.colorFor}
                          range={chartExtremes(this.props.series, this.props.date)}
                          onReset={this.props.onReset}
                          onZoom={this.handleZoom}
                          dispatch={this.props.dispatch}
                          locale={this.props.locale} />
 
-                <GraphicComplements url={this.props.url}
+                <GraphicComplements url={this.downloadDataURL()}
                                     series={this.props.series}
                                     handleChangeFrequency={this.props.handleChangeFrequency}
                                     handleChangeUnits={this.props.handleChangeUnits}
@@ -65,6 +74,53 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
             </GraphContainer>
         )
     }
+
+    private downloadDataURL(): string {
+        const ids = getQueryParams(this.props.location).getAll('ids');
+        if (ids.length === 0 || this.props.series.length === 0) { return ''; }
+
+        const location = this.props.location as Location;
+        const startDate = getQueryParams(location).get('start_date') || '';
+        const endDate = getQueryParams(location).get('end_date') || '';
+
+        const queryParams = new QueryParams(ids);
+        queryParams.addParamsFrom(getQueryParams(location));
+        if (this.validStartDateFilter(startDate)) { queryParams.setStartDate(startDate) }
+        if (this.validEndDateFilter(endDate)) { queryParams.setEndDate(endDate) }
+
+        return this.props.seriesApi.downloadDataURL(queryParams);
+    }
+
+    private validStartDateFilter(startDate: string): boolean {
+        const firstSeriesDate = moment(this.props.series[0].data[0].date);
+
+        return moment(startDate).isValid() && moment(startDate).isAfter(firstSeriesDate);
+    }
+
+    private validEndDateFilter(endDate: string): boolean {
+        const lastSeriesDate = moment(this.props.series[0].data[this.props.series[0].data.length - 1].date);
+
+        return moment(endDate).isValid() && moment(endDate).isBefore(lastSeriesDate);
+    }
+
+    private setDateParam(params: any, date: any) {
+        const firstSerieData = this.props.series[0].data[0];
+        const lastSerie = this.props.series[this.props.series.length - 1];
+        const lastSerieData = lastSerie.data[lastSerie.data.length - 1];
+
+        if (firstSerieData.date === date.start) {
+            params.delete('start_date');
+        } else {
+            params.set('start_date', date.start);
+        }
+
+        if (lastSerieData.date === date.end) {
+            params.delete('end_date');
+        } else {
+            params.set('end_date', date.end);
+        }
+    }
+
 }
 
 // returns the date matching with the passed timestamp if the date exists
@@ -90,10 +146,11 @@ export function chartExtremes(series: ISerie[], dateRange: { start: string, end:
 }
 
 
-
 function mapStateToProps(state: IStore) {
     return {
+        date: state.date,
         locale: state.locale,
+        series: state.viewSeries
     };
 }
 
