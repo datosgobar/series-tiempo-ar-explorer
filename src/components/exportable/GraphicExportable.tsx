@@ -78,9 +78,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             <ExportableGraphicContainer>
                 <Graphic series={this.state.series}
                          range={chartExtremes(this.state.series, this.state.dateRange)}
-                         seriesConfig={seriesConfigByUrl(this.state.series, this.props.graphicUrl)}
+                         seriesConfig={seriesConfigByUrl(this.props.graphicUrl)(this.state.series)}
                          chartOptions={chartOptions}
-                         colorFor={this.colorFor}
                          formatUnits={true}
                          locale={this.props.locale || 'AR'}
                          legendField={legendValue(this.props.legendField)}

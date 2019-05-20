@@ -1,19 +1,19 @@
 import * as React from 'react';
-
+import { connect } from "react-redux";
 import SearchResult from '../../../api/SearchResult';
-import {ISerieApi} from '../../../api/SerieApi';
-import initialState from '../../../store/initialState';
+import { ISerie } from '../../../api/Serie';
+import { ISerieApi } from '../../../api/SerieApi';
+import initialState, { IStore } from '../../../store/initialState';
 import FullSearcher from '../../common/searcher/FullSearcher';
 import SerieCard from '../../style/Card/Serie/SerieCard';
-import {Color, NaC} from '../../style/Colors/Color';
+import { colorFor } from '../ViewPage';
 
 
 export interface ISeriesPickerProps {
     seriesApi: ISerieApi;
     onPick: (event: React.MouseEvent<HTMLElement>, serieId: string) => void;
-    isChecked?: (serieId: string) => boolean;
-    pegColorFor?: (serieId: string) => Color;
     onRemoveSerie: (serieId: string) => void;
+    series: ISerie[];
 }
 
 class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
@@ -51,10 +51,10 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
 
     public searchResultCardProps(searchResult: SearchResult) {
         return {
-            checked: this.props.isChecked && this.props.isChecked(searchResult.id),
+            checked: this.isChecked(searchResult.id),
             onClick: this.handlePick(searchResult.id),
             onRemoveSerie: () => this.props.onRemoveSerie(searchResult.id),
-            pegColor: this.props.pegColorFor ? this.props.pegColorFor(searchResult.id) : NaC,
+            pegColor: colorFor(this.props.series, searchResult.id),
             serie: searchResult,
         }
     }
@@ -70,7 +70,18 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
             </div>
         );
     }
+
+    public isChecked(serieId: string): boolean {
+        return this.props.series.map(serie => serie.id).indexOf(serieId) >= 0;
+    }
+
 }
 
 
-export default SeriesPicker;
+function mapStateToProps(state: IStore) {
+    return {
+        series: state.viewSeries
+    };
+}
+
+export default connect(mapStateToProps, {})(SeriesPicker);

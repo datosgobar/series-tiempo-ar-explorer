@@ -1,18 +1,18 @@
-import {Location} from 'history';
-import * as moment from "moment";
+import { Location } from 'history';
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {RouterProps, withRouter} from "react-router";
-import {clearViewSeries, loadViewSeries, setDate} from '../../actions/seriesActions';
-import {IDateRange} from "../../api/DateSerie";
+import { connect } from 'react-redux';
+import { RouterProps, withRouter } from "react-router";
+import { clearViewSeries, loadViewSeries, setDate } from '../../actions/seriesActions';
+import { IDateRange } from "../../api/DateSerie";
 import QueryParams from "../../api/QueryParams";
-import {ISerie} from '../../api/Serie';
-import {ISerieApi} from '../../api/SerieApi';
+import { ISerie } from '../../api/Serie';
+import { ISerieApi } from '../../api/SerieApi';
 import SerieConfig from '../../api/SerieConfig';
-import {getId, removeDuplicates} from "../../helpers/commonFunctions";
-import SearchBox from '../common/searchbox/SearchBox'
+import { getId, removeDuplicates } from "../../helpers/commonFunctions";
+import { IStore } from '../../store/initialState';
+import SearchBox from '../common/searchbox/SearchBox';
 import ClearFix from '../style/ClearFix';
-import Colors, {Color} from '../style/Colors/Color';
+import Colors, { Color } from '../style/Colors/Color';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
 import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
@@ -21,13 +21,11 @@ import EmptySeries from "./EmptySeries";
 import FailedSeries from "./FailedSeries";
 import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
-import SeriesPicker, {ISeriesPickerProps} from './seriespicker/SeriesPicker';
-import SeriesTags from './SeriesTags'
+import SeriesPicker from './seriespicker/SeriesPicker';
+import SeriesTags from './SeriesTags';
 
 interface IViewPageProps extends RouterProps {
-    series: ISerie[];
     seriesApi: ISerieApi;
-    date: IDateRange
     readonly location: { search: string };
     readonly dispatch: (action: object) => void;
     formatChartUnits?: boolean;
@@ -52,33 +50,36 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.redirectToSearchPage = this.redirectToSearchPage.bind(this);
         this.redirectToViewPage = this.redirectToViewPage.bind(this);
         this.removeSerie = this.removeSerie.bind(this);
-        this.seriesPickerProps = this.seriesPickerProps.bind(this);
-        this.isChecked = this.isChecked.bind(this);
         this.addPickedSerie = this.addPickedSerie.bind(this);
-        this.colorFor = this.colorFor.bind(this);
-        this.handleChangeDate = this.handleChangeDate.bind(this);
-        this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
-        this.handleChangeUnits = this.handleChangeUnits.bind(this);
-        this.handleChangeAggregation = this.handleChangeAggregation.bind(this);
-        this.removeDateParams = this.removeDateParams.bind(this);
+        this.setQueryParams = this.setQueryParams.bind(this);
         this.state = {
             emptySeries: [],
             failedSeries: [],
-            lastSuccessQueryParams: this.getQueryParams(),
+            lastSuccessQueryParams: getQueryParams(this.props.location),
         }
     }
 
+    public componentDidMount() {
+        this.unlisten = this.props.history.listen(l => {  // se subscribe
+            if (QueryParams.distinctURLs(this.props.location.search, l.search)) {
+                this.handleUriChange(l)
+            }
+        });
+        this.handleUriChange(this.props.location as Location);
+    }
+
+    public componentWillUnmount() {
+        this.unlisten(); // se dessubscribe
+        this.props.dispatch(clearViewSeries());
+    }
+
     public viewSeries(ids: string[]) {
-        const params = this.getQueryParams();
+        const params = getQueryParams(this.props.location);
         params.set('ids', ids.join(','));
         params.delete('collapse');
         params.delete('collapse_aggregation');
 
         this.setQueryParams(params);
-    }
-
-    public getQueryParams(): URLSearchParams {
-        return new URLSearchParams(this.props.location.search);
     }
 
     public setQueryParams(params: URLSearchParams) {
@@ -101,30 +102,6 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         }
     }
 
-    public handleChangeDate(date: IDateRange) {
-        this.props.dispatch(setDate(date));
-        this.changeDateInUrl(date);
-    }
-
-    public handleChangeFrequency(value: string) {
-        const params = this.getQueryParams();
-        params.set('collapse', value);
-        params.set('collapse_aggregation', 'avg');
-        this.setQueryParams(params);
-    }
-
-    public handleChangeUnits(value: string) {
-        const params = this.getQueryParams();
-        params.set('representation_mode', value);
-        this.setQueryParams(params);
-    }
-
-    public handleChangeAggregation(value: string) {
-        const params = this.getQueryParams();
-        params.set('collapse_aggregation', value);
-        this.setQueryParams(params);
-    }
-
     public redirectToSearchPage(searchTerm: string) {
         this.props.history.push('/search/?q=' + searchTerm);
     }
@@ -143,64 +120,25 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                         <EmptySeries ids={this.state.emptySeries} />
                         <div className="row mg-t">
                             <AddAndCustomizeSeriesButton />
-                            <SeriesTags onTagClose={this.removeSerie} pegColorFor={this.colorFor} />
+                            <SeriesTags onTagClose={this.removeSerie} />
                         </div>
                         <div className="col-sm-6">
                             <ClearFix />
                         </div>
-                        <GraphicAndShare series={this.props.series}
-                                         seriesConfig={seriesConfigByUrl(this.props.series, this.props.location.search)}
+                        <GraphicAndShare seriesConfig={seriesConfigByUrl(this.props.location.search)}
                                          formatUnits={this.props.formatChartUnits || false}
-                                         colorFor={this.colorFor}
-                                         date={this.props.date}
-                                         handleChangeDate={this.handleChangeDate}
-                                         handleChangeFrequency={this.handleChangeFrequency}
-                                         handleChangeUnits={this.handleChangeUnits}
-                                         handleChangeAggregation={this.handleChangeAggregation}
-                                         onReset={this.removeDateParams}
-                                         url={this.downloadDataURL()}
-                                         dispatch={this.props.dispatch} />
-                        <MetaData series={this.props.series} onRemove={this.removeSerie} pegColorFor={this.colorFor} />
+                                         updateParamsInUrl={this.setQueryParams}
+                                         dispatch={this.props.dispatch}
+                                         location={this.props.location}
+                                         seriesApi={this.props.seriesApi} />
+                        <MetaData onRemove={this.removeSerie} />
                     </Container>
-                    <DetallePanel seriesPicker={ <SeriesPicker {...this.seriesPickerProps()} /> } />
+                    <DetallePanel seriesPicker={ <SeriesPicker onPick={this.addPickedSerie}
+                                                                onRemoveSerie={this.removeSerie}
+                                                                seriesApi={this.props.seriesApi} /> } />
                 </div>
             </section>
         );
-    }
-
-    public seriesPickerProps(): ISeriesPickerProps {
-        return {
-            isChecked: this.isChecked,
-            onPick: this.addPickedSerie,
-            onRemoveSerie: this.removeSerie,
-            pegColorFor: this.colorFor,
-            seriesApi: this.props.seriesApi,
-        }
-    }
-
-    public isChecked(serieId: string): boolean {
-        return this.props.series.map(serie => serie.id).indexOf(serieId) >= 0;
-    }
-
-    public colorFor(serieId: string): Color {
-        const colors = (Object as any).values(Colors);
-        const index = this.props.series.findIndex(viewSerie => viewSerie.id === serieId) % colors.length;
-
-        return colors[index];
-    }
-
-    public componentDidMount() {
-        this.unlisten = this.props.history.listen(l => {  // se subscribe
-            if (QueryParams.distinctURLs(this.props.location.search, l.search)) {
-                this.handleUriChange(l)
-            }
-        });
-        this.handleUriChange(this.props.location as Location);
-    }
-
-    public componentWillUnmount() {
-        this.unlisten(); // se dessubscribe
-        this.props.dispatch(clearViewSeries());
     }
 
     private handleUriChange(location: Location) {
@@ -222,7 +160,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
 
     private setParamsAndFetch(ids: string[], location: Location) {
         const queryParams = new QueryParams(ids);
-        queryParams.addParamsFrom(getParamsFromUrl(location));
+        queryParams.addParamsFrom(getQueryParams(location));
 
         this.fetchSeries(queryParams);
     }
@@ -271,80 +209,9 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
     }
 
     private saveLastSuccessQuery() {
-        this.setState({ lastSuccessQueryParams: this.getQueryParams() });
+        this.setState({ lastSuccessQueryParams: getQueryParams(this.props.location) });
     }
 
-    private downloadDataURL(): string {
-        const ids = this.getQueryParams().getAll('ids');
-        if (ids.length === 0 || this.props.series.length === 0) { return ''; }
-
-        const location = this.props.location as Location;
-        const startDate = getParamsFromUrl(location).get('start_date') || '';
-        const endDate = getParamsFromUrl(location).get('end_date') || '';
-
-        const queryParams = new QueryParams(ids);
-        queryParams.addParamsFrom(getParamsFromUrl(location));
-        if (this.validStartDateFilter(startDate)) { queryParams.setStartDate(startDate) }
-        if (this.validEndDateFilter(endDate)) { queryParams.setEndDate(endDate) }
-
-        return this.props.seriesApi.downloadDataURL(queryParams);
-    }
-
-    private validStartDateFilter(startDate: string): boolean {
-        const firstSeriesDate = moment(this.props.series[0].data[0].date);
-
-        return moment(startDate).isValid() && moment(startDate).isAfter(firstSeriesDate);
-    }
-
-    private validEndDateFilter(endDate: string): boolean {
-        const lastSeriesDate = moment(this.props.series[0].data[this.props.series[0].data.length - 1].date);
-
-        return moment(endDate).isValid() && moment(endDate).isBefore(lastSeriesDate);
-    }
-
-    private changeDateInUrl(date: IDateRange) {
-        const params = this.getQueryParams();
-        this.setDateParam(params, date);
-        this.setQueryParams(params);
-    }
-
-    private setDateParam(params: any, date: any) {
-        const firstSerieData = this.props.series[0].data[0];
-        const lastSerie = this.props.series[this.props.series.length - 1];
-        const lastSerieData = lastSerie.data[lastSerie.data.length - 1];
-
-        if (firstSerieData.date === date.start) {
-            params.delete('start_date');
-        } else {
-            params.set('start_date', date.start);
-        }
-
-        if (lastSerieData.date === date.end) {
-            params.delete('end_date');
-        } else {
-            params.set('end_date', date.end);
-        }
-    }
-
-    private removeDateParams() {
-        const params = this.getQueryParams();
-        if (params.get('start_date') === null && params.get('end_date') === null) { return }
-
-        params.delete('start_date');
-        params.delete('end_date');
-        this.setQueryParams(params);
-        this.props.dispatch(setDate({ start: '', end: '' }));
-    }
-
-}
-
-function mapStateToProps(state: any, ownProps: any) {
-    return {
-        date: state.date,
-        formatChartUnits: state.formatUnits,
-        series: state.viewSeries,
-        seriesApi: state.seriesApi,
-    };
 }
 
 function getIDs(location: Location): string[] {
@@ -357,15 +224,35 @@ function getIDs(location: Location): string[] {
 }
 
 function getDateFromUrl(location: Location): IDateRange {
-    const params = getParamsFromUrl(location);
+    const params = getQueryParams(location);
     const start = params.get('start_date') || '';
     const end = params.get('end_date') || '';
 
     return { start, end };
 }
 
-function getParamsFromUrl(location: Location): URLSearchParams {
+export function getQueryParams(location: any): URLSearchParams {
     return new URLSearchParams(location.search);
+}
+
+export function seriesConfigByUrl(url: string): (series: ISerie[]) => SerieConfig[] {
+    if (url === undefined) { return (_: ISerie[]) => [] }
+
+    const search = url.split(',');
+
+    return (series: ISerie[]) => series.map((serie: ISerie) => {
+        const seriesConfig = new SerieConfig(serie);
+        seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
+        seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
+        return seriesConfig;
+    });
+}
+
+export function colorFor(series: ISerie[], serieId: string): Color {
+    const colors = (Object as any).values(Colors);
+    const index = series.findIndex(viewSerie => viewSerie.id === serieId) % colors.length;
+
+    return colors[index];
 }
 
 function serieIdSanitizer(serieId: string): string {
@@ -380,18 +267,12 @@ function serieWithData(serie: ISerie, position: number): boolean {
     return serie.data.length > 0 && serie.data.some((d: any) => d.datapoint[position+1])
 }
 
-export function seriesConfigByUrl(series: ISerie[], url: string): SerieConfig[] {
-    if (url === undefined) { return [] }
 
-    const search = url.split(',');
-
-    return series.map((serie: ISerie) => {
-        const seriesConfig = new SerieConfig(serie);
-        seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
-        seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
-        return seriesConfig;
-    });
+function mapStateToProps(state: IStore) {
+    return {
+        formatChartUnits: state.formatChartUnits,
+        seriesApi: state.seriesApi,
+    };
 }
 
-
-export default withRouter(connect(mapStateToProps)(ViewPage as any));
+export default withRouter<any>(connect(mapStateToProps)(ViewPage as any));

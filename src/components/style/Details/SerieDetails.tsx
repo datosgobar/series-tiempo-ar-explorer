@@ -11,6 +11,7 @@ interface ISerieDetailsProp extends React.Props<any> {
     serie: ISerie;
     actions?: JSX.Element[];
     pegColorFor?: (serieId: string) => Color;
+    series: ISerie[];
 }
 
 
@@ -18,7 +19,7 @@ export default (props: ISerieDetailsProp) =>
 
     <Details key={props.serie.id}>
         <DetailsTitleAndActions>
-            <DetailsTitle style={{borderLeftColor: getColorBySerieId(props.serie.id, props.pegColorFor)}}>
+            <DetailsTitle style={{borderLeftColor: getColorBySerieId(props.series, props.serie.id)}}>
                 {props.serie.description} ({props.serie.id})
             </DetailsTitle>
             {props.actions}

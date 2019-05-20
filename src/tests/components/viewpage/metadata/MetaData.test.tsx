@@ -1,21 +1,24 @@
-import { mount } from 'enzyme';
-import * as React from 'react';
-
-import { configure } from 'enzyme';
+import { configure, mount } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
-
+import * as React from 'react';
+import { Provider } from 'react-redux';
+import { Store } from "redux";
 import MetaData from '../../../../components/viewpage/metadata/MetaData';
-import { generateSeries } from '../../../support/factories/series_api';
+import configureStore from "../../../../store/configureStore";
 
-
-const series = generateSeries();
 
 configure({ adapter: new Adapter() });
 
+let store: Store;
+store = configureStore();
+
 it('renders without crashing', () => {
     const onRemove = jest.fn();
-
-    const wrapper = mount(<MetaData series={series} onRemove={onRemove} />);
+    const wrapper = mount(
+        <Provider store={store}>
+            <MetaData onRemove={onRemove} />
+        </Provider>
+    );
 
     expect(wrapper.find('.MetaData').exists()).toBe(true);
 });
