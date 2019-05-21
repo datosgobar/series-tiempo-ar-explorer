@@ -21,7 +21,7 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         return (
             <div className="row graphic-complements">
                 <Share url={this.props.url} series={this.props.series} />
-                <OptionsPicker className="col-sm-3" onChangeOption={this.props.handleChangeAggregation} selected={this.selectedAggregation()} availableOptions={this.aggregationOptions()} label="Agregación" />
+                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeAggregation} selected={this.selectedAggregation()} availableOptions={this.aggregationOptions()} label="Agregación" />
                 <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeUnits} selected={this.selectedUnit()} availableOptions={this.unitOptions()} label="Unidad" />
                 <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeFrequency} selected={this.frequency()} availableOptions={this.frequencyOptions()} label="Frecuencia" />
             </div>
