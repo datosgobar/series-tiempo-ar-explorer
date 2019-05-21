@@ -1,3 +1,9 @@
+.g-complement {
+  margin-right: 10px;
+  float: right;
+  width: 20%;
+}
+
 @media (max-width: 990px) {
   .g-complement {
     width: 30%;
@@ -6,15 +12,10 @@
 
 @media (max-width: 526px) {
   .g-complement {
-    width: 90%;
+    width: 90% !important;
     margin-left: 15px;
     float: none !important;
   }
-}
-
-.g-complement {
-  margin-right: 10px;
-  float: right;
 }
 
 .pointer {
