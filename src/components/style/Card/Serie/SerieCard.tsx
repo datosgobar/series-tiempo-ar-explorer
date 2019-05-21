@@ -33,7 +33,7 @@ export default (props: ISerieCardProps) =>
                     <span><strong>Período: </strong>{props.serie.startDate} a {props.serie.endDate}</span>
                 </CardBodySerie>
                 <CardBodySerie>
-                    <span><strong>Unidades: </strong>{props.serie.units}</span>
+                    <span><strong>Unidad: </strong>{props.serie.units}</span>
                 </CardBodySerie>
                 <CardBodySerie>
                     <span><strong>Frecuencia: </strong>{props.serie.accrualPeriodicity}</span>
