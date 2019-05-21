@@ -26,6 +26,10 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
         });
     }
 
+    public shouldComponentUpdate(nextProps: IMetaDataProps) {
+        return this.props.series.length === 0
+    }
+
     public render() {
         return (
             <div className='MetaData'>
