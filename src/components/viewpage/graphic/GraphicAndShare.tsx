@@ -38,6 +38,10 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         this.handleChangeUnits = this.handleChangeUnits.bind(this);
         this.handleChangeAggregation = this.handleChangeAggregation.bind(this);
         this.removeDateParams = this.removeDateParams.bind(this);
+
+        this.state = {
+            chartType: {}
+        }
     }
 
     public handleZoom(extremes: IChartExtremeProps) {
@@ -86,7 +90,8 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
                          onReset={this.removeDateParams}
                          onZoom={this.handleZoom}
                          dispatch={this.props.dispatch}
-                         locale={this.props.locale} />
+                         locale={this.props.locale}
+                         chartTypes={this.generateChartTypes()} />
 
                 <GraphicComplements url={this.downloadDataURL()}
                                     series={this.props.series}
@@ -154,6 +159,18 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         }
     }
 
+    private generateChartTypes(): any {
+        const chartTypes = {}
+
+        const params = getQueryParams(this.props.location);
+        this.props.series.forEach((serie: ISerie) => {
+            chartTypes[serie.id] = validChartType(params.get('chartType'));
+
+            return chartTypes;
+        })
+        return chartTypes
+    }
+
 }
 
 // returns the date matching with the passed timestamp if the date exists
@@ -161,6 +178,15 @@ function findSerieDate(series: ISerie[], timestamp: number): string {
     const firstSerieData = series[0].data;
     const serieData = firstSerieData.find((data) => data.date >= formattedMoment(localTimestamp(timestamp)));
     return serieData !== undefined ? serieData.date : '';
+}
+
+function validChartType(type: string|null): string {
+    type = type || "line";
+    if ((["line", "column", "area"].indexOf(type) === -1) || type === "default") {
+        type = "line";
+    }
+
+    return type;
 }
 
 export function chartExtremes(series: ISerie[], dateRange: { start: string, end: string }): IChartExtremeProps {
