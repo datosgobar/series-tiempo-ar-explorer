@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ISerie } from '../../../api/Serie';
 import LinkShareItem from "../../style/Share/LinkShareItem";
 import ShareDropdownContainer from "../../style/Share/ShareDropdownContainer";
+import { validChartType } from '../graphic/GraphicAndShare';
 
 
 interface IShareDropdownProps {
@@ -73,10 +74,10 @@ function calculateChartSource(series: ISerie[]): string {
 function calculateChartTypes(url: string, series: ISerie[]): any {
     const params = url.split('?')[1];
     const urlSearchParams = new URLSearchParams(params);
-    const chartTypes = urlSearchParams.get('chartType');
+    const chartType = validChartType(urlSearchParams.get('chartType'));
 
     return series.reduce((result: any, serie: ISerie) => {
-        result[serie.id] = chartTypes || 'line';
+        result[serie.id] = chartType;
         return result;
     }, {});
 }

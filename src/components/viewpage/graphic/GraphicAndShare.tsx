@@ -181,7 +181,7 @@ function findSerieDate(series: ISerie[], timestamp: number): string {
     return serieData !== undefined ? serieData.date : '';
 }
 
-function validChartType(type: string|null): string {
+export function validChartType(type: string|null): string {
     type = type || "line";
     if ((["line", "column", "area"].indexOf(type) === -1) || type === "default") {
         type = "line";
