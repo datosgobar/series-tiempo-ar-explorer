@@ -23,6 +23,7 @@ export default class QueryParams {
     private last: number;
     private start: number;
     private limit: number;
+    private chartType: string;
 
     constructor(ids: string[]) {
         this.ids = ids;
@@ -68,6 +69,10 @@ export default class QueryParams {
         }
     }
 
+    public getChartType(): string {
+        return this.chartType;
+    }
+
     public setCollapse(collapse: string) {
         this.collapse = collapse;
     }
@@ -104,6 +109,10 @@ export default class QueryParams {
         this.limit = limit;
     }
 
+    public setChartType(chartType: string) {
+        this.chartType = chartType;
+    }
+
     public addParamsFrom(params: any) {
         this.setCollapse(params.get('collapse') || '');
         this.setCollapseAggregation(params.get('collapse_aggregation') || '');
@@ -113,6 +122,7 @@ export default class QueryParams {
 
     public asJson(): {} {
         return {
+            chartType: this.getChartType(),
             collapse: this.getCollapse(),
             collapse_aggregation: this.getCollapseAggregation(),
             end_date: this.endDate,
