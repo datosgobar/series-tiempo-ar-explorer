@@ -123,6 +123,7 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
 
         const queryParams = new QueryParams(ids);
         queryParams.addParamsFrom(getQueryParams(location));
+        queryParams.setChartType(getQueryParams(location).get('chartType')||'line');
         if (this.validStartDateFilter(startDate)) { queryParams.setStartDate(startDate) }
         if (this.validEndDateFilter(endDate)) { queryParams.setEndDate(endDate) }
 

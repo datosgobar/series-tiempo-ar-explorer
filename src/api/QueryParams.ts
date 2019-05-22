@@ -118,7 +118,6 @@ export default class QueryParams {
         this.setCollapseAggregation(params.get('collapse_aggregation') || '');
         this.setRepresentationMode(params.get('representation_mode') || '');
         this.setLast(params.get('last') || '');
-        this.setChartType(params.get('chartType') || '')
     }
 
     public asJson(): {} {
