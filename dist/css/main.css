@@ -1,3 +1,34 @@
+.g-complement {
+  margin-right: 10px;
+  float: right;
+  width: 20%;
+}
+
+@media (max-width: 990px) {
+  .g-complement {
+    width: 30%;
+  }
+}
+
+@media (max-width: 526px) {
+  .g-complement {
+    width: 90% !important;
+    margin-left: 15px;
+    float: none !important;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.hidden-filters {
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: .5s;
+}
+
 .result-filter-count {
   color: gray;
   font-weight: 100;
@@ -119,9 +150,9 @@
   }
 }
 
-@media (max-width: 600px) and (min-width: 461px) {
+@media (max-width: 630px) {
   .share {
-    width: 57%;
+    width: 100%;
     display: inline-block;
   }
 }
