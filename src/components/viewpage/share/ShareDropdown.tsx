@@ -4,7 +4,6 @@ import LinkShareItem from "../../style/Share/LinkShareItem";
 import ShareDropdownContainer from "../../style/Share/ShareDropdownContainer";
 
 
-
 interface IShareDropdownProps {
     url: string;
     series: ISerie[]

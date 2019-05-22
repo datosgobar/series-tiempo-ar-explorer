@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ISerie } from "../../../api/Serie";
 import { isHigherFrequency } from "../../../api/utils/periodicityManager";
 import OptionsPicker, { IPickerOptionsProps } from '../../common/picker/OptionsPicker';
-import Share from "../Share";
+import ShareLinks from '../ShareLinks';
 
 
 export interface IGraphicComplementsProps {
@@ -24,7 +24,7 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
 
         return (
             <div className="row graphic-complements">
-                <Share url={this.props.url} series={this.props.series} />
+                <ShareLinks url={this.props.url} series={this.props.series} />
                 <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeAggregation} selected={this.selectedAggregation()} availableOptions={this.aggregationOptions()} label="Agregación" />
                 <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeUnits} selected={this.selectedUnit()} availableOptions={this.unitOptions()} label="Unidades" />
                 <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeFrequency} selected={this.frequency()} availableOptions={this.frequencyOptions()} label="Frecuencia" />
