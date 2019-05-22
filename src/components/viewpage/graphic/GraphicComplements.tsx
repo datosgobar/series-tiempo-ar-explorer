@@ -15,10 +15,6 @@ export interface IGraphicComplementsProps {
 
 export default class GraphicComplements extends React.Component<IGraphicComplementsProps, any> {
 
-    public shouldComponentUpdate(nextProps: IGraphicComplementsProps) {
-        return this.props.series.length === 0
-    }
-
     public render() {
         if (this.props.series.length === 0) { return null }
 
