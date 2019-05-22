@@ -30,7 +30,7 @@ function csvShareURL(url: string): string {
     urlSearchParams.delete('start');
     urlSearchParams.delete('chartType');
 
-    return `${urlToString(host + "?" + urlSearchParams.toString())}&format=csv`;
+    return `${urlToString(`${host}?${urlSearchParams.toString()}`)}&format=csv`;
 }
 
 function jsonShareURL(url: string): string {
@@ -87,5 +87,5 @@ function cleanUrl(url: string): string {
     const urlSearchParams = new URLSearchParams(params);
     urlSearchParams.delete('chartType');
 
-    return `${urlToString(host + "?" + urlSearchParams.toString())}`;
+    return `${urlToString(`${host}?${urlSearchParams.toString()}`)}`;
 }
