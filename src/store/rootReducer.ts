@@ -5,7 +5,7 @@ import aggregations from '../components/searchpage/AggregationsReducer';
 import date from "../components/viewpage/DateReducer";
 import serieTags from "../components/viewpage/SerieTagsReducer";
 import viewSeries from '../components/viewpage/ViewPageReducer';
-import formatUnits from "../FormatUnitsReducer";
+import formatChartUnits from "../FormatChartUnitsReducer";
 import laps from '../lapsReducer';
 import locale from '../localeReducer';
 import seriesApi from '../SerieApiReducer';
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     aggregations,
     date,
     featured,
-    formatUnits,
+    formatChartUnits,
     laps,
     locale,
     searchParams,
