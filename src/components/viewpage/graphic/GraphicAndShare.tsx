@@ -3,6 +3,7 @@ import * as moment from "moment";
 import * as React from 'react';
 import { connect } from "react-redux";
 import { setDate } from "../../../actions/seriesActions";
+import ChartTypeSelector from '../../../api/ChartTypeSelector';
 import { IDataPoint } from "../../../api/DataPoint";
 import { IDateRange } from "../../../api/DateSerie";
 import QueryParams from '../../../api/QueryParams';
@@ -161,15 +162,9 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
     }
 
     private generateChartTypes(): any {
-        const chartTypes = {}
-
         const params = getQueryParams(this.props.location);
-        this.props.series.forEach((serie: ISerie) => {
-            chartTypes[serie.id] = validChartType(params.get('chartType'));
-
-            return chartTypes;
-        })
-        return chartTypes
+        const chartTypeSelector = new ChartTypeSelector(this.props.series, params)
+        return chartTypeSelector.getChartTypesBySeries();
     }
 
 }
@@ -181,14 +176,6 @@ function findSerieDate(series: ISerie[], timestamp: number): string {
     return serieData !== undefined ? serieData.date : '';
 }
 
-export function validChartType(type: string|null): string {
-    type = type || "line";
-    if ((["line", "column", "area"].indexOf(type) === -1) || type === "default") {
-        type = "line";
-    }
-
-    return type;
-}
 
 export function chartExtremes(series: ISerie[], dateRange: { start: string, end: string }): IChartExtremeProps {
     if (series.length === 0) {return {min: 0, max: 0}}

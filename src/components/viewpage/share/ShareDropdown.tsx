@@ -1,8 +1,8 @@
 import * as React from 'react';
+import ChartTypeSelector from '../../../api/ChartTypeSelector';
 import { ISerie } from '../../../api/Serie';
 import LinkShareItem from "../../style/Share/LinkShareItem";
 import ShareDropdownContainer from "../../style/Share/ShareDropdownContainer";
-import { validChartType } from '../graphic/GraphicAndShare';
 
 
 interface IShareDropdownProps {
@@ -74,12 +74,9 @@ function calculateChartSource(series: ISerie[]): string {
 function calculateChartTypes(url: string, series: ISerie[]): any {
     const params = url.split('?')[1];
     const urlSearchParams = new URLSearchParams(params);
-    const chartType = validChartType(urlSearchParams.get('chartType'));
 
-    return series.reduce((result: any, serie: ISerie) => {
-        result[serie.id] = chartType;
-        return result;
-    }, {});
+    const chartTypeSelector = new ChartTypeSelector(series, urlSearchParams);
+    return chartTypeSelector.getChartTypesBySeries();
 }
 
 function cleanUrl(url: string): string {
