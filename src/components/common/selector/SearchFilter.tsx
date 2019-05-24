@@ -40,7 +40,7 @@ export default class SearchFilter extends React.Component<ISearchFilterProps, IS
 
     public render() {
         const itemsToRender = this.props.items.map(this.toClickableFilter);
-        const itemsToShow = itemsToRender.slice(0, 4);
+        const itemsToShow = itemsToRender.slice(0, 5);
         const itemsHidden = itemsToRender.slice(5);
         const showLink = itemsHidden.length === 0 || !this.state.hiddenFilters;
 
