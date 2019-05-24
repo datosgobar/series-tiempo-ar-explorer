@@ -6,7 +6,7 @@ Aplicación javascript para la búsqueda de series de tiempo, usando la API seri
 
 **Demo**: https://datosgobar.github.io/series-tiempo-ar-explorer/#/
 
-**Documentación**: https://datosgobar.github.io/series-tiempo-ar-explorer/docs
+**Documentación**: https://datosgobar.github.io/series-tiempo-ar-explorer/docs/
 
 ## Staging
 
