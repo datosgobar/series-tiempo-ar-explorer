@@ -87,6 +87,7 @@ export interface IField {
     time_index_size: number;
     min_value: string;
     max_value: string;
+    is_percentage: boolean;
 }
 
 export interface IPublisher {

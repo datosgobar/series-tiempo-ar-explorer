@@ -29,6 +29,7 @@ export interface ISerie {
     minValue: number,
     maxValue: number,
     collapseAggregation: string,
+    isPercentage: boolean,
 }
 
 export default class Serie implements ISerie {
@@ -176,6 +177,10 @@ export default class Serie implements ISerie {
         return result;
     }
 
+    get isPercentage(): boolean {
+        return this.fieldMeta.is_percentage;
+    }
+
     public bake(): ISerie {
         return {
             accrualPeriodicity: this.accrualPeriodicity,
@@ -189,6 +194,7 @@ export default class Serie implements ISerie {
             endDate: this.endDate,
             frequency: this.frequency,
             id: this.id,
+            isPercentage: this.isPercentage,
             issued: this.issued,
             landingPage: this.landingPage,
             maxValue: this.maxValue,
