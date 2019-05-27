@@ -1,8 +1,9 @@
 import { IChartTypeProps } from "../components/viewpage/graphic/Graphic";
 import { ISerie } from "./Serie";
 
-const VALID_TYPES = ["line", "column", "area"];
+
 const DEFAULT_TYPE = "line";
+const VALID_TYPES = [DEFAULT_TYPE, "column", "area"];
 
 
 export default class ChartTypeSelector {
