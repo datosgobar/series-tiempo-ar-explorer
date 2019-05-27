@@ -170,6 +170,14 @@ Este gráfico se genera a partir del siguiente código:
         <td>Dinámico</td>
         <td>true / false</td>
     </tr>
+    <tr>
+        <td>legendLabel</td>
+        <td>No</td>
+        <td>Especifica el texto a mostrar como leyenda por cada serie</td>
+        <td>object</td>
+        <td>{}</td>
+        <td>{'serie01': 'leyenda custom'}</td>
+    </tr>
 </table>
 
 ## Asignación dinámica de atributos
@@ -208,7 +216,8 @@ Varios componentes del gráfico se muestran/ocultan dinámicamente dependiendo d
         backgroundColor: '#cdcdcd',
         colors: ['#cecece', '#8d6b22', '#62848d'],
         locale: 'AR',
-        chartOptions: {}
+        chartOptions: {},
+        legendLabel: {},
       })
     }
   </script>
