@@ -16,10 +16,14 @@ export default class ChartTypeSelector {
     }
 
     public chartTypeTo(serieId: string): string {
-        const globalType = validChartType(this.urlParams.get('chartType'));
+        const globalType = getValidChartType(this.urlParams.get('chartType'));
         const typesById = chartTypesFromString(this.urlParams.get('chartTypes'));
 
-        return typesById[serieId] || globalType;
+        if (isValidChartType(typesById[serieId])) {
+            return typesById[serieId]
+        } else {
+            return globalType
+        }
     }
 
     public getChartTypesBySeries(): IChartTypeProps {
@@ -30,9 +34,9 @@ export default class ChartTypeSelector {
     }
 }
 
-function validChartType(type: string|null): string {
+function getValidChartType(type: string|null): string {
     type = type || DEFAULT_TYPE;
-    if ((VALID_TYPES.indexOf(type) === -1) || type === "default") {
+    if (!isValidChartType(type) || type === "default") {
         type = DEFAULT_TYPE;
     }
 
@@ -44,10 +48,14 @@ function chartTypesFromString(types: string|null): IChartTypeProps {
 
     return types.split(',').reduce((result: {}, idAndType: string) => {
         const serieId = idAndType.split(':')[0];
-        const chartType = validChartType(idAndType.split(':')[1]);
+        const chartType = idAndType.split(':')[1];
 
         result[serieId] = chartType
 
         return result;
     }, {})
+}
+
+function isValidChartType(type: string|null): boolean {
+    return VALID_TYPES.indexOf(type || '') !== -1;
 }

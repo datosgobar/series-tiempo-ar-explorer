@@ -51,9 +51,9 @@ describe("ChartTypeSelector", () => {
         });
 
         it("returns 'column' as default", () => {
-            chartTypeSelector = buildChartTypeSelector('?ids=serie01,serie02&chartType=column&chartTypes=serie01:area,serie02:line');
+            chartTypeSelector = buildChartTypeSelector('?ids=serie01,serie02&chartType=column&chartTypes=serie01:area,serie02:asd');
 
-            expect(chartTypeSelector.getChartTypesBySeries()).toEqual({'serie01': 'area', 'serie02': 'line'});
+            expect(chartTypeSelector.getChartTypesBySeries()).toEqual({'serie01': 'area', 'serie02': 'column'});
         });
     });
 
