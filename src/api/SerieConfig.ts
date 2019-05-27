@@ -33,15 +33,19 @@ export default class SerieConfig {
     }
 
     public mustFormatUnits(formatUnits: boolean):boolean {
-        return formatUnits && (this.canFormatSerie() || this.getPercentChange() || this.getPercentChangeAYearAgo());
+        const formatFromAPI = this.serie.isPercentage === undefined ? this.checkFormatFromData() : this.serie.isPercentage;
+
+        return formatUnits && formatFromAPI;
     }
 
     public getSeriePeriodicity(): string {
         return i18nFrequency(this.serie.frequency || 'year');
     }
 
-    private canFormatSerie(): boolean {
-        return this.serie.data.every((data: IDataPoint) => data.value > -1 && data.value < 1);
+    private checkFormatFromData(): boolean {
+        const canFormatSerie = this.serie.data.every((data: IDataPoint) => data.value > -1 && data.value < 1);
+
+        return canFormatSerie || this.getPercentChange() || this.getPercentChangeAYearAgo()
     }
 
 }
