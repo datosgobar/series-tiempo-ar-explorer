@@ -90,6 +90,7 @@ export function toSerie(id: string): ISerie {
         downloadURL: '',
         endDate: 'end',
         id,
+        isPercentage: true,
         issued: `${id} issued`,
         publisher: { mbox: 'mail' + id, name: 'publi' + id },
         title: 'title' + id,

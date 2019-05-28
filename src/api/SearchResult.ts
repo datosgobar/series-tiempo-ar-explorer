@@ -101,4 +101,8 @@ export default class SearchResult implements ISerie {
     get collapseAggregation(): string {
         return "";
     }
+
+    get isPercentage(): boolean {
+        return false;
+    }
 }
