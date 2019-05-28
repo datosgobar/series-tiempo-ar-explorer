@@ -355,7 +355,7 @@ function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], fo
         return result;
     }, {});
 
-    return series.reduce((result: IYAxisConf, serie: ISerie) => {
+    return series.sort((serie: ISerie) => serie.minValue).reduce((result: IYAxisConf, serie: ISerie) => {
         const outOfScale = isOutOfScale(series[0].id, serie.id, minAndMaxValues);
 
         result[serie.id] = {
