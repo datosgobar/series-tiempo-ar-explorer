@@ -25,6 +25,12 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
         this.searchResultCardProps = this.searchResultCardProps.bind(this);
     }
 
+    // Never update component. It avoids re render (and scrolling), but it could be a risk.
+    // Refactor all nested components and, hopefully, it won't be needed.
+    public shouldComponentUpdate() {
+        return false;
+    }
+
     public render() {
         return (
             <FullSearcher
