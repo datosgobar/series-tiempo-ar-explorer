@@ -3,8 +3,7 @@ import { ApiClient } from '../../api/ApiClient';
 import QueryParams from '../../api/QueryParams';
 import { ISerie } from '../../api/Serie';
 import SerieApi from '../../api/SerieApi';
-import { fullLocaleDate } from '../../helpers/dateFunctions';
-import { buildLocale } from '../common/locale/buildLocale';
+import FullCard from '../exportable_card/FullCard';
 
 
 export interface ICardExportableProps {
@@ -44,20 +43,11 @@ export default class CardExportable extends React.Component<ICardExportableProps
     }
 
     public render() {
-        if (this.state.serie && this.state.seriePercentChange) {
-            return (
-                <div>
-                    <strong>{this.state.serie.description}</strong>
-                    <h5>{fullLocaleDate('Diaria', this.state.serie.data[0].date)}</h5>
-                    <h1>{buildLocale(this.props.locale).toDecimalString(this.state.serie.data[0].value)}</h1>
-                    <h5>{this.state.serie.units}</h5>
-                    <h3>{buildLocale(this.props.locale).toDecimalString(this.state.seriePercentChange.data[0].value)}% interanual</h3>
-                    <h5>Fuente: {this.state.serie.datasetSource}</h5>
-                </div>
-            )
-        }
+        if (!this.state.serie || !this.state.seriePercentChange) { return null }
 
-        return null
+        return <FullCard serie={this.state.serie}
+                            seriePercentChange={this.state.seriePercentChange}
+                            locale={this.props.locale} />
     }
 
     private fetchSeries(params: QueryParams) {
