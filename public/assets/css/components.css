@@ -1,3 +1,5 @@
+/* Graphic */
+
 .exportable-graph div { /* Force highcharts to set the height from container */
   height: 100%;
 }
@@ -54,3 +56,20 @@
   text-align: center;
   left: 15% !important;
 }
+/* Fin Graphic */
+
+
+/* Card */
+.exportable-card-value {
+  font-size: 40px;
+  font-weight: bold;
+  display: block;
+}
+
+.exportable-card-percentage {
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+}
+
+/* Fin Card */

@@ -10,7 +10,7 @@ export interface ICardExportableProps {
     serieId: string;
     locale: string;
     links: string;
-    color?: string;
+    color: string;
     hasChart: string;
     chartType: string;
     title?: string;
@@ -47,7 +47,8 @@ export default class CardExportable extends React.Component<ICardExportableProps
 
         return <FullCard serie={this.state.serie}
                             seriePercentChange={this.state.seriePercentChange}
-                            locale={this.props.locale} />
+                            locale={this.props.locale}
+                            color={this.props.color} />
     }
 
     private fetchSeries(params: QueryParams) {
