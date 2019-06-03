@@ -1,9 +1,24 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import CardExportable, { ICardExportableProps } from "./components/exportable/CardExportable";
+import { ApiClient } from "./api/ApiClient";
+import SerieApi from "./api/SerieApi";
+import CardExportable from "./components/exportable/CardExportable";
 
 
-export function render(selector: string, config: ICardExportableProps) {
+export interface ICardExportableConfig {
+    serieId: string;
+    locale: string;
+    links: string;
+    color: string;
+    hasChart: string;
+    chartType: string;
+    title?: string;
+    source?: string;
+}
+
+export function render(selector: string, config: ICardExportableConfig) {
+    const seriesApi = new SerieApi(new ApiClient(buildURLfromSerieId(config.serieId), 'ts-components-card'));
+
     ReactDOM.render(
         <CardExportable serieId={config.serieId}
                         locale={config.locale || 'AR'}
@@ -12,7 +27,12 @@ export function render(selector: string, config: ICardExportableProps) {
                         hasChart={config.hasChart || 'full'}
                         chartType={config.chartType}
                         title={config.title}
-                        source={config.source} />,
+                        source={config.source}
+                        seriesApi={seriesApi} />,
         document.getElementById(selector) as HTMLElement
     )
+}
+
+function buildURLfromSerieId(serieId: string): string {
+    return `https://apis.datos.gob.ar/series/api/series?ids=${serieId}`
 }
