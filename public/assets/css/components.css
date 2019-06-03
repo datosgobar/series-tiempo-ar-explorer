@@ -60,16 +60,56 @@
 
 
 /* Card */
+.full-card {
+  width: 15%;
+  text-align: center;
+  border: 1px solid #cecece;
+  border-top: 7px solid #0072BB;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+}
+
+.full-card-header {
+  text-align: center;
+  border-bottom: 1px solid #cecece;
+  margin-bottom: 10px;
+}
+
+.full-card-header .date {
+  color: grey;
+}
+
 .exportable-card-value {
   font-size: 40px;
   font-weight: bold;
   display: block;
 }
 
-.exportable-card-percentage {
-  font-size: 20px;
-  font-weight: bold;
+h5.source {
+  color: grey;
   display: block;
+  margin: 10px;
+  font-size: 13px;
+}
+
+.full-card-links {
+  padding: 10px;
+  background-color: #e6e6e6;
+  border-top: 1px solid #cecece;
+  color: #0072BB;
+}
+
+.full-card-download {
+  float: left;
+}
+
+.full-card-view-more {
+  float: none;
+}
+
+.full-card-enlaces {
+  float: right;
 }
 
 /* Fin Card */
