@@ -60,16 +60,72 @@
 
 
 /* Card */
-.exportable-card-value {
-  font-size: 40px;
-  font-weight: bold;
-  display: block;
+.full-card {
+  font-family: "Arial", Verdana, sans-serif;
+  width: 230px;
+  text-align: center;
+  border: 1px solid #cecece;
+  border-top: 7px solid #0072BB;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
 }
 
-.exportable-card-percentage {
+.full-card-header {
+  text-align: center;
+  border-bottom: 2px solid #e6e6e6;
+  padding: 10px;
+}
+
+.full-card-header .title {
+  color: #484848;
   font-size: 20px;
   font-weight: bold;
+}
+
+.full-card-header .date {
   display: block;
+  color: grey;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.exportable-card-value {
+  display: block;
+  font-size: 45px;
+  font-weight: bold;
+  padding: 7px;
+}
+
+.full-card .units {
+  font-size: 15px;
+}
+
+.source {
+  display: block;
+  color: #505050;
+  margin: 20px;
+  font-size: 13px;
+}
+
+.full-card-links {
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-top: 2px solid #dadada;
+  color: #0072BB;
+  font-size: 13px;
+}
+
+.full-card-download {
+  float: left;
+}
+
+.full-card-view-more {
+  float: none;
+}
+
+.full-card-enlaces {
+  float: right;
 }
 
 /* Fin Card */

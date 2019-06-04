@@ -3,7 +3,9 @@ import { ISerie } from '../../api/Serie';
 import { fullLocaleDate } from '../../helpers/dateFunctions';
 import { buildLocale } from '../common/locale/buildLocale';
 import LocaleDefault from '../common/locale/LocaleDefault';
-import ExportableCardValue from '../style/exportable_card/ExportableCardValue';
+import FullCardHeader from '../style/exportable_card/FullCardHeader';
+import FullCardValue from '../style/exportable_card/FullCardValue';
+import FullCardLinks from './FullCardLinks';
 
 
 interface IFullCardProps {
@@ -16,12 +18,12 @@ export default (props: IFullCardProps) => {
     const locale = buildLocale(props.locale);
 
     return (
-        <div>
-            <strong>{props.serie.description}</strong>
-            <h5>{fullLocaleDate('Diaria', props.serie.data[0].date)}</h5>
-            <ExportableCardValue color={props.color} text={formattedValue(props.serie, locale)} />
-            <h5>{props.serie.units}</h5>
-            <h5>Fuente: {props.serie.datasetSource}</h5>
+        <div className="full-card">
+            <FullCardHeader color={props.color} title={props.serie.description} date={fullLocaleDate('Diaria', props.serie.data[0].date)} />
+            <FullCardValue color={props.color} text={formattedValue(props.serie, locale)} />
+            <span className="units">{props.serie.units}</span>
+            <span className="source">Fuente: {props.serie.datasetSource}</span>
+            <FullCardLinks serie={props.serie} />
         </div>
     )
 }
