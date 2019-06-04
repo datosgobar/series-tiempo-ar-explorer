@@ -21,8 +21,8 @@ export default (props: IFullCardProps) => {
         <div className="full-card">
             <FullCardHeader color={props.color} title={props.serie.description} date={fullLocaleDate('Diaria', props.serie.data[0].date)} />
             <FullCardValue color={props.color} text={formattedValue(props.serie, locale)} />
-            <h4>{props.serie.units}</h4>
-            <h5 className="source">Fuente: {props.serie.datasetSource}</h5>
+            <span className="units">{props.serie.units}</span>
+            <span className="source">Fuente: {props.serie.datasetSource}</span>
             <FullCardLinks serie={props.serie} />
         </div>
     )
