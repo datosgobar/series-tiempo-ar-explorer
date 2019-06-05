@@ -17,7 +17,7 @@ export interface ICardExportableConfig {
 }
 
 export function render(selector: string, config: ICardExportableConfig) {
-    const seriesApi = new SerieApi(new ApiClient(buildURLfromSerieId(config.serieId), 'ts-components-card'));
+    const seriesApi = new SerieApi(new ApiClient(getURI(), 'ts-components-card'));
 
     ReactDOM.render(
         <CardExportable serieId={config.serieId}
@@ -33,6 +33,6 @@ export function render(selector: string, config: ICardExportableConfig) {
     )
 }
 
-function buildURLfromSerieId(serieId: string): string {
-    return `https://apis.datos.gob.ar/series/api/series?ids=${serieId}`
+function getURI(): string {
+    return `https://apis.datos.gob.ar/series/api`
 }
