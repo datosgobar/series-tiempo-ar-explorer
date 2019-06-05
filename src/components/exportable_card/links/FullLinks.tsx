@@ -8,6 +8,6 @@ import FullCardViewMore from '../FullCardViewMore';
 export default (props: {serie: ISerie, downloadUrl: string}) =>
     <div className="full-card-links">
         <FullCardDownload downloadUrl={props.downloadUrl} />
-        <FullCardViewMore />
+        <FullCardViewMore serieId={props.serie.id} />
         <FullCardEnlaces />
     </div>
