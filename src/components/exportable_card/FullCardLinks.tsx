@@ -1,20 +1,19 @@
 import * as React from 'react';
-import { ISerie } from '../../api/Serie';
 import FullLinks from './links/FullLinks';
 import SmallLinks from './links/SmallLinks';
 
 
-export default (props: {serie: ISerie, links: string, downloadUrl: string}) => {
-    const LinkComponent = linksTypeComponent(props.links, props.serie, props.downloadUrl)
+export default (props: {serieId: string, links: string, downloadUrl: string}) => {
+    const LinkComponent = linksTypeComponent(props.links, props.serieId, props.downloadUrl)
 
     return <div> {LinkComponent} </div>
 }
 
-function linksTypeComponent(link: string, serie: ISerie, downloadUrl: string) {
+function linksTypeComponent(link: string, serieId: string, downloadUrl: string) {
     const types = {
-        'full': <FullLinks serie={serie} downloadUrl={downloadUrl} />,
+        'full': <FullLinks serieId={serieId} downloadUrl={downloadUrl} />,
         'none': null,
-        'small': <SmallLinks serie={serie} />,
+        'small': <SmallLinks downloadUrl={downloadUrl}/>,
     }
 
     return types[link];
