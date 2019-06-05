@@ -12,6 +12,7 @@ interface IFullCardProps {
     serie: ISerie;
     locale: string;
     color: string;
+    links: string;
 }
 
 export default (props: IFullCardProps) => {
@@ -23,7 +24,7 @@ export default (props: IFullCardProps) => {
             <FullCardValue color={props.color} text={formattedValue(props.serie, locale)} />
             <span className="units">{props.serie.units}</span>
             <span className="source">Fuente: {props.serie.datasetSource}</span>
-            <FullCardLinks serie={props.serie} />
+            <FullCardLinks serie={props.serie} links={props.links} />
         </div>
     )
 }

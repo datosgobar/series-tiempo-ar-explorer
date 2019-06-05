@@ -36,7 +36,8 @@ export default class CardExportable extends React.Component<ICardExportableProps
 
         return <FullCard serie={this.state.serie}
                             locale={this.props.locale}
-                            color={this.props.color} />
+                            color={this.props.color}
+                            links={this.props.links} />
     }
 
     private fetchSeries(params: QueryParams) {
