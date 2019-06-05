@@ -36,12 +36,19 @@ export default class CardExportable extends React.Component<ICardExportableProps
         return <FullCard serie={this.state.serie}
                             locale={this.props.locale}
                             color={this.props.color}
-                            links={this.props.links} />
+                            links={this.props.links}
+                            downloadUrl={this.getDownloadUrl()} />
     }
 
     private fetchSeries(params: QueryParams) {
         this.props.seriesApi.fetchSeries(params)
             .then((series: ISerie[]) => this.setState({serie: series[0]}))
             .catch((error: any) => alert("Ocurrió un error buscando la serie solicitada."));
+    }
+
+    private getDownloadUrl(): string {
+        const params = new QueryParams([this.props.serieId]);
+        params.setLast(5000);
+        return this.props.seriesApi.downloadDataURL(params)
     }
 }

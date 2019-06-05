@@ -5,9 +5,9 @@ import FullCardEnlaces from '../FullCardEnlaces';
 import FullCardViewMore from '../FullCardViewMore';
 
 
-export default (props: {serie: ISerie}) =>
+export default (props: {serie: ISerie, downloadUrl: string}) =>
     <div className="full-card-links">
-        <FullCardDownload />
+        <FullCardDownload downloadUrl={props.downloadUrl} />
         <FullCardViewMore />
         <FullCardEnlaces />
     </div>
