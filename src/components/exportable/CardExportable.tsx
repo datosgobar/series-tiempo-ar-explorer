@@ -25,8 +25,7 @@ export default class CardExportable extends React.Component<ICardExportableProps
     }
 
     public componentDidMount() {
-        const percentChangeId = `${this.props.serieId}:percent_change_a_year_ago`
-        const params = new QueryParams([this.props.serieId, percentChangeId]);
+        const params = new QueryParams([this.props.serieId]);
         params.setLast(1);
         this.fetchSeries(params);
     }
