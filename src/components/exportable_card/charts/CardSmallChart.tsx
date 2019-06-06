@@ -15,7 +15,7 @@ export default class CardSmallChart extends React.Component<ICardChartProps, any
 
     public render() {
         return (
-            <div ref={this.myRef}>
+            <div className="graphic" ref={this.myRef}>
                 <D3LineChart renderTo={this.myRef} data={this.props.data} />
             </div>
         )

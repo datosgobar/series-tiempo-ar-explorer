@@ -25,12 +25,12 @@ export default (props: IFullCardProps) => {
     }
 
     return (
-        <div className="full-card">
+        <div className="card normal full">
             <FullCardHeader color={props.cardOptions.color} title={props.serie.description} date={lastSerieDate(props.serie)} />
             <FullCardValue color={props.cardOptions.color} text={formattedValue(props.serie, props.cardOptions.locale)} />
             <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={props.cardOptions.hasChart} />
-            <span className="units">{props.serie.units}</span>
-            <span className="source">Fuente: {props.serie.datasetSource}</span>
+            <p className="c-main-title">{props.serie.units}</p>
+            <p className="c-span bt">Fuente: {props.serie.datasetSource}</p>
             <FullCardLinks options={options} />
         </div>
     )

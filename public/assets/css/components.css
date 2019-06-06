@@ -60,72 +60,205 @@
 
 
 /* Card */
-.full-card {
-  font-family: "Arial", Verdana, sans-serif;
+/*-Roboto-*/
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,600&display=swap");
+/*---CARD---*/
+.card {
+  position: relative;
+  display: inline-block;
+  margin-right: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+.card, .card * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Roboto";
+  color: #333;
+}
+
+.card.no-graph {
   width: 230px;
-  text-align: center;
-  border: 1px solid #cecece;
-  border-top: 7px solid #0072BB;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
 }
 
-.full-card-header {
-  text-align: center;
-  border-bottom: 2px solid #e6e6e6;
-  padding: 10px;
+.card.no-graph .c-main {
+  margin-top: 8px;
 }
 
-.full-card-header .title {
-  color: #484848;
-  font-size: 20px;
-  font-weight: bold;
+.card.no-graph .c-main-title {
+  margin-bottom: 15px;
 }
 
-.full-card-header .date {
-  display: block;
-  color: grey;
-  font-size: 13px;
-  margin-top: 10px;
+.card.empty {
+  width: 230px;
 }
 
-.exportable-card-value {
-  display: block;
-  font-size: 45px;
-  font-weight: bold;
-  padding: 7px;
+.card.empty .c-data {
+  margin-top: -10px;
 }
 
-.full-card .units {
-  font-size: 15px;
+.card.empty .c-data .c-main-title {
+  margin-bottom: 10px;
 }
 
-.source {
-  display: block;
-  color: #505050;
-  margin: 20px;
-  font-size: 13px;
+.card.normal {
+  width: 230px;
 }
 
-.full-card-links {
-  padding: 10px;
-  background-color: #f1f1f1;
+.card.normal .c-data {
+  padding-top: 8px;
+}
+
+.card.normal .c-data .graphic {
+  width: 100%;
+  height: 70px;
+  padding: 7.5px 10px;
+}
+
+.card.normal .c-data .graphic img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.card.wide {
+  width: 290px;
+}
+
+.card.wide .c-data {
+  padding-top: 8px;
+}
+
+.card.wide .c-data .c-main-title {
+  margin-bottom: 10px;
+}
+
+.card.wide .c-data .graphic {
+  width: 100%;
+  height: 160px;
+}
+
+.card.wide .c-data .graphic img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.card.full {
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+  border-top: 5px solid #0072BB;
+  background: #ffffff;
+}
+
+.card.full .c-head {
+  border-bottom: 2px solid #dadada;
+}
+
+.card.full .c-foot {
   border-top: 2px solid #dadada;
+  background: #f1f1f1;
+}
+
+.card {
+  /*---CARD-HEAD---*/
+  /*---CARD-DATA---*/
+  /*---CARD-FOOTER---*/
+}
+
+.card .c-head,
+.card .c-data,
+.card .c-foot {
+  width: 100%;
+}
+
+.card .c-span {
+  text-align: center;
+  font-size: 12px;
+  padding: 0 15%;
+  margin: 10px 0px;
+  color: grey;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card .c-head {
+  height: 85px;
+  padding: 10px 10%;
+  visibility: visible;
+}
+
+.card .c-head .c-title {
+  height: 40px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card .c-data .c-main {
+  font-size: 48px;
+  font-weight: 600;
   color: #0072BB;
-  font-size: 13px;
+  text-align: center;
 }
 
-.full-card-download {
-  float: left;
+.card .c-data .c-main-title {
+  height: 32px;
+  text-align: center;
+  font-size: 14px;
+  padding: 0px 18%;
 }
 
-.full-card-view-more {
-  float: none;
+.card .c-data .graphic-detail {
+  height: 21px;
+  text-align: center;
+  font-size: 18px;
+  color: #0072BB;
+  font-weight: 500;
 }
 
-.full-card-enlaces {
-  float: right;
+.card .c-data .bt {
+  height: 28px;
+}
+
+.card .c-foot {
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.card .c-foot div {
+  width: calc(99.999% / 3);
+  height: 100%;
+  text-align: center;
+  padding-top: 6px;
+}
+
+.card .c-foot div a {
+  font-size: 12px;
+  color: #0072BB;
+}
+
+.card .c-foot div a:link, .card .c-foot div a:visited, .card .c-foot div a:hover, .card .c-foot div a:active {
+  text-decoration: none;
+}
+
+.card .c-foot div a:hover {
+  color: #005388;
 }
 
 /* Fin Card */

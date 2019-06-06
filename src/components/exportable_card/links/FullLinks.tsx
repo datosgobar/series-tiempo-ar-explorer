@@ -6,8 +6,8 @@ import FullCardViewMore from '../FullCardViewMore';
 
 
 export default (props: {options: ICardLinksOptions}) =>
-    <div className="full-card-links">
-        <FullCardDownload downloadUrl={props.options.downloadUrl} />
-        <FullCardViewMore serieId={props.options.serieId} />
-        <FullCardDropdown options={props.options} />
+    <div className="c-foot">
+        <div><FullCardDownload downloadUrl={props.options.downloadUrl} /></div>
+        <div><FullCardViewMore serieId={props.options.serieId} /></div>
+        <div><FullCardDropdown options={props.options} /></div>
     </div>

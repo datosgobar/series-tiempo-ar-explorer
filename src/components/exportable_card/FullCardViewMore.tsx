@@ -3,4 +3,4 @@ import { viewDatosGobAr } from '../common/linkBuilders';
 
 
 export default (props: {serieId: string}) =>
-    <a href={viewDatosGobAr(props.serieId)} target="_blank" className="full-card-view-more">Ver más</a>
+    <a href={viewDatosGobAr(props.serieId)} target="_blank" className="">Ver más</a>
