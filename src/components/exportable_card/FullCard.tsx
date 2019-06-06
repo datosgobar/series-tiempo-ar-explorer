@@ -26,9 +26,7 @@ export default (props: IFullCardProps) => {
 
     return (
         <div className="full-card">
-            <FullCardHeader color={props.cardOptions.color}
-                            title={props.serie.description}
-                            date={lastSerieDate(props.serie)} />
+            <FullCardHeader color={props.cardOptions.color} title={props.serie.description} date={lastSerieDate(props.serie)} />
             <FullCardValue color={props.cardOptions.color} text={formattedValue(props.serie, props.cardOptions.locale)} />
             <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={props.cardOptions.hasChart} />
             <span className="units">{props.serie.units}</span>
