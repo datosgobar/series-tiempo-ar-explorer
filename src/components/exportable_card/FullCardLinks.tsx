@@ -13,7 +13,7 @@ function linksTypeComponent(link: string, serieId: string, downloadUrl: string) 
     const types = {
         'full': <FullLinks serieId={serieId} downloadUrl={downloadUrl} />,
         'none': null,
-        'small': <SmallLinks downloadUrl={downloadUrl}/>,
+        'small': <SmallLinks serieId={serieId} downloadUrl={downloadUrl}/>,
     }
 
     return types[link];

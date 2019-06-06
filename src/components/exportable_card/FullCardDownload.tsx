@@ -5,6 +5,6 @@ export default (props: {downloadUrl: string}) =>
     <a href={csvUrl(props.downloadUrl)} className="full-card-download">Descargar</a>
 
 
-function csvUrl(url: string): string {
+export function csvUrl(url: string): string {
     return `${url}&format=csv`
 }

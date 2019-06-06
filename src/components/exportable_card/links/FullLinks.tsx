@@ -8,5 +8,5 @@ export default (props: {serieId: string, downloadUrl: string}) =>
     <div className="full-card-links">
         <FullCardDownload downloadUrl={props.downloadUrl} />
         <FullCardViewMore serieId={props.serieId} />
-        <FullCardEnlaces downloadUrl={props.downloadUrl} />
+        <FullCardEnlaces serieId={props.serieId} downloadUrl={props.downloadUrl} />
     </div>
