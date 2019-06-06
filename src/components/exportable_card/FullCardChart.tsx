@@ -1,28 +1,27 @@
 import * as React from 'react';
 import { IDataPoint } from '../../api/DataPoint';
-import D3LineChart from '../d3_charts/D3LineChart';
+import CardFullChart from './charts/CardFullChart';
+import CardNullChart from './charts/CardNullChart';
+import CardSmallChart from './charts/CardSmallChart';
 
 
-interface IFullCardChartProps {
+export interface ICardChartProps {
     data: IDataPoint[];
+}
+
+interface IFullCardChartProps extends ICardChartProps {
     chartType: string;
 }
 
-export default class FullCardChart extends React.Component<IFullCardChartProps, any> {
+const CHART_TYPES_COMPONENT = {
+    'full': CardFullChart,
+    'none': CardNullChart,
+    'small': CardSmallChart,
+}
 
-    private readonly myRef: React.RefObject<any>;
 
-    public constructor(props: IFullCardChartProps) {
-        super(props);
+export default (props: IFullCardChartProps) => {
+    const Chart = CHART_TYPES_COMPONENT[props.chartType];
 
-        this.myRef = React.createRef();
-    }
-
-    public render() {
-        return (
-            <div ref={this.myRef}>
-                <D3LineChart renderTo={this.myRef} data={this.props.data} />
-            </div>
-        )
-    }
+    return <Chart data={props.data} />
 }
