@@ -1,20 +1,17 @@
 import * as React from 'react';
 import FullLinks from './links/FullLinks';
+import NullLinks from './links/NullLinks';
 import SmallLinks from './links/SmallLinks';
 
 
-export default (props: {serieId: string, links: string, downloadUrl: string}) => {
-    const LinkComponent = linksTypeComponent(props.links, props.serieId, props.downloadUrl)
-
-    return <div> {LinkComponent} </div>
+const TYPES = {
+    'full': FullLinks,
+    'none': NullLinks,
+    'small': SmallLinks,
 }
 
-function linksTypeComponent(link: string, serieId: string, downloadUrl: string) {
-    const types = {
-        'full': <FullLinks serieId={serieId} downloadUrl={downloadUrl} />,
-        'none': null,
-        'small': <SmallLinks serieId={serieId} downloadUrl={downloadUrl}/>,
-    }
+export default (props: {serieId: string, links: string, downloadUrl: string}) => {
+    const LinkComponent = TYPES[props.links]
 
-    return types[link];
+    return <div> <LinkComponent  serieId={props.serieId} downloadUrl={props.downloadUrl}/> </div>
 }
