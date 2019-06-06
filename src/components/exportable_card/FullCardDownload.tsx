@@ -1,10 +1,6 @@
 import * as React from 'react';
+import { formatUrl } from '../common/linkBuilders';
 
 
-export default (props: {downloadUrl: string}) =>
-    <a href={csvUrl(props.downloadUrl)} className="full-card-download">Descargar</a>
-
-
-export function csvUrl(url: string): string {
-    return `${url}&format=csv`
-}
+export default (props: { downloadUrl: string }) =>
+    <a href={formatUrl(props.downloadUrl, "csv")} className="full-card-download">Descargar</a>

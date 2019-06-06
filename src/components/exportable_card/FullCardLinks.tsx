@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { ICardBaseConfig } from '../../indexCard';
+import { IWebSnippetOptions } from '../common/linkBuilders';
 import FullLinks from './links/FullLinks';
 import NullLinks from './links/NullLinks';
 import SmallLinks from './links/SmallLinks';
@@ -10,8 +12,22 @@ const TYPES = {
     'small': SmallLinks,
 }
 
-export default (props: {serieId: string, links: string, downloadUrl: string}) => {
-    const LinkComponent = TYPES[props.links]
+export interface ICardLinksOptions extends IWebSnippetOptions {
+    downloadUrl: string
+}
 
-    return <div> <LinkComponent  serieId={props.serieId} downloadUrl={props.downloadUrl}/> </div>
+export default (props: {
+    serieId: string, cardOptions:ICardBaseConfig, downloadUrl: string
+}) => {
+    const LinkComponent = TYPES[props.cardOptions.links]
+    const Options = {
+        chartType: props.cardOptions.chartType,
+        color: props.cardOptions.color,
+        downloadUrl: props.downloadUrl,
+        hasChart: props.cardOptions.hasChart,
+        links: props.cardOptions.links,
+        serieId: props.serieId
+    }
+
+    return <div> <LinkComponent options={Options} /> </div>
 }

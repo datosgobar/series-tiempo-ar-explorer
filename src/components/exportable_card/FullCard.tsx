@@ -1,31 +1,33 @@
 import * as React from 'react';
 import { ISerie } from '../../api/Serie';
 import { fullLocaleDate } from '../../helpers/dateFunctions';
+import { ICardBaseConfig } from '../../indexCard';
 import { buildLocale } from '../common/locale/buildLocale';
 import LocaleDefault from '../common/locale/LocaleDefault';
 import FullCardHeader from '../style/exportable_card/FullCardHeader';
 import FullCardValue from '../style/exportable_card/FullCardValue';
 import FullCardLinks from './FullCardLinks';
 
-
 interface IFullCardProps {
     serie: ISerie;
-    locale: string;
-    color: string;
-    links: string;
     downloadUrl: string;
+    cardOptions: ICardBaseConfig
 }
 
 export default (props: IFullCardProps) => {
-    const locale = buildLocale(props.locale);
+    const locale = buildLocale(props.cardOptions.locale);
 
     return (
         <div className="full-card">
-            <FullCardHeader color={props.color} title={props.serie.description} date={fullLocaleDate('Diaria', props.serie.data[0].date)} />
-            <FullCardValue color={props.color} text={formattedValue(props.serie, locale)} />
+            <FullCardHeader color={props.cardOptions.color}
+                title={props.serie.description}
+                date={fullLocaleDate('Diaria', props.serie.data[0].date)} />
+            <FullCardValue color={props.cardOptions.color} text={formattedValue(props.serie, locale)} />
             <span className="units">{props.serie.units}</span>
             <span className="source">Fuente: {props.serie.datasetSource}</span>
-            <FullCardLinks serieId={props.serie.id} links={props.links} downloadUrl={props.downloadUrl} />
+            <FullCardLinks serieId={props.serie.id}
+                cardOptions={props.cardOptions}
+                downloadUrl={props.downloadUrl} />
         </div>
     )
 }

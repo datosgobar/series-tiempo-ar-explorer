@@ -11,7 +11,7 @@ export interface ICardExportableProps extends ICardExportableConfig {
 }
 
 interface ICardExportableState {
-    serie: ISerie|null;
+    serie: ISerie | null;
 }
 
 export default class CardExportable extends React.Component<ICardExportableProps, ICardExportableState> {
@@ -33,16 +33,25 @@ export default class CardExportable extends React.Component<ICardExportableProps
     public render() {
         if (!this.state.serie) { return null }
 
-        return <FullCard serie={this.state.serie}
-                            locale={this.props.locale}
-                            color={this.props.color}
-                            links={this.props.links}
-                            downloadUrl={this.getDownloadUrl()} />
+        return <FullCard serie={this.state.serie} {...this.cardOptions()}/>
+    }
+
+    private cardOptions() {
+        return {
+            cardOptions: {
+                chartType: this.props.chartType,
+                color: this.props.color,
+                hasChart: this.props.hasChart,
+                links: this.props.links,
+                locale: this.props.locale            
+            },
+            downloadUrl: this.getDownloadUrl()
+        }
     }
 
     private fetchSeries(params: QueryParams) {
         this.props.seriesApi.fetchSeries(params)
-            .then((series: ISerie[]) => this.setState({serie: series[0]}))
+            .then((series: ISerie[]) => this.setState({ serie: series[0] }))
             .catch((error: any) => alert("Ocurrió un error buscando la serie solicitada."));
     }
 

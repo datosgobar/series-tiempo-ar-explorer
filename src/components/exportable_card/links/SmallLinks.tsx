@@ -1,8 +1,9 @@
 import * as React from 'react';
 import FullCardDropdown from '../FullCardDropdown';
+import { ICardLinksOptions } from '../FullCardLinks';
 
 
-export default (props: {serieId: string, downloadUrl: string}) =>
+export default (props: {options: ICardLinksOptions}) =>
     <div className="full-card-links">
-        <FullCardDropdown serieId={props.serieId} downloadUrl={props.downloadUrl} />
+        <FullCardDropdown options={props.options} />
     </div>

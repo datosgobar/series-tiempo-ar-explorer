@@ -4,9 +4,7 @@ import { ApiClient } from "./api/ApiClient";
 import SerieApi from "./api/SerieApi";
 import CardExportable from "./components/exportable/CardExportable";
 
-
-export interface ICardExportableConfig {
-    serieId: string;
+export interface ICardBaseConfig {
     locale: string;
     links: string;
     color: string;
@@ -14,6 +12,10 @@ export interface ICardExportableConfig {
     chartType: string;
     title?: string;
     source?: string;
+}
+
+export interface ICardExportableConfig extends ICardBaseConfig {
+    serieId: string;
 }
 
 export function render(selector: string, config: ICardExportableConfig) {
