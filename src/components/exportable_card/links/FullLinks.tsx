@@ -1,6 +1,6 @@
 import * as React from 'react';
 import FullCardDownload from '../FullCardDownload';
-import FullCardEnlaces from '../FullCardDropdown';
+import FullCardDropdown from '../FullCardDropdown';
 import FullCardViewMore from '../FullCardViewMore';
 
 
@@ -8,5 +8,5 @@ export default (props: {serieId: string, downloadUrl: string}) =>
     <div className="full-card-links">
         <FullCardDownload downloadUrl={props.downloadUrl} />
         <FullCardViewMore serieId={props.serieId} />
-        <FullCardEnlaces serieId={props.serieId} downloadUrl={props.downloadUrl} />
+        <FullCardDropdown serieId={props.serieId} downloadUrl={props.downloadUrl} />
     </div>
