@@ -16,6 +16,11 @@ interface IFullCardProps {
 
 export default (props: IFullCardProps) => {
     const locale = buildLocale(props.cardOptions.locale);
+    const options = {
+        ...props.cardOptions,
+        downloadUrl: props.downloadUrl,
+        serieId: props.serie.id
+    }
 
     return (
         <div className="full-card">
@@ -25,9 +30,7 @@ export default (props: IFullCardProps) => {
             <FullCardValue color={props.cardOptions.color} text={formattedValue(props.serie, locale)} />
             <span className="units">{props.serie.units}</span>
             <span className="source">Fuente: {props.serie.datasetSource}</span>
-            <FullCardLinks serieId={props.serie.id}
-                cardOptions={props.cardOptions}
-                downloadUrl={props.downloadUrl} />
+            <FullCardLinks options={options} />
         </div>
     )
 }
