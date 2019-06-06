@@ -1,5 +1,5 @@
 import * as React from 'react';
-import FullCardEnlaces from '../FullCardEnlaces';
+import FullCardEnlaces from '../FullCardDropdown';
 
 
 export default (props: {serieId: string, downloadUrl: string}) =>

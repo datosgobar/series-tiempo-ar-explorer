@@ -1,6 +1,6 @@
 import * as React from 'react';
 import FullCardDownload from '../FullCardDownload';
-import FullCardEnlaces from '../FullCardEnlaces';
+import FullCardEnlaces from '../FullCardDropdown';
 import FullCardViewMore from '../FullCardViewMore';
 
 
