@@ -25,7 +25,7 @@ export default (props: IFullCardProps) => {
     }
 
     return (
-        <div className="card normal full">
+        <div className={`card ${chartClass(props.cardOptions.hasChart)} ${borderClass(props.cardOptions)}`}>
             <FullCardHeader color={props.cardOptions.color} title={props.serie.description} date={lastSerieDate(props.serie)} />
             <FullCardValue color={props.cardOptions.color} text={formattedValue(props.serie, props.cardOptions.locale)} />
             <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={props.cardOptions.hasChart} />
@@ -34,6 +34,24 @@ export default (props: IFullCardProps) => {
             <FullCardLinks options={options} />
         </div>
     )
+}
+
+function chartClass(chartMode: string): string {
+    const modes = {
+        'full': 'wide',
+        'none': 'no-graph',
+        'small': 'normal',
+    }
+
+    return modes[chartMode];
+}
+
+function borderClass(props:ICardBaseConfig): string {
+    if (props.hasChart !== 'none' || props.links !== 'none') {
+        return 'full'
+    } else{
+        return 'empty'
+    }
 }
 
 function shortDataList(data: IDataPoint[], laps: number): IDataPoint[] {
