@@ -242,7 +242,7 @@
   justify-content: center;
 }
 
-.card .c-foot div {
+.card .c-foot div:not(.__react_component_tooltip) {
   width: calc(99.999% / 3);
   height: 100%;
   text-align: center;
@@ -267,6 +267,10 @@
   padding-top: 0 !important;
   text-align: center !important;
   width: 100% !important;
+}
+
+.__react_component_tooltip {
+  padding: 8px 21px !important;
 }
 
 /* Fin Card */

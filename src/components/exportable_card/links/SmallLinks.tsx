@@ -5,5 +5,5 @@ import { ICardLinksOptions } from '../FullCardLinks';
 
 export default (props: {options: ICardLinksOptions}) =>
     <div className="c-foot">
-        <div><FullCardDropdown options={props.options} /></div>
+        <div className="enlaces"><FullCardDropdown options={props.options} /></div>
     </div>
