@@ -4,6 +4,7 @@ import { ISerie } from '../../api/Serie';
 import { fullLocaleDate } from '../../helpers/dateFunctions';
 import { ICardBaseConfig } from '../../indexCard';
 import { buildLocale } from '../common/locale/buildLocale';
+import FullCardContainer from '../style/exportable_card/FullCardContainer';
 import FullCardHeader from '../style/exportable_card/FullCardHeader';
 import FullCardValue from '../style/exportable_card/FullCardValue';
 import FullCardChart from './FullCardChart';
@@ -25,33 +26,15 @@ export default (props: IFullCardProps) => {
     }
 
     return (
-        <div className={`card ${chartClass(props.cardOptions.hasChart)} ${borderClass(props.cardOptions)}`}>
+        <FullCardContainer cardOptions={props.cardOptions}>
             <FullCardHeader color={props.cardOptions.color} title={props.serie.description} date={lastSerieDate(props.serie)} />
             <FullCardValue color={props.cardOptions.color} text={formattedValue(props.serie, props.cardOptions.locale)} />
             <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={props.cardOptions.hasChart} />
             <p className="c-main-title">{props.serie.units}</p>
             <p className="c-span bt">Fuente: {props.serie.datasetSource}</p>
             <FullCardLinks options={options} />
-        </div>
+        </FullCardContainer>
     )
-}
-
-function chartClass(chartMode: string): string {
-    const modes = {
-        'full': 'wide',
-        'none': 'no-graph',
-        'small': 'normal',
-    }
-
-    return modes[chartMode];
-}
-
-function borderClass(props:ICardBaseConfig): string {
-    if (props.hasChart !== 'none' || props.links !== 'none') {
-        return 'full'
-    } else{
-        return 'empty'
-    }
 }
 
 function shortDataList(data: IDataPoint[], laps: number): IDataPoint[] {
