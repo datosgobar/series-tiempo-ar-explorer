@@ -1,3 +1,6 @@
+/*-Roboto-*/
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,600&display=swap");
+
 /* Graphic */
 
 .exportable-graph div { /* Force highcharts to set the height from container */
@@ -60,8 +63,6 @@
 
 
 /* Card */
-/*-Roboto-*/
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,600&display=swap");
 /*---CARD---*/
 .card {
   position: relative;
@@ -189,13 +190,13 @@
 }
 
 .card .c-head {
-  height: 85px;
+  height: 92px;
   padding: 10px 10%;
   visibility: visible;
 }
 
 .card .c-head .c-title {
-  height: 40px;
+  height: 47px;
   text-align: center;
   font-weight: 500;
   font-size: 18px;
@@ -251,6 +252,7 @@
 .card .c-foot div a {
   font-size: 12px;
   color: #0072BB;
+  cursor: pointer
 }
 
 .card .c-foot div a:link, .card .c-foot div a:visited, .card .c-foot div a:hover, .card .c-foot div a:active {
@@ -259,6 +261,12 @@
 
 .card .c-foot div a:hover {
   color: #005388;
+}
+
+.card .dropdown {
+  padding-top: 0 !important;
+  text-align: center !important;
+  width: 100% !important;
 }
 
 /* Fin Card */
