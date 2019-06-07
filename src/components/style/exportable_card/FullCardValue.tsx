@@ -2,4 +2,6 @@ import * as React from 'react';
 
 
 export default (props: {color: string, text: string}) =>
-    <span className="exportable-card-value" style={{color: props.color}}>{props.text}</span>
+    <div className="c-data">
+        <p className="c-main" style={{color: props.color}}>{props.text}</p>
+    </div>

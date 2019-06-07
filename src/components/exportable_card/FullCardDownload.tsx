@@ -3,4 +3,4 @@ import { formatUrl } from '../common/linkBuilders';
 
 
 export default (props: { downloadUrl: string }) =>
-    <a href={formatUrl(props.downloadUrl, "csv")} className="full-card-download">Descargar</a>
+    <a href={formatUrl(props.downloadUrl, "csv")}>Descargar</a>
