@@ -30,3 +30,20 @@ Para mas info: [react documentation](react_doc.md)
 Solución: ` echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
 * Para correr los tests de un archivo en particular: 
   - `npm test -- -- <name of describe>` [why the "--" magick incantation](https://stackoverflow.com/a/28775887)
+
+
+### Debugging en VS code
+
+Usar esta launch configuration
+
+```
+    {
+        "name": "Debug Jest Tests",
+        "type": "node",
+        "request": "launch",
+        "runtimeArgs": ["--inspect-brk", "${workspaceRoot}/scripts/test.js", "--runInBand", "--env=jsdom"],
+        "port": 9229,
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
+    }
+```
