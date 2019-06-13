@@ -1,26 +1,32 @@
-import { ILocale } from "../components/common/locale/LocaleDefault";
-
 export class CardValueFormatter {
 
-    private locale: ILocale;
+    private decimalSeparator: string;
     private isPercentage: boolean;
     private explicitSign: boolean;
 
-    constructor(locale: ILocale, isPercentage: boolean, explicitSign: boolean) {
-        this.locale = locale;
+    constructor(locale: string, isPercentage: boolean, explicitSign: boolean) {
+
         this.isPercentage = isPercentage;
         this.explicitSign = explicitSign;
+
+        if(locale === "AR") {
+            this.decimalSeparator = ","
+        }
+        else {
+            this.decimalSeparator = "."
+        }
+
     }
 
     public formattedValue(value: number): string {
 
         let valueString: string
 
-        valueString = this.locale.toDecimalString(value, 2);
+        valueString = value.toFixed(2)
         if (this.isPercentage) {
             valueString = `${(value * 100).toFixed(2)}%`
-            valueString = valueString.replace(".", this.locale.decimalSeparator)
         }
+        valueString = valueString.replace(".", this.decimalSeparator)
 
         if (this.explicitSign && value > 0) {
             return "+" + valueString
