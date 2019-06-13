@@ -9,11 +9,9 @@ export class CardValueFormatter {
         this.isPercentage = isPercentage;
         this.explicitSign = explicitSign;
 
+        this.decimalSeparator = "."
         if(locale === "AR") {
             this.decimalSeparator = ","
-        }
-        else {
-            this.decimalSeparator = "."
         }
 
     }
