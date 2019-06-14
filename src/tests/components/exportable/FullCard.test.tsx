@@ -49,6 +49,20 @@ describe('FullCard', () => {
         }
     }
 
+    function generateMockCardOptions() {
+        return {
+            chartType: "line",
+            color: "#047FBC",
+            explicitSign: true,
+            hasChart: "full",
+            links: "full",
+            locale: "AR",
+            sourceOverride: undefined,
+            titleOverride: undefined,
+            unitsOverride: undefined
+        }
+    }
+
     describe('Shown overrideable attributes', () => {
 
         beforeAll(() => {
@@ -59,20 +73,6 @@ describe('FullCard', () => {
                 laps={3}
                 cardOptions={mockCardOptions} />);
         })
-
-        function generateMockCardOptions() {
-            return {
-                chartType: "line",
-                color: "#047FBC",
-                explicitSign: true,
-                hasChart: "full",
-                links: "full",
-                locale: "AR",
-                sourceOverride: undefined,
-                titleOverride: undefined,
-                unitsOverride: undefined
-            }
-        }
 
         it('renders without crashing', () => {
             expect(wrapper.find(FullCard).exists()).toBe(true);
@@ -94,25 +94,14 @@ describe('FullCard', () => {
         beforeAll(() => {
             mockSerie = generateMockSerie();
             mockCardOptions = generateMockCardOptions();
+            mockCardOptions.sourceOverride = ""
+            mockCardOptions.titleOverride = ""
+            mockCardOptions.unitsOverride = ""
             wrapper = mount(<FullCard serie={mockSerie}
                 downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
                 laps={3}
                 cardOptions={mockCardOptions} />);
         })
-
-        function generateMockCardOptions() {
-            return {
-                chartType: "line",
-                color: "#047FBC",
-                explicitSign: true,
-                hasChart: "full",
-                links: "full",
-                locale: "AR",
-                sourceOverride: "",
-                titleOverride: "",
-                unitsOverride: ""
-            }
-        }
     
         it('does not render the title header', () => {
             expect(wrapper.find('div .c-head').exists()).toBe(false)
