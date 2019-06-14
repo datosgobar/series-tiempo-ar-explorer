@@ -11,8 +11,9 @@ export interface ICardBaseConfig {
     hasChart: string;
     chartType: string;
     explicitSign: boolean | false;
-    title?: string;
-    source?: string;
+    titleOverride: string;
+    sourceOverride: string;
+    unitsOverride: string;
 }
 
 export interface ICardExportableConfig extends ICardBaseConfig {
@@ -30,8 +31,9 @@ export function render(selector: string, config: ICardExportableConfig) {
                         hasChart={config.hasChart || 'full'}
                         chartType={config.chartType}
                         explicitSign={config.explicitSign}
-                        title={config.title}
-                        source={config.source}
+                        titleOverride={config.titleOverride}
+                        sourceOverride={config.sourceOverride}
+                        unitsOverride={config.unitsOverride}
                         seriesApi={seriesApi} />,
         document.getElementById(selector) as HTMLElement
     )

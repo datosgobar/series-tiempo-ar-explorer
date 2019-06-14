@@ -6,6 +6,8 @@ import { fullLocaleDate } from '../../helpers/dateFunctions';
 import { ICardBaseConfig } from '../../indexCard';
 import FullCardContainer from '../style/exportable_card/FullCardContainer';
 import FullCardHeader from '../style/exportable_card/FullCardHeader';
+import FullCardSource from '../style/exportable_card/FullCardSource';
+import FullCardUnits from '../style/exportable_card/FullCardUnits';
 import FullCardValue from '../style/exportable_card/FullCardValue';
 import FullCardChart from './FullCardChart';
 import FullCardLinks from './FullCardLinks';
@@ -28,14 +30,17 @@ export default (props: IFullCardProps) => {
     const value = props.serie.data[props.serie.data.length-1].value
     const formatter = new CardValueFormatter(
         props.cardOptions.locale, props.serie.isPercentage, props.cardOptions.explicitSign)
-
+        
     return (
         <FullCardContainer cardOptions={props.cardOptions}>
-            <FullCardHeader color={props.cardOptions.color} title={props.serie.description} date={lastSerieDate(props.serie)} />
+            <FullCardHeader color={props.cardOptions.color}
+                            override={props.cardOptions.titleOverride}
+                            title={props.serie.description}
+                            date={lastSerieDate(props.serie)} />
             <FullCardValue color={props.cardOptions.color} text={formatter.formattedValue(value)} />
             <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={props.cardOptions.hasChart} />
-            <p className="c-main-title">{props.serie.units}</p>
-            <p className="c-span bt">Fuente: {props.serie.datasetSource}</p>
+            <FullCardUnits units={props.serie.units} override={props.cardOptions.unitsOverride}/>
+            <FullCardSource source={props.serie.datasetSource} override={props.cardOptions.sourceOverride}/>
             <FullCardLinks options={options} />
         </FullCardContainer>
     )
