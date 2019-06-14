@@ -10,6 +10,7 @@ export interface ICardBaseConfig {
     color: string;
     hasChart: string;
     chartType: string;
+    explicitSign: boolean | false;
     title?: string;
     source?: string;
 }
@@ -28,6 +29,7 @@ export function render(selector: string, config: ICardExportableConfig) {
                         color={config.color || '#0072BB'}
                         hasChart={config.hasChart || 'full'}
                         chartType={config.chartType}
+                        explicitSign={config.explicitSign}
                         title={config.title}
                         source={config.source}
                         seriesApi={seriesApi} />,
