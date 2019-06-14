@@ -85,7 +85,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     public render() {
         const formatUnits = this.props.formatUnits || false;
-        this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, formatUnits);
+        this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, formatUnits, this.props.locale);
 
         return (
             <ReactHighStock ref={this.myRef} config={this.highchartsConfig()} callback={this.afterRender} />
@@ -348,7 +348,7 @@ function dateFormatByPeriodicity(component: Graphic) {
     return DATE_FORMAT_BY_PERIODICITY[frequency];
 }
 
-function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], formatUnits: boolean): {} {
+function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], formatUnits: boolean, locale: string): {} {
     const minAndMaxValues = series.reduce((result: any, serie: ISerie) => {
         result[serie.id] = { min: serie.minValue, max: serie.maxValue };
 
@@ -367,7 +367,14 @@ function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], fo
         const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
 
         if (serieConfig && serieConfig.mustFormatUnits(formatUnits)) {
-            result[serie.id].labels = { formatter: highchartsLabelFormatter};
+            result[serie.id].labels = { 
+                formatter() { 
+                    const localeObj = buildLocale(locale);
+                    const sep = localeObj.decimalSeparator();
+                    // @ts-ignore    
+                    return `${(this.value*100).toFixed(2).replace('.', sep)}%`                
+                }
+            };
         }
 
         return result;
@@ -398,12 +405,6 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
 
     return leftAxis.concat(rightAxis);
 }
-
-function highchartsLabelFormatter(): string {
-    // @ts-ignore
-    return `${(this.value*100).toFixed(2)}%`
-}
-
 
 function setHighchartsGlobalConfig(locale: string) {
     const localeObj = buildLocale(locale);
