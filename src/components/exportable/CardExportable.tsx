@@ -48,12 +48,11 @@ export default class CardExportable extends React.Component<ICardExportableProps
     }
 
     private cardOptions() {
-        const hasExplicitSign = this.props.explicitSign !== undefined ? this.props.explicitSign : false
         return {
             cardOptions: {
                 chartType: this.props.chartType,
                 color: this.props.color,
-                explicitSign: hasExplicitSign,
+                explicitSign: this.props.explicitSign,
                 hasChart: this.props.hasChart,
                 links: this.props.links,
                 locale: this.props.locale
