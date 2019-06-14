@@ -10,6 +10,7 @@ import { formattedDateString, fullLocaleDate, localTimestamp, timestamp } from "
 import { buildLocale } from "../../common/locale/buildLocale";
 import { ISerieTag } from "../SeriesTags";
 import { colorFor } from '../ViewPage';
+import { formatterForSerie } from './formatterForSerie';
 import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 
 // tslint:disable-next-line:no-var-requires
@@ -367,14 +368,7 @@ function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], fo
         const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
 
         if (serieConfig && serieConfig.mustFormatUnits(formatUnits)) {
-            result[serie.id].labels = { 
-                formatter() { 
-                    const localeObj = buildLocale(locale);
-                    const sep = localeObj.decimalSeparator();
-                    // @ts-ignore    
-                    return `${(this.value*100).toFixed(2).replace('.', sep)}%`                
-                }
-            };
+            result[serie.id].labels = formatterForSerie(locale);
         }
 
         return result;
