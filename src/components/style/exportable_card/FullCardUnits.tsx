@@ -1,10 +1,10 @@
 import * as React from 'react';
-
+import Shiitake from 'shiitake'
 
 export default (props: {units: string, override: string}) => {
     if (props.override === "") {
         return <div/>
     }
     const units = props.override === undefined ? props.units : props.override
-    return <p className="c-main-title">{units}</p>
+    return <Shiitake lines={2} className="c-main-title" tagName="p">{units}</Shiitake>
 }

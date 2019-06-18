@@ -1,6 +1,7 @@
 import { configure, mount, ReactWrapper } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
+import Shiitake from "shiitake";
 import { ISerie } from "../../../api/Serie";
 import FullCard from "../../../components/exportable_card/FullCard";
 
@@ -68,6 +69,7 @@ describe('FullCard', () => {
         beforeAll(() => {
             mockSerie = generateMockSerie();
             mockCardOptions = generateMockCardOptions();
+            mockCardOptions.units = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore"
             wrapper = mount(<FullCard serie={mockSerie}
                 downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
                 laps={3}
@@ -84,9 +86,8 @@ describe('FullCard', () => {
             expect(wrapper.find('p .c-span').exists()).toBe(true);
         })
         it('renders the units', () => {
-            expect(wrapper.find('p .c-main-title').exists()).toBe(true);
+            expect(wrapper.find('p .c-main-title').text()).toContain("Lorem ipsum dolor sit amet, consectetur adipiscing");
         })
-
     })
 
     describe('Hidden overrideable attributes', () => {
@@ -116,7 +117,7 @@ describe('FullCard', () => {
         it('does not render the units', () => {
             mockCardOptions.units = "";
             mountFullCard();
-            expect(wrapper.find('p .c-main-title').exists()).toBe(false);
+            expect(wrapper.find(Shiitake).exists()).toBe(false);
         })
 
     })
