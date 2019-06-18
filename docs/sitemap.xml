@@ -21,6 +21,11 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://datos.gob.ar/series/reference/ts-components/card/</loc>
+     <lastmod>2019-06-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://datos.gob.ar/series/developers/install/</loc>
      <lastmod>2019-06-18</lastmod>
      <changefreq>daily</changefreq>

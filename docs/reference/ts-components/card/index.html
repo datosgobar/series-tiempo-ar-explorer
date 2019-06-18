@@ -42,7 +42,7 @@
     
     
       
-        <title>Componente: card - Explorador de Series de Tiempo</title>
+        <title>TSComponents: card - Explorador de Series de Tiempo</title>
       
     
     
@@ -157,7 +157,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Componente: card
+                TSComponents: card
               
             </span>
           
@@ -309,10 +309,12 @@
             
             
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
     
     <label class="md-nav__link" for="nav-2">
       Usuarios
@@ -328,10 +330,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" checked>
     
     <label class="md-nav__link" for="nav-2-1">
       Referencia
@@ -376,6 +380,77 @@
     <a href="../graphic/" title="TSComponents: graphic" class="md-nav__link">
       TSComponents: graphic
     </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        TSComponents: card
+      </label>
+    
+    <a href="./" title="TSComponents: card" class="md-nav__link md-nav__link--active">
+      TSComponents: card
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Contenidos de la sección</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-base" title="Ejemplo base" class="md-nav__link">
+    Ejemplo base
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabla-de-parametros" title="Tabla de parámetros" class="md-nav__link">
+    Tabla de parámetros
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-completo" title="Ejemplo completo" class="md-nav__link">
+    Ejemplo completo
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-online" title="Demo online" class="md-nav__link">
+    Demo online
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -522,23 +597,7 @@
                 <h1 id="componente-card"><a class="toclink" href="#componente-card">Componente: card</a><a class="headerlink" href="#componente-card" title="Permanent link">&#128279;</a></h1>
 <p>El componente <code>card</code> permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.</p>
 <h2 id="ejemplo-base"><a class="toclink" href="#ejemplo-base">Ejemplo base</a><a class="headerlink" href="#ejemplo-base" title="Permanent link">&#128279;</a></h2>
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/js/components.js'></script>
-
-<p><link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/css/components.css'/></p>
-<div id="tmi"></div>
-
-<script>
-    window.onload = function() {
-        TSComponents.Card.render('tmi', {
-            serieId: '143.3_NO_PR_2004_A_21'
-        })
-    }
-</script>
-
-<p><br>
-<br>
-Esta tarjeta se genera a partir del siguiente código:
-<br></p>
+<p>Ver online: <a href="https://jsfiddle.net/2tz8agdm/">https://jsfiddle.net/2tz8agdm/</a></p>
 <div class="codehilite"><pre><span></span><span class="c">&lt;!-- importa librería JS --&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
@@ -674,6 +733,41 @@ Esta tarjeta se genera a partir del siguiente código:
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../graphic/" title="TSComponents: graphic" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Anterior
+                </span>
+                TSComponents: graphic
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../../developers/install/" title="Instalación" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Siguiente
+                </span>
+                Instalación
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
