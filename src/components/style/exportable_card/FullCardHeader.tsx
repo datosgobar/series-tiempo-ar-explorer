@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Shiitake from 'shiitake';
 
 interface IHeaderProps {
     defaultTitle: string;
@@ -15,8 +16,8 @@ export default (props: IHeaderProps) => {
     }
     const title = props.override === undefined ? props.defaultTitle : props.override
     return(
-        <div className="c-head">
-            <p className="c-title" style={{borderTop: props.color}}>{title}</p>
+        <div className="c-head" style={{borderTop: props.color}}>
+            <Shiitake lines={2} className="c-title" tagName="p">{title}</Shiitake>
             <p className="c-span">{props.date}</p>
         </div>)
 }
