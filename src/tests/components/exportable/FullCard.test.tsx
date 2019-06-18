@@ -69,8 +69,7 @@ describe('FullCard', () => {
         beforeAll(() => {
             mockSerie = generateMockSerie();
             mockCardOptions = generateMockCardOptions();
-            mockCardOptions.units = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
-            mockCardOptions.units += "sed do eiusmod tempor incididunt ut labore et dolore"
+            mockCardOptions.units = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore"
             wrapper = mount(<FullCard serie={mockSerie}
                 downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
                 laps={3}
@@ -87,7 +86,7 @@ describe('FullCard', () => {
             expect(wrapper.find('p .c-span').exists()).toBe(true);
         })
         it('renders the units', () => {
-            expect(wrapper.find(Shiitake).exists()).toBe(true);
+            expect(wrapper.find('p .c-main-title').text()).toContain("Lorem ipsum dolor sit amet, consectetur adipiscing");
         })
     })
 
