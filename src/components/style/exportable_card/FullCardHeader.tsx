@@ -1,7 +1,13 @@
 import * as React from 'react';
 
+interface IHeaderProps {
+    defaultTitle: string;
+    override: string;
+    date: string;
+    color: string;
+}
 
-export default (props: {defaultTitle: string, override: string, date: string, color: string}) => {
+export default (props: IHeaderProps) => {
     if (props.override === "") {
         return(
             <p className="c-span">{props.date}</p>

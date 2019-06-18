@@ -94,22 +94,28 @@ describe('FullCard', () => {
         beforeAll(() => {
             mockSerie = generateMockSerie();
             mockCardOptions = generateMockCardOptions();
-            mockCardOptions.source = ""
-            mockCardOptions.title = ""
-            mockCardOptions.units = ""
+        })
+
+        function mountFullCard() {
             wrapper = mount(<FullCard serie={mockSerie}
                 downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
                 laps={3}
-                cardOptions={mockCardOptions} />);
-        })
+                cardOptions={mockCardOptions} />)
+        }
     
         it('does not render the title header', () => {
+            mockCardOptions.title = "";
+            mountFullCard();
             expect(wrapper.find('div .c-head').exists()).toBe(false)
         })
         it('does not render the source', () => {
+            mockCardOptions.source = "";
+            mountFullCard();
             expect(wrapper.find('p .c-source').exists()).toBe(false);
         })
         it('does not render the units', () => {
+            mockCardOptions.units = "";
+            mountFullCard();
             expect(wrapper.find('p .c-main-title').exists()).toBe(false);
         })
 
