@@ -34,13 +34,13 @@ export default (props: IFullCardProps) => {
     return (
         <FullCardContainer cardOptions={props.cardOptions}>
             <FullCardHeader color={props.cardOptions.color}
-                            override={props.cardOptions.titleOverride}
-                            title={props.serie.description}
+                            override={props.cardOptions.title}
+                            defaultTitle={props.serie.description}
                             date={lastSerieDate(props.serie)} />
             <FullCardValue color={props.cardOptions.color} text={formatter.formattedValue(value)} />
             <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={props.cardOptions.hasChart} />
-            <FullCardUnits units={props.serie.units} override={props.cardOptions.unitsOverride}/>
-            <FullCardSource source={props.serie.datasetSource} override={props.cardOptions.sourceOverride}/>
+            <FullCardUnits units={props.serie.units} override={props.cardOptions.units}/>
+            <FullCardSource source={props.serie.datasetSource} override={props.cardOptions.source}/>
             <FullCardLinks options={options} />
         </FullCardContainer>
     )

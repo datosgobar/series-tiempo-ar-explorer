@@ -56,9 +56,9 @@ export default class CardExportable extends React.Component<ICardExportableProps
                 hasChart: this.props.hasChart,
                 links: this.props.links,
                 locale: this.props.locale,
-                sourceOverride: this.props.sourceOverride,
-                titleOverride: this.props.titleOverride,
-                unitsOverride:this.props.unitsOverride
+                source: this.props.source,
+                title: this.props.title,
+                units:this.props.units
             },
             downloadUrl: this.getDownloadUrl(),
             laps: this.state.laps,

@@ -57,9 +57,9 @@ describe('FullCard', () => {
             hasChart: "full",
             links: "full",
             locale: "AR",
-            sourceOverride: undefined,
-            titleOverride: undefined,
-            unitsOverride: undefined
+            source: undefined,
+            title: undefined,
+            units: undefined
         }
     }
 
@@ -94,9 +94,9 @@ describe('FullCard', () => {
         beforeAll(() => {
             mockSerie = generateMockSerie();
             mockCardOptions = generateMockCardOptions();
-            mockCardOptions.sourceOverride = ""
-            mockCardOptions.titleOverride = ""
-            mockCardOptions.unitsOverride = ""
+            mockCardOptions.source = ""
+            mockCardOptions.title = ""
+            mockCardOptions.units = ""
             wrapper = mount(<FullCard serie={mockSerie}
                 downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
                 laps={3}
@@ -107,7 +107,7 @@ describe('FullCard', () => {
             expect(wrapper.find('div .c-head').exists()).toBe(false)
         })
         it('does not render the source', () => {
-            expect(wrapper.find('p .c-span').exists()).toBe(false);
+            expect(wrapper.find('p .c-source').exists()).toBe(false);
         })
         it('does not render the units', () => {
             expect(wrapper.find('p .c-main-title').exists()).toBe(false);

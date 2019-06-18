@@ -6,5 +6,5 @@ export default (props: {source: string, override: string}) => {
         return <div/>
     }
     const source = props.override === undefined ? "Fuente: " + props.source : props.override
-    return <p className="c-span bt">{source}</p>
+    return <p className="c-span bt c-source">{source}</p>
 }
