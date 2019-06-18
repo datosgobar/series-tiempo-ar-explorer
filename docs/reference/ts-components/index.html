@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -55,14 +55,14 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script src="../../js/extra.js"></script>
 
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -156,7 +156,9 @@
               Explorador de Series de Tiempo
             </span>
             <span class="md-header-nav__topic">
-              TSComponents
+              
+                TSComponents
+              
             </span>
           
         </div>
@@ -553,26 +555,31 @@
                 
                 
                 <h1 id="tscomponents"><a class="toclink" href="#tscomponents">TSComponents</a><a class="headerlink" href="#tscomponents" title="Permanent link">&#128279;</a></h1>
-<p><strong>Versión</strong>: 1.18.2</p>
+<p><strong>Versión</strong>: 2.0-beta3</p>
 <p>El objeto <code>TSComponents</code> contiene distintos componentes exportables que se pueden utilizar dentro de una experiencia web.</p>
-<p>Está en el archivo llamado <code>components.js</code> y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.18.2/dist/js/components.js</p>
+<p>Está en el archivo llamado <code>components.js</code> y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/js/components.js</p>
 <h2 id="componentes"><a class="toclink" href="#componentes">Componentes</a><a class="headerlink" href="#componentes" title="Permanent link">&#128279;</a></h2>
 <ul>
-<li><strong><a href="graphic/"><code>graphic</code></a></strong>: gráfico de líneas, barras o área usado en el explorador de series de tiempo con todas sus funcionalidades.</li>
+<li>
+<p><strong><a href="graphic/"><code>graphic</code></a></strong>: gráfico de líneas, barras o área usado en el explorador de series de tiempo con todas sus funcionalidades.</p>
+</li>
+<li>
+<p><strong><a href="card/"><code>card</code></a></strong>: tarjeta con información de la serie y un gráfico incluído con sus datos.</p>
+</li>
 </ul>
 <h2 id="como-los-uso"><a class="toclink" href="#como-los-uso">¿Cómo los uso?</a><a class="headerlink" href="#como-los-uso" title="Permanent link">&#128279;</a></h2>
 <p>Todos los componentes se usan de la misma manera.</p>
 <ul>
 <li>Importar librería JS:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.18.2/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <ul>
 <li>Importar hoja de estilos CSS:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.18.2/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
 </pre></div>
 
 
@@ -580,6 +587,7 @@
 <li>Definir dónde se va a dibujar:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;graphic_01&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;card_01&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </pre></div>
 
 
@@ -587,6 +595,12 @@
 <li>Instanciar el componente que buscamos:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="nx">TSComponents</span><span class="p">.</span><span class="nx">Graphic</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;graphic_01&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="nx">TSComponents</span><span class="p">.</span><span class="nx">Card</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;card_01&#39;</span><span class="p">,</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">})</span>
 </pre></div>
@@ -659,7 +673,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
       
         
         

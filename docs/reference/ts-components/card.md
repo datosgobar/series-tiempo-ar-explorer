@@ -3,24 +3,7 @@
 El componente `card` permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.
 
 ## Ejemplo base
-
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/css/components.css'/>
-
-<div id="tmi"></div>
-
-<script>
-    window.onload = function() {
-        TSComponents.Card.render('tmi', {
-            serieId: '143.3_NO_PR_2004_A_21'
-        })
-    }
-</script>
-
-<br>
-<br>
-Esta tarjeta se genera a partir del siguiente código:
-<br>
+Ver online: [https://jsfiddle.net/2tz8agdm/](https://jsfiddle.net/2tz8agdm/)
 
 ```html
 <!-- importa librería JS -->
