@@ -39,7 +39,7 @@ export default (props: IFullCardProps) => {
                             date={lastSerieDate(props.serie)} />
             <FullCardValue color={props.cardOptions.color} text={formatter.formattedValue(value)} />
             <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={props.cardOptions.hasChart} />
-            <FullCardUnits units={props.serie.units} override={props.cardOptions.units}/>
+            <FullCardUnits units={props.serie.representationModeUnits} override={props.cardOptions.units}/>
             <FullCardSource source={props.serie.datasetSource} override={props.cardOptions.source}/>
             <FullCardLinks options={options} />
         </FullCardContainer>
