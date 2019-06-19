@@ -39,7 +39,7 @@ describe('FullCard', () => {
                 name: "Name"
             },
             representationMode: "RepresentationMode",
-            representationModeUnits: "Indice Personalizado",
+            representationModeUnits: "Indice Especial",
             startDate: "2019-01-01",
             themes: [{ id: "1", descripcion: "Tema1", label: "Label1" },
             { id: "2", descripcion: "Tema2", label: "Label2" },
@@ -64,12 +64,11 @@ describe('FullCard', () => {
         }
     }
 
-    describe('Shown overrideable attributes', () => {
+    describe('Shown default attributes', () => {
 
         beforeAll(() => {
             mockSerie = generateMockSerie();
             mockCardOptions = generateMockCardOptions();
-            mockCardOptions.units = "Lorem ipsum dolor sit amet"
             wrapper = mount(<FullCard serie={mockSerie}
                 downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
                 laps={3}
@@ -84,6 +83,34 @@ describe('FullCard', () => {
         })
         it('renders the default source', () => {
             expect(wrapper.find('p .c-source').text()).toContain("Fuente: Instituto Nacional de Estadística y Censos (INDEC)");
+        })
+        it('renders the overriden units', () => {
+            expect(wrapper.find('p .c-main-title').text()).toContain("Indice Especial");
+        })
+    })
+
+    describe('Shown overriden attributes', () => {
+
+        beforeAll(() => {
+            mockSerie = generateMockSerie();
+            mockCardOptions = generateMockCardOptions();
+            mockCardOptions.title = "Lorem ipsum dolor sit amet"
+            mockCardOptions.source = "Lorem ipsum dolor sit amet"
+            mockCardOptions.units = "Lorem ipsum dolor sit amet"
+            wrapper = mount(<FullCard serie={mockSerie}
+                downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
+                laps={3}
+                cardOptions={mockCardOptions} />);
+        })
+
+        it('renders without crashing', () => {
+            expect(wrapper.find(FullCard).exists()).toBe(true);
+        });
+        it('renders the default title header', () => {
+            expect(wrapper.find('p .c-title').text()).toContain("Lorem ipsum dolor sit amet")
+        })
+        it('renders the default source', () => {
+            expect(wrapper.find('p .c-source').text()).toContain("Lorem ipsum dolor sit amet");
         })
         it('renders the overriden units', () => {
             expect(wrapper.find('p .c-main-title').text()).toContain("Lorem ipsum dolor sit amet");
