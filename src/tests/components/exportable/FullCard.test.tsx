@@ -1,7 +1,6 @@
 import { configure, mount, ReactWrapper } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
-import Shiitake from "shiitake";
 import { ISerie } from "../../../api/Serie";
 import FullCard from "../../../components/exportable_card/FullCard";
 
@@ -64,15 +63,22 @@ describe('FullCard', () => {
         }
     }
 
+    function mountFullCard() {
+        wrapper = mount(<FullCard serie={mockSerie}
+            downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
+            laps={3}
+            cardOptions={mockCardOptions} />)
+    }
+
+    beforeAll(() => {
+        mockSerie = generateMockSerie();
+        mockCardOptions = generateMockCardOptions();
+    })
+
     describe('Shown default attributes', () => {
 
         beforeAll(() => {
-            mockSerie = generateMockSerie();
-            mockCardOptions = generateMockCardOptions();
-            wrapper = mount(<FullCard serie={mockSerie}
-                downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
-                laps={3}
-                cardOptions={mockCardOptions} />);
+            mountFullCard();
         })
 
         it('renders without crashing', () => {
@@ -91,46 +97,29 @@ describe('FullCard', () => {
 
     describe('Shown overriden attributes', () => {
 
-        beforeAll(() => {
-            mockSerie = generateMockSerie();
-            mockCardOptions = generateMockCardOptions();
-            mockCardOptions.title = "Lorem ipsum dolor sit amet"
-            mockCardOptions.source = "Lorem ipsum dolor sit amet"
-            mockCardOptions.units = "Lorem ipsum dolor sit amet"
-            wrapper = mount(<FullCard serie={mockSerie}
-                downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
-                laps={3}
-                cardOptions={mockCardOptions} />);
-        })
-
         it('renders without crashing', () => {
+            mountFullCard();
             expect(wrapper.find(FullCard).exists()).toBe(true);
         });
         it('renders the default title header', () => {
+            mockCardOptions.title = "Lorem ipsum dolor sit amet";
+            mountFullCard();
             expect(wrapper.find('p .c-title').text()).toContain("Lorem ipsum dolor sit amet")
         })
         it('renders the default source', () => {
+            mockCardOptions.source = "Lorem ipsum dolor sit amet";
+            mountFullCard();
             expect(wrapper.find('p .c-source').text()).toContain("Lorem ipsum dolor sit amet");
         })
         it('renders the overriden units', () => {
+            mockCardOptions.units = "Lorem ipsum dolor sit amet";
+            mountFullCard();
             expect(wrapper.find('p .c-main-title').text()).toContain("Lorem ipsum dolor sit amet");
         })
     })
 
     describe('Hidden overrideable attributes', () => {
-
-        beforeAll(() => {
-            mockSerie = generateMockSerie();
-            mockCardOptions = generateMockCardOptions();
-        })
-
-        function mountFullCard() {
-            wrapper = mount(<FullCard serie={mockSerie}
-                downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
-                laps={3}
-                cardOptions={mockCardOptions} />)
-        }
-    
+  
         it('does not render the title header', () => {
             mockCardOptions.title = "";
             mountFullCard();
