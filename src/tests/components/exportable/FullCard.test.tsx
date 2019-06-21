@@ -1,7 +1,6 @@
 import { configure, mount, ReactWrapper } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
-import Shiitake from "shiitake";
 import { ISerie } from "../../../api/Serie";
 import FullCard from "../../../components/exportable_card/FullCard";
 
@@ -20,9 +19,9 @@ describe('FullCard', () => {
             data: [{ date: "2019-03-01", value: 150 },
             { date: "2019-02-01", value: 140 },
             { date: "2019-01-01", value: 180 }],
-            datasetSource: "EMAE",
+            datasetSource: "Instituto Nacional de Estadística y Censos (INDEC)",
             datasetTitle: "EMAE",
-            description: "Descripcion",
+            description: "EMAE. Base 2004",
             distributionTitle: "EMAE. Base",
             downloadURL: "https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv",
             endDate: "2019-03-01",
@@ -39,7 +38,7 @@ describe('FullCard', () => {
                 name: "Name"
             },
             representationMode: "RepresentationMode",
-            representationModeUnits: "RepresentationModeUnits",
+            representationModeUnits: "Indice Especial",
             startDate: "2019-01-01",
             themes: [{ id: "1", descripcion: "Tema1", label: "Label1" },
             { id: "2", descripcion: "Tema2", label: "Label2" },
@@ -64,46 +63,63 @@ describe('FullCard', () => {
         }
     }
 
-    describe('Shown overrideable attributes', () => {
+    function mountFullCard() {
+        wrapper = mount(<FullCard serie={mockSerie}
+            downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
+            laps={3}
+            cardOptions={mockCardOptions} />)
+    }
+
+    beforeAll(() => {
+        mockSerie = generateMockSerie();
+        mockCardOptions = generateMockCardOptions();
+    })
+
+    describe('Shown default attributes', () => {
 
         beforeAll(() => {
-            mockSerie = generateMockSerie();
-            mockCardOptions = generateMockCardOptions();
-            mockCardOptions.units = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore"
-            wrapper = mount(<FullCard serie={mockSerie}
-                downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
-                laps={3}
-                cardOptions={mockCardOptions} />);
+            mountFullCard();
         })
 
         it('renders without crashing', () => {
             expect(wrapper.find(FullCard).exists()).toBe(true);
         });
-        it('renders the title header', () => {
-            expect(wrapper.find('div .c-head').exists()).toBe(true)
+        it('renders the default title header', () => {
+            expect(wrapper.find('p .c-title').text()).toContain("EMAE. Base 2004")
         })
-        it('renders the source', () => {
-            expect(wrapper.find('p .c-span').exists()).toBe(true);
+        it('renders the default source', () => {
+            expect(wrapper.find('p .c-source').text()).toContain("Fuente: Instituto Nacional de Estadística y Censos (INDEC)");
         })
-        it('renders the units', () => {
-            expect(wrapper.find('p .c-main-title').text()).toContain("Lorem ipsum dolor sit amet, consectetur adipiscing");
+        it('renders the overriden units', () => {
+            expect(wrapper.find('p .c-main-title').text()).toContain("Indice Especial");
+        })
+    })
+
+    describe('Shown overriden attributes', () => {
+
+        it('renders without crashing', () => {
+            mountFullCard();
+            expect(wrapper.find(FullCard).exists()).toBe(true);
+        });
+        it('renders the default title header', () => {
+            mockCardOptions.title = "Lorem ipsum dolor sit amet";
+            mountFullCard();
+            expect(wrapper.find('p .c-title').text()).toContain("Lorem ipsum dolor sit amet")
+        })
+        it('renders the default source', () => {
+            mockCardOptions.source = "Lorem ipsum dolor sit amet";
+            mountFullCard();
+            expect(wrapper.find('p .c-source').text()).toContain("Lorem ipsum dolor sit amet");
+        })
+        it('renders the overriden units', () => {
+            mockCardOptions.units = "Lorem ipsum dolor sit amet";
+            mountFullCard();
+            expect(wrapper.find('p .c-main-title').text()).toContain("Lorem ipsum dolor sit amet");
         })
     })
 
     describe('Hidden overrideable attributes', () => {
-
-        beforeAll(() => {
-            mockSerie = generateMockSerie();
-            mockCardOptions = generateMockCardOptions();
-        })
-
-        function mountFullCard() {
-            wrapper = mount(<FullCard serie={mockSerie}
-                downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
-                laps={3}
-                cardOptions={mockCardOptions} />)
-        }
-    
+  
         it('does not render the title header', () => {
             mockCardOptions.title = "";
             mountFullCard();
@@ -117,7 +133,7 @@ describe('FullCard', () => {
         it('does not render the units', () => {
             mockCardOptions.units = "";
             mountFullCard();
-            expect(wrapper.find(Shiitake).exists()).toBe(false);
+            expect(wrapper.find('p .c-main-title').exists()).toBe(false);
         })
 
     })
