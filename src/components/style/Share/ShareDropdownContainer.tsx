@@ -13,7 +13,7 @@ export default (props: IShareDropdownContainerProps) => {
     return (
         <div className="dropdown">
             <a href="#" className="btn btn-gray dropdown-toggle" data-toggle="dropdown">
-                <i className="fas fa-link fa-lg"/> {text}
+                {text} <i className="fas fa-angle-up"/> 
             </a>
             <ul className="dropdown-menu" {...propsAux} />
 
