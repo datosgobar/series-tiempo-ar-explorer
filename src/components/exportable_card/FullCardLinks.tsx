@@ -23,6 +23,11 @@ interface IFullCardLinksOptions extends ICardBaseConfig {
 
 export default (props: { options: IFullCardLinksOptions }) => {
     const LinkComponent = TYPES[props.options.links]
+    
+    let linkClass = "c-links"
+    if (props.options.links === 'none') {
+        linkClass = ""
+    }
 
-    return <div> <LinkComponent options={props.options} /> </div>
+    return <div className={linkClass}> <LinkComponent options={props.options} /> </div>
 }

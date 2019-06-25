@@ -274,8 +274,13 @@
   -webkit-line-clamp: 2;
 }
 
+.card .c-links {
+  height: 35px;
+}
+
 .card .c-foot {
   height: 35px;
+  display: inline-flex;
 }
 
 .card .c-foot div {
@@ -283,7 +288,6 @@
   float: left;
   height: 100%;
   text-align: center;
-  padding-top: 6px;
 }
 
 .card .c-foot div:only-child {
@@ -301,6 +305,12 @@
 
 .card .c-foot div a:hover {
   color: #005388;
+}
+
+.c-foot .c-download, .c-foot .c-viewmore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card .dropdown {

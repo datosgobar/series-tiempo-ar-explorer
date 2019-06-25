@@ -84,38 +84,44 @@ describe('FullCard', () => {
         it('renders without crashing', () => {
             expect(wrapper.find(FullCard).exists()).toBe(true);
         });
+        it('renders the links footer', () => {
+            expect(wrapper.find('div .c-links').exists()).toBe(true);
+        });
         it('renders the default title header', () => {
             expect(wrapper.find('p .c-title').text()).toContain("EMAE. Base 2004")
-        })
+        });
         it('renders the default source', () => {
             expect(wrapper.find('p .c-source').text()).toContain("Fuente: Instituto Nacional de Estadística y Censos (INDEC)");
-        })
-        it('renders the overriden units', () => {
+        });
+        it('renders the default units', () => {
             expect(wrapper.find('p .c-main-title').text()).toContain("Indice Especial");
-        })
+        });
+
     })
 
     describe('Shown overriden attributes', () => {
 
-        it('renders without crashing', () => {
+        it('does not render the links footer', () => {
+            mockCardOptions.links = "none";
             mountFullCard();
-            expect(wrapper.find(FullCard).exists()).toBe(true);
+            expect(wrapper.find('div .c-links').exists()).toBe(false);
         });
-        it('renders the default title header', () => {
+        it('renders the overriden title header', () => {
             mockCardOptions.title = "Lorem ipsum dolor sit amet";
             mountFullCard();
             expect(wrapper.find('p .c-title').text()).toContain("Lorem ipsum dolor sit amet")
-        })
-        it('renders the default source', () => {
+        });
+        it('renders the overriden source', () => {
             mockCardOptions.source = "Lorem ipsum dolor sit amet";
             mountFullCard();
             expect(wrapper.find('p .c-source').text()).toContain("Lorem ipsum dolor sit amet");
-        })
+        });
         it('renders the overriden units', () => {
             mockCardOptions.units = "Lorem ipsum dolor sit amet";
             mountFullCard();
             expect(wrapper.find('p .c-main-title').text()).toContain("Lorem ipsum dolor sit amet");
-        })
+        });
+
     })
 
     describe('Hidden overrideable attributes', () => {
@@ -124,17 +130,17 @@ describe('FullCard', () => {
             mockCardOptions.title = "";
             mountFullCard();
             expect(wrapper.find('div .c-head').exists()).toBe(false)
-        })
+        });
         it('does not render the source', () => {
             mockCardOptions.source = "";
             mountFullCard();
             expect(wrapper.find('p .c-source').exists()).toBe(false);
-        })
+        });
         it('does not render the units', () => {
             mockCardOptions.units = "";
             mountFullCard();
             expect(wrapper.find('p .c-main-title').exists()).toBe(false);
-        })
+        });
 
     })
 
