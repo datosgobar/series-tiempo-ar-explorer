@@ -118,6 +118,10 @@
   padding: 7.5px 10px;
 }
 
+.card .graphic {
+  text-align: center;
+}
+
 .card.normal .c-data .graphic img {
   width: 100%;
   height: 100%;
@@ -152,7 +156,6 @@
 .card.full {
   -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
-  border-top: 5px solid #0072BB;
   background: #ffffff;
 }
 
@@ -271,8 +274,13 @@
   -webkit-line-clamp: 2;
 }
 
+.card .c-links {
+  height: 35px;
+}
+
 .card .c-foot {
   height: 35px;
+  display: inline-flex;
 }
 
 .card .c-foot div {
@@ -280,7 +288,6 @@
   float: left;
   height: 100%;
   text-align: center;
-  padding-top: 6px;
 }
 
 .card .c-foot div:only-child {
@@ -300,10 +307,19 @@
   color: #005388;
 }
 
+.c-foot .c-download, .c-foot .c-viewmore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card .dropdown {
   padding-top: 0 !important;
   text-align: center !important;
   width: 100% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .__react_component_tooltip {
@@ -311,3 +327,12 @@
 }
 
 /* Fin Card */
+
+/* Iconos */
+
+.fa-angle-up, .fa-link {
+  font-family: 'Font Awesome\ 5 Free';
+  color: #0072BB;
+}
+
+/* Fin Iconos */
