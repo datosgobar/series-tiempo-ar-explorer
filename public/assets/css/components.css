@@ -313,13 +313,28 @@
   align-items: center;
 }
 
-.card .dropdown {
+main a[href^="https://"][target^="_blank"]::after,
+main a[href^="https://"][target^="_blank"]::after {
+  content: " ";
+}
+
+.card .btn-group {
   padding-top: 0 !important;
   text-align: center !important;
   width: 100% !important;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.c-linksButton {
+  background-color: transparent;
+}
+
+.open > .dropdown-toggle .c-linksButton:focus,
+.open > .dropdown-toggle .c-linksButton:hover {
+  background-color: transparent;
+  color: #0072BB;
 }
 
 .__react_component_tooltip {
@@ -330,7 +345,7 @@
 
 /* Iconos */
 
-.fa-angle-up, .fa-link {
+.fa-angle-up, .fa-link, .caret {
   font-family: 'Font Awesome\ 5 Free';
   color: #0072BB;
 }
