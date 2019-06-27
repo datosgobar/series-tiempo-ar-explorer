@@ -20,7 +20,7 @@ export default class FullCardDropdownContainer
 
         super(props);
         this.toggleOpen = this.toggleOpen.bind(this);
-        this.handleOutsideClick = this.handleOutsideClick.bind(this);
+        this.closeDropdownOnOutsideClick = this.closeDropdownOnOutsideClick.bind(this);
 
         this.state = {
             listItems: { ...props },
@@ -32,11 +32,11 @@ export default class FullCardDropdownContainer
     }
 
     public componentDidMount() {
-        document.addEventListener('mousedown', this.handleOutsideClick);
+        document.addEventListener('mousedown', this.closeDropdownOnOutsideClick);
       }
     
     public componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleOutsideClick);
+        document.removeEventListener('mousedown', this.closeDropdownOnOutsideClick);
     }
 
     public render() {
@@ -56,7 +56,7 @@ export default class FullCardDropdownContainer
         this.setState({ open: !currentState });
     };
       
-    private handleOutsideClick(e: Event) {
+    private closeDropdownOnOutsideClick(e: Event) {
         const target = e.target as Node;
         if (this.dropdownRef.current && this.dropdownRef.current.contains(target)) {
             return;
