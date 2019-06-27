@@ -14,7 +14,7 @@ interface IFullCardDropdownContainerState {
 export default class FullCardDropdownContainer
     extends React.Component<IFullCardDropdownContainerProps, IFullCardDropdownContainerState> {
     
-    private ref: React.RefObject<HTMLDivElement> = createRef();
+    private dropdownRef: React.RefObject<HTMLDivElement> = createRef();
 
     constructor(props: IFullCardDropdownContainerProps) {
 
@@ -41,14 +41,12 @@ export default class FullCardDropdownContainer
 
     public render() {
         return (
-            <div className={"btn-group" + (this.state.open ? ' open' : '')}
-                 ref={this.ref}
-                    >
-                <a type="button" className="btn dropdown-toggle c-linksButton" onClick={this.toggleOpen}
+            <div className={"btn-group" + (this.state.open ? ' open' : '')} onClick={this.toggleOpen} ref={this.dropdownRef}>
+                <a type="button" className="btn dropdown-toggle c-linksButton" 
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {this.state.text} <span className="caret" />
                 </a>
-                <ul className="dropdown-menu" {...this.state.listItems} onClick={this.toggleOpen}/>
+                <ul className="dropdown-menu" {...this.state.listItems}/>
             </div>
         )
     }
@@ -60,7 +58,7 @@ export default class FullCardDropdownContainer
       
     private handleOutsideClick(e: Event) {
         const target = e.target as Node;
-        if (this.ref.current && this.ref.current.contains(target)) {
+        if (this.dropdownRef.current && this.dropdownRef.current.contains(target)) {
             return;
         }
         
