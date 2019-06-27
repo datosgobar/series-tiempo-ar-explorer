@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { createRef } from 'react';
 
 interface IFullCardDropdownContainerProps extends React.Props<any> {
     text: string;
@@ -12,11 +13,12 @@ interface IFullCardDropdownContainerState {
 
 export default class FullCardDropdownContainer
     extends React.Component<IFullCardDropdownContainerProps, IFullCardDropdownContainerState> {
+    
+    private ref: React.RefObject<HTMLDivElement> = createRef();
 
     constructor(props: IFullCardDropdownContainerProps) {
 
         super(props);
-
         this.toggleOpen = this.toggleOpen.bind(this);
         this.handleOutsideClick = this.handleOutsideClick.bind(this);
 
@@ -40,7 +42,8 @@ export default class FullCardDropdownContainer
     public render() {
         return (
             <div className={"btn-group" + (this.state.open ? ' open' : '')}
-                 ref={node => { this.context.node = node; }}>
+                 ref={this.ref}
+                    >
                 <a type="button" className="btn dropdown-toggle c-linksButton" onClick={this.toggleOpen}
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {this.state.text} <span className="caret" />
@@ -56,8 +59,8 @@ export default class FullCardDropdownContainer
     };
       
     private handleOutsideClick(e: Event) {
-
-        if (this.context.node.contains(e.target)) {
+        const target = e.target as Node;
+        if (this.ref.current && this.ref.current.contains(target)) {
             return;
         }
         
