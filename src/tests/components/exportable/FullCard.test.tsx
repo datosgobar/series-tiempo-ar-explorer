@@ -1,6 +1,7 @@
 import { configure, mount, ReactWrapper } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
+import * as CopyToClipboard from "react-copy-to-clipboard";
 import { ISerie } from "../../../api/Serie";
 import FullCard from "../../../components/exportable_card/FullCard";
 
@@ -95,6 +96,15 @@ describe('FullCard', () => {
         });
         it('renders the default units', () => {
             expect(wrapper.find('p .c-main-title').text()).toContain("Indice Especial");
+        });
+        it('opens the dropdown upon clicking it', () => {
+            wrapper.find('.btn-group').simulate('click');
+            expect(wrapper.find('.btn-group .open').exists()).toBe(true);
+        });
+        it('closes the open dropdown upon clicking outside it', () => {
+            wrapper.find('.btn-group').simulate('click');
+            wrapper.find('.card').simulate('click');
+            expect(wrapper.find('.btn-group .open').exists()).toBe(false);
         });
 
     })
