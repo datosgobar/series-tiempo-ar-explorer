@@ -10,7 +10,7 @@ interface ILinkShareProps {
 export default (props: ILinkShareProps) =>
 
     <CopyToClipboard text={props.url}>
-        <li>
+        <li data-tip="Click me to show the tooltip">
             <a className="pointer" >
                 <span>
                     <i className="fas fa-link"/> {props.text}
