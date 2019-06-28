@@ -97,6 +97,9 @@ describe('FullCard', () => {
         it('renders the default units', () => {
             expect(wrapper.find('p .c-main-title').text()).toContain("Indice Especial");
         });
+        it('dropdown begins closed', () => {
+            expect(wrapper.find('.btn-group .open').exists()).toBe(false);
+        });
         it('opens the dropdown upon clicking it', () => {
             wrapper.find('.btn-group').simulate('click');
             expect(wrapper.find('.btn-group .open').exists()).toBe(true);
