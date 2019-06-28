@@ -327,6 +327,10 @@ main a[href^="https://"][target^="_blank"]::after {
   align-items: center;
 }
 
+.card .btn-group .btn {
+  text-transform: capitalize;
+}
+
 .c-linksButton {
   background-color: transparent;
 }
