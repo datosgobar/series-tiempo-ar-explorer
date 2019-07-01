@@ -8,6 +8,8 @@
   },
   "rules": {
     "jsx-wrap-multiline": false,
-    "no-debugger": false
+    "no-debugger": false,
+    "ordered-imports": [false],
+    "object-literal-sort-keys": [false]
   }
 }

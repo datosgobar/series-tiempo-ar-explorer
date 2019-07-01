@@ -74,7 +74,6 @@ export default class CardExportable extends React.Component<ICardExportableProps
                     serie: series[0]
                 })
             })
-            .catch((error: any) => alert(`Ocurrió un error buscando la serie ${params.getIds()[0]}.`));
     }
 
     private getDownloadUrl(): string {
