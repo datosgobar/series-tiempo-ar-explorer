@@ -134,7 +134,7 @@ export default class SerieApi implements ISerieApi {
     private getSeriesParams(params: QueryParams, metadata: string = METADATA.FULL) {
         const options = {
             qs: { metadata },
-            uri: this.apiClient.endpoint('series', true),
+            uri: this.apiClient.endpoint('series'),
         };
 
         Object.assign(options.qs, params.asQuery());
