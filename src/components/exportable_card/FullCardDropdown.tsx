@@ -22,28 +22,30 @@ export interface IWebSnippetOptions {
 
 function webCode(options: IWebSnippetOptions): string {
 
-    let htmlScript = "<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/js/components.js'></script>\n" +
-    "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'> \n" +
-    "<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/css/components.css'/>\n" +
-    "<script src='https://code.jquery.com/jquery-3.4.1.min.js' integrity='sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=' crossorigin='anonymous'></script> \n" +
-    "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa' crossorigin='anonymous'></script> \n" +
-    "<div id=\"root\"></div>\n" +
-    "<script>\n" +
-    "    window.onload = function() {\n" +
-    "        TSComponents.Card.render('root', {\n" +
-    "            serieId: '" + options.serieId + "',\n" +
-    "            color: '" + options.color + "',\n" +
-    "            links: '" + options.links + "',\n" +
-    "            hasChart: '" + options.hasChart + "',\n"
+    let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta8/dist/js/components.js'></script>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta8/dist/css/components.css'/>
+<link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
+<div id="root"></div>
+<script>
+    window.onload = function() {
+        TSComponents.Card.render('root', {
+            serieId: "${options.serieId}",
+            color: "${options.color}",
+            links: "${options.links}",
+            hasChart: "${options.hasChart}"`;
 
     if(options.chartType !== undefined)
     {
-        htmlScript += ("            chartType: '" + options.chartType + "',\n")
+        htmlScript += `,
+            chartType: "${options.chartType}"`;
     }
 
-    htmlScript += ("        })\n" +
-    "    }\n" +
-    "</script>\n")
+    htmlScript += `
+        })
+    }
+</script>
+`
 
     return htmlScript
 }
