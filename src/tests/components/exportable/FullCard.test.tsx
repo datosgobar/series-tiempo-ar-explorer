@@ -98,7 +98,7 @@ describe('FullCard', () => {
             expect(wrapper.find('p .c-source').text()).toContain("Fuente: Instituto Nacional de Estadística y Censos (INDEC)");
         });
         it('renders the default units', () => {
-            expect(wrapper.find('p .c-main-title').text()).toContain("Indice Especial");
+            expect(wrapper.find('p .c-units').text()).toContain("Indice Especial");
         });
         it('dropdown begins closed', () => {
             expect(wrapper.find('.btn-group .open').exists()).toBe(false);
@@ -140,7 +140,7 @@ describe('FullCard', () => {
         it('renders the overriden units', () => {
             mockCardOptions.units = "Lorem ipsum dolor sit amet";
             mountFullCard();
-            expect(wrapper.find('p .c-main-title').text()).toContain("Lorem ipsum dolor sit amet");
+            expect(wrapper.find('p .c-units').text()).toContain("Lorem ipsum dolor sit amet");
         });
 
     })
@@ -160,7 +160,7 @@ describe('FullCard', () => {
         it('does not render the units', () => {
             mockCardOptions.units = "";
             mountFullCard();
-            expect(wrapper.find('p .c-main-title').exists()).toBe(false);
+            expect(wrapper.find('p .c-units').exists()).toBe(false);
         });
 
     })
