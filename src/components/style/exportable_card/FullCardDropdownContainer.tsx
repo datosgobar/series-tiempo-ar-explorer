@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactTooltip from 'react-tooltip';
 import { createRef } from 'react';
 
 interface IFullCardDropdownContainerProps extends React.Props<any> {
@@ -47,6 +48,8 @@ export default class FullCardDropdownContainer
                     {this.state.text} <span className="caret" />
                 </a>
                 <ul className="dropdown-menu" {...this.state.listItems}/>
+
+                <ReactTooltip effect="solid" getContent={this.tooltipContent} place="right" globalEventOff='click' />
             </div>
         )
     }
@@ -63,6 +66,10 @@ export default class FullCardDropdownContainer
         }
         
         this.setState({ open: false });
-    }
+    };
+
+    private tooltipContent() {
+        return "Click para copiar";
+    };
 
 }

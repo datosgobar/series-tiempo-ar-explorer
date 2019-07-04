@@ -1,6 +1,7 @@
 import { configure, mount, ReactWrapper } from "enzyme";
 import * as Adapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
+import * as ReactTooltip from 'react-tooltip';
 import { ISerie } from "../../../api/Serie";
 import FullCard from "../../../components/exportable_card/FullCard";
 
@@ -87,6 +88,9 @@ describe('FullCard', () => {
         it('renders the links footer', () => {
             expect(wrapper.find('div .c-links').exists()).toBe(true);
         });
+        it('renders the tooltips', () => {
+            expect(wrapper.find(ReactTooltip).exists()).toBe(true);
+        });
         it('renders the default title header', () => {
             expect(wrapper.find('p .c-title').text()).toContain("EMAE. Base 2004")
         });
@@ -117,6 +121,11 @@ describe('FullCard', () => {
             mockCardOptions.links = "none";
             mountFullCard();
             expect(wrapper.find('div .c-links').exists()).toBe(false);
+        });
+        it('does not render the tooltips', () => {
+            mockCardOptions.links = "none";
+            mountFullCard();
+            expect(wrapper.find(ReactTooltip).exists()).toBe(false);
         });
         it('renders the overriden title header', () => {
             mockCardOptions.title = "Lorem ipsum dolor sit amet";
