@@ -6,5 +6,5 @@ export default (props: {units: string, override: string}) => {
         return <div/>
     }
     const units = props.override === undefined ? props.units : props.override
-    return <Shiitake lines={2} className="c-main-title" tagName="p">{units}</Shiitake>
+    return <Shiitake lines={2} className="c-units" tagName="p">{units}</Shiitake>
 }
