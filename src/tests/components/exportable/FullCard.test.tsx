@@ -73,17 +73,26 @@ describe('FullCard', () => {
 
     beforeAll(() => {
         mockSerie = generateMockSerie();
+    })
+
+    beforeEach(() => {
         mockCardOptions = generateMockCardOptions();
     })
 
     describe('Shown default attributes', () => {
 
-        beforeAll(() => {
+        beforeEach(() => {
             mountFullCard();
         })
 
         it('renders without crashing', () => {
             expect(wrapper.find(FullCard).exists()).toBe(true);
+        });
+        it('renders the border', () => {
+            expect(wrapper.find('.card .full').exists()).toBe(true);
+        });
+        it('renders a full chart', () => {
+            expect(wrapper.find('.card .wide').exists()).toBe(true);
         });
         it('renders the links footer', () => {
             expect(wrapper.find('div .c-links').exists()).toBe(true);
@@ -109,8 +118,52 @@ describe('FullCard', () => {
         });
         it('closes the open dropdown upon clicking outside it', () => {
             wrapper.find('.btn-group').simulate('click');
-            wrapper.find('.card').simulate('click');
+            const click = new MouseEvent('click');
+            document.dispatchEvent(click);
             expect(wrapper.find('.btn-group .open').exists()).toBe(false);
+        });
+
+    })
+
+    describe('Graphic and border rendering', () => {
+        
+        it('having links but no chart, renders the border', () => {
+            mockCardOptions.hasChart = "none";
+            mountFullCard();
+            expect(wrapper.find('.card .full').exists()).toBe(true);
+        });
+        it('having chart but no links, renders the border', () => {
+            mockCardOptions.links = "none";
+            mountFullCard();
+            expect(wrapper.find('.card .full').exists()).toBe(true);
+        });
+        it('having no chart and no links, does not render the border', () => {
+            mockCardOptions.hasChart = "none";
+            mockCardOptions.links = "none";
+            mountFullCard();
+            expect(wrapper.find('.card .empty').exists()).toBe(true);
+        });
+        it('forcedly renders the border', () => {
+            mockCardOptions.hasChart = "none";
+            mockCardOptions.links = "none";
+            mockCardOptions.hasFrame = true;
+            mountFullCard();
+            expect(wrapper.find('.card .full').exists()).toBe(true);
+        });
+        it('forcedly does not render the border', () => {
+            mockCardOptions.hasFrame = false;
+            mountFullCard();
+            expect(wrapper.find('.card .empty').exists()).toBe(true);
+        });
+        it('renders a small graphic chart', () => {
+            mockCardOptions.hasChart = "small";
+            mountFullCard();
+            expect(wrapper.find('.card .normal').exists()).toBe(true);
+        });
+        it('does not render any chart', () => {
+            mockCardOptions.hasChart = "none";
+            mountFullCard();
+            expect(wrapper.find('.card .no-graph').exists()).toBe(true);
         });
 
     })

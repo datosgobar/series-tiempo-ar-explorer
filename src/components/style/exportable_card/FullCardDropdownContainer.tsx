@@ -33,11 +33,11 @@ export default class FullCardDropdownContainer
     }
 
     public componentDidMount() {
-        document.addEventListener('mousedown', this.closeDropdownOnOutsideClick);
+        document.addEventListener('click', this.closeDropdownOnOutsideClick);
       }
     
     public componentWillUnmount() {
-        document.removeEventListener('mousedown', this.closeDropdownOnOutsideClick);
+        document.removeEventListener('click', this.closeDropdownOnOutsideClick);
     }
 
     public render() {
