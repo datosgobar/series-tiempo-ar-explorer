@@ -23,10 +23,14 @@ function chartClass(chartMode: string): string {
     return modes[chartMode];
 }
 
-function borderClass(props:ICardBaseConfig): string {
-    if (props.hasChart !== 'none' || props.links !== 'none') {
-        return 'full'
-    } else{
-        return 'empty'
+function borderClass(options:ICardBaseConfig): string {
+
+    if (options.hasFrame === undefined && (options.hasChart !== 'none' || options.links !== 'none')) {
+            return 'full';
     }
+    else if (options.hasFrame === true) {
+        return 'full'
+    }
+    return 'empty';
+
 }
