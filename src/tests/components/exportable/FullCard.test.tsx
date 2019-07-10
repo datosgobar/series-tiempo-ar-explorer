@@ -109,19 +109,6 @@ describe('FullCard', () => {
         it('renders the default units', () => {
             expect(wrapper.find('p .c-units').text()).toContain("Indice Especial");
         });
-        it('dropdown begins closed', () => {
-            expect(wrapper.find('.btn-group .open').exists()).toBe(false);
-        });
-        it('opens the dropdown upon clicking it', () => {
-            wrapper.find('.btn-group').simulate('click');
-            expect(wrapper.find('.btn-group .open').exists()).toBe(true);
-        });
-        it('closes the open dropdown upon clicking outside it', () => {
-            wrapper.find('.btn-group').simulate('click');
-            const click = new MouseEvent('click');
-            document.dispatchEvent(click);
-            expect(wrapper.find('.btn-group .open').exists()).toBe(false);
-        });
 
     })
 
