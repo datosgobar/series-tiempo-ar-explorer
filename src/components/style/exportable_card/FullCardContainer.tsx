@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { ICardBaseConfig } from '../../../indexCard';
 
 
-interface IFullCardContainerProps extends React.HTMLProps<HTMLDivElement> {
-    cardOptions: ICardBaseConfig
+export interface IFullCardContainerProps extends React.HTMLProps<HTMLDivElement> {
+    hasChart: string,
+    hasFrame?: boolean,
+    links: string
 }
 
 
 export default (props: IFullCardContainerProps) =>
-    <div className={`card ${chartClass(props.cardOptions.hasChart)} ${borderClass(props.cardOptions)}`}>
+    <div className={`card ${chartClass(props.hasChart)} ${borderClass(props)}`}>
         {props.children}
     </div>
 
@@ -23,10 +24,14 @@ function chartClass(chartMode: string): string {
     return modes[chartMode];
 }
 
-function borderClass(props:ICardBaseConfig): string {
-    if (props.hasChart !== 'none' || props.links !== 'none') {
-        return 'full'
-    } else{
-        return 'empty'
+function borderClass(options:IFullCardContainerProps): string {
+
+    if (options.hasFrame === undefined && (options.hasChart !== 'none' || options.links !== 'none')) {
+            return 'full';
     }
+    else if (options.hasFrame === true) {
+        return 'full'
+    }
+    return 'empty';
+
 }
