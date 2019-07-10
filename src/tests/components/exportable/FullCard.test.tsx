@@ -73,17 +73,26 @@ describe('FullCard', () => {
 
     beforeAll(() => {
         mockSerie = generateMockSerie();
+    })
+
+    beforeEach(() => {
         mockCardOptions = generateMockCardOptions();
     })
 
     describe('Shown default attributes', () => {
 
-        beforeAll(() => {
+        beforeEach(() => {
             mountFullCard();
         })
 
         it('renders without crashing', () => {
             expect(wrapper.find(FullCard).exists()).toBe(true);
+        });
+        it('renders the border', () => {
+            expect(wrapper.find('.card .full').exists()).toBe(true);
+        });
+        it('renders a full chart', () => {
+            expect(wrapper.find('.card .wide').exists()).toBe(true);
         });
         it('renders the links footer', () => {
             expect(wrapper.find('div .c-links').exists()).toBe(true);
@@ -100,17 +109,20 @@ describe('FullCard', () => {
         it('renders the default units', () => {
             expect(wrapper.find('p .c-units').text()).toContain("Indice Especial");
         });
-        it('dropdown begins closed', () => {
-            expect(wrapper.find('.btn-group .open').exists()).toBe(false);
+
+    })
+
+    describe('Graphic rendering', () => {
+        
+        it('renders a small graphic chart', () => {
+            mockCardOptions.hasChart = "small";
+            mountFullCard();
+            expect(wrapper.find('.card .normal').exists()).toBe(true);
         });
-        it('opens the dropdown upon clicking it', () => {
-            wrapper.find('.btn-group').simulate('click');
-            expect(wrapper.find('.btn-group .open').exists()).toBe(true);
-        });
-        it('closes the open dropdown upon clicking outside it', () => {
-            wrapper.find('.btn-group').simulate('click');
-            wrapper.find('.card').simulate('click');
-            expect(wrapper.find('.btn-group .open').exists()).toBe(false);
+        it('does not render any chart', () => {
+            mockCardOptions.hasChart = "none";
+            mountFullCard();
+            expect(wrapper.find('.card .no-graph').exists()).toBe(true);
         });
 
     })

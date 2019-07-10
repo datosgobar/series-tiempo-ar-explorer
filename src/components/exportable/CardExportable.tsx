@@ -55,6 +55,7 @@ export default class CardExportable extends React.Component<ICardExportableProps
                 explicitSign: this.props.explicitSign,
                 hasChart: this.props.hasChart,
                 hasColorBar: this.props.hasColorBar,
+                hasFrame: this.props.hasFrame,
                 links: this.props.links,
                 locale: this.props.locale,
                 source: this.props.source,
