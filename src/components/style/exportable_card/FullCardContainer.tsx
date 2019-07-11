@@ -47,7 +47,7 @@ function frameClass(options:IFullCardContainerProps): string {
 function topBorder(options: IFullCardContainerProps): string {
 
     if(options.hasColorBar === true || (options.hasColorBar === undefined && frameClass(options) === 'full')) {
-        return "5px solid " + options.color;
+        return `5px solid ${options.color}`;
     }
     return "";
 
