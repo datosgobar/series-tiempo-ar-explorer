@@ -9,6 +9,9 @@ setup:
 watch:
 	npm start
 
+components-watch:
+	env COMPONENTS=1 npm start
+
 release:
 	npm run release
 
