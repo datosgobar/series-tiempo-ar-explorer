@@ -32,8 +32,10 @@ export default (props: IFullCardProps) => {
         props.cardOptions.locale, props.serie.isPercentage, props.cardOptions.explicitSign)
         
     return (
-        <FullCardContainer hasChart={props.cardOptions.hasChart}
+        <FullCardContainer color={props.cardOptions.color}
+                           hasChart={props.cardOptions.hasChart}
                            hasFrame={props.cardOptions.hasFrame}
+                           hasColorBar={props.cardOptions.hasColorBar}
                            links={props.cardOptions.links}>
             <FullCardHeader color={props.cardOptions.color}
                             override={props.cardOptions.title}

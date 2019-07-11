@@ -112,36 +112,8 @@ describe('FullCard', () => {
 
     })
 
-    describe('Graphic and border rendering', () => {
+    describe('Graphic rendering', () => {
         
-        it('having links but no chart, renders the border', () => {
-            mockCardOptions.hasChart = "none";
-            mountFullCard();
-            expect(wrapper.find('.card .full').exists()).toBe(true);
-        });
-        it('having chart but no links, renders the border', () => {
-            mockCardOptions.links = "none";
-            mountFullCard();
-            expect(wrapper.find('.card .full').exists()).toBe(true);
-        });
-        it('having no chart and no links, does not render the border', () => {
-            mockCardOptions.hasChart = "none";
-            mockCardOptions.links = "none";
-            mountFullCard();
-            expect(wrapper.find('.card .empty').exists()).toBe(true);
-        });
-        it('forcedly renders the border', () => {
-            mockCardOptions.hasChart = "none";
-            mockCardOptions.links = "none";
-            mockCardOptions.hasFrame = true;
-            mountFullCard();
-            expect(wrapper.find('.card .full').exists()).toBe(true);
-        });
-        it('forcedly does not render the border', () => {
-            mockCardOptions.hasFrame = false;
-            mountFullCard();
-            expect(wrapper.find('.card .empty').exists()).toBe(true);
-        });
         it('renders a small graphic chart', () => {
             mockCardOptions.hasChart = "small";
             mountFullCard();

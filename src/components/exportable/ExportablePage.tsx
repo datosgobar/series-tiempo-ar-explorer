@@ -23,6 +23,7 @@ export class ExportablePage extends React.Component {
                             units={'units'}
                             chartType={'full'}
                             hasFrame={true}
+                            hasColorBar={true}
                             explicitSign={false}
                             />
         </div>);

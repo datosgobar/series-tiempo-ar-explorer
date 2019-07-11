@@ -15,6 +15,7 @@ export interface ICardBaseConfig {
     source: string;
     units: string;
     hasFrame?: boolean;
+    hasColorBar?: boolean;
 }
 
 export interface ICardExportableConfig extends ICardBaseConfig {
@@ -36,6 +37,7 @@ export function render(selector: string, config: ICardExportableConfig) {
                         source={config.source}
                         units={config.units}
                         hasFrame={config.hasFrame}
+                        hasColorBar={config.hasColorBar}
                         seriesApi={seriesApi} />,
         document.getElementById(selector) as HTMLElement
     )
