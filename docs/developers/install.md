@@ -18,7 +18,11 @@ O vía package manager:
 
 1. Instalar [hooks](https://github.com/icefox/git-hooks) `git hooks install`
 1. Instalar dependencias: `npm install`
-2. Iniciar web server `npm start`
+2. Iniciar web server `make watch` para levantar el servidor en localhost:3000
+
+### Desarrollo de componentes exportables
+
+Se puede iniciar un servidor web para servir un dashboard que utiliza los componentes exportables usando `make components-watch`
 
 
 Para mas info: [react documentation](react_doc.md)
