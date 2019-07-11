@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { viewDatosGobAr } from '../../common/linkBuilders';
 
 
 export interface IFullCardContainerProps extends React.HTMLProps<HTMLDivElement> {
@@ -6,23 +7,42 @@ export interface IFullCardContainerProps extends React.HTMLProps<HTMLDivElement>
     hasChart: string,
     hasColorBar?: boolean,
     hasFrame?: boolean,
-    links: string
+    links: string,
+    serieId: string
 }
 
 
 export default (props: IFullCardContainerProps) => {
-    const borderTopStyle = {
-        borderTop: topBorder(props)
+
+    const isClickable: boolean = frameClass(props) === 'full' && props.links === 'none';
+    
+    const containerStyle = {
+        borderTop: topBorder(props),
+        cursor: ''
     };
+
+    if(isClickable) {
+        containerStyle.cursor = 'pointer';
+    }
+
+    const clickHandling = () => {
+        if(isClickable) {
+            const target: string = viewDatosGobAr(props.serieId);
+            return window.open(target, '_blank');
+        }
+        return;
+    };
+
     return(
     <div className={`card ${chartClass(props.hasChart)} ${frameClass(props)}`} 
-         style={borderTopStyle}>
+         style={containerStyle} onClick={clickHandling}>
         {props.children}
     </div>
     )
 }
 
 function chartClass(chartMode: string): string {
+
     const modes = {
         'full': 'wide',
         'none': 'no-graph',
@@ -30,6 +50,7 @@ function chartClass(chartMode: string): string {
     }
 
     return modes[chartMode];
+
 }
 
 function frameClass(options:IFullCardContainerProps): string {

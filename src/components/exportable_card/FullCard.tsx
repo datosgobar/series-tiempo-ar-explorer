@@ -29,22 +29,23 @@ export default (props: IFullCardProps) => {
     }
     const value = props.serie.data[props.serie.data.length-1].value
     const formatter = new CardValueFormatter(
-        props.cardOptions.locale, props.serie.isPercentage, props.cardOptions.explicitSign)
+        options.locale, props.serie.isPercentage, options.explicitSign)
         
     return (
-        <FullCardContainer color={props.cardOptions.color}
-                           hasChart={props.cardOptions.hasChart}
-                           hasFrame={props.cardOptions.hasFrame}
-                           hasColorBar={props.cardOptions.hasColorBar}
-                           links={props.cardOptions.links}>
-            <FullCardHeader color={props.cardOptions.color}
-                            override={props.cardOptions.title}
+        <FullCardContainer color={options.color}
+                           hasChart={options.hasChart}
+                           hasFrame={options.hasFrame}
+                           hasColorBar={options.hasColorBar}
+                           links={options.links}
+                           serieId={options.serieId}>
+            <FullCardHeader color={options.color}
+                            override={options.title}
                             defaultTitle={props.serie.description}
                             date={lastSerieDate(props.serie)} />
-            <FullCardValue color={props.cardOptions.color} text={formatter.formattedValue(value)} />
-            <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={props.cardOptions.hasChart} />
-            <FullCardUnits units={props.serie.representationModeUnits} override={props.cardOptions.units}/>
-            <FullCardSource source={props.serie.datasetSource} override={props.cardOptions.source}/>
+            <FullCardValue color={options.color} text={formatter.formattedValue(value)} />
+            <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={options.hasChart} />
+            <FullCardUnits units={props.serie.representationModeUnits} override={options.units}/>
+            <FullCardSource source={props.serie.datasetSource} override={options.source}/>
             <FullCardLinks options={options} />
         </FullCardContainer>
     )

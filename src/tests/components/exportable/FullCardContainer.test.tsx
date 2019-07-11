@@ -16,7 +16,8 @@ describe('FullCardDropdownContainer', () => {
             props = {
                 color: "#EC407A",
                 hasChart: "small",
-                links: "small"
+                links: "small",
+                serieId: "143.3_NO_PR_2004_A_21"
             };
             wrapper = shallow(<FullCardContainer {...props}/>);
         })
@@ -46,7 +47,8 @@ describe('FullCardDropdownContainer', () => {
             props = {
                 color: "#EC407A",
                 hasChart: "small",
-                links: "small"
+                links: "small",
+                serieId: "143.3_NO_PR_2004_A_21"
             };
         })
         
@@ -69,7 +71,8 @@ describe('FullCardDropdownContainer', () => {
             props = {
                 color: "#EC407A",
                 hasChart: "none",
-                links: "none"
+                links: "none",
+                serieId: "143.3_NO_PR_2004_A_21"
             };
         })
         
