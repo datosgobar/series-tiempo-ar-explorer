@@ -38,21 +38,35 @@ function getServedPath(appPackageJson) {
   return ensureSlash(servedUrl, true);
 }
 
+
+
+function getExports() {
+  let public_index_file = 'public/index.html';
+  let entrypoint = 'src/index.tsx';
+
+  if (process.env.COMPONENTS !== undefined) {
+    public_index_file = 'public/components.html';
+    entrypoint = 'src/indexComponents.tsx';
+  }
+
+  return {
+    dotenv: resolveApp('.env'),
+    appBuild: resolveApp('build'),
+    appPublic: resolveApp('public'),
+    appHtml: resolveApp(public_index_file),
+    appIndexJs: resolveApp(entrypoint),
+    componentsIndexJs: resolveApp('src/indexComponents.tsx'),
+    appPackageJson: resolveApp('package.json'),
+    appSrc: resolveApp('src'),
+    yarnLockFile: resolveApp('yarn.lock'),
+    testsSetup: resolveApp('src/setupTests.ts'),
+    appNodeModules: resolveApp('node_modules'),
+    appTsConfig: resolveApp('tsconfig.json'),
+    appTsLint: resolveApp('tslint.json'),
+    publicUrl: getPublicUrl(resolveApp('package.json')),
+    servedPath: getServedPath(resolveApp('package.json')),
+  };
+  
+}
 // config after eject: we're in ./config/
-module.exports = {
-  dotenv: resolveApp('.env'),
-  appBuild: resolveApp('build'),
-  appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/index.tsx'),
-  componentsIndexJs: resolveApp('src/indexComponents.tsx'),
-  appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('src'),
-  yarnLockFile: resolveApp('yarn.lock'),
-  testsSetup: resolveApp('src/setupTests.ts'),
-  appNodeModules: resolveApp('node_modules'),
-  appTsConfig: resolveApp('tsconfig.json'),
-  appTsLint: resolveApp('tslint.json'),
-  publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json')),
-};
+module.exports = getExports();
