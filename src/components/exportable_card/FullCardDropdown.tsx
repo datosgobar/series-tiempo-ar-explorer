@@ -17,7 +17,12 @@ export interface IWebSnippetOptions {
     color: string,
     links: string
     hasChart: string,
-    chartType:string,
+    chartType: string,
+    title: string;
+    source: string;
+    units: string;
+    hasFrame: boolean;
+    hasColorBar: boolean;
 }
 
 function webCode(options: IWebSnippetOptions): string {
@@ -39,6 +44,31 @@ function webCode(options: IWebSnippetOptions): string {
     {
         htmlScript += `,
             chartType: "${options.chartType}"`;
+    }
+    if(options.title !== undefined)
+    {
+        htmlScript += `,
+            title: "${options.title}"`;
+    }
+    if(options.source !== undefined)
+    {
+        htmlScript += `,
+            source: "${options.source}"`;
+    }
+    if(options.units !== undefined)
+    {
+        htmlScript += `,
+            units: "${options.units}"`;
+    }
+    if(options.hasFrame !== undefined)
+    {
+        htmlScript += `,
+            hasFrame: "${options.hasFrame}"`;
+    }
+    if(options.hasColorBar !== undefined)
+    {
+        htmlScript += `,
+            hasColorBar: "${options.hasColorBar}"`;
     }
 
     htmlScript += `

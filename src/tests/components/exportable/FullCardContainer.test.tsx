@@ -5,10 +5,21 @@ import FullCardContainer, { IFullCardContainerProps } from '../../../components/
 
 configure({ adapter: new Adapter() });
 
-describe('FullCardDropdownContainer', () => {
+describe('FullCardContainer', () => {
 
     let wrapper: ShallowWrapper<any, any>;
     let props: IFullCardContainerProps;
+
+    function mountComponent() {
+        wrapper = shallow(
+            <FullCardContainer
+                color={props.color}
+                hasChart={props.hasChart}
+                hasColorBar={props.hasColorBar}
+                hasFrame={props.hasFrame}
+                links={props.links}
+                serieId={props.serieId} />);
+    }
 
     describe('Non-minimal Card with links and chart', () => {
 
@@ -16,12 +27,14 @@ describe('FullCardDropdownContainer', () => {
             props = {
                 color: "#EC407A",
                 hasChart: "small",
+                hasColorBar: undefined,
+                hasFrame: undefined,
                 links: "small",
                 serieId: "143.3_NO_PR_2004_A_21"
             };
-            wrapper = shallow(<FullCardContainer {...props}/>);
+            mountComponent();
         })
-        
+
         it('renders the frame', () => {
             expect(wrapper.find('.card').hasClass('full')).toBe(true);
         });
@@ -30,64 +43,76 @@ describe('FullCardDropdownContainer', () => {
         });
         it('forcedly does not render the frame', () => {
             props.hasFrame = false;
-            wrapper = shallow(<FullCardContainer {...props}/>);
+            mountComponent();
             expect(wrapper.find('.card').hasClass('empty')).toBe(true);
         });
         it('forcedly does not render the color bar', () => {
             props.hasColorBar = false;
-            wrapper = shallow(<FullCardContainer {...props}/>);
+            mountComponent();
             expect(wrapper.find('.card').prop('style')).toHaveProperty('borderTop', '');
         });
 
     })
 
     describe('Non-minimal card with and without links or chart', () => {
-        
+
         beforeEach(() => {
             props = {
                 color: "#EC407A",
                 hasChart: "small",
+                hasColorBar: undefined,
+                hasFrame: undefined,
                 links: "small",
                 serieId: "143.3_NO_PR_2004_A_21"
             };
         })
-        
+
         it('having links but no chart, renders the frame', () => {
             props.hasChart = "none";
-            wrapper = shallow(<FullCardContainer {...props}/>)
+            mountComponent();
             expect(wrapper.find('.card').hasClass('full')).toBe(true);
         });
         it('having chart but no links, renders the frame', () => {
             props.links = "none";
-            wrapper = shallow(<FullCardContainer {...props}/>)
+            mountComponent();
             expect(wrapper.find('.card').hasClass('full')).toBe(true);
+        });
+        it('having frame but no links, it is clickable', () => {
+            props.links = "none";
+            window.open = jest.fn();
+            const spy = jest.spyOn(FullCardContainer.prototype, "clickHandling");
+            mountComponent();
+            wrapper.simulate('click');
+            expect(spy).toHaveBeenCalled();
         });
 
     })
 
     describe('Default minimal card with no links nor chart', () => {
-        
+
         beforeEach(() => {
             props = {
                 color: "#EC407A",
                 hasChart: "none",
+                hasColorBar: undefined,
+                hasFrame: undefined,
                 links: "none",
                 serieId: "143.3_NO_PR_2004_A_21"
             };
         })
-        
+
         it('having no chart and no links, does not render the frame', () => {
-            wrapper = shallow(<FullCardContainer {...props}/>)
+            mountComponent();
             expect(wrapper.find('.card').hasClass('empty')).toBe(true);
         });
         it('forcedly renders the frame', () => {
             props.hasFrame = true;
-            wrapper = shallow(<FullCardContainer {...props}/>)
+            mountComponent();
             expect(wrapper.find('.card').hasClass('full')).toBe(true);
         });
-        it('forcedly renders the frame', () => {
+        it('forcedly renders the color bar', () => {
             props.hasColorBar = true;
-            wrapper = shallow(<FullCardContainer {...props}/>)
+            mountComponent();
             expect(wrapper.find('.card').prop('style')).toHaveProperty('borderTop', '5px solid #EC407A');
         });
 
