@@ -31,6 +31,7 @@ export default class FullCardContainer extends React.Component<IFullCardContaine
         this.frameClass = this.frameClass.bind(this);
         this.topBorder = this.topBorder.bind(this);
         this.clickHandling = this.clickHandling.bind(this);
+        this.openViewMore = this.openViewMore.bind(this);
 
         this.isClickable = this.frameClass() === 'full' && props.links === 'none';
         this.containerStyle.borderTop = this.topBorder();
@@ -52,9 +53,12 @@ export default class FullCardContainer extends React.Component<IFullCardContaine
     public clickHandling() {
         if(this.isClickable) {
             const target: string = viewDatosGobAr(this.props.serieId);
-            return window.open(target, '_blank');
+            this.openViewMore(target);
         }
-        return;
+    }
+
+    public openViewMore(target: string) {
+        window.open(target, '_blank');
     }
 
     private chartClass(): string {

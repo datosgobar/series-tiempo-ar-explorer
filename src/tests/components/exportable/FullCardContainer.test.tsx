@@ -11,7 +11,7 @@ describe('FullCardContainer', () => {
     let props: IFullCardContainerProps;
 
     function mountComponent() {
-        wrapper = shallow(
+        wrapper = shallow<FullCardContainer>(
             <FullCardContainer
                 color={props.color}
                 hasChart={props.hasChart}
@@ -78,12 +78,22 @@ describe('FullCardContainer', () => {
             expect(wrapper.find('.card').hasClass('full')).toBe(true);
         });
         it('having frame but no links, it is clickable', () => {
-            props.links = "none";
+            props.links = 'none';
             window.open = jest.fn();
-            const spy = jest.spyOn(FullCardContainer.prototype, "clickHandling");
+            const spy = jest.spyOn(FullCardContainer.prototype, "openViewMore");
             mountComponent();
             wrapper.simulate('click');
-            expect(spy).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalledTimes(1);
+            jest.clearAllMocks();
+        });
+        it('having frame and links, it is not clickable', () => {
+            props.hasFrame = false;
+            window.open = jest.fn();
+            const spy = jest.spyOn(FullCardContainer.prototype, "openViewMore");
+            mountComponent();
+            wrapper.simulate('click');
+            expect(spy).toHaveBeenCalledTimes(0);
+            jest.clearAllMocks();
         });
 
     })
