@@ -17,13 +17,17 @@ export interface IWebSnippetOptions {
     color: string,
     links: string
     hasChart: string,
-    chartType:string,
+    chartType: string,
+    title: string;
+    source: string;
+    units: string;
+    hasFrame: boolean;
+    hasColorBar: boolean;
 }
 
 function webCode(options: IWebSnippetOptions): string {
 
     let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta10/dist/js/components.js'></script>
-<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
 <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta10/dist/css/components.css'/>
 <link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
 <div id="root"></div>
@@ -39,6 +43,31 @@ function webCode(options: IWebSnippetOptions): string {
     {
         htmlScript += `,
             chartType: "${options.chartType}"`;
+    }
+    if(options.title !== undefined)
+    {
+        htmlScript += `,
+            title: "${options.title}"`;
+    }
+    if(options.source !== undefined)
+    {
+        htmlScript += `,
+            source: "${options.source}"`;
+    }
+    if(options.units !== undefined)
+    {
+        htmlScript += `,
+            units: "${options.units}"`;
+    }
+    if(options.hasFrame !== undefined)
+    {
+        htmlScript += `,
+            hasFrame: "${options.hasFrame}"`;
+    }
+    if(options.hasColorBar !== undefined)
+    {
+        htmlScript += `,
+            hasColorBar: "${options.hasColorBar}"`;
     }
 
     htmlScript += `

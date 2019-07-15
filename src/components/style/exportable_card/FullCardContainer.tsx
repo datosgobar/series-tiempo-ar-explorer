@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { viewDatosGobAr } from '../../common/linkBuilders';
 
 
 export interface IFullCardContainerProps extends React.HTMLProps<HTMLDivElement> {
@@ -6,49 +7,94 @@ export interface IFullCardContainerProps extends React.HTMLProps<HTMLDivElement>
     hasChart: string,
     hasColorBar?: boolean,
     hasFrame?: boolean,
-    links: string
+    links: string,
+    serieId: string
 }
 
+interface IContainerStyle {
+    borderTop: string,
+    cursor: string
+}
 
-export default (props: IFullCardContainerProps) => {
-    const borderTopStyle = {
-        borderTop: topBorder(props)
+export default class FullCardContainer extends React.Component<IFullCardContainerProps> {
+
+    private containerStyle: IContainerStyle = {
+        borderTop: '',
+        cursor: ''
     };
-    return(
-    <div className={`card ${chartClass(props.hasChart)} ${frameClass(props)}`} 
-         style={borderTopStyle}>
-        {props.children}
-    </div>
-    )
-}
+    
+    constructor(props: IFullCardContainerProps) {
 
-function chartClass(chartMode: string): string {
-    const modes = {
-        'full': 'wide',
-        'none': 'no-graph',
-        'small': 'normal',
+        super(props);
+        this.isClickable = this.isClickable.bind(this);
+        this.chartClass = this.chartClass.bind(this);
+        this.frameClass = this.frameClass.bind(this);
+        this.topBorder = this.topBorder.bind(this);
+        this.clickHandling = this.clickHandling.bind(this);
+        this.openViewMore = this.openViewMore.bind(this);
+
+        this.containerStyle.borderTop = this.topBorder();
+        if(this.isClickable()) {
+            this.containerStyle.cursor = 'pointer';
+        }
+
     }
 
-    return modes[chartMode];
-}
-
-function frameClass(options:IFullCardContainerProps): string {
-
-    if (options.hasFrame === undefined && (options.hasChart !== 'none' || options.links !== 'none')) {
-            return 'full';
+    public render() {
+        return (
+        <div className={`card ${this.chartClass()} ${this.frameClass()}`} 
+             style={this.containerStyle} onClick={this.clickHandling}>
+           {this.props.children}
+       </div>
+        )
     }
-    else if (options.hasFrame === true) {
-        return 'full'
+
+    public clickHandling() {
+        if(this.isClickable()) {
+            const target: string = viewDatosGobAr(this.props.serieId);
+            this.openViewMore(target);
+        }
     }
-    return 'empty';
 
-}
-
-function topBorder(options: IFullCardContainerProps): string {
-
-    if(options.hasColorBar === true || (options.hasColorBar === undefined && frameClass(options) === 'full')) {
-        return `5px solid ${options.color}`;
+    public openViewMore(target: string) {
+        window.open(target, '_blank');
     }
-    return "";
+
+    private isClickable() {
+        return this.frameClass() === 'full' && this.props.links === 'none';
+    }
+
+    private chartClass(): string {
+
+        const modes = {
+            'full': 'wide',
+            'none': 'no-graph',
+            'small': 'normal',
+        }
+    
+        return modes[this.props.hasChart];
+    
+    }
+    
+    private frameClass(): string {
+    
+        if (this.props.hasFrame === undefined && (this.props.hasChart !== 'none' || this.props.links !== 'none')) {
+                return 'full';
+        }
+        else if (this.props.hasFrame === true) {
+            return 'full'
+        }
+        return 'empty';
+    
+    }
+    
+    private topBorder(): string {
+    
+        if(this.props.hasColorBar === true || (this.props.hasColorBar === undefined && this.frameClass() === 'full')) {
+            return `5px solid ${this.props.color}`;
+        }
+        return "";
+    
+    }
 
 }
