@@ -248,6 +248,7 @@
 .card .c-data .c-main {
   font-size: 48px;
   height: 57px;
+  line-height: 68px;
   margin-bottom: 10px;
   font-weight: 600;
   color: #0072BB;
@@ -309,10 +310,11 @@
 .card .c-foot {
   height: 35px;
   display: inline-flex;
+  line-height: 20px;
 }
 
 .card .c-foot div {
-  width: 150px;
+  width: 76.667px;
   float: left;
   height: 35px;
   text-align: center;
@@ -453,6 +455,7 @@ main a[href^="https://"][target^="_blank"]::after {
 
 .card .c-linksButton {
   background-color: transparent;
+  padding: 0;
 }
 
 .card .dropdown-menu {
@@ -577,6 +580,10 @@ main a[href^="https://"][target^="_blank"]::after {
 
 .c-linkItem {
   cursor: pointer;
+}
+
+.card .c-foot div .c-links-tooltip {
+  width: 140px;
 }
 
 .__react_component_tooltip {

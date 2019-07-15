@@ -18,7 +18,6 @@ interface IContainerStyle {
 
 export default class FullCardContainer extends React.Component<IFullCardContainerProps> {
 
-    private isClickable: boolean;
     private containerStyle: IContainerStyle = {
         borderTop: '',
         cursor: ''
@@ -27,15 +26,15 @@ export default class FullCardContainer extends React.Component<IFullCardContaine
     constructor(props: IFullCardContainerProps) {
 
         super(props);
+        this.isClickable = this.isClickable.bind(this);
         this.chartClass = this.chartClass.bind(this);
         this.frameClass = this.frameClass.bind(this);
         this.topBorder = this.topBorder.bind(this);
         this.clickHandling = this.clickHandling.bind(this);
         this.openViewMore = this.openViewMore.bind(this);
 
-        this.isClickable = this.frameClass() === 'full' && props.links === 'none';
         this.containerStyle.borderTop = this.topBorder();
-        if(this.isClickable) {
+        if(this.isClickable()) {
             this.containerStyle.cursor = 'pointer';
         }
 
@@ -51,7 +50,7 @@ export default class FullCardContainer extends React.Component<IFullCardContaine
     }
 
     public clickHandling() {
-        if(this.isClickable) {
+        if(this.isClickable()) {
             const target: string = viewDatosGobAr(this.props.serieId);
             this.openViewMore(target);
         }
@@ -59,6 +58,10 @@ export default class FullCardContainer extends React.Component<IFullCardContaine
 
     public openViewMore(target: string) {
         window.open(target, '_blank');
+    }
+
+    private isClickable() {
+        return this.frameClass() === 'full' && this.props.links === 'none';
     }
 
     private chartClass(): string {

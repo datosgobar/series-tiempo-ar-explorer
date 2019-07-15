@@ -49,7 +49,8 @@ export default class FullCardDropdownContainer
                 </a>
                 <ul className="dropdown-menu" {...this.state.listItems} />
 
-                <ReactTooltip effect="solid" getContent={this.tooltipContent} place="right" globalEventOff='click' />
+                <ReactTooltip effect="solid" getContent={this.tooltipContent}
+                              place="right" globalEventOff='click' class="c-links-tooltip"/>
             </div>
         )
     }
