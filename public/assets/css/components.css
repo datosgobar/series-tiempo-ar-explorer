@@ -456,6 +456,7 @@ main a[href^="https://"][target^="_blank"]::after {
 .card .c-linksButton {
   background-color: transparent;
   padding: 0;
+  letter-spacing: 0px;
 }
 
 .card .dropdown-menu {
