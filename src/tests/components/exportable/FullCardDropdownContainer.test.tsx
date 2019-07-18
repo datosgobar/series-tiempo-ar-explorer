@@ -23,16 +23,16 @@ describe('FullCardDropdownContainer', () => {
         expect(wrapper.instance().state.open).toBe(false);
     });
     it('opens the dropdown upon clicking it', () => {
-        wrapper.find('.btn-group').simulate('click');
+        wrapper.find('.c-dropdown').simulate('click');
         expect(wrapper.instance().state.open).toBe(true);
     });
     it('closes the open dropdown upon clicking it again', () => {
-        wrapper.find('.btn-group').simulate('click');
-        wrapper.find('.btn-group').simulate('click');
+        wrapper.find('.c-dropdown').simulate('click');
+        wrapper.find('.c-dropdown').simulate('click');
         expect(wrapper.instance().state.open).toBe(false);
     });
     it('closes the open dropdown upon clicking outside it', () => {
-        wrapper.find('.btn-group').simulate('click');
+        wrapper.find('.c-dropdown').simulate('click');
         const click = new MouseEvent('click');
         document.dispatchEvent(click);
         expect(wrapper.instance().state.open).toBe(false);
