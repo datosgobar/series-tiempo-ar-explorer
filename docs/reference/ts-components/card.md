@@ -86,9 +86,17 @@ Ver online: [https://jsfiddle.net/2tz8agdm/](https://jsfiddle.net/2tz8agdm/)
         <td>Area</td>
     </tr>
     <tr>
+        <td>explicitSign</td>
+        <td>No</td>
+        <td>Permite forzar la presencia de un signo antepuesto al valor mostrado; es decir, si dicho valor resultara positivo, será precedido por un signo de adición ('+'). Por defecto, se encuentra desactivado.</td>
+        <td>booleano</td>
+        <td>false</td>
+        <td>true</td>
+    </tr>
+    <tr>
         <td>title</td>
         <td>No</td>
-        <td>Especifica el título de la tarjeta.</td>
+        <td>Especifica el título de la tarjeta. De no definirse, se considera el título por defecto de la serie; de definirse como "", se lo omite.</td>
         <td>string</td>
         <td>Ninguno</td>
         <td>Un título personalizado</td>
@@ -96,10 +104,34 @@ Ver online: [https://jsfiddle.net/2tz8agdm/](https://jsfiddle.net/2tz8agdm/)
     <tr>
         <td>source</td>
         <td>No</td>
-        <td>Especifica el texto al pie de la tarjeta.</td>
+        <td>Especifica el texto al pie de la tarjeta, que refiere a la fuente de la información. De no definirse, se considera la fuente por defecto de la serie; de definirse como "", se la omite.</td>
         <td>string</td>
         <td>Ninguno</td>
         <td>Dirección de Estadística e Información en Salud (DEIS). Secretaría de Gobierno de Salud</td>
+    </tr>
+    <tr>
+        <td>units</td>
+        <td>No</td>
+        <td>Especifica el texto al pie de la tarjeta, que refiere a las unidades en que se mide el valor mostrado. De no definirse, se consideran las unidades por defecto de la serie; de definirse como "", se las omite.</td>
+        <td>string</td>
+        <td>Ninguno</td>
+        <td>Millones de pesos</td>
+    </tr>
+    <tr>
+        <td>hasFrame</td>
+        <td>No</td>
+        <td>Permite forzar la presencia de un marco alrededor de la tarjeta y un fondo blanco para la misma. De no estar definido, la tarjeta tendrá marco si tiene al menos gráfico o enlaces.</td>
+        <td>booleano</td>
+        <td>Ninguno</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>hasColorBar</td>
+        <td>No</td>
+        <td>Permite forzar la presencia de la barra de color (el mismo que posee el número) en el borde superior de la tarjeta. De no estar definido, la barrá estará presente sólo si la tarjeta posee marco.</td>
+        <td>booleano</td>
+        <td>Ninguno</td>
+        <td>false</td>
     </tr>
 </table>
 
@@ -116,7 +148,12 @@ Ver online: [https://jsfiddle.net/2tz8agdm/](https://jsfiddle.net/2tz8agdm/)
         serieId: '143.3_NO_PR_2004_A_21',
         hasChart: 'small',
         links: 'full',
-        color: 'red
+        color: 'red',
+        explicitSign: true,
+        title: 'Nivel de actividad y tipo de cambio real',
+        units: '',
+        hasFrame: true,
+        hasColorBar: false
     })
     }
   </script>
