@@ -3,7 +3,7 @@
 El componente `card` permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/2tz8agdm/](https://jsfiddle.net/2tz8agdm/)
+Ver online: [https://jsfiddle.net/bnauLx2z/6/](https://jsfiddle.net/bnauLx2z/6/)
 
 ```html
 <!-- importa librería JS -->
@@ -152,8 +152,8 @@ Ver online: [https://jsfiddle.net/2tz8agdm/](https://jsfiddle.net/2tz8agdm/)
         explicitSign: true,
         title: 'Nivel de actividad y tipo de cambio real',
         units: '',
-        hasFrame: true,
-        hasColorBar: false
+        hasFrame: false,
+        hasColorBar: true
     })
     }
   </script>
@@ -162,4 +162,4 @@ Ver online: [https://jsfiddle.net/2tz8agdm/](https://jsfiddle.net/2tz8agdm/)
 ```
 
 ## Demo online
-https://jsfiddle.net/2tz8agdm/
+https://jsfiddle.net/bnauLx2z/6/
