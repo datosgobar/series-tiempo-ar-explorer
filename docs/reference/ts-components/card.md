@@ -7,10 +7,10 @@ Ver online: [https://jsfiddle.net/bnauLx2z/6/](https://jsfiddle.net/bnauLx2z/6/)
 
 ```html
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.0/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0-beta3/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.0/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con una tarjeta -->
 <div id="tmi"></div>
@@ -96,7 +96,7 @@ Ver online: [https://jsfiddle.net/bnauLx2z/6/](https://jsfiddle.net/bnauLx2z/6/)
     <tr>
         <td>title</td>
         <td>No</td>
-        <td>Especifica el título de la tarjeta. De no definirse, se considera el título por defecto de la serie; de definirse como "", se lo omite.</td>
+        <td>Especifica el título de la tarjeta. De no definirse, se considera el título por defecto de la serie; de definirse como '', se lo omite.</td>
         <td>string</td>
         <td>Ninguno</td>
         <td>Un título personalizado</td>
@@ -104,7 +104,7 @@ Ver online: [https://jsfiddle.net/bnauLx2z/6/](https://jsfiddle.net/bnauLx2z/6/)
     <tr>
         <td>source</td>
         <td>No</td>
-        <td>Especifica el texto al pie de la tarjeta, que refiere a la fuente de la información. De no definirse, se considera la fuente por defecto de la serie; de definirse como "", se la omite.</td>
+        <td>Especifica el texto al pie de la tarjeta, que refiere a la fuente de la información. De no definirse, se considera la fuente por defecto de la serie; de definirse como '', se la omite.</td>
         <td>string</td>
         <td>Ninguno</td>
         <td>Dirección de Estadística e Información en Salud (DEIS). Secretaría de Gobierno de Salud</td>
@@ -112,7 +112,7 @@ Ver online: [https://jsfiddle.net/bnauLx2z/6/](https://jsfiddle.net/bnauLx2z/6/)
     <tr>
         <td>units</td>
         <td>No</td>
-        <td>Especifica el texto al pie de la tarjeta, que refiere a las unidades en que se mide el valor mostrado. De no definirse, se consideran las unidades por defecto de la serie; de definirse como "", se las omite.</td>
+        <td>Especifica el texto al pie de la tarjeta, que refiere a las unidades en que se mide el valor mostrado. De no definirse, se consideran las unidades por defecto de la serie; de definirse como '', se las omite.</td>
         <td>string</td>
         <td>Ninguno</td>
         <td>Millones de pesos</td>
