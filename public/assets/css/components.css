@@ -350,7 +350,7 @@ main a[href^="https://"][target^="_blank"]::after {
 
 /*-Buttons and Dropdown-*/
 
-.card .btn {
+.card .c-btn {
   display: inline-block;
   background-image: none;
   cursor: pointer;
@@ -362,23 +362,23 @@ main a[href^="https://"][target^="_blank"]::after {
   -moz-user-select: none;
 }
 
-.card .btn:hover {
+.card .c-btn:hover {
   border: 0
 }
 
-.card .btn-group > .btn {
+.card .c-dropdown > .c-btn {
   position: relative;
   float: left
 }
 
-.card .btn-group-vertical>.btn.active,
-.card .btn-group-vertical>.btn:active, 
-.card .btn-group-vertical>.btn:focus, 
-.card .btn-group-vertical>.btn:hover, 
-.card .btn-group>.btn.active, 
-.card .btn-group>.btn:active, 
-.card .btn-group>.btn:focus, 
-.card .btn-group>.btn:hover {
+.card .c-dropdown-vertical>.c-btn.active,
+.card .c-dropdown-vertical>.c-btn:active, 
+.card .c-dropdown-vertical>.c-btn:focus, 
+.card .c-dropdown-vertical>.c-btn:hover, 
+.card .c-dropdown>.c-btn.active, 
+.card .c-dropdown>.c-btn:active, 
+.card .c-dropdown>.c-btn:focus, 
+.card .c-dropdown>.c-btn:hover {
   z-index: 2
 }
 
@@ -394,11 +394,11 @@ main a[href^="https://"][target^="_blank"]::after {
   border-left: 4px solid transparent
 }
 
-.card .btn .caret {
+.card .c-btn .caret {
   margin-left: 0
 }
 
-.card .btn-lg .caret {
+.card .c-btn-lg .caret {
   border-width: 5px 5px 0;
   border-bottom-width: 0
 }
@@ -410,37 +410,41 @@ main a[href^="https://"][target^="_blank"]::after {
   border-bottom: 4px solid\9
 }
 
-.card .dropup .btn-lg .caret {
+.card .dropup .c-btn-lg .caret {
   border-width: 0 5px 5px
 }
 
 @media print {
-  .card .btn>.caret, .card .dropup>.btn>.caret {
+  .card .c-btn>.caret, .card .dropup>.c-btn>.caret {
     border-top-color: #000!important
   }
 }
 
-.card .btn-group, .btn-group-vertical {
+.card .c-dropdown, .c-dropdown-vertical {
   position: relative;
   display: inline-block;
-  vertical-align: middle
+  vertical-align: middle;
 }
 
-.card .btn-group .dropdown-toggle:active, .btn-group.open .dropdown-toggle {
+.card a.c-dropdown-toggle  {
+  text-decoration: none;
+}
+
+.card .c-dropdown .c-dropdown-toggle:active, .c-dropdown.open .c-dropdown-toggle {
   outline: 0
 }
 
-.card .btn-group.open .dropdown-toggle {
+.card .c-dropdown.open .c-dropdown-toggle {
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
 }
 
-.card .btn-group.open .dropdown-toggle.btn-link {
+.card .c-dropdown.open .c-dropdown-toggle.c-btn-link {
   -webkit-box-shadow: none;
   box-shadow: none
 }
 
-.card .btn-group {
+.card .c-dropdown {
   padding-top: 0 !important;
   text-align: center !important;
   width: 100% !important;
@@ -449,7 +453,7 @@ main a[href^="https://"][target^="_blank"]::after {
   align-items: center;
 }
 
-.card .btn-group .btn {
+.card .c-dropdown .c-btn {
   text-transform: capitalize;
 }
 
@@ -459,7 +463,7 @@ main a[href^="https://"][target^="_blank"]::after {
   letter-spacing: 0px;
 }
 
-.card .dropdown-menu {
+.card .c-dropdown-options {
   position: absolute;
   top: 100%;
   left: 0;
@@ -482,19 +486,19 @@ main a[href^="https://"][target^="_blank"]::after {
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175)
 }
 
-.card .dropdown-menu.pull-right {
+.card .c-dropdown-options.pull-right {
   right: 0;
   left: auto
 }
 
-.card .dropdown-menu .divider {
+.card .c-dropdown-options .divider {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.4) !important
 }
 
-.card .dropdown-menu>li>a {
+.card .c-dropdown-options>li>a {
   display: block;
   padding: 3px 20px;
   clear: both;
@@ -504,7 +508,7 @@ main a[href^="https://"][target^="_blank"]::after {
   white-space: nowrap
 }
 
-.card .dropdown-menu li a {
+.card .c-dropdown-options li a {
   border-bottom: 1px solid #dbdbdb;
   display: block;
   clear: both;
@@ -515,48 +519,48 @@ main a[href^="https://"][target^="_blank"]::after {
   text-decoration: none
 }
 
-.card .dropdown-menu>li>a:focus {
+.card .c-dropdown-options>li>a:focus {
   color: #262626;
 }
 
-.card .dropdown-menu>li>a:focus, .card .dropdown-menu>li>a:hover {
+.card .c-dropdown-options>li>a:focus, .card .c-dropdown-options>li>a:hover {
   text-decoration: none;
   background-color: #f5f5f5
 }
 
-.card .dropdown-menu>li>a:hover, 
-.card .dropdown-menu li a:hover,
-.card .dropdown-menu>li>a:focus,
-.card .dropdown-menu li a:focus {
+.card .c-dropdown-options>li>a:hover, 
+.card .c-dropdown-options li a:hover,
+.card .c-dropdown-options>li>a:focus,
+.card .c-dropdown-options li a:focus {
   color: #fff
 }
 
-.card .dropdown-menu li a:not(.btn):hover, .card .dropdown-menu li a:not(.btn):focus {
+.card .c-dropdown-options li a:not(.c-btn):hover, .card .c-dropdown-options li a:not(.c-btn):focus {
   background-color: #0695d6;
   color: white
 }
 
-.card .dropdown-menu li:first-of-type a {
+.card .c-dropdown-options li:first-of-type a {
   border-radius: 4px 4px 0 0
 }
 
-.card .dropdown-menu li:last-of-type a {
+.card .c-dropdown-options li:last-of-type a {
   border-radius: 0 0 4px 4px;
   border: none
 }
 
-.card .dropdown-menu>.active>a, .card .dropdown-menu>.active>a:focus, .card .dropdown-menu>.active>a:hover {
+.card .c-dropdown-options>.active>a, .card .c-dropdown-options>.active>a:focus, .card .c-dropdown-options>.active>a:hover {
   color: #fff;
   text-decoration: none;
   background-color: #337ab7;
   outline: 0
 }
 
-.card .dropdown-menu>.disabled>a, .card .dropdown-menu>.disabled>a:focus, .card .dropdown-menu>.disabled>a:hover {
+.card .c-dropdown-options>.disabled>a, .card .c-dropdown-options>.disabled>a:focus, .card .c-dropdown-options>.disabled>a:hover {
   color: #777
 }
 
-.card .dropdown-menu>.disabled>a:focus, .card .dropdown-menu>.disabled>a:hover {
+.card .c-dropdown-options>.disabled>a:focus, .card .c-dropdown-options>.disabled>a:hover {
   text-decoration: none;
   cursor: not-allowed;
   background-color: transparent;
@@ -564,7 +568,7 @@ main a[href^="https://"][target^="_blank"]::after {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
 }
 
-.card .open>.dropdown-menu {
+.card .open>.c-dropdown-options {
   display: block;
   border: 1px solid #dbdbdb;
 }
@@ -573,8 +577,8 @@ main a[href^="https://"][target^="_blank"]::after {
   outline: 0
 }
 
-.card .open > .dropdown-toggle .c-linksButton:focus,
-.card .open > .dropdown-toggle .c-linksButton:hover {
+.card .open > .c-dropdown-toggle .c-linksButton:focus,
+.card .open > .c-dropdown-toggle .c-linksButton:hover {
   background-color: transparent;
   color: #0072BB;
 }

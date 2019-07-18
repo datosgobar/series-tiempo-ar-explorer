@@ -42,12 +42,12 @@ export default class FullCardDropdownContainer
 
     public render() {
         return (
-            <div className={"btn-group" + (this.state.open ? ' open' : '')} onClick={this.toggleOpen} ref={this.dropdownRef}>
-                <a type="button" className="btn dropdown-toggle c-linksButton"
+            <div className={"c-dropdown" + (this.state.open ? ' open' : '')} onClick={this.toggleOpen} ref={this.dropdownRef}>
+                <a type="button" className="c-btn c-dropdown-toggle c-linksButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {this.state.text} <span className="caret" />
                 </a>
-                <ul className="dropdown-menu" {...this.state.listItems} />
+                <ul className="c-dropdown-options" {...this.state.listItems} />
 
                 <ReactTooltip effect="solid" getContent={this.tooltipContent}
                               place="right" globalEventOff='click' class="c-links-tooltip"/>
