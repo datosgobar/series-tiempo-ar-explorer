@@ -105,6 +105,7 @@ Ver online: [https://jsfiddle.net/6h4dnp1s/](https://jsfiddle.net/6h4dnp1s/)
         <td>Line</td>
         <td>Area</td>
     </tr>
+    -->
     <tr>
         <td>explicitSign</td>
         <td>No</td>
@@ -113,7 +114,6 @@ Ver online: [https://jsfiddle.net/6h4dnp1s/](https://jsfiddle.net/6h4dnp1s/)
         <td>false</td>
         <td>true</td>
     </tr>
-    -->
     <tr>
         <td>title</td>
         <td>No</td>
