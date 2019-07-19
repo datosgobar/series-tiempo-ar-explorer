@@ -435,9 +435,50 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo-online" title="Demo online" class="md-nav__link">
-    Demo online
+  <a href="#variantes-de-tarjetas" title="Variantes de tarjetas" class="md-nav__link">
+    Variantes de tarjetas
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card-default" title="Card: default" class="md-nav__link">
+    Card: default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-menos-links" title="Card: menos links" class="md-nav__link">
+    Card: menos links
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-sin-links" title="Card: sin links" class="md-nav__link">
+    Card: sin links
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-minima" title="Card: mínima" class="md-nav__link">
+    Card: mínima
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-minima-eliminando-elementos" title="Card: mínima (eliminando elementos)" class="md-nav__link">
+    Card: mínima (eliminando elementos)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -567,9 +608,50 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo-online" title="Demo online" class="md-nav__link">
-    Demo online
+  <a href="#variantes-de-tarjetas" title="Variantes de tarjetas" class="md-nav__link">
+    Variantes de tarjetas
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card-default" title="Card: default" class="md-nav__link">
+    Card: default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-menos-links" title="Card: menos links" class="md-nav__link">
+    Card: menos links
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-sin-links" title="Card: sin links" class="md-nav__link">
+    Card: sin links
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-minima" title="Card: mínima" class="md-nav__link">
+    Card: mínima
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-minima-eliminando-elementos" title="Card: mínima (eliminando elementos)" class="md-nav__link">
+    Card: mínima (eliminando elementos)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -594,6 +676,23 @@
                 
                 <h1 id="componente-card"><a class="toclink" href="#componente-card">Componente: card</a><a class="headerlink" href="#componente-card" title="Permanent link">&#128279;</a></h1>
 <p>El componente <code>card</code> permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.</p>
+<p><link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.0/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.0/dist/js/components.js'></script></p>
+<style>
+.row {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+}
+</style>
+
+<div class="row">
+    <div id="ipc"></div>
+    <div id="exportaciones"></div>
+</div>
+
 <h2 id="ejemplo-base"><a class="toclink" href="#ejemplo-base">Ejemplo base</a><a class="headerlink" href="#ejemplo-base" title="Permanent link">&#128279;</a></h2>
 <p>Ver online: <a href="https://jsfiddle.net/2tz8agdm/">https://jsfiddle.net/2tz8agdm/</a></p>
 <div class="codehilite"><pre><span></span><span class="c">&lt;!-- importa librería JS --&gt;</span>
@@ -667,6 +766,7 @@
         <td>Full</td>
         <td>Small</td>
     </tr>
+    <!--
     <tr>
         <td>chartType</td>
         <td>No</td>
@@ -675,6 +775,7 @@
         <td>Line</td>
         <td>Area</td>
     </tr>
+    -->
     <tr>
         <td>title</td>
         <td>No</td>
@@ -704,7 +805,12 @@
         <span class="nx">serieId</span><span class="o">:</span> <span class="s1">&#39;143.3_NO_PR_2004_A_21&#39;</span><span class="p">,</span>
         <span class="nx">hasChart</span><span class="o">:</span> <span class="s1">&#39;small&#39;</span><span class="p">,</span>
         <span class="nx">links</span><span class="o">:</span> <span class="s1">&#39;full&#39;</span><span class="p">,</span>
-        <span class="nx">color</span><span class="o">:</span> <span class="err">&#39;</span><span class="nx">red</span>
+        <span class="nx">locale</span><span class="o">:</span> <span class="s1">&#39;AR&#39;</span><span class="p">,</span>
+        <span class="nx">links</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#F9A822&#39;</span><span class="p">,</span>
+        <span class="nx">hasChart</span><span class="o">:</span> <span class="s1">&#39;small&#39;</span><span class="p">,</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Titulo personalizado&#39;</span><span class="p">,</span>
+        <span class="nx">source</span><span class="o">:</span> <span class="s1">&#39;Fuente primaria: Mi Fuente&#39;</span><span class="p">,</span>
     <span class="p">})</span>
     <span class="p">}</span>
   <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
@@ -713,8 +819,140 @@
 </pre></div>
 
 
-<h2 id="demo-online"><a class="toclink" href="#demo-online">Demo online</a><a class="headerlink" href="#demo-online" title="Permanent link">&#128279;</a></h2>
-<p>https://jsfiddle.net/2tz8agdm/</p>
+<h2 id="variantes-de-tarjetas"><a class="toclink" href="#variantes-de-tarjetas">Variantes de tarjetas</a><a class="headerlink" href="#variantes-de-tarjetas" title="Permanent link">&#128279;</a></h2>
+<h3 id="card-default"><a class="toclink" href="#card-default">Card: default</a><a class="headerlink" href="#card-default" title="Permanent link">&#128279;</a></h3>
+<div class="row">
+    <div id='ipc-card'></div>
+    <div id='exportaciones-card'> </div>
+</div>
+
+<h3 id="card-menos-links"><a class="toclink" href="#card-menos-links">Card: menos links</a><a class="headerlink" href="#card-menos-links" title="Permanent link">&#128279;</a></h3>
+<div class="row">
+    <div id='ipc-card-links2'></div>
+    <div id='exportaciones-card-links2'></div>
+</div>
+
+<h3 id="card-sin-links"><a class="toclink" href="#card-sin-links">Card: sin links</a><a class="headerlink" href="#card-sin-links" title="Permanent link">&#128279;</a></h3>
+<div class="row">
+    <div id='ipc-card-med'></div>
+    <div id='exportaciones-card-med'></div>
+</div>
+
+<h3 id="card-minima"><a class="toclink" href="#card-minima">Card: mínima</a><a class="headerlink" href="#card-minima" title="Permanent link">&#128279;</a></h3>
+<div class="row">
+    <div id='ipc-card-min'></div>
+    <div id='exportaciones-card-min'></div>
+</div>
+
+<h3 id="card-minima-eliminando-elementos"><a class="toclink" href="#card-minima-eliminando-elementos">Card: mínima (eliminando elementos)</a><a class="headerlink" href="#card-minima-eliminando-elementos" title="Permanent link">&#128279;</a></h3>
+<div class="row">
+    <div id='ipc-card-min-xtreme'></div>
+    <div id='exportaciones-card-min-xtreme'></div>
+</div>
+
+<script>
+    window.onload = function() {
+
+        TSComponents.Card.render('ipc', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            color: '#F9A822',
+            hasChart: 'small',
+            title: "Indice de Precios al Consumidor Nacional",
+            links: "none"
+        })
+
+        TSComponents.Card.render('exportaciones', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            hasChart: 'small',
+            title: "Exportaciones",
+            links: "none"
+        })
+
+        TSComponents.Card.render('ipc-card', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            color: '#F9A822',
+            hasChart: 'small',
+            title: "Indice de Precios al Consumidor Nacional"
+        })
+
+        TSComponents.Card.render('exportaciones-card', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            hasChart: 'small',
+            title: "Exportaciones"
+        })
+
+        TSComponents.Card.render('ipc-card-links2', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            color: '#F9A822',
+            hasChart: 'small',
+            links: "small",
+            title: "Indice de Precios al Consumidor Nacional"
+        })
+
+        TSComponents.Card.render('exportaciones-card-links2', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            hasChart: 'small',
+            links: "small",
+            title: "Exportaciones"
+        })
+
+        TSComponents.Card.render('ipc-card-med', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            color: '#F9A822',
+            hasChart: 'small',
+            links: "none",
+            title: "Indice de Precios al Consumidor Nacional"
+        })
+
+        TSComponents.Card.render('exportaciones-card-med', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            hasChart: 'small',
+            links: "none",
+            title: "Exportaciones",
+            hasFrame: false
+        })
+
+        TSComponents.Card.render('ipc-card-min', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            color: '#F9A822',
+            links: 'none',
+            hasChart: "none",
+            title: "Indice de Precios al Consumidor Nacional"
+        })
+
+        TSComponents.Card.render('exportaciones-card-min', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            links: 'none',
+            hasChart: "none",
+            title: "Exportaciones",
+            hasColorBar: true
+        })
+
+        TSComponents.Card.render('ipc-card-min-xtreme', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            links: 'none',
+            hasChart: "none",
+            title: "",
+            units: "",
+            source: ""
+        })
+
+        TSComponents.Card.render('exportaciones-card-min-xtreme', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            links: 'none',
+            hasChart: "none",
+            title: "",
+            units: "",
+            source: ""
+        })
+    }
+</script>
                 
                   
                 
