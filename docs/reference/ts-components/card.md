@@ -3,8 +3,8 @@
 El componente `card` permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.
 
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/js/components.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.4/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.4/dist/js/components.js'></script>
 
 <style>
 .row {
@@ -22,14 +22,14 @@ El componente `card` permite embeber tarjetas con información de la serie, y un
 
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/6h4dnp1s/](https://jsfiddle.net/6h4dnp1s/)
+Ver online: [https://jsfiddle.net/qnks0ueo/](https://jsfiddle.net/qnks0ueo/)
 
 ```html
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.4/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.4/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con una tarjeta -->
 <div id="tmi"></div>
@@ -185,7 +185,7 @@ Ver online: [https://jsfiddle.net/6h4dnp1s/](https://jsfiddle.net/6h4dnp1s/)
 ```
 
 ## Demo online
-https://jsfiddle.net/6h4dnp1s/
+https://jsfiddle.net/qnks0ueo/
 
 ## Variantes de tarjetas
 
