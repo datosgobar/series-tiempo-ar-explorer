@@ -281,6 +281,7 @@
 .card .c-units {
   height: 32px;
   width: 100%;
+  margin: 0px;
   text-align: center;
   overflow: hidden;
   font-size: 14px;
@@ -586,6 +587,7 @@ main a[href^="https://"][target^="_blank"]::after {
 
 .card .c-dropdown-options .c-linkItem {
   cursor: pointer;
+  margin: 0px;
 }
 
 .card .c-foot div .c-links-tooltip {
