@@ -3,9 +3,10 @@
 El componente `graphic` permite embeber gráficos de líneas, áreas o barras en experiencias web. Permite elegir distintos elementos de filtro de fechas, personalizar los textos, etc.
 
 ## Ejemplo base
+Ver online: [https://jsfiddle.net/wk1hd4u2/](https://jsfiddle.net/wk1hd4u2/)
 
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.18.2/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.18.2/dist/css/components.css'/>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/js/components.js'></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/css/components.css'/>
 
 <div id="tmi"></div>
 
@@ -26,10 +27,10 @@ Este gráfico se genera a partir del siguiente código:
 
 ```html
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.18.2/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_1.18.2/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con un gráfico -->
 <div id="tmi"></div>
@@ -198,7 +199,8 @@ Varios componentes del gráfico se muestran/ocultan dinámicamente dependiendo d
 ```html
 <html>
 <body>
-  <script type='text/javascript' src='components.js'></script>
+  <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/js/components.js'></script>
+  <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.0.1/dist/css/components.css'/>
   <div id="root"></div>
   <script>
     window.onload = function () {
@@ -217,7 +219,7 @@ Varios componentes del gráfico se muestran/ocultan dinámicamente dependiendo d
         colors: ['#cecece', '#8d6b22', '#62848d'],
         locale: 'AR',
         chartOptions: {},
-        legendLabel: {},
+        legendLabel: {'tmi_arg': 'Tasa de mortalidad nacional'},
       })
     }
   </script>
@@ -225,5 +227,5 @@ Varios componentes del gráfico se muestran/ocultan dinámicamente dependiendo d
 </html>
 ```
 
-## Demo online
-https://jsfiddle.net/qbe9ydm5/
+
+

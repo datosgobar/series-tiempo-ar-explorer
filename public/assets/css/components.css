@@ -220,6 +220,7 @@
 
 .card .c-head .c-title {
   height: 40px;
+  margin: 0px;
   text-align: center;
   font-weight: 500;
   font-size: 18px;
@@ -583,7 +584,7 @@ main a[href^="https://"][target^="_blank"]::after {
   color: #0072BB;
 }
 
-.c-linkItem {
+.card .c-dropdown-options .c-linkItem {
   cursor: pointer;
 }
 
