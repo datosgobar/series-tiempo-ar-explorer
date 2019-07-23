@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0, mkdocs-material-4.1.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -55,14 +55,14 @@
 
     
     
-      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
     
     <script src="../../js/extra.js"></script>
 
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -156,7 +156,9 @@
               Explorador de Series de Tiempo
             </span>
             <span class="md-header-nav__topic">
-              React
+              
+                React
+              
             </span>
           
         </div>
@@ -2914,20 +2916,20 @@ You can find the most recent version of this guide <a href="https://github.com/f
 <p>We are always open to <a href="https://github.com/facebookincubator/create-react-app/issues">your feedback</a>.</p>
 <h2 id="folder-structure"><a class="toclink" href="#folder-structure">Folder Structure</a><a class="headerlink" href="#folder-structure" title="Permanent link">&#128279;</a></h2>
 <p>After creation, your project should look like this:</p>
-<div class="codehilite"><pre><span></span>my-app/
-  README.md
-  node_modules/
-  package.json
-  public/
-    index.html
-    favicon.ico
-  src/
-    App.css
-    App.js
-    App.test.js
-    index.css
-    index.js
-    logo.svg
+<div class="codehilite"><pre><span></span><span class="n">my</span><span class="o">-</span><span class="n">app</span><span class="o">/</span>
+  <span class="n">README</span><span class="p">.</span><span class="n">md</span>
+  <span class="n">node_modules</span><span class="o">/</span>
+  <span class="n">package</span><span class="p">.</span><span class="n">json</span>
+  <span class="k">public</span><span class="o">/</span>
+    <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+    <span class="n">favicon</span><span class="p">.</span><span class="n">ico</span>
+  <span class="n">src</span><span class="o">/</span>
+    <span class="n">App</span><span class="p">.</span><span class="n">css</span>
+    <span class="n">App</span><span class="p">.</span><span class="n">js</span>
+    <span class="n">App</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">js</span>
+    <span class="k">index</span><span class="p">.</span><span class="n">css</span>
+    <span class="k">index</span><span class="p">.</span><span class="n">js</span>
+    <span class="n">logo</span><span class="p">.</span><span class="n">svg</span>
 </pre></div>
 
 
@@ -3266,8 +3268,8 @@ While you can still use <code>require()</code> and <code>module.exports</code>, 
 <p>Now you can rename <code>src/App.css</code> to <code>src/App.scss</code> and run <code>npm run watch-css</code>. The watcher will find every Sass file in <code>src</code> subdirectories, and create a corresponding CSS file next to it, in our case overwriting <code>src/App.css</code>. Since <code>src/App.js</code> still imports <code>src/App.css</code>, the styles become a part of your application. You can now edit <code>src/App.scss</code>, and <code>src/App.css</code> will be regenerated.</p>
 <p>To share variables between Sass files, you can use Sass imports. For example, <code>src/App.scss</code> and other component style files could include <code>@import "./shared.scss";</code> with variable definitions.</p>
 <p>To enable importing files without using relative paths, you can add the  <code>--include-path</code> option to the command in <code>package.json</code>.</p>
-<div class="codehilite"><pre><span></span>&quot;build-css&quot;: &quot;node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/&quot;,
-&quot;watch-css&quot;: &quot;npm run build-css &amp;&amp; node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive&quot;,
+<div class="codehilite"><pre><span></span><span class="s2">&quot;</span><span class="s">build-css</span><span class="s2">&quot;</span>: <span class="s2">&quot;</span><span class="s">node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/</span><span class="s2">&quot;</span>,
+<span class="s2">&quot;</span><span class="s">watch-css</span><span class="s2">&quot;</span>: <span class="s2">&quot;</span><span class="s">npm run build-css &amp;&amp; node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive</span><span class="s2">&quot;</span>,
 </pre></div>
 
 
@@ -3506,15 +3508,15 @@ variable named <code>REACT_APP_SECRET_CODE</code> will be exposed in your JS as 
 deployed or consuming sensitive data that lives outside of version control.</p>
 <p>First, you need to have environment variables defined. For example, let’s say you wanted to consume a secret defined
 in the environment inside a <code>&lt;form&gt;</code>:</p>
-<div class="codehilite"><pre><span></span>render() {
-  return (
-    <span class="nt">&lt;div&gt;</span>
-      <span class="nt">&lt;small&gt;</span>You are running this application in <span class="nt">&lt;b&gt;</span>{process.env.NODE_ENV}<span class="nt">&lt;/b&gt;</span> mode.<span class="nt">&lt;/small&gt;</span>
-      <span class="nt">&lt;form&gt;</span>
-        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">defaultValue=</span><span class="s">{process.env.REACT_APP_SECRET_CODE}</span> <span class="nt">/&gt;</span>
-      <span class="nt">&lt;/form&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-  );
+<div class="codehilite"><pre><span></span><span class="nv">render</span><span class="ss">()</span> {
+  <span class="k">return</span> <span class="ss">(</span>
+    <span class="o">&lt;</span><span class="nv">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">small</span><span class="o">&gt;</span><span class="nv">You</span> <span class="nv">are</span> <span class="nv">running</span> <span class="nv">this</span> <span class="nv">application</span> <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">b</span><span class="o">&gt;</span>{<span class="nv">process</span>.<span class="nv">env</span>.<span class="nv">NODE_ENV</span>}<span class="o">&lt;/</span><span class="nv">b</span><span class="o">&gt;</span> <span class="nv">mode</span>.<span class="o">&lt;/</span><span class="nv">small</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nv">form</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nv">input</span> <span class="nv">type</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">hidden</span><span class="s2">&quot;</span> <span class="nv">defaultValue</span><span class="o">=</span>{<span class="nv">process</span>.<span class="nv">env</span>.<span class="nv">REACT_APP_SECRET_CODE</span>} <span class="o">/&gt;</span>
+      <span class="o">&lt;/</span><span class="nv">form</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nv">div</span><span class="o">&gt;</span>
+  <span class="ss">)</span><span class="c1">;</span>
 }
 </pre></div>
 
@@ -3559,7 +3561,7 @@ a <code>.env</code> file. Both of these ways are described in the next few secti
 <p>Defining environment variables can vary between OSes. It’s also important to know that this manner is temporary for the
 life of the shell session.</p>
 <h4 id="windows-cmdexe"><a class="toclink" href="#windows-cmdexe">Windows (cmd.exe)</a><a class="headerlink" href="#windows-cmdexe" title="Permanent link">&#128279;</a></h4>
-<div class="codehilite"><pre><span></span>set &quot;REACT_APP_SECRET_CODE=abcdef&quot; &amp;&amp; npm start
+<div class="codehilite"><pre><span></span><span class="k">set</span> <span class="ss">&quot;REACT_APP_SECRET_CODE=abcdef&quot;</span> <span class="o">&amp;&amp;</span> <span class="n">npm</span> <span class="k">start</span>
 </pre></div>
 
 
@@ -3579,7 +3581,7 @@ life of the shell session.</p>
 <p>Note: this feature is available with <code>react-scripts@0.5.0</code> and higher.</p>
 </blockquote>
 <p>To define permanent environment variables, create a file called <code>.env</code> in the root of your project:</p>
-<div class="codehilite"><pre><span></span>REACT_APP_SECRET_CODE=abcdef
+<div class="codehilite"><pre><span></span><span class="n">REACT_APP_SECRET_CODE</span><span class="o">=</span><span class="n">abcdef</span>
 </pre></div>
 
 
@@ -3622,9 +3624,9 @@ these defined as well. Consult their documentation how to do this. For example, 
 
 
 <p>Or expand variables local to the current <code>.env</code> file:</p>
-<div class="codehilite"><pre><span></span>DOMAIN=www.example.com
-REACT_APP_FOO=$DOMAIN/foo
-REACT_APP_BAR=$DOMAIN/bar
+<div class="codehilite"><pre><span></span><span class="k">DOMAIN</span><span class="o">=</span><span class="n">www</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">com</span>
+<span class="n">REACT_APP_FOO</span><span class="o">=</span><span class="err">$</span><span class="k">DOMAIN</span><span class="o">/</span><span class="n">foo</span>
+<span class="n">REACT_APP_BAR</span><span class="o">=</span><span class="err">$</span><span class="k">DOMAIN</span><span class="o">/</span><span class="n">bar</span>
 </pre></div>
 
 
@@ -3663,9 +3665,9 @@ You can find the companion GitHub repository <a href="https://github.com/fullsta
 </blockquote>
 <p>People often serve the front-end React app from the same host and port as their backend implementation.<br>
 For example, a production setup might look like this after the app is deployed:</p>
-<div class="codehilite"><pre><span></span>/             - static server returns index.html with React app
-/todos        - static server returns index.html with React app
-/api/todos    - server handles any /api/* requests using the backend implementation
+<div class="codehilite"><pre><span></span><span class="o">/</span>             <span class="o">-</span> <span class="k">static</span> <span class="n">server</span> <span class="k">returns</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span> <span class="k">with</span> <span class="n">React</span> <span class="n">app</span>
+<span class="o">/</span><span class="n">todos</span>        <span class="o">-</span> <span class="k">static</span> <span class="n">server</span> <span class="k">returns</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span> <span class="k">with</span> <span class="n">React</span> <span class="n">app</span>
+<span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">todos</span>    <span class="o">-</span> <span class="n">server</span> <span class="n">handles</span> <span class="k">any</span> <span class="o">/</span><span class="n">api</span><span class="cm">/* requests using the backend implementation</span>
 </pre></div>
 
 
@@ -3677,7 +3679,7 @@ For example, a production setup might look like this after the app is deployed:<
 
 <p>This way, when you <code>fetch('/api/todos')</code> in development, the development server will recognize that it’s not a static asset, and will proxy your request to <code>http://localhost:4000/api/todos</code> as a fallback. The development server will only attempt to send requests without a <code>text/html</code> accept header to the proxy.</p>
 <p>Conveniently, this avoids <a href="http://stackoverflow.com/questions/21854516/understanding-ajax-cors-and-security-considerations">CORS issues</a> and error messages like this in development:</p>
-<div class="codehilite"><pre><span></span>Fetch API cannot load http://localhost:4000/api/todos. No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. Origin &#39;http://localhost:3000&#39; is therefore not allowed access. If an opaque response serves your needs, set the request&#39;s mode to &#39;no-cors&#39; to fetch the resource with CORS disabled.
+<div class="codehilite"><pre><span></span><span class="nv">Fetch</span> <span class="nv">API</span> <span class="nv">cannot</span> <span class="nv">load</span> <span class="nv">http</span>:<span class="o">//</span><span class="nv">localhost</span>:<span class="mi">4000</span><span class="o">/</span><span class="nv">api</span><span class="o">/</span><span class="nv">todos</span>. <span class="nv">No</span> <span class="s1">&#39;</span><span class="s">Access-Control-Allow-Origin</span><span class="s1">&#39;</span> <span class="nv">header</span> <span class="nv">is</span> <span class="nv">present</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">requested</span> <span class="nv">resource</span>. <span class="nv">Origin</span> <span class="s1">&#39;</span><span class="s">http://localhost:3000</span><span class="s1">&#39;</span> <span class="nv">is</span> <span class="nv">therefore</span> <span class="nv">not</span> <span class="nv">allowed</span> <span class="nv">access</span>. <span class="k">If</span> <span class="nv">an</span> <span class="nv">opaque</span> <span class="nv">response</span> <span class="nv">serves</span> <span class="nv">your</span> <span class="nv">needs</span>, <span class="nv">set</span> <span class="nv">the</span> <span class="nv">request</span><span class="s1">&#39;</span><span class="s">s mode to </span><span class="s1">&#39;</span><span class="nv">no</span><span class="o">-</span><span class="nv">cors</span><span class="s1">&#39;</span><span class="s"> to fetch the resource with CORS disabled.</span>
 </pre></div>
 
 
@@ -3696,15 +3698,15 @@ If the <code>proxy</code> option is <strong>not</strong> flexible enough for you
 <p>Invalid Host header</p>
 </blockquote>
 <p>To work around it, you can specify your public development host in a file called <code>.env.development</code> in the root of your project:</p>
-<div class="codehilite"><pre><span></span>HOST=mypublicdevhost.com
+<div class="codehilite"><pre><span></span><span class="k">HOST</span><span class="o">=</span><span class="n">mypublicdevhost</span><span class="p">.</span><span class="n">com</span>
 </pre></div>
 
 
 <p>If you restart the development server now and load the app from the specified host, it should work.</p>
 <p>If you are still having issues or if you’re using a more exotic environment like a cloud editor, you can bypass the host check completely by adding a line to <code>.env.development.local</code>. <strong>Note that this is dangerous and exposes your machine to remote code execution from malicious websites:</strong></p>
-<div class="codehilite"><pre><span></span># NOTE: THIS IS DANGEROUS!
-# It exposes your machine to attacks from the websites you visit.
-DANGEROUSLY_DISABLE_HOST_CHECK=true
+<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">NOTE</span><span class="p">:</span> <span class="n">THIS</span> <span class="k">IS</span> <span class="n">DANGEROUS</span><span class="o">!</span>
+<span class="o">#</span> <span class="n">It</span> <span class="n">exposes</span> <span class="n">your</span> <span class="n">machine</span> <span class="k">to</span> <span class="n">attacks</span> <span class="k">from</span> <span class="n">the</span> <span class="n">websites</span> <span class="n">you</span> <span class="n">visit</span><span class="p">.</span>
+<span class="n">DANGEROUSLY_DISABLE_HOST_CHECK</span><span class="o">=</span><span class="k">true</span>
 </pre></div>
 
 
@@ -3797,7 +3799,7 @@ You may also narrow down matches using <code>*</code> and/or <code>**</code>, to
 <p>You may require the dev server to serve pages over HTTPS. One particular case where this could be useful is when using <a href="#proxying-api-requests-in-development">the "proxy" feature</a> to proxy requests to an API server when that API server is itself serving HTTPS.</p>
 <p>To do this, set the <code>HTTPS</code> environment variable to <code>true</code>, then start the dev server as usual with <code>npm start</code>:</p>
 <h4 id="windows-cmdexe_1"><a class="toclink" href="#windows-cmdexe_1">Windows (cmd.exe)</a><a class="headerlink" href="#windows-cmdexe_1" title="Permanent link">&#128279;</a></h4>
-<div class="codehilite"><pre><span></span>set HTTPS=true&amp;&amp;npm start
+<div class="codehilite"><pre><span></span><span class="k">set</span> <span class="n">HTTPS</span><span class="o">=</span><span class="k">true</span><span class="o">&amp;&amp;</span><span class="n">npm</span> <span class="k">start</span>
 </pre></div>
 
 
@@ -4039,11 +4041,11 @@ Run <code>npm test -- --coverage</code> (note extra <code>--</code> in the middl
 <p>Follow <a href="https://medium.com/@knowbody/circleci-and-zeits-now-sh-c9b7eebcd3c1">this article</a> to set up CircleCI with a Create React App project.</p>
 <h3 id="on-your-own-environment"><a class="toclink" href="#on-your-own-environment">On your own environment</a><a class="headerlink" href="#on-your-own-environment" title="Permanent link">&#128279;</a></h3>
 <h5 id="windows-cmdexe_2"><a class="toclink" href="#windows-cmdexe_2">Windows (cmd.exe)</a><a class="headerlink" href="#windows-cmdexe_2" title="Permanent link">&#128279;</a></h5>
-<div class="codehilite"><pre><span></span>set CI=true&amp;&amp;npm test
+<div class="codehilite"><pre><span></span><span class="k">set</span> <span class="n">CI</span><span class="o">=</span><span class="k">true</span><span class="o">&amp;&amp;</span><span class="n">npm</span> <span class="n">test</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>set CI=true&amp;&amp;npm run build
+<div class="codehilite"><pre><span></span><span class="k">set</span> <span class="n">CI</span><span class="o">=</span><span class="k">true</span><span class="o">&amp;&amp;</span><span class="n">npm</span> <span class="n">run</span> <span class="n">build</span>
 </pre></div>
 
 
@@ -4354,8 +4356,8 @@ bloat is coming from.</p>
 
 <p>Then to analyze the bundle run the production build then run the analyze
 script.</p>
-<div class="codehilite"><pre><span></span>npm run build
-npm run analyze
+<div class="codehilite"><pre><span></span><span class="n">npm</span> <span class="n">run</span> <span class="n">build</span>
+<span class="n">npm</span> <span class="n">run</span> <span class="k">analyze</span>
 </pre></div>
 
 
@@ -4407,10 +4409,10 @@ serve -s build
 
 
 <p>If you’re using <a href="https://httpd.apache.org/">Apache HTTP Server</a>, you need to create a <code>.htaccess</code> file in the <code>public</code> folder that looks like this:</p>
-<div class="codehilite"><pre><span></span>    Options -MultiViews
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.html [QSA,L]
+<div class="codehilite"><pre><span></span>    <span class="k">Options</span> <span class="o">-</span><span class="n">MultiViews</span>
+    <span class="n">RewriteEngine</span> <span class="k">On</span>
+    <span class="n">RewriteCond</span> <span class="o">%</span><span class="err">{</span><span class="n">REQUEST_FILENAME</span><span class="err">}</span> <span class="o">!-</span><span class="n">f</span>
+    <span class="n">RewriteRule</span> <span class="o">^</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span> <span class="p">[</span><span class="n">QSA</span><span class="p">,</span><span class="n">L</span><span class="p">]</span>
 </pre></div>
 
 
@@ -4494,13 +4496,13 @@ For example:</p>
 
 
 <p>IMPORTANT: you need to set proper HTTP caching headers for <code>service-worker.js</code> file in <code>firebase.json</code> file or you will not be able to see changes after first deployment (<a href="https://github.com/facebookincubator/create-react-app/issues/2440">issue #2440</a>). It should be added inside <code>"hosting"</code> key like next:</p>
-<div class="codehilite"><pre><span></span>{
-  &quot;hosting&quot;: {
-    ...
-    &quot;headers&quot;: [
-      {&quot;source&quot;: &quot;/service-worker.js&quot;, &quot;headers&quot;: [{&quot;key&quot;: &quot;Cache-Control&quot;, &quot;value&quot;: &quot;no-cache&quot;}]}
-    ]
-    ...
+<div class="codehilite"><pre><span></span><span class="err">{</span>
+  <span class="ss">&quot;hosting&quot;</span><span class="p">:</span> <span class="err">{</span>
+    <span class="p">...</span>
+    <span class="ss">&quot;headers&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="err">{</span><span class="ss">&quot;source&quot;</span><span class="p">:</span> <span class="ss">&quot;/service-worker.js&quot;</span><span class="p">,</span> <span class="ss">&quot;headers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="err">{</span><span class="ss">&quot;key&quot;</span><span class="p">:</span> <span class="ss">&quot;Cache-Control&quot;</span><span class="p">,</span> <span class="ss">&quot;value&quot;</span><span class="p">:</span> <span class="ss">&quot;no-cache&quot;</span><span class="err">}</span><span class="p">]</span><span class="err">}</span>
+    <span class="p">]</span>
+    <span class="p">...</span>
 </pre></div>
 
 
@@ -4797,9 +4799,9 @@ If this doesn’t happen, try one of the following workarounds:</p>
 <li><a href="https://github.com/ember-cli/ember-cli/issues/6259">ember-cli/ember-cli#6259</a></li>
 </ul>
 <p>It is reported that installing Watchman 4.7.0 or newer fixes the issue. If you use <a href="http://brew.sh/">Homebrew</a>, you can run these commands to update it:</p>
-<div class="codehilite"><pre><span></span>watchman shutdown-server
-brew update
-brew reinstall watchman
+<div class="codehilite"><pre><span></span><span class="n">watchman</span> <span class="n">shutdown</span><span class="o">-</span><span class="n">server</span>
+<span class="n">brew</span> <span class="k">update</span>
+<span class="n">brew</span> <span class="n">reinstall</span> <span class="n">watchman</span>
 </pre></div>
 
 
@@ -4904,7 +4906,7 @@ To resolve this:
       
     </div>
     
-      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      <script src="../../assets/javascripts/application.245445c6.js"></script>
       
         
         
@@ -4921,7 +4923,7 @@ To resolve this:
           
         
       
-      <script>app.initialize({version:"1.0",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
     
   </body>

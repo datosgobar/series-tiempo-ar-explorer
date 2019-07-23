@@ -34,7 +34,7 @@ describe("Axis Configuration functions", () => {
             downloadURL: "https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=10&format=csv",
             endDate: "2018-07-01",
             frequency: "Mensual",
-            id: "143.3_NO_PR_2004_A_21",
+            id: "TestId",
             isPercentage: false,
             issued: "2017-09-28",
             landingPage: "LandingPage",
@@ -117,16 +117,16 @@ describe("Axis Configuration functions", () => {
         })
 
         it("Each unit label goes to a different axis", () => {
-            expect(yAxisBySeries['143.3_NO_PR_2004_A_21'].opposite).toBe(true);
-            expect(yAxisBySeries['Motos_patentamiento_8myrF9'].opposite).toBe(false);
+            expect(yAxisBySeries.TestId.opposite).toBe(true);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(false);
         });
         it("Unit label titles are properly written", () => {
-            expect(yAxisBySeries['143.3_NO_PR_2004_A_21'].title.text).toEqual("Índice 2004=100");
-            expect(yAxisBySeries['Motos_patentamiento_8myrF9'].title.text).toEqual("Unidades");
+            expect(yAxisBySeries.TestId.title.text).toEqual("Índice 2004=100");
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.title.text).toEqual("Unidades");
         });
         it("Each unit values column goes to a different axis", () => {
-            expect(yAxisBySeries['143.3_NO_PR_2004_A_21'].yAxis).toEqual(1);
-            expect(yAxisBySeries['Motos_patentamiento_8myrF9'].yAxis).toEqual(0);
+            expect(yAxisBySeries.TestId.yAxis).toEqual(1);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(0);
         });
 
     })
@@ -134,18 +134,18 @@ describe("Axis Configuration functions", () => {
     describe("Explicit configuration, switching the default sides", () => {
 
         beforeAll(() => {
-            const axisSides: ISeriesAxisSides = { '143.3_NO_PR_2004_A_21': 'left',
+            const axisSides: ISeriesAxisSides = { 'TestId': 'left',
                                                   'Motos_patentamiento_8myrF9': 'right' }
             yAxisBySeries = generateYAxisBySeries(series, seriesConfig, formatUnits, locale, axisSides);
         })
 
         it("Originally left-sided serie goes to the right", () => {
-            expect(yAxisBySeries['143.3_NO_PR_2004_A_21'].opposite).toBe(false);
-            expect(yAxisBySeries['143.3_NO_PR_2004_A_21'].yAxis).toEqual(0);
+            expect(yAxisBySeries.TestId.opposite).toBe(false);
+            expect(yAxisBySeries.TestId.yAxis).toEqual(0);
         });
         it("Originally right-sided serie goes to the left", () => {
-            expect(yAxisBySeries['Motos_patentamiento_8myrF9'].opposite).toBe(true);
-            expect(yAxisBySeries['Motos_patentamiento_8myrF9'].yAxis).toEqual(1);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(true);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
         });
 
     })
@@ -153,18 +153,18 @@ describe("Axis Configuration functions", () => {
     describe("Explicit configuration, both on the left side", () => {
 
         beforeAll(() => {
-            const axisSides: ISeriesAxisSides = { '143.3_NO_PR_2004_A_21': 'left',
+            const axisSides: ISeriesAxisSides = { 'TestId': 'left',
                                                   'Motos_patentamiento_8myrF9': 'left' }
             yAxisBySeries = generateYAxisBySeries(series, seriesConfig, formatUnits, locale, axisSides);
         })
 
         it("Every unit label goes to the right axis", () => {
-            expect(yAxisBySeries['143.3_NO_PR_2004_A_21'].opposite).toBe(false);
-            expect(yAxisBySeries['Motos_patentamiento_8myrF9'].opposite).toBe(false);
+            expect(yAxisBySeries.TestId.opposite).toBe(false);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(false);
         });
         it("Every unit value to the right axis", () => {
-            expect(yAxisBySeries['143.3_NO_PR_2004_A_21'].yAxis).toEqual(0);
-            expect(yAxisBySeries['Motos_patentamiento_8myrF9'].yAxis).toEqual(0);
+            expect(yAxisBySeries.TestId.yAxis).toEqual(0);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(0);
         });
 
     })
@@ -172,18 +172,18 @@ describe("Axis Configuration functions", () => {
     describe("Explicit configuration, both on the right side", () => {
 
         beforeAll(() => {
-            const axisSides: ISeriesAxisSides = { '143.3_NO_PR_2004_A_21': 'right',
+            const axisSides: ISeriesAxisSides = { 'TestId': 'right',
                                                   'Motos_patentamiento_8myrF9': 'right' }
             yAxisBySeries = generateYAxisBySeries(series, seriesConfig, formatUnits, locale, axisSides);
         })
 
         it("Every unit label goes to the right axis", () => {
-            expect(yAxisBySeries['143.3_NO_PR_2004_A_21'].opposite).toBe(true);
-            expect(yAxisBySeries['Motos_patentamiento_8myrF9'].opposite).toBe(true);
+            expect(yAxisBySeries.TestId.opposite).toBe(true);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(true);
         });
         it("Every unit value to the right axis", () => {
-            expect(yAxisBySeries['143.3_NO_PR_2004_A_21'].yAxis).toEqual(1);
-            expect(yAxisBySeries['Motos_patentamiento_8myrF9'].yAxis).toEqual(1);
+            expect(yAxisBySeries.TestId.yAxis).toEqual(1);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
         });
 
     })
