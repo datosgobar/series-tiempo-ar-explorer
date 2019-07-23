@@ -373,18 +373,18 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
     leftAxis = leftAxis.filter((item: IYAxis, pos: number) => leftAxisTitles.indexOf(item.title.text) === pos);
     rightAxis = rightAxis.filter((item: IYAxis, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
 
-    let rightSpace = 10;
-
-    rightAxis.forEach((rightConfig: IYAxis) => {
-        const originalLabels = rightConfig.labels;
-        rightConfig.labels = {
-            ...originalLabels,
-            align: 'left',
-            x: rightSpace 
-        }
-        rightSpace -= 10;
-    })
-
+    // Case where there are only right-sided axis
+    if(leftAxis.length === 0) {
+        rightAxis.forEach((rightConfig: IYAxis) => {
+            const originalLabels = rightConfig.labels;
+            rightConfig.labels = {
+                ...originalLabels,
+                align: 'right',
+                x: -30
+            }
+        })
+    }
+    
     return leftAxis.concat(rightAxis);
 }
 
