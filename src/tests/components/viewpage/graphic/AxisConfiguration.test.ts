@@ -1,4 +1,4 @@
-/*import { ISerie } from "../../../../api/Serie";
+import { ISerie } from "../../../../api/Serie";
 import SerieConfig from "../../../../api/SerieConfig";
 import { IYAxisConf, ISeriesAxisSides } from "../../../../components/viewpage/graphic/Graphic";
 import { generateYAxisBySeries } from "../../../../components/viewpage/graphic/axisConfiguration";
@@ -188,4 +188,4 @@ describe("Axis Configuration functions", () => {
 
     })
 
-})*/
+})
