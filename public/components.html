@@ -98,7 +98,7 @@ body {
         // componentes de series de tiempo
 
         TSComponents.Card.render('ipc-card', {
-            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            serieId: '116.4_TCRZE_2015_D_36_4',
             color: '#F9A822',
             hasChart: 'small',
             title: "Indice de Precios al Consumidor Nacional"
@@ -260,19 +260,21 @@ body {
             title: "Nivel de actividad y tipo de cambio real",
             source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)",
             chartTypes: { '143.3_NO_PR_2004_A_21': 'column' },
-            navigator: true
+            navigator: true,
+            seriesAxis: { '143.3_NO_PR_2004_A_21': 'right', '116.4_TCRZE_2015_D_36_4': 'right' }
         })
 
         TSComponents.Graphic.render('emae-graphic-without-filters', {
-            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=11.3_VMATC_2004_M_12:percent_change_a_year_ago,143.3_NO_PR_2004_A_21:percent_change_a_year_ago&limit=1000&start=0&format=json',
+            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=defensa_FAA_0006,99.3_IR_2008_0_9&limit=1000&start=0&format=json',
             chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/
             },
             source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)",
             datePickerEnabled: false,
             navigator: false,
             title: "Estimador Mensual de Actividad Económica (EMAE)",
-            chartTypes: { '11.3_VMATC_2004_M_12': 'area', '143.3_NO_PR_2004_A_21': 'area' },
-            legendLabel: { '11.3_VMATC_2004_M_12': "Construcción", '143.3_NO_PR_2004_A_21': "Nivel general" }
+            chartTypes: { 'defensa_FAA_0006': 'area', '99.3_IR_2008_0_9': 'area' },
+            legendLabel: { 'defensa_FAA_0006': "Fuerza Aérea", '99.3_IR_2008_0_9': "IPC" },
+            seriesAxis: { 'defensa_FAA_0006': 'right', '99.3_IR_2008_0_9': 'right' }
         })
 
         TSComponents.Graphic.render('ica-graphic-without-filters', {

@@ -10,8 +10,8 @@ import { formattedDateString, fullLocaleDate, localTimestamp, timestamp } from "
 import { buildLocale } from "../../common/locale/buildLocale";
 import { ISerieTag } from "../SeriesTags";
 import { colorFor } from '../ViewPage';
-import { formatterForSerie } from './formatterForSerie';
 import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
+import { generateYAxisBySeries } from './axisConfiguration';
 
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
@@ -20,6 +20,9 @@ export interface ILegendLabel {
     [clave: string]: string;
 }
 
+export interface ISeriesAxisSides {
+    [clave: string]: string;
+}
 
 export interface IGraphicProps {
     series: ISerie[];
@@ -35,6 +38,7 @@ export interface IGraphicProps {
     chartTypes?: IChartTypeProps;
     afterRender?: (chart: any) => void;
     legendLabel?: ILegendLabel;
+    seriesAxis?: ISeriesAxisSides;
 }
 
 export interface IChartTypeProps {
@@ -50,10 +54,12 @@ interface IYAxis {
     opposite: boolean;
     title: {text: string};
     yAxis: number;
-    labels?: { formatter: ()=>string }
+    labels?: { formatter?: ()=>string,
+               align?: "left"|"right"|"center",
+               x?: number }
 }
 
-interface IYAxisConf {
+export interface IYAxisConf {
     [clave: string]: IYAxis
 }
 
@@ -86,7 +92,8 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     public render() {
         const formatUnits = this.props.formatUnits || false;
-        this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, formatUnits, this.props.locale);
+        this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, 
+            formatUnits, this.props.locale, this.props.seriesAxis);
 
         return (
             <ReactHighStock ref={this.myRef} config={this.highchartsConfig()} callback={this.afterRender} />
@@ -349,37 +356,6 @@ function dateFormatByPeriodicity(component: Graphic) {
     return DATE_FORMAT_BY_PERIODICITY[frequency];
 }
 
-function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], formatUnits: boolean, locale: string): {} {
-    const minAndMaxValues = series.reduce((result: any, serie: ISerie) => {
-        result[serie.id] = { min: serie.minValue, max: serie.maxValue };
-
-        return result;
-    }, {});
-
-    return series.sort((serie: ISerie) => serie.minValue).reduce((result: IYAxisConf, serie: ISerie) => {
-        const outOfScale = isOutOfScale(series[0].id, serie.id, minAndMaxValues);
-
-        result[serie.id] = {
-            opposite: outOfScale,
-            title: { text: serie.representationModeUnits },
-            yAxis: outOfScale ? 1 : 0
-        };
-
-        const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
-
-        if (serieConfig && serieConfig.mustFormatUnits(formatUnits)) {
-            result[serie.id].labels = formatterForSerie(locale);
-        }
-
-        return result;
-    }, {});
-}
-
-function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues: {}): boolean {
-    return minAndMaxValues[originalSerieId].min > minAndMaxValues[serieId].max ||
-           minAndMaxValues[originalSerieId].max < minAndMaxValues[serieId].min;
-}
-
 function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
     const configs = valuesFromObject(yAxisBySeries);
     if (configs.length === 0) { return []}
@@ -397,6 +373,18 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
     leftAxis = leftAxis.filter((item: IYAxis, pos: number) => leftAxisTitles.indexOf(item.title.text) === pos);
     rightAxis = rightAxis.filter((item: IYAxis, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
 
+    // Case where there are only right-sided axis
+    if(leftAxis.length === 0) {
+        rightAxis.forEach((rightConfig: IYAxis) => {
+            const originalLabels = rightConfig.labels;
+            rightConfig.labels = {
+                ...originalLabels,
+                align: 'right',
+                x: -30
+            }
+        })
+    }
+    
     return leftAxis.concat(rightAxis);
 }
 
