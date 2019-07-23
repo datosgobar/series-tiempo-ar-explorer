@@ -54,7 +54,9 @@ interface IYAxis {
     opposite: boolean;
     title: {text: string};
     yAxis: number;
-    labels?: { formatter: ()=>string }
+    labels?: { formatter?: ()=>string,
+               align?: "left"|"right"|"center",
+               x?: number }
 }
 
 export interface IYAxisConf {
@@ -370,6 +372,18 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
 
     leftAxis = leftAxis.filter((item: IYAxis, pos: number) => leftAxisTitles.indexOf(item.title.text) === pos);
     rightAxis = rightAxis.filter((item: IYAxis, pos: number) => rightAxisTitles.indexOf(item.title.text) === pos);
+
+    let rightSpace = 0;
+
+    rightAxis.forEach((rightConfig: IYAxis) => {
+        const originalLabels = rightConfig.labels;
+        rightConfig.labels = {
+            ...originalLabels,
+            align: 'right',
+            x: rightSpace 
+        }
+        rightSpace += 50;
+    })
 
     return leftAxis.concat(rightAxis);
 }
