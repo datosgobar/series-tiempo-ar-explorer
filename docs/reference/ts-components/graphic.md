@@ -179,6 +179,15 @@ Este gráfico se genera a partir del siguiente código:
         <td>{}</td>
         <td>{'serie01': 'leyenda custom'}</td>
     </tr>
+    <tr>
+        <td>seriesAxis</td>
+        <td>No</td>
+        <td>Especifica de qué lado del gráfico mostrar las ordenadas y unidades de cada serie representada. Puede haber más de una serie en un mismo lado. Si hay una sola serie, debe ir obligatoriamente del lado izquierdo</td>
+        <td>object</td>
+        <td>{}</td>
+        <td>{'serie01': 'right',
+             'serie02': 'left'}</td>
+    </tr>
 </table>
 
 ## Asignación dinámica de atributos
@@ -220,6 +229,7 @@ Varios componentes del gráfico se muestran/ocultan dinámicamente dependiendo d
         locale: 'AR',
         chartOptions: {},
         legendLabel: {'tmi_arg': 'Tasa de mortalidad nacional'},
+        seriesAxis: {'tmi_arg': 'left'}
       })
     }
   </script>
