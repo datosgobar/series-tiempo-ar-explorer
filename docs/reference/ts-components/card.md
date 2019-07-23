@@ -162,7 +162,7 @@ Ver online: [https://jsfiddle.net/qnks0ueo/](https://jsfiddle.net/qnks0ueo/)
 <html>
 <body>
   <script type='text/javascript' src='components.js'></script>
-  <div id="root"></div>
+  <div id="card1"></div>
   <script>
     window.onload = function () {
       TSComponents.Card.render('card1', {
