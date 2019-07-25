@@ -213,6 +213,13 @@ function rangeSelectorProps(componentProps: any) {
 function titleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.title);
     options.text = componentProps.title;
+    options.style = {
+        color: "#595959",
+        fontSize: "20px",
+        fontWeight: "410",
+        fontFamily: ["Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+        lineHeight: "0.92"
+    };
 
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
         options.margin = 0;
@@ -224,10 +231,16 @@ function subtitleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.source);
     options.useHTML = true;
     if (componentProps.source) {
-        options.text = componentProps.source;
-        options.y = 15;
         options.align = "center";
+        options.style = {
+            color: "#828282",
+            fontSize: "15px",
+            fontWeight: "410",
+            fontFamily: ["Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+        };
+        options.text = componentProps.source;
         options.verticalAlign = "bottom";
+        options.y = 15;
     }
 
     return options
