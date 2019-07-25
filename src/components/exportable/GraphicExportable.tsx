@@ -213,6 +213,13 @@ function rangeSelectorProps(componentProps: any) {
 function titleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.title);
     options.text = componentProps.title;
+    options.style = {
+        color: "#595959",
+        fontSize: "20px",
+        fontWeight: "410",
+        fontFamily: ["Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+        lineHeight: "0.92"
+    };
 
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
         options.margin = 0;

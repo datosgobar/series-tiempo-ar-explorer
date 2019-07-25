@@ -60,13 +60,6 @@
   left: 15% !important;
 }
 
-text.highcharts-title > tspan {
-  font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: rgb(51, 51, 51);
-  font-weight: 410;
-  font-size: 22px;
-}
-
 .highcharts-legend-item tspan {
   font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-weight: 600;
