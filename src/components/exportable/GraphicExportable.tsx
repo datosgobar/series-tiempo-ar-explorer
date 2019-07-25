@@ -224,10 +224,16 @@ function subtitleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.source);
     options.useHTML = true;
     if (componentProps.source) {
-        options.text = componentProps.source;
-        options.y = 15;
         options.align = "center";
+        options.style = {
+            color: "#828282",
+            fontSize: "15px",
+            fontWeight: "410",
+            fontFamily: ["Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+        };
+        options.text = componentProps.source;
         options.verticalAlign = "bottom";
+        options.y = 15;
     }
 
     return options
