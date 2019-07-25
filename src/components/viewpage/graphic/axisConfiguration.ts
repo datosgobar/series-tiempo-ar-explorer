@@ -1,4 +1,4 @@
-import { ISeriesAxisSides, IYAxisConf } from "./Graphic";
+import { ISeriesAxisSides, IYAxisConf, getFullSerieId } from "./Graphic";
 import { ISerie } from "../../../api/Serie";
 import SerieConfig from "../../../api/SerieConfig";
 import { formatterForSerie } from "./formatterForSerie";
@@ -23,26 +23,29 @@ function getYAxisSide(serieID:string, outOfScale: boolean, axisSideConf?: ISerie
 export function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], 
     formatUnits: boolean, locale: string, axisSides?: ISeriesAxisSides): {} {
     const minAndMaxValues = series.reduce((result: any, serie: ISerie) => {
-        result[serie.id] = { min: serie.minValue, max: serie.maxValue };
+
+        const fullId = getFullSerieId(serie);
+        result[fullId] = { min: serie.minValue, max: serie.maxValue };
 
         return result;
     }, {});
 
     return series.sort((serie: ISerie) => serie.minValue).reduce((result: IYAxisConf, serie: ISerie) => {
 
-        const outOfScale = isOutOfScale(series[0].id, serie.id, minAndMaxValues);
-        const yAxisSide = getYAxisSide(serie.id, outOfScale, axisSides);
+        const fullId = getFullSerieId(serie);
+        const outOfScale = isOutOfScale(getFullSerieId(series[0]), fullId, minAndMaxValues);
+        const yAxisSide = getYAxisSide(fullId, outOfScale, axisSides);
 
-        result[serie.id] = {
+        result[fullId] = {
             opposite: yAxisSide === 'right' ? true : false,
             title: { text: serie.representationModeUnits },
             yAxis: yAxisSide === 'right' ? 1 : 0
         };
 
-        const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === serie.id);
+        const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === fullId);
 
         if (serieConfig && serieConfig.mustFormatUnits(formatUnits)) {
-            result[serie.id].labels = formatterForSerie(locale);
+            result[fullId].labels = formatterForSerie(locale);
         }
 
         return result;

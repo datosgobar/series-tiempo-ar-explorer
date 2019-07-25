@@ -111,7 +111,7 @@ export default class Serie implements ISerie {
     }
 
     get representationMode(): string {
-        return this.tsResponse.params.representation_mode;
+        return this.meta.field.representation_mode;
     }
 
     get collapseAggregation(): string {
