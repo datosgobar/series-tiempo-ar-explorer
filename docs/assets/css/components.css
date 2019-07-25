@@ -59,6 +59,13 @@
   text-align: center;
   left: 15% !important;
 }
+
+.highcharts-legend-item tspan {
+  font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+}
+
 /*---Fin Graphic---*/
 
 

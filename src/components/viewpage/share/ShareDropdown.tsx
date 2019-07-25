@@ -53,8 +53,6 @@ function webCodeUrl(url: string, series: ISerie[]): string {
         "    window.onload = function() {\n" +
         "        TSComponents.Graphic.render('root', {\n" +
         "            graphicUrl: '" + cleanUrl(url) +"',\n"+
-        "            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/\n" +
-        "            },\n" +
         "            title: '" + calculateChartTitle(series) + "',\n" +
         "            source: '" + calculateChartSource(series) + "',\n" +
         "            chartTypes: " + JSON.stringify(calculateChartTypes(url, series)) + ",\n" +
