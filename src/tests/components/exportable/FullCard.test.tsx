@@ -4,6 +4,8 @@ import * as React from 'react';
 import * as ReactTooltip from 'react-tooltip';
 import { ISerie } from "../../../api/Serie";
 import FullCard from "../../../components/exportable_card/FullCard";
+import { generateCommonMockSerieEMAE } from "../../support/mockers/seriesMockers";
+import { generateCommonMockCardOptions } from "../../support/mockers/cardMockers";
 
 configure({ adapter: new Adapter() });
 
@@ -13,57 +15,6 @@ describe('FullCard', () => {
     let mockCardOptions: any;
     let wrapper: ReactWrapper<any, any>;
 
-    function generateMockSerie() {
-        return {
-            accrualPeriodicity: "Mensual",
-            collapseAggregation: "CollapseAgregation",
-            data: [{ date: "2019-03-01", value: 150 },
-            { date: "2019-02-01", value: 140 },
-            { date: "2019-01-01", value: 180 }],
-            datasetSource: "Instituto Nacional de Estadística y Censos (INDEC)",
-            datasetTitle: "EMAE",
-            description: "EMAE. Base 2004",
-            distributionTitle: "EMAE. Base",
-            downloadURL: "https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv",
-            endDate: "2019-03-01",
-            frequency: "Mensual",
-            id: "143.3_NO_PR_2004_A_21",
-            isPercentage: false,
-            issued: "Issued",
-            landingPage: "LandingPage",
-            maxValue: 200,
-            minValue: 0,
-            modified: "Modified",
-            publisher: {
-                mbox: "Mbox",
-                name: "Name"
-            },
-            representationMode: "RepresentationMode",
-            representationModeUnits: "Indice Especial",
-            startDate: "2019-01-01",
-            themes: [{ id: "1", descripcion: "Tema1", label: "Label1" },
-            { id: "2", descripcion: "Tema2", label: "Label2" },
-            { id: "3", descripcion: "Tema3", label: "Label3" }],
-            timeIndexSize: 3,
-            title: "EMAE. Base 2004",
-            units: "Índice 2004=100",
-        }
-    }
-
-    function generateMockCardOptions() {
-        return {
-            chartType: "line",
-            color: "#047FBC",
-            explicitSign: true,
-            hasChart: "full",
-            links: "full",
-            locale: "AR",
-            source: undefined,
-            title: undefined,
-            units: undefined
-        }
-    }
-
     function mountFullCard() {
         wrapper = mount(<FullCard serie={mockSerie}
             downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
@@ -72,11 +23,11 @@ describe('FullCard', () => {
     }
 
     beforeAll(() => {
-        mockSerie = generateMockSerie();
+        mockSerie = generateCommonMockSerieEMAE();
     })
 
     beforeEach(() => {
-        mockCardOptions = generateMockCardOptions();
+        mockCardOptions = generateCommonMockCardOptions();
     })
 
     describe('Shown default attributes', () => {
@@ -107,7 +58,7 @@ describe('FullCard', () => {
             expect(wrapper.find('p .c-source').text()).toContain("Fuente: Instituto Nacional de Estadística y Censos (INDEC)");
         });
         it('renders the default units', () => {
-            expect(wrapper.find('p .c-units').text()).toContain("Indice Especial");
+            expect(wrapper.find('p .c-units').text()).toContain("Índice 2004=100");
         });
 
     })

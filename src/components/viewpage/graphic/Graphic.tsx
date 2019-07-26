@@ -444,7 +444,7 @@ function findSerieConfig(configs: SerieConfig[], serieId: string) {
     return configs.find((config: SerieConfig) => config.getSerieId() === serieId);
 }
 
-function getChartType(serie: ISerie, types?: IChartTypeProps): string {
+export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
     if (!types) { return 'line' }
 
     return types[getFullSerieId(serie)];
