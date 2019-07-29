@@ -284,7 +284,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
-        const chartType = getChartType(serie.id, this.props.chartTypes);
+        const chartType = getChartType(serie, this.props.chartTypes);
 
         return {
             ...this.defaultHCSeriesConfig(),
@@ -293,9 +293,9 @@ export default class Graphic extends React.Component<IGraphicProps> {
             data,
             name: getLegendLabel(serie, this.props),
             navigatorOptions: { type: chartType },
-            serieId: serie.id,
+            serieId: getFullSerieId(serie),
             type: chartType,
-            yAxis: this.yAxisBySeries[serie.id].yAxis,
+            yAxis: this.yAxisBySeries[getFullSerieId(serie)].yAxis,
         }
 
     }
@@ -388,6 +388,15 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
     return leftAxis.concat(rightAxis);
 }
 
+export function getFullSerieId(serie: ISerie): string {
+
+    if (serie.representationMode === 'value') {
+        return serie.id
+    }
+    return `${serie.id}:${serie.representationMode}`;
+
+}
+
 function setHighchartsGlobalConfig(locale: string) {
     const localeObj = buildLocale(locale);
 
@@ -435,17 +444,17 @@ function findSerieConfig(configs: SerieConfig[], serieId: string) {
     return configs.find((config: SerieConfig) => config.getSerieId() === serieId);
 }
 
-function getChartType(serieId: string, types?: IChartTypeProps): string {
+export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
     if (!types) { return 'line' }
 
-    return types[serieId];
+    return types[getFullSerieId(serie)];
 }
 
 function getLegendLabel(serie: ISerie, props: IGraphicProps): string {
     let label = serie.description;
     if (props.legendLabel) {
-        if (props.legendLabel[serie.id]) {
-            label = props.legendLabel[serie.id];
+        if (props.legendLabel[getFullSerieId(serie)]) {
+            label = props.legendLabel[getFullSerieId(serie)];
         }
     } else if(props.legendField) {
         label = props.legendField(serie);
