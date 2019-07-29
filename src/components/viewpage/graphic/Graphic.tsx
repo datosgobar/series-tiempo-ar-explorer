@@ -267,6 +267,18 @@ export default class Graphic extends React.Component<IGraphicProps> {
         return deepMerge(ownConfig, this.props.chartOptions || {}); // chartOptions overrides ownConfig
     }
 
+    public getYAxisBySeries() {
+        return this.yAxisBySeries
+    }
+    
+    public atLeastOneRightSidedSerie(): boolean {
+    
+        const configs = valuesFromObject(this.yAxisBySeries);
+        return configs.some((config: IYAxis) => {
+            return config.opposite;
+        });
+    
+    }
 
     public categories() {
         return (
@@ -291,7 +303,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
             ...hcConfig,
             color: colorFor(this.props.series, serie.id).code,
             data,
-            name: getLegendLabel(serie, this.props),
+            name: getLegendLabel(serie, this),
             navigatorOptions: { type: chartType },
             serieId: getFullSerieId(serie),
             type: chartType,
@@ -450,18 +462,32 @@ export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
     return types[getFullSerieId(serie)];
 }
 
-function getLegendLabel(serie: ISerie, props: IGraphicProps): string {
+export function getLegendLabel(serie: ISerie, graphic: Graphic): string {
+    
     let label = serie.description;
-    if (props.legendLabel) {
-        if (props.legendLabel[getFullSerieId(serie)]) {
-            label = props.legendLabel[getFullSerieId(serie)];
+    const fullId = getFullSerieId(serie);
+
+    if (graphic.props.legendLabel) {
+        if (graphic.props.legendLabel[fullId]) {
+            label = graphic.props.legendLabel[fullId];
         }
-    } else if(props.legendField) {
-        label = props.legendField(serie);
+    } else if(graphic.props.legendField) {
+        label = graphic.props.legendField(serie);
+    }
+
+    if (graphic.atLeastOneRightSidedSerie()) {
+        const conf = graphic.getYAxisBySeries()[fullId]
+        if (conf.opposite){
+            label += ' (der)';
+        }
+        else {
+            label += ' (izq)';
+        }
     }
 
     return label;
 }
+
 
 function changeCreditsPosition(chart: any) {
     chart.container.getElementsByClassName('highcharts-credits')[0].setAttribute('y', 460); // change position of 'credits'
