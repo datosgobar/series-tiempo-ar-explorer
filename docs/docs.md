@@ -10,6 +10,10 @@ Si querés **agregar gráficos en tu sitio web** leé la referencia de **[TSComp
 
 ![graphic](assets/images/ts_components_graphic.png)
 
+## Versiones de browsers
+
+El Explorador de Series de Tiempo fue desarrolado utilizando versiones recientes de Firefox y Chrome (57+ y 60+), y soporta Internet Explorer desde la versión 11 en adelante.
+
 ---
 
 *Si sos usuario de la API de Series de Tiempo y querés estar al tanto de los  cambios y novedades, [inscribite en la base de contactos de Datos Argentina](bit.ly/contacto-datos-argentina) y elegí sobre qué temas querés que te escribamos.*
