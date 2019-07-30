@@ -1,8 +1,9 @@
 import { ISerie } from "../../../../api/Serie";
 import SerieConfig from "../../../../api/SerieConfig";
-import Graphic, { IYAxisConf, ISeriesAxisSides, IGraphicProps, IChartExtremeProps, getLegendLabel } from "../../../../components/viewpage/graphic/Graphic";
+import { IYAxisConf, ISeriesAxisSides } from "../../../../components/viewpage/graphic/Graphic";
 import { generateYAxisBySeries } from "../../../../components/viewpage/graphic/axisConfiguration";
 import { generateCommonMockSerieMotos, generateCommonMockSerieEMAE } from "../../../support/mockers/seriesMockers";
+import { ILegendConfiguration, getLegendLabel } from "../../../../components/viewpage/graphic/legendConfiguration";
 
 describe("Axis Configuration functions", () => {
 
@@ -12,8 +13,7 @@ describe("Axis Configuration functions", () => {
     let mockConfig: SerieConfig[];
     let axisSides: ISeriesAxisSides;
     let yAxisBySeries: IYAxisConf;
-    let graphicProps: IGraphicProps;
-    let graphic: Graphic;
+    let legendProps: ILegendConfiguration;
     const locale = 'AR';
     const formatUnits = false;
 
@@ -23,16 +23,6 @@ describe("Axis Configuration functions", () => {
         series = [mockSerieOne, mockSerieTwo];
         mockConfig = [new SerieConfig(mockSerieOne),
                         new SerieConfig(mockSerieTwo)];
-        const mockRange: IChartExtremeProps = {
-            min: -1000000,
-            max: 1000000
-        };
-        graphicProps = {
-            locale: 'AR',
-            range: mockRange,
-            series: [mockSerieOne, mockSerieTwo],
-            seriesConfig: mockConfig
-        }
     })
 
     describe("Default axis configuration, without optional parameter", () => {     
@@ -54,10 +44,12 @@ describe("Axis Configuration functions", () => {
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(0);
         });
         it("Legend labels below the graphic are properly written", () => {
-            graphic = new Graphic(graphicProps);
-            graphic.render();   // Mock the graphic's rendering, to set its yAxisBySeries
-            expect(getLegendLabel(mockSerieOne, graphic)).toEqual("EMAE. Base 2004 (der)");
-            expect(getLegendLabel(mockSerieTwo, graphic)).toEqual("Motos: número de patentamientos de motocicletas (izq)");
+            legendProps = {
+                axisConf: yAxisBySeries,
+                rightSidedSeries: true
+            }
+            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004 (der)");
+            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas (izq)");
         });
 
     })
@@ -79,11 +71,12 @@ describe("Axis Configuration functions", () => {
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
         });
         it("Legend labels below the graphic are properly written", () => {
-            graphicProps.seriesAxis = axisSides
-            graphic = new Graphic(graphicProps);
-            graphic.render();   // Mock the graphic's rendering, to set its yAxisBySeries
-            expect(getLegendLabel(mockSerieOne, graphic)).toEqual("EMAE. Base 2004 (izq)");
-            expect(getLegendLabel(mockSerieTwo, graphic)).toEqual("Motos: número de patentamientos de motocicletas (der)");
+            legendProps = {
+                axisConf: yAxisBySeries,
+                rightSidedSeries: true
+            }
+            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004 (izq)");
+            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas (der)");
         });
 
     })
@@ -105,11 +98,12 @@ describe("Axis Configuration functions", () => {
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(0);
         });
         it("As there are no series on the auxiliar axes, no text is appended to legend labels", () => {
-            graphicProps.seriesAxis = axisSides
-            graphic = new Graphic(graphicProps);
-            graphic.render();   // Mock the graphic's rendering, to set its yAxisBySeries
-            expect(getLegendLabel(mockSerieOne, graphic)).toEqual("EMAE. Base 2004");
-            expect(getLegendLabel(mockSerieTwo, graphic)).toEqual("Motos: número de patentamientos de motocicletas");
+            legendProps = {
+                axisConf: yAxisBySeries,
+                rightSidedSeries: false
+            }
+            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004");
+            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas");
         });
 
     })
@@ -131,11 +125,12 @@ describe("Axis Configuration functions", () => {
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
         });
         it("Legend labels below the graphic are properly written", () => {
-            graphicProps.seriesAxis = axisSides
-            graphic = new Graphic(graphicProps);
-            graphic.render();   // Mock the graphic's rendering, to set its yAxisBySeries
-            expect(getLegendLabel(mockSerieOne, graphic)).toEqual("EMAE. Base 2004 (der)");
-            expect(getLegendLabel(mockSerieTwo, graphic)).toEqual("Motos: número de patentamientos de motocicletas (der)");
+            legendProps = {
+                axisConf: yAxisBySeries,
+                rightSidedSeries: true
+            }
+            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004 (der)");
+            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas (der)");
         });
 
     })
