@@ -274,16 +274,17 @@ body {
             title: "Estimador Mensual de Actividad Económica (EMAE)",
             chartTypes: { 'defensa_FAA_0006': 'area', '99.3_IR_2008_0_9': 'area' },
             legendLabel: { 'defensa_FAA_0006': "Fuerza Aérea", '99.3_IR_2008_0_9': "IPC" },
-            seriesAxis: { 'defensa_FAA_0006': 'right', '99.3_IR_2008_0_9': 'right' }
+            seriesAxis: { 'defensa_FAA_0006': 'left', '99.3_IR_2008_0_9': 'right' }
         })
 
         TSComponents.Graphic.render('ica-graphic-without-filters', {
-            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=74.3_IET_0_M_16,74.3_IIT_0_M_25,74.3_ISC_0_M_19&collapse=year&collapse_aggregation=sum',
-            chartTypes: { '74.3_IET_0_M_16': 'line', '74.3_IIT_0_M_25': 'line', '74.3_ISC_0_M_19': 'column' },
+            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=74.3_IET_0_M_16,74.3_IIT_0_M_25,74.3_ISC_0_M_19,307.2_SERVICIOS_IOS_0_T_51_87&collapse=year&collapse_aggregation=sum',
+            chartTypes: { '74.3_IET_0_M_16': 'line', '74.3_IIT_0_M_25': 'line', '74.3_ISC_0_M_19': 'column', '307.2_SERVICIOS_IOS_0_T_51_87': 'line' },
             title: "Intercambio Comercial Argentino (ICA)",
             navigator: false,
             datePickerEnabled: false,
             source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)",
+            seriesAxis: { '74.3_IET_0_M_16': 'left', '74.3_IIT_0_M_25': 'left', '74.3_ISC_0_M_19': 'right', '307.2_SERVICIOS_IOS_0_T_51_87': 'right'}
         })
 
         TSComponents.Graphic.render('ipc-graphic-min', {

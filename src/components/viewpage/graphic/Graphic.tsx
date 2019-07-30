@@ -12,6 +12,7 @@ import { ISerieTag } from "../SeriesTags";
 import { colorFor } from '../ViewPage';
 import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 import { generateYAxisBySeries } from './axisConfiguration';
+import { ILegendConfiguration, getLegendLabel } from './legendConfiguration';
 
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
@@ -267,6 +268,9 @@ export default class Graphic extends React.Component<IGraphicProps> {
         return deepMerge(ownConfig, this.props.chartOptions || {}); // chartOptions overrides ownConfig
     }
 
+    public getYAxisBySeries() {
+        return this.yAxisBySeries
+    }
 
     public categories() {
         return (
@@ -283,15 +287,22 @@ export default class Graphic extends React.Component<IGraphicProps> {
     }
 
     public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
+
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
         const chartType = getChartType(serie, this.props.chartTypes);
+        const legendProps: ILegendConfiguration = {
+            axisConf: this.yAxisBySeries,
+            legendLabel: this.props.legendLabel,
+            legendField: this.props.legendField,
+            rightSidedSeries: this.atLeastOneRightSidedSerie()
+        }
 
         return {
             ...this.defaultHCSeriesConfig(),
             ...hcConfig,
             color: colorFor(this.props.series, serie.id).code,
             data,
-            name: getLegendLabel(serie, this.props),
+            name: getLegendLabel(serie, legendProps),
             navigatorOptions: { type: chartType },
             serieId: getFullSerieId(serie),
             type: chartType,
@@ -325,6 +336,15 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     private setExtremes(chart: any) {
         chart.xAxis[0].setExtremes(this.props.range.min, this.props.range.max);
+    }
+
+    private atLeastOneRightSidedSerie(): boolean {
+    
+        const configs = valuesFromObject(this.yAxisBySeries);
+        return configs.some((config: IYAxis) => {
+            return config.opposite;
+        });
+    
     }
 
     private notifyChangeSeriesNames(yAXisBySeries: IYAxisConf) {
@@ -448,19 +468,6 @@ export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
     if (!types) { return 'line' }
 
     return types[getFullSerieId(serie)];
-}
-
-function getLegendLabel(serie: ISerie, props: IGraphicProps): string {
-    let label = serie.description;
-    if (props.legendLabel) {
-        if (props.legendLabel[getFullSerieId(serie)]) {
-            label = props.legendLabel[getFullSerieId(serie)];
-        }
-    } else if(props.legendField) {
-        label = props.legendField(serie);
-    }
-
-    return label;
 }
 
 function changeCreditsPosition(chart: any) {
