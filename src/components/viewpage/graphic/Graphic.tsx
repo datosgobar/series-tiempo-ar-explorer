@@ -179,7 +179,10 @@ export default class Graphic extends React.Component<IGraphicProps> {
             },
 
             title: {
-                text: '',
+                style: {
+                    "paddingBottom": "40px"
+                },
+                text: ''
             },
 
             tooltip:{
@@ -266,10 +269,6 @@ export default class Graphic extends React.Component<IGraphicProps> {
         };
 
         return deepMerge(ownConfig, this.props.chartOptions || {}); // chartOptions overrides ownConfig
-    }
-
-    public getYAxisBySeries() {
-        return this.yAxisBySeries
     }
 
     public categories() {
