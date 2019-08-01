@@ -1,5 +1,4 @@
 import { ISerie } from "../../../api/Serie";
-import { colorFor } from "../../viewpage/ViewPage";
 
 export class Color {
     constructor(public name: string, public code: string){}
@@ -23,4 +22,11 @@ export default Colors;
 
 export function getColorBySerieId(series: ISerie[], serieId: string): string {
     return colorFor(series, serieId).code;
+}
+
+export function colorFor(series: ISerie[], serieId: string): Color {
+    const colors = (Object as any).values(Colors);
+    const index = series.findIndex(viewSerie => viewSerie.id === serieId) % colors.length;
+
+    return colors[index];
 }

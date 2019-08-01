@@ -3,8 +3,6 @@ import { ApiClient } from "../../api/ApiClient";
 import QueryParams from "../../api/QueryParams";
 import { ISerie } from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
-import { valuesFromObject } from "../../helpers/commonFunctions";
-import Colors, { Color } from "../style/Colors/Color";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
 import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides, IPropsPerId } from "../viewpage/graphic/Graphic";
 import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
@@ -40,7 +38,6 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
     public constructor(props: any) {
         super(props);
-        this.colorFor = this.colorFor.bind(this);
         this.afterRender = this.afterRender.bind(this);
 
         this.seriesApi = new SerieApi(new ApiClient(extractUriFromUrl(props.graphicUrl), 'ts-components'));
@@ -137,12 +134,6 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         }
     }
 
-    private colorFor(serieId: string): Color {
-        const colors = this.props.colors ? buildColors(this.props.colors) : valuesFromObject(Colors);
-        const index = this.state.series.findIndex(viewSerie => viewSerie.id === serieId) % colors.length;
-
-        return colors[index];
-    }
 
     private fetchSeries(params: QueryParams) {
         this.seriesApi.fetchSeries(params)
@@ -180,9 +171,6 @@ function extractUriFromUrl(url: string): string {
     return url.split('series/?')[0];
 }
 
-function buildColors(colors: string[]): Color[] {
-    return colors.map((color: string) => new Color('customColor', color));
-}
 
 function legendValue(field?: string): ((serie: ISerie) => string) {
     const f = field || 'description';

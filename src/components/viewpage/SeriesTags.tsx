@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from "react-redux";
 import { ISerie } from '../../api/Serie';
 import Tag from '../style/Tag/Tag';
-import { colorFor } from './ViewPage';
+import { colorFor } from '../style/Colors/Color';
 
 
 export interface ISerieTag {

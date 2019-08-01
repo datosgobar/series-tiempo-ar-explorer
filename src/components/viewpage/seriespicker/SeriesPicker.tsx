@@ -6,7 +6,7 @@ import { ISerieApi } from '../../../api/SerieApi';
 import initialState, { IStore } from '../../../store/initialState';
 import FullSearcher from '../../common/searcher/FullSearcher';
 import SerieCard from '../../style/Card/Serie/SerieCard';
-import { colorFor } from '../ViewPage';
+import { colorFor } from '../../style/Colors/Color';
 
 
 export interface ISeriesPickerProps {

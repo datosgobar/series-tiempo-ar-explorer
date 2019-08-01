@@ -9,10 +9,10 @@ import { valuesFromObject } from "../../../helpers/commonFunctions";
 import { formattedDateString, fullLocaleDate, localTimestamp, timestamp } from "../../../helpers/dateFunctions";
 import { buildLocale } from "../../common/locale/buildLocale";
 import { ISerieTag } from "../SeriesTags";
-import { colorFor } from '../ViewPage';
 import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 import { generateYAxisBySeries } from './axisConfiguration';
 import { ILegendConfiguration, getLegendLabel } from './legendConfiguration';
+import { colorFor } from '../../style/Colors/Color';
 
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
