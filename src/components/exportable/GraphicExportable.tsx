@@ -214,11 +214,12 @@ function titleOptions(componentProps: IGraphicExportableProps) {
     const options: any = Object.assign({}, componentProps.title);
     options.text = componentProps.title;
     options.style = {
-        color: "#595959",
-        fontSize: "20px",
-        fontWeight: "410",
+        color: "#333333",
+        fontSize: "20.8px",
+        fontWeight: "500",
         fontFamily: ["Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-        lineHeight: "0.92"
+        lineHeight: "0.92",
+        paddingBottom: "40px"
     };
 
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
@@ -233,9 +234,9 @@ function subtitleOptions(componentProps: IGraphicExportableProps) {
     if (componentProps.source) {
         options.align = "center";
         options.style = {
-            color: "#828282",
+            color: "#707070",
             fontSize: "15px",
-            fontWeight: "410",
+            fontWeight: "400",
             fontFamily: ["Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
         };
         options.text = componentProps.source;

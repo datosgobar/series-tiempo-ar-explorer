@@ -179,9 +179,6 @@ export default class Graphic extends React.Component<IGraphicProps> {
             },
 
             title: {
-                style: {
-                    "paddingBottom": "40px"
-                },
                 text: ''
             },
 
