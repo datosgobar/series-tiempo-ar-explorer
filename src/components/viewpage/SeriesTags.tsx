@@ -3,11 +3,13 @@ import { connect } from "react-redux";
 import { ISerie } from '../../api/Serie';
 import Tag from '../style/Tag/Tag';
 import { colorFor } from '../style/Colors/Color';
+import { getFullSerieId } from './graphic/Graphic';
 
 
 export interface ISerieTag {
     id: string;
     title: string;
+    representationMode: string;
 }
 
 interface ISeriesTagsProps extends React.Props<any> {
@@ -20,7 +22,7 @@ function seriesTags(props: ISeriesTagsProps, state: any) {
     return (
         <span>
             {props.serieTags.map((serieTag: ISerieTag, index: number) =>
-                <Tag key={index} pegColor={colorFor(props.series, serieTag.id)} onClose={getOnCloseFor(props.serieTags, serieTag.id, props.onTagClose)}>
+                <Tag key={index} pegColor={colorFor(props.series, getFullSerieId(serieTag))} onClose={getOnCloseFor(props.serieTags, serieTag.id, props.onTagClose)}>
                     {serieTag.title}
                 </Tag>
             )}

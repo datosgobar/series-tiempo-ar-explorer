@@ -297,7 +297,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
         return {
             ...this.defaultHCSeriesConfig(),
             ...hcConfig,
-            color: colorFor(this.props.series, serie.id).code,
+            color: colorFor(this.props.series, getFullSerieId(serie)).code,
             data,
             name: getLegendLabel(serie, legendProps),
             navigatorOptions: { type: chartType },
@@ -352,10 +352,10 @@ export default class Graphic extends React.Component<IGraphicProps> {
         if (this.props.series.some((serie: ISerie) => yAXisBySeries[serie.id].opposite)) {
             this.props.series.forEach((serie: ISerie) => {
                 const title = yAXisBySeries[serie.id].opposite ? `${serie.description} (der)` : `${serie.description} (izq)`;
-                titlesResult.push({id: serie.id, title});
+                titlesResult.push({id: serie.id, title, representationMode: serie.representationMode});
             });
         } else {
-            titlesResult = this.props.series.map((serie: ISerie) => ({id: serie.id, title: serie.description}));
+            titlesResult = this.props.series.map((serie: ISerie) => ({id: serie.id, title: serie.description, representationMode: serie.representationMode}));
         }
 
         this.props.dispatch(setSerieTags(titlesResult))
@@ -404,7 +404,12 @@ function yAxisConf(yAxisBySeries: IYAxisConf): IYAxis[] {
     return leftAxis.concat(rightAxis);
 }
 
-export function getFullSerieId(serie: ISerie): string {
+export interface ISerieFullID {
+    id: string;
+    representationMode: string;
+}
+
+export function getFullSerieId(serie: ISerieFullID): string {
 
     if (serie.representationMode === 'value') {
         return serie.id
