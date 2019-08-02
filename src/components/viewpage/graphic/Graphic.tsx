@@ -489,7 +489,7 @@ function tooltipDateValue(frequency: string, timest: number): string {
 }
 
 function findSerieConfig(configs: SerieConfig[], serieId: string) {
-    return configs.find((config: SerieConfig) => config.getSerieId() === serieId);
+    return configs.find((config: SerieConfig) => config.getFullSerieId() === serieId);
 }
 
 export function getChartType(serie: ISerie, types?: IChartTypeProps): string {

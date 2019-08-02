@@ -1,6 +1,7 @@
 import {IDataPoint} from "./DataPoint";
 import {ISerie} from "./Serie";
 import {i18nFrequency} from "./utils/periodicityManager";
+import { getFullSerieId } from "../components/viewpage/graphic/Graphic";
 
 export default class SerieConfig {
 
@@ -12,8 +13,8 @@ export default class SerieConfig {
         this.serie = serie;
     }
 
-    public getSerieId() {
-        return this.serie.id;
+    public getFullSerieId() {
+        return getFullSerieId(this.serie);
     }
 
     public getPercentChange() {
