@@ -13,7 +13,6 @@ import { colorFor } from '../ViewPage';
 import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 import { generateYAxisBySeries } from './axisConfiguration';
 import { ILegendConfiguration, getLegendLabel } from './legendConfiguration';
-import { type } from 'os';
 
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
@@ -35,7 +34,7 @@ export interface IGraphicProps {
     seriesAxis?: ISeriesAxisSides;
 }
 
-interface IPropsPerId {
+export interface IPropsPerId {
     [clave: string]: string;
 }
 
@@ -79,12 +78,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
     constructor(props: IGraphicProps) {
 
         super(props);
-        this.myRef = React.createRef();
-
-        adjustPropsUponIds(props.series, props.chartTypes);
-        adjustPropsUponIds(props.series, props.legendLabel);
-        adjustPropsUponIds(props.series, props.seriesAxis);
-        
+        this.myRef = React.createRef();       
         setHighchartsGlobalConfig(props.locale);
 
     }
@@ -95,6 +89,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
     }
 
     public render() {
+
         const formatUnits = this.props.formatUnits || false;
         this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, 
             formatUnits, this.props.locale, this.props.seriesAxis);
@@ -102,6 +97,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
         return (
             <ReactHighStock ref={this.myRef} config={this.highchartsConfig()} callback={this.afterRender} />
         );
+
     }
 
     public afterRender = (chart: any) => {
@@ -368,34 +364,6 @@ export default class Graphic extends React.Component<IGraphicProps> {
     private fixAnimation() {
         this.myRef.current.chart.reflow = () => { return }; // https://github.com/kirjs/react-highcharts/issues/171 ¯\_(ツ)_/¯
     }
-}
-
-function adjustPropsUponIds(series: ISerie[], props?: IPropsPerId) {
-
-    if (props === undefined) {
-        return {};
-    }
-
-    const newProps: IPropsPerId = {};
-
-    for (const serieId in props) {
-        if(serieId.indexOf(':') > -1) {   // Si es ID pura
-            const seriesIds = series.map((serie: ISerie) => getFullSerieId(serie));
-            if (seriesIds.indexOf(serieId) > -1) { // Si esa id está idéntica en series, guardo el valor para esa id
-                newProps[serieId] = props[serieId];
-            }
-            const relatedUnspecifiedSeries = seriesIds.filter((id: string) => id.split(':')[0] === serieId && props[id] === undefined);
-            relatedUnspecifiedSeries.forEach((id: string) => newProps[id] = props[id])
-            // Para cada serie de series que comience con este ID y no este en props
-                // Guardo una entrada en newProps que sea 'serieFullID: setting.valor'
-        }
-        else { // Si no es ID pura
-            newProps[serieId] = props[serieId]; // Guardo una entrada idéntica
-        }
-    }
-
-    return newProps;
-
 }
 
 function dateFormatByPeriodicity(component: Graphic) {
