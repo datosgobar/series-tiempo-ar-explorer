@@ -13,17 +13,10 @@ import { colorFor } from '../ViewPage';
 import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 import { generateYAxisBySeries } from './axisConfiguration';
 import { ILegendConfiguration, getLegendLabel } from './legendConfiguration';
+import { type } from 'os';
 
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
-
-export interface ILegendLabel {
-    [clave: string]: string;
-}
-
-export interface ISeriesAxisSides {
-    [clave: string]: string;
-}
 
 export interface IGraphicProps {
     series: ISerie[];
@@ -42,9 +35,13 @@ export interface IGraphicProps {
     seriesAxis?: ISeriesAxisSides;
 }
 
-export interface IChartTypeProps {
+interface IPropsPerId {
     [clave: string]: string;
 }
+
+export type IChartTypeProps = IPropsPerId;
+export type ILegendLabel = IPropsPerId;
+export type ISeriesAxisSides = IPropsPerId
 
 export interface IChartExtremeProps {
     min: number;
@@ -80,10 +77,16 @@ export default class Graphic extends React.Component<IGraphicProps> {
     private yAxisBySeries: IYAxisConf;
 
     constructor(props: IGraphicProps) {
+
         super(props);
         this.myRef = React.createRef();
 
+        adjustPropsUponIds(props.series, props.chartTypes);
+        adjustPropsUponIds(props.series, props.legendLabel);
+        adjustPropsUponIds(props.series, props.seriesAxis);
+        
         setHighchartsGlobalConfig(props.locale);
+
     }
 
     public componentDidUpdate() {
@@ -279,13 +282,15 @@ export default class Graphic extends React.Component<IGraphicProps> {
     }
 
     public seriesValues(): IHCSeries[] {
-        return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {}));
+        const series = this.props.series;
+        return series.map((serie) => this.hcSerieFromISerie(serie, {}, series));
     }
 
-    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
+    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig, seriesList: ISerie[]): IHCSeries {
 
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
-        const chartType = getChartType(serie, this.props.chartTypes);
+        let chartType: string;
+        chartType = getChartType(serie, this.props.chartTypes); // Si no es la unica
         const legendProps: ILegendConfiguration = {
             axisConf: this.yAxisBySeries,
             legendLabel: this.props.legendLabel,
@@ -302,7 +307,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
             navigatorOptions: { type: chartType },
             serieId: getFullSerieId(serie),
             type: chartType,
-            yAxis: this.yAxisBySeries[getFullSerieId(serie)].yAxis,
+            yAxis: this.yAxisBySeries[getFullSerieId(serie)].yAxis
         }
 
     }
@@ -365,6 +370,33 @@ export default class Graphic extends React.Component<IGraphicProps> {
     }
 }
 
+function adjustPropsUponIds(series: ISerie[], props?: IPropsPerId) {
+
+    if (props === undefined) {
+        return {};
+    }
+
+    const newProps: IPropsPerId = {};
+
+    for (const serieId in props) {
+        if(serieId.indexOf(':') > -1) {   // Si es ID pura
+            const seriesIds = series.map((serie: ISerie) => getFullSerieId(serie));
+            if (seriesIds.indexOf(serieId) > -1) { // Si esa id está idéntica en series, guardo el valor para esa id
+                newProps[serieId] = props[serieId];
+            }
+            const relatedUnspecifiedSeries = seriesIds.filter((id: string) => id.split(':')[0] === serieId && props[id] === undefined);
+            relatedUnspecifiedSeries.forEach((id: string) => newProps[id] = props[id])
+            // Para cada serie de series que comience con este ID y no este en props
+                // Guardo una entrada en newProps que sea 'serieFullID: setting.valor'
+        }
+        else { // Si no es ID pura
+            newProps[serieId] = props[serieId]; // Guardo una entrada idéntica
+        }
+    }
+
+    return newProps;
+
+}
 
 function dateFormatByPeriodicity(component: Graphic) {
     const frequency = component.props.series.length > 0 ? component.props.series[0].frequency || 'day' : 'day';
