@@ -42,7 +42,7 @@ export function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfi
             yAxis: yAxisSide === 'right' ? 1 : 0
         };
 
-        const serieConfig = seriesConfig.find((config: SerieConfig) => config.getSerieId() === fullId);
+        const serieConfig = seriesConfig.find((config: SerieConfig) => config.getFullSerieId() === fullId);
 
         if (serieConfig && serieConfig.mustFormatUnits(formatUnits)) {
             result[fullId].labels = formatterForSerie(locale);
