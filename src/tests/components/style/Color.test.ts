@@ -1,5 +1,5 @@
 import { ISerie } from "../../../api/Serie";
-import { generateCommonMockSerieEMAE, generateCommonMockSerieMotos } from "../../support/mockers/seriesMockers";
+import { generateCommonMockSerieEMAE, generateCommonMockSerieMotos, generatePercentageMockSerie } from "../../support/mockers/seriesMockers";
 import { colorFor } from "../../../components/style/Colors/Color";
 import { getFullSerieId } from "../../../components/viewpage/graphic/Graphic";
 
@@ -21,9 +21,8 @@ describe("Colors", () => {
     });
 
     it("Same serie id different rep mode returns different colors", () => {
-        let emae_2 = Object.assign({}, mockSerieOne);
-        emae_2.representationMode = 'percent_change';
-        const series = [mockSerieOne, emae_2];
+        let emae_2 = generatePercentageMockSerie()
+        const series = [mockSerieOne, emae_2]
         const color = colorFor(series, getFullSerieId(series[0]));
         const color_2 = colorFor(series, getFullSerieId(series[1]));
         expect(color).not.toEqual(color_2)
