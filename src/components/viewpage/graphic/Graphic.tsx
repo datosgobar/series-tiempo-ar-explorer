@@ -279,10 +279,10 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     public seriesValues(): IHCSeries[] {
         const series = this.props.series;
-        return series.map((serie) => this.hcSerieFromISerie(serie, {}, series));
+        return series.map((serie) => this.hcSerieFromISerie(serie, {}));
     }
 
-    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig, seriesList: ISerie[]): IHCSeries {
+    public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
 
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
         let chartType: string;

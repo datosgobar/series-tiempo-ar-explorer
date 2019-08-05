@@ -13,21 +13,6 @@ describe("Obtainment of full IDs", () => {
         yearPercentageMockSerie = generatePercentageYearMockSerie();
     })
 
-    /*it("Prueba", () => {
-
-        const motosSerie = generateCommonMockSerieMotos();
-        const percentSerie = generatePercentageMockSerie();
-        const series = [commonMockSerie, motosSerie, yearPercentageMockSerie, percentSerie];
-        const chartTypes: IChartTypeProps = {
-            'EMAE2004': 'column',
-            'EMAE2004:percent_change_a_year_ago': 'area',
-            'Motos_patentamiento_8myrF9': 'area'
-        }
-        adjustPropsUponIds(series, chartTypes);
-        expect(1).toEqual(1);
-
-    })*/
-
     describe("Full ID of a ISerie object", () => {
 
         it('A serie with "value" representation mode does not append it to the ID', () => {
