@@ -1,5 +1,5 @@
 import { IPropsPerId } from "../../../../components/viewpage/graphic/Graphic";
-import { adjustPropsUponIds } from "../../../../components/exportable/GraphicExportable";
+import { PropsAdjuster } from "../../../../components/viewpage/graphic/propsAdjuster";
 
 describe("Adjustment of different props for multiple IDs", () => {
 
@@ -9,6 +9,8 @@ describe("Adjustment of different props for multiple IDs", () => {
     let commonMotosId: string;
     let ids: string[];
     let props: IPropsPerId;
+    let chartType: string;
+    let adjuster: PropsAdjuster;
 
     beforeAll(() => {
         commonEMAEId = 'EMAE2004';
@@ -24,7 +26,8 @@ describe("Adjustment of different props for multiple IDs", () => {
             props = {
                 'EMAE2004': 'area'
             };
-            adjustPropsUponIds(ids, props);
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props);
             expect(props.EMAE2004).toEqual('area');
         });
         it('ID with modifier, just a basic setter adjusts it', () => {
@@ -32,7 +35,8 @@ describe("Adjustment of different props for multiple IDs", () => {
             props = {
                 'EMAE2004': 'area'
             };
-            adjustPropsUponIds(ids, props);
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props);
             expect(props['EMAE2004:percent_change']).toEqual('area');
         });
 
@@ -48,7 +52,8 @@ describe("Adjustment of different props for multiple IDs", () => {
             props = {
                 'EMAE2004': 'area'
             };
-            adjustPropsUponIds(ids, props);
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props);
             expect(props.EMAE2004).toEqual('area');
             expect(props['EMAE2004:percent_change']).toEqual('area');
         });
@@ -56,7 +61,8 @@ describe("Adjustment of different props for multiple IDs", () => {
             props = {
                 'EMAE2004:percent_change': 'area'
             };
-            adjustPropsUponIds(ids, props);
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props);
             expect(props.EMAE2004).toBeUndefined();
             expect(props['EMAE2004:percent_change']).toEqual('area');
         });
@@ -71,7 +77,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'column',
                 'EMAE2004:percent_change': 'area'
             };
-            adjustPropsUponIds(ids, props);
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props);
             expect(props.EMAE2004).toEqual('column');
             expect(props['EMAE2004:percent_change']).toEqual('area');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
@@ -81,7 +88,8 @@ describe("Adjustment of different props for multiple IDs", () => {
             props = {
                 'EMAE2004': 'column'
             };
-            adjustPropsUponIds(ids, props);
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props);
             expect(props.EMAE2004).toEqual('column');
             expect(props['EMAE2004:percent_change']).toEqual('column');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
@@ -100,7 +108,8 @@ describe("Adjustment of different props for multiple IDs", () => {
             props = {
                 'EMAE2004': 'column'
             };
-            adjustPropsUponIds(ids, props);
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props);
             expect(props['EMAE2004:percent_change']).toEqual('column');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
         });
@@ -108,7 +117,8 @@ describe("Adjustment of different props for multiple IDs", () => {
             props = {
                 'EMAE2004:percent_change_a_year_ago': 'column'
             };
-            adjustPropsUponIds(ids, props);
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props);
             expect(props['EMAE2004:percent_change']).toBeUndefined();
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
         });
@@ -117,9 +127,53 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'area',
                 'EMAE2004:percent_change_a_year_ago': 'column'
             };
-            adjustPropsUponIds(ids, props);
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props);
             expect(props['EMAE2004:percent_change']).toEqual('area');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
+        });
+
+    })
+
+    describe('With presence of chartType parameter', () => {
+
+        beforeAll(() => {
+            ids = [commonEMAEId, percentageId, commonMotosId];
+        })
+
+        it('Two different series, basic setter affects all from an ID, chartType affects the unspecified', () => {
+            props = {
+                'EMAE2004': 'column'
+            };
+            chartType = 'area';
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props, {}, {}, chartType);
+            expect(props.EMAE2004).toEqual('column');
+            expect(props['EMAE2004:percent_change']).toEqual('column');
+            expect(props.Motos_patentamiento_8myrF9).toEqual('area');
+        });
+        it('Two different series, specific setter only affects its ID, chartType affects the unspecified', () => {
+            props = {
+                'EMAE2004:percent_change': 'column'
+            };
+            chartType = 'area';
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props, {}, {}, chartType);
+            expect(props.EMAE2004).toEqual('area');
+            expect(props['EMAE2004:percent_change']).toEqual('column');
+            expect(props.Motos_patentamiento_8myrF9).toEqual('area');
+        });
+        it('Two different series, chartType does not affect because of existing setters for each serie', () => {
+            props = {
+                'EMAE2004': 'area',
+                'Motos_patentamiento_8myrF9': 'line'
+            };
+            chartType = 'column';
+            adjuster = new PropsAdjuster(ids);
+            adjuster.adjustAll(props, {}, {}, chartType);
+            expect(props.EMAE2004).toEqual('area');
+            expect(props['EMAE2004:percent_change']).toEqual('area');
+            expect(props.Motos_patentamiento_8myrF9).toEqual('line');
         });
 
     })

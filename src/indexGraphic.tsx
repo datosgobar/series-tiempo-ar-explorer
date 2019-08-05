@@ -20,7 +20,8 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            source={config.source}
                            displayUnits={config.displayUnits}
                            legendLabel={config.legendLabel}
-                           seriesAxis={config.seriesAxis} />,
+                           seriesAxis={config.seriesAxis}
+                           chartType={config.chartType} />,
         document.getElementById(selector) as HTMLElement
     )
 }
