@@ -17,14 +17,6 @@ import { ILegendConfiguration, getLegendLabel } from './legendConfiguration';
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
 
-export interface ILegendLabel {
-    [clave: string]: string;
-}
-
-export interface ISeriesAxisSides {
-    [clave: string]: string;
-}
-
 export interface IGraphicProps {
     series: ISerie[];
     range: IChartExtremeProps;
@@ -42,9 +34,13 @@ export interface IGraphicProps {
     seriesAxis?: ISeriesAxisSides;
 }
 
-export interface IChartTypeProps {
+export interface IPropsPerId {
     [clave: string]: string;
 }
+
+export type IChartTypeProps = IPropsPerId;
+export type ILegendLabel = IPropsPerId;
+export type ISeriesAxisSides = IPropsPerId
 
 export interface IChartExtremeProps {
     min: number;
@@ -80,10 +76,11 @@ export default class Graphic extends React.Component<IGraphicProps> {
     private yAxisBySeries: IYAxisConf;
 
     constructor(props: IGraphicProps) {
-        super(props);
-        this.myRef = React.createRef();
 
+        super(props);
+        this.myRef = React.createRef();       
         setHighchartsGlobalConfig(props.locale);
+
     }
 
     public componentDidUpdate() {
@@ -92,6 +89,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
     }
 
     public render() {
+
         const formatUnits = this.props.formatUnits || false;
         this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, 
             formatUnits, this.props.locale, this.props.seriesAxis);
@@ -99,6 +97,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
         return (
             <ReactHighStock ref={this.myRef} config={this.highchartsConfig()} callback={this.afterRender} />
         );
+
     }
 
     public afterRender = (chart: any) => {
@@ -279,13 +278,15 @@ export default class Graphic extends React.Component<IGraphicProps> {
     }
 
     public seriesValues(): IHCSeries[] {
-        return this.props.series.map((serie) => this.hcSerieFromISerie(serie, {}));
+        const series = this.props.series;
+        return series.map((serie) => this.hcSerieFromISerie(serie, {}));
     }
 
     public hcSerieFromISerie(serie: ISerie, hcConfig: IHConfig): IHCSeries {
 
         const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
-        const chartType = getChartType(serie, this.props.chartTypes);
+        let chartType: string;
+        chartType = getChartType(serie, this.props.chartTypes); // Si no es la unica
         const legendProps: ILegendConfiguration = {
             axisConf: this.yAxisBySeries,
             legendLabel: this.props.legendLabel,
@@ -302,7 +303,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
             navigatorOptions: { type: chartType },
             serieId: getFullSerieId(serie),
             type: chartType,
-            yAxis: this.yAxisBySeries[getFullSerieId(serie)].yAxis,
+            yAxis: this.yAxisBySeries[getFullSerieId(serie)].yAxis
         }
 
     }
@@ -364,7 +365,6 @@ export default class Graphic extends React.Component<IGraphicProps> {
         this.myRef.current.chart.reflow = () => { return }; // https://github.com/kirjs/react-highcharts/issues/171 ¯\_(ツ)_/¯
     }
 }
-
 
 function dateFormatByPeriodicity(component: Graphic) {
     const frequency = component.props.series.length > 0 ? component.props.series[0].frequency || 'day' : 'day';

@@ -1,5 +1,5 @@
 import { generateCommonMockSerieEMAE, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
-import Serie, { ISerie } from "../../../../api/Serie";
+import { ISerie } from "../../../../api/Serie";
 import { getFullSerieId } from "../../../../components/viewpage/graphic/Graphic";
 import SerieConfig from "../../../../api/SerieConfig";
 
