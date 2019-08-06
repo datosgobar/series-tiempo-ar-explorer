@@ -21,24 +21,24 @@ describe("Colors", () => {
     });
 
     it("Same serie id different rep mode returns different colors", () => {
-        let emae_2 = generatePercentageMockSerie()
-        const series = [mockSerieOne, emae_2]
+        const emae2 = generatePercentageMockSerie()
+        const series = [mockSerieOne, emae2]
         const color = colorFor(series, getFullSerieId(series[0]));
-        const color_2 = colorFor(series, getFullSerieId(series[1]));
-        expect(color).not.toEqual(color_2)
+        const color2 = colorFor(series, getFullSerieId(series[1]));
+        expect(color).not.toEqual(color2)
     });
 
     it("Different serie ids return different colors", () => {
         const series = [mockSerieOne, mockSerieTwo];
         const color = colorFor(series, getFullSerieId(series[0]));
-        const color_2 = colorFor(series, getFullSerieId(series[1]));
-        expect(color).not.toEqual(color_2)
+        const color2 = colorFor(series, getFullSerieId(series[1]));
+        expect(color).not.toEqual(color2)
     });
 
     it("Same serie with same rep mode returns same color", () => {
         const series = [mockSerieOne, mockSerieOne];
         const color = colorFor(series, getFullSerieId(series[0]));
-        const color_2 = colorFor(series, getFullSerieId(series[1]));
-        expect(color).toEqual(color_2)
+        const color2 = colorFor(series, getFullSerieId(series[1]));
+        expect(color).toEqual(color2)
     });
 });

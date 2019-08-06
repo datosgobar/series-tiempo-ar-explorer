@@ -3,10 +3,10 @@
 El componente `graphic` permite embeber gráficos de líneas, áreas o barras en experiencias web. Permite elegir distintos elementos de filtro de fechas, personalizar los textos, etc.
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/btwsn48q/](https://jsfiddle.net/btwsn48q/)
+Ver online: [https://jsfiddle.net/pk0mve5c/](https://jsfiddle.net/pk0mve5c/)
 
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/css/components.css'/>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/js/components.js'></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/css/components.css'/>
 
 <div id="tmi"></div>
 
@@ -27,10 +27,10 @@ Este gráfico se genera a partir del siguiente código:
 
 ```html
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con un gráfico -->
 <div id="tmi"></div>
@@ -136,7 +136,7 @@ Este gráfico se genera a partir del siguiente código:
         <td>No</td>
         <td>Indica el campo de la serie a usar para mostrar la leyenda</td>
         <td>string</td>
-        <td>title</td>
+        <td>'title'</td>
         <td>"title", "description" o "id"</td>
     </tr>
     <tr>
@@ -188,6 +188,14 @@ Este gráfico se genera a partir del siguiente código:
         <td>{'serie01': 'right',
              'serie02': 'left'}</td>
     </tr>
+        <tr>
+        <td>chartType</td>
+        <td>No</td>
+        <td>Especifica un tipo de gráfico para aplicar a todas las series como default. En caso de estar especificado un tipo para una serie en chartTypes, este último será priorizado para la misma</td>
+        <td>string</td>
+        <td>'line'</td>
+        <td>'line', 'area' o 'column'</td>
+    </tr>
 </table>
 
 ## Asignación dinámica de atributos
@@ -208,8 +216,8 @@ Varios componentes del gráfico se muestran/ocultan dinámicamente dependiendo d
 ```html
 <html>
 <body>
-  <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/js/components.js'></script>
-  <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/css/components.css'/>
+  <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/js/components.js'></script>
+  <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/css/components.css'/>
   <div id="root"></div>
   <script>
     window.onload = function () {
@@ -218,6 +226,7 @@ Varios componentes del gráfico se muestran/ocultan dinámicamente dependiendo d
         title: 'Tasa de Mortalidad Infantil de Argentina',
         source: 'Dirección de Estadística e Información en Salud (DEIS). Secretaría de Gobierno de Salud',
         legendField: 'title',
+        chartType: 'area',
         chartTypes: {'tmi_arg': 'column'},
         zoom: true,
         datePickerEnabled: true,

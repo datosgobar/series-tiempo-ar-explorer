@@ -597,10 +597,10 @@
                 <h1 id="componente-graphic"><a class="toclink" href="#componente-graphic">Componente: graphic</a><a class="headerlink" href="#componente-graphic" title="Permanent link">&#128279;</a></h1>
 <p>El componente <code>graphic</code> permite embeber gráficos de líneas, áreas o barras en experiencias web. Permite elegir distintos elementos de filtro de fechas, personalizar los textos, etc.</p>
 <h2 id="ejemplo-base"><a class="toclink" href="#ejemplo-base">Ejemplo base</a><a class="headerlink" href="#ejemplo-base" title="Permanent link">&#128279;</a></h2>
-<p>Ver online: <a href="https://jsfiddle.net/btwsn48q/">https://jsfiddle.net/btwsn48q/</a></p>
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/js/components.js'></script>
+<p>Ver online: <a href="https://jsfiddle.net/pk0mve5c/">https://jsfiddle.net/pk0mve5c/</a></p>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/js/components.js'></script>
 
-<p><link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/css/components.css'/></p>
+<p><link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/css/components.css'/></p>
 <div id="tmi"></div>
 
 <script>
@@ -618,10 +618,10 @@
 Este gráfico se genera a partir del siguiente código:
 <br></p>
 <div class="codehilite"><pre><span></span><span class="c">&lt;!-- importa librería JS --&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- importa hoja de estilos CSS --&gt;</span>
-<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
 
 <span class="c">&lt;!-- código HTML donde ubicar un div con un gráfico --&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmi&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -727,7 +727,7 @@ Este gráfico se genera a partir del siguiente código:
         <td>No</td>
         <td>Indica el campo de la serie a usar para mostrar la leyenda</td>
         <td>string</td>
-        <td>title</td>
+        <td>'title'</td>
         <td>"title", "description" o "id"</td>
     </tr>
     <tr>
@@ -779,6 +779,14 @@ Este gráfico se genera a partir del siguiente código:
         <td>{'serie01': 'right',
              'serie02': 'left'}</td>
     </tr>
+        <tr>
+        <td>chartType</td>
+        <td>No</td>
+        <td>Especifica un tipo de gráfico para aplicar a todas las series como default. En caso de estar especificado un tipo para una serie en chartTypes, este último será priorizado para la misma</td>
+        <td>string</td>
+        <td>'line'</td>
+        <td>'line', 'area' o 'column'</td>
+    </tr>
 </table>
 
 <h2 id="asignacion-dinamica-de-atributos"><a class="toclink" href="#asignacion-dinamica-de-atributos">Asignación dinámica de atributos</a><a class="headerlink" href="#asignacion-dinamica-de-atributos" title="Permanent link">&#128279;</a></h2>
@@ -798,8 +806,8 @@ Este gráfico se genera a partir del siguiente código:
 <h2 id="ejemplo-completo"><a class="toclink" href="#ejemplo-completo">Ejemplo completo</a><a class="headerlink" href="#ejemplo-completo" title="Permanent link">&#128279;</a></h2>
 <div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.1.3/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;root&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
@@ -808,6 +816,7 @@ Este gráfico se genera a partir del siguiente código:
         <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Tasa de Mortalidad Infantil de Argentina&#39;</span><span class="p">,</span>
         <span class="nx">source</span><span class="o">:</span> <span class="s1">&#39;Dirección de Estadística e Información en Salud (DEIS). Secretaría de Gobierno de Salud&#39;</span><span class="p">,</span>
         <span class="nx">legendField</span><span class="o">:</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span>
+        <span class="nx">chartType</span><span class="o">:</span> <span class="s1">&#39;area&#39;</span><span class="p">,</span>
         <span class="nx">chartTypes</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;tmi_arg&#39;</span><span class="o">:</span> <span class="s1">&#39;column&#39;</span><span class="p">},</span>
         <span class="nx">zoom</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nx">datePickerEnabled</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
