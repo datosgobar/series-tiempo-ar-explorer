@@ -61,8 +61,9 @@
 }
 
 .highcharts-legend-item tspan {
+  color: #333333;
   font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 15px;
 }
 
@@ -226,7 +227,7 @@
 }
 
 .card .c-head .c-title {
-  height: 40px;
+  height: 42px;
   margin: 0px;
   text-align: center;
   font-weight: 500;
