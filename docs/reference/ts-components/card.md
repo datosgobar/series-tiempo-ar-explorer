@@ -25,6 +25,9 @@ El componente `card` permite embeber tarjetas con información de la serie, y un
 Ver online: [https://jsfiddle.net/cogetynj/](https://jsfiddle.net/cogetynj/)
 
 ```html
+<!-- importa íconos de FontAwesome -->
+<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
+
 <!-- importa librería JS -->
 <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.0/dist/js/components.js'></script>
 
