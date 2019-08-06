@@ -30,7 +30,8 @@ export function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfi
         return result;
     }, {});
 
-    return series.sort((serie: ISerie) => serie.minValue).reduce((result: IYAxisConf, serie: ISerie) => {
+    
+    return series.slice().sort((serie: ISerie) => serie.minValue).reduce((result: IYAxisConf, serie: ISerie) => {
 
         const fullId = getFullSerieId(serie);
         const outOfScale = isOutOfScale(getFullSerieId(series[0]), fullId, minAndMaxValues);

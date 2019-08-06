@@ -32,24 +32,24 @@ describe("Axis Configuration functions", () => {
         })
 
         it("Each unit label goes to a different axis", () => {
-            expect(yAxisBySeries.EMAE2004.opposite).toBe(true);
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(false);
+            expect(yAxisBySeries.EMAE2004.opposite).toBe(false);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(true);
         });
         it("Unit label titles are properly written", () => {
             expect(yAxisBySeries.EMAE2004.title.text).toEqual("Índice 2004=100");
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.title.text).toEqual("Unidades");
         });
         it("Each unit values column goes to a different axis", () => {
-            expect(yAxisBySeries.EMAE2004.yAxis).toEqual(1);
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(0);
+            expect(yAxisBySeries.EMAE2004.yAxis).toEqual(0);
+            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
         });
         it("Legend labels below the graphic are properly written", () => {
             legendProps = {
                 axisConf: yAxisBySeries,
                 rightSidedSeries: true
             }
-            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004 (der)");
-            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas (izq)");
+            expect(getLegendLabel(mockSerieOne, legendProps)).toContain("(izq)");
+            expect(getLegendLabel(mockSerieTwo, legendProps)).toContain("(der)");
         });
 
     })

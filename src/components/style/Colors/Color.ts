@@ -1,5 +1,5 @@
 import { ISerie } from "../../../api/Serie";
-import { colorFor } from "../../viewpage/ViewPage";
+import { getFullSerieId } from "../../viewpage/graphic/Graphic";
 
 export class Color {
     constructor(public name: string, public code: string){}
@@ -17,10 +17,16 @@ const Colors = {
     a8Blue2: new Color("blue2", "#039BE5"),
     a9Green2: new Color("green2", "#6EA100"),
 };
-export const NaC = new Color("", "");
 
 export default Colors;
 
 export function getColorBySerieId(series: ISerie[], serieId: string): string {
     return colorFor(series, serieId).code;
+}
+
+export function colorFor(series: ISerie[], fullSerieId: string): Color {
+    const colors = (Object as any).values(Colors);
+    const index = series.findIndex(viewSerie => getFullSerieId(viewSerie) === fullSerieId) % colors.length;
+
+    return colors[index];
 }

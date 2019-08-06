@@ -6,7 +6,6 @@ import { ISerieApi } from '../../../api/SerieApi';
 import initialState, { IStore } from '../../../store/initialState';
 import FullSearcher from '../../common/searcher/FullSearcher';
 import SerieCard from '../../style/Card/Serie/SerieCard';
-import { colorFor } from '../ViewPage';
 
 
 export interface ISeriesPickerProps {
@@ -60,7 +59,6 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
             checked: this.isChecked(searchResult.id),
             onClick: this.handlePick(searchResult.id),
             onRemoveSerie: () => this.props.onRemoveSerie(searchResult.id),
-            pegColor: colorFor(this.props.series, searchResult.id),
             serie: searchResult,
         }
     }

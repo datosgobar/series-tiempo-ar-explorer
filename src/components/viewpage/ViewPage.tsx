@@ -12,7 +12,6 @@ import { getId, removeDuplicates } from "../../helpers/commonFunctions";
 import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import ClearFix from '../style/ClearFix';
-import Colors, { Color } from '../style/Colors/Color';
 import Container from '../style/Common/Container';
 import SeriesHero from '../style/Hero/SeriesHero';
 import AddAndCustomizeSeriesButton from './AddAndCustomizeSeriesButton';
@@ -246,13 +245,6 @@ export function seriesConfigByUrl(url: string): (series: ISerie[]) => SerieConfi
         seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
         return seriesConfig;
     });
-}
-
-export function colorFor(series: ISerie[], serieId: string): Color {
-    const colors = (Object as any).values(Colors);
-    const index = series.findIndex(viewSerie => viewSerie.id === serieId) % colors.length;
-
-    return colors[index];
 }
 
 function serieIdSanitizer(serieId: string): string {
