@@ -4,8 +4,9 @@ import QueryParams from "../../api/QueryParams";
 import { ISerie } from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
-import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides, IPropsPerId } from "../viewpage/graphic/Graphic";
+import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides } from "../viewpage/graphic/Graphic";
 import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
+import { PropsAdjuster } from "../viewpage/graphic/propsAdjuster";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
 
 export interface IGraphicExportableProps {
@@ -23,8 +24,9 @@ export interface IGraphicExportableProps {
     title?: string;
     source?: string;
     displayUnits?: boolean;
-    legendLabel?: ILegendLabel;
-    seriesAxis?: ISeriesAxisSides;
+    legendLabel: ILegendLabel;
+    seriesAxis: ISeriesAxisSides;
+    chartType?: string;
 }
 
 interface IGraphicExportableState {
@@ -67,9 +69,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         params.addParamsFrom(url);
         this.fetchSeries(params);
 
-        adjustPropsUponIds(ids, this.props.chartTypes);
-        adjustPropsUponIds(ids, this.props.legendLabel);
-        adjustPropsUponIds(ids, this.props.seriesAxis);
+        const adjuster = new PropsAdjuster(ids);
+        adjuster.adjustAll(this.props.chartTypes, this.props.legendLabel, this.props.seriesAxis, this.props.chartType);
 
     }
 
@@ -139,26 +140,6 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         this.seriesApi.fetchSeries(params)
             .then((series: ISerie[]) => this.setState({series}))
             .catch(alert);
-    }
-
-}
-
-export function adjustPropsUponIds(seriesIds: string[], props?: IPropsPerId) {
-
-    if (props === undefined) {
-        return;
-    }
-
-    for (const propSerieId in props) {
-        if(propSerieId.indexOf(':') <= -1) {   // Si es ID pura
-            const relatedUnspecifiedSeries = seriesIds.filter((id: string) => id.split(':')[0] === propSerieId && props[id] === undefined);
-            relatedUnspecifiedSeries.forEach((id: string) => props[id] = props[propSerieId])
-            // Para cada serie de series que comience con este ID y no este en props
-                // Guardo una entrada en newProps que sea 'serieFullID: setting.valor'
-            if (seriesIds.indexOf(propSerieId) <= -1) { // Si esa id no está idéntica en series, no lo tomo en cuent
-                delete props[propSerieId];
-            }
-        }
     }
 
 }
