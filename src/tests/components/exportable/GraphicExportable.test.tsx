@@ -9,8 +9,10 @@ configure({ adapter: new Adapter() });
 describe('GraphicExportable', () => {
     it('renders without crashing', () => {
         const wrapper = mount(<GraphicExportable graphicUrl="https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=116.3_TCRC_0_M_22&last=24"
-                                                    chartOptions={{}}
-                                                    chartTypes={{}} />);
+                                                 chartOptions={{}}
+                                                 legendLabel={{}}
+                                                 seriesAxis={{}}
+                                                 chartTypes={{}} />);
 
         expect(wrapper.find(GraphicExportable).exists()).toBe(true);
     });

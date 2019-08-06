@@ -27,7 +27,7 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props);
+            adjuster.adjustAll(props, {}, {});
             expect(props.EMAE2004).toEqual('area');
         });
         it('ID with modifier, just a basic setter adjusts it', () => {
@@ -36,7 +36,7 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props);
+            adjuster.adjustAll(props, {}, {});
             expect(props['EMAE2004:percent_change']).toEqual('area');
         });
 
@@ -53,7 +53,7 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props);
+            adjuster.adjustAll(props, {}, {});
             expect(props.EMAE2004).toEqual('area');
             expect(props['EMAE2004:percent_change']).toEqual('area');
         });
@@ -62,7 +62,7 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props);
+            adjuster.adjustAll(props, {}, {});
             expect(props.EMAE2004).toBeUndefined();
             expect(props['EMAE2004:percent_change']).toEqual('area');
         });
@@ -78,7 +78,7 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props);
+            adjuster.adjustAll(props, {}, {});
             expect(props.EMAE2004).toEqual('column');
             expect(props['EMAE2004:percent_change']).toEqual('area');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
@@ -89,7 +89,7 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'column'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props);
+            adjuster.adjustAll(props, {}, {});
             expect(props.EMAE2004).toEqual('column');
             expect(props['EMAE2004:percent_change']).toEqual('column');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
@@ -109,7 +109,7 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'column'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props);
+            adjuster.adjustAll(props, {}, {});
             expect(props['EMAE2004:percent_change']).toEqual('column');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
         });
@@ -118,7 +118,7 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change_a_year_ago': 'column'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props);
+            adjuster.adjustAll(props, {}, {});
             expect(props['EMAE2004:percent_change']).toBeUndefined();
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
         });
@@ -128,7 +128,7 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change_a_year_ago': 'column'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props);
+            adjuster.adjustAll(props, {}, {});
             expect(props['EMAE2004:percent_change']).toEqual('area');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
         });

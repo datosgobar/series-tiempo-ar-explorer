@@ -15,12 +15,12 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            backgroundColor={config.backgroundColor}
                            datePickerEnabled={config.datePickerEnabled}
                            legendField={config.legendField}
-                           chartTypes={config.chartTypes}
+                           chartTypes={config.chartTypes || {}}
                            title={config.title}
                            source={config.source}
                            displayUnits={config.displayUnits}
-                           legendLabel={config.legendLabel}
-                           seriesAxis={config.seriesAxis}
+                           legendLabel={config.legendLabel  || {}}
+                           seriesAxis={config.seriesAxis  || {}}
                            chartType={config.chartType} />,
         document.getElementById(selector) as HTMLElement
     )

@@ -8,11 +8,16 @@ export class PropsAdjuster {
         this.ids = ids.sort();
     }
 
-    public adjustAll(chartTypes?: IChartTypeProps, legendLabel?: ILegendLabel, seriesAxis?: ISeriesAxisSides, chartType?: string) {
+    public adjustAll(chartTypes: IChartTypeProps, legendLabel: ILegendLabel, seriesAxis: ISeriesAxisSides, chartType?: string) {
 
         this.adjust(chartTypes);
         this.adjust(legendLabel);
         this.adjust(seriesAxis);
+
+
+        if (chartType === undefined) {
+            return;
+        }
         this.applyDefaultChartType(chartTypes, chartType);
 
     }
@@ -25,11 +30,7 @@ export class PropsAdjuster {
         return id.split(':')[0]
     }
 
-    private adjust(props?: IPropsPerId) {
-
-        if (props === undefined) {
-            return;
-        }
+    private adjust(props: IPropsPerId) {
 
         const oldProps = Object.assign({}, props);
 
@@ -50,11 +51,7 @@ export class PropsAdjuster {
 
     }
 
-    private applyDefaultChartType(chartTypes?: IChartTypeProps, chartType?: string) {
-
-        if (chartTypes === undefined || chartType === undefined) {
-            return;
-        }
+    private applyDefaultChartType(chartTypes: IChartTypeProps, chartType: string) {
 
         for (const id of this.ids) {
             if(chartTypes[id] === undefined) {

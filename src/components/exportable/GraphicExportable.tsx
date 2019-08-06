@@ -26,8 +26,8 @@ export interface IGraphicExportableProps {
     title?: string;
     source?: string;
     displayUnits?: boolean;
-    legendLabel?: ILegendLabel;
-    seriesAxis?: ISeriesAxisSides;
+    legendLabel: ILegendLabel;
+    seriesAxis: ISeriesAxisSides;
     chartType?: string;
 }
 
