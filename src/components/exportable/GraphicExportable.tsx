@@ -8,6 +8,7 @@ import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides } from "../vie
 import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
 import { PropsAdjuster } from "../viewpage/graphic/propsAdjuster";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
+import { extractUriFromUrl, extractIdsFromUrl } from "../../helpers/URLExtractors";
 
 export interface IGraphicExportableProps {
     graphicUrl: string;
@@ -143,15 +144,6 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     }
 
 }
-
-function extractIdsFromUrl(url: string): string[] {
-    return url.split('ids=')[1].split('&')[0].split(',')
-}
-
-function extractUriFromUrl(url: string): string {
-    return url.split('series/?')[0];
-}
-
 
 function legendValue(field?: string): ((serie: ISerie) => string) {
     const f = field || 'description';
