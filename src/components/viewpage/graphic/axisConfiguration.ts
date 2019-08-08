@@ -10,7 +10,7 @@ function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues:
 
 function getYAxisSide(serieID:string, outOfScale: boolean, axisSideConf?: ISeriesAxisSides, ) {
     
-    if (axisSideConf !== undefined) {
+    if (axisSideConf !== undefined && axisSideConf[serieID] !== undefined) {
         return axisSideConf[serieID];
     }
     if (outOfScale) {
