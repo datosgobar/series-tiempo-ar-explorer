@@ -78,22 +78,9 @@ describe("Axis Configuration functions", () => {
             }
             yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale, axisSides);
         })
-
         it("Series have opposite side each other because outOfScale", () => {
-            const yAxiEmae = yAxisBySeries.EMAE2004;
-            const yAxiMotos = yAxisBySeries.Motos_patentamiento_8myrF9;
-            areInOppositeSides(yAxiEmae, yAxiMotos)
+            areInOppositeSides(yAxisBySeries.EMAE2004, yAxisBySeries.Motos_patentamiento_8myrF9)
         });
-
-        it("Legend labels below the graphic are properly written", () => {
-            legendProps = {
-                axisConf: yAxisBySeries,
-                rightSidedSeries: true
-            }
-            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004 (izq)");
-            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas (der)");
-        });
-
     })
 
     describe("Explicit configuration, one without axis side and without out of scale", () => {
@@ -101,14 +88,12 @@ describe("Axis Configuration functions", () => {
         beforeAll(() => {
             yAxisBySeries = generateYAxisBySeries(percentageSeries, mockConfig, formatUnits, locale, axisSides);
         })
-
         it("Both series goes to the left side because same scale of percentage.", () => {
             expect(yAxisBySeries["EMAE2004:percent_change"].opposite).toBe(false);
             expect(yAxisBySeries["EMAE2004:percent_change"].yAxis).toEqual(0);
             expect(yAxisBySeries["EMAE2004:percent_change_a_year_ago"].opposite).toBe(false);
             expect(yAxisBySeries["EMAE2004:percent_change_a_year_ago"].yAxis).toEqual(0);
         });
-
     })
 
     describe("Explicit configuration, one without axis side and with out of scale", () => {
@@ -117,22 +102,9 @@ describe("Axis Configuration functions", () => {
             axisSides = { 'EMAE2004': 'left' }
             yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale, axisSides);
         })
-
         it("Series have opposite side each other", () => {
-            const yAxiEmae = yAxisBySeries.EMAE2004;
-            const yAxiMotos = yAxisBySeries.Motos_patentamiento_8myrF9;
-            areInOppositeSides(yAxiEmae, yAxiMotos)
+            areInOppositeSides(yAxisBySeries.EMAE2004, yAxisBySeries.Motos_patentamiento_8myrF9)
         });
-
-        it("Legend labels below the graphic are properly written", () => {
-            legendProps = {
-                axisConf: yAxisBySeries,
-                rightSidedSeries: true
-            }
-            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004 (izq)");
-            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas (der)");
-        });
-
     })
 
     describe("Explicit configuration, axis empty, each goes to opposite side", () => {
@@ -141,22 +113,9 @@ describe("Axis Configuration functions", () => {
             series = [mockSerieOne, mockSerieTwo];
             yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale, {});
         })
-
         it("Series have opposite side each other", () => {
-            const yAxiEmae = yAxisBySeries.EMAE2004;
-            const yAxiMotos = yAxisBySeries.Motos_patentamiento_8myrF9;
-            areInOppositeSides(yAxiEmae, yAxiMotos)
+            areInOppositeSides(yAxisBySeries.EMAE2004, yAxisBySeries.Motos_patentamiento_8myrF9)
         });
-
-        it("Legend labels below the graphic are properly written", () => {
-            legendProps = {
-                axisConf: yAxisBySeries,
-                rightSidedSeries: true
-            }
-            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004 (izq)");
-            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas (der)");
-        });
-
     })
 
     describe("Explicit configuration, both on the left side", () => {
