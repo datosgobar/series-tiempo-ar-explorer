@@ -47,7 +47,7 @@ export interface IChartExtremeProps {
     max: number;
 }
 
-interface IYAxis {
+export interface IYAxis {
     opposite: boolean;
     title: {text: string};
     yAxis: number;

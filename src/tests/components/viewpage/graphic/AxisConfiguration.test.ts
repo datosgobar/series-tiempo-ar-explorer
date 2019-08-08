@@ -1,6 +1,6 @@
 import { ISerie } from "../../../../api/Serie";
 import SerieConfig from "../../../../api/SerieConfig";
-import { IYAxisConf, ISeriesAxisSides } from "../../../../components/viewpage/graphic/Graphic";
+import { IYAxisConf, ISeriesAxisSides, IYAxis } from "../../../../components/viewpage/graphic/Graphic";
 import { generateYAxisBySeries } from "../../../../components/viewpage/graphic/axisConfiguration";
 import { generateCommonMockSerieMotos, generateCommonMockSerieEMAE, generatePercentageMockSerie, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
 import { ILegendConfiguration, getLegendLabel } from "../../../../components/viewpage/graphic/legendConfiguration";
@@ -19,6 +19,14 @@ describe("Axis Configuration functions", () => {
     let legendProps: ILegendConfiguration;
     const locale = 'AR';
     const formatUnits = false;
+
+    function areInOppositeSides(yAxisConfOne: IYAxis, yAxisConfTwo: IYAxis) {
+        expect(yAxisConfOne.opposite).toBe(false);
+        expect(yAxisConfOne.yAxis).toEqual(0);
+
+        expect(yAxisConfTwo.opposite).toBe(true);
+        expect(yAxisConfTwo.yAxis).toEqual(1);
+    }
 
     beforeAll(() => {
         mockSerieOne = generateCommonMockSerieEMAE();
@@ -72,11 +80,9 @@ describe("Axis Configuration functions", () => {
         })
 
         it("Series have opposite side each other because outOfScale", () => {
-            expect(yAxisBySeries.EMAE2004.opposite).toBe(false);
-            expect(yAxisBySeries.EMAE2004.yAxis).toEqual(0);
-
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(true);
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
+            const yAxiEmae = yAxisBySeries.EMAE2004;
+            const yAxiMotos = yAxisBySeries.Motos_patentamiento_8myrF9;
+            areInOppositeSides(yAxiEmae, yAxiMotos)
         });
 
         it("Legend labels below the graphic are properly written", () => {
@@ -113,11 +119,9 @@ describe("Axis Configuration functions", () => {
         })
 
         it("Series have opposite side each other", () => {
-            expect(yAxisBySeries.EMAE2004.opposite).toBe(false);
-            expect(yAxisBySeries.EMAE2004.yAxis).toEqual(0);
-
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(true);
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
+            const yAxiEmae = yAxisBySeries.EMAE2004;
+            const yAxiMotos = yAxisBySeries.Motos_patentamiento_8myrF9;
+            areInOppositeSides(yAxiEmae, yAxiMotos)
         });
 
         it("Legend labels below the graphic are properly written", () => {
@@ -139,11 +143,9 @@ describe("Axis Configuration functions", () => {
         })
 
         it("Series have opposite side each other", () => {
-            expect(yAxisBySeries.EMAE2004.opposite).toBe(false);
-            expect(yAxisBySeries.EMAE2004.yAxis).toEqual(0);
-
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(true);
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
+            const yAxiEmae = yAxisBySeries.EMAE2004;
+            const yAxiMotos = yAxisBySeries.Motos_patentamiento_8myrF9;
+            areInOppositeSides(yAxiEmae, yAxiMotos)
         });
 
         it("Legend labels below the graphic are properly written", () => {
