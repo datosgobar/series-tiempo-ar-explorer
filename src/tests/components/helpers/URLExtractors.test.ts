@@ -19,6 +19,7 @@ describe("Extraction and adjustment of IDs from the URL", () => {
         url = "https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=143.3_NO_PR_2004_A_21:percent_change_a_year_ago,116.4_TCRZE_2015_D_36_4&limit=1000";
         ids = extractIdsFromUrl(url);
         expect(ids[0]).toEqual("143.3_NO_PR_2004_A_21:percent_change_a_year_ago");
+        expect(ids[1]).toEqual("116.4_TCRZE_2015_D_36_4");
     });
     it("The representationMode query param adjusts the pure IDs", () => {
         url = "https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=148.3_INIVELNAL_DICI_M_26,148.3_INIVELGBA_DICI_M_21&representation_mode=percent_change";

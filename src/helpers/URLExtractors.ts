@@ -4,19 +4,19 @@ export function extractIdsFromUrl(url: string): string[] {
     const hasRepModeParam: boolean = url.split('representation_mode=').length > 1;
     const finalIDs: string[] = [];
 
-    if (hasRepModeParam) {
-        const repMode: string = url.split('representation_mode=')[1].split('&')[0];
-        for (const id of paramIDs) {
-            if(id.indexOf(':') <= -1) {
-                finalIDs.push(`${id}:${repMode}`)
-            }
-            else {
-                finalIDs.push(id);
-            }
-        }
-        return finalIDs;
+    if (!hasRepModeParam) {
+        return paramIDs;
     }
-    return paramIDs;
+    const repMode: string = url.split('representation_mode=')[1].split('&')[0];
+    for (const id of paramIDs) {
+        if(id.indexOf(':') <= -1) {
+            finalIDs.push(`${id}:${repMode}`)
+        }
+        else {
+            finalIDs.push(id);
+        }
+    }
+    return finalIDs;
 
 }
 
