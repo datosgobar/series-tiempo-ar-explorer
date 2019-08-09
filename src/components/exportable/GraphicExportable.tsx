@@ -204,8 +204,7 @@ function titleOptions(componentProps: IGraphicExportableProps) {
         fontSize: "20.8px",
         fontWeight: "500",
         fontFamily: ["Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-        lineHeight: "0.92",
-        paddingBottom: "40px"
+        lineHeight: "0.92"
     };
 
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
