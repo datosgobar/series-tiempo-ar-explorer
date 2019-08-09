@@ -81,6 +81,14 @@ describe("Axis Configuration functions", () => {
         it("Series have opposite side each other because outOfScale", () => {
             areInOppositeSides(yAxisBySeries.EMAE2004, yAxisBySeries.Motos_patentamiento_8myrF9)
         });
+        it("Legend labels below the graphic are properly written", () => {
+            legendProps = {
+                axisConf: yAxisBySeries,
+                rightSidedSeries: true
+            }
+            expect(getLegendLabel(mockSerieOne, legendProps)).toContain("(izq)");
+            expect(getLegendLabel(mockSerieTwo, legendProps)).toContain("(der)");
+        });
     })
 
     describe("Explicit configuration, one without axis side and without out of scale", () => {
@@ -93,6 +101,14 @@ describe("Axis Configuration functions", () => {
             expect(yAxisBySeries["EMAE2004:percent_change"].yAxis).toEqual(0);
             expect(yAxisBySeries["EMAE2004:percent_change_a_year_ago"].opposite).toBe(false);
             expect(yAxisBySeries["EMAE2004:percent_change_a_year_ago"].yAxis).toEqual(0);
+        });
+        it("Legend labels below the graphic are properly written", () => {
+            legendProps = {
+                axisConf: yAxisBySeries,
+                rightSidedSeries: true
+            }
+            expect(getLegendLabel(mockSerieOne, legendProps)).toContain("(izq)");
+            expect(getLegendLabel(mockSerieTwo, legendProps)).toContain("(der)");
         });
     })
 
@@ -115,6 +131,14 @@ describe("Axis Configuration functions", () => {
         })
         it("Series have opposite side each other", () => {
             areInOppositeSides(yAxisBySeries.EMAE2004, yAxisBySeries.Motos_patentamiento_8myrF9)
+        });
+        it("Legend labels below the graphic are properly written", () => {
+            legendProps = {
+                axisConf: yAxisBySeries,
+                rightSidedSeries: true
+            }
+            expect(getLegendLabel(mockSerieOne, legendProps)).toContain("(izq)");
+            expect(getLegendLabel(mockSerieTwo, legendProps)).toContain("(der)");
         });
     })
 
