@@ -96,7 +96,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     }
 
     private afterRender(chart: any) {
-        const chartHeight = chart.container.parentElement.clientHeight - chart.subtitle.element.clientHeight;
+        const chartHeight = chart.container.parentElement.clientHeight;
         const zoomEnabled = this.props.zoom || (this.props.zoom === undefined && chart.chartWidth >= 620);
         const navigatorEnabled = this.props.navigator || (this.props.navigator === undefined && chartHeight >= 500);
         const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
@@ -106,7 +106,6 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         chart.update({
             chart: {
                 height: chartHeight, // force the settings of container's height,
-                marginBottom: getMarginBottom(this.props, navigatorEnabled),
                 zoomType: zoomEnabled ? 'x' : 'none'
             },
             navigator: { enabled: navigatorEnabled },
@@ -118,8 +117,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             title: {
                 margin: 10,
                 style: {
-                    height: smallChart ? 35 : 'auto',
-                    overflow: smallChart ? 'auto' : 'hidden',
+                    height: 40,
+                    overflow: 'hidden',
                     whiteSpace: 'normal'
                 },
                 useHTML: smallChart,
@@ -261,15 +260,4 @@ function seriesLength(apiCall: string): number {
 
 function multipleSeries(componentProps: IGraphicExportableProps): boolean {
     return seriesLength(componentProps.graphicUrl) > 1
-}
-
-function getMarginBottom(props: IGraphicExportableProps, navigatorEnabled: boolean): number|null {
-    const activeLegend = multipleSeries(props);
-    let marginBottom = activeLegend ? null : 15;
-
-    if (activeLegend && (!navigatorEnabled && props.navigator === undefined)) {
-        marginBottom = 55;
-    }
-
-    return marginBottom;
 }
