@@ -103,7 +103,6 @@ export default class Graphic extends React.Component<IGraphicProps> {
     public afterRender = (chart: any) => {
         this.showLoading(chart);
         this.setExtremes(chart);
-        changeCreditsPosition(chart);
 
         if (this.props.afterRender) {
             this.props.afterRender(chart);
@@ -469,8 +468,4 @@ export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
     if (!types) { return 'line' }
 
     return types[getFullSerieId(serie)];
-}
-
-function changeCreditsPosition(chart: any) {
-    chart.container.getElementsByClassName('highcharts-credits')[0].setAttribute('y', 460); // change position of 'credits'
 }
