@@ -30,7 +30,7 @@ export function render(selector: string, config: ICardExportableConfig) {
                         locale={config.locale || 'AR'}
                         links={config.links || 'full'}
                         color={config.color || '#0072BB'}
-                        hasChart={config.hasChart || 'full'}
+                        hasChart={config.hasChart || 'small'}
                         chartType={config.chartType}
                         explicitSign={config.explicitSign}
                         title={config.title}

@@ -80,8 +80,8 @@ Ver online: [https://jsfiddle.net/cogetynj/](https://jsfiddle.net/cogetynj/)
         <td>No</td>
         <td>Indica qué enlaces a mostrar bajo la tarjeta para descargar o compartir la misma.</td>
         <td>string</td>
-        <td>Full</td>
-        <td>Small</td>
+        <td>full</td>
+        <td>small</td>
     </tr>
     <tr>
         <td>color</td>
@@ -96,8 +96,8 @@ Ver online: [https://jsfiddle.net/cogetynj/](https://jsfiddle.net/cogetynj/)
         <td>No</td>
         <td>Indica el tipo de gráfico a usar dentro de la tarjeta.</td>
         <td>string</td>
-        <td>Full</td>
-        <td>Small</td>
+        <td>small</td>
+        <td>full</td>
     </tr>
     <!--
     <tr>
