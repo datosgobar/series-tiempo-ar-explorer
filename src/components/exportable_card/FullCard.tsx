@@ -11,6 +11,7 @@ import FullCardUnits from '../style/exportable_card/FullCardUnits';
 import FullCardValue from '../style/exportable_card/FullCardValue';
 import FullCardChart from './FullCardChart';
 import FullCardLinks from './FullCardLinks';
+import { getFullSerieId } from '../viewpage/graphic/Graphic';
 
 
 interface IFullCardProps {
@@ -25,7 +26,7 @@ export default (props: IFullCardProps) => {
     const options = {
         ...props.cardOptions,
         downloadUrl: props.downloadUrl,
-        serieId: props.serie.id
+        serieId: getFullSerieId(props.serie)
     }
     const value = props.serie.data[props.serie.data.length-1].value
     const formatter = new CardValueFormatter(
