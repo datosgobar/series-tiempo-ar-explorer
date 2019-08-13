@@ -86,8 +86,6 @@
 .card {
   position: relative;
   display: inline-block;
-  margin-right: 15px !important;
-  margin-bottom: 15px !important;
 }
 
 .card p, .card ul, .card  ol, .card p, .card table {
