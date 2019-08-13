@@ -34,7 +34,7 @@ describe('Generation of copyable web code for components', () => {
             expect(generatedCode).toContain(expectedScript);
         });
         it('ChartType specified as well', () => {
-            options['chartType'] = 'small';
+            options.chartType = 'small';
             expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
@@ -51,7 +51,7 @@ describe('Generation of copyable web code for components', () => {
             expect(generatedCode).toContain(expectedScript);
         });
         it('Title specified as well', () => {
-            options['title'] = 'Desocupacion';
+            options.title = 'Desocupacion';
             expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
@@ -68,7 +68,7 @@ describe('Generation of copyable web code for components', () => {
             expect(generatedCode).toContain(expectedScript);
         });
         it('Source specified as well', () => {
-            options['source'] = 'INDEC';
+            options.source = 'INDEC';
             expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
@@ -85,7 +85,7 @@ describe('Generation of copyable web code for components', () => {
             expect(generatedCode).toContain(expectedScript);
         });
         it('Units specified as well', () => {
-            options['units'] = '';
+            options.units = '';
             expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
@@ -102,7 +102,7 @@ describe('Generation of copyable web code for components', () => {
             expect(generatedCode).toContain(expectedScript);
         });
         it('HasFrame specified as well', () => {
-            options['hasFrame'] = true;
+            options.hasFrame = true;
             expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
@@ -119,7 +119,7 @@ describe('Generation of copyable web code for components', () => {
             expect(generatedCode).toContain(expectedScript);
         });
         it('HasColorBar specified as well', () => {
-            options['hasColorBar'] = false;
+            options.hasColorBar = false;
             expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
