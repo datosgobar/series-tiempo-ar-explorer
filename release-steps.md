@@ -26,7 +26,6 @@ Para lanzar una nueva release de los TS Components, se deben realizar los siguie
 	3. Agregar los cambios, commitear y pushear todo a master (preferentemente con el mensaje "Deploy a GitHub Pages"), tal como en el paso v.
 ---
 # Release de TS Components
----
 Para lanzar una nueva release del TS Explorer, se deben realizar los siguientes pasos, preferiblemente estando ubicado en la rama `master` del repositorio:
 
 1. **Actualizar las versiones** de `main.js` y `main.css` importadas al nombre del release a lanzar, en el archivo _ts-explorer.md_
