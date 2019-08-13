@@ -6,7 +6,8 @@ describe('Generation of copyable web code for components', () => {
     describe('Copyable web code for a Card component', () => {
 
         let options: IWebSnippetOptions;
-        let expectedCode: string;
+        let expectedScript: string;
+        let generatedCode: string;
 
         beforeEach(() => {
             options = {
@@ -18,11 +19,7 @@ describe('Generation of copyable web code for components', () => {
         })
 
         it('Only mandatory parameters specified', () => {
-            expectedCode = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/css/components.css'/>
-<link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
-<div id="root"></div>
-<script>
+            expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
             serieId: "42.3_EPH_PUNTUATAL_0_M_30",
@@ -33,16 +30,12 @@ describe('Generation of copyable web code for components', () => {
     }
 </script>
 `;
-            const actualCode = cardWebCode(options);
-            expect(actualCode).toEqual(expectedCode);
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
         });
         it('ChartType specified as well', () => {
             options['chartType'] = 'small';
-            expectedCode = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/css/components.css'/>
-<link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
-<div id="root"></div>
-<script>
+            expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
             serieId: "42.3_EPH_PUNTUATAL_0_M_30",
@@ -54,16 +47,12 @@ describe('Generation of copyable web code for components', () => {
     }
 </script>
 `;
-            const actualCode = cardWebCode(options);
-            expect(actualCode).toEqual(expectedCode);
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
         });
         it('Title specified as well', () => {
             options['title'] = 'Desocupacion';
-            expectedCode = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/css/components.css'/>
-<link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
-<div id="root"></div>
-<script>
+            expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
             serieId: "42.3_EPH_PUNTUATAL_0_M_30",
@@ -75,16 +64,12 @@ describe('Generation of copyable web code for components', () => {
     }
 </script>
 `;
-            const actualCode = cardWebCode(options);
-            expect(actualCode).toEqual(expectedCode);
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
         });
         it('Source specified as well', () => {
             options['source'] = 'INDEC';
-            expectedCode = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/css/components.css'/>
-<link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
-<div id="root"></div>
-<script>
+            expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
             serieId: "42.3_EPH_PUNTUATAL_0_M_30",
@@ -96,16 +81,12 @@ describe('Generation of copyable web code for components', () => {
     }
 </script>
 `;
-            const actualCode = cardWebCode(options);
-            expect(actualCode).toEqual(expectedCode);
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
         });
         it('Units specified as well', () => {
             options['units'] = '';
-            expectedCode = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/css/components.css'/>
-<link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
-<div id="root"></div>
-<script>
+            expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
             serieId: "42.3_EPH_PUNTUATAL_0_M_30",
@@ -117,16 +98,12 @@ describe('Generation of copyable web code for components', () => {
     }
 </script>
 `;
-            const actualCode = cardWebCode(options);
-            expect(actualCode).toEqual(expectedCode);
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
         });
         it('HasFrame specified as well', () => {
             options['hasFrame'] = true;
-            expectedCode = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/css/components.css'/>
-<link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
-<div id="root"></div>
-<script>
+            expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
             serieId: "42.3_EPH_PUNTUATAL_0_M_30",
@@ -138,16 +115,12 @@ describe('Generation of copyable web code for components', () => {
     }
 </script>
 `;
-            const actualCode = cardWebCode(options);
-            expect(actualCode).toEqual(expectedCode);
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
         });
         it('HasColorBar specified as well', () => {
             options['hasColorBar'] = false;
-            expectedCode = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.2.1/dist/css/components.css'/>
-<link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
-<div id="root"></div>
-<script>
+            expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
             serieId: "42.3_EPH_PUNTUATAL_0_M_30",
@@ -159,8 +132,8 @@ describe('Generation of copyable web code for components', () => {
     }
 </script>
 `;
-            const actualCode = cardWebCode(options);
-            expect(actualCode).toEqual(expectedCode);
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
         });
 
     })
