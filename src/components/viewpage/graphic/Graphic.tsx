@@ -12,7 +12,7 @@ import { ISerieTag } from "../SeriesTags";
 import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
 import { generateYAxisBySeries } from './axisConfiguration';
 import { ILegendConfiguration, getLegendLabel } from './legendConfiguration';
-import { colorFor } from '../../style/Colors/Color';
+import { colorFor, Color } from '../../style/Colors/Color';
 
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
@@ -32,6 +32,7 @@ export interface IGraphicProps {
     afterRender?: (chart: any) => void;
     legendLabel?: ILegendLabel;
     seriesAxis?: ISeriesAxisSides;
+    colors?: Color[];
 }
 
 export interface IPropsPerId {
@@ -296,7 +297,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
         return {
             ...this.defaultHCSeriesConfig(),
             ...hcConfig,
-            color: colorFor(this.props.series, getFullSerieId(serie)).code,
+            color: colorFor(this.props.series, getFullSerieId(serie), this.props.colors).code,
             data,
             name: getLegendLabel(serie, legendProps),
             navigatorOptions: { type: chartType },
