@@ -5,13 +5,13 @@ import IDataPoint from '../../../api/DataPoint';
 import { ISerie } from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
 import { i18nFrequency } from "../../../api/utils/periodicityManager";
-import { valuesFromObject } from "../../../helpers/commonFunctions";
-import { formattedDateString, fullLocaleDate, localTimestamp, timestamp } from "../../../helpers/dateFunctions";
+import { valuesFromObject } from "../../../helpers/common/commonFunctions";
+import { formattedDateString, fullLocaleDate, localTimestamp, timestamp } from "../../../helpers/common/dateFunctions";
 import { buildLocale } from "../../common/locale/buildLocale";
 import { ISerieTag } from "../SeriesTags";
 import { IHConfig, IHCSeries, ReactHighStock } from './highcharts';
-import { generateYAxisBySeries } from './axisConfiguration';
-import { ILegendConfiguration, getLegendLabel } from './legendConfiguration';
+import { generateYAxisBySeries } from '../../../helpers/graphic/axisConfiguration';
+import { ILegendConfiguration, getLegendLabel } from '../../../helpers/graphic/legendConfiguration';
 import { colorFor } from '../../style/Colors/Color';
 
 // tslint:disable-next-line:no-var-requires
@@ -307,13 +307,6 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     }
 
-    /**
-     * color: https://api.highcharts.com/highcharts/series.line.color
-     * dashStyle: https://api.highcharts.com/highcharts/series.line.dashStyle
-     * lineWidth: https://api.highcharts.com/highcharts/series.line.lineWidth
-     * type: https://api.highcharts.com/highcharts/series.line.type
-     *
-     */
     public defaultHCSeriesConfig() {
         return {
             color: '#7CB5EC',

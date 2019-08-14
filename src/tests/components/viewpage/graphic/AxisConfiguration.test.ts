@@ -1,9 +1,9 @@
 import { ISerie } from "../../../../api/Serie";
 import SerieConfig from "../../../../api/SerieConfig";
 import { IYAxisConf, ISeriesAxisSides, IYAxis } from "../../../../components/viewpage/graphic/Graphic";
-import { generateYAxisBySeries } from "../../../../components/viewpage/graphic/axisConfiguration";
+import { generateYAxisBySeries } from "../../../../helpers/graphic/axisConfiguration";
 import { generateCommonMockSerieMotos, generateCommonMockSerieEMAE, generatePercentageMockSerie, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
-import { ILegendConfiguration, getLegendLabel } from "../../../../components/viewpage/graphic/legendConfiguration";
+import { ILegendConfiguration, getLegendLabel } from "../../../../helpers/graphic/legendConfiguration";
 
 describe("Axis Configuration functions", () => {
 

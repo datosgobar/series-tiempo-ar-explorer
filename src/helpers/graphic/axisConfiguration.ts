@@ -1,7 +1,7 @@
-import { ISeriesAxisSides, IYAxisConf, getFullSerieId } from "./Graphic";
-import { ISerie } from "../../../api/Serie";
-import SerieConfig from "../../../api/SerieConfig";
-import { formatterForSerie } from "./formatterForSerie";
+import { ISeriesAxisSides, IYAxisConf, getFullSerieId } from "../../components/viewpage/graphic/Graphic";
+import { ISerie } from "../../api/Serie";
+import SerieConfig from "../../api/SerieConfig";
+import { formatterForSerie } from "../../components/viewpage/graphic/formatterForSerie";
 
 function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues: {}): boolean {
     return minAndMaxValues[originalSerieId].min > minAndMaxValues[serieId].max ||

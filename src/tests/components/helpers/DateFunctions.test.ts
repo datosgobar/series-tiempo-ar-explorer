@@ -1,4 +1,4 @@
-import {formattedDateString, fullLocaleDate, shortLocaleDate} from "../../../helpers/dateFunctions";
+import {formattedDateString, fullLocaleDate, shortLocaleDate} from "../../../helpers/common/dateFunctions";
 
 
 describe("QueryParams", () => {

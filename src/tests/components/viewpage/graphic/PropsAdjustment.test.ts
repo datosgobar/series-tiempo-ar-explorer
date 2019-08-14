@@ -1,5 +1,5 @@
 import { IPropsPerId } from "../../../../components/viewpage/graphic/Graphic";
-import { PropsAdjuster } from "../../../../components/viewpage/graphic/propsAdjuster";
+import { PropsAdjuster } from "../../../../helpers/graphic/propsAdjuster";
 
 describe("Adjustment of different props for multiple IDs", () => {
 
