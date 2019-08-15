@@ -11,7 +11,7 @@ import FullCardUnits from '../style/exportable_card/FullCardUnits';
 import FullCardValue from '../style/exportable_card/FullCardValue';
 import FullCardChart from './FullCardChart';
 import FullCardLinks from './FullCardLinks';
-import { getFullSerieId } from '../viewpage/graphic/Graphic';
+import { getFullSerieId } from "../../helpers/common/fullSerieID";
 
 
 interface IFullCardProps {

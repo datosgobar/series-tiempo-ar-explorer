@@ -1,7 +1,7 @@
 import { ISerie } from "../../../api/Serie";
 import { generateCommonMockSerieEMAE, generateCommonMockSerieMotos, generatePercentageMockSerie } from "../../support/mockers/seriesMockers";
 import { colorFor } from "../../../components/style/Colors/Color";
-import { getFullSerieId } from "../../../components/viewpage/graphic/Graphic";
+import { getFullSerieId } from "../../../helpers/common/fullSerieID";
 
 describe("Colors", () => {
 

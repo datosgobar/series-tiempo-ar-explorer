@@ -1,5 +1,6 @@
 import { ISerie } from "../../api/Serie";
-import { ILegendLabel, IYAxisConf, getFullSerieId } from "../../components/viewpage/graphic/Graphic";
+import { ILegendLabel, IYAxisConf } from "../../components/viewpage/graphic/Graphic";
+import { getFullSerieId } from "../common/fullSerieID";
 
 export interface ILegendConfiguration {
     axisConf: IYAxisConf;

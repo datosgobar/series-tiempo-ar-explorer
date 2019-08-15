@@ -1,6 +1,7 @@
-import { IChartTypeProps, getChartType } from "../../../../components/viewpage/graphic/Graphic";
+import { IChartTypeProps } from "../../../../components/viewpage/graphic/Graphic";
 import { ISerie } from "../../../../api/Serie";
 import { generateCommonMockSerieEMAE, generateCommonMockSerieMotos, generatePercentageMockSerie, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
+import { getChartType } from "../../../../helpers/common/fullSerieID";
 
 describe("Chart Type settings between different series", () => {
 
