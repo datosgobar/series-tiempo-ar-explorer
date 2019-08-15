@@ -8,7 +8,7 @@ import QueryParams from "../../api/QueryParams";
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
 import SerieConfig from '../../api/SerieConfig';
-import { getId, removeDuplicates } from "../../helpers/commonFunctions";
+import { getId, removeDuplicates } from "../../helpers/common/commonFunctions";
 import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import ClearFix from '../style/ClearFix';

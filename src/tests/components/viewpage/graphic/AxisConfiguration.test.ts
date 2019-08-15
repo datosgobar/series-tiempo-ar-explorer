@@ -1,9 +1,9 @@
 import { ISerie } from "../../../../api/Serie";
 import SerieConfig from "../../../../api/SerieConfig";
 import { IYAxisConf, ISeriesAxisSides, IYAxis } from "../../../../components/viewpage/graphic/Graphic";
-import { generateYAxisBySeries } from "../../../../components/viewpage/graphic/axisConfiguration";
+import { generateYAxisBySeries } from "../../../../helpers/graphic/axisConfiguration";
 import { generateCommonMockSerieMotos, generateCommonMockSerieEMAE, generatePercentageMockSerie, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
-import { ILegendConfiguration, getLegendLabel } from "../../../../components/viewpage/graphic/legendConfiguration";
+import { ILegendConfiguration, getLegendLabel } from "../../../../helpers/graphic/legendConfiguration";
 
 describe("Axis Configuration functions", () => {
 
@@ -22,10 +22,7 @@ describe("Axis Configuration functions", () => {
 
     function areInOppositeSides(yAxisConfOne: IYAxis, yAxisConfTwo: IYAxis) {
         expect(yAxisConfOne.opposite).toBe(false);
-        expect(yAxisConfOne.yAxis).toEqual(0);
-
         expect(yAxisConfTwo.opposite).toBe(true);
-        expect(yAxisConfTwo.yAxis).toEqual(1);
     }
 
     beforeAll(() => {
@@ -53,10 +50,6 @@ describe("Axis Configuration functions", () => {
         it("Unit label titles are properly written", () => {
             expect(yAxisBySeries.EMAE2004.title.text).toEqual("Índice 2004=100");
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.title.text).toEqual("Unidades");
-        });
-        it("Each unit values column goes to a different axis", () => {
-            expect(yAxisBySeries.EMAE2004.yAxis).toEqual(0);
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
         });
         it("Legend labels below the graphic are properly written", () => {
             legendProps = {
@@ -98,9 +91,7 @@ describe("Axis Configuration functions", () => {
         })
         it("Both series goes to the left side because same scale of percentage.", () => {
             expect(yAxisBySeries["EMAE2004:percent_change"].opposite).toBe(false);
-            expect(yAxisBySeries["EMAE2004:percent_change"].yAxis).toEqual(0);
             expect(yAxisBySeries["EMAE2004:percent_change_a_year_ago"].opposite).toBe(false);
-            expect(yAxisBySeries["EMAE2004:percent_change_a_year_ago"].yAxis).toEqual(0);
         });
         it("Legend labels are both on the left side", () => {
             legendProps = {
@@ -148,10 +139,6 @@ describe("Axis Configuration functions", () => {
             expect(yAxisBySeries.EMAE2004.opposite).toBe(false);
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(false);
         });
-        it("Every unit value to the right axis", () => {
-            expect(yAxisBySeries.EMAE2004.yAxis).toEqual(0);
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(0);
-        });
         it("As there are no series on the auxiliar axes, no text is appended to legend labels", () => {
             legendProps = {
                 axisConf: yAxisBySeries,
@@ -177,10 +164,6 @@ describe("Axis Configuration functions", () => {
         it("Every unit label goes to the right axis", () => {
             expect(yAxisBySeries.EMAE2004.opposite).toBe(true);
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(true);
-        });
-        it("Every unit value to the right axis", () => {
-            expect(yAxisBySeries.EMAE2004.yAxis).toEqual(1);
-            expect(yAxisBySeries.Motos_patentamiento_8myrF9.yAxis).toEqual(1);
         });
         it("Legend labels below the graphic are properly written", () => {
             legendProps = {

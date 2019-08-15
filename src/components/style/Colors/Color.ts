@@ -1,5 +1,5 @@
 import { ISerie } from "../../../api/Serie";
-import { getFullSerieId } from "../../viewpage/graphic/Graphic";
+import { getFullSerieId } from "../../../helpers/common/fullSerieID";
 
 export class Color {
     constructor(public name: string, public code: string){}

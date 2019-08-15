@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { ISerie } from '../../api/Serie';
 import Tag from '../style/Tag/Tag';
 import { colorFor } from '../style/Colors/Color';
-import { getFullSerieId } from './graphic/Graphic';
+import { getFullSerieId } from "../../helpers/common/fullSerieID";
 
 
 export interface ISerieTag {

@@ -3,7 +3,7 @@ import { RefObject } from 'react';
 import { connect } from "react-redux";
 import { IDataPoint } from "../../api/DataPoint";
 import { ISerie } from '../../api/Serie';
-import { shortLocaleDate } from "../../helpers/dateFunctions";
+import { shortLocaleDate } from "../../helpers/common/dateFunctions";
 import { IStore } from "../../store/initialState";
 import { buildLocale } from "../common/locale/buildLocale";
 import { ILapsProps } from "../mainpage/featured/Featured";

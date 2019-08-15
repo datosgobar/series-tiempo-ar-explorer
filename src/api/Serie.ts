@@ -1,4 +1,4 @@
-import {valueExist} from "../helpers/commonFunctions";
+import {valueExist} from "../helpers/common/commonFunctions";
 import DataPoint, { IDataPoint } from './DataPoint';
 import {IDataSetTheme, IExtraMeta, IPublisher, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
 import {PeriodicityManager} from "./utils/periodicityManager";

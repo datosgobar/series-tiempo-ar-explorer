@@ -1,4 +1,4 @@
-import { CardValueFormatter } from "../../../helpers/cardValueFormatter";
+import { CardValueFormatter } from "../../../helpers/card/cardValueFormatter";
 
 describe("CardValueFormatter", () => {
 

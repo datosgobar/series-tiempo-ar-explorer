@@ -1,7 +1,7 @@
 import {IDataPoint} from "./DataPoint";
 import {ISerie} from "./Serie";
 import {i18nFrequency} from "./utils/periodicityManager";
-import { getFullSerieId } from "../components/viewpage/graphic/Graphic";
+import { getFullSerieId } from "../helpers/common/fullSerieID";
 
 export default class SerieConfig {
 

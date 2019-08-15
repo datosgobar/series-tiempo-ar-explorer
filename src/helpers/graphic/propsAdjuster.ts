@@ -1,4 +1,4 @@
-import { IPropsPerId, IChartTypeProps, ILegendLabel, ISeriesAxisSides } from "./Graphic";
+import { IPropsPerId, IChartTypeProps, ILegendLabel, ISeriesAxisSides } from "../../components/viewpage/graphic/Graphic";
 
 export class PropsAdjuster {
 

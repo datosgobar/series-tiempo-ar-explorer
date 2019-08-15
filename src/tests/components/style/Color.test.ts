@@ -1,7 +1,7 @@
 import { ISerie } from "../../../api/Serie";
+import Colors, { Color, colorFor, getColorArray, isHexaColor } from "../../../components/style/Colors/Color";
+import { getFullSerieId } from "../../../helpers/common/fullSerieID";
 import { generateCommonMockSerieEMAE, generateCommonMockSerieMotos, generatePercentageMockSerie } from "../../support/mockers/seriesMockers";
-import Colors, { colorFor, Color, getColorArray, isHexaColor } from "../../../components/style/Colors/Color";
-import { getFullSerieId } from "../../../components/viewpage/graphic/Graphic";
 
 describe("Colors", () => {
 
@@ -62,7 +62,7 @@ describe("Colors", () => {
         const colorsString = ["#aaeeff", "#f2fe05", "#06f140"]
         const colors = getColorArray(colorsString)
         expect(colors).toBeDefined()
-        if (colors !== undefined) {            
+        if (colors !== undefined) {
             expect(colors.map(color => color.code)).toEqual(colorsString)
             expect(colors.map(color => color.name)).toEqual(colorsString)
         }
@@ -80,7 +80,7 @@ describe("Colors", () => {
         expect(colors).toBeDefined()
         if (colors !== undefined) {
             const expectedColors = [
-                new Color("orange", "#F9A822"), 
+                new Color("orange", "#F9A822"),
                 new Color("violet", "#6A1B99"),
                 new Color("blue1", "#0072BB")
             ]
@@ -94,8 +94,8 @@ describe("Colors", () => {
         expect(colors).toBeDefined()
         if (colors !== undefined) {
             const expectedColors = [
-                new Color("orange", "#F9A822"), 
-                new Color("#f2fe05", "#f2fe05"), 
+                new Color("orange", "#F9A822"),
+                new Color("#f2fe05", "#f2fe05"),
                 new Color("blue1", "#0072BB")
             ]
             expect(colors).toEqual(expectedColors)
@@ -108,7 +108,7 @@ describe("Colors", () => {
         expect(colors).toBeDefined()
         if (colors !== undefined) {
             const expectedColors = [
-                new Color("blue2", "#039BE5"), 
+                new Color("blue2", "#039BE5"),
                 new Color("red", "#C62828"),
                 new Color("purple", "#C2185B")
             ]
