@@ -75,30 +75,42 @@ describe("Colors", () => {
     });
 
     it("Create array of colors from index array", () => {
-        const colorsString = ["3", "4", "9", "11"]
+        const colorsString = ["3", "4", "9"]
         const colors = getColorArray(colorsString)
         expect(colors).toBeDefined()
         if (colors !== undefined) {
             const expectedColors = [
                 new Color("orange", "#F9A822"), 
                 new Color("violet", "#6A1B99"),
-                new Color("blue1", "#0072BB"), 
-                new Color("red", "#C62828")
+                new Color("blue1", "#0072BB")
             ]
             expect(colors).toEqual(expectedColors)
         }
     });
 
     it("Create array of colors from an array of hexas and indexes", () => {
-        const colorsString = ["3", "#f2fe05", "9", "11"]
+        const colorsString = ["3", "#f2fe05", "9"]
         const colors = getColorArray(colorsString)
         expect(colors).toBeDefined()
         if (colors !== undefined) {
             const expectedColors = [
                 new Color("orange", "#F9A822"), 
                 new Color("#f2fe05", "#f2fe05"), 
-                new Color("blue1", "#0072BB"), 
-                new Color("red", "#C62828")
+                new Color("blue1", "#0072BB")
+            ]
+            expect(colors).toEqual(expectedColors)
+        }
+    });
+
+    it("Create array of colors from an array of indexes out of range", () => {
+        const colorsString = ["1015", "11", "42"]
+        const colors = getColorArray(colorsString)
+        expect(colors).toBeDefined()
+        if (colors !== undefined) {
+            const expectedColors = [
+                new Color("blue2", "#039BE5"), 
+                new Color("red", "#C62828"),
+                new Color("purple", "#C2185B")
             ]
             expect(colors).toEqual(expectedColors)
         }
