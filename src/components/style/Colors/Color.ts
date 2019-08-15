@@ -31,9 +31,9 @@ export function colorFor(series: ISerie[], fullSerieId: string, colors?: Color[]
     return finalColors[index];
 }
 
-export function getColorArray(colors?: string[]) {
+export function getColorArray(colors?: string[]): Color[] {
     if (colors === undefined) {
-        return colors
+        return (Object as any).values(Colors)
     }
     return colors.map(colorString => new Color(colorString, colorString))
 }

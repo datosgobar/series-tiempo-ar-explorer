@@ -68,9 +68,9 @@ describe("Colors", () => {
         }
     });
 
-    it("Create array of colors from a undefined string array", () => {
+    it("Create array of colors from a undefined string array returns the default colors", () => {
         const colorsString = undefined
         const colors = getColorArray(colorsString)
-        expect(colors).toBeUndefined()
+        expect(colors).toEqual((Object as any).values(Colors))
     });
 });
