@@ -24,9 +24,16 @@ export function getColorBySerieId(series: ISerie[], serieId: string): string {
     return colorFor(series, serieId).code;
 }
 
-export function colorFor(series: ISerie[], fullSerieId: string): Color {
-    const colors = (Object as any).values(Colors);
-    const index = series.findIndex(viewSerie => getFullSerieId(viewSerie) === fullSerieId) % colors.length;
+export function colorFor(series: ISerie[], fullSerieId: string, colors?: Color[]): Color {
+    const finalColors = colors === undefined ? (Object as any).values(Colors) : colors;
+    const index = series.findIndex(viewSerie => getFullSerieId(viewSerie) === fullSerieId) % finalColors.length;
 
-    return colors[index];
+    return finalColors[index];
+}
+
+export function getColorArray(colors?: string[]): Color[] {
+    if (colors === undefined) {
+        return (Object as any).values(Colors)
+    }
+    return colors.map(colorString => new Color(colorString, colorString))
 }
