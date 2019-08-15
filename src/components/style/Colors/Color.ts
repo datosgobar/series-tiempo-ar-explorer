@@ -18,15 +18,36 @@ const Colors = {
     a9Green2: new Color("green2", "#6EA100"),
 };
 
+const hexaColorRegex = /^#[0-9a-f]{6}$/i
+
 export default Colors;
 
 export function getColorBySerieId(series: ISerie[], serieId: string): string {
     return colorFor(series, serieId).code;
 }
 
-export function colorFor(series: ISerie[], fullSerieId: string): Color {
-    const colors = (Object as any).values(Colors);
-    const index = series.findIndex(viewSerie => getFullSerieId(viewSerie) === fullSerieId) % colors.length;
+export function colorFor(series: ISerie[], fullSerieId: string, colors?: Color[]): Color {
+    const finalColors = colors === undefined ? (Object as any).values(Colors) : colors;
+    const index = series.findIndex(viewSerie => getFullSerieId(viewSerie) === fullSerieId) % finalColors.length;
 
-    return colors[index];
+    return finalColors[index];
+}
+
+export function getColorArray(colors?: string[]): Color[] {
+    const defaultColors = (Object as any).values(Colors)
+    if (colors === undefined) {
+        return defaultColors
+    }
+    return colors.map((color): Color => {
+        if (isHexaColor(color)) {
+            return new Color(color, color)
+        } else {
+            const index = +color % defaultColors.length
+            return defaultColors[index]
+        }
+    });
+}
+
+export function isHexaColor(color: string): boolean {
+    return hexaColorRegex.test(color)
 }

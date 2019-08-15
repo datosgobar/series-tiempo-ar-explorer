@@ -7,6 +7,7 @@ import { formattedDateString, timestamp } from '../../../helpers/common/dateFunc
 import { generateYAxisBySeries } from '../../../helpers/graphic/axisConfiguration';
 import { ChartConfigBuilder } from '../../../helpers/graphic/chartConfigBuilder';
 import { setHighchartsGlobalConfig } from '../../../helpers/graphic/hcConfiguration';
+import { Color } from '../../style/Colors/Color';
 import { ISerieTag } from "../SeriesTags";
 import { ReactHighStock } from './highcharts';
 
@@ -28,6 +29,7 @@ export interface IGraphicProps {
     afterRender?: (chart: any) => void;
     legendLabel?: ILegendLabel;
     seriesAxis?: ISeriesAxisSides;
+    colors?: Color[];
 }
 
 export interface IPropsPerId {
@@ -78,7 +80,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
         const formatUnits = this.props.formatUnits || false;
         this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, 
             formatUnits, this.props.locale, this.props.seriesAxis);
-        
+
         const smallTooltip: boolean = this.hasSmallTooltip();
         const configBuilder: ChartConfigBuilder = new ChartConfigBuilder(this.props, smallTooltip);
         const config = configBuilder.getConfig();

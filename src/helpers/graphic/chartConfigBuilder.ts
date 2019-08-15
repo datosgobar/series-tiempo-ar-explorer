@@ -206,7 +206,7 @@ export class ChartConfigBuilder {
         return {
             ...DEFAULT_HC_SERIES_CONFIG,
             ...hcConfig,
-            color: colorFor(this.props.series, getFullSerieId(serie)).code,
+            color: colorFor(this.props.series, getFullSerieId(serie), this.props.colors).code,
             data,
             name: getLegendLabel(serie, legendProps),
             navigatorOptions: { type: chartType },
