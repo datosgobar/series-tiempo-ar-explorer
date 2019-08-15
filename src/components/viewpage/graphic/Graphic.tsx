@@ -79,7 +79,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
         this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, 
             formatUnits, this.props.locale, this.props.seriesAxis);
         
-        const smallTooltip: boolean = this.myRef.current.chart.chartElement.chartWidth < 560;
+        const smallTooltip: boolean = this.hasSmallTooltip();
         const configBuilder: ChartConfigBuilder = new ChartConfigBuilder(this.props, smallTooltip);
         const config = configBuilder.getConfig();
         config.rangeSelector.inputDateParser = this.inputDateParser();
@@ -107,14 +107,14 @@ export default class Graphic extends React.Component<IGraphicProps> {
         });
     }
 
+    private hasSmallTooltip() {
 
+        const refCurrent = this.myRef.current;
 
-    public getYAxisBySeries() {
-        return this.yAxisBySeries;
-    }
-
-    public getRef() {
-        return this.myRef;
+        if (refCurrent == null || refCurrent.chart.chartElement === undefined) {
+            return false;
+        }
+        return refCurrent.chart.chartElement.chartWidth < 560
     }
 
     private inputDateParser() {
