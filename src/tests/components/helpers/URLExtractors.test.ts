@@ -1,4 +1,4 @@
-import { extractIdsFromUrl, extractUriFromUrl } from "../../../helpers/URLExtractors";
+import { extractIdsFromUrl, extractUriFromUrl } from "../../../helpers/common/URLExtractors";
 
 describe("Extraction and adjustment of IDs from the URL", () => {
 

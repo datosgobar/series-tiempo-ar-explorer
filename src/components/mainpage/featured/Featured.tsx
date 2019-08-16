@@ -2,7 +2,7 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import QueryParams from "../../../api/QueryParams";
 import {ISerieApi} from "../../../api/SerieApi";
-import {valuesFromObject} from "../../../helpers/commonFunctions";
+import {valuesFromObject} from "../../../helpers/common/commonFunctions";
 import {IStore} from "../../../store/initialState";
 import FeaturedContainer from '../../style/Featured/FeaturedContainer';
 import FeaturedTitle from '../../style/Featured/FeaturedTitle';

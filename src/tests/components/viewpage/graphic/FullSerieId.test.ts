@@ -1,6 +1,6 @@
 import { generateCommonMockSerieEMAE, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
 import { ISerie } from "../../../../api/Serie";
-import { getFullSerieId } from "../../../../components/viewpage/graphic/Graphic";
+import { getFullSerieId } from "../../../../helpers/common/fullSerieID";
 import SerieConfig from "../../../../api/SerieConfig";
 
 describe("Obtainment of full IDs", () => {

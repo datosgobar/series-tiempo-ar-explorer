@@ -2,7 +2,7 @@ import * as React from 'react';
 import QueryParams from '../../api/QueryParams';
 import { ISerie } from '../../api/Serie';
 import SerieApi from '../../api/SerieApi';
-import { valuesFromObject } from '../../helpers/commonFunctions';
+import { valuesFromObject } from '../../helpers/common/commonFunctions';
 import { ICardExportableConfig } from '../../indexCard';
 import FullCard from '../exportable_card/FullCard';
 

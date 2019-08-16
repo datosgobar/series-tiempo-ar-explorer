@@ -10,7 +10,7 @@ import QueryParams from '../../../api/QueryParams';
 import { ISerie } from "../../../api/Serie";
 import { ISerieApi } from "../../../api/SerieApi";
 import SerieConfig from "../../../api/SerieConfig";
-import { formattedMoment, localTimestamp } from "../../../helpers/dateFunctions";
+import { formattedMoment, localTimestamp } from "../../../helpers/common/dateFunctions";
 import { IStore } from "../../../store/initialState";
 import GraphContainer from "../../style/Graphic/GraphContainer";
 import { getQueryParams } from '../ViewPage';

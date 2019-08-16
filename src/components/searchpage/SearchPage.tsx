@@ -5,7 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { setSearchParams } from '../../actions/searchActions';
 import SearchResult from '../../api/SearchResult';
 import { ISerieApi } from '../../api/SerieApi';
-import URLSearchParams from '../../helpers/URLSearchParams';
+import URLSearchParams from '../../helpers/common/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import Searcher, { ISearchParams, ISearchParamsItem } from '../common/searcher/Searcher';

@@ -1,4 +1,4 @@
-import {maxNotNull, minNotNull, removeDuplicates, valueExist, valuesFromObject} from "../../../helpers/commonFunctions";
+import {maxNotNull, minNotNull, removeDuplicates, valueExist, valuesFromObject} from "../../../helpers/common/commonFunctions";
 
 
 describe("QueryParams", () => {

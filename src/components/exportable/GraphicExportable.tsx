@@ -6,9 +6,9 @@ import SerieApi from "../../api/SerieApi";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
 import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides } from "../viewpage/graphic/Graphic";
 import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
-import { PropsAdjuster } from "../viewpage/graphic/propsAdjuster";
+import { PropsAdjuster } from "../../helpers/graphic/propsAdjuster";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
-import { extractUriFromUrl, extractIdsFromUrl } from "../../helpers/URLExtractors";
+import { extractUriFromUrl, extractIdsFromUrl } from "../../helpers/common/URLExtractors";
 import { getColorArray } from "../style/Colors/Color";
 
 export interface IGraphicExportableProps {
@@ -91,7 +91,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          chartTypes={this.props.chartTypes}
                          afterRender={this.afterRender}
                          legendLabel={this.props.legendLabel}
-                         seriesAxis={this.props.seriesAxis} 
+                         seriesAxis={this.props.seriesAxis}
                          colors={getColorArray(this.props.colors)} />
             </ExportableGraphicContainer>
         )
