@@ -21,5 +21,11 @@ export function extractIdsFromUrl(url: string): string[] {
 }
 
 export function extractUriFromUrl(url: string): string {
-    return url.split('series/?')[0];
+    const lastIndex = url.lastIndexOf('series')
+    if (lastIndex !== -1) {
+        return url.substring(0, lastIndex);
+    } else {
+        alert(url + " es una url inválida.")
+        return url
+    }
 }
