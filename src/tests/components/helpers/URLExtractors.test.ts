@@ -15,12 +15,6 @@ describe("Extraction and adjustment of IDs from the URL", () => {
         expect(ids[0]).toEqual("defensa_FAA_0006");
         expect(ids[1]).toEqual("99.3_IR_2008_0_9");
     });
-    it("A URL without slash after 'series' works", () => {
-        url = "https://apis.datos.gob.ar/series/api/series?ids=defensa_FAA_0006,99.3_IR_2008_0_9";
-        ids = extractIdsFromUrl(url);
-        expect(ids[0]).toEqual("defensa_FAA_0006");
-        expect(ids[1]).toEqual("99.3_IR_2008_0_9");
-    });
     it("Composite IDs are copied as such to the returned array", () => {
         url = "https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=143.3_NO_PR_2004_A_21:percent_change_a_year_ago,116.4_TCRZE_2015_D_36_4&limit=1000";
         ids = extractIdsFromUrl(url);
@@ -51,6 +45,21 @@ describe("Extraction of URI from the URL", () => {
         url = "https://apis.datos.gob.ar/series/api/series/?ids=defensa_FAA_0006,99.3_IR_2008_0_9";
         uri = extractUriFromUrl(url);
         expect(uri).toEqual("https://apis.datos.gob.ar/series/api/");
+    });
+    it("A valid endpoint URL without slash after 'series' works", () => {
+        url = "https://apis.datos.gob.ar/series/api/series?ids=defensa_FAA_0006,99.3_IR_2008_0_9";
+        uri = extractUriFromUrl(url);
+        expect(uri).toEqual("https://apis.datos.gob.ar/series/api/");
+    });
+    it("A invalid endpoint URL with 'series' returns the uri", () => {
+        url = "https://184.47.576/series/?ids=defensa_FAA_0006,99.3_IR_2008_0_9";
+        uri = extractUriFromUrl(url);
+        expect(uri).toEqual("https://184.47.576/");
+    });
+    it("A invalid endpoint URL without 'series' returns the same url", () => {
+        url = "https://apis.datos.gob.ar/notserie/api/weirdserie?ids=defensa_FAA_0006,99.3_IR_2008_0_9";
+        uri = extractUriFromUrl(url);
+        expect(uri).toEqual("https://apis.datos.gob.ar/notserie/api/weirdserie?ids=defensa_FAA_0006,99.3_IR_2008_0_9");
     });
 
 })
