@@ -37,6 +37,9 @@ export default class CardExportable extends React.Component<ICardExportableProps
 
     public componentDidMount() {
         const params = new QueryParams([this.props.serieId]);
+        if(this.props.collapse !== undefined) {
+            params.setCollapse(this.props.collapse);
+        }
         params.setLast(higherLaps());
         this.fetchSeries(params);
     }
@@ -51,6 +54,7 @@ export default class CardExportable extends React.Component<ICardExportableProps
         return {
             cardOptions: {
                 chartType: this.props.chartType,
+                collapse: this.props.collapse,
                 color: this.props.color,
                 explicitSign: this.props.explicitSign,
                 hasChart: this.props.hasChart,
@@ -81,8 +85,12 @@ export default class CardExportable extends React.Component<ICardExportableProps
     private getDownloadUrl(): string {
         const params = new QueryParams([this.props.serieId]);
         params.setLast(5000);
+        if(this.props.collapse !== undefined) {
+            params.setCollapse(this.props.collapse);
+        }
         return this.props.seriesApi.downloadDataURL(params)
     }
+
 }
 
 

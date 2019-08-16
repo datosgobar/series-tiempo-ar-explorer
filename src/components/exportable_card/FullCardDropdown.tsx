@@ -7,7 +7,7 @@ import { cardWebCode } from '../common/webCodeBuilders';
 
 export default (props: {options: ICardLinksOptions}) =>
     <FullCardDropdownContainer text="Enlaces">
-        <LinkShareItem url={viewDatosGobAr(props.options.serieId)} text="Enlace web" />
+        <LinkShareItem url={viewDatosGobAr(props.options.serieId, props.options.collapse)} text="Enlace web" />
         <LinkShareItem url={formatUrl(props.options.downloadUrl, "csv")} text="Enlace CSV" />
         <LinkShareItem url={formatUrl(props.options.downloadUrl, "json")} text="Enlace JSON" />
         <LinkShareItem url={cardWebCode(props.options)} text="Código web" />
@@ -24,4 +24,5 @@ export interface IWebSnippetOptions {
     units?: string;
     hasFrame?: boolean;
     hasColorBar?: boolean;
+    collapse?: string;
 }

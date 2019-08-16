@@ -24,10 +24,24 @@ describe('Link building functions for Dropdown components', () => {
 
     })
 
-    it('Obtainment of URL to view the serie at datos.gob.ar', () => {
-        const serieID: string = '148.3_INIVELNAL_DICI_M_26:percent_change';
-        const viewURL = viewDatosGobAr(serieID);
-        expect(viewURL).toEqual('https://datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26:percent_change');
+    describe('Obtainment of URL to view the serie at datos.gob.ar', () => {
+
+        let serieID: string;
+
+        beforeAll(() => {
+            serieID = '148.3_INIVELNAL_DICI_M_26:percent_change';
+        })
+
+        it('Basic serie, without collapse query param', () => {
+            const viewURL = viewDatosGobAr(serieID);
+            expect(viewURL).toEqual('https://datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26:percent_change');
+        });
+        it('Serie without collapse parameter', () => {
+            const collapse = 'year';
+            const viewURL = viewDatosGobAr(serieID, collapse);
+            expect(viewURL).toEqual('https://datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26:percent_change&collapse=year');
+        });
+
     })
 
 })

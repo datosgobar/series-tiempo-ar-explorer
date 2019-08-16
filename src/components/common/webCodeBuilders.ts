@@ -44,6 +44,11 @@ export function cardWebCode(options: IWebSnippetOptions): string {
         htmlScript += `,
             hasColorBar: ${options.hasColorBar}`;
     }
+    if(options.collapse !== undefined)
+    {
+        htmlScript += `,
+            collapse: '${options.collapse}'`;
+    }
 
     htmlScript += `
         })

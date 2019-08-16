@@ -135,6 +135,23 @@ describe('Generation of copyable web code for components', () => {
             generatedCode = cardWebCode(options);
             expect(generatedCode).toContain(expectedScript);
         });
+        it('Collapse specified as well', () => {
+            options.collapse = 'month';
+            expectedScript = `<script>
+    window.onload = function() {
+        TSComponents.Card.render('root', {
+            serieId: "42.3_EPH_PUNTUATAL_0_M_30",
+            color: "F9A822",
+            links: "small",
+            hasChart: "small",
+            collapse: 'month'
+        })
+    }
+</script>
+`;
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
+        });
 
     })
 
