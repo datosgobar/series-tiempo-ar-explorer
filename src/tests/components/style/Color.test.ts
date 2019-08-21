@@ -109,8 +109,8 @@ describe("Colors", () => {
         if (colors !== undefined) {
             const expectedColors = [
                 new Color("blue2", "#039BE5"),
-                new Color("red", "#C62828"),
-                new Color("purple", "#C2185B")
+                new Color("red1", "#C62828"),
+                new Color("red2", "#C2185B")
             ]
             expect(colors).toEqual(expectedColors)
         }
