@@ -9,11 +9,11 @@ export class Color {
 const Colors = {
     a1Blue1: new Color("blue1", "#0072BB"),
     a2Green1: new Color("green1","#2E7D33"),
-    a3Red: new Color("red", "#C62828"),
+    a3Red1: new Color("red1", "#C62828"),
     a4Orange: new Color("orange", "#F9A822"),
     a5Violet: new Color("violet", "#6A1B99"),
     a6Pink: new Color("pink", "#EC407A"),
-    a7Purple: new Color("purple", "#C2185B"),
+    a7Red2: new Color("red2", "#C2185B"),
     a8Blue2: new Color("blue2", "#039BE5"),
     a9Green2: new Color("green2", "#6EA100"),
 };

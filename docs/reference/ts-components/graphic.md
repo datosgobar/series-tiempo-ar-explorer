@@ -110,9 +110,9 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>colors</td>
         <td>No</td>
-        <td>Colores en formato hexadecimal. Ej: "#000000"</td>
+        <td>Paleta de colores alternativa a la default. Los códigos de colores pueden ser tanto hexadecimales (ej. "#00CC44") como numeros que son mapeados a la paleta por defecto (tomando el resto de dividirlos por 10; es decir, elegir 1 equivale a 10, 20, etc.) Ver paleta por defecto más abajo.</td>
         <td>list</td>
-        <td>["#2E7D33", "#C62828", "#F9A822", "#6A1B99", "#EC407A", "#C2185B", "#6A1B99", "#039BE5", "#6EA100", "#0072BB"]</td>
+        <td>["#0072BB", "#2E7D33", "#C62828", "#F9A822", "#6A1B99", "#EC407A", "#C2185B", "#039BE5", "#6EA100"]</td>
         <td>["#2E7D33", "#C62828", "#F9A822"]</td>
     </tr>
     <tr>
@@ -197,6 +197,20 @@ Este gráfico se genera a partir del siguiente código:
         <td>'line', 'area' o 'column'</td>
     </tr>
 </table>
+
+## Asignación dinámica de atributos
+
+Por defecto, la paleta de colores en los que se grafican las series del componente. Cada uno puede ser identificado con un hexadecimal o un entero decimal:
+
+* **#0072BB** o **0**, para azul
+* **#2E7D33** o **1**, para verde oscuro
+* **#C62828** o **2**, para rojo
+* **#F9A822** o **3**, para naranja
+* **#6A1B99** o **4**, para violeta
+* **#EC407A** o **5**, para rosa
+* **#C2185B** o **6**, para fucsia
+* **#039BE5** o **7**, para celeste
+* **#6EA100** o **8**, para verde claro
 
 ## Asignación dinámica de atributos
 

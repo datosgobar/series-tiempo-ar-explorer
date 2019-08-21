@@ -17,7 +17,7 @@ Para lanzar una nueva release de los TS Components, se deben realizar los siguie
 	- Es posible, previo a esto, ver cómo quedaría la documentación en http://127.0.0.1:8000/docs/, si se ejecuta desde el directorio raíz del repositorio el comando `make servedocs`
 5. **Hacer el release desde GitHub**:
 	1. Agregar todos los cambios, ejecutando `git add .` desde el directorio raíz
-	2. Confirmar los mismos, ejecutando `git commit -m "Pre-release para versión <miVersion> de TSComponents`
+	2. Confirmar los mismos, ejecutando `git commit -m "Pre-release para versión <miVersion> de TSComponents"`
 	3. Subirlos al repositorio global, ejecutando `git push`
 	4. Desde la web de GitHub, crear una nueva release y asociarla a `master` para que tome los últimos cambios (los recién pusheados). En lo posible, detallar los cambios agregados al realizar la release, y seguir los patrones "Versión _n_ de TSComponents" para el nombre descriptivo de la misma y `ts_components_n` para su identificador.
 6. **Realizar el deploy al ambiente de desarrollo**, para que la documentación ya refleje los cambios realizados:
