@@ -119,7 +119,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             title: {
                 margin: 10,
                 style: {
-                    height: 40,
+                    height: 41.5,
                     overflow: 'hidden',
                     whiteSpace: 'normal'
                 },
@@ -202,10 +202,10 @@ function titleOptions(componentProps: IGraphicExportableProps) {
     options.text = componentProps.title;
     options.style = {
         color: "#333333",
-        fontSize: "20.8px",
+        fontSize: "20.5px",
         fontWeight: "500",
         fontFamily: ["Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-        lineHeight: "0.92"
+        lineHeight: "20.5px"
     };
 
     if (!componentProps.zoom && !componentProps.datePickerEnabled) { // remove margin between title and chart
