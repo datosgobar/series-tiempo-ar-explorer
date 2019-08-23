@@ -119,7 +119,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             title: {
                 margin: 10,
                 style: {
-                    height: 41.5,
+                    height: "41.5px",
                     overflow: 'hidden',
                     whiteSpace: 'normal'
                 },
