@@ -1,9 +1,7 @@
 import { ISerie } from "../../../../api/Serie";
 import SerieConfig from "../../../../api/SerieConfig";
-import { ISeriesAxisSides, IYAxis } from "../../../../components/viewpage/graphic/Graphic";
 import { generateYAxisBySeries, generateYAxisArray } from "../../../../helpers/graphic/axisConfiguration";
 import { generateCommonMockSerieMotos, generateCommonMockSerieEMAE } from "../../../support/mockers/seriesMockers";
-import { ILegendConfiguration, getLegendLabel } from "../../../../helpers/graphic/legendConfiguration";
 import { IHcSeriesFromISerie, HcSerieFromISerie } from "../../../../helpers/graphic/hcSerieFromISerie";
 import { IHCSeries } from "../../../../components/viewpage/graphic/highcharts";
 import Colors from "../../../../components/style/Colors/Color";
