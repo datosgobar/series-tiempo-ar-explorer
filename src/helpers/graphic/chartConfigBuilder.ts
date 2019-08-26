@@ -2,12 +2,13 @@ import { IDataPoint } from "../../api/DataPoint";
 import { ISerie } from "../../api/Serie";
 import { i18nFrequency } from "../../api/utils/periodicityManager";
 import { buildLocale } from "../../components/common/locale/buildLocale";
-import { IGraphicProps, IYAxisConf } from "../../components/viewpage/graphic/Graphic";
+import { IGraphicProps, IYAxisConf, IYAxis } from "../../components/viewpage/graphic/Graphic";
 import { findSerieConfig } from "../common/fullSerieID";
 import { generateYAxisArray, generateYAxisBySeries } from "./axisConfiguration";
 import { dateFormatByPeriodicity } from "./dateFormatting";
 import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
-import { HcSerieFromISerie } from "./hcSerieFromISerie";
+import { HcSerieFromISerie, IHcSeriesFromISerie } from "./hcSerieFromISerie";
+import { IHCSeries } from "../../components/viewpage/graphic/highcharts";
 
 export class ChartConfigBuilder {
 
@@ -29,7 +30,7 @@ export class ChartConfigBuilder {
     public getConfig() {
 
         const yAxisArray = generateYAxisArray(this.yAxisBySeries);
-        const seriesValues = new HcSerieFromISerie(this.props, this.yAxisBySeries).seriesValues(yAxisArray);
+        const seriesValues = this.seriesValues(yAxisArray);
         
         return {
 
@@ -170,6 +171,19 @@ export class ChartConfigBuilder {
             [0]
             || []
         );
+    }
+
+    private seriesValues(yAxisArray: IYAxis[]): IHCSeries[] {
+        const series = this.props.series;
+        const iHcSeriesFromISerie: IHcSeriesFromISerie = {
+            chartTypes: this.props.chartTypes,
+            colors: this.props.colors,
+            legendLabel: this.props.legendLabel,
+            legendField: this.props.legendField,
+            series: this.props.series,
+            yAxisBySeries: this.yAxisBySeries,
+        }
+        return series.map((serie) => new HcSerieFromISerie(iHcSeriesFromISerie).hcSerieFromISerie(serie, yAxisArray, {}));
     }
 
 }
