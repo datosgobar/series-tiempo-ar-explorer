@@ -5,10 +5,6 @@ describe("Extraction and adjustment of IDs from the URL", () => {
     let url: string;
     let ids: string[];
 
-    it("Extracting from an invalid URL throws an exception", () => {
-        url = "https://apis.datos.gob.ar/series/api/series/?invalidParam=mySerie,anotherSerie";
-        expect(() => {extractIdsFromUrl(url)}).toThrow(TypeError);
-    });
     it("A URL with only pure IDs returns an array of them as such", () => {
         url = "https://apis.datos.gob.ar/series/api/series/?ids=defensa_FAA_0006,99.3_IR_2008_0_9";
         ids = extractIdsFromUrl(url);
