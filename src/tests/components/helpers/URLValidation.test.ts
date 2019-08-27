@@ -4,6 +4,16 @@ describe("URL Validation for the Graphic exportable component", () => {
 
     let url: string;
 
+    it("A wrong URI root makes it an invalid URL", () => {
+        url = "https://datos.gob.ar/api/series?ids=143.3_NO_PR_2004_A_21:percent_change_a_year_ago";
+        expect(isValidURL(url)).toBe(false);
+    });
+    it("Missing the param starter question mark makes it an invalid URL", () => {
+        url = "https://apis.datos.gob.ar/series/api/series/ids=143.3_NO_PR_2004_A_21&limit=1000&collapse=month";
+        expect(isValidURL(url)).toBe(false);
+    });
+
+
     it("Correct URI root, with the optional slash before query params, is valid", () => {
         url = "https://apis.datos.gob.ar/series/api/series/?ids=143.3_NO_PR_2004_A_21:percent_change_a_year_ago";
         expect(isValidURL(url)).toBe(true);
