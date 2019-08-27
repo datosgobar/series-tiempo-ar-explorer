@@ -50,7 +50,7 @@ describe("High chart Series from ISerie functions", () => {
             expect(iHcSeries[1].serieId).toEqual("Motos_patentamiento_8myrF9");
             expect(iHcSeries[1].name).toEqual("Motos: número de patentamientos de motocicletas (der)");
         });
-        it("Cada serie tiene su chartype correspondiente", () => {
+        it("Cada serie tiene su chartType correspondiente", () => {
             expect(iHcSeries[0].type).toEqual(undefined);
             expect(iHcSeries[1].type).toEqual("column");
         });
