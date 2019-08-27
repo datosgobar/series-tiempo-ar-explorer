@@ -1,4 +1,4 @@
-const graphicURLRegex: RegExp = /https:\/\/apis\.datos\.gob\.ar\/series\/api\/series(\/?)\?(.+=.+&)*ids=([^&]+)(&.+=.+)*/i
+const graphicURLRegex: RegExp = /https:\/\/apis\.datos\.gob\.ar\/series\/api\/series(\/?)\?(.+=.+&)*ids=([^&=]+)(&.+=.+)*/i
 
 export function isValidURL(url: string): boolean {
 
