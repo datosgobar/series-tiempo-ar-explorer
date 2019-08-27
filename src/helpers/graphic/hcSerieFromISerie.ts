@@ -1,21 +1,27 @@
 import { getChartType, getFullSerieId } from "../common/fullSerieID";
-import { ILegendConfiguration, getLegendLabel } from "./legendConfiguration";
 import { timestamp } from "../common/dateFunctions";
 import { ISerie } from "../../api/Serie";
-import { IYAxis, IYAxisConf, IPropsPerId } from "../../components/viewpage/graphic/Graphic";
+import { IYAxis, IYAxisConf, ILegendLabel, IChartTypeProps } from "../../components/viewpage/graphic/Graphic";
 import { IHCSeries } from "../../components/viewpage/graphic/highcharts";
 import { DEFAULT_HC_SERIES_CONFIG } from "./hcConfiguration";
 import { colorFor, Color } from "../../components/style/Colors/Color";
 import { valuesFromObject } from "../common/commonFunctions";
 
 export interface IHighchartsSerieBuilderOptions {
-    chartTypes?: IPropsPerId,
+    chartTypes?: IChartTypeProps,
     colors?: Color[],
-    legendLabel?: IPropsPerId,
+    legendLabel?: ILegendLabel,
     legendField?: ((serie: ISerie) => string),
     series: ISerie[],
     yAxisBySeries: IYAxisConf,
     yAxisArray: IYAxis[], 
+}
+
+interface ILegendConfiguration {
+    axisConf: IYAxisConf;
+    legendLabel?: ILegendLabel;
+    legendField?: (serie: ISerie) => string;
+    rightSidedSeries: boolean;
 }
 
 export class HighchartsSerieBuilder {
@@ -42,7 +48,7 @@ export class HighchartsSerieBuilder {
             ...DEFAULT_HC_SERIES_CONFIG,
             color: colorFor(this.options.series, getFullSerieId(serie), this.options.colors).code,
             data,
-            name: getLegendLabel(serie, legendProps),
+            name: this.getLegendLabel(serie, legendProps),
             navigatorOptions: { type: chartType },
             serieId: getFullSerieId(serie),
             type: chartType,
@@ -60,5 +66,31 @@ export class HighchartsSerieBuilder {
     private yAxisIndex(yAxisArray: IYAxis[], serieID: string) {
         const isRightSided = this.options.yAxisBySeries[serieID].opposite;
         return yAxisArray.findIndex(yAxis => yAxis.opposite === isRightSided)
+    }
+
+    private getLegendLabel(serie: ISerie, config: ILegendConfiguration): string {
+        
+        let label = serie.description;
+        const fullId = getFullSerieId(serie);
+
+        if (config.legendLabel) {
+            if (config.legendLabel[fullId]) {
+                label = config.legendLabel[fullId];
+            }
+        } else if(config.legendField) {
+            label = config.legendField(serie);
+        }
+
+        if (config.rightSidedSeries) {
+            const conf = config.axisConf[fullId]
+            if (conf.opposite){
+                label += ' (der)';
+            }
+            else {
+                label += ' (izq)';
+            }
+        }
+
+        return label;
     }
 }

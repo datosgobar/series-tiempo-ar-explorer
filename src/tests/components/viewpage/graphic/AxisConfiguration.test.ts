@@ -1,9 +1,11 @@
 import { ISerie } from "../../../../api/Serie";
 import SerieConfig from "../../../../api/SerieConfig";
-import { IYAxisConf, ISeriesAxisSides, IYAxis } from "../../../../components/viewpage/graphic/Graphic";
-import { generateYAxisBySeries } from "../../../../helpers/graphic/axisConfiguration";
+import { IYAxisConf, ISeriesAxisSides, IYAxis, ILegendLabel } from "../../../../components/viewpage/graphic/Graphic";
+import { generateYAxisBySeries, generateYAxisArray } from "../../../../helpers/graphic/axisConfiguration";
 import { generateCommonMockSerieMotos, generateCommonMockSerieEMAE, generatePercentageMockSerie, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
-import { ILegendConfiguration, getLegendLabel } from "../../../../helpers/graphic/legendConfiguration";
+import { IHCSeries } from "../../../../components/viewpage/graphic/highcharts";
+import { IHighchartsSerieBuilderOptions, HighchartsSerieBuilder } from "../../../../helpers/graphic/hcSerieFromISerie";
+import Colors, { Color } from "../../../../components/style/Colors/Color";
 
 describe("Axis Configuration functions", () => {
 
@@ -11,14 +13,26 @@ describe("Axis Configuration functions", () => {
     let mockSerieTwo: ISerie;
     let mockSeriePercentChange: ISerie;
     let mockSeriePercentChangeYearAgo: ISerie;
-    let series: ISerie[];
-    let percentageSeries: ISerie[];
-    let mockConfig: SerieConfig[];
     let axisSides: ISeriesAxisSides;
     let yAxisBySeries: IYAxisConf;
-    let legendProps: ILegendConfiguration;
+    let iHcSeries: IHCSeries[];
     const locale = 'AR';
     const formatUnits = false;
+
+    function getIHcSeriesBySeries(series: ISerie[], legendLabel?: ILegendLabel, colors?: Color[]) : IHCSeries[] {
+        const yAxisArray = generateYAxisArray(yAxisBySeries);
+        const options: IHighchartsSerieBuilderOptions = {
+            chartTypes: { "Motos_patentamiento_8myrF9": "column"},
+            colors,
+            legendLabel,
+            legendField: undefined,
+            series,
+            yAxisBySeries,
+            yAxisArray
+        }
+        return series.map((serie) => new HighchartsSerieBuilder(options)
+                                            .buildFromSerie(serie));
+    }
 
     function areInOppositeSides(yAxisConfOne: IYAxis, yAxisConfTwo: IYAxis) {
         expect(yAxisConfOne.opposite).toBe(false);
@@ -30,17 +44,16 @@ describe("Axis Configuration functions", () => {
         mockSerieTwo = generateCommonMockSerieMotos();
         mockSeriePercentChange = generatePercentageMockSerie();
         mockSeriePercentChangeYearAgo = generatePercentageYearMockSerie();
-        percentageSeries = [mockSeriePercentChange, mockSeriePercentChangeYearAgo]
-
-        series = [mockSerieOne, mockSerieTwo];
-        mockConfig = [new SerieConfig(mockSerieOne),
-        new SerieConfig(mockSerieTwo)];
     })
 
     describe("Default axis configuration, without optional parameter", () => {
 
         beforeAll(() => {
+            const series: ISerie[] = [mockSerieOne, mockSerieTwo];
+            const mockConfig: SerieConfig[] = [ new SerieConfig(mockSerieOne),
+                                                new SerieConfig(mockSerieTwo)];
             yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale);
+            iHcSeries = getIHcSeriesBySeries(series);
         })
 
         it("Each unit label goes to a different axis", () => {
@@ -51,13 +64,9 @@ describe("Axis Configuration functions", () => {
             expect(yAxisBySeries.EMAE2004.title.text).toEqual("Índice 2004=100");
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.title.text).toEqual("Unidades");
         });
-        it("Legend labels below the graphic are properly written", () => {
-            legendProps = {
-                axisConf: yAxisBySeries,
-                rightSidedSeries: true
-            }
-            expect(getLegendLabel(mockSerieOne, legendProps)).toContain("(izq)");
-            expect(getLegendLabel(mockSerieTwo, legendProps)).toContain("(der)");
+        it("Legend labels below the graphic are properly written", () => {  
+            expect(iHcSeries[0].name).toContain("(izq)");
+            expect(iHcSeries[1].name).toContain("(der)");
         });
 
     })
@@ -65,47 +74,50 @@ describe("Axis Configuration functions", () => {
     describe("Explicit configuration, switching the default sides", () => {
 
         beforeAll(() => {
+            const series: ISerie[] = [mockSerieOne, mockSerieTwo];
+            const mockConfig: SerieConfig[] = [ new SerieConfig(mockSerieOne),
+                                                new SerieConfig(mockSerieTwo)]
             axisSides = {
                 'EMAE2004': 'left',
                 'Motos_patentamiento_8myrF9': 'right'
             }
             yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale, axisSides);
+            iHcSeries = getIHcSeriesBySeries(series);
         })
         it("Series have opposite side each other because outOfScale", () => {
             areInOppositeSides(yAxisBySeries.EMAE2004, yAxisBySeries.Motos_patentamiento_8myrF9)
         });
         it("Legend labels below the graphic are properly written", () => {
-            legendProps = {
-                axisConf: yAxisBySeries,
-                rightSidedSeries: true
-            }
-            expect(getLegendLabel(mockSerieOne, legendProps)).toContain("(izq)");
-            expect(getLegendLabel(mockSerieTwo, legendProps)).toContain("(der)");
+            expect(iHcSeries[0].name).toContain("(izq)");
+            expect(iHcSeries[1].name).toContain("(der)");
         });
     })
 
     describe("Explicit configuration, one without axis side and without out of scale", () => {
 
         beforeAll(() => {
-            yAxisBySeries = generateYAxisBySeries(percentageSeries, mockConfig, formatUnits, locale, axisSides);
+            const series: ISerie[] = [mockSeriePercentChange, mockSeriePercentChangeYearAgo];
+            const mockConfig: SerieConfig[] = [ new SerieConfig(mockSeriePercentChange),
+                                                new SerieConfig(mockSeriePercentChangeYearAgo)];
+            yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale, axisSides);
+            iHcSeries = getIHcSeriesBySeries(series);
         })
         it("Both series goes to the left side because same scale of percentage.", () => {
             expect(yAxisBySeries["EMAE2004:percent_change"].opposite).toBe(false);
             expect(yAxisBySeries["EMAE2004:percent_change_a_year_ago"].opposite).toBe(false);
         });
         it("Legend labels are both on the left side", () => {
-            legendProps = {
-                axisConf: yAxisBySeries,
-                rightSidedSeries: true
-            }
-            expect(getLegendLabel(mockSeriePercentChange, legendProps)).toContain("(izq)");
-            expect(getLegendLabel(mockSeriePercentChangeYearAgo, legendProps)).toContain("(izq)");
+            expect(iHcSeries[0].name).toEqual("EMAE. Base 2004");
+            expect(iHcSeries[1].name).toContain("EMAE. Base 2004");
         });
     })
 
     describe("Explicit configuration, one without axis side and with out of scale", () => {
 
         beforeAll(() => {
+            const series: ISerie[] = [mockSerieOne, mockSerieTwo];
+            const mockConfig: SerieConfig[] = [ new SerieConfig(mockSerieOne),
+                                                new SerieConfig(mockSerieTwo)];
             axisSides = { 'EMAE2004': 'left' }
             yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale, axisSides);
         })
@@ -117,7 +129,9 @@ describe("Axis Configuration functions", () => {
     describe("Explicit configuration, axis empty, each goes to opposite side", () => {
 
         beforeAll(() => {
-            series = [mockSerieOne, mockSerieTwo];
+            const series: ISerie[] = [mockSerieOne, mockSerieTwo];
+            const mockConfig: SerieConfig[] = [ new SerieConfig(mockSerieOne),
+                                                new SerieConfig(mockSerieTwo)];
             yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale, {});
         })
         it("Series have opposite side each other", () => {
@@ -127,12 +141,15 @@ describe("Axis Configuration functions", () => {
 
     describe("Explicit configuration, both on the left side", () => {
         beforeAll(() => {
-            series = [mockSerieOne, mockSerieTwo];
+            const series: ISerie[] = [mockSerieOne, mockSerieTwo];
+            const mockConfig: SerieConfig[] = [ new SerieConfig(mockSerieOne),
+                                                new SerieConfig(mockSerieTwo)];
             axisSides = {
                 'EMAE2004': 'left',
                 'Motos_patentamiento_8myrF9': 'left'
             }
             yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale, axisSides);
+            iHcSeries = getIHcSeriesBySeries(series);
         })
 
         it("Every unit label goes to the right axis", () => {
@@ -140,12 +157,8 @@ describe("Axis Configuration functions", () => {
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(false);
         });
         it("As there are no series on the auxiliar axes, no text is appended to legend labels", () => {
-            legendProps = {
-                axisConf: yAxisBySeries,
-                rightSidedSeries: false
-            }
-            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004");
-            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas");
+            expect(iHcSeries[0].name).toEqual("EMAE. Base 2004");
+            expect(iHcSeries[1].name).toEqual("Motos: número de patentamientos de motocicletas");
         });
 
     })
@@ -153,12 +166,15 @@ describe("Axis Configuration functions", () => {
     describe("Explicit configuration, both on the right side", () => {
 
         beforeAll(() => {
-            series = [mockSerieOne, mockSerieTwo];
+            const series: ISerie[] = [mockSerieOne, mockSerieTwo];
+            const mockConfig: SerieConfig[] = [ new SerieConfig(mockSerieOne),
+                                                new SerieConfig(mockSerieTwo)]
             axisSides = {
                 'EMAE2004': 'right',
                 'Motos_patentamiento_8myrF9': 'right'
             }
             yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale, axisSides);
+            iHcSeries = getIHcSeriesBySeries(series);
         })
 
         it("Every unit label goes to the right axis", () => {
@@ -166,12 +182,77 @@ describe("Axis Configuration functions", () => {
             expect(yAxisBySeries.Motos_patentamiento_8myrF9.opposite).toBe(true);
         });
         it("Legend labels below the graphic are properly written", () => {
-            legendProps = {
-                axisConf: yAxisBySeries,
-                rightSidedSeries: true
-            }
-            expect(getLegendLabel(mockSerieOne, legendProps)).toEqual("EMAE. Base 2004 (der)");
-            expect(getLegendLabel(mockSerieTwo, legendProps)).toEqual("Motos: número de patentamientos de motocicletas (der)");
+            expect(iHcSeries[0].name).toEqual("EMAE. Base 2004 (der)");
+            expect(iHcSeries[1].name).toEqual("Motos: número de patentamientos de motocicletas (der)");
+        });
+
+    })
+
+    describe("Test HcSerieFromISerie with Mock series Emae and motos", () => {
+
+        beforeAll(() => {
+            const series: ISerie[] = [mockSerieOne, mockSerieTwo];
+            const mockConfig: SerieConfig[] = [ new SerieConfig(mockSerieOne),
+                                                new SerieConfig(mockSerieTwo)]
+            yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale);
+            iHcSeries = getIHcSeriesBySeries(series);
+        })
+        it("Cada serie tiene su nombre y serie correspondiente", () => {
+            expect(iHcSeries[0].serieId).toEqual("EMAE2004");
+            expect(iHcSeries[0].name).toEqual("EMAE. Base 2004 (izq)");
+            expect(iHcSeries[1].serieId).toEqual("Motos_patentamiento_8myrF9");
+            expect(iHcSeries[1].name).toEqual("Motos: número de patentamientos de motocicletas (der)");
+        });
+        it("Cada serie tiene su chartType correspondiente", () => {
+            expect(iHcSeries[0].type).toEqual(undefined);
+            expect(iHcSeries[1].type).toEqual("column");
+        });
+        it("Cada serie tiene su yAxis correspondiente", () => {
+            expect(iHcSeries[0].yAxis).toEqual(0);
+            expect(iHcSeries[1].yAxis).toEqual(1);
+        });
+        it("Cada serie tiene su color correspondiente", () => {
+            const colorArray = (Object as any).values(Colors);
+            expect(iHcSeries[0].color).toEqual(colorArray[0].code);
+            expect(iHcSeries[1].color).toEqual(colorArray[1].code);
+        });
+
+    })
+
+
+    describe("Test HcSerieFromISerie with Mock series Emae, Emae:pecent_change_a_year_ago and motos ", () => {
+
+        beforeAll(() => {
+            const series: ISerie[] = [mockSerieOne, mockSerieTwo, mockSeriePercentChangeYearAgo];
+            const mockConfig: SerieConfig[] = [ new SerieConfig(mockSerieOne),
+                                                new SerieConfig(mockSerieTwo),
+                                                new SerieConfig(mockSeriePercentChangeYearAgo)]
+            yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale);
+            iHcSeries = getIHcSeriesBySeries(series);
+        })
+        it("Cada serie tiene su nombre y serie correspondiente", () => {
+            expect(iHcSeries[2].serieId).toEqual("EMAE2004:percent_change_a_year_ago");
+            expect(iHcSeries[2].name).toEqual("EMAE. Base 2004 (izq)");
+            expect(iHcSeries[1].serieId).toEqual("Motos_patentamiento_8myrF9");
+            expect(iHcSeries[1].name).toEqual("Motos: número de patentamientos de motocicletas (der)");
+            expect(iHcSeries[0].serieId).toEqual("EMAE2004");
+            expect(iHcSeries[0].name).toEqual("EMAE. Base 2004 (izq)");
+        });
+        it("Cada serie tiene su chartType correspondiente", () => {
+            expect(iHcSeries[2].type).toEqual(undefined);
+            expect(iHcSeries[0].type).toEqual(undefined);
+            expect(iHcSeries[1].type).toEqual("column");
+        });
+        it("Cada serie tiene su yAxis correspondiente", () => {
+            expect(iHcSeries[1].yAxis).toEqual(1);
+            expect(iHcSeries[0].yAxis).toEqual(0);
+            expect(iHcSeries[2].yAxis).toEqual(0);
+        });
+        it("Cada serie tiene su color correspondiente", () => {
+            const colorArray = (Object as any).values(Colors);
+            expect(iHcSeries[1].color).toEqual(colorArray[1].code);
+            expect(iHcSeries[0].color).toEqual(colorArray[0].code);
+            expect(iHcSeries[2].color).toEqual(colorArray[2].code);
         });
 
     })
