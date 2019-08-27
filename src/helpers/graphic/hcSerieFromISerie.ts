@@ -9,10 +9,10 @@ import { colorFor, Color } from "../../components/style/Colors/Color";
 import { valuesFromObject } from "../common/commonFunctions";
 
 export interface IHcSeriesFromISerie {
-    chartTypes: IPropsPerId | undefined,
-    colors: Color[] | undefined,
-    legendLabel: IPropsPerId | undefined,
-    legendField: ((serie: ISerie) => string) | undefined,
+    chartTypes?: IPropsPerId,
+    colors?: Color[],
+    legendLabel?: IPropsPerId,
+    legendField?: ((serie: ISerie) => string),
     series: ISerie[],
     yAxisBySeries: IYAxisConf,
 }
