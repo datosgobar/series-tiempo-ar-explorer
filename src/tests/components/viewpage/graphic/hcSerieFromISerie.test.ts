@@ -24,7 +24,7 @@ describe("High chart Series from ISerie functions", () => {
         mockConfig = [new SerieConfig(mockSerieOne), new SerieConfig(mockSerieTwo)];
     })
 
-    describe("Test the HcSerieFromISerie con Mock series Emae y motos", () => {
+    describe("Test HcSerieFromISerie with Mock series Emae and motos", () => {
 
         beforeAll(() => {
             const yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale);
