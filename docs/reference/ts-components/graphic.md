@@ -110,10 +110,10 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>colors</td>
         <td>No</td>
-        <td>Paleta de colores alternativa a la default. Los códigos de colores pueden ser tanto hexadecimales (ej. "#00CC44") como numeros que son mapeados a la paleta por defecto (tomando el resto de dividirlos por 10; es decir, elegir 1 equivale a 10, 20, etc.) Ver paleta por defecto más abajo.</td>
+        <td>Paleta de colores alternativa a la default. Los códigos de colores pueden ser tanto hexadecimales (ej. "#00CC44") como numeros que son mapeados a la paleta por defecto (del 0 al 8) Ver paleta por defecto más abajo.</td>
         <td>list</td>
-        <td>["#0072BB", "#2E7D33", "#C62828", "#F9A822", "#6A1B99", "#EC407A", "#C2185B", "#039BE5", "#6EA100"]</td>
-        <td>["#2E7D33", "#C62828", "#F9A822"]</td>
+        <td>["#0072BB", "#2E7D33", "#C62828", "#F9A822", "#6A1B99", "#EC407A", "#C2185B", "#039BE5", "#6EA100"] [0, 1, 2, 3, 4, 5, 6, 7, 8]</td>
+        <td>["#2E7D33", 2, "#F9A822"]</td>
     </tr>
     <tr>
         <td>backgroundColor</td>
@@ -198,7 +198,7 @@ Este gráfico se genera a partir del siguiente código:
     </tr>
 </table>
 
-## Asignación dinámica de atributos
+## Paleta de colores por defecto
 
 Por defecto, la paleta de colores en los que se grafican las series del componente. Cada uno puede ser identificado con un hexadecimal o un entero decimal:
 
