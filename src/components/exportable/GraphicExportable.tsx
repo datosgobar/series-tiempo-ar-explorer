@@ -3,13 +3,14 @@ import { ApiClient } from "../../api/ApiClient";
 import QueryParams from "../../api/QueryParams";
 import { ISerie } from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
+import { extractIdsFromUrl, extractUriFromUrl } from "../../helpers/common/URLExtractors";
+import { PropsAdjuster } from "../../helpers/graphic/propsAdjuster";
+import { GraphicURLValidator } from "../../helpers/graphic/URLValidation";
+import { getColorArray } from "../style/Colors/Color";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
 import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides } from "../viewpage/graphic/Graphic";
 import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
-import { PropsAdjuster } from "../../helpers/graphic/propsAdjuster";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
-import { extractUriFromUrl, extractIdsFromUrl } from "../../helpers/common/URLExtractors";
-import { getColorArray } from "../style/Colors/Color";
 
 export interface IGraphicExportableProps {
     graphicUrl: string;
@@ -44,6 +45,11 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         super(props);
         this.afterRender = this.afterRender.bind(this);
 
+        const urlValidator = new GraphicURLValidator();
+        if(!urlValidator.isValidURL(this.props.graphicUrl)) {
+            throw new Error(`El parametro graphicURL: '${this.props.graphicUrl}' representa una URL de grafico inválida; por favor, revísela`);
+        }
+
         this.seriesApi = new SerieApi(new ApiClient(extractUriFromUrl(props.graphicUrl), 'ts-components'));
         this.state = {
             dateRange: { start: '', end: '' },
@@ -77,6 +83,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     }
 
     public render() {
+
         const chartOptions = buildChartOptions(this.props.chartOptions, this.props);
 
         return (
