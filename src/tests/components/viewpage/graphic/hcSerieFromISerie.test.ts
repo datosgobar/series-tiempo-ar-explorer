@@ -2,7 +2,7 @@ import { ISerie } from "../../../../api/Serie";
 import SerieConfig from "../../../../api/SerieConfig";
 import { generateYAxisBySeries, generateYAxisArray } from "../../../../helpers/graphic/axisConfiguration";
 import { generateCommonMockSerieMotos, generateCommonMockSerieEMAE, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
-import { IHcSeriesFromISerie, HcSerieFromISerie } from "../../../../helpers/graphic/hcSerieFromISerie";
+import { IHighchartsSerieBuilderOptions, HighchartsSerieBuilder } from "../../../../helpers/graphic/hcSerieFromISerie";
 import { IHCSeries } from "../../../../components/viewpage/graphic/highcharts";
 import Colors from "../../../../components/style/Colors/Color";
 
@@ -29,20 +29,18 @@ describe("High chart Series from ISerie functions", () => {
         beforeAll(() => {
             const series: ISerie[] = [mockSerieOne, mockSerieTwo];
             const yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale);
-            const iHcSeriesFromISerie: IHcSeriesFromISerie = {
+            const yAxisArray = generateYAxisArray(yAxisBySeries);
+            const options: IHighchartsSerieBuilderOptions = {
                 chartTypes: { "Motos_patentamiento_8myrF9": "column"},
                 colors: undefined,
                 legendLabel: undefined,
                 legendField: undefined,
                 series,
                 yAxisBySeries,
+                yAxisArray
             }
-            iHcSeries = series.map((serie) => new HcSerieFromISerie(iHcSeriesFromISerie)
-                                                .hcSerieFromISerie(
-                                                    serie, 
-                                                    generateYAxisArray(yAxisBySeries), 
-                                                    {}
-                                                ));
+            iHcSeries = series.map((serie) => new HighchartsSerieBuilder(options)
+                                                    .buildFromSerie(serie));
         })
 
         it("Cada serie tiene su nombre y serie correspondiente", () => {
@@ -73,20 +71,18 @@ describe("High chart Series from ISerie functions", () => {
         beforeAll(() => {
             const series: ISerie[] = [mockSerieOne, mockSerieTwo, mockSerieThree];
             const yAxisBySeries = generateYAxisBySeries(series, mockConfig, formatUnits, locale);
-            const iHcSeriesFromISerie: IHcSeriesFromISerie = {
+            const yAxisArray = generateYAxisArray(yAxisBySeries);
+            const options: IHighchartsSerieBuilderOptions = {
                 chartTypes: { "Motos_patentamiento_8myrF9": "column"},
                 colors: undefined,
                 legendLabel: undefined,
                 legendField: undefined,
                 series,
                 yAxisBySeries,
+                yAxisArray
             }
-            iHcSeries = series.map((serie) => new HcSerieFromISerie(iHcSeriesFromISerie)
-                                                .hcSerieFromISerie(
-                                                    serie, 
-                                                    generateYAxisArray(yAxisBySeries), 
-                                                    {}
-                                                ));
+            iHcSeries = series.map((serie) => new HighchartsSerieBuilder(options)
+                                                    .buildFromSerie(serie));
         })
 
         it("Cada serie tiene su nombre y serie correspondiente", () => {

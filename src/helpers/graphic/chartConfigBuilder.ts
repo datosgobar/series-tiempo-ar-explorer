@@ -7,7 +7,7 @@ import { findSerieConfig } from "../common/fullSerieID";
 import { generateYAxisArray, generateYAxisBySeries } from "./axisConfiguration";
 import { dateFormatByPeriodicity } from "./dateFormatting";
 import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
-import { HcSerieFromISerie, IHcSeriesFromISerie } from "./hcSerieFromISerie";
+import { HighchartsSerieBuilder, IHighchartsSerieBuilderOptions } from "./hcSerieFromISerie";
 import { IHCSeries } from "../../components/viewpage/graphic/highcharts";
 
 export class ChartConfigBuilder {
@@ -175,15 +175,17 @@ export class ChartConfigBuilder {
 
     private seriesValues(yAxisArray: IYAxis[]): IHCSeries[] {
         const series = this.props.series;
-        const iHcSeriesFromISerie: IHcSeriesFromISerie = {
+        const options: IHighchartsSerieBuilderOptions = {
             chartTypes: this.props.chartTypes,
             colors: this.props.colors,
             legendLabel: this.props.legendLabel,
             legendField: this.props.legendField,
             series: this.props.series,
             yAxisBySeries: this.yAxisBySeries,
+            yAxisArray,
         }
-        return series.map((serie) => new HcSerieFromISerie(iHcSeriesFromISerie).hcSerieFromISerie(serie, yAxisArray, {}));
+        return series.map((serie) => new HighchartsSerieBuilder(options)
+                                            .buildFromSerie(serie));
     }
 
 }
