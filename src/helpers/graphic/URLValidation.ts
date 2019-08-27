@@ -1,7 +1,8 @@
-const graphicURLRegex: RegExp = /https:\/\/apis\.datos\.gob\.ar\/series\/api\/series(\/?)\?(.+=.+&)*ids=([^&=]+)(&.+=.+)*/i
+export class GraphicURLValidator {
 
-export function isValidURL(url: string): boolean {
+    private urlRegex: RegExp = /https:\/\/apis\.datos\.gob\.ar\/series\/api\/series(\/?)\?(\w+=\w+&)*ids=([^&=]+)(&\w+=\w+)*$/i;
 
-    return graphicURLRegex.test(url);
-
+    public isValidURL(url: string): boolean {
+        return this.urlRegex.test(url);
+    }
 }
