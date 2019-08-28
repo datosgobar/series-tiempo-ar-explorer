@@ -173,7 +173,7 @@ describe("Axis Configuration functions", () => {
         });
         it("Legend labels are both on the left side", () => {
             expect(hcSeries[0].name).toEqual("EMAE. Base 2004");
-            expect(hcSeries[1].name).toContain("EMAE. Base 2004");
+            expect(hcSeries[1].name).toEqual("EMAE. Base 2004");
         });
     })
 
