@@ -17,6 +17,7 @@ export interface ICardBaseConfig {
     hasFrame?: boolean;
     hasColorBar?: boolean;
     collapse?: string;
+    apiBaseUrl?: string;
 }
 
 export interface ICardExportableConfig extends ICardBaseConfig {
@@ -24,7 +25,7 @@ export interface ICardExportableConfig extends ICardBaseConfig {
 }
 
 export function render(selector: string, config: ICardExportableConfig) {
-    const seriesApi = new SerieApi(new ApiClient(getURI(), 'ts-components-card'));
+    const seriesApi = new SerieApi(new ApiClient(config.apiBaseUrl || getURI(), 'ts-components-card'));
 
     ReactDOM.render(
         <CardExportable serieId={config.serieId}
