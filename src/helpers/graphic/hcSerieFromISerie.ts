@@ -50,7 +50,6 @@ export class HighchartsSerieBuilder {
             data,
             name: this.getLegendLabel(serie, legendProps),
             navigatorOptions: { type: chartType },
-            serieId: getFullSerieId(serie),
             type: chartType,
             yAxis: this.yAxisIndex(this.options.yAxisArray, getFullSerieId(serie))
         }
