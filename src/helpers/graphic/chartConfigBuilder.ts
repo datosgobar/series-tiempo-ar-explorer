@@ -2,17 +2,13 @@ import { IDataPoint } from "../../api/DataPoint";
 import { ISerie } from "../../api/Serie";
 import { i18nFrequency } from "../../api/utils/periodicityManager";
 import { buildLocale } from "../../components/common/locale/buildLocale";
-import { colorFor } from "../../components/style/Colors/Color";
-import { IGraphicProps, IYAxis, IYAxisConf } from "../../components/viewpage/graphic/Graphic";
-import { IHConfig, IHCSeries } from "../../components/viewpage/graphic/highcharts";
-import { valuesFromObject } from "../common/commonFunctions";
-import { timestamp } from "../common/dateFunctions";
-import { findSerieConfig, getChartType, getFullSerieId } from "../common/fullSerieID";
+import { IGraphicProps, IYAxisConf, IYAxis } from "../../components/viewpage/graphic/Graphic";
+import { findSerieConfig } from "../common/fullSerieID";
 import { generateYAxisArray, generateYAxisBySeries } from "./axisConfiguration";
 import { dateFormatByPeriodicity } from "./dateFormatting";
-import { DEFAULT_HC_SERIES_CONFIG } from "./hcConfiguration";
-import { getLegendLabel, ILegendConfiguration } from "./legendConfiguration";
 import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
+import { HighchartsSerieBuilder, IHighchartsSerieBuilderOptions } from "./hcSerieFromISerie";
+import { IHCSerie } from "../../components/viewpage/graphic/highcharts";
 
 export class ChartConfigBuilder {
 
@@ -176,52 +172,20 @@ export class ChartConfigBuilder {
             || []
         );
     }
-    
-    private seriesValues(yAxisArray: IYAxis[]): IHCSeries[] {
+
+    private seriesValues(yAxisArray: IYAxis[]): IHCSerie[] {
         const series = this.props.series;
-        return series.map((serie) => this.hcSerieFromISerie(serie, yAxisArray, {}));
-    }
-
-    private atLeastOneRightSidedSerie(): boolean {
-    
-        const configs = valuesFromObject(this.yAxisBySeries);
-        return configs.some((config: IYAxis) => {
-            return config.opposite;
-        });
-    
-    }
-
-    private hcSerieFromISerie(serie: ISerie, yAxisArray: IYAxis[], hcConfig: IHConfig): IHCSeries {
-
-        const data = serie.data.map(datapoint => [timestamp(datapoint.date), datapoint.value]);
-        let chartType: string;
-        chartType = getChartType(serie, this.props.chartTypes); // Si no es la unica
-        const legendProps: ILegendConfiguration = {
-            axisConf: this.yAxisBySeries,
+        const options: IHighchartsSerieBuilderOptions = {
+            chartTypes: this.props.chartTypes,
+            colors: this.props.colors,
             legendLabel: this.props.legendLabel,
             legendField: this.props.legendField,
-            rightSidedSeries: this.atLeastOneRightSidedSerie()
+            series: this.props.series,
+            yAxisBySeries: this.yAxisBySeries,
+            yAxisArray,
         }
-
-        return {
-            ...DEFAULT_HC_SERIES_CONFIG,
-            ...hcConfig,
-            color: colorFor(this.props.series, getFullSerieId(serie), this.props.colors).code,
-            data,
-            name: getLegendLabel(serie, legendProps),
-            navigatorOptions: { type: chartType },
-            serieId: getFullSerieId(serie),
-            type: chartType,
-            yAxis: this.yAxisIndex(yAxisArray, getFullSerieId(serie))
-        }
-
-    }
-
-    private yAxisIndex(yAxisArray: IYAxis[], serieID: string) {
-
-        const isRightSided = this.yAxisBySeries[serieID].opposite;
-        return yAxisArray.findIndex(yAxis => yAxis.opposite === isRightSided)
-
+        return series.map((serie) => new HighchartsSerieBuilder(options)
+                                            .buildFromSerie(serie));
     }
 
 }
