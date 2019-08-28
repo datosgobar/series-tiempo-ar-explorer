@@ -16,7 +16,7 @@ require('highcharts-exporting')(ReactHighStock.Highcharts);
 // tslint:disable-next-line:no-var-requires
 require('highcharts-export-csv')(ReactHighStock.Highcharts);
 
-export interface IHCSeries {
+export interface IHCSerie {
     data: number[][];
     name: string;
     type: string;

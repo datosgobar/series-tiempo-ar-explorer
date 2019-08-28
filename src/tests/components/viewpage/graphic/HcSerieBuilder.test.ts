@@ -3,7 +3,7 @@ import SerieConfig from "../../../../api/SerieConfig";
 import { IYAxisConf, ISeriesAxisSides, IYAxis, ILegendLabel } from "../../../../components/viewpage/graphic/Graphic";
 import { generateYAxisBySeries, generateYAxisArray } from "../../../../helpers/graphic/axisConfiguration";
 import { generateCommonMockSerieMotos, generateCommonMockSerieEMAE, generatePercentageMockSerie, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
-import { IHCSeries } from "../../../../components/viewpage/graphic/highcharts";
+import { IHCSerie } from "../../../../components/viewpage/graphic/highcharts";
 import { IHighchartsSerieBuilderOptions, HighchartsSerieBuilder } from "../../../../helpers/graphic/hcSerieFromISerie";
 import Colors, { Color } from "../../../../components/style/Colors/Color";
 
@@ -15,11 +15,11 @@ describe("Axis Configuration functions", () => {
     let mockSeriePercentChangeYearAgo: ISerie;
     let axisSides: ISeriesAxisSides;
     let yAxisBySeries: IYAxisConf;
-    let hcSeries: IHCSeries[];
+    let hcSeries: IHCSerie[];
     const locale = 'AR';
     const formatUnits = false;
 
-    function getHcSeriesBySeries(series: ISerie[], legendLabel?: ILegendLabel, colors?: Color[]) : IHCSeries[] {
+    function getHcSeriesBySeries(series: ISerie[], legendLabel?: ILegendLabel, colors?: Color[]) : IHCSerie[] {
         const yAxisArray = generateYAxisArray(yAxisBySeries);
         const options: IHighchartsSerieBuilderOptions = {
             chartTypes: { "Motos_patentamiento_8myrF9": "column"},

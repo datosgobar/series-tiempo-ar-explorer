@@ -8,7 +8,7 @@ import { generateYAxisArray, generateYAxisBySeries } from "./axisConfiguration";
 import { dateFormatByPeriodicity } from "./dateFormatting";
 import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
 import { HighchartsSerieBuilder, IHighchartsSerieBuilderOptions } from "./hcSerieFromISerie";
-import { IHCSeries } from "../../components/viewpage/graphic/highcharts";
+import { IHCSerie } from "../../components/viewpage/graphic/highcharts";
 
 export class ChartConfigBuilder {
 
@@ -173,7 +173,7 @@ export class ChartConfigBuilder {
         );
     }
 
-    private seriesValues(yAxisArray: IYAxis[]): IHCSeries[] {
+    private seriesValues(yAxisArray: IYAxis[]): IHCSerie[] {
         const series = this.props.series;
         const options: IHighchartsSerieBuilderOptions = {
             chartTypes: this.props.chartTypes,
