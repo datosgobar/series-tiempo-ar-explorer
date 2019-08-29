@@ -26,6 +26,7 @@ export interface IHCSerie {
     yAxis: number;
     showInNavigator: boolean;
     navigatorOptions: { type: string };
+    serieId: string;
 }
 
 export interface IHConfig {
