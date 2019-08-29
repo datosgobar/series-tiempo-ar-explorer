@@ -1,7 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { ApiClient } from "./api/ApiClient";
-import SerieApi from "./api/SerieApi";
 import CardExportable from "./components/exportable/CardExportable";
 
 export interface ICardBaseConfig {
@@ -17,6 +15,7 @@ export interface ICardBaseConfig {
     hasFrame?: boolean;
     hasColorBar?: boolean;
     collapse?: string;
+    apiBaseUrl?: string;
 }
 
 export interface ICardExportableConfig extends ICardBaseConfig {
@@ -24,8 +23,6 @@ export interface ICardExportableConfig extends ICardBaseConfig {
 }
 
 export function render(selector: string, config: ICardExportableConfig) {
-    const seriesApi = new SerieApi(new ApiClient(getURI(), 'ts-components-card'));
-
     ReactDOM.render(
         <CardExportable serieId={config.serieId}
                         locale={config.locale || 'AR'}
@@ -40,11 +37,7 @@ export function render(selector: string, config: ICardExportableConfig) {
                         hasFrame={config.hasFrame}
                         hasColorBar={config.hasColorBar}
                         collapse={config.collapse}
-                        seriesApi={seriesApi} />,
+                        apiBaseUrl={config.apiBaseUrl} />,
         document.getElementById(selector) as HTMLElement
     )
-}
-
-function getURI(): string {
-    return `https://apis.datos.gob.ar/series/api`
 }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ApiClient } from '../../api/ApiClient';
 import QueryParams from '../../api/QueryParams';
 import { ISerie } from '../../api/Serie';
 import SerieApi from '../../api/SerieApi';
@@ -6,10 +7,7 @@ import { valuesFromObject } from '../../helpers/common/commonFunctions';
 import { ICardExportableConfig } from '../../indexCard';
 import FullCard from '../exportable_card/FullCard';
 
-
-export interface ICardExportableProps extends ICardExportableConfig {
-    seriesApi: SerieApi;
-}
+export type ICardExportableProps = ICardExportableConfig;
 
 interface ICardExportableState {
     serie: ISerie | null;
@@ -26,8 +24,12 @@ const LAPS = {
 
 export default class CardExportable extends React.Component<ICardExportableProps, ICardExportableState> {
 
+    private seriesApi: SerieApi;
+
     public constructor(props: any) {
         super(props);
+
+        this.seriesApi = new SerieApi(new ApiClient(props.apiBaseUrl || getDefaultURI(), 'ts-components-card'));
 
         this.state = {
             laps: 0,
@@ -48,6 +50,15 @@ export default class CardExportable extends React.Component<ICardExportableProps
         if (!this.state.serie) { return null }
 
         return <FullCard serie={this.state.serie} {...this.cardOptions()}/>
+    }
+
+    public getDownloadUrl(): string {
+        const params = new QueryParams([this.props.serieId]);
+        params.setLast(5000);
+        if(this.props.collapse !== undefined) {
+            params.setCollapse(this.props.collapse);
+        }
+        return this.seriesApi.downloadDataURL(params)
     }
 
     private cardOptions() {
@@ -73,7 +84,7 @@ export default class CardExportable extends React.Component<ICardExportableProps
     }
 
     private fetchSeries(params: QueryParams) {
-        this.props.seriesApi.fetchSeries(params)
+        this.seriesApi.fetchSeries(params)
             .then((series: ISerie[]) => {
                 this.setState({
                     laps: LAPS[series[0].accrualPeriodicity],
@@ -82,18 +93,13 @@ export default class CardExportable extends React.Component<ICardExportableProps
             })
     }
 
-    private getDownloadUrl(): string {
-        const params = new QueryParams([this.props.serieId]);
-        params.setLast(5000);
-        if(this.props.collapse !== undefined) {
-            params.setCollapse(this.props.collapse);
-        }
-        return this.props.seriesApi.downloadDataURL(params)
-    }
-
 }
 
 
 function higherLaps(): number {
     return Math.max.apply(null, valuesFromObject(LAPS))
+}
+
+function getDefaultURI(): string {
+    return `https://apis.datos.gob.ar/series/api`
 }

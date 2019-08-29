@@ -38,7 +38,7 @@ export interface IPropsPerId {
 
 export type IChartTypeProps = IPropsPerId;
 export type ILegendLabel = IPropsPerId;
-export type ISeriesAxisSides = IPropsPerId
+export type ISeriesAxisSides = IPropsPerId;
 
 export interface IChartExtremeProps {
     min: number;
