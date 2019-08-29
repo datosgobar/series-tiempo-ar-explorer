@@ -19,7 +19,7 @@ describe('FullCard', () => {
         wrapper = mount(<FullCard serie={mockSerie}
             downloadUrl="https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=5000&format=csv"
             laps={3}
-            cardOptions={mockCardOptions} />)
+            cardOptions={mockCardOptions} />);
     }
 
     beforeAll(() => {
