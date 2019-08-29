@@ -18,6 +18,7 @@
 # Ejemplos:
 
 El propósito de este documento es mostrar ejemplos recomendados de implementar los componentes exportables (Card, Graphic).
+Para conocer la forma de implementar correctamente cada componente, referirse a la documentación propia del mismo.
 
 
 ## Ejemplos Card:
