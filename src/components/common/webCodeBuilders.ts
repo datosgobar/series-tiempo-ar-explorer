@@ -2,8 +2,8 @@ import { IWebSnippetOptions } from "../exportable_card/FullCardDropdown";
 
 export function cardWebCode(options: IWebSnippetOptions): string {
 
-    let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/css/components.css'/>
+    let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/js/components.js'></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/css/components.css'/>
 <link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
 <div id="root"></div>
 <script>

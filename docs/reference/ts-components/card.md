@@ -3,8 +3,8 @@
 El componente `card` permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.
 
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/js/components.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/js/components.js'></script>
 
 <style>
 .row {
@@ -22,17 +22,17 @@ El componente `card` permite embeber tarjetas con información de la serie, y un
 
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/e3yvqnrL/](https://jsfiddle.net/e3yvqnrL/)
+Ver online: [https://jsfiddle.net/c4nm2kd6/](https://jsfiddle.net/c4nm2kd6/)
 
 ```html
 <!-- importa íconos de FontAwesome -->
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
 
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con una tarjeta -->
 <div id="tmi"></div>
@@ -157,13 +157,21 @@ Ver online: [https://jsfiddle.net/e3yvqnrL/](https://jsfiddle.net/e3yvqnrL/)
         <td>Ninguno</td>
         <td>false</td>
     </tr>
-        <tr>
+    <tr>
         <td>collapse</td>
         <td>No</td>
-        <td>Permite cambiar la frecuencia en la que se muestra la serie. Mediante este parámetro se puede hacer, por ejemplo, un agregado anual para una serie que tiene una frecuencia diaria. Las limitaciones del campo son que la frecuencia elegida tiene que ser menor o igual a la frecuencia por defecto de la serie, si no lo es entonces el gráfico no se mostrará (Ej: si la serie tiene frecuencia semestral, 'collapse' puede ser solo o 'semester' o 'year'). </td>
+        <td>Permite cambiar la frecuencia en la que se muestra la serie. Mediante este parámetro se puede hacer, por ejemplo, un agregado anual para una serie que tiene una frecuencia diaria. Las limitaciones del campo son que la frecuencia elegida tiene que ser menor o igual a la frecuencia por defecto de la serie, si no lo es entonces el gráfico no se mostrará (Ej: si la serie tiene frecuencia semestral, 'collapse' puede ser solo o 'semester' o 'year').</td>
         <td>string</td>
         <td>Ninguno</td>
-        <td>'day', 'month', 'quarter', 'semester', 'year'.</td>
+        <td>'day', 'month', 'quarter', 'semester', 'year'</td>
+    </tr>
+    <tr>
+        <td>apiBaseUrl</td>
+        <td>No</td>
+        <td>Permite cambiar la URL de la API a la cual se le pedirá la serie representada en la tarjeta. A dicha url se le adjuntará el texto '/series/?ids=serieId' al final.</td>
+        <td>string</td>
+        <td>'http://apis.datos.gob.ar/series/api'</td>
+        <td>'http://miurl.apis.com/datos'</td>
     </tr>
 </table>
 
@@ -188,7 +196,8 @@ Ver online: [https://jsfiddle.net/e3yvqnrL/](https://jsfiddle.net/e3yvqnrL/)
         units: '',
         hasFrame: false,
         hasColorBar: true,
-        collapse: 'year'
+        collapse: 'year',
+        apiBaseUrl: 'http://apis.datos.gob.ar/series/api'
     })
     }
   </script>
@@ -197,7 +206,7 @@ Ver online: [https://jsfiddle.net/e3yvqnrL/](https://jsfiddle.net/e3yvqnrL/)
 ```
 
 ## Demo online
-https://jsfiddle.net/e3yvqnrL/
+https://jsfiddle.net/c4nm2kd6/
 
 ## Variantes de tarjetas
 

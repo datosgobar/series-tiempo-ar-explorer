@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
@@ -47,7 +47,7 @@
     
     
 	
-      <link rel="stylesheet" href="../../../assets/stylesheets/application.30686662.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.0284f74d.css">
       
       
     
@@ -705,8 +705,8 @@
                 <h1 id="componente-card"><a class="toclink" href="#componente-card">Componente: card</a><a class="headerlink" href="#componente-card" title="Permanent link">&#128279;</a></h1>
 <p>El componente <code>card</code> permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.</p>
 <p><link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/js/components.js'></script></p>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/js/components.js'></script></p>
 <style>
 .row {
     width: 90%;
@@ -722,15 +722,15 @@
 </div>
 
 <h2 id="ejemplo-base"><a class="toclink" href="#ejemplo-base">Ejemplo base</a><a class="headerlink" href="#ejemplo-base" title="Permanent link">&#128279;</a></h2>
-<p>Ver online: <a href="https://jsfiddle.net/e3yvqnrL/">https://jsfiddle.net/e3yvqnrL/</a></p>
+<p>Ver online: <a href="https://jsfiddle.net/c4nm2kd6/">https://jsfiddle.net/c4nm2kd6/</a></p>
 <div class="codehilite"><pre><span></span><span class="c">&lt;!-- importa íconos de FontAwesome --&gt;</span>
 <span class="p">&lt;</span><span class="nt">link</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;all&quot;</span> <span class="p">/&gt;</span>
 
 <span class="c">&lt;!-- importa librería JS --&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- importa hoja de estilos CSS --&gt;</span>
-<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.4.0/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
 
 <span class="c">&lt;!-- código HTML donde ubicar un div con una tarjeta --&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmi&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -855,13 +855,21 @@
         <td>Ninguno</td>
         <td>false</td>
     </tr>
-        <tr>
+    <tr>
         <td>collapse</td>
         <td>No</td>
-        <td>Permite cambiar la frecuencia en la que se muestra la serie. Mediante este parámetro se puede hacer, por ejemplo, un agregado anual para una serie que tiene una frecuencia diaria. Las limitaciones del campo son que la frecuencia elegida tiene que ser menor o igual a la frecuencia por defecto de la serie, si no lo es entonces el gráfico no se mostrará (Ej: si la serie tiene frecuencia semestral, 'collapse' puede ser solo o 'semester' o 'year'). </td>
+        <td>Permite cambiar la frecuencia en la que se muestra la serie. Mediante este parámetro se puede hacer, por ejemplo, un agregado anual para una serie que tiene una frecuencia diaria. Las limitaciones del campo son que la frecuencia elegida tiene que ser menor o igual a la frecuencia por defecto de la serie, si no lo es entonces el gráfico no se mostrará (Ej: si la serie tiene frecuencia semestral, 'collapse' puede ser solo o 'semester' o 'year').</td>
         <td>string</td>
         <td>Ninguno</td>
-        <td>'day', 'month', 'quarter', 'semester', 'year'.</td>
+        <td>'day', 'month', 'quarter', 'semester', 'year'</td>
+    </tr>
+    <tr>
+        <td>apiBaseUrl</td>
+        <td>No</td>
+        <td>Permite cambiar la URL de la API a la cual se le pedirá la serie representada en la tarjeta. A dicha url se le adjuntará el texto '/series/?ids=serieId' al final.</td>
+        <td>string</td>
+        <td>'http://apis.datos.gob.ar/series/api'</td>
+        <td>'http://miurl.apis.com/datos'</td>
     </tr>
 </table>
 
@@ -884,7 +892,8 @@
         <span class="nx">units</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="nx">hasFrame</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="nx">hasColorBar</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nx">collapse</span><span class="o">:</span> <span class="s1">&#39;year&#39;</span>
+        <span class="nx">collapse</span><span class="o">:</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+        <span class="nx">apiBaseUrl</span><span class="o">:</span> <span class="s1">&#39;http://apis.datos.gob.ar/series/api&#39;</span>
     <span class="p">})</span>
     <span class="p">}</span>
   <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
@@ -894,7 +903,7 @@
 
 
 <h2 id="demo-online"><a class="toclink" href="#demo-online">Demo online</a><a class="headerlink" href="#demo-online" title="Permanent link">&#128279;</a></h2>
-<p>https://jsfiddle.net/e3yvqnrL/</p>
+<p>https://jsfiddle.net/c4nm2kd6/</p>
 <h2 id="variantes-de-tarjetas"><a class="toclink" href="#variantes-de-tarjetas">Variantes de tarjetas</a><a class="headerlink" href="#variantes-de-tarjetas" title="Permanent link">&#128279;</a></h2>
 <h3 id="card-default"><a class="toclink" href="#card-default">Card: default</a><a class="headerlink" href="#card-default" title="Permanent link">&#128279;</a></h3>
 <div class="row">
@@ -1098,7 +1107,7 @@
       
     </div>
     
-      <script src="../../../assets/javascripts/application.c648116f.js"></script>
+      <script src="../../../assets/javascripts/application.245445c6.js"></script>
       
         
         
