@@ -9,8 +9,25 @@ describe("URL Validation for the Graphic exportable component", () => {
         validator = new GraphicURLValidator();
     })
 
-    it("Having the wrong URI root makes it an invalid URL", () => {
-        url = "https://apis.mydata.com/api?ids=116.4_TCRZE_2015_D_34";
+    describe("URLs with wrong endpoints", () => {
+
+        it("Missing the /api endpoint substring makes it an invalid URL", () => {
+            url = "https://apis.datos.gob.ar/series?ids=116.4_TCRZE_2015_D_34";
+            expect(validator.isValidURL(url)).toBe(false);
+        });
+        it("Missing the /series endpoint substring makes it an invalid URL", () => {
+            url = "https://apis.datos.gob.ar/api?ids=116.4_TCRZE_2015_D_34";
+            expect(validator.isValidURL(url)).toBe(false);
+        });
+        it("Having the /api endpoint after the /series one makes it an invalid URL", () => {
+            url = "https://apis.datos.gob.ar/series/api?ids=116.4_TCRZE_2015_D_34";
+            expect(validator.isValidURL(url)).toBe(false);
+        });
+
+    })
+
+    it("The URI root does not matter, as long as it has both endpoints in order", () => {
+        url = "https://apis.mydata.com/series/api?ids=116.4_TCRZE_2015_D_34";
         expect(validator.isValidURL(url)).toBe(false);
     });
     it("Missing the param starter question mark makes it an invalid URL", () => {
