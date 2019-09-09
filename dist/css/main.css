@@ -29,6 +29,10 @@
   animation-duration: .5s;
 }
 
+#filters label:after {
+  content: none;
+}
+
 .result-filter-count {
   color: gray;
   font-weight: 100;
@@ -150,9 +154,9 @@
   }
 }
 
-@media (max-width: 630px) {
+@media (max-width: 600px) and (min-width: 461px) {
   .share {
-    width: 100%;
+    width: 57%;
     display: inline-block;
   }
 }
@@ -717,40 +721,40 @@ FONTS:
 */
 @font-face {
   font-family: 'Regular';
-  src: url('../fonts/roboto/Roboto-Regular.eot');
-  src: url('../fonts/roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Regular.woff') format('woff'), url('../fonts/roboto/Roboto-Regular.ttf') format('truetype'), url('../fonts/roboto/Roboto-Regular.svg#Roboto-Regular') format('svg');
+  src: url('/fonts/roboto/Roboto-Regular.eot');
+  src: url('/fonts/roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'), url('/fonts/roboto/Roboto-Regular.woff') format('woff'), url('/fonts/roboto/Roboto-Regular.ttf') format('truetype'), url('/fonts/roboto/Roboto-Regular.svg#Roboto-Regular') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'Medium';
-  src: url('../fonts/roboto/Roboto-Medium.eot');
-  src: url('../fonts/roboto/Roboto-Medium.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Medium.woff') format('woff'), url('../fonts/roboto/Roboto-Medium.ttf') format('truetype'), url('../fonts/roboto/Roboto-Medium.svg#Roboto-Medium') format('svg');
+  src: url('/fonts/roboto/Roboto-Medium.eot');
+  src: url('/fonts/roboto/Roboto-Medium.eot?#iefix') format('embedded-opentype'), url('/fonts/roboto/Roboto-Medium.woff') format('woff'), url('/fonts/roboto/Roboto-Medium.ttf') format('truetype'), url('/fonts/roboto/Roboto-Medium.svg#Roboto-Medium') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'Bold';
-  src: url('../fonts/roboto/Roboto-Bold.eot');
-  src: url('../fonts/roboto/Roboto-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Bold.woff') format('woff'), url('../fonts/roboto/Roboto-Bold.ttf') format('truetype'), url('../fonts/roboto/Roboto-Bold.svg#Roboto-Bold') format('svg');
+  src: url('/fonts/roboto/Roboto-Bold.eot');
+  src: url('/fonts/roboto/Roboto-Bold.eot?#iefix') format('embedded-opentype'), url('/fonts/roboto/Roboto-Bold.woff') format('woff'), url('/fonts/roboto/Roboto-Bold.ttf') format('truetype'), url('/fonts/roboto/Roboto-Bold.svg#Roboto-Bold') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'Black';
-  src: url('../fonts/roboto/Roboto-Black.eot');
-  src: url('../fonts/roboto/Roboto-Black.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Black.woff') format('woff'), url('../fonts/roboto/Roboto-Black.ttf') format('truetype'), url('../fonts/roboto/Roboto-Black.svg#Roboto-Black') format('svg');
+  src: url('/fonts/roboto/Roboto-Black.eot');
+  src: url('/fonts/roboto/Roboto-Black.eot?#iefix') format('embedded-opentype'), url('/fonts/roboto/Roboto-Black.woff') format('woff'), url('/fonts/roboto/Roboto-Black.ttf') format('truetype'), url('/fonts/roboto/Roboto-Black.svg#Roboto-Black') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'Gotham-Bold';
-  src: url('../fonts/gotham/Gotham-Bold.eot');
-  src: url('../fonts/gotham/Gotham-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/gotham/Gotham-Bold.woff') format('woff'), url('../fonts/gotham/Gotham-Bold.ttf') format('truetype'), url('../fonts/gotham/Gotham-Bold.svg#Roboto-Black') format('svg');
+  src: url('/fonts/gotham/Gotham-Bold.eot');
+  src: url('/fonts/gotham/Gotham-Bold.eot?#iefix') format('embedded-opentype'), url('/fonts/gotham/Gotham-Bold.woff') format('woff'), url('/fonts/gotham/Gotham-Bold.ttf') format('truetype'), url('/fonts/gotham/Gotham-Bold.svg#Roboto-Black') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
@@ -840,7 +844,7 @@ header .navbar {
 header .navbar .navbar-header .navbar-brand {
   width: 280px;
   height: 50px;
-  background: url('../images/logo.svg') center center no-repeat;
+  background: url('/images/logo.svg') center center no-repeat;
 }
 header .navbar .navbar-header .navbar-toggle {
   margin-right: 0;
@@ -877,7 +881,7 @@ section#home #hero {
   position: relative;
   width: 100%;
   height: 315px;
-  background: url('../images/hero_bg.svg') center right no-repeat;
+  background: url('/images/hero_bg.svg') center right no-repeat;
   background-size: cover;
 }
 section#home #hero .container {
@@ -963,16 +967,33 @@ section#home #hero .container #form-hero-search .form-group i {
   color: #ffffff;
 }
 /*------------------------------------------------------------------------------------*/
+div#hero h1.title-xxlg.font-1.color-w {
+  font-size: 50px;
+  font-weight: 500;
+}
+div#hero h1.title-xlg.font-1.color-w {
+  font-size: 50px;
+  font-weight: 500;
+}
+div#hero p.large.color-w.mg-b{
+  font-size: 16px;
+  font-weight: 400;
+}
+div#hero p.larger.color-w.mg-b{
+  font-size: 16px;
+  font-weight: 400;
+}
 div#hero > div.container {
   padding-left: 335.5px;
   padding-right: 335.5px;
+  padding-top: 30px;
 }
 section#listado #hero,
 section#detalle #hero {
   position: relative;
   width: 100%;
   height: 175px;
-  background: url('../images/hero_bg.svg') center right no-repeat;
+  background: url('/images/hero_bg.svg') center right no-repeat;
   background-size: cover;
 }
 section#listado #hero .container,
@@ -1635,7 +1656,7 @@ footer .dropdown .dropdown-toggle {
   text-align: left;
   background-color: #ffffff;
   border: 1px solid #dddddd;
-  background: url('../images/dropdown_arrow.png') right 10px center no-repeat !important;
+  background: url('/images/dropdown_arrow.png') right 10px center no-repeat !important;
 }
 header .dropdown .dropdown-menu,
 section .dropdown .dropdown-menu,
@@ -1716,25 +1737,25 @@ header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1 {
-  background: url('../images/tipo_linea1.png') center center no-repeat;
+  background: url('/images/tipo_linea1.png') center center no-repeat;
 }
 header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2 {
-  background: url('../images/tipo_linea2.png') center center no-repeat;
+  background: url('/images/tipo_linea2.png') center center no-repeat;
 }
 header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3 {
-  background: url('../images/tipo_linea3.png') center center no-repeat;
+  background: url('/images/tipo_linea3.png') center center no-repeat;
 }
 header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4 {
-  background: url('../images/tipo_linea4.png') center center no-repeat;
+  background: url('/images/tipo_linea4.png') center center no-repeat;
 }
 header .inline,
 section .inline,
@@ -2260,7 +2281,7 @@ footer select.form-control {
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url('../images/dropdown_arrow.png') right 10px center no-repeat !important;
+  background: url('/images/dropdown_arrow.png') right 10px center no-repeat !important;
   text-indent: 0.01px;
   text-overflow: "";
   outline: none;
@@ -2362,14 +2383,14 @@ section .carousel.has-nav .owl-nav .owl-prev,
 aside .carousel.has-nav .owl-nav .owl-prev,
 footer .carousel.has-nav .owl-nav .owl-prev {
   left: 0;
-  background: url('../images/icon_arrow_prev.png') center center no-repeat;
+  background: url('/images/icon_arrow_prev.png') center center no-repeat;
 }
 header .carousel.has-nav .owl-nav .owl-next,
 section .carousel.has-nav .owl-nav .owl-next,
 aside .carousel.has-nav .owl-nav .owl-next,
 footer .carousel.has-nav .owl-nav .owl-next {
   right: 0;
-  background: url('../images/icon_arrow_next.png') center center no-repeat;
+  background: url('/images/icon_arrow_next.png') center center no-repeat;
 }
 header .carousel.has-nav.nav-outer .owl-prev,
 section .carousel.has-nav.nav-outer .owl-prev,
