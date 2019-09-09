@@ -29,6 +29,10 @@
   animation-duration: .5s;
 }
 
+#filters label:after {
+  content: none;
+}
+
 .result-filter-count {
   color: gray;
   font-weight: 100;
@@ -150,9 +154,9 @@
   }
 }
 
-@media (max-width: 630px) {
+@media (max-width: 600px) and (min-width: 461px) {
   .share {
-    width: 100%;
+    width: 57%;
     display: inline-block;
   }
 }
@@ -717,40 +721,40 @@ FONTS:
 */
 @font-face {
   font-family: 'Regular';
-  src: url('../fonts/roboto/Roboto-Regular.eot');
-  src: url('../fonts/roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Regular.woff') format('woff'), url('../fonts/roboto/Roboto-Regular.ttf') format('truetype'), url('../fonts/roboto/Roboto-Regular.svg#Roboto-Regular') format('svg');
+  src: url('/fonts/roboto/Roboto-Regular.eot');
+  src: url('/fonts/roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'), url('/fonts/roboto/Roboto-Regular.woff') format('woff'), url('/fonts/roboto/Roboto-Regular.ttf') format('truetype'), url('/fonts/roboto/Roboto-Regular.svg#Roboto-Regular') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'Medium';
-  src: url('../fonts/roboto/Roboto-Medium.eot');
-  src: url('../fonts/roboto/Roboto-Medium.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Medium.woff') format('woff'), url('../fonts/roboto/Roboto-Medium.ttf') format('truetype'), url('../fonts/roboto/Roboto-Medium.svg#Roboto-Medium') format('svg');
+  src: url('/fonts/roboto/Roboto-Medium.eot');
+  src: url('/fonts/roboto/Roboto-Medium.eot?#iefix') format('embedded-opentype'), url('/fonts/roboto/Roboto-Medium.woff') format('woff'), url('/fonts/roboto/Roboto-Medium.ttf') format('truetype'), url('/fonts/roboto/Roboto-Medium.svg#Roboto-Medium') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'Bold';
-  src: url('../fonts/roboto/Roboto-Bold.eot');
-  src: url('../fonts/roboto/Roboto-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Bold.woff') format('woff'), url('../fonts/roboto/Roboto-Bold.ttf') format('truetype'), url('../fonts/roboto/Roboto-Bold.svg#Roboto-Bold') format('svg');
+  src: url('/fonts/roboto/Roboto-Bold.eot');
+  src: url('/fonts/roboto/Roboto-Bold.eot?#iefix') format('embedded-opentype'), url('/fonts/roboto/Roboto-Bold.woff') format('woff'), url('/fonts/roboto/Roboto-Bold.ttf') format('truetype'), url('/fonts/roboto/Roboto-Bold.svg#Roboto-Bold') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'Black';
-  src: url('../fonts/roboto/Roboto-Black.eot');
-  src: url('../fonts/roboto/Roboto-Black.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Black.woff') format('woff'), url('../fonts/roboto/Roboto-Black.ttf') format('truetype'), url('../fonts/roboto/Roboto-Black.svg#Roboto-Black') format('svg');
+  src: url('/fonts/roboto/Roboto-Black.eot');
+  src: url('/fonts/roboto/Roboto-Black.eot?#iefix') format('embedded-opentype'), url('/fonts/roboto/Roboto-Black.woff') format('woff'), url('/fonts/roboto/Roboto-Black.ttf') format('truetype'), url('/fonts/roboto/Roboto-Black.svg#Roboto-Black') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'Gotham-Bold';
-  src: url('../fonts/gotham/Gotham-Bold.eot');
-  src: url('../fonts/gotham/Gotham-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/gotham/Gotham-Bold.woff') format('woff'), url('../fonts/gotham/Gotham-Bold.ttf') format('truetype'), url('../fonts/gotham/Gotham-Bold.svg#Roboto-Black') format('svg');
+  src: url('/fonts/gotham/Gotham-Bold.eot');
+  src: url('/fonts/gotham/Gotham-Bold.eot?#iefix') format('embedded-opentype'), url('/fonts/gotham/Gotham-Bold.woff') format('woff'), url('/fonts/gotham/Gotham-Bold.ttf') format('truetype'), url('/fonts/gotham/Gotham-Bold.svg#Roboto-Black') format('svg');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
@@ -840,7 +844,7 @@ header .navbar {
 header .navbar .navbar-header .navbar-brand {
   width: 280px;
   height: 50px;
-  background: url('../images/logo.svg') center center no-repeat;
+  background: url('/images/logo.svg') center center no-repeat;
 }
 header .navbar .navbar-header .navbar-toggle {
   margin-right: 0;
@@ -877,10 +881,10 @@ section#home #hero {
   position: relative;
   width: 100%;
   height: 315px;
-  background: url('../images/hero_bg.svg') center right no-repeat;
+  background: url('/images/hero_bg.svg') center right no-repeat;
   background-size: cover;
 }
-section#home #hero .hero-caption {
+section#home #hero .container {
   position: absolute;
   z-index: 2;
   top: 50%;
@@ -890,11 +894,11 @@ section#home #hero .hero-caption {
   transform: translateY(-50%);
   width: 100%;
 }
-section#home #hero .hero-caption #form-hero-search .form-group {
+section#home #hero .container #form-hero-search .form-group {
   position: relative;
   margin-bottom: 0;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-control {
+section#home #hero .container #form-hero-search .form-group .form-control {
   font-size: 26px;
   color: #ffffff;
   background-color: transparent;
@@ -906,29 +910,29 @@ section#home #hero .hero-caption #form-hero-search .form-group .form-control {
   transition: 0.25s;
   border-radius: 0;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-control::-moz-placeholder {
+section#home #hero .container #form-hero-search .form-group .form-control::-moz-placeholder {
   color: #ffffff;
   opacity: 1;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-control:-ms-input-placeholder {
+section#home #hero .container #form-hero-search .form-group .form-control:-ms-input-placeholder {
   color: #ffffff;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-control::-webkit-input-placeholder {
+section#home #hero .container #form-hero-search .form-group .form-control::-webkit-input-placeholder {
   color: #ffffff;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-control:focus {
+section#home #hero .container #form-hero-search .form-group .form-control:focus {
   background-color: rgba(255, 255, 255, 0.125);
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete {
+section#home #hero .container #form-hero-search .form-group .form-autocomplete {
   z-index: 99999 !important;
   position: relative !important;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete .highlight-item {
+section#home #hero .container #form-hero-search .form-group .form-autocomplete .highlight-item {
   background-color: #cecece !important;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type {
+section#home #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type {
   position: absolute !important;
   z-index: 99999 !important;
   left: 0 !important;
@@ -941,17 +945,17 @@ section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplet
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25) !important;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25) !important;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div {
+section#home #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type > div {
   padding: 5px 7.5px !important;
   -webkit-transition: 0.25s;
   -o-transition: 0.25s;
   transition: 0.25s;
 }
-section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div.active,
-section#home #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div:hover {
+section#home #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type > div.active,
+section#home #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type > div:hover {
   background-color: #eeeeee;
 }
-section#home #hero .hero-caption #form-hero-search .form-group i {
+section#home #hero .container #form-hero-search .form-group i {
   position: absolute;
   top: 50%;
   right: 15px;
@@ -963,16 +967,37 @@ section#home #hero .hero-caption #form-hero-search .form-group i {
   color: #ffffff;
 }
 /*------------------------------------------------------------------------------------*/
+div#hero h1.title-xxlg.font-1.color-w {
+  font-size: 50px;
+  font-weight: 500;
+}
+div#hero h1.title-xlg.font-1.color-w {
+  font-size: 50px;
+  font-weight: 500;
+}
+div#hero p.large.color-w.mg-b{
+  font-size: 16px;
+  font-weight: 400;
+}
+div#hero p.larger.color-w.mg-b{
+  font-size: 16px;
+  font-weight: 400;
+}
+div#hero > div.container {
+  padding-left: 335.5px;
+  padding-right: 335.5px;
+  padding-top: 30px;
+}
 section#listado #hero,
 section#detalle #hero {
   position: relative;
   width: 100%;
   height: 175px;
-  background: url('../images/hero_bg.svg') center right no-repeat;
+  background: url('/images/hero_bg.svg') center right no-repeat;
   background-size: cover;
 }
-section#listado #hero .hero-caption,
-section#detalle #hero .hero-caption {
+section#listado #hero .container,
+section#detalle #hero .container {
   position: absolute;
   z-index: 2;
   top: 50%;
@@ -982,13 +1007,13 @@ section#detalle #hero .hero-caption {
   transform: translateY(-50%);
   width: 100%;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group,
-section#detalle #hero .hero-caption #form-hero-search .form-group {
+section#listado #hero .container #form-hero-search .form-group,
+section#detalle #hero .container #form-hero-search .form-group {
   position: relative;
   margin-bottom: 0;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group .form-control,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-control {
+section#listado #hero .container #form-hero-search .form-group .form-control,
+section#detalle #hero .container #form-hero-search .form-group .form-control {
   font-size: 16px;
   color: #ffffff;
   background-color: transparent;
@@ -1000,37 +1025,37 @@ section#detalle #hero .hero-caption #form-hero-search .form-group .form-control 
   transition: 0.25s;
   border-radius: 0;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group .form-control::-moz-placeholder,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-control::-moz-placeholder {
+section#listado #hero .container #form-hero-search .form-group .form-control::-moz-placeholder,
+section#detalle #hero .container #form-hero-search .form-group .form-control::-moz-placeholder {
   color: #ffffff;
   opacity: 1;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group .form-control:-ms-input-placeholder,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-control:-ms-input-placeholder {
+section#listado #hero .container #form-hero-search .form-group .form-control:-ms-input-placeholder,
+section#detalle #hero .container #form-hero-search .form-group .form-control:-ms-input-placeholder {
   color: #ffffff;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group .form-control::-webkit-input-placeholder,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-control::-webkit-input-placeholder {
+section#listado #hero .container #form-hero-search .form-group .form-control::-webkit-input-placeholder,
+section#detalle #hero .container #form-hero-search .form-group .form-control::-webkit-input-placeholder {
   color: #ffffff;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group .form-control:focus,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-control:focus {
+section#listado #hero .container #form-hero-search .form-group .form-control:focus,
+section#detalle #hero .container #form-hero-search .form-group .form-control:focus {
   background-color: rgba(255, 255, 255, 0.125);
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete {
+section#listado #hero .container #form-hero-search .form-group .form-autocomplete,
+section#detalle #hero .container #form-hero-search .form-group .form-autocomplete {
   z-index: 99999 !important;
   position: relative !important;
 }
 
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete .highlight-item {
+section#detalle #hero .container #form-hero-search .form-group .form-autocomplete .highlight-item {
   background-color: #cecece !important;
 }
 
-section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type {
+section#listado #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type,
+section#detalle #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type {
   position: absolute !important;
   z-index: 99999 !important;
   left: 0 !important;
@@ -1043,21 +1068,21 @@ section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomp
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25) !important;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25) !important;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div {
+section#listado #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type > div,
+section#detalle #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type > div {
   padding: 5px 7.5px !important;
   -webkit-transition: 0.25s;
   -o-transition: 0.25s;
   transition: 0.25s;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div.active,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div.active,
-section#listado #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div:hover,
-section#detalle #hero .hero-caption #form-hero-search .form-group .form-autocomplete > div:first-of-type > div:hover {
+section#listado #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type > div.active,
+section#detalle #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type > div.active,
+section#listado #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type > div:hover,
+section#detalle #hero .container #form-hero-search .form-group .form-autocomplete > div:first-of-type > div:hover {
   background-color: #eeeeee;
 }
-section#listado #hero .hero-caption #form-hero-search .form-group i,
-section#detalle #hero .hero-caption #form-hero-search .form-group i {
+section#listado #hero .container #form-hero-search .form-group i,
+section#detalle #hero .container #form-hero-search .form-group i {
   position: absolute;
   top: 50%;
   right: 15px;
@@ -1631,7 +1656,7 @@ footer .dropdown .dropdown-toggle {
   text-align: left;
   background-color: #ffffff;
   border: 1px solid #dddddd;
-  background: url('../images/dropdown_arrow.png') right 10px center no-repeat !important;
+  background: url('/images/dropdown_arrow.png') right 10px center no-repeat !important;
 }
 header .dropdown .dropdown-menu,
 section .dropdown .dropdown-menu,
@@ -1712,25 +1737,25 @@ header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1 {
-  background: url('../images/tipo_linea1.png') center center no-repeat;
+  background: url('/images/tipo_linea1.png') center center no-repeat;
 }
 header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2 {
-  background: url('../images/tipo_linea2.png') center center no-repeat;
+  background: url('/images/tipo_linea2.png') center center no-repeat;
 }
 header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3 {
-  background: url('../images/tipo_linea3.png') center center no-repeat;
+  background: url('/images/tipo_linea3.png') center center no-repeat;
 }
 header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4 {
-  background: url('../images/tipo_linea4.png') center center no-repeat;
+  background: url('/images/tipo_linea4.png') center center no-repeat;
 }
 header .inline,
 section .inline,
@@ -2256,7 +2281,7 @@ footer select.form-control {
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url('../images/dropdown_arrow.png') right 10px center no-repeat !important;
+  background: url('/images/dropdown_arrow.png') right 10px center no-repeat !important;
   text-indent: 0.01px;
   text-overflow: "";
   outline: none;
@@ -2358,14 +2383,14 @@ section .carousel.has-nav .owl-nav .owl-prev,
 aside .carousel.has-nav .owl-nav .owl-prev,
 footer .carousel.has-nav .owl-nav .owl-prev {
   left: 0;
-  background: url('../images/icon_arrow_prev.png') center center no-repeat;
+  background: url('/images/icon_arrow_prev.png') center center no-repeat;
 }
 header .carousel.has-nav .owl-nav .owl-next,
 section .carousel.has-nav .owl-nav .owl-next,
 aside .carousel.has-nav .owl-nav .owl-next,
 footer .carousel.has-nav .owl-nav .owl-next {
   right: 0;
-  background: url('../images/icon_arrow_next.png') center center no-repeat;
+  background: url('/images/icon_arrow_next.png') center center no-repeat;
 }
 header .carousel.has-nav.nav-outer .owl-prev,
 section .carousel.has-nav.nav-outer .owl-prev,
@@ -2656,9 +2681,9 @@ RESPONSIVE:
     width: 100%;
     height: auto;
   }
-  section#home #hero .hero-caption,
-  section#listado #hero .hero-caption,
-  section#detalle #hero .hero-caption {
+  section#home #hero .container,
+  section#listado #hero .container,
+  section#detalle #hero .container {
     position: relative;
     top: 0;
     -webkit-transform: translateY(0);
@@ -2667,31 +2692,31 @@ RESPONSIVE:
     transform: translateY(0);
     padding: 30px 0;
   }
-  section#home #hero .hero-caption .title-xxlg,
-  section#listado #hero .hero-caption .title-xxlg,
-  section#detalle #hero .hero-caption .title-xxlg,
-  section#home #hero .hero-caption .title-xlg,
-  section#listado #hero .hero-caption .title-xlg,
-  section#detalle #hero .hero-caption .title-xlg {
+  section#home #hero .container .title-xxlg,
+  section#listado #hero .container .title-xxlg,
+  section#detalle #hero .container .title-xxlg,
+  section#home #hero .container .title-xlg,
+  section#listado #hero .container .title-xlg,
+  section#detalle #hero .container .title-xlg {
     font-size: 36px;
   }
-  section#home #hero .hero-caption .larger,
-  section#listado #hero .hero-caption .larger,
-  section#detalle #hero .hero-caption .larger,
-  section#home #hero .hero-caption .large,
-  section#listado #hero .hero-caption .large,
-  section#detalle #hero .hero-caption .large {
+  section#home #hero .container .larger,
+  section#listado #hero .container .larger,
+  section#detalle #hero .container .larger,
+  section#home #hero .container .large,
+  section#listado #hero .container .large,
+  section#detalle #hero .container .large {
     font-size: 16px;
   }
-  section#home #hero .hero-caption #form-hero-search .form-group .form-control,
-  section#listado #hero .hero-caption #form-hero-search .form-group .form-control,
-  section#detalle #hero .hero-caption #form-hero-search .form-group .form-control {
+  section#home #hero .container #form-hero-search .form-group .form-control,
+  section#listado #hero .container #form-hero-search .form-group .form-control,
+  section#detalle #hero .container #form-hero-search .form-group .form-control {
     font-size: 16px;
     padding: 7.5px;
   }
-  section#home #hero .hero-caption #form-hero-search .form-group i,
-  section#listado #hero .hero-caption #form-hero-search .form-group i,
-  section#detalle #hero .hero-caption #form-hero-search .form-group i {
+  section#home #hero .container #form-hero-search .form-group i,
+  section#listado #hero .container #form-hero-search .form-group i,
+  section#detalle #hero .container #form-hero-search .form-group i {
     font-size: 20px;
   }
 }
