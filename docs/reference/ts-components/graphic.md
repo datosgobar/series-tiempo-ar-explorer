@@ -3,10 +3,10 @@
 El componente `graphic` permite embeber gráficos de líneas, áreas o barras en experiencias web. Permite elegir distintos elementos de filtro de fechas, personalizar los textos, etc.
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/pghmcont/](https://jsfiddle.net/pghmcont/)
+Ver online: [https://jsfiddle.net/zb9dm0xu/](https://jsfiddle.net/zb9dm0xu/)
 
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/css/components.css'/>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.1/dist/js/components.js'></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.1/dist/css/components.css'/>
 
 <div id="tmi"></div>
 
@@ -27,10 +27,10 @@ Este gráfico se genera a partir del siguiente código:
 
 ```html
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.1/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.1/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con un gráfico -->
 <div id="tmi"></div>
@@ -70,7 +70,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>chartOptions</td>
         <td>No</td>
-        <td>Cualquier opción válida para [Highcharts](https://api.highcharts.com/highcharts/)</td>
+        <td>Cualquier opción válida para [Highcharts](https://api.highcharts.com/highcharts/).</td>
         <td>object</td>
         <td>{}</td>
         <td></td>
@@ -78,7 +78,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>navigator</td>
         <td>No</td>
-        <td>Indica si está habilitada la funcionalidad de navegación de la serie</td>
+        <td>Indica si está habilitada la funcionalidad de navegación de la serie.</td>
         <td>boolean</td>
         <td>Dinámico</td>
         <td>true / false</td>
@@ -94,7 +94,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>zoom</td>
         <td>No</td>
-        <td>Indica si tiene habilitada la funcionalidad de zoom</td>
+        <td>Indica si tiene habilitada la funcionalidad de zoom.</td>
         <td>boolean</td>
         <td>Dinámico</td>
         <td>true / false</td>
@@ -102,7 +102,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>exportable</td>
         <td>No</td>
-        <td>Indica si tiene habilitada la funcionalidad de exportar el gráfico</td>
+        <td>Indica si tiene habilitada la funcionalidad de exportar el gráfico.</td>
         <td>boolean</td>
         <td>Dinámico</td>
         <td>true / false</td>
@@ -118,7 +118,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>backgroundColor</td>
         <td>No</td>
-        <td>Color de fondo del gráfico en formato hexadecimal</td>
+        <td>Color de fondo del gráfico en formato hexadecimal.</td>
         <td>string</td>
         <td>#cdcdcd</td>
         <td>#cdcdcd</td>
@@ -126,7 +126,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>datePickerEnabled</td>
         <td>No</td>
-        <td>Indica si el selector de fechas está habilitado</td>
+        <td>Indica si el selector de fechas está habilitado.</td>
         <td>boolean</td>
         <td>Dinámica</td>
         <td>true / false</td>
@@ -134,7 +134,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>legendField</td>
         <td>No</td>
-        <td>Indica el campo de la serie a usar para mostrar la leyenda</td>
+        <td>Indica el campo de la serie a usar para mostrar la leyenda.</td>
         <td>string</td>
         <td>'title'</td>
         <td>"title", "description" o "id"</td>
@@ -142,7 +142,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>chartTypes</td>
         <td>No</td>
-        <td>Especifica el tipo de gráfico a usar para cada serie</td>
+        <td>Especifica el tipo de gráfico a usar para cada serie<./td>
         <td>object</td>
         <td>'line' para todas las series</td>
         <td>{'tmi_arg': 'column', 'tmi_02': 'line', 'tmi_06': 'area'}</td>
@@ -150,7 +150,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>title</td>
         <td>No</td>
-        <td>Especifica el título el gráfico</td>
+        <td>Especifica el título el gráfico.</td>
         <td>string</td>
         <td>Ninguno</td>
         <td>Tasa de Mortalidad Infantil de Argentina</td>
@@ -158,7 +158,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>source</td>
         <td>No</td>
-        <td>Especifica el texto al pie del gráfico</td>
+        <td>Especifica el texto al pie del gráfico.</td>
         <td>string</td>
         <td>Ninguno</td>
         <td>Dirección de Estadística e Información en Salud (DEIS). Secretaría de Gobierno de Salud</td>
@@ -166,7 +166,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>displayUnits</td>
         <td>No</td>
-        <td>Indica si se muestran las unidades del gráfico</td>
+        <td>Indica si se muestran las unidades del gráfico.</td>
         <td>boolean</td>
         <td>Dinámico</td>
         <td>true / false</td>
@@ -174,7 +174,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>legendLabel</td>
         <td>No</td>
-        <td>Especifica el texto a mostrar como leyenda por cada serie</td>
+        <td>Especifica el texto a mostrar como leyenda por cada serie.</td>
         <td>object</td>
         <td>{}</td>
         <td>{'serie01': 'leyenda custom'}</td>
@@ -182,7 +182,7 @@ Este gráfico se genera a partir del siguiente código:
     <tr>
         <td>seriesAxis</td>
         <td>No</td>
-        <td>Especifica de qué lado del gráfico mostrar las ordenadas y unidades de cada serie representada. Puede haber más de una serie en un mismo lado. Si hay una sola serie, debe ir obligatoriamente del lado izquierdo</td>
+        <td>Especifica de qué lado del gráfico mostrar las ordenadas y unidades de cada serie representada. Puede haber más de una serie en un mismo lado. Si hay una sola serie, debe ir obligatoriamente del lado izquierdo.</td>
         <td>object</td>
         <td>{}</td>
         <td>{'serie01': 'right',
@@ -191,7 +191,7 @@ Este gráfico se genera a partir del siguiente código:
         <tr>
         <td>chartType</td>
         <td>No</td>
-        <td>Especifica un tipo de gráfico para aplicar a todas las series como default. En caso de estar especificado un tipo para una serie en chartTypes, este último será priorizado para la misma</td>
+        <td>Especifica un tipo de gráfico para aplicar a todas las series como default. En caso de estar especificado un tipo para una serie en chartTypes, este último será priorizado para la misma.</td>
         <td>string</td>
         <td>'line'</td>
         <td>'line', 'area' o 'column'</td>
@@ -230,8 +230,8 @@ Varios componentes del gráfico se muestran/ocultan dinámicamente dependiendo d
 ```html
 <html>
 <body>
-  <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/js/components.js'></script>
-  <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.0/dist/css/components.css'/>
+  <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.1/dist/js/components.js'></script>
+  <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.5.1/dist/css/components.css'/>
   <div id="root"></div>
   <script>
     window.onload = function () {
