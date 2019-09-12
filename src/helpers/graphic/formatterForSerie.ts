@@ -3,12 +3,12 @@ export function formatterForSerie(locale: string, isPercentage: boolean, decimal
     return {
         formatter(): string {
             // @ts-ignore
-            return formatValue(this.value, locale, isPercentage, decimalAmount)
+            return formatSerieValue(this.value, locale, isPercentage, decimalAmount)
         }
     };
 }
 
-export function formatValue(value: number, locale: string, isPercentage: boolean, decimalAmount?: number) {
+export function formatSerieValue(value: number, locale: string, isPercentage: boolean, decimalAmount?: number) {
 
     const localeObj = buildLocale(locale);
     const sep = localeObj.decimalSeparator();

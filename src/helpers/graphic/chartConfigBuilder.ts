@@ -1,14 +1,14 @@
 import { IDataPoint } from "../../api/DataPoint";
 import { ISerie } from "../../api/Serie";
 import { i18nFrequency } from "../../api/utils/periodicityManager";
-import { buildLocale } from "../../components/common/locale/buildLocale";
-import { IGraphicProps, IYAxisConf, IYAxis } from "../../components/viewpage/graphic/Graphic";
-import { findSerieConfig } from "../common/fullSerieID";
+import { IGraphicProps, IYAxis, IYAxisConf } from "../../components/viewpage/graphic/Graphic";
+import { IHCSerie } from "../../components/viewpage/graphic/highcharts";
+import { findSerieConfig, getTooltipDecimals } from "../common/fullSerieID";
 import { generateYAxisArray, generateYAxisBySeries, IYAxisGenerationOptions } from "./axisConfiguration";
 import { dateFormatByPeriodicity } from "./dateFormatting";
-import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
+import { formatSerieValue } from "./formatterForSerie";
 import { HighchartsSerieBuilder, IHighchartsSerieBuilderOptions } from "./hcSerieFromISerie";
-import { IHCSerie } from "../../components/viewpage/graphic/highcharts";
+import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
 
 export class ChartConfigBuilder {
 
@@ -62,20 +62,16 @@ export class ChartConfigBuilder {
                     const self: any = this;
                     // @ts-ignore
                     const builder: ChartConfigBuilder = _this;
-                    const formatUnits = builder.props.formatUnits || false;
-                    const locale = buildLocale(builder.props.locale);
 
                     let contentTooltip = "";
                     self.points.forEach((point: any, index: number) => {
+
                         const serieConfig = findSerieConfig(builder.props.seriesConfig, point.series.options.serieId);
                         let value = point.y;
 
                         if (serieConfig) {
-                            if(serieConfig.mustFormatUnits(formatUnits)) {
-                                value = `${locale.toDecimalString(value * 100)}%`;
-                            } else {
-                                value = locale.toDecimalString(value);
-                            }
+                            const decimalAmount = getTooltipDecimals(serieConfig.getFullSerieId(), builder.props.decimalTooltips);
+                            value = formatSerieValue(value, builder.props.locale, serieConfig.isPercentageSerie(), decimalAmount);
 
                             contentTooltip += tooltipFormatter(point, value, builder.smallTooltip);
                         }

@@ -8,7 +8,7 @@ import { PropsAdjuster } from "../../helpers/graphic/propsAdjuster";
 import { GraphicURLValidator } from "../../helpers/graphic/URLValidation";
 import { getColorArray } from "../style/Colors/Color";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
-import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides } from "../viewpage/graphic/Graphic";
+import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides, INumberPropsPerId } from "../viewpage/graphic/Graphic";
 import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
 
@@ -32,6 +32,8 @@ export interface IGraphicExportableProps {
     chartType?: string;
     decimalLeftAxis?: number | undefined;
     decimalRightAxis?: number | undefined;
+    decimalTooltips: INumberPropsPerId;
+    decimalTooltip?: number;
 }
 
 interface IGraphicExportableState {
@@ -80,7 +82,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         this.fetchSeries(params);
 
         const adjuster = new PropsAdjuster(ids);
-        adjuster.adjustAll(this.props.chartTypes, this.props.legendLabel, this.props.seriesAxis, this.props.chartType);
+        adjuster.adjustAll(this.props.chartTypes, this.props.legendLabel, this.props.seriesAxis, 
+            this.props.decimalTooltips, this.props.chartType, this.props.decimalTooltip);
 
     }
 
@@ -103,7 +106,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          seriesAxis={this.props.seriesAxis}
                          colors={getColorArray(this.props.colors)}
                          decimalLeftAxis={this.props.decimalLeftAxis}
-                         decimalRightAxis={this.props.decimalRightAxis} />
+                         decimalRightAxis={this.props.decimalRightAxis}
+                         decimalTooltips={this.props.decimalTooltips} />
             </ExportableGraphicContainer>
         )
     }

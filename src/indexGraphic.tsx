@@ -23,7 +23,9 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            seriesAxis={config.seriesAxis || {}}
                            chartType={config.chartType}
                            decimalLeftAxis={config.decimalLeftAxis}
-                           decimalRightAxis={config.decimalRightAxis} />,
+                           decimalRightAxis={config.decimalRightAxis}
+                           decimalTooltip={config.decimalTooltip}
+                           decimalTooltips={config.decimalTooltips || {}} />,
         document.getElementById(selector) as HTMLElement
     )
 }

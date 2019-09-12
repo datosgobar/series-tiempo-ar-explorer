@@ -1,4 +1,4 @@
-import { IPropsPerId, IChartTypeProps, ILegendLabel, ISeriesAxisSides } from "../../components/viewpage/graphic/Graphic";
+import { IChartTypeProps, ILegendLabel, INumberPropsPerId, IPropsPerId, ISeriesAxisSides } from "../../components/viewpage/graphic/Graphic";
 
 export class PropsAdjuster {
 
@@ -8,17 +8,20 @@ export class PropsAdjuster {
         this.ids = ids.sort();
     }
 
-    public adjustAll(chartTypes: IChartTypeProps, legendLabel: ILegendLabel, seriesAxis: ISeriesAxisSides, chartType?: string) {
+    public adjustAll(chartTypes: IChartTypeProps, legendLabel: ILegendLabel, seriesAxis: ISeriesAxisSides,
+        decimalTooltips: INumberPropsPerId, chartType?: string, decimalTooltip?: number) {
 
         this.adjust(chartTypes);
         this.adjust(legendLabel);
         this.adjust(seriesAxis);
+        this.adjust(decimalTooltips);
 
-
-        if (chartType === undefined) {
-            return;
+        if (chartType !== undefined) {
+            this.applyDefaultPropValue(chartTypes, chartType);
         }
-        this.applyDefaultChartType(chartTypes, chartType);
+        if (decimalTooltip !== undefined) {
+            this.applyDefaultPropValue(decimalTooltips, decimalTooltip);
+        }
 
     }
 
@@ -51,11 +54,11 @@ export class PropsAdjuster {
 
     }
 
-    private applyDefaultChartType(chartTypes: IChartTypeProps, chartType: string) {
+    private applyDefaultPropValue(perIdProp: IPropsPerId, generalProp: string | number) {
 
         for (const id of this.ids) {
-            if(chartTypes[id] === undefined) {
-                chartTypes[id] = chartType;
+            if(perIdProp[id] === undefined) {
+                perIdProp[id] = generalProp;
             }
         }
 

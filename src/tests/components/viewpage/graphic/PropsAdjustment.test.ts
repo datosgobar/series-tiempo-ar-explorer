@@ -1,4 +1,4 @@
-import { IPropsPerId } from "../../../../components/viewpage/graphic/Graphic";
+import { IStringPropsPerId } from "../../../../components/viewpage/graphic/Graphic";
 import { PropsAdjuster } from "../../../../helpers/graphic/propsAdjuster";
 
 describe("Adjustment of different props for multiple IDs", () => {
@@ -8,7 +8,7 @@ describe("Adjustment of different props for multiple IDs", () => {
     let yearPercentageId: string;
     let commonMotosId: string;
     let ids: string[];
-    let props: IPropsPerId;
+    let props: IStringPropsPerId;
     let chartType: string;
     let adjuster: PropsAdjuster;
 

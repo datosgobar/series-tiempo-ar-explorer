@@ -12,7 +12,8 @@ describe('GraphicExportable', () => {
                                                  chartOptions={{}}
                                                  legendLabel={{}}
                                                  seriesAxis={{}}
-                                                 chartTypes={{}} />);
+                                                 chartTypes={{}}
+                                                 decimalTooltips={{}} />);
 
         expect(wrapper.find(GraphicExportable).exists()).toBe(true);
     });

@@ -32,15 +32,22 @@ export interface IGraphicProps {
     colors?: Color[];
     decimalLeftAxis?: number;
     decimalRightAxis?: number;
+    decimalTooltips?: INumberPropsPerId;
 }
 
-export interface IPropsPerId {
+export interface IStringPropsPerId {
     [clave: string]: string;
 }
 
-export type IChartTypeProps = IPropsPerId;
-export type ILegendLabel = IPropsPerId;
-export type ISeriesAxisSides = IPropsPerId;
+export type IChartTypeProps = IStringPropsPerId;
+export type ILegendLabel = IStringPropsPerId;
+export type ISeriesAxisSides = IStringPropsPerId;
+
+export interface INumberPropsPerId {
+    [clave: string]: number;
+}
+
+export type IPropsPerId = IStringPropsPerId | INumberPropsPerId;
 
 export interface IChartExtremeProps {
     min: number;
