@@ -18,7 +18,6 @@ nav:
   - Desarrolladores:
     - Instalación: 'developers/install.md'
     - Despliegue: 'developers/deploy.md'
-    - React: 'developers/react_doc.md'
   # - Historial de versiones: 'history.md'
 
 theme: datosgobar_docs
