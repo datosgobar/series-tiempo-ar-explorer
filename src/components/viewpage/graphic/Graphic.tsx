@@ -4,7 +4,7 @@ import { setSerieTags } from "../../../actions/seriesActions";
 import { ISerie } from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
 import { formattedDateString, timestamp } from '../../../helpers/common/dateFunctions';
-import { generateYAxisBySeries } from '../../../helpers/graphic/axisConfiguration';
+import { generateYAxisBySeries, IYAxisGenerationOptions } from '../../../helpers/graphic/axisConfiguration';
 import { ChartConfigBuilder } from '../../../helpers/graphic/chartConfigBuilder';
 import { setHighchartsGlobalConfig } from '../../../helpers/graphic/hcConfiguration';
 import { Color } from '../../style/Colors/Color';
@@ -30,6 +30,8 @@ export interface IGraphicProps {
     legendLabel?: ILegendLabel;
     seriesAxis?: ISeriesAxisSides;
     colors?: Color[];
+    decimalLeftAxis?: number;
+    decimalRightAxis?: number;
 }
 
 export interface IPropsPerId {
@@ -49,6 +51,7 @@ export interface IYAxis {
     opposite: boolean;
     title: {text: string};
     labels?: { formatter?: ()=>string,
+               format?: string,
                align?: "left"|"right"|"center",
                x?: number }
 }
@@ -77,9 +80,15 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     public render() {
 
-        const formatUnits = this.props.formatUnits || false;
-        this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, 
-            formatUnits, this.props.locale, this.props.seriesAxis);
+        const yAxisGenerationOptions: IYAxisGenerationOptions = {
+            axisSides: this.props.seriesAxis,
+            decimalLeftAxis: this.props.decimalLeftAxis,
+            decimalRightAxis: this.props.decimalRightAxis,
+            locale: this.props.locale,
+            series: this.props.series,
+            seriesConfig: this.props.seriesConfig
+        }
+        this.yAxisBySeries = generateYAxisBySeries(yAxisGenerationOptions);
 
         const smallTooltip: boolean = this.hasSmallTooltip();
         const configBuilder: ChartConfigBuilder = new ChartConfigBuilder(this.props, smallTooltip);

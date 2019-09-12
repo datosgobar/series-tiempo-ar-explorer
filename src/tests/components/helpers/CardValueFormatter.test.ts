@@ -108,92 +108,12 @@ describe("CardValueFormatter class tests", () => {
             const formatter = new CardValueFormatter(conf);
             expect(formatter.formattedValue(valueOne)).toEqual('26,07202');
         })
-        it("Using zero digits than the number has formats its value to an integer", () => {
+        it("Using zero digits formats the value to an integer", () => {
             conf.decimals = 0;
             const formatter = new CardValueFormatter(conf);
             expect(formatter.formattedValue(valueTwo)).toEqual('100');
         })
 
     })
-
-    /*describe("Positive values", () => {
-
-        beforeAll(() => {
-            percValue = 0.120918;
-            value = 26.0720161742;
-        })
-        
-        beforeEach(() => {
-            conf = {
-                decimals: 2,
-                explicitSign: true,
-                isPercentage: true,
-                locale: "AR"
-            };
-        })
-
-        it("AR locale, percentage value with explicit sign option", () => {
-            const formatter = new CardValueFormatter(conf);
-            expect(formatter.formattedValue(percValue)).toEqual('+12,09%');
-        });
-        it("AR locale, percentage value without explicit sign option", () => {
-            conf.explicitSign = false;
-            const formatter = new CardValueFormatter(conf);
-            expect(formatter.formattedValue(percValue)).toEqual('12,09%');
-        });
-        it("AR locale, non-percentage value with explicit sign option", () => {
-            conf.isPercentage = false;
-            const formatter = new CardValueFormatter(conf);
-            expect(formatter.formattedValue(value)).toEqual('+26,07');
-        });
-        it("AR locale, non-percentage value without explicit sign option", () => {
-            conf.isPercentage = false;
-            conf.explicitSign = false;
-            const formatter = new CardValueFormatter(conf);
-            expect(formatter.formattedValue(value)).toEqual('26,07');
-        });
-        it("US locale, percentage value without explicit sign option", () => {
-            conf.locale = "US";
-            conf.explicitSign = false;
-            const formatter = new CardValueFormatter(conf);
-            expect(formatter.formattedValue(percValue)).toEqual('12.09%');
-        }); 
-    })
-
-    describe("Negative values", () => {
-
-        beforeAll(() => {
-            percValue = -0.120918;
-            value = -26.0720161742;
-        })
-
-        beforeEach(() => {
-            conf = {
-                decimals: 2,
-                explicitSign: true,
-                isPercentage: true,
-                locale: "AR"
-            };
-        })
-
-        it("AR locale, percentage value, false explicit sign flag is ignored because of negative value", () => {
-            conf.explicitSign = false;
-            const formatter = new CardValueFormatter(conf);
-            expect(formatter.formattedValue(percValue)).toEqual('-12,09%');
-        })
-        it("AR locale, non-percentage value, explicit plus sign is ignored because of negative value", () => {
-            conf.isPercentage = false;
-            const formatter = new CardValueFormatter(conf);
-            expect(formatter.formattedValue(value)).toEqual('-26,07');
-        })
-        it("US locale, non-percentage value, false explicit sign flag is ignored because of negative value", () => {
-            conf.locale = "US";
-            conf.isPercentage = false;
-            conf.explicitSign = false;
-            const formatter = new CardValueFormatter(conf);
-            expect(formatter.formattedValue(value)).toEqual('-26.07');
-        })
-
-    })*/
 
 })

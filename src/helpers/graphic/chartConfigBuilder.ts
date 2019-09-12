@@ -4,7 +4,7 @@ import { i18nFrequency } from "../../api/utils/periodicityManager";
 import { buildLocale } from "../../components/common/locale/buildLocale";
 import { IGraphicProps, IYAxisConf, IYAxis } from "../../components/viewpage/graphic/Graphic";
 import { findSerieConfig } from "../common/fullSerieID";
-import { generateYAxisArray, generateYAxisBySeries } from "./axisConfiguration";
+import { generateYAxisArray, generateYAxisBySeries, IYAxisGenerationOptions } from "./axisConfiguration";
 import { dateFormatByPeriodicity } from "./dateFormatting";
 import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
 import { HighchartsSerieBuilder, IHighchartsSerieBuilderOptions } from "./hcSerieFromISerie";
@@ -20,10 +20,16 @@ export class ChartConfigBuilder {
 
         this.props = props;
         this.smallTooltip = smallTooltip;
-        
-        const formatUnits = this.props.formatUnits || false;
-        this.yAxisBySeries = generateYAxisBySeries(this.props.series, this.props.seriesConfig, 
-            formatUnits, this.props.locale, this.props.seriesAxis);
+
+        const yAxisGenerationOptions: IYAxisGenerationOptions = {
+            axisSides: this.props.seriesAxis,
+            decimalLeftAxis: this.props.decimalLeftAxis,
+            decimalRightAxis: this.props.decimalRightAxis,
+            locale: this.props.locale,
+            series: this.props.series,
+            seriesConfig: this.props.seriesConfig
+        }
+        this.yAxisBySeries = generateYAxisBySeries(yAxisGenerationOptions);
 
     }
 

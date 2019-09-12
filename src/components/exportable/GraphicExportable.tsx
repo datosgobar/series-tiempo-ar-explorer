@@ -30,6 +30,8 @@ export interface IGraphicExportableProps {
     legendLabel: ILegendLabel;
     seriesAxis: ISeriesAxisSides;
     chartType?: string;
+    decimalLeftAxis?: number | undefined;
+    decimalRightAxis?: number | undefined;
 }
 
 interface IGraphicExportableState {
@@ -99,7 +101,9 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          afterRender={this.afterRender}
                          legendLabel={this.props.legendLabel}
                          seriesAxis={this.props.seriesAxis}
-                         colors={getColorArray(this.props.colors)} />
+                         colors={getColorArray(this.props.colors)}
+                         decimalLeftAxis={this.props.decimalLeftAxis}
+                         decimalRightAxis={this.props.decimalRightAxis} />
             </ExportableGraphicContainer>
         )
     }
