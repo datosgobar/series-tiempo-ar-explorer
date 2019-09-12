@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IDataPoint } from '../../api/DataPoint';
 import { ISerie } from '../../api/Serie';
-import { CardValueFormatter } from '../../helpers/card/cardValueFormatter';
+import { CardValueFormatter, ICardValueFormatterConf } from '../../helpers/card/cardValueFormatter';
 import { fullLocaleDate } from '../../helpers/common/dateFunctions';
 import { ICardBaseConfig } from '../../indexCard';
 import FullCardContainer from '../style/exportable_card/FullCardContainer';
@@ -29,8 +29,13 @@ export default (props: IFullCardProps) => {
         serieId: getFullSerieId(props.serie)
     }
     const value = props.serie.data[props.serie.data.length-1].value
-    const formatter = new CardValueFormatter(
-        options.locale, props.serie.isPercentage, options.explicitSign)
+    const formatterProps: ICardValueFormatterConf = {
+        decimals: options.decimals,
+        explicitSign: options.explicitSign,
+        isPercentage: props.serie.isPercentage,
+        locale: options.locale
+    }
+    const formatter = new CardValueFormatter(formatterProps)
         
     return (
         <FullCardContainer color={options.color}
