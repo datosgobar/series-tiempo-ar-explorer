@@ -16,6 +16,7 @@ export interface ICardBaseConfig {
     hasColorBar?: boolean;
     collapse?: string;
     apiBaseUrl?: string;
+    decimals: number;
 }
 
 export interface ICardExportableConfig extends ICardBaseConfig {
@@ -37,7 +38,8 @@ export function render(selector: string, config: ICardExportableConfig) {
                         hasFrame={config.hasFrame}
                         hasColorBar={config.hasColorBar}
                         collapse={config.collapse}
-                        apiBaseUrl={config.apiBaseUrl} />,
+                        apiBaseUrl={config.apiBaseUrl}
+                        decimals={config.decimals >= 0 ? config.decimals : 2} />,
         document.getElementById(selector) as HTMLElement
     )
 }

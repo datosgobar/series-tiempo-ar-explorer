@@ -18,6 +18,7 @@ export function generateBasicMockCardExportableProps(): ICardExportableProps {
     return {
         chartType: "line",
         color: "#FC1622",
+        decimals: 2,
         explicitSign: false,
         hasChart: "full",
         links: "small",

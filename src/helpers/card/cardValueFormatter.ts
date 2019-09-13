@@ -1,18 +1,23 @@
+export interface ICardValueFormatterConf {
+    decimals: number;
+    explicitSign: boolean;
+    isPercentage: boolean;
+    locale: string;
+}
+
 export class CardValueFormatter {
 
     private decimalSeparator: string;
     private isPercentage: boolean;
     private explicitSign: boolean;
+    private decimalPlaces: number;
 
-    constructor(locale: string, isPercentage: boolean, explicitSign: boolean) {
+    constructor(config: ICardValueFormatterConf) {
 
-        this.isPercentage = isPercentage;
-        this.explicitSign = explicitSign;
-
-        this.decimalSeparator = "."
-        if(locale === "AR") {
-            this.decimalSeparator = ","
-        }
+        this.isPercentage = config.isPercentage;
+        this.explicitSign = config.explicitSign;
+        this.decimalPlaces = config.decimals;
+        this.decimalSeparator = config.locale === "AR" ? "," : "."
 
     }
 
@@ -20,9 +25,9 @@ export class CardValueFormatter {
 
         let valueString: string
 
-        valueString = value.toFixed(2)
+        valueString = value.toFixed(this.decimalPlaces)
         if (this.isPercentage) {
-            valueString = `${(value * 100).toFixed(2)}%`
+            valueString = `${(value * 100).toFixed(this.decimalPlaces)}%`
         }
         valueString = valueString.replace(".", this.decimalSeparator)
 

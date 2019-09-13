@@ -1,6 +1,8 @@
-import SerieConfig from "../../api/SerieConfig";
 import { ISerie } from "../../api/Serie";
-import { IChartTypeProps } from "../../components/viewpage/graphic/Graphic";
+import SerieConfig from "../../api/SerieConfig";
+import { IChartTypeProps, INumberPropsPerId } from "../../components/viewpage/graphic/Graphic";
+
+export const DEFAULT_TOOLTIP_DECIMAL_AMOUNT = 2;
 
 export interface ISerieFullID {
     id: string;
@@ -26,5 +28,11 @@ export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
         representationMode: serie.representationMode
     }
     return types[getFullSerieId(serieFullID)];
+
+}
+
+export function getTooltipDecimals(serieID: string, tooltips?: INumberPropsPerId): number {
+
+    return (tooltips && tooltips[serieID] !== undefined) ? tooltips[serieID] : DEFAULT_TOOLTIP_DECIMAL_AMOUNT;
 
 }

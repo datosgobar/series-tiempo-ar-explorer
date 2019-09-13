@@ -2,8 +2,17 @@ import { ISeriesAxisSides, IYAxisConf, IYAxis } from "../../components/viewpage/
 import { getFullSerieId } from "../common/fullSerieID";
 import { ISerie } from "../../api/Serie";
 import SerieConfig from "../../api/SerieConfig";
-import { formatterForSerie } from "../../components/viewpage/graphic/formatterForSerie";
+import { formatterForSerie } from "./formatterForSerie";
 import { valuesFromObject } from "../common/commonFunctions";
+
+export interface IYAxisGenerationOptions {
+    axisSides?: ISeriesAxisSides;
+    decimalLeftAxis?: number;
+    decimalRightAxis?: number;
+    locale: string;
+    series: ISerie[];
+    seriesConfig: SerieConfig[];
+}
 
 function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues: {}): boolean {
     return minAndMaxValues[originalSerieId].min > minAndMaxValues[serieId].max ||
@@ -22,10 +31,9 @@ function getYAxisSide(serieID:string, outOfScale: boolean, axisSideConf?: ISerie
 
 }
 
-export function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfig[], 
-    formatUnits: boolean, locale: string, axisSides?: ISeriesAxisSides): {} {
+export function generateYAxisBySeries(options: IYAxisGenerationOptions): {} {
 
-    const minAndMaxValues = series.reduce((result: any, serie: ISerie) => {
+    const minAndMaxValues = options.series.reduce((result: any, serie: ISerie) => {
 
         const fullId = getFullSerieId(serie);
         result[fullId] = { min: serie.minValue, max: serie.maxValue };
@@ -34,21 +42,23 @@ export function generateYAxisBySeries(series: ISerie[], seriesConfig: SerieConfi
     }, {});
 
     
-    return series.slice().sort((serie: ISerie) => serie.minValue).reduce((result: IYAxisConf, serie: ISerie) => {
+    return options.series.slice().sort((serie: ISerie) => serie.minValue).reduce((result: IYAxisConf, serie: ISerie) => {
 
         const fullId = getFullSerieId(serie);
-        const outOfScale = isOutOfScale(getFullSerieId(series[0]), fullId, minAndMaxValues);
-        const yAxisSide = getYAxisSide(fullId, outOfScale, axisSides);
+        const outOfScale = isOutOfScale(getFullSerieId(options.series[0]), fullId, minAndMaxValues);
+        const yAxisSide = getYAxisSide(fullId, outOfScale, options.axisSides);
+        const rightSided = yAxisSide === 'right';
 
         result[fullId] = {
-            opposite: yAxisSide === 'right' ? true : false,
+            opposite: rightSided ? true : false,
             title: { text: serie.representationModeUnits }
         };
 
-        const serieConfig = seriesConfig.find((config: SerieConfig) => config.getFullSerieId() === fullId);
+        const serieConfig = options.seriesConfig.find((config: SerieConfig) => config.getFullSerieId() === fullId);
 
-        if (serieConfig && serieConfig.mustFormatUnits(formatUnits)) {
-            result[fullId].labels = formatterForSerie(locale);
+        if(serieConfig) {
+            const decimalPlaces = rightSided ? options.decimalRightAxis : options.decimalLeftAxis;
+            result[fullId].labels = formatterForSerie(options.locale, serieConfig.isPercentageSerie(), decimalPlaces);
         }
 
         return result;

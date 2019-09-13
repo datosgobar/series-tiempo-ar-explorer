@@ -39,6 +39,10 @@ export default class SerieConfig {
         return formatUnits && formatFromAPI;
     }
 
+    public isPercentageSerie(): boolean {
+        return this.serie.isPercentage || false;
+    }
+
     public getSeriePeriodicity(): string {
         return i18nFrequency(this.serie.frequency || 'year');
     }
