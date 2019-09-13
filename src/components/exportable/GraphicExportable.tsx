@@ -4,7 +4,7 @@ import QueryParams from "../../api/QueryParams";
 import { ISerie } from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
 import { extractIdsFromUrl, extractUriFromUrl } from "../../helpers/common/URLExtractors";
-import { PropsAdjuster } from "../../helpers/graphic/propsAdjuster";
+import { PropsAdjuster, IAdjustmentOptions } from "../../helpers/graphic/propsAdjuster";
 import { GraphicURLValidator } from "../../helpers/graphic/URLValidation";
 import { getColorArray } from "../style/Colors/Color";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
@@ -30,8 +30,8 @@ export interface IGraphicExportableProps {
     legendLabel: ILegendLabel;
     seriesAxis: ISeriesAxisSides;
     chartType?: string;
-    decimalLeftAxis?: number | undefined;
-    decimalRightAxis?: number | undefined;
+    decimalLeftAxis?: number;
+    decimalRightAxis?: number;
     decimalTooltips: INumberPropsPerId;
     decimalTooltip?: number;
 }
@@ -82,8 +82,15 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         this.fetchSeries(params);
 
         const adjuster = new PropsAdjuster(ids);
-        adjuster.adjustAll(this.props.chartTypes, this.props.legendLabel, this.props.seriesAxis, 
-            this.props.decimalTooltips, this.props.chartType, this.props.decimalTooltip);
+        const adjustmentOptions: IAdjustmentOptions = {
+            chartType: this.props.chartType,
+            chartTypes: this.props.chartTypes,
+            decimalTooltip: this.props.decimalTooltip,
+            decimalTooltips: this.props.decimalTooltips,
+            legendLabel: this.props.legendLabel,
+            seriesAxis: this.props.seriesAxis
+        };
+        adjuster.adjustAll(adjustmentOptions);
 
     }
 

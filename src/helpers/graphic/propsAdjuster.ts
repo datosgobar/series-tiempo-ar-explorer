@@ -1,5 +1,14 @@
 import { IChartTypeProps, ILegendLabel, INumberPropsPerId, IPropsPerId, ISeriesAxisSides } from "../../components/viewpage/graphic/Graphic";
 
+export interface IAdjustmentOptions {
+    chartType?: string;
+    decimalTooltip?: number;
+    decimalTooltips: INumberPropsPerId;
+    chartTypes: IChartTypeProps;
+    legendLabel: ILegendLabel;
+    seriesAxis: ISeriesAxisSides;
+}
+
 export class PropsAdjuster {
 
     private ids: string[];
@@ -8,19 +17,18 @@ export class PropsAdjuster {
         this.ids = ids.sort();
     }
 
-    public adjustAll(chartTypes: IChartTypeProps, legendLabel: ILegendLabel, seriesAxis: ISeriesAxisSides,
-        decimalTooltips: INumberPropsPerId, chartType?: string, decimalTooltip?: number) {
+    public adjustAll(options: IAdjustmentOptions) {
 
-        this.adjust(chartTypes);
-        this.adjust(legendLabel);
-        this.adjust(seriesAxis);
-        this.adjust(decimalTooltips);
+        this.adjust(options.chartTypes);
+        this.adjust(options.legendLabel);
+        this.adjust(options.seriesAxis);
+        this.adjust(options.decimalTooltips);
 
-        if (chartType !== undefined) {
-            this.applyDefaultPropValue(chartTypes, chartType);
+        if (options.chartType !== undefined) {
+            this.applyDefaultPropValue(options.chartTypes, options.chartType);
         }
-        if (decimalTooltip !== undefined) {
-            this.applyDefaultPropValue(decimalTooltips, decimalTooltip);
+        if (options.decimalTooltip !== undefined) {
+            this.applyDefaultPropValue(options.decimalTooltips, options.decimalTooltip);
         }
 
     }

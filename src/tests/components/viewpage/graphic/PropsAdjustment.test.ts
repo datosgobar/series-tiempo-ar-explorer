@@ -1,5 +1,5 @@
-import { IPropsPerId } from "../../../../components/viewpage/graphic/Graphic";
-import { PropsAdjuster } from "../../../../helpers/graphic/propsAdjuster";
+import { IPropsPerId, IStringPropsPerId, INumberPropsPerId } from "../../../../components/viewpage/graphic/Graphic";
+import { PropsAdjuster, IAdjustmentOptions } from "../../../../helpers/graphic/propsAdjuster";
 
 describe("Adjustment of different props for multiple IDs", () => {
 
@@ -12,6 +12,25 @@ describe("Adjustment of different props for multiple IDs", () => {
     let chartType: string;
     let decimalTooltip: number;
     let adjuster: PropsAdjuster;
+    let adjustmentOptions: IAdjustmentOptions;
+
+    function buildAdjustmentOptionsOnlyWithChartTypes(chartTypes: IStringPropsPerId) {
+        adjustmentOptions = {
+            chartTypes,
+            decimalTooltips: {},
+            legendLabel: {},
+            seriesAxis: {}
+        };
+    }
+
+    function buildAdjustmentOptionsOnlyWithDecimalTooltips(decimalTooltips: INumberPropsPerId) {
+        adjustmentOptions = {
+            chartTypes: {},
+            decimalTooltips,
+            legendLabel: {},
+            seriesAxis: {}
+        };
+    }
 
     beforeAll(() => {
         commonEMAEId = 'EMAE2004';
@@ -28,7 +47,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {});
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual('area');
         });
         it('ID with modifier, just a basic setter adjusts it', () => {
@@ -37,7 +57,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {});
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props['EMAE2004:percent_change']).toEqual('area');
         });
 
@@ -54,7 +75,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {});
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual('area');
             expect(props['EMAE2004:percent_change']).toEqual('area');
         });
@@ -63,7 +85,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {});
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toBeUndefined();
             expect(props['EMAE2004:percent_change']).toEqual('area');
         });
@@ -79,7 +102,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change': 'area'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {});
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual('column');
             expect(props['EMAE2004:percent_change']).toEqual('area');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
@@ -90,7 +114,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'column'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {});
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual('column');
             expect(props['EMAE2004:percent_change']).toEqual('column');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
@@ -110,7 +135,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 'column'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {});
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props['EMAE2004:percent_change']).toEqual('column');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
         });
@@ -119,7 +145,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change_a_year_ago': 'column'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {});
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props['EMAE2004:percent_change']).toBeUndefined();
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
         });
@@ -129,7 +156,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change_a_year_ago': 'column'
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {});
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props['EMAE2004:percent_change']).toEqual('area');
             expect(props['EMAE2004:percent_change_a_year_ago']).toEqual('column');
         });
@@ -148,7 +176,9 @@ describe("Adjustment of different props for multiple IDs", () => {
             };
             chartType = 'area';
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {}, chartType);
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjustmentOptions.chartType = chartType;
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual('column');
             expect(props['EMAE2004:percent_change']).toEqual('column');
             expect(props.Motos_patentamiento_8myrF9).toEqual('area');
@@ -159,7 +189,9 @@ describe("Adjustment of different props for multiple IDs", () => {
             };
             chartType = 'area';
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {}, chartType);
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjustmentOptions.chartType = chartType;
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual('area');
             expect(props['EMAE2004:percent_change']).toEqual('column');
             expect(props.Motos_patentamiento_8myrF9).toEqual('area');
@@ -171,7 +203,9 @@ describe("Adjustment of different props for multiple IDs", () => {
             };
             chartType = 'column';
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll(props, {}, {}, {}, chartType);
+            buildAdjustmentOptionsOnlyWithChartTypes(props);
+            adjustmentOptions.chartType = chartType;
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual('area');
             expect(props['EMAE2004:percent_change']).toEqual('area');
             expect(props.Motos_patentamiento_8myrF9).toEqual('line');
@@ -190,7 +224,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004': 4
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll({}, {}, {}, props);
+            buildAdjustmentOptionsOnlyWithDecimalTooltips(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual(4);
             expect(props['EMAE2004:percent_change']).toEqual(4);
             expect(props.Motos_patentamiento_8myrF9).toBeUndefined();
@@ -200,7 +235,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change': 7
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll({}, {}, {}, props);
+            buildAdjustmentOptionsOnlyWithDecimalTooltips(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toBeUndefined();
             expect(props['EMAE2004:percent_change']).toEqual(7);
             expect(props.Motos_patentamiento_8myrF9).toBeUndefined();
@@ -211,7 +247,8 @@ describe("Adjustment of different props for multiple IDs", () => {
                 'EMAE2004:percent_change': 0
             };
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll({}, {}, {}, props);
+            buildAdjustmentOptionsOnlyWithDecimalTooltips(props);
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual(3);
             expect(props['EMAE2004:percent_change']).toEqual(0);
             expect(props.Motos_patentamiento_8myrF9).toBeUndefined();
@@ -231,7 +268,9 @@ describe("Adjustment of different props for multiple IDs", () => {
             };
             decimalTooltip = 2;
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll({}, {}, {}, props, chartType, decimalTooltip);
+            buildAdjustmentOptionsOnlyWithDecimalTooltips(props);
+            adjustmentOptions.decimalTooltip = decimalTooltip;
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual(5);
             expect(props['EMAE2004:percent_change']).toEqual(5);
             expect(props.Motos_patentamiento_8myrF9).toEqual(2);
@@ -242,7 +281,9 @@ describe("Adjustment of different props for multiple IDs", () => {
             };
             decimalTooltip = 3;
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll({}, {}, {}, props, chartType, decimalTooltip);
+            buildAdjustmentOptionsOnlyWithDecimalTooltips(props);
+            adjustmentOptions.decimalTooltip = decimalTooltip;
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual(3);
             expect(props['EMAE2004:percent_change']).toEqual(1);
             expect(props.Motos_patentamiento_8myrF9).toEqual(3);
@@ -254,7 +295,9 @@ describe("Adjustment of different props for multiple IDs", () => {
             };
             decimalTooltip = 4;
             adjuster = new PropsAdjuster(ids);
-            adjuster.adjustAll({}, {}, {}, props, chartType, decimalTooltip);
+            buildAdjustmentOptionsOnlyWithDecimalTooltips(props);
+            adjustmentOptions.decimalTooltip = decimalTooltip;
+            adjuster.adjustAll(adjustmentOptions);
             expect(props.EMAE2004).toEqual(6);
             expect(props['EMAE2004:percent_change']).toEqual(6);
             expect(props.Motos_patentamiento_8myrF9).toEqual(8);

@@ -57,8 +57,8 @@ export function generateYAxisBySeries(options: IYAxisGenerationOptions): {} {
         const serieConfig = options.seriesConfig.find((config: SerieConfig) => config.getFullSerieId() === fullId);
 
         if(serieConfig) {
-            const decimalAmount = rightSided ? options.decimalRightAxis : options.decimalLeftAxis;
-            result[fullId].labels = formatterForSerie(options.locale, serieConfig.isPercentageSerie(), decimalAmount);
+            const decimalPlaces = rightSided ? options.decimalRightAxis : options.decimalLeftAxis;
+            result[fullId].labels = formatterForSerie(options.locale, serieConfig.isPercentageSerie(), decimalPlaces);
         }
 
         return result;

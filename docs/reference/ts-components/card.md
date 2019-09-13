@@ -173,6 +173,14 @@ Ver online: [https://jsfiddle.net/2oufyzwL/](https://jsfiddle.net/2oufyzwL/)
         <td>'http://apis.datos.gob.ar/series/api'</td>
         <td>'http://miurl.apis.com/datos'</td>
     </tr>
+    <tr>
+        <td>decimals</td>
+        <td>No</td>
+        <td>Permite elegir cuántos dígitos decimales mostrar en el valor de la tarjeta. Debe ser mayor o igual a 0. Redondea los valores en caso de ser menor a la cantidad de dígitos original del valor; completa con 0s en caso contrario.</td>
+        <td>int</td>
+        <td>2</td>
+        <td>5</td>
+    </tr>
 </table>
 
 ## Ejemplo completo

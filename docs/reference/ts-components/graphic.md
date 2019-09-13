@@ -188,13 +188,49 @@ Este gráfico se genera a partir del siguiente código:
         <td>{'serie01': 'right',
              'serie02': 'left'}</td>
     </tr>
-        <tr>
+    <tr>
         <td>chartType</td>
         <td>No</td>
         <td>Especifica un tipo de gráfico para aplicar a todas las series como default. En caso de estar especificado un tipo para una serie en chartTypes, este último será priorizado para la misma.</td>
         <td>string</td>
         <td>'line'</td>
         <td>'line', 'area' o 'column'</td>
+    </tr>
+    </tr>
+        <tr>
+        <td>decimalLeftAxis</td>
+        <td>No</td>
+        <td>Especifica cuántos dígitos decimales tendrán los valores de las ordenadas del eje izquierdo (principal) del gráfico.</td>
+        <td>int</td>
+        <td>Ninguno</td>
+        <td>6</td>
+    </tr>
+    </tr>
+        <tr>
+        <td>decimalRightAxis</td>
+        <td>No</td>
+        <td>Especifica cuántos dígitos decimales tendrán los valores de las ordenadas del eje derecho (auxiliar) del gráfico.</td>
+        <td>int</td>
+        <td>Ninguno</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>decimalTooltips</td>
+        <td>No</td>
+        <td>Especifica cuántos dígitos decimales mostrará el texto en el tooltip para cada serie, mapeando ids de series con cantidades de decimales.</td>
+        <td>object</td>
+        <td>Ninguno</td>
+        <td>{'serie01': 4,
+             'serie02': 1}</td>
+    </tr>
+    </tr>
+        <tr>
+        <td>decimalTooltip</td>
+        <td>No</td>
+        <td>Especifica la cantidad de dígitos decimales a mostrar en el texto del tooltip para toda serie que no lo haya definido en el parámetro decimalTooltips.</td>
+        <td>int</td>
+        <td>Ninguno</td>
+        <td>3</td>
     </tr>
 </table>
 
