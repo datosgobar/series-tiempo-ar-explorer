@@ -43,6 +43,10 @@ export default class SerieConfig {
         return this.serie.isPercentage || false;
     }
 
+    public getSerieSignificantFigures(): number {
+        return this.serie.significantFigures;
+    }
+
     public getSeriePeriodicity(): string {
         return i18nFrequency(this.serie.frequency || 'year');
     }

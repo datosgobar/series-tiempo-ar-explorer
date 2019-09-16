@@ -70,7 +70,8 @@ export class ChartConfigBuilder {
                         let value = point.y;
 
                         if (serieConfig) {
-                            const decimalPlaces = getTooltipDecimals(serieConfig.getFullSerieId(), builder.props.decimalTooltips);
+                            const decimalPlaces = getTooltipDecimals(serieConfig.getFullSerieId(), 
+                                serieConfig.getSerieSignificantFigures(), builder.props.decimalTooltips);
                             value = formatSerieValue(value, builder.props.locale, serieConfig.isPercentageSerie(), decimalPlaces);
 
                             contentTooltip += tooltipFormatter(point, value, builder.smallTooltip);
