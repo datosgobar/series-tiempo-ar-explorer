@@ -102,6 +102,7 @@ export function toSerie(id: string): ISerie {
         modified: `2018-01-01`,
         representationMode: `${id} rep mode`,
         representationModeUnits: `${id} rep mode units`,
+        significantFigures: 2,
         startDate: 'start',
         themes: [{id: `${id} theme`, label: `${id} theme`, descripcion: `${id} theme`}],
         timeIndexSize: 0,

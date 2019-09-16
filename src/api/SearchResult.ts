@@ -1,5 +1,5 @@
 import { IPublisher, ITSMeta } from "./ITSAPIResponse";
-import { ISerie } from "./Serie";
+import { ISerie, DEFAULT_SIGNIFICANT_FIGURES } from "./Serie";
 import {PeriodicityManager} from "./utils/periodicityManager";
 
 
@@ -105,4 +105,9 @@ export default class SearchResult implements ISerie {
     get isPercentage(): boolean {
         return false;
     }
+
+    get significantFigures(): number {
+        return DEFAULT_SIGNIFICANT_FIGURES;
+    }
+
 }

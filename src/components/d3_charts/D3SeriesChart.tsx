@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RefObject } from 'react';
 import { connect } from "react-redux";
 import { IDataPoint } from "../../api/DataPoint";
-import { ISerie } from '../../api/Serie';
+import { ISerie, DEFAULT_SIGNIFICANT_FIGURES } from '../../api/Serie';
 import { shortLocaleDate } from "../../helpers/common/dateFunctions";
 import { IStore } from "../../store/initialState";
 import { buildLocale } from "../common/locale/buildLocale";
@@ -67,12 +67,14 @@ function findPeriod(frequency: string): string {
 }
 
 function lastFormattedValue(serie: ISerie, data: IDataPoint[], locale: string): string {
-    const dataValue = data[data.length-1].value;
-    const minAndMaxData = {min: serie.minValue, max: serie.maxValue};
-    const value = dataValue < 1 && dataValue > -1 ? dataValue * 100 : dataValue;
-    const result = buildLocale(locale).toDecimalString(value);
 
-    return minAndMaxData.min > -1 && minAndMaxData.max < 1 ? `${result}%` : `${result}`;
+    const dataValue = data[data.length-1].value;
+    const value = serie.isPercentage ? dataValue * 100 : dataValue;
+    const decimalPlaces = serie.significantFigures !== undefined ? serie.significantFigures : DEFAULT_SIGNIFICANT_FIGURES;
+
+    const result = buildLocale(locale).toDecimalString(value, decimalPlaces);
+    return serie.isPercentage ? `${result}%` : `${result}`;
+
 }
 
 function notNullData(data: IDataPoint[]): IDataPoint[] {

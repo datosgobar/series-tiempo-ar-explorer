@@ -20,16 +20,8 @@ export default class LocaleDefault implements ILocale {
     }
 
     public toDecimalString(value: number, decimals: number = 2): string {
-        let result = this.toLocaleString(parseFloat(value.toFixed(decimals)));
-        const totalDecimals = result.split(this.decimalSeparator())[1];
-
-        if (!totalDecimals || totalDecimals.length === 0) {
-            result = `${result},00`
-        } else if (totalDecimals && totalDecimals.length === 1) {
-            result = `${result}0`;
-        }
-
-        return result;
+        const decimalFixedValue = value.toFixed(decimals);
+        return decimalFixedValue.replace(".", this.decimalSeparator());
     }
 
 }
