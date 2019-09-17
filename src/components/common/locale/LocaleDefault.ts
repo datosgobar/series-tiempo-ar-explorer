@@ -1,3 +1,5 @@
+import { DEFAULT_SIGNIFICANT_FIGURES } from "../../../api/Serie";
+
 export interface ILocale {
     toLocaleString: (value: number) => string;
     decimalSeparator: () => string;
@@ -19,7 +21,7 @@ export default class LocaleDefault implements ILocale {
         return '.';
     }
 
-    public toDecimalString(value: number, decimals: number = 2): string {
+    public toDecimalString(value: number, decimals: number = DEFAULT_SIGNIFICANT_FIGURES): string {
         const decimalFixedValue = value.toFixed(decimals);
         return decimalFixedValue.replace(".", this.decimalSeparator());
     }

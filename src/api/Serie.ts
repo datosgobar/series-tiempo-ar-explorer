@@ -184,7 +184,7 @@ export default class Serie implements ISerie {
     }
 
     get significantFigures(): number {
-        return this.fieldMeta.significant_figures;
+        return +this.fieldMeta.significant_figures;
     }
 
     public bake(): ISerie {
