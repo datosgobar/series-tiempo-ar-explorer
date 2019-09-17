@@ -65,6 +65,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                     min_value: "0",
                     representation_mode: 'value',
                     representation_mode_units: `${tsID} distribution representation_mode_units`,
+                    significant_figures: 2,
                     time_index_end: '',
                     time_index_size: 0,
                     time_index_start: '',

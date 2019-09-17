@@ -89,6 +89,7 @@ export interface IField {
     min_value: string;
     max_value: string;
     is_percentage: boolean;
+    significant_figures: number;
 }
 
 export interface IPublisher {

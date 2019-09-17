@@ -1,4 +1,4 @@
-import { ISerie } from "../../api/Serie";
+import { ISerie, DEFAULT_SIGNIFICANT_FIGURES } from "../../api/Serie";
 import SerieConfig from "../../api/SerieConfig";
 import { IChartTypeProps, INumberPropsPerId } from "../../components/viewpage/graphic/Graphic";
 
@@ -31,8 +31,11 @@ export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
 
 }
 
-export function getTooltipDecimals(serieID: string, tooltips?: INumberPropsPerId): number {
+export function getTooltipDecimals(serieID: string, significantFigures?: number, tooltips?: INumberPropsPerId): number {
 
-    return (tooltips && tooltips[serieID] !== undefined) ? tooltips[serieID] : DEFAULT_TOOLTIP_DECIMAL_AMOUNT;
+    if (tooltips && tooltips[serieID] !== undefined) {
+        return tooltips[serieID];
+    }
+    return significantFigures !== undefined ? significantFigures : DEFAULT_SIGNIFICANT_FIGURES;
 
 }

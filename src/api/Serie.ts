@@ -3,7 +3,6 @@ import DataPoint, { IDataPoint } from './DataPoint';
 import {IDataSetTheme, IExtraMeta, IPublisher, ITSAPIResponse, ITSMeta} from './ITSAPIResponse'
 import {PeriodicityManager} from "./utils/periodicityManager";
 
-
 export interface ISerie {
     id: string;
     title: string;
@@ -30,7 +29,10 @@ export interface ISerie {
     maxValue: number,
     collapseAggregation: string,
     isPercentage: boolean,
+    significantFigures: number
 }
+
+export const DEFAULT_SIGNIFICANT_FIGURES = 2;
 
 export default class Serie implements ISerie {
 
@@ -181,6 +183,10 @@ export default class Serie implements ISerie {
         return this.fieldMeta.is_percentage;
     }
 
+    get significantFigures(): number {
+        return +this.fieldMeta.significant_figures;
+    }
+
     public bake(): ISerie {
         return {
             accrualPeriodicity: this.accrualPeriodicity,
@@ -203,6 +209,7 @@ export default class Serie implements ISerie {
             publisher: {...this.publisher},
             representationMode: this.representationMode,
             representationModeUnits: this.representationModeUnits,
+            significantFigures: this.significantFigures,
             startDate: this.startDate,
             themes: [...this.themes],
             timeIndexSize: this.timeIndexSize,
