@@ -993,7 +993,7 @@ section#detalle #hero {
   position: relative;
   width: 100%;
   height: 175px;
-  background: url('/images/hero_bg.svg') center right no-repeat;
+  background: url('../images/hero_bg.svg') center right no-repeat;
   background-size: cover;
 }
 section#listado #hero .container,
@@ -1656,7 +1656,7 @@ footer .dropdown .dropdown-toggle {
   text-align: left;
   background-color: #ffffff;
   border: 1px solid #dddddd;
-  background: url('/images/dropdown_arrow.png') right 10px center no-repeat !important;
+  background: url('../images/dropdown_arrow.png') right 10px center no-repeat !important;
 }
 header .dropdown .dropdown-menu,
 section .dropdown .dropdown-menu,
@@ -1737,25 +1737,25 @@ header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon1 {
-  background: url('/images/tipo_linea1.png') center center no-repeat;
+  background: url('../images/tipo_linea1.png') center center no-repeat;
 }
 header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon2 {
-  background: url('/images/tipo_linea2.png') center center no-repeat;
+  background: url('../images/tipo_linea2.png') center center no-repeat;
 }
 header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon3 {
-  background: url('/images/tipo_linea3.png') center center no-repeat;
+  background: url('../images/tipo_linea3.png') center center no-repeat;
 }
 header .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 section .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 aside .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4,
 footer .dropdown.dd-tipo-linea .dropdown-menu .icon.icon4 {
-  background: url('/images/tipo_linea4.png') center center no-repeat;
+  background: url('../images/tipo_linea4.png') center center no-repeat;
 }
 header .inline,
 section .inline,
@@ -2281,7 +2281,7 @@ footer select.form-control {
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url('/images/dropdown_arrow.png') right 10px center no-repeat !important;
+  background: url('../images/dropdown_arrow.png') right 10px center no-repeat !important;
   text-indent: 0.01px;
   text-overflow: "";
   outline: none;
@@ -2383,14 +2383,14 @@ section .carousel.has-nav .owl-nav .owl-prev,
 aside .carousel.has-nav .owl-nav .owl-prev,
 footer .carousel.has-nav .owl-nav .owl-prev {
   left: 0;
-  background: url('/images/icon_arrow_prev.png') center center no-repeat;
+  background: url('../images/icon_arrow_prev.png') center center no-repeat;
 }
 header .carousel.has-nav .owl-nav .owl-next,
 section .carousel.has-nav .owl-nav .owl-next,
 aside .carousel.has-nav .owl-nav .owl-next,
 footer .carousel.has-nav .owl-nav .owl-next {
   right: 0;
-  background: url('/images/icon_arrow_next.png') center center no-repeat;
+  background: url('../images/icon_arrow_next.png') center center no-repeat;
 }
 header .carousel.has-nav.nav-outer .owl-prev,
 section .carousel.has-nav.nav-outer .owl-prev,
