@@ -2,12 +2,13 @@ import * as React from 'react';
 import { RefObject } from 'react';
 import { connect } from "react-redux";
 import { IDataPoint } from "../../api/DataPoint";
-import { ISerie, DEFAULT_SIGNIFICANT_FIGURES } from '../../api/Serie';
+import { ISerie } from '../../api/Serie';
 import { shortLocaleDate } from "../../helpers/common/dateFunctions";
 import { IStore } from "../../store/initialState";
 import { buildLocale } from "../common/locale/buildLocale";
 import { ILapsProps } from "../mainpage/featured/Featured";
 import D3LineChart from "./D3LineChart";
+import { getTooltipDecimals } from '../../helpers/common/fullSerieID';
 
 
 interface ID3Chart {
@@ -70,7 +71,7 @@ function lastFormattedValue(serie: ISerie, data: IDataPoint[], locale: string): 
 
     const dataValue = data[data.length-1].value;
     const value = serie.isPercentage ? dataValue * 100 : dataValue;
-    const decimalPlaces = serie.significantFigures !== undefined ? serie.significantFigures : DEFAULT_SIGNIFICANT_FIGURES;
+    const decimalPlaces = getTooltipDecimals(serie.id, serie.significantFigures);
 
     const result = buildLocale(locale).toDecimalString(value, decimalPlaces);
     return serie.isPercentage ? `${result}%` : `${result}`;

@@ -31,11 +31,18 @@ export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
 
 }
 
-export function getTooltipDecimals(serieID: string, significantFigures?: number, tooltips?: INumberPropsPerId): number {
+export function getTooltipDecimals(serieID: string, significantFigures?: number, tooltipDecimals?: INumberPropsPerId): number {
 
-    if (tooltips && tooltips[serieID] !== undefined) {
-        return tooltips[serieID];
+    if (tooltipDecimals && tooltipDecimals[serieID] !== undefined) {
+        return tooltipDecimals[serieID];
     }
-    return significantFigures !== undefined ? significantFigures : DEFAULT_SIGNIFICANT_FIGURES;
-
+    
+    if(significantFigures === undefined) {
+        return DEFAULT_SIGNIFICANT_FIGURES;
+    }
+    
+    if (significantFigures > 4) {
+        return 4;
+    }
+    return significantFigures;
 }
