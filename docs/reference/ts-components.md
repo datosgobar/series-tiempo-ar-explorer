@@ -1,6 +1,6 @@
 # TSComponents
 
-**Versión**: 2.6.0
+**Versión**: 2.6.1
 
 El objeto `TSComponents` contiene distintos componentes exportables que se pueden utilizar dentro de una experiencia web.
 
