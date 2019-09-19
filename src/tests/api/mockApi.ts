@@ -3,7 +3,7 @@ import QueryParams from "../../api/QueryParams";
 import { ISerie } from "../../api/Serie";
 import { ISearchOptions, ISerieApi } from "../../api/SerieApi";
 
-const DELAY = 1000;
+const DELAY = 0;
 const SOURCES = [
     "Ministerio de Cultura",
     "Ministerio de Modernizacion",

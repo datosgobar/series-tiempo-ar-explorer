@@ -256,7 +256,7 @@ function emptySerie(serie: ISerie, position: number): boolean {
 }
 
 function serieWithData(serie: ISerie, position: number): boolean {
-    return serie.data.length > 0 && serie.data.some((d: any) => d.datapoint[position+1])
+    return serie.data.length > 0 && serie.data.some((d: any) => d.datapoint[position+1] !== null)
 }
 
 
