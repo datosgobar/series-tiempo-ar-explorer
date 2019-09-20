@@ -3,7 +3,7 @@
 El componente `graphic` permite embeber gráficos de líneas, áreas o barras en experiencias web. Permite elegir distintos elementos de filtro de fechas, personalizar los textos, etc.
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/Ljzdayhr/](https://jsfiddle.net/Ljzdayhr/)
+Ver online: [https://jsfiddle.net/9wcyqm5z/](https://jsfiddle.net/9wcyqm5z/)
 
 <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.1/dist/js/components.js'></script>
 <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.1/dist/css/components.css'/>

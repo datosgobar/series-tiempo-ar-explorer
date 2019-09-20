@@ -22,7 +22,7 @@ El componente `card` permite embeber tarjetas con información de la serie, y un
 
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/9p0zoqck/](https://jsfiddle.net/9p0zoqck/)
+Ver online: [https://jsfiddle.net/ve0tgkcs/](https://jsfiddle.net/ve0tgkcs/)
 
 ```html
 <!-- importa íconos de FontAwesome -->
@@ -214,7 +214,7 @@ Ver online: [https://jsfiddle.net/9p0zoqck/](https://jsfiddle.net/9p0zoqck/)
 ```
 
 ## Demo online
-https://jsfiddle.net/9p0zoqck/
+https://jsfiddle.net/ve0tgkcs/
 
 ## Variantes de tarjetas
 
