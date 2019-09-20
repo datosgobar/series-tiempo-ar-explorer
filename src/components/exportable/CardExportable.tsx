@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ApiClient } from '../../api/ApiClient';
 import QueryParams from '../../api/QueryParams';
-import { ISerie } from '../../api/Serie';
+import { ISerie, MAX_SIGNIFICANT_FIGURES } from '../../api/Serie';
 import SerieApi from '../../api/SerieApi';
 import { valuesFromObject } from '../../helpers/common/commonFunctions';
 import { ICardExportableConfig } from '../../indexCard';
@@ -62,12 +62,18 @@ export default class CardExportable extends React.Component<ICardExportableProps
     }
 
     private cardOptions() {
+
+        let decimals = this.props.decimals;
+        if(decimals === undefined && this.state.serie) {
+            decimals = Math.min(this.state.serie.significantFigures, MAX_SIGNIFICANT_FIGURES);
+        }
+
         return {
             cardOptions: {
                 chartType: this.props.chartType,
                 collapse: this.props.collapse,
                 color: this.props.color,
-                decimals: this.props.decimals,
+                decimals,
                 explicitSign: this.props.explicitSign,
                 hasChart: this.props.hasChart,
                 hasColorBar: this.props.hasColorBar,
