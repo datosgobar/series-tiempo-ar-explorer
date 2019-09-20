@@ -5,6 +5,7 @@ import { Color, getColorBySerieId } from '../Colors/Color';
 import Details from './Details';
 import DetailsTitle from './DetailsTitle';
 import DetailsTitleAndActions from './DetailsTitleAndActions';
+import { getFullSerieId } from '../../../helpers/common/fullSerieID';
 
 
 interface ISerieDetailsProp extends React.Props<any> {
@@ -19,7 +20,7 @@ export default (props: ISerieDetailsProp) =>
 
     <Details key={props.serie.id}>
         <DetailsTitleAndActions>
-            <DetailsTitle style={{borderLeftColor: getColorBySerieId(props.series, props.serie.id)}}>
+            <DetailsTitle style={{borderLeftColor: getColorBySerieId(props.series, getFullSerieId(props.serie))}}>
                 {props.serie.description} ({props.serie.id})
             </DetailsTitle>
             {props.actions}

@@ -10,6 +10,7 @@ import { setHighchartsGlobalConfig } from '../../../helpers/graphic/hcConfigurat
 import { Color } from '../../style/Colors/Color';
 import { ISerieTag } from "../SeriesTags";
 import { ReactHighStock } from './highcharts';
+import { getFullSerieId } from '../../../helpers/common/fullSerieID';
 
 // tslint:disable-next-line:no-var-requires
 const deepMerge = require('deepmerge');
@@ -172,9 +173,9 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
         let titlesResult: ISerieTag[] = [];
 
-        if (this.props.series.some((serie: ISerie) => yAXisBySeries[serie.id].opposite)) {
+        if (this.props.series.some((serie: ISerie) => yAXisBySeries[getFullSerieId(serie)].opposite)) {
             this.props.series.forEach((serie: ISerie) => {
-                const title = yAXisBySeries[serie.id].opposite ? `${serie.description} (der)` : `${serie.description} (izq)`;
+                const title = yAXisBySeries[getFullSerieId(serie)].opposite ? `${serie.description} (der)` : `${serie.description} (izq)`;
                 titlesResult.push({id: serie.id, title, representationMode: serie.representationMode});
             });
         } else {
