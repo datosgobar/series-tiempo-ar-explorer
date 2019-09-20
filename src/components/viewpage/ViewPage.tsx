@@ -22,6 +22,7 @@ import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
 import SeriesPicker from './seriespicker/SeriesPicker';
 import SeriesTags from './SeriesTags';
+import { serieWithData, emptySerie } from '../../helpers/common/seriesClassification';
 
 interface IViewPageProps extends RouterProps {
     seriesApi: ISerieApi;
@@ -250,15 +251,6 @@ export function seriesConfigByUrl(url: string): (series: ISerie[]) => SerieConfi
 function serieIdSanitizer(serieId: string): string {
     return serieId.split(':')[0];
 }
-
-function emptySerie(serie: ISerie, position: number): boolean {
-    return serie.data.length === 0 || serie.data.every((d: any) => d.datapoint[position+1] === null)
-}
-
-function serieWithData(serie: ISerie, position: number): boolean {
-    return serie.data.length > 0 && serie.data.some((d: any) => d.datapoint[position+1])
-}
-
 
 function mapStateToProps(state: IStore) {
     return {

@@ -70,10 +70,10 @@ function findPeriod(frequency: string): string {
 function lastFormattedValue(serie: ISerie, data: IDataPoint[], locale: string): string {
 
     const dataValue = data[data.length-1].value;
-    const value = serie.isPercentage ? dataValue * 100 : dataValue;
+    const value = serie.isPercentage ? (dataValue || 0) * 100 : dataValue;
     const decimalPlaces = getTooltipDecimals(serie.id, serie.significantFigures);
 
-    const result = buildLocale(locale).toDecimalString(value, decimalPlaces);
+    const result = buildLocale(locale).toDecimalString(value || 0, decimalPlaces);
     return serie.isPercentage ? `${result}%` : `${result}`;
 
 }

@@ -58,7 +58,7 @@ export function generateCommonMockSerieMotos() {
         { date: "2019-03-01", value: 30292 },
         { date: "2019-04-01", value: 28645 },
         { date: "2019-05-01", value: 25409 },
-        { date: "2019-64-01", value: 20284 }],
+        { date: "2019-04-01", value: 20284 }],
         datasetSource: "Ministerio de Producción. Secretaría de la Transformación Productiva. Subsecretaría de Desarrollo y Planeamiento Productivo.",
         datasetTitle: "Indicadores Sectoriales de Motos",
         description: "Motos: número de patentamientos de motocicletas",
@@ -103,6 +103,14 @@ export function generatePercentageYearMockSerie() {
 
     const serie = generateCommonMockSerieEMAE();
     serie.representationMode = "percent_change_a_year_ago";
+    return serie;
+
+}
+
+export function generateEmptySerie() {
+
+    const serie = generateCommonMockSerieEMAE();
+    serie.data = [];
     return serie;
 
 }

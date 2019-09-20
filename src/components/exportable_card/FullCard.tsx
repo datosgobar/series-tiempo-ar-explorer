@@ -48,7 +48,7 @@ export default (props: IFullCardProps) => {
                             override={options.title}
                             defaultTitle={props.serie.description}
                             date={lastSerieDate(props.serie)} />
-            <FullCardValue color={options.color} text={formatter.formattedValue(value)} />
+            <FullCardValue color={options.color} text={formatter.formattedValue(value || 0)} />
             <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={options.hasChart} />
             <FullCardUnits units={props.serie.representationModeUnits} override={options.units}/>
             <FullCardSource source={props.serie.datasetSource} override={options.source}/>

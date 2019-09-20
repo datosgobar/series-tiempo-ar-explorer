@@ -17,7 +17,7 @@ require('highcharts-exporting')(ReactHighStock.Highcharts);
 require('highcharts-export-csv')(ReactHighStock.Highcharts);
 
 export interface IHCSerie {
-    data: number[][];
+    data: Array<Array<number | null>>;
     name: string;
     type: string;
     color: string;

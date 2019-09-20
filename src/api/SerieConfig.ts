@@ -52,7 +52,7 @@ export default class SerieConfig {
     }
 
     private checkFormatFromData(): boolean {
-        const canFormatSerie = this.serie.data.every((data: IDataPoint) => data.value > -1 && data.value < 1);
+        const canFormatSerie = this.serie.data.every((data: IDataPoint) => data.value !== null && data.value > -1 && data.value < 1);
 
         return canFormatSerie || this.getPercentChange() || this.getPercentChangeAYearAgo()
     }
