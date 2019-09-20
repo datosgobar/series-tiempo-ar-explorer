@@ -56,5 +56,5 @@ function drawLineChart(selector: string, data: IDataPoint[]) {
         .style('fill', '#1a96d2')
         .attr('r', 4)
         .attr('cx', (d) => scaleX(moment(data[data.length-1].date).utcOffset('+00:00')))
-        .attr('cy', (d) => scaleY(data[data.length-1].value));
+        .attr('cy', (d) => scaleY(data[data.length-1].value || 0));
 }

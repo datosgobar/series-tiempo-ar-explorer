@@ -2,7 +2,7 @@
 export interface IDataPoint {
 
     date: string;
-    value: number;
+    value: number | null;
 }
 
 export default class DataPoint implements IDataPoint {
