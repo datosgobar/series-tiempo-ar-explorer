@@ -33,6 +33,8 @@ export interface ISerie {
 }
 
 export const DEFAULT_SIGNIFICANT_FIGURES = 2;
+export const GRAPHIC_MAX_SIGNIFICANT_FIGURES = 4;
+export const CARD_MAX_SIGNIFICANT_FIGURES = 2;
 
 export default class Serie implements ISerie {
 
