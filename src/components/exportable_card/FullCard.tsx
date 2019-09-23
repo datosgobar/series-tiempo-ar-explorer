@@ -30,7 +30,7 @@ export default (props: IFullCardProps) => {
     }
     const value = props.serie.data[props.serie.data.length-1].value
     const formatterProps: ICardValueFormatterConf = {
-        decimals: options.decimals || DEFAULT_SIGNIFICANT_FIGURES,
+        decimals: options.decimals !== undefined && options.decimals >= 0 ? options.decimals : DEFAULT_SIGNIFICANT_FIGURES,
         explicitSign: options.explicitSign,
         isPercentage: props.serie.isPercentage,
         locale: options.locale

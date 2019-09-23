@@ -36,28 +36,28 @@ describe('FullCard', () => {
             mountFullCard();
         })
 
-        it('renders without crashing', () => {
+        it('Renders without crashing', () => {
             expect(wrapper.find(FullCard).exists()).toBe(true);
         });
-        it('renders the border', () => {
+        it('Renders the border', () => {
             expect(wrapper.find('.card .full').exists()).toBe(true);
         });
-        it('renders a full chart', () => {
+        it('Renders a full chart', () => {
             expect(wrapper.find('.card .wide').exists()).toBe(true);
         });
-        it('renders the links footer', () => {
+        it('Renders the links footer', () => {
             expect(wrapper.find('div .c-links').exists()).toBe(true);
         });
-        it('renders the tooltips', () => {
+        it('Renders the tooltips', () => {
             expect(wrapper.find(ReactTooltip).exists()).toBe(true);
         });
-        it('renders the default title header', () => {
+        it('Renders the default title header', () => {
             expect(wrapper.find('p .c-title').text()).toContain("EMAE. Base 2004")
         });
-        it('renders the default source', () => {
+        it('Renders the default source', () => {
             expect(wrapper.find('p .c-source').text()).toContain("Fuente: Instituto Nacional de Estadística y Censos (INDEC)");
         });
-        it('renders the default units', () => {
+        it('Renders the default units', () => {
             expect(wrapper.find('p .c-units').text()).toContain("Índice 2004=100");
         });
 
@@ -65,12 +65,12 @@ describe('FullCard', () => {
 
     describe('Graphic rendering', () => {
         
-        it('renders a small graphic chart', () => {
+        it('Renders a small graphic chart', () => {
             mockCardOptions.hasChart = "small";
             mountFullCard();
             expect(wrapper.find('.card .normal').exists()).toBe(true);
         });
-        it('does not render any chart', () => {
+        it('Does not render any chart', () => {
             mockCardOptions.hasChart = "none";
             mountFullCard();
             expect(wrapper.find('.card .no-graph').exists()).toBe(true);
@@ -80,27 +80,27 @@ describe('FullCard', () => {
 
     describe('Shown overriden attributes', () => {
 
-        it('does not render the links footer', () => {
+        it('Does not render the links footer', () => {
             mockCardOptions.links = "none";
             mountFullCard();
             expect(wrapper.find('div .c-links').exists()).toBe(false);
         });
-        it('does not render the tooltips', () => {
+        it('Does not render the tooltips', () => {
             mockCardOptions.links = "none";
             mountFullCard();
             expect(wrapper.find(ReactTooltip).exists()).toBe(false);
         });
-        it('renders the overriden title header', () => {
+        it('Renders the overriden title header', () => {
             mockCardOptions.title = "Lorem ipsum dolor sit amet";
             mountFullCard();
             expect(wrapper.find('p .c-title').text()).toContain("Lorem ipsum dolor sit amet")
         });
-        it('renders the overriden source', () => {
+        it('Renders the overriden source', () => {
             mockCardOptions.source = "Lorem ipsum dolor sit amet";
             mountFullCard();
             expect(wrapper.find('p .c-source').text()).toContain("Lorem ipsum dolor sit amet");
         });
-        it('renders the overriden units', () => {
+        it('Renders the overriden units', () => {
             mockCardOptions.units = "Lorem ipsum dolor sit amet";
             mountFullCard();
             expect(wrapper.find('p .c-units').text()).toContain("Lorem ipsum dolor sit amet");
@@ -110,21 +110,40 @@ describe('FullCard', () => {
 
     describe('Hidden overrideable attributes', () => {
   
-        it('does not render the title header', () => {
+        it('Does not render the title header', () => {
             mockCardOptions.title = "";
             mountFullCard();
             expect(wrapper.find('div .c-head').exists()).toBe(false)
         });
-        it('does not render the source', () => {
+        it('Does not render the source', () => {
             mockCardOptions.source = "";
             mountFullCard();
             expect(wrapper.find('p .c-source').exists()).toBe(false);
         });
-        it('does not render the units', () => {
+        it('Does not render the units', () => {
             mockCardOptions.units = "";
             mountFullCard();
             expect(wrapper.find('p .c-units').exists()).toBe(false);
         });
+
+    })
+
+    describe('Decimal handling upon main value', () => {
+
+        it('If decimals are not specified, default amount is used', () => {
+            mountFullCard();
+            expect(wrapper.find('.c-data p.c-main').text()).toEqual("+151,04");
+        });
+        it('If decimals are not specified, default amount is used', () => {
+            mockCardOptions.decimals = 5;
+            mountFullCard();
+            expect(wrapper.find('.c-data p.c-main').text()).toEqual("+151,03562");
+        });
+        it('If specified decimals were negative, default amount is used instead', () => {
+            mockCardOptions.decimals = -1;
+            mountFullCard();
+            expect(wrapper.find('.c-data p.c-main').text()).toEqual("+151,04");
+        })
 
     })
 

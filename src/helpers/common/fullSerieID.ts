@@ -1,4 +1,4 @@
-import { ISerie, DEFAULT_SIGNIFICANT_FIGURES, MAX_SIGNIFICANT_FIGURES } from "../../api/Serie";
+import { ISerie, DEFAULT_SIGNIFICANT_FIGURES, GRAPHIC_MAX_SIGNIFICANT_FIGURES } from "../../api/Serie";
 import SerieConfig from "../../api/SerieConfig";
 import { IChartTypeProps, INumberPropsPerId } from "../../components/viewpage/graphic/Graphic";
 
@@ -40,9 +40,7 @@ export function getTooltipDecimals(serieID: string, significantFigures?: number,
     if(significantFigures === undefined) {
         return DEFAULT_SIGNIFICANT_FIGURES;
     }
+
+    return Math.min(significantFigures, GRAPHIC_MAX_SIGNIFICANT_FIGURES);
     
-    if (significantFigures > MAX_SIGNIFICANT_FIGURES) {
-        return MAX_SIGNIFICANT_FIGURES;
-    }
-    return significantFigures;
 }
