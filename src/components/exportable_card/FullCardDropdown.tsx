@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { formatUrl, viewDatosGobAr } from '../common/linkBuilders';
+import { formatUrl, viewDatosGobAr } from "../../helpers/card/cardLinkBuilders";
 import FullCardDropdownContainer from '../style/exportable_card/FullCardDropdownContainer';
 import LinkShareItem from '../style/Share/LinkShareItem';
 import { ICardLinksOptions } from './FullCardLinks';
-import { cardWebCode } from '../common/webCodeBuilders';
+import { cardWebCode } from '../../helpers/common/webCodeBuilders';
 
 export default (props: {options: ICardLinksOptions}) =>
     <FullCardDropdownContainer text="Enlaces">
@@ -14,15 +14,19 @@ export default (props: {options: ICardLinksOptions}) =>
     </FullCardDropdownContainer>
 
 export interface IWebSnippetOptions {
-    serieId: string,
-    color: string,
-    links: string
-    hasChart: string,
-    chartType?: string,
+    serieId: string;
+    color: string;
+    links: string;
+    hasChart: string;
+    locale?: string;
+    chartType?: string;
+    explicitSign?: boolean;
     title?: string;
     source?: string;
     units?: string;
     hasFrame?: boolean;
     hasColorBar?: boolean;
     collapse?: string;
+    apiBaseUrl?: string;
+    decimals?: number;
 }

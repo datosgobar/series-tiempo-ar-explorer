@@ -1,5 +1,5 @@
 import { IWebSnippetOptions } from "../../../components/exportable_card/FullCardDropdown";
-import { cardWebCode } from "../../../components/common/webCodeBuilders";
+import { cardWebCode } from "../../../helpers/common/webCodeBuilders";
 
 describe('Generation of copyable web code for components', () => {
 
@@ -33,6 +33,25 @@ describe('Generation of copyable web code for components', () => {
             generatedCode = cardWebCode(options);
             expect(generatedCode).toContain(expectedScript);
         });
+
+        it('Locale specified as well', () => {
+            options.locale = 'US';
+            expectedScript = `<script>
+    window.onload = function() {
+        TSComponents.Card.render('root', {
+            serieId: "42.3_EPH_PUNTUATAL_0_M_30",
+            color: "F9A822",
+            links: "small",
+            hasChart: "small",
+            locale: "US"
+        })
+    }
+</script>
+`;
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
+        });
+
         it('ChartType specified as well', () => {
             options.chartType = 'small';
             expectedScript = `<script>
@@ -50,6 +69,25 @@ describe('Generation of copyable web code for components', () => {
             generatedCode = cardWebCode(options);
             expect(generatedCode).toContain(expectedScript);
         });
+
+        it('Explicit Sign specified as well', () => {
+            options.explicitSign = true;
+            expectedScript = `<script>
+    window.onload = function() {
+        TSComponents.Card.render('root', {
+            serieId: "42.3_EPH_PUNTUATAL_0_M_30",
+            color: "F9A822",
+            links: "small",
+            hasChart: "small",
+            explicitSign: true
+        })
+    }
+</script>
+`;
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
+        });
+
         it('Title specified as well', () => {
             options.title = 'Desocupacion';
             expectedScript = `<script>
@@ -67,6 +105,7 @@ describe('Generation of copyable web code for components', () => {
             generatedCode = cardWebCode(options);
             expect(generatedCode).toContain(expectedScript);
         });
+
         it('Source specified as well', () => {
             options.source = 'INDEC';
             expectedScript = `<script>
@@ -84,6 +123,7 @@ describe('Generation of copyable web code for components', () => {
             generatedCode = cardWebCode(options);
             expect(generatedCode).toContain(expectedScript);
         });
+
         it('Units specified as well', () => {
             options.units = '';
             expectedScript = `<script>
@@ -101,6 +141,7 @@ describe('Generation of copyable web code for components', () => {
             generatedCode = cardWebCode(options);
             expect(generatedCode).toContain(expectedScript);
         });
+
         it('HasFrame specified as well', () => {
             options.hasFrame = true;
             expectedScript = `<script>
@@ -118,6 +159,7 @@ describe('Generation of copyable web code for components', () => {
             generatedCode = cardWebCode(options);
             expect(generatedCode).toContain(expectedScript);
         });
+
         it('HasColorBar specified as well', () => {
             options.hasColorBar = false;
             expectedScript = `<script>
@@ -135,8 +177,9 @@ describe('Generation of copyable web code for components', () => {
             generatedCode = cardWebCode(options);
             expect(generatedCode).toContain(expectedScript);
         });
+
         it('Collapse specified as well', () => {
-            options.collapse = 'month';
+            options.collapse = "month";
             expectedScript = `<script>
     window.onload = function() {
         TSComponents.Card.render('root', {
@@ -144,7 +187,43 @@ describe('Generation of copyable web code for components', () => {
             color: "F9A822",
             links: "small",
             hasChart: "small",
-            collapse: 'month'
+            collapse: "month"
+        })
+    }
+</script>
+`;
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
+        });
+
+        it('Api Base URL specified as well', () => {
+            options.apiBaseUrl = "myUrl.com";
+            expectedScript = `<script>
+    window.onload = function() {
+        TSComponents.Card.render('root', {
+            serieId: "42.3_EPH_PUNTUATAL_0_M_30",
+            color: "F9A822",
+            links: "small",
+            hasChart: "small",
+            apiBaseUrl: "myUrl.com"
+        })
+    }
+</script>
+`;
+            generatedCode = cardWebCode(options);
+            expect(generatedCode).toContain(expectedScript);
+        });
+
+        it('Decimals amount specified as well', () => {
+            options.decimals = 3;
+            expectedScript = `<script>
+    window.onload = function() {
+        TSComponents.Card.render('root', {
+            serieId: "42.3_EPH_PUNTUATAL_0_M_30",
+            color: "F9A822",
+            links: "small",
+            hasChart: "small",
+            decimals: 3
         })
     }
 </script>
