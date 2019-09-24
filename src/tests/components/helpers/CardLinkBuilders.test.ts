@@ -1,6 +1,6 @@
-import { formatUrl, viewDatosGobAr } from "../../../components/common/linkBuilders";
+import { formatUrl, viewDatosGobAr } from "../../../helpers/card/cardLinkBuilders";
 
-describe('Link building functions for Dropdown components', () => {
+describe('Link building functions for Dropdown components of the Card component', () => {
 
     describe('Appendage of desired format to a download URL', () => {
 

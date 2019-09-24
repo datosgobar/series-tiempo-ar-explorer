@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { viewDatosGobAr } from '../../common/linkBuilders';
+import { viewDatosGobAr } from "../../../helpers/card/cardLinkBuilders";
 
 
 export interface IFullCardContainerProps extends React.HTMLProps<HTMLDivElement> {

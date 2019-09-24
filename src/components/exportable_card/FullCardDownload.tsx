@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { formatUrl } from '../common/linkBuilders';
+import { formatUrl } from "../../helpers/card/cardLinkBuilders";
 
 
 export default (props: { downloadUrl: string }) =>
