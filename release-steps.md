@@ -3,9 +3,9 @@
 Para lanzar una nueva release de los TS Components, se deben realizar los siguientes pasos, preferiblemente estando ubicado en la rama `master` del repositorio:
 
 1. **Actualizar las versiones** de `components.js` y `components.css` importadas al nombre del release a lanzar, en los archivos:
- 	- *ShareDropdown.tsx*
  	- *webCodeBuilders.ts*
  	- *ts-components.md*
+	- *examples.md*
  	- *graphic.md*
  	- *card.md*
 2. **Actualizar los JSFiddles** de los archivos *graphic.md* y *card.md*:

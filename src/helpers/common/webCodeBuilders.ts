@@ -4,8 +4,8 @@ import { cleanUrl } from "../graphic/graphicLinkBuilders";
 
 export function cardWebCode(options: IWebSnippetOptions): string {
 
-    let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.1/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.1/dist/css/components.css'/>
+    let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.2/dist/js/components.js'></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.2/dist/css/components.css'/>
 <link type='text/css' rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css' media='all' />"
 <div id="root"></div>
 <script>
@@ -88,8 +88,8 @@ export function graphicWebCode(url: string, series: ISerie[]): string {
     const source = calculateChartSource(series);
     const chartType = calculateChartType(url);
 
-    let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.1/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.1/dist/css/components.css'/>
+    let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.2/dist/js/components.js'></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.2/dist/css/components.css'/>
 <div id=\"root\"></div>
 <script>
     window.onload = function() {
