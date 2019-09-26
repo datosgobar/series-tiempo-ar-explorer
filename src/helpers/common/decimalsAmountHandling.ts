@@ -15,5 +15,5 @@ export function getTooltipDecimals(serieID: string, significantFigures?: number,
     if (significantFigures === undefined) {
         return DEFAULT_SIGNIFICANT_FIGURES;
     }
-    return Math.min(significantFigures, MAX_SIGNIFICANT_FIGURES);
+    return significantFigures;
 }

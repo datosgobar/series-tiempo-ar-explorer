@@ -92,14 +92,6 @@ describe("Tests for the getTooltipDecimals function, to obtain the decimal amoun
             const amount = getTooltipDecimals(serieThreeId, significantFigures, props);
             expect(amount).toEqual(1);
         });
-        it('If props are not defined for the serie, the maximum will cap the significant figures amount if it is greater', () => {
-            props = {
-                'percentChangeSerie': 5,
-            };
-            significantFigures = 4;
-            const amount = getTooltipDecimals(serieThreeId, significantFigures, props);
-            expect(amount).toEqual(MAX_SIGNIFICANT_FIGURES);
-        });
 
     })
 
