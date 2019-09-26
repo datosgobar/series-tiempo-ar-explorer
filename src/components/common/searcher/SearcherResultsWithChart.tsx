@@ -13,6 +13,7 @@ interface ISearcherResultsWithSeriesProps {
     searchResults: SearchResult[];
     seriesApi: ISerieApi;
     laps: ILapsProps;
+    maxDecimals: number;
 }
 
 interface ISearcherResultsWithSeriesState {
@@ -38,7 +39,7 @@ class SearcherResultsWithChart extends React.Component<ISearcherResultsWithSerie
             <div>
                 {this.props.searchResults.map((result: SearchResult) => {
                     const serie = this.state.series.find((s: ISerie) => s.id === result.id) || result;
-                    return <LinkedSerieCardWithChart key={serie.id} serie={serie} />;
+                    return <LinkedSerieCardWithChart key={serie.id} serie={serie} maxDecimals={this.props.maxDecimals} />;
                 })}
             </div>
         )

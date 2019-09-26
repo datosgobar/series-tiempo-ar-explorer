@@ -27,7 +27,7 @@ export default (props: ISerieCardProps) =>
             </div>
 
             <div className="col-xs-4 d3-line-chart-container">
-                <D3SeriesChart serie={props.serie} frequency={props.serie.accrualPeriodicity} />
+                <D3SeriesChart serie={props.serie} frequency={props.serie.accrualPeriodicity} maxDecimals={props.maxDecimals} />
             </div>
         </Row>
     </Card>

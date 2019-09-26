@@ -5,6 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { setSearchParams } from '../../actions/searchActions';
 import SearchResult from '../../api/SearchResult';
 import { ISerieApi } from '../../api/SerieApi';
+import { getMaxDecimalsAmount } from '../../helpers/common/decimalsAmountHandling';
 import URLSearchParams from '../../helpers/common/URLSearchParams';
 import initialState, { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
@@ -21,6 +22,7 @@ import SeriesFilters from './filters/SeriesFilters';
 interface ISearchPageProps extends RouteComponentProps<any> {
     seriesApi: ISerieApi;
     dispatch?: any;
+    maxDecimals?: number;
 }
 
 class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> {
@@ -204,7 +206,10 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     }
 
     private renderSearchResults(searchResults: SearchResult[]) {
-        return <SearcherResultsWithChart searchResults={searchResults} seriesApi={this.props.seriesApi} />
+        const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
+        return <SearcherResultsWithChart searchResults={searchResults} 
+                                         seriesApi={this.props.seriesApi} 
+                                         maxDecimals={maxDecimals} />
     }
 }
 
@@ -212,6 +217,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
 function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
     return {
         ...state.searchParams,
+        maxDecimals: state.maxDecimals,
         seriesApi: state.seriesApi,
     };
 }

@@ -1,22 +1,23 @@
 import { IDateRange } from "../api/DateSerie";
 import { IAggregations } from "../api/ITSAPIResponse";
-import { ISerie } from "../api/Serie";
+import { ISerie, MAX_SIGNIFICANT_FIGURES } from "../api/Serie";
 import { ISerieApi } from "../api/SerieApi";
 import { ISearchParams } from "../components/common/searcher/Searcher";
 import { ILapsProps } from "../components/mainpage/featured/Featured";
 import { ISerieTag } from "../components/viewpage/SeriesTags";
 
 export interface IStore {
-    date: IDateRange,
-    featured: string[],
-    viewSeries: ISerie[],
-    seriesApi: ISerieApi | null,
-    searchParams: ISearchParams,
-    tagNames: ISerieTag[]
-    formatChartUnits: boolean
+    date: IDateRange;
+    featured: string[];
+    viewSeries: ISerie[];
+    seriesApi: ISerieApi | null;
+    searchParams: ISearchParams;
+    tagNames: ISerieTag[];
+    formatChartUnits: boolean;
     laps: ILapsProps;
     locale: string;
     aggregations: IAggregations;
+    maxDecimals: number;
 }
 
 const initialState: IStore = {
@@ -38,6 +39,7 @@ const initialState: IStore = {
         Trimestral: 20,
     },
     locale: '',
+    maxDecimals: MAX_SIGNIFICANT_FIGURES,
     searchParams: {
         catalogId: "",
         datasetSource: "",

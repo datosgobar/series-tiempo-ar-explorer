@@ -9,6 +9,8 @@ import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
 import SerieConfig from '../../api/SerieConfig';
 import { getId, removeDuplicates } from "../../helpers/common/commonFunctions";
+import { getMaxDecimalsAmount } from '../../helpers/common/decimalsAmountHandling';
+import { emptySerie, serieWithData } from '../../helpers/common/seriesClassification';
 import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import ClearFix from '../style/ClearFix';
@@ -22,13 +24,13 @@ import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
 import SeriesPicker from './seriespicker/SeriesPicker';
 import SeriesTags from './SeriesTags';
-import { serieWithData, emptySerie } from '../../helpers/common/seriesClassification';
 
 interface IViewPageProps extends RouterProps {
     seriesApi: ISerieApi;
     readonly location: { search: string };
     readonly dispatch: (action: object) => void;
     formatChartUnits?: boolean;
+    maxDecimals?: number;
 }
 
 interface IViewPageState {
@@ -111,6 +113,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
     }
 
     public render() {
+        const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
         return (
             <section id="detalle">
                 <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} onSelect={this.redirectToViewPage} />} />
@@ -130,12 +133,14 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                          updateParamsInUrl={this.setQueryParams}
                                          dispatch={this.props.dispatch}
                                          location={this.props.location}
-                                         seriesApi={this.props.seriesApi} />
+                                         seriesApi={this.props.seriesApi}
+                                         maxDecimals={maxDecimals} />
                         <MetaData onRemove={this.removeSerie} />
                     </Container>
                     <DetallePanel seriesPicker={ <SeriesPicker onPick={this.addPickedSerie}
-                                                                onRemoveSerie={this.removeSerie}
-                                                                seriesApi={this.props.seriesApi} /> } />
+                                                               onRemoveSerie={this.removeSerie}
+                                                               seriesApi={this.props.seriesApi}
+                                                               maxDecimals={maxDecimals} /> } />
                 </div>
             </section>
         );
@@ -255,6 +260,7 @@ function serieIdSanitizer(serieId: string): string {
 function mapStateToProps(state: IStore) {
     return {
         formatChartUnits: state.formatChartUnits,
+        maxDecimals: state.maxDecimals,
         seriesApi: state.seriesApi,
     };
 }

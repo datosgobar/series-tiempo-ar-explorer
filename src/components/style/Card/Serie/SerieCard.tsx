@@ -9,6 +9,7 @@ import CardTitle from '../CardTitle';
 
 export interface ISerieCardProps extends ICardProps {
     serie: ISerie;
+    maxDecimals: number;
 }
 
 
