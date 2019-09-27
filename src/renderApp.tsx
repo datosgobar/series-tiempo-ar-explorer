@@ -19,6 +19,7 @@ export interface IExplorerConfig {
     laps: ILapsProps;
     locale: string;
     maxDecimals?: number;
+    heroImageUrl?: string;
 }
 
 
@@ -32,7 +33,8 @@ export function render(selector: string, config: IExplorerConfig) {
                  formatChartUnits={ config.formatChartUnits }
                  laps={config.laps}
                  locale={config.locale}
-                 maxDecimals={config.maxDecimals} />
+                 maxDecimals={config.maxDecimals}
+                 heroImageUrl={config.heroImageUrl || '/assets/images/hero_bg.svg'} />
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );

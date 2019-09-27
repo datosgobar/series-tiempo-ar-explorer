@@ -23,6 +23,7 @@ interface ISearchPageProps extends RouteComponentProps<any> {
     seriesApi: ISerieApi;
     dispatch?: any;
     maxDecimals?: number;
+    heroImageUrl: string;
 }
 
 class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> {
@@ -178,7 +179,11 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
     public render() {
         return (
             <section id="listado">
-                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.searchTermPicked} onSelect={this.redirectToViewPage} />} />
+                <SeriesHero compact={true} 
+                            searchBox={<SearchBox seriesApi={this.props.seriesApi}
+                                                  onSearch={this.searchTermPicked} 
+                                                  onSelect={this.redirectToViewPage} />}
+                            heroImageUrl={this.props.heroImageUrl} />
                 <FiltersListContainer>
                     <SeriesFilters onSourcePicked={this.sourcePicked}
                                     onThemePicked={this.themePicked}
@@ -217,6 +222,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
 function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
     return {
         ...state.searchParams,
+        heroImageUrl: state.heroImageUrl,
         maxDecimals: state.maxDecimals,
         seriesApi: state.seriesApi,
     };

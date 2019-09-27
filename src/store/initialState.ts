@@ -18,6 +18,7 @@ export interface IStore {
     locale: string;
     aggregations: IAggregations;
     maxDecimals: number;
+    heroImageUrl: string;
 }
 
 const initialState: IStore = {
@@ -31,6 +32,7 @@ const initialState: IStore = {
     date: { start: '', end: '' },
     featured: [],
     formatChartUnits: true,
+    heroImageUrl: '',
     laps: {
         Anual: 10,
         Diaria: 90,

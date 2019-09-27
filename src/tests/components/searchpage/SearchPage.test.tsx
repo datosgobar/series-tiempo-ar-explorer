@@ -46,7 +46,7 @@ describe("SearchPage", () => {
         ReactDOM.render(
             <MemoryRouter initialEntries={['/search/?q=cons']} initialIndex={0}>
                 <Provider store={store}>
-                    <SearchPage seriesApi={new MockApi(0)} />
+                    <SearchPage seriesApi={new MockApi(0)} heroImageUrl="myHero.jpg" />
                 </Provider>
             </MemoryRouter>
         , div);
@@ -60,7 +60,7 @@ describe("SearchPage", () => {
             <MemoryRouter initialEntries={['/search/?q=' + searchterm]}
                             initialIndex={0} >
                 <Provider store={store}>
-                    <SearchPage seriesApi={mockSeriesApi} />
+                    <SearchPage seriesApi={mockSeriesApi} heroImageUrl="myHero.jpg" />
                 </Provider>
             </MemoryRouter>
         );
@@ -77,7 +77,7 @@ describe("SearchPage", () => {
             <MemoryRouter initialEntries={[`/search/?offset=${offset}&limit=${limit}&q=${searchterm}`]}
                             initialIndex={0}>
                     <Provider store={store}>
-                        <SearchPage seriesApi={mockSeriesApi} />
+                        <SearchPage seriesApi={mockSeriesApi} heroImageUrl="myHero.jpg"/>
                     </Provider>
             </MemoryRouter>
         );
