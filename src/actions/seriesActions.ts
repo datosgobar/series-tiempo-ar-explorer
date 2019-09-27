@@ -30,6 +30,10 @@ export interface ILocaleAction extends Action<string> {
     locale: string;
 }
 
+export interface IMaxDecimalsAction extends Action<string> {
+    maxDecimals: number;
+}
+
 
 export function loadFeaturedIds(featuredIds: string[]): IFeaturedIdsAction {
     return { type: actionTypes.LOAD_FEATURED_IDS, featuredIds };
@@ -73,4 +77,8 @@ export function setLaps(laps: ILapsProps): ILapsAction {
 
 export function setLocale(locale: string): ILocaleAction {
     return { type: actionTypes.SET_LOCALE, locale };
+}
+
+export function setMaxDecimals(maxDecimals: number): IMaxDecimalsAction {
+    return { type: actionTypes.SET_MAX_DECIMALS, maxDecimals };
 }

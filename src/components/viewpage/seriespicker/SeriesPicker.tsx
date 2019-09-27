@@ -13,6 +13,7 @@ export interface ISeriesPickerProps {
     onPick: (event: React.MouseEvent<HTMLElement>, serieId: string) => void;
     onRemoveSerie: (serieId: string) => void;
     series: ISerie[];
+    maxDecimals: number;
 }
 
 class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
@@ -69,7 +70,8 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
                 {searchResults.map((searchResult: SearchResult) =>
                     <SerieCard
                         key={searchResult.id}
-                        {...this.searchResultCardProps(searchResult)} />
+                        {...this.searchResultCardProps(searchResult)}
+                        maxDecimals={this.props.maxDecimals} />
                 )}
             </div>
         );

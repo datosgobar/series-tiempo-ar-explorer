@@ -8,5 +8,5 @@ import SerieCardWithChart from "./SerieCardWithChart";
 export default (props: ISerieCardProps) =>
 
     <Link to={`/series/?ids=${props.serie.id}`}>
-        <SerieCardWithChart serie={props.serie}/>
+        <SerieCardWithChart {...props}/>
     </Link>

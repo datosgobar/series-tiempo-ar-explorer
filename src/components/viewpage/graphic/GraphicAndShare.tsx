@@ -28,6 +28,7 @@ export interface IGraphicAndShareProps {
     locale: string;
     readonly location: { search: string };
     seriesApi: ISerieApi;
+    maxDecimals: number;
 }
 
 class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
@@ -92,7 +93,8 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
                          onZoom={this.handleZoom}
                          dispatch={this.props.dispatch}
                          locale={this.props.locale}
-                         chartTypes={this.generateChartTypes()} />
+                         chartTypes={this.generateChartTypes()}
+                         maxDecimals={this.props.maxDecimals} />
 
                 <GraphicComplements url={this.downloadDataURL()}
                                     series={this.props.series}

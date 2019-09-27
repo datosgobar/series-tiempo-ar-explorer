@@ -1,8 +1,6 @@
-import { ISerie, DEFAULT_SIGNIFICANT_FIGURES, GRAPHIC_MAX_SIGNIFICANT_FIGURES } from "../../api/Serie";
+import { ISerie } from "../../api/Serie";
 import SerieConfig from "../../api/SerieConfig";
-import { IChartTypeProps, INumberPropsPerId } from "../../components/viewpage/graphic/Graphic";
-
-export const DEFAULT_TOOLTIP_DECIMAL_AMOUNT = 2;
+import { IChartTypeProps } from "../../components/viewpage/graphic/Graphic";
 
 export interface ISerieFullID {
     id: string;
@@ -29,18 +27,4 @@ export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
     }
     return types[getFullSerieId(serieFullID)];
 
-}
-
-export function getTooltipDecimals(serieID: string, significantFigures?: number, tooltipDecimals?: INumberPropsPerId): number {
-
-    if (tooltipDecimals && tooltipDecimals[serieID] !== undefined) {
-        return tooltipDecimals[serieID];
-    }
-    
-    if(significantFigures === undefined) {
-        return DEFAULT_SIGNIFICANT_FIGURES;
-    }
-
-    return Math.min(significantFigures, GRAPHIC_MAX_SIGNIFICANT_FIGURES);
-    
 }

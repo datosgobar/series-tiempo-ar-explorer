@@ -3,7 +3,8 @@ import { ISerie } from "../../api/Serie";
 import { i18nFrequency } from "../../api/utils/periodicityManager";
 import { IGraphicProps, IYAxis, IYAxisConf } from "../../components/viewpage/graphic/Graphic";
 import { IHCSerie } from "../../components/viewpage/graphic/highcharts";
-import { findSerieConfig, getTooltipDecimals } from "../common/fullSerieID";
+import { findSerieConfig } from "../common/fullSerieID";
+import { getTooltipDecimals } from "../common/decimalsAmountHandling";
 import { generateYAxisArray, generateYAxisBySeries, IYAxisGenerationOptions } from "./axisConfiguration";
 import { dateFormatByPeriodicity } from "./dateFormatting";
 import { formatSerieValue } from "./formatterForSerie";
@@ -70,11 +71,19 @@ export class ChartConfigBuilder {
                         let value = point.y;
 
                         if (serieConfig) {
+
+                            let significantFigures = serieConfig.getSerieSignificantFigures();
+
+                            if(builder.props.maxDecimals !== undefined) {
+                                significantFigures = Math.min(builder.props.maxDecimals, serieConfig.getSerieSignificantFigures());
+                            }
+
                             const decimalPlaces = getTooltipDecimals(serieConfig.getFullSerieId(), 
-                                serieConfig.getSerieSignificantFigures(), builder.props.decimalTooltips);
+                                significantFigures, builder.props.decimalTooltips);
                             value = formatSerieValue(value, builder.props.locale, serieConfig.isPercentageSerie(), decimalPlaces);
 
                             contentTooltip += tooltipFormatter(point, value, builder.smallTooltip);
+                            
                         }
 
                         if (index < self.points.length -1) {

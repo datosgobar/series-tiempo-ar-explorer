@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ApiClient } from "../../api/ApiClient";
 import QueryParams from "../../api/QueryParams";
-import { ISerie } from "../../api/Serie";
+import { ISerie, MAX_SIGNIFICANT_FIGURES } from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
 import { extractIdsFromUrl, extractUriFromUrl } from "../../helpers/common/URLExtractors";
 import { PropsAdjuster, IAdjustmentOptions } from "../../helpers/graphic/propsAdjuster";
@@ -114,7 +114,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          colors={getColorArray(this.props.colors)}
                          decimalLeftAxis={this.props.decimalLeftAxis}
                          decimalRightAxis={this.props.decimalRightAxis}
-                         decimalTooltips={this.props.decimalTooltips} />
+                         decimalTooltips={this.props.decimalTooltips}
+                         maxDecimals={MAX_SIGNIFICANT_FIGURES} />
             </ExportableGraphicContainer>
         )
     }

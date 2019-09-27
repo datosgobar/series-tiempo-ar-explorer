@@ -1,12 +1,13 @@
 import * as React from 'react';
-
-import {connect} from 'react-redux';
-import {BrowserRouter, BrowserRouterProps, HashRouter} from 'react-router-dom';
-import {loadFeaturedIds, setFormatChartUnits, setLaps, setLocale, setSeriesApi} from './actions/seriesActions';
-import {ISerieApi} from './api/SerieApi';
-import {ILapsProps} from "./components/mainpage/featured/Featured";
+import { connect } from 'react-redux';
+import { BrowserRouter, BrowserRouterProps, HashRouter } from 'react-router-dom';
+import { loadFeaturedIds, setFormatChartUnits, setLaps, setLocale, setMaxDecimals, setSeriesApi } from './actions/seriesActions';
+import { ISerieApi } from './api/SerieApi';
+import { ILapsProps } from "./components/mainpage/featured/Featured";
 import Wrapper from './components/style/Common/Wrapper';
+import { getMaxDecimalsAmount } from './helpers/common/decimalsAmountHandling';
 import routes from './routes';
+
 
 interface IAppProps {
     featuredIds: string[];
@@ -17,6 +18,7 @@ interface IAppProps {
     formatChartUnits?: boolean;
     laps: ILapsProps;
     locale?: string;
+    maxDecimals?: number;
 }
 
 class App extends React.Component<IAppProps, any> {
@@ -28,6 +30,8 @@ class App extends React.Component<IAppProps, any> {
         this.props.dispatch(loadFeaturedIds(this.props.featuredIds));
         this.props.dispatch(setLaps(this.props.laps));
         this.props.dispatch(setLocale(this.props.locale || "AR"));
+        const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
+        this.props.dispatch(setMaxDecimals(maxDecimals));
     }
 
     public render(): any {
