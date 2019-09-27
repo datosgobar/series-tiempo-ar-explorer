@@ -31,6 +31,7 @@ interface IViewPageProps extends RouterProps {
     readonly dispatch: (action: object) => void;
     formatChartUnits?: boolean;
     maxDecimals?: number;
+    heroImageUrl: string;
 }
 
 interface IViewPageState {
@@ -116,7 +117,11 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
         return (
             <section id="detalle">
-                <SeriesHero compact={true} searchBox={<SearchBox seriesApi={this.props.seriesApi} onSearch={this.redirectToSearchPage} onSelect={this.redirectToViewPage} />} />
+                <SeriesHero compact={true} 
+                            searchBox={<SearchBox seriesApi={this.props.seriesApi}
+                                                  onSearch={this.redirectToSearchPage} 
+                                                  onSelect={this.redirectToViewPage} />}
+                            heroImageUrl={this.props.heroImageUrl} />
                 <div id="detalle-content">
                     <Container>
                         <FailedSeries ids={this.state.failedSeries} />
@@ -260,6 +265,7 @@ function serieIdSanitizer(serieId: string): string {
 function mapStateToProps(state: IStore) {
     return {
         formatChartUnits: state.formatChartUnits,
+        heroImageUrl: state.heroImageUrl,
         maxDecimals: state.maxDecimals,
         seriesApi: state.seriesApi,
     };

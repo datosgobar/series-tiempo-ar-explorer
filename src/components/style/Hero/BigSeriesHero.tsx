@@ -3,17 +3,11 @@ import Row from '../Common/Row';
 import Hero from './Hero';
 import PLarger from './PLarger';
 import TitleXXL from './TitleXXL';
+import { IFinalSeriesHeroProps } from './SeriesHero';
 
 
-export interface ICompactSeriesHeroProps {
-    title: string;
-    paragraph: string;
-    searchBox: JSX.Element;
-}
-
-
-export default (props: ICompactSeriesHeroProps) =>
-    <Hero>
+export default (props: IFinalSeriesHeroProps) =>
+    <Hero heroImageUrl={props.heroImageUrl}>
         <Row>
             <div className="col-sm-11 col-md-9">
                 <TitleXXL>{props.title}</TitleXXL>

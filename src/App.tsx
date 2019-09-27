@@ -7,6 +7,7 @@ import { ILapsProps } from "./components/mainpage/featured/Featured";
 import Wrapper from './components/style/Common/Wrapper';
 import { getMaxDecimalsAmount } from './helpers/common/decimalsAmountHandling';
 import routes from './routes';
+import { setHeroImageUrl } from './actions/heroActions';
 
 
 interface IAppProps {
@@ -19,6 +20,7 @@ interface IAppProps {
     laps: ILapsProps;
     locale?: string;
     maxDecimals?: number;
+    heroImageUrl: string;
 }
 
 class App extends React.Component<IAppProps, any> {
@@ -32,6 +34,7 @@ class App extends React.Component<IAppProps, any> {
         this.props.dispatch(setLocale(this.props.locale || "AR"));
         const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
         this.props.dispatch(setMaxDecimals(maxDecimals));
+        this.props.dispatch(setHeroImageUrl(this.props.heroImageUrl));
     }
 
     public render(): any {

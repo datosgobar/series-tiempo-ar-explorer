@@ -14,6 +14,7 @@ interface IMainPageProps {
     dispatch?: any;
     featured: string[];
     maxDecimals?: number;
+    heroImageUrl: string;
 }
 
 
@@ -40,8 +41,9 @@ export class MainPage extends React.Component<IMainPageProps, any> {
         return (
             <section id="home">
                 <SeriesHero searchBox={<SearchBox seriesApi={this.props.seriesApi} 
-                            onSearch={this.redirectToSearchPage} 
-                            onSelect={this.redirectToViewPage}/>}/>
+                                                  onSearch={this.redirectToSearchPage} 
+                                                  onSelect={this.redirectToViewPage}/>}
+                            heroImageUrl={this.props.heroImageUrl} />
                 <Featured featured={this.props.featured}
                           seriesApi={this.props.seriesApi}
                           maxDecimals={maxDecimals} />
@@ -55,6 +57,7 @@ export class MainPage extends React.Component<IMainPageProps, any> {
 function mapStateToProps(state: IStore) {
     return {
         featured: state.featured,
+        heroImageUrl: state.heroImageUrl,
         maxDecimals: state.maxDecimals,
         seriesApi: state.seriesApi,
     }
