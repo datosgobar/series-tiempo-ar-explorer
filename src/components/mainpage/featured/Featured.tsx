@@ -21,6 +21,7 @@ interface IFeaturedProps {
     featured: string[];
     seriesApi: ISerieApi;
     laps: ILapsProps;
+    maxDecimals: number;
 }
 
 
@@ -42,7 +43,9 @@ class Featured extends React.Component<IFeaturedProps, any> {
         return (
             <FeaturedContainer>
                 <FeaturedTitle>Series Destacadas:</FeaturedTitle>
-                <FeaturedCardList seriesOrder={this.props.featured} series={this.state.featuredSeries} />
+                <FeaturedCardList seriesOrder={this.props.featured}
+                                  series={this.state.featuredSeries} 
+                                  maxDecimals={this.props.maxDecimals}/>
             </FeaturedContainer>
         );
     }

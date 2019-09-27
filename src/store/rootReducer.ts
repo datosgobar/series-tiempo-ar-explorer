@@ -9,6 +9,8 @@ import formatChartUnits from "../FormatChartUnitsReducer";
 import laps from '../lapsReducer';
 import locale from '../localeReducer';
 import seriesApi from '../SerieApiReducer';
+import maxDecimals from '../maxDecimalsReducer';
+import heroImageUrl from '../heroImageUrlReducer';
 
 
 const rootReducer = combineReducers({
@@ -16,12 +18,14 @@ const rootReducer = combineReducers({
     date,
     featured,
     formatChartUnits,
+    heroImageUrl,
     laps,
     locale,
+    maxDecimals,
     searchParams,
     serieTags,
     seriesApi,
-    viewSeries,
+    viewSeries
 });
 
 export default rootReducer;

@@ -1,7 +1,30 @@
-import { INumberPropsPerId } from "../../../components/viewpage/graphic/Graphic"
-import { getTooltipDecimals, DEFAULT_TOOLTIP_DECIMAL_AMOUNT } from "../../../helpers/common/fullSerieID";
+import { DEFAULT_SIGNIFICANT_FIGURES, MAX_SIGNIFICANT_FIGURES } from "../../../api/Serie";
+import { INumberPropsPerId } from "../../../components/viewpage/graphic/Graphic";
+import { getTooltipDecimals, getMaxDecimalsAmount } from "../../../helpers/common/decimalsAmountHandling";
 
-describe("Tests for the getTooltipDecimals function", () => {
+describe("Tests for determination of the maximum cap of decimals amount", () => {
+    
+    let maxDecimalsProp: number;
+    let maximumCap: number;
+
+    it("If a maxDecimals prop is not specified, the default maximum is returned", () => {
+        maximumCap = getMaxDecimalsAmount(maxDecimalsProp);
+        expect(maximumCap).toEqual(MAX_SIGNIFICANT_FIGURES);
+    });
+    it("If a maxDecimals prop is specified and not negative, such is returned", () => {
+        maxDecimalsProp = 0;
+        maximumCap = getMaxDecimalsAmount(maxDecimalsProp);
+        expect(maximumCap).toEqual(0);
+    });
+    it("If a maxDecimals prop is specified but negative, the default maximum is returned", () => {
+        maxDecimalsProp = -4;
+        maximumCap = getMaxDecimalsAmount(maxDecimalsProp);
+        expect(maximumCap).toEqual(MAX_SIGNIFICANT_FIGURES);
+    });
+
+})
+
+describe("Tests for the getTooltipDecimals function, to obtain the decimal amount for the tooltip of a serie at the Graphic", () => {
 
     let props: INumberPropsPerId;
     let serieOneId: string;
@@ -32,15 +55,15 @@ describe("Tests for the getTooltipDecimals function", () => {
         });
         it('If the series amount is not defined in the props, default value is returned', () => {
             const amount = getTooltipDecimals(serieThreeId, significantFigures, props);
-            expect(amount).toEqual(DEFAULT_TOOLTIP_DECIMAL_AMOUNT);
+            expect(amount).toEqual(DEFAULT_SIGNIFICANT_FIGURES);
         });
         it('If the props are not defined, then the default value is returned', () => {
             let amount = getTooltipDecimals(serieOneId);
-            expect(amount).toEqual(DEFAULT_TOOLTIP_DECIMAL_AMOUNT);
+            expect(amount).toEqual(DEFAULT_SIGNIFICANT_FIGURES);
             amount = getTooltipDecimals(serieTwoId);
-            expect(amount).toEqual(DEFAULT_TOOLTIP_DECIMAL_AMOUNT);
+            expect(amount).toEqual(DEFAULT_SIGNIFICANT_FIGURES);
             amount = getTooltipDecimals(serieThreeId);
-            expect(amount).toEqual(DEFAULT_TOOLTIP_DECIMAL_AMOUNT);
+            expect(amount).toEqual(DEFAULT_SIGNIFICANT_FIGURES);
         });
 
     })
@@ -48,12 +71,12 @@ describe("Tests for the getTooltipDecimals function", () => {
     describe("Specifying the significant figures amount", () => {
 
         beforeAll(() => {
-            significantFigures = 4;
+            significantFigures = 1;
         })
 
-        it('If the props are not specified but the significant figures is, then the last is returned', () => {
+        it('If the props are not specified but the significant figures amount is, then the last is returned', () => {
             const amount = getTooltipDecimals(serieOneId, significantFigures);
-            expect(amount).toEqual(4);
+            expect(amount).toEqual(1);
         });
         it('If both props and significant figures are specified, the props will prevail', () => {
             props = {
@@ -67,8 +90,8 @@ describe("Tests for the getTooltipDecimals function", () => {
                 'percentChangeSerie': 5,
             };
             const amount = getTooltipDecimals(serieThreeId, significantFigures, props);
-            expect(amount).toEqual(4);
-        })
+            expect(amount).toEqual(1);
+        });
 
     })
 

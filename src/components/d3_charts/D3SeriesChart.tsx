@@ -8,7 +8,7 @@ import { IStore } from "../../store/initialState";
 import { buildLocale } from "../common/locale/buildLocale";
 import { ILapsProps } from "../mainpage/featured/Featured";
 import D3LineChart from "./D3LineChart";
-import { getTooltipDecimals } from '../../helpers/common/fullSerieID';
+import { getTooltipDecimals } from "../../helpers/common/decimalsAmountHandling";
 
 
 interface ID3Chart {
@@ -16,6 +16,7 @@ interface ID3Chart {
     frequency: string;
     laps: ILapsProps;
     locale: string;
+    maxDecimals: number;
 }
 
 class D3SeriesChart extends React.Component<ID3Chart, any> {
@@ -28,14 +29,22 @@ class D3SeriesChart extends React.Component<ID3Chart, any> {
     }
 
     public render() {
+
         const data = this.shortDataList(this.props.serie.data);
         if (data.length === 0) { return <div className="d3-line-chart">Esta serie no trajo datos</div> }
+
+        const formattedValueOptions: ILastFormattedValueOptions = {
+            data,
+            locale: this.props.locale,
+            maxDecimals: this.props.maxDecimals,
+            serie: this.props.serie
+        }
 
         return (
             <div className="d3-line-chart">
                 <div className="units">
                     <div className="date">{shortLocaleDate(this.props.frequency, data[data.length - 1].date)}</div>
-                    <div className="value">{lastFormattedValue(this.props.serie, data, this.props.locale)}</div>
+                    <div className="value">{lastFormattedValue(formattedValueOptions)}</div>
                 </div>
                 <D3LineChart renderTo={this.myRef} data={data} />
                 <div className="frequency">{`ÚLTIMOS ${this.getLaps()} ${findPeriod(this.props.frequency)}`}</div>
@@ -67,14 +76,22 @@ function findPeriod(frequency: string): string {
     return options[frequency].toUpperCase()
 }
 
-function lastFormattedValue(serie: ISerie, data: IDataPoint[], locale: string): string {
+interface ILastFormattedValueOptions {
+    data: IDataPoint[];
+    locale: string;
+    maxDecimals: number;
+    serie: ISerie;
+}
 
-    const dataValue = data[data.length-1].value;
-    const value = serie.isPercentage ? (dataValue || 0) * 100 : dataValue;
-    const decimalPlaces = getTooltipDecimals(serie.id, serie.significantFigures);
+function lastFormattedValue(options: ILastFormattedValueOptions): string {
 
-    const result = buildLocale(locale).toDecimalString(value || 0, decimalPlaces);
-    return serie.isPercentage ? `${result}%` : `${result}`;
+    const dataValue = options.data[options.data.length-1].value;
+    const value = options.serie.isPercentage ? (dataValue || 0) * 100 : dataValue;
+    const significantFigures = Math.min(options.maxDecimals, options.serie.significantFigures);
+    const decimalPlaces = getTooltipDecimals(options.serie.id, significantFigures);
+
+    const result = buildLocale(options.locale).toDecimalString(value || 0, decimalPlaces);
+    return options.serie.isPercentage ? `${result}%` : `${result}`;
 
 }
 

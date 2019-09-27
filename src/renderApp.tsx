@@ -18,6 +18,8 @@ export interface IExplorerConfig {
     formatChartUnits: boolean;
     laps: ILapsProps;
     locale: string;
+    maxDecimals?: number;
+    heroImageUrl?: string;
 }
 
 
@@ -30,7 +32,9 @@ export function render(selector: string, config: IExplorerConfig) {
                  featuredIds={ getFeatured(config) }
                  formatChartUnits={ config.formatChartUnits }
                  laps={config.laps}
-                 locale={config.locale} />
+                 locale={config.locale}
+                 maxDecimals={config.maxDecimals}
+                 heroImageUrl={config.heroImageUrl} />
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );

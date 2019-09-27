@@ -9,11 +9,18 @@ const PARAGRAPH = "Desde aquí podés buscar las series de tiempo del tema que n
 export interface ISeriesHeroProps extends React.Props<any> {
     compact?: boolean;
     searchBox: JSX.Element;
+    heroImageUrl: string;
 }
 
+export interface IFinalSeriesHeroProps {
+    title: string;
+    paragraph: string;
+    searchBox: JSX.Element;
+    heroImageUrl: string;
+}
 
 export default (props: ISeriesHeroProps) => {
     const SeriesHero = props.compact ? CompactSeriesHero : BigSeriesHero1;
 
-    return <SeriesHero title={TITLE} paragraph={PARAGRAPH} searchBox={props.searchBox} />
+    return <SeriesHero title={TITLE} paragraph={PARAGRAPH} searchBox={props.searchBox} heroImageUrl={props.heroImageUrl} />
 }

@@ -1,13 +1,27 @@
 import * as React from 'react';
 
-export default function Hero(props: React.Props<{}>) {
+interface IBackgroundImageStyle {
+    backgroundImage?: string;
+}
+
+interface IHeroProps extends React.Props<any> {
+    heroImageUrl: string;
+}
+
+export default function Hero(props: IHeroProps) {
+
+    const backgroundImageStyle: IBackgroundImageStyle = {};
+
+    if(props.heroImageUrl !== '') {
+        backgroundImageStyle.backgroundImage = `url('${props.heroImageUrl}')`;
+    }
 
     return (
-
-        <div id="hero">
+        <div id="hero" style={backgroundImageStyle}>
                 <div className="container">
                     {props.children}
                 </div>
         </div>
     );
+
 }

@@ -34,6 +34,7 @@ export interface IGraphicProps {
     decimalLeftAxis?: number;
     decimalRightAxis?: number;
     decimalTooltips?: INumberPropsPerId;
+    maxDecimals?: number;
 }
 
 export interface IStringPropsPerId {
