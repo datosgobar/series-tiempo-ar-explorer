@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface IBackgroundImageStyle {
-    backgroundImage: string;
+    backgroundImage?: string;
 }
 
 interface IHeroProps extends React.Props<any> {
@@ -10,9 +10,11 @@ interface IHeroProps extends React.Props<any> {
 
 export default function Hero(props: IHeroProps) {
 
-    const backgroundImageStyle: IBackgroundImageStyle = {
-        backgroundImage: `url('${props.heroImageUrl}')`
-    };
+    const backgroundImageStyle: IBackgroundImageStyle = {};
+
+    if(props.heroImageUrl !== '') {
+        backgroundImageStyle.backgroundImage = `url('${props.heroImageUrl}')`;
+    }
 
     return (
         <div id="hero" style={backgroundImageStyle}>

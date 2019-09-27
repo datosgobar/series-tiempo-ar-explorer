@@ -881,7 +881,7 @@ section#home #hero {
   position: relative;
   width: 100%;
   height: 315px;
-  background: center right no-repeat;
+  background: url('../images/hero_bg.svg') center right no-repeat;
   background-size: cover;
 }
 section#home #hero .container {
@@ -993,7 +993,7 @@ section#detalle #hero {
   position: relative;
   width: 100%;
   height: 175px;
-  background: center right no-repeat;
+  background: url('../images/hero_bg.svg') center right no-repeat;
   background-size: cover;
 }
 section#listado #hero .container,

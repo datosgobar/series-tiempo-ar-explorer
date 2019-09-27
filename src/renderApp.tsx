@@ -34,7 +34,7 @@ export function render(selector: string, config: IExplorerConfig) {
                  laps={config.laps}
                  locale={config.locale}
                  maxDecimals={config.maxDecimals}
-                 heroImageUrl={config.heroImageUrl || '/assets/images/hero_bg.svg'} />
+                 heroImageUrl={config.heroImageUrl} />
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );

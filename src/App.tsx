@@ -20,7 +20,7 @@ interface IAppProps {
     laps: ILapsProps;
     locale?: string;
     maxDecimals?: number;
-    heroImageUrl: string;
+    heroImageUrl?: string;
 }
 
 class App extends React.Component<IAppProps, any> {
@@ -34,7 +34,7 @@ class App extends React.Component<IAppProps, any> {
         this.props.dispatch(setLocale(this.props.locale || "AR"));
         const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
         this.props.dispatch(setMaxDecimals(maxDecimals));
-        this.props.dispatch(setHeroImageUrl(this.props.heroImageUrl));
+        this.props.dispatch(setHeroImageUrl(this.props.heroImageUrl || ''));
     }
 
     public render(): any {
