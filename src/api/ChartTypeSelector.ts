@@ -1,5 +1,6 @@
 import { IChartTypeProps } from "../components/viewpage/graphic/Graphic";
 import { ISerie } from "./Serie";
+import { getFullSerieId } from "../helpers/common/fullSerieID";
 
 
 const DEFAULT_TYPE = "line";
@@ -28,7 +29,8 @@ export default class ChartTypeSelector {
 
     public getChartTypesBySeries(): IChartTypeProps {
         return this.series.reduce((result: {}, serie: ISerie) => {
-            result[serie.id] = this.chartTypeTo(serie.id);
+            const fullId = getFullSerieId(serie);
+            result[fullId] = this.chartTypeTo(fullId);
             return result;
         }, {})
     }

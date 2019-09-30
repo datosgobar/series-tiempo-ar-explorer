@@ -24,6 +24,7 @@ import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
 import SeriesPicker from './seriespicker/SeriesPicker';
 import SeriesTags from './SeriesTags';
+import { getFullSerieId } from '../../helpers/common/fullSerieID';
 
 interface IViewPageProps extends RouterProps {
     seriesApi: ISerieApi;
@@ -252,8 +253,8 @@ export function seriesConfigByUrl(url: string): (series: ISerie[]) => SerieConfi
 
     return (series: ISerie[]) => series.map((serie: ISerie) => {
         const seriesConfig = new SerieConfig(serie);
-        seriesConfig.setPercentChange(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change')));
-        seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(serie.id) && value.includes('percent_change_a_year_ago')));
+        seriesConfig.setPercentChange(search.some((value: string) => value.includes(getFullSerieId(serie)) && value.includes('percent_change')));
+        seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(getFullSerieId(serie)) && value.includes('percent_change_a_year_ago')));
         return seriesConfig;
     });
 }
