@@ -18,9 +18,11 @@ export default function Hero(props: IHeroProps) {
 
     return (
         <div id="hero" style={backgroundImageStyle}>
+            <div className="hero-caption">
                 <div className="container">
                     {props.children}
                 </div>
+            </div>
         </div>
     );
 
