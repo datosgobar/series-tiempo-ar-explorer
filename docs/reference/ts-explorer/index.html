@@ -595,14 +595,14 @@
                 
                 
                 <h1 id="tsexplorer"><a class="toclink" href="#tsexplorer">TSExplorer</a><a class="headerlink" href="#tsexplorer" title="Permanent link">&#128279;</a></h1>
-<p><strong>Versión</strong>: 2.4.12</p>
+<p><strong>Versión</strong>: 2.5.0</p>
 <p>El objeto <code>TSExplorer</code> contiene una <em>one page application</em> con un explorador de series de tiempo, que permite buscar y visualizar series de un catálogo de datos abiertos.</p>
-<p>Está en el archivo llamado <code>main.js</code> y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.4.12/dist/js/main.js</p>
+<p>Está en el archivo llamado <code>main.js</code> y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.0/dist/js/main.js</p>
 <h2 id="como-lo-uso"><a class="toclink" href="#como-lo-uso">¿Cómo lo uso?</a><a class="headerlink" href="#como-lo-uso" title="Permanent link">&#128279;</a></h2>
 <ul>
 <li>Importar librería JS:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.4.12/dist/js/main.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.0/dist/js/main.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 
 
@@ -625,7 +625,7 @@
 <h2 id="ejemplo-de-uso"><a class="toclink" href="#ejemplo-de-uso">Ejemplo de uso</a><a class="headerlink" href="#ejemplo-de-uso" title="Permanent link">&#128279;</a></h2>
 <div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.4.12/dist/js/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.0/dist/js/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;explorer-container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
@@ -717,10 +717,26 @@
         <td>"AR"</td>
         <td>"AR" / "US"</td>
     </tr>
+    <tr>
+        <td>maxDecimals</td>
+        <td>No</td>
+        <td>Cantidad máxima de cifras decimales a mostar para los valores de las series, tanto en sus tarjetas destacadas, como resultados de búsqueda y notas (tooltips) de los gráficos.</td>
+        <td>int</td>
+        <td>2</td>
+        <td>0/4/1</td>
+    </tr>
+    <tr>
+        <td>heroImageUrl</td>
+        <td>No</td>
+        <td>URL de la imagen a mostrar de fondo en el banner del encabezado.</td>
+        <td>string</td>
+        <td>https://wallpaperplay.com/walls/full/c/5/f/375180.jpg</td>
+        <td>0/4/1</td>
+    </tr>
 </table>
 
 <h2 id="demo-online"><a class="toclink" href="#demo-online">Demo online</a><a class="headerlink" href="#demo-online" title="Permanent link">&#128279;</a></h2>
-<p>https://jsfiddle.net/4L6tgb79/</p>
+<p><a href="https://jsfiddle.net/rh21gofc/">https://jsfiddle.net/rh21gofc/</a></p>
                 
                   
                 

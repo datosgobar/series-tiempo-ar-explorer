@@ -1,17 +1,17 @@
 # TSExplorer
 
-**Versión**: 2.4.12
+**Versión**: 2.5.0
 
 El objeto `TSExplorer` contiene una _one page application_ con un explorador de series de tiempo, que permite buscar y visualizar series de un catálogo de datos abiertos.
 
-Está en el archivo llamado `main.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.4.12/dist/js/main.js
+Está en el archivo llamado `main.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.0/dist/js/main.js
 
 ## ¿Cómo lo uso?
 
 * Importar librería JS:
 
 ```html
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.4.12/dist/js/main.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.0/dist/js/main.js'></script>
 ```
 
 * Definir dónde se va a dibujar:
@@ -33,7 +33,7 @@ TSExplorer.render('explorer-container', {
 ```html
 <html>
 <body>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.4.12/dist/js/main.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.0/dist/js/main.js"></script>
 
   <div id="explorer-container"></div>
 
@@ -125,7 +125,23 @@ TSExplorer.render('explorer-container', {
         <td>"AR"</td>
         <td>"AR" / "US"</td>
     </tr>
+    <tr>
+        <td>maxDecimals</td>
+        <td>No</td>
+        <td>Cantidad máxima de cifras decimales a mostar para los valores de las series, tanto en sus tarjetas destacadas, como resultados de búsqueda y notas (tooltips) de los gráficos.</td>
+        <td>int</td>
+        <td>2</td>
+        <td>0/4/1</td>
+    </tr>
+    <tr>
+        <td>heroImageUrl</td>
+        <td>No</td>
+        <td>URL de la imagen a mostrar de fondo en el banner del encabezado.</td>
+        <td>string</td>
+        <td>https://wallpaperplay.com/walls/full/c/5/f/375180.jpg</td>
+        <td>0/4/1</td>
+    </tr>
 </table>
 
 ## Demo online
-https://jsfiddle.net/4L6tgb79/
+[https://jsfiddle.net/rh21gofc/](https://jsfiddle.net/rh21gofc/)
