@@ -884,7 +884,7 @@ section#home #hero {
   background: url('../images/hero_bg.svg') center right no-repeat;
   background-size: cover;
 }
-section#home #hero .container {
+section#home #hero .hero-caption {
   position: absolute;
   z-index: 2;
   top: 50%;
