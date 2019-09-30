@@ -9,13 +9,13 @@ import { IFinalSeriesHeroProps } from './SeriesHero';
 export default (props: IFinalSeriesHeroProps) =>
     <Hero heroImageUrl={props.heroImageUrl}>
         <Row>
-            <div className="col-sm-11 col-md-9">
+            <div className="col-sm-12 col-md-10">
                 <TitleXXL>{props.title}</TitleXXL>
                 <PLarger>{props.paragraph}</PLarger>
             </div>
         </Row>
         <Row>
-            <div className="col-sm-9 col-md-7">
+            <div className="col-sm-12 col-md-10">
                 {props.searchBox}
             </div>
         </Row>
