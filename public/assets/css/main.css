@@ -894,6 +894,9 @@ section#home #hero .hero-caption {
   transform: translateY(-50%);
   width: 100%;
 }
+section#home #hero .container {
+  width: 100%;
+}
 section#home #hero .container #form-hero-search .form-group {
   position: relative;
   margin-bottom: 0;
