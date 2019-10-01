@@ -1,10 +1,10 @@
 # TSComponents
 
-**Versión**: 2.6.2
+**Versión**: 2.6.3
 
 El objeto `TSComponents` contiene distintos componentes exportables que se pueden utilizar dentro de una experiencia web.
 
-Está en el archivo llamado `components.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.2/dist/js/components.js
+Está en el archivo llamado `components.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.3/dist/js/components.js
 
 ## Componentes
 
@@ -19,13 +19,13 @@ Todos los componentes se usan de la misma manera.
 * Importar librería JS:
 
 ```html
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.2/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.3/dist/js/components.js'></script>
 ```
 
 * Importar hoja de estilos CSS:
 
 ```html
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.2/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.3/dist/css/components.css'/>
 ```
 
 * Definir dónde se va a dibujar:
