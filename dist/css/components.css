@@ -54,6 +54,11 @@ div.highcharts-tooltip-box span table {
   white-space: normal;
 }
 
+div.highcharts-tooltip-box span br {
+	font-feature-settings: normal;
+	margin-top: 0;
+}
+
 div.highcharts-tooltip-box span table tbody {
   border-collapse: collapse;
   display: table-row-group;
