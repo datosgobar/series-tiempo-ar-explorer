@@ -40,16 +40,16 @@
 /* Tooltip styles for iframing or third-party pages */
 
 div.highcharts-tooltip-box span table {
-  border-radius: 0;
+  border-radius: 0 !important;
   border-collapse: collapse;
   background-color: rgba(0, 0, 0, 0);
-  box-shadow: none;
-  display: table;
+  box-shadow: none !important;
+  display: table !important;
   font-feature-settings: normal;
-  font-size: 13px;
+  font-size: 13px !important;
   line-height: 15px;
-  max-width: none;
-  overflow: visible;
+  max-width: none !important;
+  overflow: visible !important;
   text-align: start;
   white-space: normal;
 }
@@ -72,20 +72,20 @@ div.highcharts-tooltip-box span table tbody tr {
   font-size: 13px;
   line-height: 15px;
   text-align: start;
-  transition-duration: 0s;
-  transition-property: all;
+  transition-duration: 0s !important;
+  transition-property: all !important;
   white-space: normal;
 }
 
 div.highcharts-tooltip-box span table tbody tr td {
   border-collapse: collapse;
-  border-top-width: medium;
+  border-top-width: medium !important;
   font-feature-settings: normal;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 400 !important;
   line-height: 15px;
-  padding: 0;
-  text-align: start;
+  padding: 0 !important;
+  text-align: start !important;
   white-space: normal;
 }
 
@@ -97,7 +97,7 @@ div.highcharts-tooltip-box span table tbody tr td div.tooltip-content {
   max-height: 30px;
   line-height: 15px;
   text-align: start;
-  white-space: normal;
+  white-space: normal !important;
 }
 
 div.highcharts-tooltip-box span table tbody tr td div.tooltip-content span {
@@ -717,7 +717,7 @@ main a[href^="https://"][target^="_blank"]::after {
 
 /*---Docs---*/
 
-header .md-header {
+header.md-header {
   z-index: 100;
 }
 
