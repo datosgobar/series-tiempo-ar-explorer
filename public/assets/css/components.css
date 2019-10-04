@@ -37,6 +37,89 @@
   font-size: 13px;
 }
 
+/* Tooltip styles for iframing or third-party pages */
+
+div.highcharts-tooltip-box span table {
+  border-radius: 0;
+  border-collapse: collapse;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  display: table;
+  font-feature-settings: normal;
+  font-size: 13px;
+  line-height: 15px;
+  max-width: none;
+  overflow: visible;
+  text-align: start;
+  white-space: normal;
+}
+
+div.highcharts-tooltip-box span table tbody {
+  border-collapse: collapse;
+  display: table-row-group;
+  font-feature-settings: normal;
+  font-size: 13px;
+  line-height: 15px;
+  max-width: none;
+  text-align: start;
+  white-space: normal;
+}
+
+div.highcharts-tooltip-box span table tbody tr {
+  background-color: transparent;
+  border-collapse: collapse;
+  font-feature-settings: normal;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: start;
+  transition-duration: 0s;
+  transition-property: all;
+  white-space: normal;
+}
+
+div.highcharts-tooltip-box span table tbody tr td {
+  border-collapse: collapse;
+  border-top-width: medium;
+  font-feature-settings: normal;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15px;
+  padding: 0;
+  text-align: start;
+  white-space: normal;
+}
+
+div.highcharts-tooltip-box span table tbody tr td div.tooltip-content {
+  border-collapse: collapse;
+  font-feature-settings: normal;
+  font-size: 13px;
+  font-weight: 400;
+  max-height: 30px;
+  line-height: 15px;
+  text-align: start;
+  white-space: normal;
+}
+
+div.highcharts-tooltip-box span table tbody tr td div.tooltip-content span {
+  border-collapse: collapse;
+  font-feature-settings: normal;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: start;
+  white-space: normal;
+}
+
+div.highcharts-tooltip-box span table tbody tr td span.tooltip-value {
+  border-collapse: collapse;
+  font-feature-settings: normal;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 15px;
+  text-align: right;
+  white-space: normal;
+}
+
 /* tooltip overlaps other elements */
 .highcharts-container, svg:not(:root) {
   overflow: visible !important;
@@ -631,3 +714,11 @@ main a[href^="https://"][target^="_blank"]::after {
 }
 
 /*---Fin Iconos---*/
+
+/*---Docs---*/
+
+header .md-header {
+  z-index: 100;
+}
+
+/*---Fin Docs---*/
