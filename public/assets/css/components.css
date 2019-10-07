@@ -54,7 +54,7 @@ div.highcharts-tooltip-box span table {
   white-space: normal;
 }
 
-div.highcharts-tooltip-box:hover {
+div.highcharts-tooltip-box {
   z-index: 99 !important;
 }
 
