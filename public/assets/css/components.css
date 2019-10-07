@@ -54,6 +54,10 @@ div.highcharts-tooltip-box span table {
   white-space: normal;
 }
 
+div.exportable-graph {
+  z-index: 1;
+}
+
 div.highcharts-tooltip-box {
   z-index: 99 !important;
 }
