@@ -37,6 +37,10 @@
   font-size: 13px;
 }
 
+div.highcharts-container:hover {
+  z-index: 1 !important;
+}
+
 /* Tooltip styles for iframing or third-party pages */
 
 div.highcharts-tooltip-box span table {
@@ -404,7 +408,7 @@ div.highcharts-tooltip-box span table tbody tr td span.tooltip-value {
 
 .card .c-source {
   height: 28px;
-  line-height: 15px;
+  line-height: 14px;
   -webkit-line-clamp: 2;
   font-weight: 400;
 }
