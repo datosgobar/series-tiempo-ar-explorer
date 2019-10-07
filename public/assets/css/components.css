@@ -130,11 +130,6 @@ div.highcharts-tooltip-box span table tbody tr td span.tooltip-value {
   overflow: visible !important;
 }
 
-/* show tooltip over other elements. Without this, tooltip has full transparency */
-.highcharts-container:hover {
-  z-index: 99 !important;
-}
-
 .highcharts-subtitle {
   width: 70% !important;
   white-space: pre-wrap !important;
