@@ -63,7 +63,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
     public componentDidMount() {
         const url = new URLSearchParams(this.props.graphicUrl);
-        const ids = extractIdsFromUrl(this.props.graphicUrl).sort();
+        const ids = extractIdsFromUrl(this.props.graphicUrl);
         const params = new QueryParams(ids);
 
         const start = url.get('start_date') || '';
