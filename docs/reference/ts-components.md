@@ -1,6 +1,6 @@
 # TSComponents
 
-**Versión**: 2.6.5
+**Versión**: 2.6.6
 
 El objeto `TSComponents` contiene distintos componentes exportables que se pueden utilizar dentro de una experiencia web.
 
@@ -19,13 +19,13 @@ Todos los componentes se usan de la misma manera.
 * Importar librería JS:
 
 ```html
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.5/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.6/dist/js/components.js'></script>
 ```
 
 * Importar hoja de estilos CSS:
 
 ```html
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.5/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.6/dist/css/components.css'/>
 ```
 
 * Definir dónde se va a dibujar:
