@@ -58,6 +58,7 @@ export class ChartConfigBuilder {
             title: {
                 text: ''
             },
+            plotOptions : { series: { dataGrouping: { enabled: false } } },
             tooltip:{
                 formatter () {
                     const self: any = this;
