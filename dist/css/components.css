@@ -3,6 +3,10 @@
 
 /*---Graphic---*/
 
+.exportable-graph {
+  width: 100%;
+}
+
 .exportable-graph div { /* Force highcharts to set the height from container */
   height: 100%;
 }

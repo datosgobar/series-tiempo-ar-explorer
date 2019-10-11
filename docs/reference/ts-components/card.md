@@ -3,8 +3,8 @@
 El componente `card` permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.
 
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.6/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.6/dist/js/components.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.7/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.7/dist/js/components.js'></script>
 
 <style>
 .row {
@@ -22,17 +22,17 @@ El componente `card` permite embeber tarjetas con información de la serie, y un
 
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/oungkyz5/](https://jsfiddle.net/oungkyz5/)
+Ver online: [https://jsfiddle.net/6wjbtq0x/](https://jsfiddle.net/6wjbtq0x/)
 
 ```html
 <!-- importa íconos de FontAwesome -->
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
 
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.6/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.7/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.6/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.7/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con una tarjeta -->
 <div id="tmi"></div>
@@ -214,7 +214,7 @@ Ver online: [https://jsfiddle.net/oungkyz5/](https://jsfiddle.net/oungkyz5/)
 ```
 
 ## Demo online
-[https://jsfiddle.net/oungkyz5/](https://jsfiddle.net/oungkyz5/)
+[https://jsfiddle.net/6wjbtq0x/](https://jsfiddle.net/6wjbtq0x/)
 
 ## Variantes de tarjetas
 
