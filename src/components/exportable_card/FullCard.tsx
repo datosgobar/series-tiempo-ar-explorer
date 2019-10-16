@@ -12,6 +12,7 @@ import FullCardValue from '../style/exportable_card/FullCardValue';
 import FullCardChart from './FullCardChart';
 import FullCardLinks from './FullCardLinks';
 import { getFullSerieId } from "../../helpers/common/fullSerieID";
+import { PERIODICITY_LANG } from '../../api/utils/periodicityManager';
 
 
 interface IFullCardProps {
@@ -68,5 +69,8 @@ function notNullData(data: IDataPoint[]): IDataPoint[] {
 }
 
 function lastSerieDate(serie: ISerie): string {
-    return fullLocaleDate(serie.accrualPeriodicity, serie.data[serie.data.length-1].date);
+
+    const langFrequency = serie.frequency !== undefined ? PERIODICITY_LANG[serie.frequency] : serie.accrualPeriodicity;
+    return fullLocaleDate(langFrequency, serie.data[serie.data.length-1].date);
+
 }
