@@ -1,7 +1,7 @@
 export function generateCommonMockSerieEMAE() {
 
     return {
-        accrualPeriodicity: "Mensual",
+        accrualPeriodicity: "R/P1M",
         collapseAggregation: "CollapseAgregation",
         data: [{ date: "2018-07-01", value: 145.30019275372558 },
         { date: "2018-08-01", value: 145.96423636915267 },
@@ -19,7 +19,7 @@ export function generateCommonMockSerieEMAE() {
         distributionTitle: "EMAE. Índice Base 2004.Valores mensuales.",
         downloadURL: "https://apis.datos.gob.ar/series/api/series?ids=143.3_NO_PR_2004_A_21&last=10&format=csv",
         endDate: "2018-07-01",
-        frequency: "Mensual",
+        frequency: "month",
         id: "EMAE2004",
         isPercentage: false,
         issued: "2017-09-28",
@@ -47,7 +47,7 @@ export function generateCommonMockSerieEMAE() {
 export function generateCommonMockSerieMotos() {
 
     return {
-        accrualPeriodicity: "Mensual",
+        accrualPeriodicity: "R/P1M",
         collapseAggregation: "CollapseAgregation",
         data: [{ date: "2018-09-01", value: 33896 },
         { date: "2018-10-01", value: 35567 },
@@ -65,7 +65,7 @@ export function generateCommonMockSerieMotos() {
         distributionTitle: "Motos: número de patentamientos por categoría de motocicleta (series)",
         downloadURL: "https://apis.datos.gob.ar/series/api/series/?ids=Motos_patentamiento_8myrF9&last=10&format=csv",
         endDate: "2018-09-01",
-        frequency: "Mensual",
+        frequency: "month",
         id: "Motos_patentamiento_8myrF9",
         isPercentage: false,
         issued: "2018-06-12",
