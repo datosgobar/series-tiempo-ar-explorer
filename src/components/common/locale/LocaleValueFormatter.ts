@@ -33,13 +33,6 @@ export default class LocaleValueFormatter {
 
     }
 
-    public applySeparators(value: number): string {
-        
-        const decimalFixedValue = this.applyDecimalSeparator(value);
-        return this.applyThousandSeparator(decimalFixedValue);
-
-    }
-
     public formatValue(value: number) {
 
         const shiftedValue: number = this.isPercentage ? value * 100 : value;
@@ -79,6 +72,13 @@ export default class LocaleValueFormatter {
             return `${integerPart}${this.decimalSeparator}${fractionaryPart}`;
         }
         return integerPart;
+
+    }
+
+    private applySeparators(value: number): string {
+        
+        const decimalFixedValue = this.applyDecimalSeparator(value);
+        return this.applyThousandSeparator(decimalFixedValue);
 
     }
 
