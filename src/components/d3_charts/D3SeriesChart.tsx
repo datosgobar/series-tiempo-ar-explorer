@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { IDataPoint } from "../../api/DataPoint";
 import { ISerie } from '../../api/Serie';
 import { shortLocaleDate } from "../../helpers/common/dateFunctions";
+import { getTooltipDecimals } from "../../helpers/common/decimalsAmountHandling";
 import { IStore } from "../../store/initialState";
-import { buildLocale } from "../common/locale/buildLocale";
+import LocaleValueFormatter, { ILocaleValueFormatterConfig } from '../common/locale/LocaleValueFormatter';
 import { ILapsProps } from "../mainpage/featured/Featured";
 import D3LineChart from "./D3LineChart";
-import { getTooltipDecimals } from "../../helpers/common/decimalsAmountHandling";
 
 
 interface ID3Chart {
@@ -85,13 +85,18 @@ interface ILastFormattedValueOptions {
 
 function lastFormattedValue(options: ILastFormattedValueOptions): string {
 
-    const dataValue = options.data[options.data.length-1].value;
-    const value = options.serie.isPercentage ? (dataValue || 0) * 100 : dataValue;
+    const dataValue = options.data[options.data.length-1].value || 0;
     const significantFigures = Math.min(options.maxDecimals, options.serie.significantFigures);
     const decimalPlaces = getTooltipDecimals(options.serie.id, significantFigures);
 
-    const result = buildLocale(options.locale).toDecimalString(value || 0, decimalPlaces);
-    return options.serie.isPercentage ? `${result}%` : `${result}`;
+    const formatterConfig: ILocaleValueFormatterConfig = {
+        code: options.locale,
+        decimalPlaces,
+        isPercentage: options.serie.isPercentage
+    };
+    const formatter = new LocaleValueFormatter(formatterConfig);
+
+    return formatter.formatValue(dataValue);
 
 }
 
