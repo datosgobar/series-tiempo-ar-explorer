@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { IDataPoint } from '../../api/DataPoint';
-import { ISerie, DEFAULT_SIGNIFICANT_FIGURES } from '../../api/Serie';
+import { DEFAULT_SIGNIFICANT_FIGURES, ISerie } from '../../api/Serie';
 import { CardValueFormatter, ICardValueFormatterConf } from '../../helpers/card/cardValueFormatter';
-import { fullLocaleDate } from '../../helpers/common/dateFunctions';
+import { lastSerieDate } from '../../helpers/common/dateFunctions';
+import { getFullSerieId } from "../../helpers/common/fullSerieID";
 import { ICardBaseConfig } from '../../indexCard';
 import FullCardContainer from '../style/exportable_card/FullCardContainer';
 import FullCardHeader from '../style/exportable_card/FullCardHeader';
@@ -11,7 +12,6 @@ import FullCardUnits from '../style/exportable_card/FullCardUnits';
 import FullCardValue from '../style/exportable_card/FullCardValue';
 import FullCardChart from './FullCardChart';
 import FullCardLinks from './FullCardLinks';
-import { getFullSerieId } from "../../helpers/common/fullSerieID";
 
 
 interface IFullCardProps {
@@ -65,8 +65,4 @@ function shortDataList(data: IDataPoint[], laps: number): IDataPoint[] {
 
 function notNullData(data: IDataPoint[]): IDataPoint[] {
     return data.filter((d: IDataPoint) => d.value !== null);
-}
-
-function lastSerieDate(serie: ISerie): string {
-    return fullLocaleDate(serie.accrualPeriodicity, serie.data[serie.data.length-1].date);
 }

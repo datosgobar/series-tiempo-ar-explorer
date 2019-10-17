@@ -21,7 +21,7 @@ const PERIODICITY_DATE_FORMAT = {
     'R/P6M': 'YYYY-MM',
 };
 
-const PERIODICITY_LANG = {
+export const PERIODICITY_LANG = {
     'day': 'Diaria',
     'month': 'Mensual',
     'quarter': 'Trimestral',
