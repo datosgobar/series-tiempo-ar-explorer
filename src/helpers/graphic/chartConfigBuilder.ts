@@ -7,9 +7,9 @@ import { findSerieConfig } from "../common/fullSerieID";
 import { getTooltipDecimals } from "../common/decimalsAmountHandling";
 import { generateYAxisArray, generateYAxisBySeries, IYAxisGenerationOptions } from "./axisConfiguration";
 import { dateFormatByPeriodicity } from "./dateFormatting";
-import { formatSerieValue } from "./formatterForSerie";
 import { HighchartsSerieBuilder, IHighchartsSerieBuilderOptions } from "./hcSerieFromISerie";
 import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
+import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../../components/common/locale/LocaleValueFormatter";
 
 export class ChartConfigBuilder {
 
@@ -81,7 +81,14 @@ export class ChartConfigBuilder {
 
                             const decimalPlaces = getTooltipDecimals(serieConfig.getFullSerieId(), 
                                 significantFigures, builder.props.decimalTooltips);
-                            value = formatSerieValue(value, builder.props.locale, serieConfig.isPercentageSerie(), decimalPlaces);
+
+                            const localeFormatterConfig: ILocaleValueFormatterConfig = {
+                                code: builder.props.locale,
+                                decimalPlaces,
+                                isPercentage: serieConfig.isPercentageSerie()
+                            }
+                            const localeFormatter = new LocaleValueFormatter(localeFormatterConfig);
+                            value = localeFormatter.formatValue(value);
 
                             contentTooltip += tooltipFormatter(point, value, builder.smallTooltip);
                             

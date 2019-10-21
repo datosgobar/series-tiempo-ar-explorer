@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { IDataPoint } from '../../api/DataPoint';
 import { DEFAULT_SIGNIFICANT_FIGURES, ISerie } from '../../api/Serie';
-import { CardValueFormatter, ICardValueFormatterConf } from '../../helpers/card/cardValueFormatter';
 import { lastSerieDate } from '../../helpers/common/dateFunctions';
 import { getFullSerieId } from "../../helpers/common/fullSerieID";
 import { ICardBaseConfig } from '../../indexCard';
+import LocaleValueFormatter, { ILocaleValueFormatterConfig } from '../common/locale/LocaleValueFormatter';
 import FullCardContainer from '../style/exportable_card/FullCardContainer';
 import FullCardHeader from '../style/exportable_card/FullCardHeader';
 import FullCardSource from '../style/exportable_card/FullCardSource';
@@ -29,13 +29,13 @@ export default (props: IFullCardProps) => {
         serieId: getFullSerieId(props.serie)
     }
     const value = props.serie.data[props.serie.data.length-1].value
-    const formatterProps: ICardValueFormatterConf = {
-        decimals: options.decimals !== undefined && options.decimals >= 0 ? options.decimals : DEFAULT_SIGNIFICANT_FIGURES,
+    const formatterConfig: ILocaleValueFormatterConfig = {
+        code: options.locale,
+        decimalPlaces: options.decimals !== undefined && options.decimals >= 0 ? options.decimals : DEFAULT_SIGNIFICANT_FIGURES,
         explicitSign: options.explicitSign,
-        isPercentage: props.serie.isPercentage,
-        locale: options.locale
+        isPercentage: props.serie.isPercentage
     }
-    const formatter = new CardValueFormatter(formatterProps)
+    const formatter = new LocaleValueFormatter(formatterConfig);
         
     return (
         <FullCardContainer color={options.color}
@@ -48,7 +48,7 @@ export default (props: IFullCardProps) => {
                             override={options.title}
                             defaultTitle={props.serie.description}
                             date={lastSerieDate(props.serie)} />
-            <FullCardValue color={options.color} text={formatter.formattedValue(value || 0)} />
+            <FullCardValue color={options.color} text={formatter.formatValue(value || 0)} />
             <FullCardChart data={shortDataList(props.serie.data, props.laps)} chartType={options.hasChart} />
             <FullCardUnits units={props.serie.representationModeUnits} override={options.units}/>
             <FullCardSource source={props.serie.datasetSource} override={options.source}/>

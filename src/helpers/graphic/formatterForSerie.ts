@@ -1,21 +1,18 @@
-import { buildLocale } from "../../components/common/locale/buildLocale";
+import { DEFAULT_SIGNIFICANT_FIGURES } from "../../api/Serie";
+import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../../components/common/locale/LocaleValueFormatter";
 export function formatterForSerie(locale: string, isPercentage: boolean, decimalPlaces?: number) {
+
+    const localeFormatterConfig: ILocaleValueFormatterConfig = {
+        code: locale,
+        decimalPlaces: decimalPlaces !== undefined ? decimalPlaces : DEFAULT_SIGNIFICANT_FIGURES,
+        isPercentage
+    };
+    const localeFormatter = new LocaleValueFormatter(localeFormatterConfig);
     return {
         formatter(): string {
             // @ts-ignore
-            return formatSerieValue(this.value, locale, isPercentage, decimalPlaces)
+            return localeFormatter.formatValue(this.value);
         }
     };
-}
-
-export function formatSerieValue(value: number, locale: string, isPercentage: boolean, decimalPlaces?: number) {
-
-    const localeObj = buildLocale(locale);
-    const sep = localeObj.decimalSeparator();
-    const finalValue = isPercentage ? value * 100 : value;
-    let valueString = decimalPlaces !== undefined ? finalValue.toFixed(decimalPlaces) : finalValue.toString();
-    valueString = valueString.replace('.', sep);
-    const appendage = isPercentage ? '%' : '';
-    return `${valueString}${appendage}`
 
 }
