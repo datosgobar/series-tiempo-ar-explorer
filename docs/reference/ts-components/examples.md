@@ -22,7 +22,7 @@ Para conocer la forma de implementar correctamente cada componente, referirse a 
 
 
 ## Ejemplos Card:
-### Indicadores destacado (mínimo):
+### Indicadores destacados (mínimo):
 #### Ejemplo:
 <div class="container">
     <div class="row panels-row">
@@ -58,7 +58,7 @@ window.onload = function () {
 </script>
 ```
 
-### Indicadores destacado (con mini-gráfico):
+### Indicadores destacados (con mini-gráfico):
 #### Ejemplo:
 <div class="container">
     <div class="row panels-row">
@@ -91,7 +91,7 @@ window.onload = function () {
 </script>
 ```
 
-### Indicadores destacado (con tarjeta clickeable):
+### Indicadores destacados (con tarjeta clickeable):
 #### Ejemplo:
 <div class="container">
     <div class="row panels-row">
@@ -124,7 +124,7 @@ window.onload = function () {
 </script>
 ```
 
-### Indicadores destacado (con enlaces de descarga):
+### Indicadores destacados (con enlaces de descarga):
 #### Ejemplo:
 <div class="container">
     <div class="row panels-row">

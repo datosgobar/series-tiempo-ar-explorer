@@ -10,9 +10,10 @@ nav:
     - Referencia:
       - TSExplorer: 'reference/ts-explorer.md'
       - TSComponents: 'reference/ts-components.md'
-      - "TSComponents: graphic": 'reference/ts-components/graphic.md'
-      - "TSComponents: card": 'reference/ts-components/card.md'
+      - "TSComponents: Graphic": 'reference/ts-components/graphic.md'
+      - "TSComponents: Card": 'reference/ts-components/card.md'
       - "TSComponents: Ejemplos": 'reference/ts-components/examples.md'
+      - "TSComponents: Layout": 'reference/ts-components/layout.md'
   #   - Condiciones de uso: terms.md
   # - Aplicaciones: applications.md
   - Desarrolladores:

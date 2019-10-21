@@ -722,3 +722,18 @@ main a[href^="https://"][target^="_blank"]::after {
 }
 
 /*---Fin Iconos---*/
+
+/*---Layout Externo---*/
+
+.ts-components-row {
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+}
+  
+.card-wrapper {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/*---Fin Layout Externo---*/
