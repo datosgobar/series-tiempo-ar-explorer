@@ -83,6 +83,10 @@ describe("URL Validation for the Graphic exportable component", () => {
             url = "https://apis.datos.gob.ar/series/api/series/?ids=143.3_NO_PR_2004_A_21&collapse=month&limit=1000";
             expect(validator.isValidURL(url)).toBe(true);
         });
+        it("Optional query params may have dashes at both their keys or values", () => {
+            url = "https://apis.datos.gob.ar/series/api/series/?collapse=month&collapse_aggregation=avg&ids=168.1_T_CAMBIOR_D_0_0_26&limit=5000&start_date=2017-02-01";
+            expect(validator.isValidURL(url)).toBe(true);
+        });
         it("Having the ids param not as first param still makes it a valid URL", () => {
             url = "https://apis.datos.gob.ar/series/api/series/?collapse=month&limit=1000&ids=116.4_TCRZE_2015_D_36_4";
             expect(validator.isValidURL(url)).toBe(true);
