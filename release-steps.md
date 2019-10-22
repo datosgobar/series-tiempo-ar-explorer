@@ -6,6 +6,7 @@ Para lanzar una nueva release de los TS Components, se deben realizar los siguie
  	- *webCodeBuilders.ts*
  	- *ts-components.md*
 	- *examples.md*
+	- *layout.md*
  	- *graphic.md*
  	- *card.md*
 2. **Actualizar los JSFiddles** de los archivos *graphic.md* y *card.md*:
