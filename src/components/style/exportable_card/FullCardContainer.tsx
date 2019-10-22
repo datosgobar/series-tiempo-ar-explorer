@@ -8,7 +8,8 @@ export interface IFullCardContainerProps extends React.HTMLProps<HTMLDivElement>
     hasColorBar?: boolean,
     hasFrame?: boolean,
     links: string,
-    serieId: string
+    serieId: string,
+    collapse?: string;
 }
 
 interface IContainerStyle {
@@ -51,7 +52,7 @@ export default class FullCardContainer extends React.Component<IFullCardContaine
 
     public clickHandling() {
         if(this.isClickable()) {
-            const target: string = viewDatosGobAr(this.props.serieId);
+            const target: string = viewDatosGobAr(this.props.serieId, this.props.collapse);
             this.openViewMore(target);
         }
     }
