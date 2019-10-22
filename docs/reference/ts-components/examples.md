@@ -1,6 +1,6 @@
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.7/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.7/dist/js/components.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.8/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.8/dist/js/components.js'></script>
 
 <style>
 .row {
@@ -22,7 +22,7 @@ Para conocer la forma de implementar correctamente cada componente, referirse a 
 
 
 ## Ejemplos Card:
-### Indicadores destacado (mínimo):
+### Indicadores destacados (mínimo):
 #### Ejemplo:
 <div class="container">
     <div class="row panels-row">
@@ -58,7 +58,7 @@ window.onload = function () {
 </script>
 ```
 
-### Indicadores destacado (con mini-gráfico):
+### Indicadores destacados (con mini-gráfico):
 #### Ejemplo:
 <div class="container">
     <div class="row panels-row">
@@ -91,7 +91,7 @@ window.onload = function () {
 </script>
 ```
 
-### Indicadores destacado (con tarjeta clickeable):
+### Indicadores destacados (con tarjeta clickeable):
 #### Ejemplo:
 <div class="container">
     <div class="row panels-row">
@@ -124,7 +124,7 @@ window.onload = function () {
 </script>
 ```
 
-### Indicadores destacado (con enlaces de descarga):
+### Indicadores destacados (con enlaces de descarga):
 #### Ejemplo:
 <div class="container">
     <div class="row panels-row">
