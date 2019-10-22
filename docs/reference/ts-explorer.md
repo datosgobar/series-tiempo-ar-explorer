@@ -1,17 +1,17 @@
 # TSExplorer
 
-**Versión**: 2.5.2
+**Versión**: 2.5.3
 
 El objeto `TSExplorer` contiene una _one page application_ con un explorador de series de tiempo, que permite buscar y visualizar series de un catálogo de datos abiertos.
 
-Está en el archivo llamado `main.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.2/dist/js/main.js
+Está en el archivo llamado `main.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.3/dist/js/main.js
 
 ## ¿Cómo lo uso?
 
 * Importar librería JS:
 
 ```html
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.2/dist/js/main.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.3/dist/js/main.js'></script>
 ```
 
 * Definir dónde se va a dibujar:
@@ -33,7 +33,7 @@ TSExplorer.render('explorer-container', {
 ```html
 <html>
 <body>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.2/dist/js/main.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.5.3/dist/js/main.js"></script>
 
   <div id="explorer-container"></div>
 
@@ -144,4 +144,4 @@ TSExplorer.render('explorer-container', {
 </table>
 
 ## Demo online
-[https://jsfiddle.net/xoq50pgs/](https://jsfiddle.net/xoq50pgs/)
+[https://jsfiddle.net/6mrn5get/](https://jsfiddle.net/6mrn5get/)
