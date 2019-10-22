@@ -5,7 +5,7 @@ import { generateYAxisBySeries, generateYAxisArray, IYAxisGenerationOptions } fr
 import { generateCommonMockSerieMotos, generateCommonMockSerieEMAE, generatePercentageMockSerie, generatePercentageYearMockSerie } from "../../../support/mockers/seriesMockers";
 import { IHCSerie } from "../../../../components/viewpage/graphic/highcharts";
 import { IHighchartsSerieBuilderOptions, HighchartsSerieBuilder } from "../../../../helpers/graphic/hcSerieFromISerie";
-import Colors, { Color } from "../../../../components/style/Colors/Color";
+import COLORS, { Color } from "../../../../components/style/Colors/Color";
 
 describe("Axis Configuration functions", () => {
 
@@ -74,7 +74,7 @@ describe("Axis Configuration functions", () => {
             expect(hcSeries[1].yAxis).toEqual(1);
         });
         it("Each series has its proper color", () => {
-            const colorArray = (Object as any).values(Colors);
+            const colorArray = (Object as any).values(COLORS);
             expect(hcSeries[0].color).toEqual(colorArray[0].code);
             expect(hcSeries[1].color).toEqual(colorArray[1].code);
         });
@@ -113,7 +113,7 @@ describe("Axis Configuration functions", () => {
             expect(hcSeries[2].yAxis).toEqual(0);
         });
         it("Each series has its proper color", () => {
-            const colorArray = (Object as any).values(Colors);
+            const colorArray = (Object as any).values(COLORS);
             expect(hcSeries[1].color).toEqual(colorArray[1].code);
             expect(hcSeries[0].color).toEqual(colorArray[0].code);
             expect(hcSeries[2].color).toEqual(colorArray[2].code);

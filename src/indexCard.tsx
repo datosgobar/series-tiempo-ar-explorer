@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import CardExportable from "./components/exportable/CardExportable";
+import { getCardColor } from "./components/style/Colors/Color";
 
 export interface ICardBaseConfig {
     locale: string;
@@ -28,7 +29,7 @@ export function render(selector: string, config: ICardExportableConfig) {
         <CardExportable serieId={config.serieId}
                         locale={config.locale || 'AR'}
                         links={config.links || 'full'}
-                        color={config.color || '#0072BB'}
+                        color={getCardColor(config.color)}
                         hasChart={config.hasChart || 'small'}
                         chartType={config.chartType}
                         explicitSign={config.explicitSign}

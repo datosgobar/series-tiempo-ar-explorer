@@ -6,7 +6,7 @@ export class Color {
 }
 
 // "a<number>" is because order is important
-const Colors = {
+const COLORS = {
     a1Blue1: new Color("blue1", "#0072BB"),
     a2Green1: new Color("green1","#2E7D33"),
     a3Red1: new Color("red1", "#C62828"),
@@ -18,36 +18,58 @@ const Colors = {
     a9Green2: new Color("green2", "#6EA100"),
 };
 
-const hexaColorRegex = /^#[0-9a-f]{6}$/i
+const hexaColorRegex = /^#[0-9a-f]{6}$/i;
 
-export default Colors;
+export const DEFAULT_CARD_COLOR = "#0072BB";
+const DEFAULT_COLORS = (Object as any).values(COLORS);
+
+export default COLORS;
 
 export function getColorBySerieId(series: ISerie[], serieId: string): string {
     return colorFor(series, serieId).code;
 }
 
 export function colorFor(series: ISerie[], fullSerieId: string, colors?: Color[]): Color {
-    const finalColors = colors === undefined ? (Object as any).values(Colors) : colors;
+
+    const finalColors = colors === undefined ? DEFAULT_COLORS : colors;
     const index = series.findIndex(viewSerie => getFullSerieId(viewSerie) === fullSerieId) % finalColors.length;
-
     return finalColors[index];
-}
 
-export function getColorArray(colors?: string[]): Color[] {
-    const defaultColors = (Object as any).values(Colors)
-    if (colors === undefined) {
-        return defaultColors
-    }
-    return colors.map((color): Color => {
-        if (isHexaColor(color)) {
-            return new Color(color, color)
-        } else {
-            const index = +color % defaultColors.length
-            return defaultColors[index]
-        }
-    });
 }
 
 export function isHexaColor(color: string): boolean {
     return hexaColorRegex.test(color)
+}
+
+export function getColorArray(colors?: string[]): Color[] {
+
+    if (colors === undefined) {
+        return DEFAULT_COLORS;
+    }
+
+    return colors.map((color): Color => {
+        if (isHexaColor(color)) {
+            return new Color(color, color)
+        } else {
+            const index = +color % DEFAULT_COLORS.length;
+            return DEFAULT_COLORS[index];
+        }
+    });
+
+}
+
+export function getCardColor(color?: string | number): string {
+
+    if (color === undefined) {
+        return DEFAULT_CARD_COLOR;
+    }
+
+    const colorString = color.toString();
+    if (isHexaColor(colorString)) {
+        return colorString;
+    }
+
+    const index = +color % DEFAULT_COLORS.length;
+    return DEFAULT_COLORS[index].code;
+
 }

@@ -1,5 +1,5 @@
 import { ISerie } from "../../../api/Serie";
-import Colors, { Color, colorFor, getColorArray, isHexaColor } from "../../../components/style/Colors/Color";
+import COLORS, { Color, colorFor, getColorArray, isHexaColor, getCardColor, DEFAULT_CARD_COLOR } from "../../../components/style/Colors/Color";
 import { getFullSerieId } from "../../../helpers/common/fullSerieID";
 import { generateCommonMockSerieEMAE, generateCommonMockSerieMotos, generatePercentageMockSerie } from "../../support/mockers/seriesMockers";
 
@@ -37,7 +37,7 @@ describe("Colors", () => {
 
     it("Different serie ids return different colors - custom colors", () => {
         const series = [mockSerieOne, mockSerieTwo];
-        const colors = [Colors.a1Blue1, new Color("ColorRaro", "#fffaaf")]
+        const colors = [COLORS.a1Blue1, new Color("ColorRaro", "#fffaaf")]
         const color = colorFor(series, getFullSerieId(series[0]), colors);
         const color2 = colorFor(series, getFullSerieId(series[1]), colors);
         expect(color).not.toEqual(color2)
@@ -52,7 +52,7 @@ describe("Colors", () => {
 
     it("Same serie with same rep mode returns same color - custom colors", () => {
         const series = [mockSerieOne, mockSerieOne];
-        const colors = [Colors.a1Blue1, new Color("ColorRaro", "#fffaaf")]
+        const colors = [COLORS.a1Blue1, new Color("ColorRaro", "#fffaaf")]
         const color = colorFor(series, getFullSerieId(series[0]), colors);
         const color2 = colorFor(series, getFullSerieId(series[1]), colors);
         expect(color).toEqual(color2)
@@ -71,7 +71,7 @@ describe("Colors", () => {
     it("Create array of colors from a undefined string array returns the default colors", () => {
         const colorsString = undefined
         const colors = getColorArray(colorsString)
-        expect(colors).toEqual((Object as any).values(Colors))
+        expect(colors).toEqual((Object as any).values(COLORS))
     });
 
     it("Create array of colors from index array", () => {
@@ -117,7 +117,7 @@ describe("Colors", () => {
     });
 
     it("isHexaColor works", () => {
-        const validHexaColors = ["#ffaaee", Colors.a4Orange.code, "#123456"]
+        const validHexaColors = ["#ffaaee", COLORS.a4Orange.code, "#123456"]
         const invalidHexaColors = ["#ffaee", "#1y34aj", "#ffaeeae", "#f", "asd", "123456", ".", "#"]
         for (const validColor of validHexaColors) {
             expect(isHexaColor(validColor)).toEqual(true)
@@ -126,4 +126,33 @@ describe("Colors", () => {
             expect(isHexaColor(invalidColor)).toEqual(false)
         }
     });
+
+    describe("Obtainment of the color for a Card component", () => {
+
+        let colorArgument: string | number;
+        let cardColor: string;
+
+        it("If no argument is specified, the default color is returned", () => {
+            cardColor = getCardColor();
+            expect(cardColor).toEqual(DEFAULT_CARD_COLOR);
+        });
+        it("If a hexa color code is specified, such is returned", () => {
+            colorArgument = "#F2E455";
+            cardColor = getCardColor(colorArgument);
+            expect(cardColor).toEqual(colorArgument);
+        });
+        it("A numerical alias is mapped to its default palette index", () => {
+            colorArgument = 4;
+            cardColor = getCardColor(colorArgument);
+            expect(cardColor).toEqual("#6A1B99");
+        });
+        it("If numerical alias is bigger than 8, its 9-modulus is mapped", () => {
+            colorArgument = 16;
+            cardColor = getCardColor(colorArgument);
+            expect(cardColor).toEqual("#039BE5");
+        });
+
+
+    })
+
 });
