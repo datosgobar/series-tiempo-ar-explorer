@@ -61,6 +61,25 @@ describe("Colors", () => {
 
     })
 
+    describe("Checking if a color is hexadecimal or not", () => {
+
+        let colorString: string;
+
+        it("A string without the '#' is not a hexadecimal color", () => {
+            colorString = "FFA254D";
+            expect(isHexaColor(colorString)).toBe(false);
+        });
+        it("A string without non-hexadecimal characters is not a hexadecimal color", () => {
+            colorString = "#C0YG25";
+            expect(isHexaColor(colorString)).toBe(false);
+        });
+        it("A string without hexadecimal characters and a '#' is a hexadecimal color", () => {
+            colorString = "#82EB04";
+            expect(isHexaColor(colorString)).toBe(true);
+        });
+
+    })
+
     describe("Obtainment of Color array", () => {
 
         it("Create array of colors from string array", () => {
@@ -119,25 +138,6 @@ describe("Colors", () => {
                 ]
                 expect(colors).toEqual(expectedColors)
             }
-        });
-
-    })
-
-    describe("Checking if a color is hexadecimal or not", () => {
-
-        let colorString: string;
-
-        it("A string without the '#' is not a hexadecimal color", () => {
-            colorString = "FFA254D";
-            expect(isHexaColor(colorString)).toBe(false);
-        });
-        it("A string without non-hexadecimal characters is not a hexadecimal color", () => {
-            colorString = "#C0YG25";
-            expect(isHexaColor(colorString)).toBe(false);
-        });
-        it("A string without hexadecimal characters and a '#' is a hexadecimal color", () => {
-            colorString = "#82EB04";
-            expect(isHexaColor(colorString)).toBe(true);
         });
 
     })
