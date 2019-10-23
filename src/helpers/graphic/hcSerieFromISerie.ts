@@ -4,7 +4,7 @@ import { ISerie } from "../../api/Serie";
 import { IYAxis, IYAxisConf, ILegendLabel, IChartTypeProps } from "../../components/viewpage/graphic/Graphic";
 import { IHCSerie } from "../../components/viewpage/graphic/highcharts";
 import { DEFAULT_HC_SERIES_CONFIG } from "./hcConfiguration";
-import { colorFor, Color } from "../../components/style/Colors/Color";
+import { getSerieColor, Color } from "../../components/style/Colors/Color";
 import { valuesFromObject } from "../common/commonFunctions";
 
 export interface IHighchartsSerieBuilderOptions {
@@ -46,7 +46,7 @@ export class HighchartsSerieBuilder {
 
         return {
             ...DEFAULT_HC_SERIES_CONFIG,
-            color: colorFor(this.options.series, getFullSerieId(serie), this.options.colors).code,
+            color: getSerieColor(this.options.series, getFullSerieId(serie), this.options.colors).code,
             data,
             name: this.getLegendLabel(serie, legendProps),
             navigatorOptions: { type: chartType },

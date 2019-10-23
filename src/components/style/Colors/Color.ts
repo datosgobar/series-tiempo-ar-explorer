@@ -26,10 +26,10 @@ const DEFAULT_COLORS = (Object as any).values(COLORS);
 export default COLORS;
 
 export function getColorBySerieId(series: ISerie[], serieId: string): string {
-    return colorFor(series, serieId).code;
+    return getSerieColor(series, serieId).code;
 }
 
-export function colorFor(series: ISerie[], fullSerieId: string, colors?: Color[]): Color {
+export function getSerieColor(series: ISerie[], fullSerieId: string, colors?: Color[]): Color {
 
     const finalColors = colors === undefined ? DEFAULT_COLORS : colors;
     const index = series.findIndex(viewSerie => getFullSerieId(viewSerie) === fullSerieId) % finalColors.length;
