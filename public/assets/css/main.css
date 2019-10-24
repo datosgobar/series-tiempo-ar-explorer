@@ -1358,6 +1358,10 @@ section#detalle #detalle-content #detalle-panel .dp-body .tab-content .tab-pane 
   transition: 0.25s;
   border-radius: 0;
 }
+section#detalle div#detalle-content div#detalle-panel .dp-body .tab-content form#form-hero-search .form-group .form-autocomplete > div {
+  /* Hide the unnecesary, misplaced div below the searchbar at the right-sided panel of ViewPage */
+  display: none;
+}
 section#detalle #detalle-content #detalle-panel .dp-body .tab-content .tab-pane .dp-form-search .form-group .form-control::-moz-placeholder {
   color: #686868;
   opacity: 1;
