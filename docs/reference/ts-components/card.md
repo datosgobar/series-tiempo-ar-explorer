@@ -3,8 +3,8 @@
 El componente `card` permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.
 
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.8/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.8/dist/js/components.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.9/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.9/dist/js/components.js'></script>
 
 <style>
 .row {
@@ -22,17 +22,17 @@ El componente `card` permite embeber tarjetas con información de la serie, y un
 
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/5skv3ocw/](https://jsfiddle.net/5skv3ocw/)
+Ver online: [https://jsfiddle.net/hfbjq791/](https://jsfiddle.net/hfbjq791/)
 
 ```html
 <!-- importa íconos de FontAwesome -->
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
 
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.8/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.9/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.8/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.9/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con una tarjeta -->
 <div id="tmi"></div>
@@ -86,7 +86,7 @@ Ver online: [https://jsfiddle.net/5skv3ocw/](https://jsfiddle.net/5skv3ocw/)
     <tr>
         <td>color</td>
         <td>No</td>
-        <td>Indica el color a usar para el número y el borde de la tarjeta.</td>
+        <td>Indica el color a usar para el número y el borde de la tarjeta. Los códigos de colores pueden ser tanto hexadecimales (ej. "#00CC44") como numeros que son mapeados a la paleta por defecto (del 0 al 8) Ver paleta por defecto más abajo.</td>
         <td>string</td>
         <td>#0072BB</td>
         <td>red</td>
@@ -183,6 +183,20 @@ Ver online: [https://jsfiddle.net/5skv3ocw/](https://jsfiddle.net/5skv3ocw/)
     </tr>
 </table>
 
+## Paleta de colores por defecto
+
+Por defecto, la paleta de colores en los que se grafican las series del componente. Cada uno puede ser identificado con un hexadecimal o un entero decimal:
+
+* **#0072BB** o **0**, para azul
+* **#2E7D33** o **1**, para verde oscuro
+* **#C62828** o **2**, para rojo
+* **#F9A822** o **3**, para naranja
+* **#6A1B99** o **4**, para violeta
+* **#EC407A** o **5**, para rosa
+* **#C2185B** o **6**, para fucsia
+* **#039BE5** o **7**, para celeste
+* **#6EA100** o **8**, para verde claro
+
 ## Ejemplo completo
 
 ```html
@@ -214,7 +228,7 @@ Ver online: [https://jsfiddle.net/5skv3ocw/](https://jsfiddle.net/5skv3ocw/)
 ```
 
 ## Demo online
-[https://jsfiddle.net/5skv3ocw/](https://jsfiddle.net/5skv3ocw/)
+[https://jsfiddle.net/hfbjq791/](https://jsfiddle.net/hfbjq791/)
 
 ## Variantes de tarjetas
 
