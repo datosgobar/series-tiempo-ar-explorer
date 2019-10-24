@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from "react-redux";
 import { ISerie } from '../../api/Serie';
 import Tag from '../style/Tag/Tag';
-import { colorFor } from '../style/Colors/Color';
+import { getSerieColor } from '../style/Colors/Color';
 import { getFullSerieId } from "../../helpers/common/fullSerieID";
 
 
@@ -22,7 +22,7 @@ function seriesTags(props: ISeriesTagsProps, state: any) {
     return (
         <span>
             {props.serieTags.map((serieTag: ISerieTag, index: number) =>
-                <Tag key={index} pegColor={colorFor(props.series, getFullSerieId(serieTag))} onClose={getOnCloseFor(props.serieTags, serieTag.id, props.onTagClose)}>
+                <Tag key={index} pegColor={getSerieColor(props.series, getFullSerieId(serieTag))} onClose={getOnCloseFor(props.serieTags, serieTag.id, props.onTagClose)}>
                     {serieTag.title}
                 </Tag>
             )}
