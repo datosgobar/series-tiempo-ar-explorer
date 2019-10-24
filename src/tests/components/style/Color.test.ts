@@ -73,7 +73,7 @@ describe("Colors", () => {
             colorString = "#C0YG25";
             expect(isHexaColor(colorString)).toBe(false);
         });
-        it("A string without hexadecimal characters and a '#' is a hexadecimal color", () => {
+        it("A string with hexadecimal characters and a '#' is a hexadecimal color", () => {
             colorString = "#82EB04";
             expect(isHexaColor(colorString)).toBe(true);
         });
