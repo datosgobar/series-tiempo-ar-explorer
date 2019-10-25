@@ -22,6 +22,8 @@ export interface ISearchParams {
     publisher: string;
     units: string;
     catalogId: string;
+    sortBy: string;
+    sort: string;
 }
 
 export interface ISearcherProps extends ISearchParams {
@@ -61,7 +63,9 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
             limit: params.limit,
             offset: params.offset,
             publisher: params.publisher,
-            units: params.units,
+            sort: params.sort,
+            sortBy: params.sortBy,
+            units: params.units
         }
     }
 

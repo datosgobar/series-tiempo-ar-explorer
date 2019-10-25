@@ -27,6 +27,8 @@ export default class FullSearcher extends React.Component<IFullSearcherProps, IS
             publisher: this.props.publisher,
             q: this.props.q,
             units: this.props.units,
+            sortBy: this.props.sortBy,
+            sort: this.props.sort
         };
 
         this.onSearchTermPicked = this.onSearchTermPicked.bind(this);

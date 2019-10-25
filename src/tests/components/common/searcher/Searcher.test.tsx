@@ -23,6 +23,8 @@ describe('SeriesPicker', () => {
     let publisher: string;
     let units: string;
     let catalog: string;
+    let sortBy: string;
+    let sort: string;
 
     beforeEach(() => {
         mockSeriesApi = new MockApi(0);
@@ -37,26 +39,28 @@ describe('SeriesPicker', () => {
         publisher = "";
         units = "";
         catalog = "";
+        sort = "";
+        sortBy = "";
 
         renderSearchResults = jest.fn();
     });
 
     it('searches upon render', () => {
-        mount(<Searcher catalogId={catalog} units={units} publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+        mount(<Searcher catalogId={catalog} units={units} publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} sortBy={sortBy} sort={sort} />);
         setTimeout(() =>
             expect(mockSeriesApi.searchSeries).toBeCalledWith(q, { datasetTheme, datasetSource, offset, limit })
         , 0);
     });
 
     it('do not queries api if q is falsy', () => {
-        mount(<Searcher catalogId={catalog} units={units} publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={""} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />);
+        mount(<Searcher catalogId={catalog} units={units} publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={""} offset={offset} limit={limit} renderSearchResults={renderSearchResults} sortBy={sortBy} sort={sort} />);
 
         expect(mockSeriesApi.searchSeries).not.toBeCalled();
     });
 
     describe('search behaviour when props change', () => {
         let node: any;
-        const SearcherComponent = <Searcher catalogId={catalog} units={units} publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} />;
+        const SearcherComponent = <Searcher catalogId={catalog} units={units} publisher={publisher} datasetTheme={datasetTheme} datasetSource={datasetSource} seriesApi={mockSeriesApi} q={q} offset={offset} limit={limit} renderSearchResults={renderSearchResults} sortBy={sortBy} sort={sort} />;
 
         beforeEach(() => {
             node = document.createElement('div');
