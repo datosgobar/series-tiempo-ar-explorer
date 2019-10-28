@@ -105,6 +105,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         urlSearchParams.setOrDelete('units', params.units);
         urlSearchParams.setOrDelete('catalog_id', params.catalogId);
         urlSearchParams.setOrDelete('sort_by', sortParams.sortBy);
+        urlSearchParams.setOrDelete('sort', sortParams.sort);
 
         this.props.history.push('/search/?' + urlSearchParams);
 
@@ -218,7 +219,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                                     units={this.props.units}
                                     catalogId={this.props.catalogId}
                                     sortBy={this.props.sortBy}
-                                    sort={this.props.sortBy} />
+                                    sort={this.props.sort} />
                     </SearchFiltersResult>
                 </FiltersListContainer>
             </section>

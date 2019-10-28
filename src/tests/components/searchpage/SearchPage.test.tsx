@@ -24,6 +24,8 @@ describe("SearchPage", () => {
     let publisher: string;
     let units: string;
     let catalogId: string;
+    let sort: string;
+    let sortBy: string;
 
     beforeEach(() => {
         mockSeriesApi = new MockApi(0);
@@ -38,6 +40,8 @@ describe("SearchPage", () => {
         publisher = "";
         units = "";
         catalogId = "";
+        sort = "";
+        sortBy = "";
     });
 
     it('renders without crashing', () => {
@@ -65,7 +69,7 @@ describe("SearchPage", () => {
             </MemoryRouter>
         );
 
-        expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { catalogId, datasetTheme, datasetSource, offset: 0, limit: 10, aggregations: true, publisher, units });
+        expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { catalogId, datasetTheme, datasetSource, offset: 0, limit: 10, aggregations: true, publisher, sort, sortBy, units });
     });
 
     it('gets search results from seriesApi with limit and offset parameters', () => {
@@ -82,6 +86,6 @@ describe("SearchPage", () => {
             </MemoryRouter>
         );
 
-        expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { catalogId, datasetTheme, datasetSource, offset, limit, aggregations: true, publisher, units });
+        expect(mockSeriesApi.searchSeries).toHaveBeenCalledWith(searchterm, { catalogId, datasetTheme, datasetSource, offset, limit, aggregations: true, publisher, sort, sortBy, units });
     });
 });

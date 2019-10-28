@@ -160,5 +160,7 @@ function queryChanged(prevQuery: ISearcherProps, newQuery: ISearcherProps): bool
             prevQuery.limit         !== newQuery.limit ||
             prevQuery.publisher     !== newQuery.publisher ||
             prevQuery.units         !== newQuery.units ||
-            prevQuery.catalogId     !== newQuery.catalogId
+            prevQuery.catalogId     !== newQuery.catalogId ||
+            prevQuery.sortBy        !== newQuery.sortBy ||
+            prevQuery.sort          !== newQuery.sort
 }
