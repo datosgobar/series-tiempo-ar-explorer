@@ -4,15 +4,16 @@ import SearchResultsTitle from './SearchResultsTitle';
 
 
 interface ISearchConditionsProps {
+    sorting: string;
     tagList: JSX.Element[];
-    onSortByPicked: (criteria: string) => void;
+    onSortingPicked: (criteria: string) => void;
 }
 
 export default (props: ISearchConditionsProps) =>
     <div className="search-conditions">
         <div className="title-and-sorting">
             <SearchResultsTitle />
-            <SearchResultsSorting onSortByPicked={props.onSortByPicked}/>
+            <SearchResultsSorting onSortingPicked={props.onSortingPicked} sorting={props.sorting}/>
         </div>
         <div>
             {props.tagList}

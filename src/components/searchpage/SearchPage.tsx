@@ -12,10 +12,9 @@ import SearchBox from '../common/searchbox/SearchBox';
 import Searcher, { ISearchParams, ISearchParamsItem } from '../common/searcher/Searcher';
 import SearcherResultsWithChart from "../common/searcher/SearcherResultsWithChart";
 import FiltersListContainer from '../style/Filters/FiltersListContainer';
-import SearchFiltersResult from '../style/Filters/SearchFiltersResult';
 import SearchConditions from '../style/Filters/SearchConditions';
+import SearchFiltersResult from '../style/Filters/SearchFiltersResult';
 import SeriesHero from '../style/Hero/SeriesHero';
-import { getSortQueryParams, ISortQueryParams } from '../../helpers/common/sortParamsBuilders';
 import Tag from '../style/Tag/Tag';
 import SeriesFilters from './filters/SeriesFilters';
 
@@ -51,7 +50,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.unitsRemoved = this.unitsRemoved.bind(this);
         this.catalogPicked = this.catalogPicked.bind(this);
         this.catalogRemoved = this.catalogRemoved.bind(this);
-        this.sortByPicked = this.sortByPicked.bind(this);
+        this.sortingPicked = this.sortingPicked.bind(this);
     }
 
     public componentDidMount() {
@@ -85,16 +84,14 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         const publisher = params.get('dataset_publisher_name') || "";
         const units = params.get('units') || "";
         const catalogId = params.get('catalog_id') || "";
-        const sortBy = params.get('sort_by') || "";
-        const sort = params.get('sort') || "";
+        const sorting = params.get('sorting') || "";
 
-        return { catalogId, datasetSource, datasetTheme, limit, offset, publisher, q, units, sortBy, sort }
+        return { catalogId, datasetSource, datasetTheme, limit, offset, publisher, q, units, sorting }
     }
 
     public updateUriParams(params: ISearchParams) {
 
         const urlSearchParams = URLSearchParams();
-        const sortParams: ISortQueryParams = getSortQueryParams(params.sortBy);
 
         urlSearchParams.setOrDelete('q', params.q);
         urlSearchParams.setOrDelete('dataset_source', params.datasetSource);
@@ -104,8 +101,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         urlSearchParams.setOrDelete('dataset_publisher_name', params.publisher);
         urlSearchParams.setOrDelete('units', params.units);
         urlSearchParams.setOrDelete('catalog_id', params.catalogId);
-        urlSearchParams.setOrDelete('sort_by', sortParams.sortBy);
-        urlSearchParams.setOrDelete('sort', sortParams.sort);
+        urlSearchParams.setOrDelete('sorting', params.sorting);
 
         this.props.history.push('/search/?' + urlSearchParams);
 
@@ -165,8 +161,8 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.filterChanged({key: "q", value: ""});
     }
 
-    public sortByPicked(criteria: string) {
-        this.filterChanged({key: "sortBy", value: criteria});
+    public sortingPicked(criteria: string) {
+        this.filterChanged({key: "sorting", value: criteria});
     }
 
     public searchTags(): JSX.Element[] {
@@ -204,8 +200,9 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                                     onUnitsPicked={this.unitsPicked}
                                     onCatalogPicked={this.catalogPicked} />
                     <SearchFiltersResult>
-                        <SearchConditions tagList={this.searchTags()}
-                                          onSortByPicked={this.sortByPicked} />
+                        <SearchConditions sorting={this.props.sorting}
+                                          tagList={this.searchTags()}
+                                          onSortingPicked={this.sortingPicked} />
 
                         <Searcher datasetSource={this.props.datasetSource}
                                     datasetTheme={this.props.datasetTheme}
@@ -218,8 +215,7 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                                     publisher={this.props.publisher}
                                     units={this.props.units}
                                     catalogId={this.props.catalogId}
-                                    sortBy={this.props.sortBy}
-                                    sort={this.props.sort} />
+                                    sorting={this.props.sorting} />
                     </SearchFiltersResult>
                 </FiltersListContainer>
             </section>
