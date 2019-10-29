@@ -1153,20 +1153,20 @@ section#listado #listado-list #filters .dropdown .dropdown-menu li.dropdown-head
   font-size: 14px;
   border-bottom: 1px solid #dddddd;
 }
-section#listado #listado-list #list .title-and-tags .title,
-section#listado #listado-list #list .title-and-tags .tag {
+section#listado #listado-list #list .search-conditions .title,
+section#listado #listado-list #list .search-conditions .tag {
   display: inline-block;
   vertical-align: bottom;
   margin-right: 7.5px;
   margin-bottom: 7.5px;
 }
-section#listado #listado-list #list .title-and-tags .tag {
+section#listado #listado-list #list .search-conditions .tag {
   padding: 7.5px;
   background-color: #eeeeee;
   margin-left: 5px;
   border-radius: 5px;
 }
-section#listado #listado-list #list .title-and-tags .tag .tag-close i {
+section#listado #listado-list #list .search-conditions .tag .tag-close i {
   display: table-cell;
   width: 15px;
   height: 15px;
@@ -1177,9 +1177,54 @@ section#listado #listado-list #list .title-and-tags .tag .tag-close i {
   background-color: #999999;
   border-radius: 100%;
 }
-section#listado #listado-list #list .title-and-tags .tag .tag-close:hover i,
-section#listado #listado-list #list .title-and-tags .tag .tag-close:focus i {
+section#listado #listado-list #list .search-conditions .tag .tag-close:hover i,
+section#listado #listado-list #list .search-conditions .tag .tag-close:focus i {
   background-color: #767676;
+}
+section#listado #listado-list #list .search-conditions .title-and-sorting {
+  display: flex;
+  justify-content: space-between;
+}
+section#listado #listado-list #list .search-conditions .title-and-sorting .sort-by-label {
+  color: rgb(118,118,118);
+  cursor: pointer;
+  font-family: "Medium";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  padding-right: 10px;
+  text-align: right;
+  text-rendering: auto;
+}
+section#listado #listado-list #list .search-conditions .title-and-sorting .search-sorting {
+  margin-bottom: 10px;
+}
+section#listado #listado-list #list .search-conditions .title-and-sorting .search-sorting #sort-by-criterion {
+  background-color: rgb(255, 255, 255) !important;
+  background-image: none !important;
+  background-position: 0% 0% !important;
+  background-repeat: repeat !important;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px;
+  color: rgb(118,118,118);
+  display: inline-block;
+  font-family: "Medium";
+  font-size: 16px;
+  height: 30px;
+  line-height: 22px;
+  max-width: 100%;
+  outline-width: medium;
+  padding: 4px;
+  text-align: start;
+  text-indent: 0;
+  text-overflow: clip;
+  text-rendering: auto;
+  vertical-align: middle;
+  width: 245px;
+  word-spacing: 0px;
+}
+section#listado #listado-list #list .search-conditions .title-and-sorting .search-sorting #sort-by-criterion option {
+  text-align: center;
 }
 section#listado #listado-list #list .series-card .card-title {
   font-size: 24px;
