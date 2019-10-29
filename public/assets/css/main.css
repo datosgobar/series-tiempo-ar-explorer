@@ -1196,7 +1196,10 @@ section#listado #listado-list #list .search-conditions .title-and-sorting .sort-
   text-align: right;
   text-rendering: auto;
 }
-section#listado #listado-list #list .search-conditions .title-and-sorting #sort-by-criterion {
+section#listado #listado-list #list .search-conditions .title-and-sorting .search-sorting {
+  margin-bottom: 10px;
+}
+section#listado #listado-list #list .search-conditions .title-and-sorting .search-sorting #sort-by-criterion {
   background-color: rgb(255, 255, 255) !important;
   background-image: none !important;
   background-position: 0% 0% !important;
@@ -1209,7 +1212,6 @@ section#listado #listado-list #list .search-conditions .title-and-sorting #sort-
   font-size: 16px;
   height: 30px;
   line-height: 22px;
-  margin-bottom: 7.5px;
   max-width: 100%;
   outline-width: medium;
   padding: 4px;
@@ -1220,6 +1222,9 @@ section#listado #listado-list #list .search-conditions .title-and-sorting #sort-
   vertical-align: middle;
   width: 245px;
   word-spacing: 0px;
+}
+section#listado #listado-list #list .search-conditions .title-and-sorting .search-sorting #sort-by-criterion option {
+  text-align: center;
 }
 section#listado #listado-list #list .series-card .card-title {
   font-size: 24px;

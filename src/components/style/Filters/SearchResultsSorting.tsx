@@ -35,7 +35,7 @@ export default class SearchResultsSorting extends React.Component<ISearchResults
         }
 
         return (
-            <div>
+            <div className="search-sorting">
                 <label htmlFor="sort-by-criterion" className="sort-by-label">Ordenar por:</label>
                 <select name="sort-by" id="sort-by-criterion" value={selectedSorting} onChange={this.handleChange}>
                     <SearchResultsSortingOption value={SORTING_VALUES.RELEVANCE}
