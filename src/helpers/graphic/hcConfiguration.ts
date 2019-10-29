@@ -1,4 +1,4 @@
-import { buildLocale } from "../../components/common/locale/buildLocale";
+import { DECIMAL_SEPARATORS, THOUSAND_SEPARATORS } from "../common/LocaleValueFormatter";
 import { ReactHighStock } from "../../components/viewpage/graphic/highcharts";
 
 export const DEFAULT_HC_SERIES_CONFIG = {
@@ -10,12 +10,13 @@ export const DEFAULT_HC_SERIES_CONFIG = {
 
 export function setHighchartsGlobalConfig(locale: string) {
     
-    const localeObj = buildLocale(locale);
+    const decimalPoint = DECIMAL_SEPARATORS[locale];
+    const thousandsSep = THOUSAND_SEPARATORS[locale];
 
     ReactHighStock.Highcharts.setOptions({
         lang: {
             contextButtonTitle: 'Opciones',
-            decimalPoint: localeObj.decimalSeparator(),
+            decimalPoint,
             downloadJPEG: 'Descargar JPEG',
             downloadPDF: 'Descargar PDF',
             downloadPNG: 'Descargar PNG',
@@ -27,7 +28,7 @@ export function setHighchartsGlobalConfig(locale: string) {
             rangeSelectorZoom: '',
             resetZoom: 'Reiniciar zoom',
             shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            thousandsSep: localeObj.thousandSeparator(),
+            thousandsSep,
             weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
         }
     });

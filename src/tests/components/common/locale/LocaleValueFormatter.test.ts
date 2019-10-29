@@ -1,4 +1,4 @@
-import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../../../../components/common/locale/LocaleValueFormatter";
+import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../../../../helpers/common/LocaleValueFormatter";
 
 let formatter: LocaleValueFormatter;
 let config: ILocaleValueFormatterConfig;
@@ -23,15 +23,25 @@ describe("Tests for Argentinian locale-wise value formatting", () => {
             expect(formattedString).toContain(",");
             expect(formattedString).not.toContain(".");
         });
-        it("Numbers lesser than 1000 don't have any thousand separator", () => {
-            value = 225.39;
+        it("Positive numbers lesser than 10000 don't have any thousand separator", () => {
+            value = 2425.39;
             formattedString = formatter.formatValue(value);
-            expect(formattedString).toEqual("225,39");
+            expect(formattedString).toEqual("2425,39");
         });
-        it("Numbers greater than or equal to 1000 have a thousand separator", () => {
+        it("Positive numbers greater than or equal to 10000 have a thousand separator", () => {
             value = 27002.14236;
             formattedString = formatter.formatValue(value);
             expect(formattedString).toEqual("27.002,14");
+        });
+        it("Negative numbers bigger than -10000 don't have any thousand separator", () => {
+            value = -7119;
+            formattedString = formatter.formatValue(value);
+            expect(formattedString).toEqual("-7119,00");
+        });
+        it("Negattive numbers lesser than or equal to -10000 have a thousand separator", () => {
+            value = -826939.8;
+            formattedString = formatter.formatValue(value);
+            expect(formattedString).toEqual("-826.939,80");
         });
         it("A thousand separator is put every three integer-part digits", () => {
             value = 187961202359.877;
@@ -165,9 +175,9 @@ describe("Tests for US locale-wise value formatting", () => {
             expect(formattedString).toEqual("169.15")
         });
         it("US thousand separator is a ',' character", () => {
-            value = 1900.298;
+            value = 10900.298;
             formattedString = formatter.formatValue(value);
-            expect(formattedString).toEqual("1,900.30");
+            expect(formattedString).toEqual("10,900.30");
         });
 
     })

@@ -4,7 +4,7 @@ import { DEFAULT_SIGNIFICANT_FIGURES, ISerie } from '../../api/Serie';
 import { lastSerieDate } from '../../helpers/common/dateFunctions';
 import { getFullSerieId } from "../../helpers/common/fullSerieID";
 import { ICardBaseConfig } from '../../indexCard';
-import LocaleValueFormatter, { ILocaleValueFormatterConfig } from '../common/locale/LocaleValueFormatter';
+import LocaleValueFormatter, { ILocaleValueFormatterConfig } from '../../helpers/common/LocaleValueFormatter';
 import FullCardContainer from '../style/exportable_card/FullCardContainer';
 import FullCardHeader from '../style/exportable_card/FullCardHeader';
 import FullCardSource from '../style/exportable_card/FullCardSource';

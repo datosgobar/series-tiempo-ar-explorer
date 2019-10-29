@@ -9,7 +9,7 @@ import { generateYAxisArray, generateYAxisBySeries, IYAxisGenerationOptions } fr
 import { dateFormatByPeriodicity } from "./dateFormatting";
 import { HighchartsSerieBuilder, IHighchartsSerieBuilderOptions } from "./hcSerieFromISerie";
 import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
-import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../../components/common/locale/LocaleValueFormatter";
+import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../common/LocaleValueFormatter";
 
 export class ChartConfigBuilder {
 
