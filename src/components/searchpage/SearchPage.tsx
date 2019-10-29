@@ -161,8 +161,8 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
         this.filterChanged({key: "q", value: ""});
     }
 
-    public sortingPicked(criteria: string) {
-        this.filterChanged({key: "sorting", value: criteria});
+    public sortingPicked(criterion: string) {
+        this.filterChanged({key: "sorting", value: criterion});
     }
 
     public searchTags(): JSX.Element[] {

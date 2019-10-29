@@ -6,7 +6,7 @@ import SearchResultsTitle from './SearchResultsTitle';
 interface ISearchConditionsProps {
     sorting: string;
     tagList: JSX.Element[];
-    onSortingPicked: (criteria: string) => void;
+    onSortingPicked: (criterion: string) => void;
 }
 
 export default (props: ISearchConditionsProps) =>
