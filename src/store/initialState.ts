@@ -50,6 +50,7 @@ const initialState: IStore = {
         offset: 0,
         publisher: "",
         q: "",
+        sorting: "",
         units: "",
     },
     seriesApi: null,

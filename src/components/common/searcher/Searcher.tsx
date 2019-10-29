@@ -6,6 +6,7 @@ import { ISearchOptions, ISerieApi } from "../../../api/SerieApi";
 import LoadingSpinner from "../LoadingSpinner";
 import InitialSearcher from "./InitialSearcher";
 import SearcherResults from "./SearcherResults";
+import { getSortQueryParams } from "../../../helpers/common/sortParamsBuilders";
 
 
 export interface ISearchParamsItem {
@@ -22,6 +23,7 @@ export interface ISearchParams {
     publisher: string;
     units: string;
     catalogId: string;
+    sorting: string;
 }
 
 export interface ISearcherProps extends ISearchParams {
@@ -52,7 +54,10 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
         };
     }
 
-    public searchOptions(params=this.props) {
+    public searchOptions(params=this.props): ISearchOptions {
+
+        const sortParams = getSortQueryParams(params.sorting);
+
         return {
             aggregations: true,
             catalogId: params.catalogId,
@@ -61,8 +66,11 @@ export default class Searcher extends React.Component<ISearcherProps, ISearcherS
             limit: params.limit,
             offset: params.offset,
             publisher: params.publisher,
-            units: params.units,
+            sort: sortParams.sort,
+            sortBy: sortParams.sortBy,
+            units: params.units
         }
+
     }
 
     public componentDidMount() { // this is to avoid searching with the default value ("")
@@ -156,5 +164,6 @@ function queryChanged(prevQuery: ISearcherProps, newQuery: ISearcherProps): bool
             prevQuery.limit         !== newQuery.limit ||
             prevQuery.publisher     !== newQuery.publisher ||
             prevQuery.units         !== newQuery.units ||
-            prevQuery.catalogId     !== newQuery.catalogId
+            prevQuery.catalogId     !== newQuery.catalogId ||
+            prevQuery.sorting       !== newQuery.sorting
 }

@@ -43,7 +43,8 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
                 renderSearchResults={this.renderPickeableItems}
                 publisher={initialState.searchParams.publisher}
                 units={initialState.searchParams.units}
-                catalogId={initialState.searchParams.catalogId} />
+                catalogId={initialState.searchParams.catalogId}
+                sorting={initialState.searchParams.sorting} />
         );
     }
 

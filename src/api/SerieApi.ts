@@ -15,6 +15,8 @@ export interface ISearchOptions {
     publisher?: string;
     units?: string;
     catalogId?: string;
+    sortBy?: string;
+    sort?: string;
 }
 
 export const METADATA = {
@@ -94,6 +96,9 @@ export default class SerieApi implements ISerieApi {
         const dataset_publisher_name = searchOptions && searchOptions.publisher ? searchOptions.publisher : undefined;
         const units = searchOptions && searchOptions.units ? searchOptions.units : undefined;
         const catalogId = searchOptions && searchOptions.catalogId ? searchOptions.catalogId : this.catalogId;
+        // tslint:disable-next-line: variable-name
+        const sort_by = searchOptions && searchOptions.sortBy ? searchOptions.sortBy : undefined;
+        const sort = searchOptions && searchOptions.sort ? searchOptions.sort : undefined;
 
         const options = {
             qs: {
@@ -104,8 +109,10 @@ export default class SerieApi implements ISerieApi {
                 dataset_theme,
                 limit,
                 q: query,
+                sort,
+                sort_by,
                 start,
-                units,
+                units
             },
             uri: this.apiClient.endpoint('search'),
         };
