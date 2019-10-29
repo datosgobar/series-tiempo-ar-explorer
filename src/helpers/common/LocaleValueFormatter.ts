@@ -1,9 +1,9 @@
-const DECIMAL_SEPARATORS = {
+export const DECIMAL_SEPARATORS = {
     'AR': ',',
     'US': '.'
 }
 
-const THOUSAND_SEPARATORS = {
+export const THOUSAND_SEPARATORS = {
     'AR': '.',
     'US': ','
 }
@@ -78,6 +78,9 @@ export default class LocaleValueFormatter {
     private applySeparators(value: number): string {
         
         const decimalFixedValue = this.applyDecimalSeparator(value);
+        if (Math.abs(value) < 10000) {
+            return decimalFixedValue;
+        }
         return this.applyThousandSeparator(decimalFixedValue);
 
     }

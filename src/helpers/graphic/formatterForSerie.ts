@@ -1,5 +1,5 @@
 import { DEFAULT_SIGNIFICANT_FIGURES } from "../../api/Serie";
-import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../../components/common/locale/LocaleValueFormatter";
+import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../common/LocaleValueFormatter";
 export function formatterForSerie(locale: string, isPercentage: boolean, decimalPlaces?: number) {
 
     const localeFormatterConfig: ILocaleValueFormatterConfig = {

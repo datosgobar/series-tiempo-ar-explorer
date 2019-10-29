@@ -6,7 +6,7 @@ import { ISerie } from '../../api/Serie';
 import { shortLocaleDate } from "../../helpers/common/dateFunctions";
 import { getTooltipDecimals } from "../../helpers/common/decimalsAmountHandling";
 import { IStore } from "../../store/initialState";
-import LocaleValueFormatter, { ILocaleValueFormatterConfig } from '../common/locale/LocaleValueFormatter';
+import LocaleValueFormatter, { ILocaleValueFormatterConfig } from '../../helpers/common/LocaleValueFormatter';
 import { ILapsProps } from "../mainpage/featured/Featured";
 import D3LineChart from "./D3LineChart";
 
