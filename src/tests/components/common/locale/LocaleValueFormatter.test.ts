@@ -12,7 +12,9 @@ describe("Tests for Argentinian locale-wise value formatting", () => {
         beforeAll(() => {
             config = {
                 code: 'AR',
-                decimalPlaces: 2
+                decimalPlaces: 2,
+                decimalsBillion: 2,
+                decimalsMillion: 2
             };
             formatter = new LocaleValueFormatter(config);
         })
@@ -44,9 +46,68 @@ describe("Tests for Argentinian locale-wise value formatting", () => {
             expect(formattedString).toEqual("-826.939,80");
         });
         it("A thousand separator is put every three integer-part digits", () => {
-            value = 187961202359.877;
+            value = 1879612.877;
             formattedString = formatter.formatValue(value);
-            expect(formattedString).toEqual("187.961.202.359,88");
+            expect(formattedString).toEqual("1.879.612,88");
+        });
+
+    })
+
+    describe("Abbreviation of too big numbers before applying separators", () => {
+
+        beforeEach(() => {
+            config = {
+                code: 'AR',
+                decimalPlaces: 2,
+                decimalsBillion: 4,
+                decimalsMillion: 3,
+                numbersAbbreviate: true
+            };
+        })
+
+        it("Percentage values are never abbreviated", () => {
+            config.isPercentage = true;
+            formatter = new LocaleValueFormatter(config);
+            value = 12540898195156.225142;
+            formattedString = formatter.formatValue(value);
+            expect(formattedString).toEqual("1.254.089.819.515.622,51%");
+        });
+        it("Values big enough but with abbreviation disabled are formatted just as they are", () => {
+            config.numbersAbbreviate = false;
+            formatter = new LocaleValueFormatter(config);
+            value = 946355002.09;
+            formattedString = formatter.formatValue(value);
+            expect(formattedString).toEqual("946.355.002,09");
+        });
+        it("Values bigger than a billion are divided by a billion and have a 'B' appended", () => {
+            formatter = new LocaleValueFormatter(config);
+            value = 51004629181337.54;
+            formattedString = formatter.formatValue(value);
+            expect(formattedString).toEqual("51,0046B");
+        });
+        it("Values smaller than a negative billion are divided by a billion and have a 'B' appended", () => {
+            formatter = new LocaleValueFormatter(config);
+            value = -156239117481299810;
+            formattedString = formatter.formatValue(value);
+            expect(formattedString).toEqual("-156.239,1175B");
+        });
+        it("Values bigger than ten million but smaller than a billion are divided by a million and have a 'M' appended", () => {
+            formatter = new LocaleValueFormatter(config);
+            value = 272091218.91;
+            formattedString = formatter.formatValue(value);
+            expect(formattedString).toEqual("27,209M");
+        });
+        it("Values smaller than negative ten million but bigger than a negative billion are divided by a million and have a 'M' appended", () => {
+            formatter = new LocaleValueFormatter(config);
+            value = -8044332715.898;
+            formattedString = formatter.formatValue(value);
+            expect(formattedString).toEqual("-8.044,333M");
+        });
+        it("Values smaller than ten million and bigger than a ten negative million are not abbreviated at all", () => {
+            formatter = new LocaleValueFormatter(config);
+            value = 1252002.132;
+            formattedString = formatter.formatValue(value);
+            expect(formattedString).toEqual("1.252.002,13");
         });
 
     })
@@ -56,7 +117,9 @@ describe("Tests for Argentinian locale-wise value formatting", () => {
         beforeEach(() => {
             config = {
                 code: 'AR',
-                decimalPlaces: 2
+                decimalPlaces: 2,
+                decimalsBillion: 2,
+                decimalsMillion: 2
             }
             value = 14.08229165;
         })
@@ -102,7 +165,9 @@ describe("Tests for Argentinian locale-wise value formatting", () => {
         beforeEach(() => {
             config = {
                 code: 'AR',
-                decimalPlaces: 2
+                decimalPlaces: 2,
+                decimalsBillion: 2,
+                decimalsMillion: 2
             }
         })
 
@@ -120,19 +185,21 @@ describe("Tests for Argentinian locale-wise value formatting", () => {
 
     })
 
-    describe("Prependage of explicit sign to when formatting", () => {
+    describe("Prependage of explicit sign when formatting", () => {
 
         let negativeValue: number;
 
         beforeAll(() => {
             value = 32358.19;
-            negativeValue = -1779628.02;
+            negativeValue = -779628.02;
         })
 
         beforeEach(() => {
             config = {
                 code: 'AR',
-                decimalPlaces: 2
+                decimalPlaces: 2,
+                decimalsBillion: 2,
+                decimalsMillion: 2
             }
         })
 
@@ -148,9 +215,10 @@ describe("Tests for Argentinian locale-wise value formatting", () => {
             expect(formattedString).toEqual("+32.358,19");
         });
         it("Negative value has a '-' character prepended despite the config", () => {
+            config.explicitSign = true;
             formatter = new LocaleValueFormatter(config);
             formattedString = formatter.formatValue(negativeValue);
-            expect(formattedString).toEqual("-1.779.628,02");
+            expect(formattedString).toEqual("-779.628,02");
         });
 
     })
@@ -164,7 +232,9 @@ describe("Tests for US locale-wise value formatting", () => {
         beforeAll(() => {
             config = {
                 code: 'US',
-                decimalPlaces: 2
+                decimalPlaces: 2,
+                decimalsBillion: 2,
+                decimalsMillion: 2
             };
             formatter = new LocaleValueFormatter(config);
         })

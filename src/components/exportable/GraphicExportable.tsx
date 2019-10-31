@@ -34,6 +34,9 @@ export interface IGraphicExportableProps {
     decimalRightAxis?: number;
     decimalTooltips: INumberPropsPerId;
     decimalTooltip?: number;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 interface IGraphicExportableState {
@@ -115,7 +118,10 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          decimalLeftAxis={this.props.decimalLeftAxis}
                          decimalRightAxis={this.props.decimalRightAxis}
                          decimalTooltips={this.props.decimalTooltips}
-                         maxDecimals={MAX_SIGNIFICANT_FIGURES} />
+                         maxDecimals={MAX_SIGNIFICANT_FIGURES}
+                         numbersAbbreviate={this.props.numbersAbbreviate}
+                         decimalsBillion={this.props.decimalsBillion}
+                         decimalsMillion={this.props.decimalsMillion} />
             </ExportableGraphicContainer>
         )
     }

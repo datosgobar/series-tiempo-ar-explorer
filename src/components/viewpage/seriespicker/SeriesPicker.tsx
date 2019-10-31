@@ -14,6 +14,9 @@ export interface ISeriesPickerProps {
     onRemoveSerie: (serieId: string) => void;
     series: ISerie[];
     maxDecimals: number;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
@@ -72,7 +75,10 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
                     <SerieCard
                         key={searchResult.id}
                         {...this.searchResultCardProps(searchResult)}
-                        maxDecimals={this.props.maxDecimals} />
+                        maxDecimals={this.props.maxDecimals}
+                        numbersAbbreviate={this.props.numbersAbbreviate}
+                        decimalsBillion={this.props.decimalsBillion}
+                        decimalsMillion={this.props.decimalsMillion} />
                 )}
             </div>
         );

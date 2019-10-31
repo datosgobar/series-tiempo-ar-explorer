@@ -35,6 +35,9 @@ export interface IGraphicProps {
     decimalRightAxis?: number;
     decimalTooltips?: INumberPropsPerId;
     maxDecimals?: number;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 export interface IStringPropsPerId {
@@ -93,7 +96,10 @@ export default class Graphic extends React.Component<IGraphicProps> {
             axisSides: this.props.seriesAxis,
             decimalLeftAxis: this.props.decimalLeftAxis,
             decimalRightAxis: this.props.decimalRightAxis,
+            decimalsBillion: this.props.decimalsBillion,
+            decimalsMillion: this.props.decimalsMillion,
             locale: this.props.locale,
+            numbersAbbreviate: this.props.numbersAbbreviate,
             series: this.props.series,
             seriesConfig: this.props.seriesConfig
         }

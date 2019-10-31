@@ -2,7 +2,7 @@ import { ISeriesAxisSides, IYAxisConf, IYAxis } from "../../components/viewpage/
 import { getFullSerieId } from "../common/fullSerieID";
 import { ISerie } from "../../api/Serie";
 import SerieConfig from "../../api/SerieConfig";
-import { formatterForSerie } from "./formatterForSerie";
+import { formatterForSerie, IFormatterForSerieConfig } from "./formatterForSerie";
 import { valuesFromObject } from "../common/commonFunctions";
 
 export interface IYAxisGenerationOptions {
@@ -12,6 +12,9 @@ export interface IYAxisGenerationOptions {
     locale: string;
     series: ISerie[];
     seriesConfig: SerieConfig[];
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues: {}): boolean {
@@ -56,9 +59,17 @@ export function generateYAxisBySeries(options: IYAxisGenerationOptions): {} {
 
         const serieConfig = options.seriesConfig.find((config: SerieConfig) => config.getFullSerieId() === fullId);
 
-        if(serieConfig) {
+        if (serieConfig) {
             const decimalPlaces = rightSided ? options.decimalRightAxis : options.decimalLeftAxis;
-            result[fullId].labels = formatterForSerie(options.locale, serieConfig.isPercentageSerie(), decimalPlaces);
+            const formatterConfig: IFormatterForSerieConfig = {
+                decimalPlaces,
+                decimalsBillion: options.decimalsBillion,
+                decimalsMillion: options.decimalsMillion,
+                isPercentage: serieConfig.isPercentageSerie(),
+                locale: options.locale,
+                numbersAbbreviate: options.numbersAbbreviate
+            }
+            result[fullId].labels = formatterForSerie(formatterConfig);
         }
 
         return result;

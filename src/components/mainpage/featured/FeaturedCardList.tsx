@@ -8,6 +8,9 @@ interface IFeaturedCardListProps {
     seriesOrder: string[];
     series: ISerie[];
     maxDecimals: number;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 export default(props: IFeaturedCardListProps) =>
@@ -15,6 +18,11 @@ export default(props: IFeaturedCardListProps) =>
         {props.seriesOrder.map((id: string) => {
             const serie = props.series.find((s: ISerie) => s.id === id);
 
-            return serie ? <FeaturedSerieCard key={serie.id} serie={serie} maxDecimals={props.maxDecimals} /> : null
+            return serie ? <FeaturedSerieCard key={serie.id} 
+                                              serie={serie} 
+                                              maxDecimals={props.maxDecimals} 
+                                              numbersAbbreviate={props.numbersAbbreviate}
+                                              decimalsBillion={props.decimalsBillion}
+                                              decimalsMillion={props.decimalsMillion}  /> : null
         })}
     </Row>

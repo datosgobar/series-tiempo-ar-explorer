@@ -32,8 +32,11 @@ export default (props: IFullCardProps) => {
     const formatterConfig: ILocaleValueFormatterConfig = {
         code: options.locale,
         decimalPlaces: options.decimals !== undefined && options.decimals >= 0 ? options.decimals : DEFAULT_SIGNIFICANT_FIGURES,
+        decimalsBillion: options.decimalsBillion,
+        decimalsMillion: options.decimalsMillion,
         explicitSign: options.explicitSign,
-        isPercentage: props.serie.isPercentage
+        isPercentage: props.serie.isPercentage,
+        numbersAbbreviate: options.numbersAbbreviate
     }
     const formatter = new LocaleValueFormatter(formatterConfig);
         

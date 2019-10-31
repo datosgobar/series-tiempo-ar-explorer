@@ -11,17 +11,23 @@ import locale from '../localeReducer';
 import seriesApi from '../SerieApiReducer';
 import maxDecimals from '../maxDecimalsReducer';
 import heroImageUrl from '../heroImageUrlReducer';
+import numbersAbbreviate from '../numbersAbbreviateReducer';
+import decimalsBillion from '../decimalsBillionReducer';
+import decimalsMillion from '../decimalsMillionReducer';
 
 
 const rootReducer = combineReducers({
     aggregations,
     date,
+    decimalsBillion,
+    decimalsMillion,
     featured,
     formatChartUnits,
     heroImageUrl,
     laps,
     locale,
     maxDecimals,
+    numbersAbbreviate,
     searchParams,
     serieTags,
     seriesApi,

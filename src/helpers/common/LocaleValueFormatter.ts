@@ -13,7 +13,18 @@ export interface ILocaleValueFormatterConfig {
     decimalPlaces: number;
     explicitSign?: boolean;
     isPercentage?: boolean;
+    numbersAbbreviate?: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
+
+interface IFormattingTarget {
+    value: number;
+    decimalPlaces: number;
+}
+
+export const DEFAULT_DECIMALS_BILLION = 2;
+export const DEFAULT_DECIMALS_MILLION = 2;
 
 export default class LocaleValueFormatter {
 
@@ -22,6 +33,9 @@ export default class LocaleValueFormatter {
     private decimalPlaces: number;
     private explicitSign: boolean;
     private isPercentage: boolean;
+    private numbersAbbreviate?: boolean;
+    private decimalsBillion: number;
+    private decimalsMillion: number;
 
     constructor(config: ILocaleValueFormatterConfig) {
 
@@ -30,22 +44,71 @@ export default class LocaleValueFormatter {
         this.decimalPlaces = config.decimalPlaces;
         this.explicitSign = config.explicitSign !== undefined ? config.explicitSign : false;
         this.isPercentage = config.isPercentage !== undefined ? config.isPercentage : false;
+        this.numbersAbbreviate = config.numbersAbbreviate;
+        this.decimalsMillion = config.decimalsMillion;
+        this.decimalsBillion = config.decimalsBillion;
 
     }
 
     public formatValue(value: number) {
 
-        const shiftedValue: number = this.isPercentage ? value * 100 : value;
-        const prependage: string = this.explicitSign ? '+' : '';
-        const appendage: string = this.isPercentage ? '%' : '';
-        const separationFixedValue = this.applySeparators(shiftedValue);
+        const target: IFormattingTarget = {
+            decimalPlaces: this.decimalPlaces,
+            value : this.isPercentage ? value * 100 : value
+        };
+
+        const prependage: string = this.explicitSign && target.value > 0 ? '+' : '';
+        const appendage: string = this.getAppendage(target.value);
+
+        if (this.isPercentage === false && this.numbersAbbreviate) {
+            this.setForAbbreviation(target);
+        }
+
+        const separationFixedValue = this.applySeparators(target);
         return `${prependage}${separationFixedValue}${appendage}`;
 
     }
 
-    private applyDecimalSeparator(value: number): string {
+    private getAppendage(value: number): string {
 
-        const decimalFixedValue = value.toFixed(this.decimalPlaces);
+        if (this.isPercentage) {
+            return '%';
+        }
+
+        if (this.numbersAbbreviate) {
+            if (Math.abs(value) >= 1000000000000) {
+                return 'B';
+            }
+            if (Math.abs(value) >= 10000000) {
+                return 'M';
+            }
+        }
+        
+        return '';
+
+    }
+
+    private setForAbbreviation(target: IFormattingTarget): void {
+
+        let divider: number = 1;
+
+        if (Math.abs(target.value) >= 1000000000000) {
+            divider = 1000000000000;
+            target.decimalPlaces = this.decimalsBillion;
+        }
+        if (Math.abs(target.value) >= 10000000) {
+            divider = 1000000;
+            target.decimalPlaces = this.decimalsMillion;
+        }
+
+        target.value /= divider;
+
+
+    }
+
+    private applyDecimalSeparator(target: IFormattingTarget): string {
+
+        const decimalFixedValue = target.value.toFixed(target.decimalPlaces);
         return decimalFixedValue.replace(".", this.decimalSeparator);
 
     }
@@ -75,10 +138,10 @@ export default class LocaleValueFormatter {
 
     }
 
-    private applySeparators(value: number): string {
+    private applySeparators(target: IFormattingTarget): string {
         
-        const decimalFixedValue = this.applyDecimalSeparator(value);
-        if (Math.abs(value) < 10000) {
+        const decimalFixedValue = this.applyDecimalSeparator(target);
+        if (Math.abs(target.value) < 10000) {
             return decimalFixedValue;
         }
         return this.applyThousandSeparator(decimalFixedValue);

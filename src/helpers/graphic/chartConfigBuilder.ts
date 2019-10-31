@@ -26,7 +26,10 @@ export class ChartConfigBuilder {
             axisSides: this.props.seriesAxis,
             decimalLeftAxis: this.props.decimalLeftAxis,
             decimalRightAxis: this.props.decimalRightAxis,
+            decimalsBillion: this.props.decimalsBillion,
+            decimalsMillion: this.props.decimalsMillion,
             locale: this.props.locale,
+            numbersAbbreviate: this.props.numbersAbbreviate,
             series: this.props.series,
             seriesConfig: this.props.seriesConfig
         }
@@ -85,7 +88,10 @@ export class ChartConfigBuilder {
                             const localeFormatterConfig: ILocaleValueFormatterConfig = {
                                 code: builder.props.locale,
                                 decimalPlaces,
-                                isPercentage: serieConfig.isPercentageSerie()
+                                decimalsBillion: builder.props.decimalsBillion,
+                                decimalsMillion: builder.props.decimalsMillion,
+                                isPercentage: serieConfig.isPercentageSerie(),
+                                numbersAbbreviate: builder.props.numbersAbbreviate
                             }
                             const localeFormatter = new LocaleValueFormatter(localeFormatterConfig);
                             value = localeFormatter.formatValue(value);

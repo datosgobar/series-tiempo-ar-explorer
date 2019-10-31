@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, BrowserRouterProps, HashRouter } from 'react-router-dom';
+import { setDecimalsBillion, setDecimalsMillion, setNumbersAbbreviate } from './actions/abbreviationActions';
+import { setHeroImageUrl } from './actions/heroActions';
 import { loadFeaturedIds, setFormatChartUnits, setLaps, setLocale, setMaxDecimals, setSeriesApi } from './actions/seriesActions';
 import { ISerieApi } from './api/SerieApi';
 import { ILapsProps } from "./components/mainpage/featured/Featured";
 import Wrapper from './components/style/Common/Wrapper';
 import { getMaxDecimalsAmount } from './helpers/common/decimalsAmountHandling';
 import routes from './routes';
-import { setHeroImageUrl } from './actions/heroActions';
 
 
 interface IAppProps {
@@ -21,6 +22,9 @@ interface IAppProps {
     locale?: string;
     maxDecimals?: number;
     heroImageUrl?: string;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 class App extends React.Component<IAppProps, any> {
@@ -35,6 +39,9 @@ class App extends React.Component<IAppProps, any> {
         const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
         this.props.dispatch(setMaxDecimals(maxDecimals));
         this.props.dispatch(setHeroImageUrl(this.props.heroImageUrl || ''));
+        this.props.dispatch(setNumbersAbbreviate(this.props.numbersAbbreviate));
+        this.props.dispatch(setDecimalsBillion(this.props.decimalsBillion));
+        this.props.dispatch(setDecimalsMillion(this.props.decimalsMillion));
     }
 
     public render(): any {

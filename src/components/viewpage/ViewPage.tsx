@@ -33,6 +33,9 @@ interface IViewPageProps extends RouterProps {
     formatChartUnits?: boolean;
     maxDecimals?: number;
     heroImageUrl: string;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 interface IViewPageState {
@@ -140,13 +143,19 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                          dispatch={this.props.dispatch}
                                          location={this.props.location}
                                          seriesApi={this.props.seriesApi}
-                                         maxDecimals={maxDecimals} />
+                                         maxDecimals={maxDecimals}
+                                         numbersAbbreviate={this.props.numbersAbbreviate}
+                                         decimalsBillion={this.props.decimalsBillion}
+                                         decimalsMillion={this.props.decimalsMillion} />
                         <MetaData onRemove={this.removeSerie} />
                     </Container>
                     <DetallePanel seriesPicker={ <SeriesPicker onPick={this.addPickedSerie}
                                                                onRemoveSerie={this.removeSerie}
                                                                seriesApi={this.props.seriesApi}
-                                                               maxDecimals={maxDecimals} /> } />
+                                                               maxDecimals={maxDecimals}
+                                                               numbersAbbreviate={this.props.numbersAbbreviate}
+                                                               decimalsBillion={this.props.decimalsBillion}
+                                                               decimalsMillion={this.props.decimalsMillion} /> } />
                 </div>
             </section>
         );
@@ -265,10 +274,13 @@ function serieIdSanitizer(serieId: string): string {
 
 function mapStateToProps(state: IStore) {
     return {
+        decimalsBillion: state.decimalsBillion,
+        decimalsMillion: state.decimalsMillion,
         formatChartUnits: state.formatChartUnits,
         heroImageUrl: state.heroImageUrl,
         maxDecimals: state.maxDecimals,
-        seriesApi: state.seriesApi,
+        numbersAbbreviate: state.numbersAbbreviate,
+        seriesApi: state.seriesApi
     };
 }
 

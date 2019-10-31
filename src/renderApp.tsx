@@ -7,6 +7,7 @@ import App from "./App";
 import {ILapsProps} from "./components/mainpage/featured/Featured";
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
+import { DEFAULT_DECIMALS_BILLION, DEFAULT_DECIMALS_MILLION } from "./helpers/common/LocaleValueFormatter";
 
 
 export interface IExplorerConfig {
@@ -20,10 +21,17 @@ export interface IExplorerConfig {
     locale: string;
     maxDecimals?: number;
     heroImageUrl?: string;
+    numbersAbbreviate?: boolean;
+    decimalsBillion?: number;
+    decimalsMillion?: number;
 }
 
 
 export function render(selector: string, config: IExplorerConfig) {
+
+    const decimalsBillion: number = config.decimalsBillion !== undefined && config.decimalsBillion >= 0 ? config.decimalsBillion : DEFAULT_DECIMALS_BILLION;
+    const decimalsMillion: number = config.decimalsMillion !== undefined && config.decimalsMillion >= 0 ? config.decimalsMillion : DEFAULT_DECIMALS_MILLION;
+
     ReactDOM.render(
         <Provider store={ configureStore() } >
             <App useBrowserRouter={config.useBrowserRouter}
@@ -34,7 +42,10 @@ export function render(selector: string, config: IExplorerConfig) {
                  laps={config.laps}
                  locale={config.locale}
                  maxDecimals={config.maxDecimals}
-                 heroImageUrl={config.heroImageUrl} />
+                 heroImageUrl={config.heroImageUrl}
+                 numbersAbbreviate={config.numbersAbbreviate || true}
+                 decimalsBillion={decimalsBillion}
+                 decimalsMillion={decimalsMillion} />
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );

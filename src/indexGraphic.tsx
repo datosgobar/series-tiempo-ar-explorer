@@ -1,9 +1,14 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import GraphicExportable, {IGraphicExportableProps} from "./components/exportable/GraphicExportable";
+import { DEFAULT_DECIMALS_BILLION, DEFAULT_DECIMALS_MILLION } from "./helpers/common/LocaleValueFormatter";
 
 
 export function render(selector: string, config: IGraphicExportableProps) {
+
+    const decimalsBillion: number = config.decimalsBillion !== undefined && config.decimalsBillion >= 0 ? config.decimalsBillion : DEFAULT_DECIMALS_BILLION;
+    const decimalsMillion: number = config.decimalsMillion !== undefined && config.decimalsMillion >= 0 ? config.decimalsMillion : DEFAULT_DECIMALS_MILLION;
+
     ReactDOM.render(
         <GraphicExportable graphicUrl={config.graphicUrl}
                            chartOptions={config.chartOptions || {}}
@@ -25,7 +30,11 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            decimalLeftAxis={config.decimalLeftAxis}
                            decimalRightAxis={config.decimalRightAxis}
                            decimalTooltip={config.decimalTooltip}
-                           decimalTooltips={config.decimalTooltips || {}} />,
+                           decimalTooltips={config.decimalTooltips || {}}
+                           numbersAbbreviate={config.numbersAbbreviate || true}
+                           decimalsBillion={decimalsBillion}
+                           decimalsMillion={decimalsMillion} />,
         document.getElementById(selector) as HTMLElement
     )
+
 }

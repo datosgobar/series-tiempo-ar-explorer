@@ -17,6 +17,9 @@ interface ID3Chart {
     laps: ILapsProps;
     locale: string;
     maxDecimals: number;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 class D3SeriesChart extends React.Component<ID3Chart, any> {
@@ -35,8 +38,11 @@ class D3SeriesChart extends React.Component<ID3Chart, any> {
 
         const formattedValueOptions: ILastFormattedValueOptions = {
             data,
+            decimalsBillion: this.props.decimalsBillion,
+            decimalsMillion: this.props.decimalsMillion,
             locale: this.props.locale,
             maxDecimals: this.props.maxDecimals,
+            numbersAbbreviate: this.props.numbersAbbreviate,
             serie: this.props.serie
         }
 
@@ -78,8 +84,11 @@ function findPeriod(frequency: string): string {
 
 interface ILastFormattedValueOptions {
     data: IDataPoint[];
+    decimalsBillion: number;
+    decimalsMillion: number;
     locale: string;
     maxDecimals: number;
+    numbersAbbreviate: boolean;
     serie: ISerie;
 }
 
@@ -88,11 +97,16 @@ function lastFormattedValue(options: ILastFormattedValueOptions): string {
     const dataValue = options.data[options.data.length-1].value || 0;
     const significantFigures = Math.min(options.maxDecimals, options.serie.significantFigures);
     const decimalPlaces = getTooltipDecimals(options.serie.id, significantFigures);
+    const decimalsBillion = Math.min(options.maxDecimals, options.decimalsBillion);
+    const decimalsMillion = Math.min(options.maxDecimals, options.decimalsMillion);
 
     const formatterConfig: ILocaleValueFormatterConfig = {
         code: options.locale,
         decimalPlaces,
-        isPercentage: options.serie.isPercentage
+        decimalsBillion,
+        decimalsMillion,
+        isPercentage: options.serie.isPercentage,
+        numbersAbbreviate: options.numbersAbbreviate
     };
     const formatter = new LocaleValueFormatter(formatterConfig);
 
