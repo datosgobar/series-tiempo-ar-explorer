@@ -125,6 +125,9 @@ describe('ViewPage', () => {
                 dispatch={dispatch}
                 history={history as any}
                 heroImageUrl="myHero.jpg"
+                numbersAbbreviate={true}
+                decimalsBillion={2} 
+                decimalsMillion={2}
             />);
 
         (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie01');
@@ -157,6 +160,9 @@ describe('ViewPage', () => {
                     dispatch={dispatch}
                     history={historyMock as any}
                     heroImageUrl="myHero.jpg"
+                    numbersAbbreviate={true}
+                    decimalsBillion={2} 
+                    decimalsMillion={2}
                 />);
         });
 

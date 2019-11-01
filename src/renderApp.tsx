@@ -43,7 +43,7 @@ export function render(selector: string, config: IExplorerConfig) {
                  locale={config.locale}
                  maxDecimals={config.maxDecimals}
                  heroImageUrl={config.heroImageUrl}
-                 numbersAbbreviate={config.numbersAbbreviate || true}
+                 numbersAbbreviate={config.numbersAbbreviate !== undefined ? config.numbersAbbreviate : true}
                  decimalsBillion={decimalsBillion}
                  decimalsMillion={decimalsMillion} />
         </Provider>,

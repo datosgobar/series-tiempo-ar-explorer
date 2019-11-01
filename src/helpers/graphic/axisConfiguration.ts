@@ -1,4 +1,4 @@
-import { ISeriesAxisSides, IYAxisConf, IYAxis } from "../../components/viewpage/graphic/Graphic";
+import { ISeriesAxisSides, IYAxisConf, IYAxis, IGraphicProps } from "../../components/viewpage/graphic/Graphic";
 import { getFullSerieId } from "../common/fullSerieID";
 import { ISerie } from "../../api/Serie";
 import SerieConfig from "../../api/SerieConfig";
@@ -31,6 +31,22 @@ function getYAxisSide(serieID:string, outOfScale: boolean, axisSideConf?: ISerie
         return 'right';
     }
     return 'left';
+
+}
+
+export function buildYAxisGenerationOptions(props: IGraphicProps): IYAxisGenerationOptions {
+
+    return {
+        axisSides: props.seriesAxis,
+        decimalLeftAxis: props.decimalLeftAxis,
+        decimalRightAxis: props.decimalRightAxis,
+        decimalsBillion: props.decimalsBillion,
+        decimalsMillion: props.decimalsMillion,
+        locale: props.locale,
+        numbersAbbreviate: props.numbersAbbreviate,
+        series: props.series,
+        seriesConfig: props.seriesConfig
+    }
 
 }
 

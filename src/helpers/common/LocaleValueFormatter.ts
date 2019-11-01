@@ -96,13 +96,12 @@ export default class LocaleValueFormatter {
             divider = 1000000000000;
             target.decimalPlaces = this.decimalsBillion;
         }
-        if (Math.abs(target.value) >= 10000000) {
+        else if (Math.abs(target.value) >= 10000000) {
             divider = 1000000;
             target.decimalPlaces = this.decimalsMillion;
         }
 
         target.value /= divider;
-
 
     }
 

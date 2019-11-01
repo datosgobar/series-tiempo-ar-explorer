@@ -5,7 +5,7 @@ import { IGraphicProps, IYAxis, IYAxisConf } from "../../components/viewpage/gra
 import { IHCSerie } from "../../components/viewpage/graphic/highcharts";
 import { findSerieConfig } from "../common/fullSerieID";
 import { getTooltipDecimals } from "../common/decimalsAmountHandling";
-import { generateYAxisArray, generateYAxisBySeries, IYAxisGenerationOptions } from "./axisConfiguration";
+import { generateYAxisArray, generateYAxisBySeries, IYAxisGenerationOptions, buildYAxisGenerationOptions } from "./axisConfiguration";
 import { dateFormatByPeriodicity } from "./dateFormatting";
 import { HighchartsSerieBuilder, IHighchartsSerieBuilderOptions } from "./hcSerieFromISerie";
 import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
@@ -22,17 +22,7 @@ export class ChartConfigBuilder {
         this.props = props;
         this.smallTooltip = smallTooltip;
 
-        const yAxisGenerationOptions: IYAxisGenerationOptions = {
-            axisSides: this.props.seriesAxis,
-            decimalLeftAxis: this.props.decimalLeftAxis,
-            decimalRightAxis: this.props.decimalRightAxis,
-            decimalsBillion: this.props.decimalsBillion,
-            decimalsMillion: this.props.decimalsMillion,
-            locale: this.props.locale,
-            numbersAbbreviate: this.props.numbersAbbreviate,
-            series: this.props.series,
-            seriesConfig: this.props.seriesConfig
-        }
+        const yAxisGenerationOptions: IYAxisGenerationOptions = buildYAxisGenerationOptions(this.props);
         this.yAxisBySeries = generateYAxisBySeries(yAxisGenerationOptions);
 
     }

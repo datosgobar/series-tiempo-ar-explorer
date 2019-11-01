@@ -49,7 +49,7 @@ export function render(selector: string, config: ICardExportableConfig) {
                         collapse={config.collapse}
                         apiBaseUrl={config.apiBaseUrl}
                         decimals={config.decimals}
-                        numbersAbbreviate={config.numbersAbbreviate || true}
+                        numbersAbbreviate={config.numbersAbbreviate !== undefined ? config.numbersAbbreviate : true}
                         decimalsBillion={decimalsBillion}
                         decimalsMillion={decimalsMillion} />,
         document.getElementById(selector) as HTMLElement

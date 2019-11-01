@@ -4,7 +4,7 @@ import { setSerieTags } from "../../../actions/seriesActions";
 import { ISerie } from '../../../api/Serie';
 import SerieConfig from "../../../api/SerieConfig";
 import { formattedDateString, timestamp } from '../../../helpers/common/dateFunctions';
-import { generateYAxisBySeries, IYAxisGenerationOptions } from '../../../helpers/graphic/axisConfiguration';
+import { generateYAxisBySeries, IYAxisGenerationOptions, buildYAxisGenerationOptions } from '../../../helpers/graphic/axisConfiguration';
 import { ChartConfigBuilder } from '../../../helpers/graphic/chartConfigBuilder';
 import { setHighchartsGlobalConfig } from '../../../helpers/graphic/hcConfiguration';
 import { Color } from '../../style/Colors/Color';
@@ -92,17 +92,7 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     public render() {
 
-        const yAxisGenerationOptions: IYAxisGenerationOptions = {
-            axisSides: this.props.seriesAxis,
-            decimalLeftAxis: this.props.decimalLeftAxis,
-            decimalRightAxis: this.props.decimalRightAxis,
-            decimalsBillion: this.props.decimalsBillion,
-            decimalsMillion: this.props.decimalsMillion,
-            locale: this.props.locale,
-            numbersAbbreviate: this.props.numbersAbbreviate,
-            series: this.props.series,
-            seriesConfig: this.props.seriesConfig
-        }
+        const yAxisGenerationOptions: IYAxisGenerationOptions = buildYAxisGenerationOptions(this.props);
         this.yAxisBySeries = generateYAxisBySeries(yAxisGenerationOptions);
 
         const smallTooltip: boolean = this.hasSmallTooltip();

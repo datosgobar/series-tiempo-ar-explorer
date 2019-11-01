@@ -68,9 +68,9 @@ describe("Tests for Argentinian locale-wise value formatting", () => {
         it("Percentage values are never abbreviated", () => {
             config.isPercentage = true;
             formatter = new LocaleValueFormatter(config);
-            value = 12540898195156.225142;
+            value = 40898195156.225142;
             formattedString = formatter.formatValue(value);
-            expect(formattedString).toEqual("1.254.089.819.515.622,51%");
+            expect(formattedString).toEqual("4.089.819.515.622,51%");
         });
         it("Values big enough but with abbreviation disabled are formatted just as they are", () => {
             config.numbersAbbreviate = false;
@@ -95,13 +95,13 @@ describe("Tests for Argentinian locale-wise value formatting", () => {
             formatter = new LocaleValueFormatter(config);
             value = 272091218.91;
             formattedString = formatter.formatValue(value);
-            expect(formattedString).toEqual("27,209M");
+            expect(formattedString).toEqual("272,091M");
         });
         it("Values smaller than negative ten million but bigger than a negative billion are divided by a million and have a 'M' appended", () => {
             formatter = new LocaleValueFormatter(config);
-            value = -8044332715.898;
+            value = -81044332715.898;
             formattedString = formatter.formatValue(value);
-            expect(formattedString).toEqual("-8.044,333M");
+            expect(formattedString).toEqual("-81.044,333M");
         });
         it("Values smaller than ten million and bigger than a ten negative million are not abbreviated at all", () => {
             formatter = new LocaleValueFormatter(config);
