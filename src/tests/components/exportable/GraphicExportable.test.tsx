@@ -13,10 +13,7 @@ describe('GraphicExportable', () => {
                                                  legendLabel={{}}
                                                  seriesAxis={{}}
                                                  chartTypes={{}}
-                                                 decimalTooltips={{}}
-                                                 numbersAbbreviate={true} 
-                                                 decimalsBillion={2} 
-                                                 decimalsMillion={2} />);
+                                                 decimalTooltips={{}} />);
 
         expect(wrapper.find(GraphicExportable).exists()).toBe(true);
     });

@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import CardExportable from "./components/exportable/CardExportable";
 import { getCardColor } from "./components/style/Colors/Color";
-import { DEFAULT_DECIMALS_BILLION, DEFAULT_DECIMALS_MILLION } from "./helpers/common/LocaleValueFormatter";
+import { buildAbbreviationProps } from "./helpers/common/numberAbbreviation";
 
 export interface ICardBaseConfig {
     locale: string;
@@ -19,9 +19,9 @@ export interface ICardBaseConfig {
     collapse?: string;
     apiBaseUrl?: string;
     decimals?: number;
-    numbersAbbreviate: boolean;
-    decimalsBillion: number;
-    decimalsMillion: number;
+    numbersAbbreviate?: boolean;
+    decimalsBillion?: number;
+    decimalsMillion?: number;
 }
 
 export interface ICardExportableConfig extends ICardBaseConfig {
@@ -30,8 +30,7 @@ export interface ICardExportableConfig extends ICardBaseConfig {
 
 export function render(selector: string, config: ICardExportableConfig) {
 
-    const decimalsBillion: number = config.decimalsBillion !== undefined && config.decimalsBillion >= 0 ? config.decimalsBillion : DEFAULT_DECIMALS_BILLION;
-    const decimalsMillion: number = config.decimalsMillion !== undefined && config.decimalsMillion >= 0 ? config.decimalsMillion : DEFAULT_DECIMALS_MILLION;    
+    const abbreviationProps = buildAbbreviationProps(config.numbersAbbreviate, config.decimalsBillion, config.decimalsMillion);
 
     ReactDOM.render(
         <CardExportable serieId={config.serieId}
@@ -49,9 +48,9 @@ export function render(selector: string, config: ICardExportableConfig) {
                         collapse={config.collapse}
                         apiBaseUrl={config.apiBaseUrl}
                         decimals={config.decimals}
-                        numbersAbbreviate={config.numbersAbbreviate !== undefined ? config.numbersAbbreviate : true}
-                        decimalsBillion={decimalsBillion}
-                        decimalsMillion={decimalsMillion} />,
+                        numbersAbbreviate={abbreviationProps.numbersAbbreviate}
+                        decimalsBillion={abbreviationProps.decimalsBillion}
+                        decimalsMillion={abbreviationProps.decimalsMillion} />,
         document.getElementById(selector) as HTMLElement
     )
 

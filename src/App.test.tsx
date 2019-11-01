@@ -20,7 +20,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
-        <App seriesApi={new MockApi(0)} featuredIds={[]} laps={lapsInfo} numbersAbbreviate={true} decimalsBillion={2} decimalsMillion={2}/>
+        <App seriesApi={new MockApi(0)} featuredIds={[]} laps={lapsInfo}/>
       </Provider>
     </BrowserRouter>
     , div);

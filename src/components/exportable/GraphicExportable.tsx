@@ -11,6 +11,7 @@ import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContai
 import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides, INumberPropsPerId } from "../viewpage/graphic/Graphic";
 import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
+import { buildAbbreviationProps } from "../../helpers/common/numberAbbreviation";
 
 export interface IGraphicExportableProps {
     graphicUrl: string;
@@ -34,9 +35,9 @@ export interface IGraphicExportableProps {
     decimalRightAxis?: number;
     decimalTooltips: INumberPropsPerId;
     decimalTooltip?: number;
-    numbersAbbreviate: boolean;
-    decimalsBillion: number;
-    decimalsMillion: number;
+    numbersAbbreviate?: boolean;
+    decimalsBillion?: number;
+    decimalsMillion?: number;
 }
 
 interface IGraphicExportableState {
@@ -100,6 +101,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     public render() {
 
         const chartOptions = buildChartOptions(this.props.chartOptions, this.props);
+        const abbreviationProps = buildAbbreviationProps(this.props.numbersAbbreviate, this.props.decimalsBillion, this.props.decimalsMillion);
 
         return (
             <ExportableGraphicContainer>
@@ -119,9 +121,9 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          decimalRightAxis={this.props.decimalRightAxis}
                          decimalTooltips={this.props.decimalTooltips}
                          maxDecimals={MAX_SIGNIFICANT_FIGURES}
-                         numbersAbbreviate={this.props.numbersAbbreviate}
-                         decimalsBillion={this.props.decimalsBillion}
-                         decimalsMillion={this.props.decimalsMillion} />
+                         numbersAbbreviate={abbreviationProps.numbersAbbreviate}
+                         decimalsBillion={abbreviationProps.decimalsBillion}
+                         decimalsMillion={abbreviationProps.decimalsMillion} />
             </ExportableGraphicContainer>
         )
     }

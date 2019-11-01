@@ -1,13 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {Provider} from "react-redux";
-import {BrowserRouterProps} from 'react-router-dom';
+import { Provider } from "react-redux";
+import { BrowserRouterProps } from 'react-router-dom';
 import SerieApi, { ISerieApi } from "./api/SerieApi";
 import App from "./App";
-import {ILapsProps} from "./components/mainpage/featured/Featured";
+import { ILapsProps } from "./components/mainpage/featured/Featured";
+import { buildAbbreviationProps } from "./helpers/common/numberAbbreviation";
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
-import { DEFAULT_DECIMALS_BILLION, DEFAULT_DECIMALS_MILLION } from "./helpers/common/LocaleValueFormatter";
 
 
 export interface IExplorerConfig {
@@ -29,8 +29,7 @@ export interface IExplorerConfig {
 
 export function render(selector: string, config: IExplorerConfig) {
 
-    const decimalsBillion: number = config.decimalsBillion !== undefined && config.decimalsBillion >= 0 ? config.decimalsBillion : DEFAULT_DECIMALS_BILLION;
-    const decimalsMillion: number = config.decimalsMillion !== undefined && config.decimalsMillion >= 0 ? config.decimalsMillion : DEFAULT_DECIMALS_MILLION;
+    const abbreviationProps = buildAbbreviationProps(config.numbersAbbreviate, config.decimalsBillion, config.decimalsMillion);
 
     ReactDOM.render(
         <Provider store={ configureStore() } >
@@ -43,9 +42,9 @@ export function render(selector: string, config: IExplorerConfig) {
                  locale={config.locale}
                  maxDecimals={config.maxDecimals}
                  heroImageUrl={config.heroImageUrl}
-                 numbersAbbreviate={config.numbersAbbreviate !== undefined ? config.numbersAbbreviate : true}
-                 decimalsBillion={decimalsBillion}
-                 decimalsMillion={decimalsMillion} />
+                 numbersAbbreviate={abbreviationProps.numbersAbbreviate}
+                 decimalsBillion={abbreviationProps.decimalsBillion}
+                 decimalsMillion={abbreviationProps.decimalsMillion} />
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );

@@ -25,6 +25,7 @@ import MetaData from './metadata/MetaData';
 import SeriesPicker from './seriespicker/SeriesPicker';
 import SeriesTags from './SeriesTags';
 import { getFullSerieId } from '../../helpers/common/fullSerieID';
+import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 
 interface IViewPageProps extends RouterProps {
     seriesApi: ISerieApi;
@@ -33,9 +34,9 @@ interface IViewPageProps extends RouterProps {
     formatChartUnits?: boolean;
     maxDecimals?: number;
     heroImageUrl: string;
-    numbersAbbreviate: boolean;
-    decimalsBillion: number;
-    decimalsMillion: number;
+    numbersAbbreviate?: boolean;
+    decimalsBillion?: number;
+    decimalsMillion?: number;
 }
 
 interface IViewPageState {
@@ -119,6 +120,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
 
     public render() {
         const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
+        const abbreviationProps = buildAbbreviationProps(this.props.numbersAbbreviate, this.props.decimalsBillion, this.props.decimalsMillion);
         return (
             <section id="detalle">
                 <SeriesHero compact={true} 
@@ -144,18 +146,18 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                          location={this.props.location}
                                          seriesApi={this.props.seriesApi}
                                          maxDecimals={maxDecimals}
-                                         numbersAbbreviate={this.props.numbersAbbreviate}
-                                         decimalsBillion={this.props.decimalsBillion}
-                                         decimalsMillion={this.props.decimalsMillion} />
+                                         numbersAbbreviate={abbreviationProps.numbersAbbreviate}
+                                         decimalsBillion={abbreviationProps.decimalsBillion}
+                                         decimalsMillion={abbreviationProps.decimalsMillion} />
                         <MetaData onRemove={this.removeSerie} />
                     </Container>
                     <DetallePanel seriesPicker={ <SeriesPicker onPick={this.addPickedSerie}
                                                                onRemoveSerie={this.removeSerie}
                                                                seriesApi={this.props.seriesApi}
                                                                maxDecimals={maxDecimals}
-                                                               numbersAbbreviate={this.props.numbersAbbreviate}
-                                                               decimalsBillion={this.props.decimalsBillion}
-                                                               decimalsMillion={this.props.decimalsMillion} /> } />
+                                                               numbersAbbreviate={abbreviationProps.numbersAbbreviate}
+                                                               decimalsBillion={abbreviationProps.decimalsBillion}
+                                                               decimalsMillion={abbreviationProps.decimalsMillion} /> } />
                 </div>
             </section>
         );

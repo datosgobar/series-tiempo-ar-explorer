@@ -9,6 +9,7 @@ import { ILapsProps } from "./components/mainpage/featured/Featured";
 import Wrapper from './components/style/Common/Wrapper';
 import { getMaxDecimalsAmount } from './helpers/common/decimalsAmountHandling';
 import routes from './routes';
+import { IAbbreviationProps, buildAbbreviationProps } from './helpers/common/numberAbbreviation';
 
 
 interface IAppProps {
@@ -22,9 +23,9 @@ interface IAppProps {
     locale?: string;
     maxDecimals?: number;
     heroImageUrl?: string;
-    numbersAbbreviate: boolean;
-    decimalsBillion: number;
-    decimalsMillion: number;
+    numbersAbbreviate?: boolean;
+    decimalsBillion?: number;
+    decimalsMillion?: number;
 }
 
 class App extends React.Component<IAppProps, any> {
@@ -39,9 +40,12 @@ class App extends React.Component<IAppProps, any> {
         const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
         this.props.dispatch(setMaxDecimals(maxDecimals));
         this.props.dispatch(setHeroImageUrl(this.props.heroImageUrl || ''));
-        this.props.dispatch(setNumbersAbbreviate(this.props.numbersAbbreviate));
-        this.props.dispatch(setDecimalsBillion(this.props.decimalsBillion));
-        this.props.dispatch(setDecimalsMillion(this.props.decimalsMillion));
+        const abbreviationProps: IAbbreviationProps = buildAbbreviationProps(this.props.numbersAbbreviate,
+                                                                             this.props.decimalsBillion, 
+                                                                             this.props.decimalsMillion);
+        this.props.dispatch(setNumbersAbbreviate(abbreviationProps.numbersAbbreviate));
+        this.props.dispatch(setDecimalsBillion(abbreviationProps.decimalsBillion));
+        this.props.dispatch(setDecimalsMillion(abbreviationProps.decimalsMillion));
     }
 
     public render(): any {

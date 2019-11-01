@@ -31,10 +31,7 @@ it('renders without crashing', () => {
         <Provider store={store}>
           <MainPage featured={['id1', 'id2']} 
                     seriesApi={seriesApi} 
-                    heroImageUrl="myHero.jpg"
-                    numbersAbbreviate={true} 
-                    decimalsBillion={2} 
-                    decimalsMillion={2}/>
+                    heroImageUrl="myHero.jpg" />
         </Provider>
     </MemoryRouter>);
 
