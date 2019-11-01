@@ -25,7 +25,9 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            decimalLeftAxis={config.decimalLeftAxis}
                            decimalRightAxis={config.decimalRightAxis}
                            decimalTooltip={config.decimalTooltip}
-                           decimalTooltips={config.decimalTooltips || {}} />,
+                           decimalTooltips={config.decimalTooltips || {}} 
+                           startDate={config.startDate} 
+                           endDate={config.endDate} />,
         document.getElementById(selector) as HTMLElement
     )
 }
