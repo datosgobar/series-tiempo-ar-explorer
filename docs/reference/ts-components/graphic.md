@@ -232,6 +232,24 @@ Este gráfico se genera a partir del siguiente código:
         <td>Ninguno</td>
         <td>3</td>
     </tr>
+    </tr>
+        <tr>
+        <td>startDate</td>
+        <td>No</td>
+        <td>Especifica la fecha de inicio desde donde se muestra el gráfico. Este campo sobreescribe el valor provisto por la API en caso de que haya.</td>
+        <td>string</td>
+        <td>Ninguno</td>
+        <td>'2014-09-10', '2009-05', '2010'</td>
+    </tr>
+    </tr>
+        <tr>
+        <td>endDate</td>
+        <td>Especifica la fecha de fin hasta donde se muestra el gráfico. Este campo sobreescribe el valor provisto por la API en caso de que haya.</td>
+        <td>No</td>
+        <td>string</td>
+        <td>Ninguno</td>
+        <td>'2015-09-10', '2015-05', '2014'</td>
+    </tr>
 </table>
 
 ## Paleta de colores por defecto
