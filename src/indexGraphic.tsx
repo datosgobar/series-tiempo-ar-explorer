@@ -29,7 +29,9 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            decimalLeftAxis={config.decimalLeftAxis}
                            decimalRightAxis={config.decimalRightAxis}
                            decimalTooltip={config.decimalTooltip}
-                           decimalTooltips={config.decimalTooltips || {}}
+                           decimalTooltips={config.decimalTooltips || {}} 
+                           startDate={config.startDate} 
+                           endDate={config.endDate} 
                            numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                            decimalsBillion={abbreviationProps.decimalsBillion}
                            decimalsMillion={abbreviationProps.decimalsMillion} />,

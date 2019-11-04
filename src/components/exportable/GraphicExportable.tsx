@@ -35,6 +35,8 @@ export interface IGraphicExportableProps {
     decimalRightAxis?: number;
     decimalTooltips: INumberPropsPerId;
     decimalTooltip?: number;
+    startDate?: string;
+    endDate?: string;
     numbersAbbreviate?: boolean;
     decimalsBillion?: number;
     decimalsMillion?: number;
@@ -70,8 +72,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const ids = extractIdsFromUrl(this.props.graphicUrl);
         const params = new QueryParams(ids);
 
-        const start = url.get('start_date') || '';
-        const end = url.get('end_date') || '';
+        const start = this.props.startDate || url.get('start_date') || '';
+        const end = this.props.endDate || url.get('end_date') || '';
 
         if (this.props.navigator) {
             url.delete('start_date');
