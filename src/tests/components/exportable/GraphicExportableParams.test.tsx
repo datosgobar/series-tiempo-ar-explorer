@@ -29,7 +29,7 @@ describe('GraphicExportable params passing', () => {
                                                  endDate={"2009-10-08"} />);
         const graphicState = wrapper.state();
         const graphicEndDate = graphicState.dateRange.end;
-        expect(graphicEndDate).toEqual("2009-10-8");
+        expect(graphicEndDate).toEqual("2009-10-08");
     });
 
     it('malformed start or end override too', () => {
