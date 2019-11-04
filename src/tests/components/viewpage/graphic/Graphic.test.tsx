@@ -15,13 +15,25 @@ const series: ISerie[] = generateSeries();
 configure({ adapter: new Adapter() });
 
 it('renders without crashing', () => {
-    const wrapper = mount(<Graphic series={[]} range={{min: 0, max: 10}} seriesConfig={[new SerieConfig(series[0])]} locale="AR" />);
+    const wrapper = mount(<Graphic series={[]} 
+                                   range={{min: 0, max: 10}} 
+                                   seriesConfig={[new SerieConfig(series[0])]} 
+                                   locale="AR" 
+                                   numbersAbbreviate={true} 
+                                   decimalsBillion={2} 
+                                   decimalsMillion={2}/>);
 
     expect(wrapper.find(Graphic).exists()).toBe(true);
 });
 
 it('renders without crashing', () => {
-    const wrapper = mount(<Graphic series={series} range={{min: 0, max: 10}} seriesConfig={[new SerieConfig(series[0])]} locale="AR" />);
+    const wrapper = mount(<Graphic series={series}
+                                   range={{min: 0, max: 10}} 
+                                   seriesConfig={[new SerieConfig(series[0])]} 
+                                   locale="AR" 
+                                   numbersAbbreviate={true} 
+                                   decimalsBillion={2} 
+                                   decimalsMillion={2}/>);
 
     expect(wrapper.find(Graphic).exists()).toBe(true);
 });

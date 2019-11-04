@@ -29,7 +29,9 @@ it('renders without crashing', () => {
   const wrapper = mount(
     <MemoryRouter>
         <Provider store={store}>
-          <MainPage featured={['id1', 'id2']} seriesApi={seriesApi} heroImageUrl="myHero.jpg"/>
+          <MainPage featured={['id1', 'id2']} 
+                    seriesApi={seriesApi} 
+                    heroImageUrl="myHero.jpg" />
         </Provider>
     </MemoryRouter>);
 

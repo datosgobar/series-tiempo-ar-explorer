@@ -7,6 +7,7 @@ import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import SeriesHero from '../style/Hero/SeriesHero';
 import Featured from './featured/Featured';
+import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 
 interface IMainPageProps {
     history?: any;
@@ -15,6 +16,9 @@ interface IMainPageProps {
     featured: string[];
     maxDecimals?: number;
     heroImageUrl: string;
+    numbersAbbreviate?: boolean;
+    decimalsBillion?: number;
+    decimalsMillion?: number;
 }
 
 
@@ -38,6 +42,7 @@ export class MainPage extends React.Component<IMainPageProps, any> {
     public render() {
 
         const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
+        const abbreviationProps = buildAbbreviationProps(this.props.numbersAbbreviate, this.props.decimalsBillion, this.props.decimalsMillion);
         return (
             <section id="home">
                 <SeriesHero searchBox={<SearchBox seriesApi={this.props.seriesApi} 
@@ -46,7 +51,10 @@ export class MainPage extends React.Component<IMainPageProps, any> {
                             heroImageUrl={this.props.heroImageUrl} />
                 <Featured featured={this.props.featured}
                           seriesApi={this.props.seriesApi}
-                          maxDecimals={maxDecimals} />
+                          maxDecimals={maxDecimals} 
+                          numbersAbbreviate={abbreviationProps.numbersAbbreviate} 
+                          decimalsBillion={abbreviationProps.decimalsBillion} 
+                          decimalsMillion={abbreviationProps.decimalsMillion} />
             </section>
         );
 
@@ -56,10 +64,13 @@ export class MainPage extends React.Component<IMainPageProps, any> {
 
 function mapStateToProps(state: IStore) {
     return {
+        decimalsBillion: state.decimalsBillion,
+        decimalsMillion: state.decimalsMillion,
         featured: state.featured,
         heroImageUrl: state.heroImageUrl,
         maxDecimals: state.maxDecimals,
-        seriesApi: state.seriesApi,
+        numbersAbbreviate: state.numbersAbbreviate,
+        seriesApi: state.seriesApi
     }
 }
 

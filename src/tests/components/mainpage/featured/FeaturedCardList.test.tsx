@@ -30,7 +30,7 @@ describe('Featured ', () => {
   it('renders without crashing', () => {
       const wrapper = mount(
     <Provider store={store}>
-            <FeaturedCardList seriesOrder={ids} series={[]} maxDecimals={2}/>
+            <FeaturedCardList seriesOrder={ids} series={[]} maxDecimals={2} numbersAbbreviate={true} decimalsBillion={2} decimalsMillion={2} />
           </Provider>);
 
     expect(wrapper.find(Card).exists()).toBeFalsy();
@@ -41,7 +41,7 @@ describe('Featured ', () => {
     const wrapper = mount(
         <MemoryRouter>
             <Provider store={store}>
-                <FeaturedCardList seriesOrder={ids} series={series} maxDecimals={2}/>
+                <FeaturedCardList seriesOrder={ids} series={series} maxDecimals={2} numbersAbbreviate={true} decimalsBillion={2} decimalsMillion={2} />
             </Provider>
         </MemoryRouter>);
 

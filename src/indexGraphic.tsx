@@ -1,9 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import GraphicExportable, {IGraphicExportableProps} from "./components/exportable/GraphicExportable";
+import GraphicExportable, { IGraphicExportableProps } from "./components/exportable/GraphicExportable";
+import { buildAbbreviationProps } from "./helpers/common/numberAbbreviation";
 
 
 export function render(selector: string, config: IGraphicExportableProps) {
+
+    const abbreviationProps = buildAbbreviationProps(config.numbersAbbreviate, config.decimalsBillion, config.decimalsMillion);
+
     ReactDOM.render(
         <GraphicExportable graphicUrl={config.graphicUrl}
                            chartOptions={config.chartOptions || {}}
@@ -27,7 +31,11 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            decimalTooltip={config.decimalTooltip}
                            decimalTooltips={config.decimalTooltips || {}} 
                            startDate={config.startDate} 
-                           endDate={config.endDate} />,
+                           endDate={config.endDate} 
+                           numbersAbbreviate={abbreviationProps.numbersAbbreviate}
+                           decimalsBillion={abbreviationProps.decimalsBillion}
+                           decimalsMillion={abbreviationProps.decimalsMillion} />,
         document.getElementById(selector) as HTMLElement
     )
+
 }

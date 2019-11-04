@@ -1,8 +1,8 @@
-import { ISeriesAxisSides, IYAxisConf, IYAxis } from "../../components/viewpage/graphic/Graphic";
+import { ISeriesAxisSides, IYAxisConf, IYAxis, IGraphicProps } from "../../components/viewpage/graphic/Graphic";
 import { getFullSerieId } from "../common/fullSerieID";
 import { ISerie } from "../../api/Serie";
 import SerieConfig from "../../api/SerieConfig";
-import { formatterForSerie } from "./formatterForSerie";
+import { formatterForSerie, IFormatterForSerieConfig } from "./formatterForSerie";
 import { valuesFromObject } from "../common/commonFunctions";
 
 export interface IYAxisGenerationOptions {
@@ -12,6 +12,9 @@ export interface IYAxisGenerationOptions {
     locale: string;
     series: ISerie[];
     seriesConfig: SerieConfig[];
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 function isOutOfScale(originalSerieId: string, serieId: string, minAndMaxValues: {}): boolean {
@@ -28,6 +31,22 @@ function getYAxisSide(serieID:string, outOfScale: boolean, axisSideConf?: ISerie
         return 'right';
     }
     return 'left';
+
+}
+
+export function buildYAxisGenerationOptions(props: IGraphicProps): IYAxisGenerationOptions {
+
+    return {
+        axisSides: props.seriesAxis,
+        decimalLeftAxis: props.decimalLeftAxis,
+        decimalRightAxis: props.decimalRightAxis,
+        decimalsBillion: props.decimalsBillion,
+        decimalsMillion: props.decimalsMillion,
+        locale: props.locale,
+        numbersAbbreviate: props.numbersAbbreviate,
+        series: props.series,
+        seriesConfig: props.seriesConfig
+    }
 
 }
 
@@ -56,9 +75,17 @@ export function generateYAxisBySeries(options: IYAxisGenerationOptions): {} {
 
         const serieConfig = options.seriesConfig.find((config: SerieConfig) => config.getFullSerieId() === fullId);
 
-        if(serieConfig) {
+        if (serieConfig) {
             const decimalPlaces = rightSided ? options.decimalRightAxis : options.decimalLeftAxis;
-            result[fullId].labels = formatterForSerie(options.locale, serieConfig.isPercentageSerie(), decimalPlaces);
+            const formatterConfig: IFormatterForSerieConfig = {
+                decimalPlaces,
+                decimalsBillion: options.decimalsBillion,
+                decimalsMillion: options.decimalsMillion,
+                isPercentage: serieConfig.isPercentageSerie(),
+                locale: options.locale,
+                numbersAbbreviate: options.numbersAbbreviate
+            }
+            result[fullId].labels = formatterForSerie(formatterConfig);
         }
 
         return result;

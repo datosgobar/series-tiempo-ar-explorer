@@ -12,6 +12,7 @@ import FullCardUnits from '../style/exportable_card/FullCardUnits';
 import FullCardValue from '../style/exportable_card/FullCardValue';
 import FullCardChart from './FullCardChart';
 import FullCardLinks from './FullCardLinks';
+import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 
 
 interface IFullCardProps {
@@ -27,13 +28,17 @@ export default (props: IFullCardProps) => {
         ...props.cardOptions,
         downloadUrl: props.downloadUrl,
         serieId: getFullSerieId(props.serie)
-    }
-    const value = props.serie.data[props.serie.data.length-1].value
+    };
+    const value = props.serie.data[props.serie.data.length-1].value;
+    const abbreviationProps = buildAbbreviationProps(options.numbersAbbreviate, options.decimalsBillion, options.decimalsMillion);
     const formatterConfig: ILocaleValueFormatterConfig = {
         code: options.locale,
         decimalPlaces: options.decimals !== undefined && options.decimals >= 0 ? options.decimals : DEFAULT_SIGNIFICANT_FIGURES,
+        decimalsBillion: abbreviationProps.decimalsBillion,
+        decimalsMillion: abbreviationProps.decimalsMillion,
         explicitSign: options.explicitSign,
-        isPercentage: props.serie.isPercentage
+        isPercentage: props.serie.isPercentage,
+        numbersAbbreviate: abbreviationProps.numbersAbbreviate
     }
     const formatter = new LocaleValueFormatter(formatterConfig);
         

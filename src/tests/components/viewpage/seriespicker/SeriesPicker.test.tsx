@@ -41,7 +41,13 @@ describe('SeriesPicker', () => {
 
         const wrapper = mount(
             <Provider store={store}>
-                <SeriesPicker seriesApi={mockSeriesApi} onPick={onPick} onRemoveSerie={jest.fn()} maxDecimals={2}/>
+                <SeriesPicker seriesApi={mockSeriesApi} 
+                              onPick={onPick} 
+                              onRemoveSerie={jest.fn()} 
+                              maxDecimals={2} 
+                              numbersAbbreviate={true}
+                              decimalsBillion={2} 
+                              decimalsMillion={2} />
             </Provider>);
 
         wrapper.find(AutoComplete).find('input').simulate('change', { target: { value: searchTerm } });

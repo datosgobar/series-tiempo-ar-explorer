@@ -17,6 +17,7 @@ import SearchFiltersResult from '../style/Filters/SearchFiltersResult';
 import SeriesHero from '../style/Hero/SeriesHero';
 import Tag from '../style/Tag/Tag';
 import SeriesFilters from './filters/SeriesFilters';
+import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 
 
 interface ISearchPageProps extends RouteComponentProps<any> {
@@ -24,6 +25,9 @@ interface ISearchPageProps extends RouteComponentProps<any> {
     dispatch?: any;
     maxDecimals?: number;
     heroImageUrl: string;
+    numbersAbbreviate?: boolean;
+    decimalsBillion?: number;
+    decimalsMillion?: number;
 }
 
 class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> {
@@ -224,9 +228,13 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
 
     private renderSearchResults(searchResults: SearchResult[]) {
         const maxDecimals = getMaxDecimalsAmount(this.props.maxDecimals);
+        const abbreviationProps = buildAbbreviationProps(this.props.numbersAbbreviate, this.props.decimalsBillion, this.props.decimalsMillion);
         return <SearcherResultsWithChart searchResults={searchResults} 
                                          seriesApi={this.props.seriesApi} 
-                                         maxDecimals={maxDecimals} />
+                                         maxDecimals={maxDecimals}
+                                         numbersAbbreviate={abbreviationProps.numbersAbbreviate}
+                                         decimalsBillion={abbreviationProps.decimalsBillion}
+                                         decimalsMillion={abbreviationProps.decimalsMillion} />
     }
 }
 
@@ -234,9 +242,12 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
 function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
     return {
         ...state.searchParams,
+        decimalsBillion: state.decimalsBillion,
+        decimalsMillion: state.decimalsMillion,
         heroImageUrl: state.heroImageUrl,
         maxDecimals: state.maxDecimals,
-        seriesApi: state.seriesApi,
+        numbersAbbreviate: state.numbersAbbreviate,
+        seriesApi: state.seriesApi
     };
 }
 
