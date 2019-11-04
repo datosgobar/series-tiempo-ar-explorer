@@ -26,6 +26,11 @@ interface IFormattingTarget {
 export const DEFAULT_DECIMALS_BILLION = 2;
 export const DEFAULT_DECIMALS_MILLION = 2;
 
+const ONE_BILLION = 1000000000000;
+const TEN_MILLION = 10000000;
+const ONE_MILLION = 1000000;
+const TEN_THOUSAND = 10000;
+
 export default class LocaleValueFormatter {
 
     private decimalSeparator: string;
@@ -76,10 +81,10 @@ export default class LocaleValueFormatter {
         }
 
         if (this.numbersAbbreviate) {
-            if (Math.abs(value) >= 1000000000000) {
+            if (Math.abs(value) >= ONE_BILLION) {
                 return 'B';
             }
-            if (Math.abs(value) >= 10000000) {
+            if (Math.abs(value) >= TEN_MILLION) {
                 return 'M';
             }
         }
@@ -92,12 +97,12 @@ export default class LocaleValueFormatter {
 
         let divider: number = 1;
 
-        if (Math.abs(target.value) >= 1000000000000) {
-            divider = 1000000000000;
+        if (Math.abs(target.value) >= ONE_BILLION) {
+            divider = ONE_BILLION;
             target.decimalPlaces = this.decimalsBillion;
         }
-        else if (Math.abs(target.value) >= 10000000) {
-            divider = 1000000;
+        else if (Math.abs(target.value) >= TEN_MILLION) {
+            divider = ONE_MILLION;
             target.decimalPlaces = this.decimalsMillion;
         }
 
@@ -140,7 +145,7 @@ export default class LocaleValueFormatter {
     private applySeparators(target: IFormattingTarget): string {
         
         const decimalFixedValue = this.applyDecimalSeparator(target);
-        if (Math.abs(target.value) < 10000) {
+        if (Math.abs(target.value) < TEN_THOUSAND) {
             return decimalFixedValue;
         }
         return this.applyThousandSeparator(decimalFixedValue);
