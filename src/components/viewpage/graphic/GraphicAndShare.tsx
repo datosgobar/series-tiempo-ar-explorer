@@ -29,6 +29,9 @@ export interface IGraphicAndShareProps {
     readonly location: { search: string };
     seriesApi: ISerieApi;
     maxDecimals: number;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
@@ -94,7 +97,10 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
                          dispatch={this.props.dispatch}
                          locale={this.props.locale}
                          chartTypes={this.generateChartTypes()}
-                         maxDecimals={this.props.maxDecimals} />
+                         maxDecimals={this.props.maxDecimals}
+                         numbersAbbreviate={this.props.numbersAbbreviate}
+                         decimalsBillion={this.props.decimalsBillion}
+                         decimalsMillion={this.props.decimalsMillion} />
 
                 <GraphicComplements url={this.downloadDataURL()}
                                     series={this.props.series}

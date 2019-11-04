@@ -1,10 +1,11 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {Provider} from "react-redux";
-import {BrowserRouterProps} from 'react-router-dom';
+import { Provider } from "react-redux";
+import { BrowserRouterProps } from 'react-router-dom';
 import SerieApi, { ISerieApi } from "./api/SerieApi";
 import App from "./App";
-import {ILapsProps} from "./components/mainpage/featured/Featured";
+import { ILapsProps } from "./components/mainpage/featured/Featured";
+import { buildAbbreviationProps } from "./helpers/common/numberAbbreviation";
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store/configureStore";
 
@@ -20,10 +21,16 @@ export interface IExplorerConfig {
     locale: string;
     maxDecimals?: number;
     heroImageUrl?: string;
+    numbersAbbreviate?: boolean;
+    decimalsBillion?: number;
+    decimalsMillion?: number;
 }
 
 
 export function render(selector: string, config: IExplorerConfig) {
+
+    const abbreviationProps = buildAbbreviationProps(config.numbersAbbreviate, config.decimalsBillion, config.decimalsMillion);
+
     ReactDOM.render(
         <Provider store={ configureStore() } >
             <App useBrowserRouter={config.useBrowserRouter}
@@ -34,7 +41,10 @@ export function render(selector: string, config: IExplorerConfig) {
                  laps={config.laps}
                  locale={config.locale}
                  maxDecimals={config.maxDecimals}
-                 heroImageUrl={config.heroImageUrl} />
+                 heroImageUrl={config.heroImageUrl}
+                 numbersAbbreviate={abbreviationProps.numbersAbbreviate}
+                 decimalsBillion={abbreviationProps.decimalsBillion}
+                 decimalsMillion={abbreviationProps.decimalsMillion} />
         </Provider>,
         document.getElementById(selector) as HTMLElement
     );

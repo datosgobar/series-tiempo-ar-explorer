@@ -5,6 +5,7 @@ import { ISerieApi } from "../api/SerieApi";
 import { ISearchParams } from "../components/common/searcher/Searcher";
 import { ILapsProps } from "../components/mainpage/featured/Featured";
 import { ISerieTag } from "../components/viewpage/SeriesTags";
+import { DEFAULT_DECIMALS_MILLION, DEFAULT_DECIMALS_BILLION } from "../helpers/common/LocaleValueFormatter";
 
 export interface IStore {
     date: IDateRange;
@@ -19,6 +20,9 @@ export interface IStore {
     aggregations: IAggregations;
     maxDecimals: number;
     heroImageUrl: string;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 const initialState: IStore = {
@@ -30,6 +34,8 @@ const initialState: IStore = {
         units: [],
     },
     date: { start: '', end: '' },
+    decimalsBillion: DEFAULT_DECIMALS_BILLION,
+    decimalsMillion: DEFAULT_DECIMALS_MILLION,
     featured: [],
     formatChartUnits: true,
     heroImageUrl: '',
@@ -42,6 +48,7 @@ const initialState: IStore = {
     },
     locale: '',
     maxDecimals: MAX_SIGNIFICANT_FIGURES,
+    numbersAbbreviate: true,
     searchParams: {
         catalogId: "",
         datasetSource: "",

@@ -124,8 +124,7 @@ describe('ViewPage', () => {
                 location={location}
                 dispatch={dispatch}
                 history={history as any}
-                heroImageUrl="myHero.jpg"
-            />);
+                heroImageUrl="myHero.jpg" />);
 
         (wrapper.instance() as UnconnectedViewPage).addPickedSerie(clickEvent, 'serie01');
 
@@ -156,8 +155,7 @@ describe('ViewPage', () => {
                     location={locationMock}
                     dispatch={dispatch}
                     history={historyMock as any}
-                    heroImageUrl="myHero.jpg"
-                />);
+                    heroImageUrl="myHero.jpg" />);
         });
 
         it('on Serie picked adds id to ids queryParam', () => {
