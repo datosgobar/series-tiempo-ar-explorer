@@ -7,16 +7,16 @@ configure({ adapter: new Adapter() });
 
 describe('GraphicExportable params passing', () => {
     it('startDate override API start_date', () => {
-        const wrapper = mount(<GraphicExportable graphicUrl="https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=116.3_TCRC_0_M_22&last=24&start_date=208-01-08"
+        const wrapper = mount(<GraphicExportable graphicUrl="https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=116.3_TCRC_0_M_22&last=24&start_date=2008-01-08"
                                                  chartOptions={{}}
                                                  legendLabel={{}}
                                                  seriesAxis={{}}
                                                  chartTypes={{}}
                                                  decimalTooltips={{}}
-                                                 startDate={"2009-10-8"} />);
+                                                 startDate={"2009-10-08"} />);
         const graphicState = wrapper.state();
         const graphicStartDate = graphicState.dateRange.start;
-        expect(graphicStartDate).toEqual("2009-10-8");
+        expect(graphicStartDate).toEqual("2009-10-08");
     });
 
     it('endDate override API end_date', () => {
@@ -26,7 +26,7 @@ describe('GraphicExportable params passing', () => {
                                                  seriesAxis={{}}
                                                  chartTypes={{}}
                                                  decimalTooltips={{}}
-                                                 endDate={"2009-10-8"} />);
+                                                 endDate={"2009-10-08"} />);
         const graphicState = wrapper.state();
         const graphicEndDate = graphicState.dateRange.end;
         expect(graphicEndDate).toEqual("2009-10-8");
