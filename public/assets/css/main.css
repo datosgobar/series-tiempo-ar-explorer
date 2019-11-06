@@ -1185,7 +1185,7 @@ section#listado #listado-list #list .search-conditions .title-and-sorting {
   display: flex;
   justify-content: space-between;
 }
-section#listado #listado-list #list .search-conditions .title-and-sorting .sort-by-label {
+section#listado #listado-list #list .search-conditions .title-and-sorting label.sort-by-label {
   color: rgb(118,118,118);
   cursor: pointer;
   font-family: "Medium";
@@ -1195,6 +1195,9 @@ section#listado #listado-list #list .search-conditions .title-and-sorting .sort-
   padding-right: 10px;
   text-align: right;
   text-rendering: auto;
+}
+section#listado #listado-list #list .search-conditions .title-and-sorting label.sort-by-label::after {
+  content: "";
 }
 section#listado #listado-list #list .search-conditions .title-and-sorting .search-sorting {
   margin-bottom: 10px;
