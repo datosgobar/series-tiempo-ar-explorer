@@ -72,18 +72,20 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const ids = extractIdsFromUrl(this.props.graphicUrl);
         const params = new QueryParams(ids);
 
-        const start = this.props.startDate || url.get('start_date') || '';
-        const end = this.props.endDate || url.get('end_date') || '';
+        const zoomStartDate = this.props.startDate || '';
+        const zoomEndDate = this.props.endDate || '';
+        const serieStartDate = url.get('start_date') || '';
+        const serieEndDate = url.get('end_date') || '';
 
-        if (this.props.navigator) {
-            url.delete('start_date');
-            url.delete('end_date');
-        } else {
-            params.setStartDate(start);
-            params.setEndDate(end);
-        }
+        params.setStartDate(serieStartDate);
+        params.setEndDate(serieEndDate);
 
-        this.setState({dateRange: {start, end}});
+        this.setState({
+            dateRange: {
+                start: zoomStartDate, 
+                end: zoomEndDate
+            }
+        });
         params.addParamsFrom(url);
         this.fetchSeries(params);
 
