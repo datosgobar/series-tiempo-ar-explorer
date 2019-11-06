@@ -74,10 +74,10 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
         const zoomStartDate = this.props.startDate || '';
         const zoomEndDate = this.props.endDate || '';
-        const seriaStartDate = url.get('start_date') || '';
+        const serieStartDate = url.get('start_date') || '';
         const serieEndDate = url.get('end_date') || '';
 
-        params.setStartDate(seriaStartDate);
+        params.setStartDate(serieStartDate);
         params.setEndDate(serieEndDate);
 
         this.setState({
