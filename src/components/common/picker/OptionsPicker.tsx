@@ -1,5 +1,5 @@
 import * as React from 'react';
-import FrequencyPickerContainer from "../../style/picker/OptionsPickerContainer";
+import OptionsPickerContainer from "../../style/picker/OptionsPickerContainer";
 
 
 export interface IPickerOptionsProps {
@@ -8,12 +8,17 @@ export interface IPickerOptionsProps {
     available: boolean;
 }
 
+export interface IPickerStyle {
+    width: string;
+}
+
 interface IOptionsPickerProps {
     label: string;
     onChangeOption: (value: string) => void;
     selected: string;
     availableOptions: IPickerOptionsProps[];
     className?: string;
+    style?: IPickerStyle;
 }
 
 export default class OptionsPicker extends React.Component<IOptionsPickerProps, any> {
@@ -29,13 +34,13 @@ export default class OptionsPicker extends React.Component<IOptionsPickerProps, 
 
     public render() {
         return (
-            <FrequencyPickerContainer labelText={this.props.label} className={this.props.className}>
+            <OptionsPickerContainer labelText={this.props.label} className={this.props.className} style={this.props.style}>
                 <select name="frequencyList" className="form-control" onChange={this.handleChangeOption} value={this.props.selected}>
                     {this.props.availableOptions.map((option: IPickerOptionsProps) =>
                         <option key={option.value} value={option.value} disabled={!option.available}>{option.title}</option>
                     )}
                 </select>
-            </FrequencyPickerContainer>
+            </OptionsPickerContainer>
         )
     }
 }
