@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ISerie } from "../../../api/Serie";
 import { isHigherFrequency } from "../../../api/utils/periodicityManager";
-import OptionsPicker, { IPickerOptionsProps } from '../../common/picker/OptionsPicker';
+import OptionsPicker, { IPickerOptionsProps, IPickerStyle } from '../../common/picker/OptionsPicker';
 import ShareLinks from '../ShareLinks';
 
 
@@ -16,13 +16,22 @@ export interface IGraphicComplementsProps {
 export default class GraphicComplements extends React.Component<IGraphicComplementsProps, any> {
 
     public render() {
+
         if (this.props.series.length === 0) { return null }
+
+        const unitsPickerStyle: IPickerStyle = {
+            width: '20.5%'
+        }
+        const aggregationPickerStyle: IPickerStyle = {
+            width: '16.5%'
+        }
 
         return (
             <div className="row graphic-complements">
                 <ShareLinks url={this.props.url} series={this.props.series} />
-                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeAggregation} selected={this.selectedAggregation()} availableOptions={this.aggregationOptions()} label="Agregación" />
-                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeUnits} selected={this.selectedUnit()} availableOptions={this.unitOptions()} label="Unidades" />
+                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeFrequency} selected={this.frequency()} availableOptions={this.chartTypeOptions()} label="Tipo de Gráfico" />
+                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeAggregation} selected={this.selectedAggregation()} availableOptions={this.aggregationOptions()} label="Agregación" style={aggregationPickerStyle} />
+                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeUnits} selected={this.selectedUnit()} availableOptions={this.unitOptions()} label="Unidades" style={unitsPickerStyle} />
                 <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeFrequency} selected={this.frequency()} availableOptions={this.frequencyOptions()} label="Frecuencia" />
             </div>
         )
@@ -47,6 +56,14 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
 
     public selectedAggregation(): string {
         return this.props.series[0].collapseAggregation;
+    }
+
+    public chartTypeOptions(): IPickerOptionsProps[] {
+        return [
+            { value: "line", title: "Líneas", available: true },
+            { value: "column", title: "Columnas", available: true },
+            { value: "area", title: "Áreas", available: true }
+        ];
     }
 
     public unitOptions(): IPickerOptionsProps[] {
