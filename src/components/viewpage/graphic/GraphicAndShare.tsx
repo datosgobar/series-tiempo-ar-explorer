@@ -3,7 +3,6 @@ import * as moment from "moment";
 import * as React from 'react';
 import { connect } from "react-redux";
 import { setDate } from "../../../actions/seriesActions";
-import ChartTypeSelector from '../../../api/ChartTypeSelector';
 import { IDataPoint } from "../../../api/DataPoint";
 import { IDateRange } from "../../../api/DateSerie";
 import QueryParams from '../../../api/QueryParams';
@@ -11,6 +10,7 @@ import { ISerie } from "../../../api/Serie";
 import { ISerieApi } from "../../../api/SerieApi";
 import SerieConfig from "../../../api/SerieConfig";
 import { formattedMoment, localTimestamp } from "../../../helpers/common/dateFunctions";
+import { getFullSerieId } from '../../../helpers/common/fullSerieID';
 import { IStore } from "../../../store/initialState";
 import GraphContainer from "../../style/Graphic/GraphContainer";
 import { getQueryParams } from '../ViewPage';
@@ -32,6 +32,7 @@ export interface IGraphicAndShareProps {
     numbersAbbreviate: boolean;
     decimalsBillion: number;
     decimalsMillion: number;
+    chartType: string;
 }
 
 class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
@@ -45,7 +46,7 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         this.removeDateParams = this.removeDateParams.bind(this);
 
         this.state = {
-            chartType: {}
+            chartType: this.props.chartType
         }
     }
 
@@ -170,9 +171,11 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
     }
 
     private generateChartTypes(): any {
-        const params = getQueryParams(this.props.location);
-        const chartTypeSelector = new ChartTypeSelector(this.props.series, params)
-        return chartTypeSelector.getChartTypesBySeries();
+        return this.props.series.reduce((result: {}, serie: ISerie) => {
+            const fullId = getFullSerieId(serie);
+            result[fullId] = this.props.chartType;
+            return result;
+        }, {})
     }
 
 }

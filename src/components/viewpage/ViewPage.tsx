@@ -43,6 +43,7 @@ interface IViewPageState {
     emptySeries: string[];
     failedSeries: string[];
     lastSuccessQueryParams: URLSearchParams;
+    chartType: string;
 }
 
 export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
@@ -60,10 +61,12 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.removeSerie = this.removeSerie.bind(this);
         this.addPickedSerie = this.addPickedSerie.bind(this);
         this.setQueryParams = this.setQueryParams.bind(this);
+        const params = getQueryParams(this.props.location);
         this.state = {
+            chartType: params.get('chartType') || 'line',
             emptySeries: [],
             failedSeries: [],
-            lastSuccessQueryParams: getQueryParams(this.props.location),
+            lastSuccessQueryParams: params
         }
     }
 
@@ -148,7 +151,8 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                          maxDecimals={maxDecimals}
                                          numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                                          decimalsBillion={abbreviationProps.decimalsBillion}
-                                         decimalsMillion={abbreviationProps.decimalsMillion} />
+                                         decimalsMillion={abbreviationProps.decimalsMillion}
+                                         chartType={this.state.chartType} />
                         <MetaData onRemove={this.removeSerie} />
                     </Container>
                     <DetallePanel seriesPicker={ <SeriesPicker onPick={this.addPickedSerie}
