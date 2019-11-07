@@ -1,17 +1,17 @@
 # TSExplorer
 
-**Versión**: 2.6.0
+**Versión**: 2.7.0
 
 El objeto `TSExplorer` contiene una _one page application_ con un explorador de series de tiempo, que permite buscar y visualizar series de un catálogo de datos abiertos.
 
-Está en el archivo llamado `main.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.6.0/dist/js/main.js
+Está en el archivo llamado `main.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.7.0/dist/js/main.js
 
 ## ¿Cómo lo uso?
 
 * Importar librería JS:
 
 ```html
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.6.0/dist/js/main.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.7.0/dist/js/main.js'></script>
 ```
 
 * Definir dónde se va a dibujar:
@@ -33,7 +33,7 @@ TSExplorer.render('explorer-container', {
 ```html
 <html>
 <body>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.6.0/dist/js/main.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.7.0/dist/js/main.js"></script>
 
   <div id="explorer-container"></div>
 
@@ -139,9 +139,33 @@ TSExplorer.render('explorer-container', {
         <td>URL de la imagen a mostrar de fondo en el banner del encabezado.</td>
         <td>string</td>
         <td>https://datos.gob.ar/images/hero_bg.svg</td>
-        <td>0/4/1</td>
+        <td>https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg</td>
+    </tr>
+    <tr>
+        <td>numbersAbbreviate</td>
+        <td>No</td>
+        <td>Flag que indica si se deben abreviar los números grandes y formatearlos con el sufijo pertinente; si está apagado, no se realizará abreviatura alguna. Ver la sección de "Abreviatura" para más detalle.</td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>decimalsBillion</td>
+        <td>No</td>
+        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un billón. Puede ser mayor al parámetro maxDecimals.</td>
+        <td>int</td>
+        <td>2</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>decimalsMillion</td>
+        <td>No</td>
+        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un millón. Puede ser mayor al parámetro maxDecimals.</td>
+        <td>boolean</td>
+        <td>2</td>
+        <td>0</td>
     </tr>
 </table>
 
 ## Demo online
-[https://jsfiddle.net/oLp5sw60/](https://jsfiddle.net/oLp5sw60/)
+[https://jsfiddle.net/w6xLte5q/](https://jsfiddle.net/w6xLte5q/)
