@@ -42,6 +42,9 @@ export default (props: ISerieCardProps) =>
                 <CardBodySerie>
                     <span><strong>Frecuencia: </strong>{props.serie.accrualPeriodicity}</span>
                 </CardBodySerie>
+                <CardBodySerie>
+                    <span><strong>Consultas últimas 90 días: </strong>{props.serie.hits90Days}</span>
+                </CardBodySerie>
                 <br/>
                 <CardBodySerie>
                     <strong>ID: </strong> {props.serie.id}

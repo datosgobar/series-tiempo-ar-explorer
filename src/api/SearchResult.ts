@@ -110,4 +110,8 @@ export default class SearchResult implements ISerie {
         return DEFAULT_SIGNIFICANT_FIGURES;
     }
 
+    get hits90Days(): number {
+        return this.searchResult.field.hits_90_days;
+    }
+
 }

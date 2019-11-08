@@ -23,6 +23,7 @@ export default (props: ISerieCardProps) =>
                 <CardSubtitle><strong>Período: </strong>{props.serie.startDate}-{props.serie.endDate}</CardSubtitle>
                 <CardSubtitle><strong>Unidades: </strong>{props.serie.units}</CardSubtitle>
                 <CardSubtitle><strong>Frecuencia: </strong>{props.serie.accrualPeriodicity}</CardSubtitle>
+                <CardSubtitle><strong>Consultas últimos 90 días: </strong>{props.serie.hits90Days}</CardSubtitle>
                 <CardSubtitle><strong>ID: </strong>{props.serie.id}</CardSubtitle>
             </div>
 

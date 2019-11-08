@@ -29,7 +29,8 @@ export interface ISerie {
     maxValue: number,
     collapseAggregation: string,
     isPercentage: boolean,
-    significantFigures: number
+    significantFigures: number,
+    hits90Days: number
 }
 
 export const DEFAULT_SIGNIFICANT_FIGURES = 2;
@@ -188,6 +189,10 @@ export default class Serie implements ISerie {
         return +this.fieldMeta.significant_figures;
     }
 
+    get hits90Days(): number {
+        return +this.fieldMeta.hits_90_days;
+    }
+
     public bake(): ISerie {
         return {
             accrualPeriodicity: this.accrualPeriodicity,
@@ -200,6 +205,7 @@ export default class Serie implements ISerie {
             downloadURL: this.downloadURL,
             endDate: this.endDate,
             frequency: this.frequency,
+            hits90Days: this.hits90Days,
             id: this.id,
             isPercentage: this.isPercentage,
             issued: this.issued,
