@@ -118,7 +118,8 @@ export default class Graphic extends React.Component<IGraphicProps> {
     };
 
     public shouldComponentUpdate(nextProps: IGraphicProps) {
-        return this.props.series.every((serie1: ISerie) => {
+        const changedChartType: boolean = this.props.chartTypes !== nextProps.chartTypes;
+        return changedChartType || this.props.series.every((serie1: ISerie) => {
             return nextProps.series.every((serie2: ISerie) => serie1.id !== serie2.id)
         });
     }

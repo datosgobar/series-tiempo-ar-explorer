@@ -10,6 +10,8 @@ import { ISerieApi } from '../../api/SerieApi';
 import SerieConfig from '../../api/SerieConfig';
 import { getId, removeDuplicates } from "../../helpers/common/commonFunctions";
 import { getMaxDecimalsAmount } from '../../helpers/common/decimalsAmountHandling';
+import { getFullSerieId } from '../../helpers/common/fullSerieID';
+import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 import { emptySerie, serieWithData } from '../../helpers/common/seriesClassification';
 import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
@@ -24,8 +26,6 @@ import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
 import SeriesPicker from './seriespicker/SeriesPicker';
 import SeriesTags from './SeriesTags';
-import { getFullSerieId } from '../../helpers/common/fullSerieID';
-import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 
 interface IViewPageProps extends RouterProps {
     seriesApi: ISerieApi;
@@ -43,7 +43,6 @@ interface IViewPageState {
     emptySeries: string[];
     failedSeries: string[];
     lastSuccessQueryParams: URLSearchParams;
-    chartType: string;
 }
 
 export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
@@ -63,7 +62,6 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.setQueryParams = this.setQueryParams.bind(this);
         const params = getQueryParams(this.props.location);
         this.state = {
-            chartType: params.get('chartType') || 'line',
             emptySeries: [],
             failedSeries: [],
             lastSuccessQueryParams: params
@@ -151,8 +149,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                          maxDecimals={maxDecimals}
                                          numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                                          decimalsBillion={abbreviationProps.decimalsBillion}
-                                         decimalsMillion={abbreviationProps.decimalsMillion}
-                                         chartType={this.state.chartType} />
+                                         decimalsMillion={abbreviationProps.decimalsMillion} />
                         <MetaData onRemove={this.removeSerie} />
                     </Container>
                     <DetallePanel seriesPicker={ <SeriesPicker onPick={this.addPickedSerie}

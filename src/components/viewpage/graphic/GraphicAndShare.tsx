@@ -32,7 +32,6 @@ export interface IGraphicAndShareProps {
     numbersAbbreviate: boolean;
     decimalsBillion: number;
     decimalsMillion: number;
-    chartType: string;
 }
 
 class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
@@ -44,9 +43,10 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         this.handleChangeUnits = this.handleChangeUnits.bind(this);
         this.handleChangeAggregation = this.handleChangeAggregation.bind(this);
         this.removeDateParams = this.removeDateParams.bind(this);
+        this.handleChangeChartType = this.handleChangeChartType.bind(this);
 
         this.state = {
-            chartType: this.props.chartType
+            chartType: {}
         }
     }
 
@@ -86,6 +86,17 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         this.props.updateParamsInUrl(params);
     }
 
+    public handleChangeChartType(value: string) {
+        const params = getQueryParams(this.props.location);
+        params.set('chartType', value);
+
+        this.props.updateParamsInUrl(params);
+    }
+
+    public getSelectedChartType(): string {
+        return getQueryParams(this.props.location).get('chartType') || 'line';
+    }
+
     public render() {
         return (
             <GraphContainer>
@@ -107,7 +118,9 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
                                     series={this.props.series}
                                     handleChangeFrequency={this.handleChangeFrequency}
                                     handleChangeUnits={this.handleChangeUnits}
-                                    handleChangeAggregation={this.handleChangeAggregation} />
+                                    handleChangeAggregation={this.handleChangeAggregation}
+                                    handleChangeChartType={this.handleChangeChartType}
+                                    selectedChartType={this.getSelectedChartType()} />
             </GraphContainer>
         )
     }
@@ -173,7 +186,7 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
     private generateChartTypes(): any {
         return this.props.series.reduce((result: {}, serie: ISerie) => {
             const fullId = getFullSerieId(serie);
-            result[fullId] = this.props.chartType;
+            result[fullId] = this.getSelectedChartType();
             return result;
         }, {})
     }
