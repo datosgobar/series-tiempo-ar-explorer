@@ -3,8 +3,8 @@
 El componente `card` permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.
 
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/js/components.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/js/components.js'></script>
 
 <style>
 .row {
@@ -22,17 +22,17 @@ El componente `card` permite embeber tarjetas con información de la serie, y un
 
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/5z3ec4om/](https://jsfiddle.net/5z3ec4om/)
+Ver online: [https://jsfiddle.net/e7kad2j1](https://jsfiddle.net/e7kad2j1)
 
 ```html
 <!-- importa íconos de FontAwesome -->
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
 
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con una tarjeta -->
 <div id="tmi"></div>
@@ -181,6 +181,30 @@ Ver online: [https://jsfiddle.net/5z3ec4om/](https://jsfiddle.net/5z3ec4om/)
         <td>2</td>
         <td>5</td>
     </tr>
+    <tr>
+        <td>numbersAbbreviate</td>
+        <td>No</td>
+        <td>Flag que indica si se deben abreviar los números grandes y formatearlos con el sufijo pertinente; si está apagado, no se realizará abreviatura alguna. Ver la sección de "Abreviatura" para más detalle.</td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>decimalsBillion</td>
+        <td>No</td>
+        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un billón. Supeditará al valor del parámetro decimals.</td>
+        <td>int</td>
+        <td>2</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>decimalsMillion</td>
+        <td>No</td>
+        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un millón. Supeditará al valor del parámetro decimals.</td>
+        <td>boolean</td>
+        <td>2</td>
+        <td>0</td>
+    </tr>
 </table>
 
 ## Paleta de colores por defecto
@@ -196,6 +220,16 @@ Por defecto, la paleta de colores en los que se grafican las series del componen
 * **#C2185B** o **6**, para fucsia
 * **#039BE5** o **7**, para celeste
 * **#6EA100** o **8**, para verde claro
+
+## Abreviatura
+
+Si se habilita la abreviatura y formateo de números grandes, encendiendo el flag `numbersAbbreviate` (la única manera de apagarlo es seteándole explícitamente un valor `false` por medio del parámetro del componente), se procederá a formatearlos de la siguiente manera:
+
+* Los valores porcentuales (distinguidos así por los metadatos de la serie que representan) no son abreviados.
+* Todo número mayor o igual a un billón (**1.000.000.000.000**) o menor a un billón negativo (**-1.000.000.000.000**) será dividido por un billón, y se le agregará como sufijo la letra **B**.
+* Todo número mayor o igual a diez millones (**10.000.000**) y menor a un billón, o bien menor o igual a diez millones negativos (**-10.000.000**) y mayor a un billón negativo (**-1.000.000.000.000**), será dividido por un millón (**1.000.000**), y se le agregará como sufijo la letra **M**.
+* Todo número mayor a un diez millones negativos y menor a diez millones será conservado como tal, sin aplicársele sufijo alguno.
+* En caso de abreviar, la cantidad de decimales que son tenidos en cuenta del cociente obtenido al dividir el valor original de la serie por el divisor apropiado depende de los valores (por defecto o especificados) de las cantidades de los parámetros `decimalsBillion` y `decimalsMillion` (según corresponda).
 
 ## Ejemplo completo
 

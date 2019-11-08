@@ -3,10 +3,10 @@
 El componente `graphic` permite embeber gráficos de líneas, áreas o barras en experiencias web. Permite elegir distintos elementos de filtro de fechas, personalizar los textos, etc.
 
 ## Ejemplo base
-Ver online: [https://jsfiddle.net/1dbqemt6/](https://jsfiddle.net/1dbqemt6/)
+Ver online: [https://jsfiddle.net/6o1c48pq/](https://jsfiddle.net/6o1c48pq/)
 
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/css/components.css'/>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/js/components.js'></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/css/components.css'/>
 
 <div id="tmi"></div>
 
@@ -27,10 +27,10 @@ Este gráfico se genera a partir del siguiente código:
 
 ```html
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con un gráfico -->
 <div id="tmi"></div>
@@ -232,6 +232,46 @@ Este gráfico se genera a partir del siguiente código:
         <td>Ninguno</td>
         <td>3</td>
     </tr>
+    <tr>
+        <td>numbersAbbreviate</td>
+        <td>No</td>
+        <td>Flag que indica si se deben abreviar los números grandes y formatearlos con el sufijo pertinente; si está apagado, no se realizará abreviatura alguna. Ver la sección de "Abreviatura" para más detalle.</td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>decimalsBillion</td>
+        <td>No</td>
+        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un billón. Supeditará al valor del parámetro decimals.</td>
+        <td>int</td>
+        <td>2</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>decimalsMillion</td>
+        <td>No</td>
+        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un millón. Supeditará al valor del parámetro decimals.</td>
+        <td>boolean</td>
+        <td>2</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>startDate</td>
+        <td>No</td>
+        <td>Fecha de inicio de la región del gráfico sobre la cual hacer un zoom inicial al renderizarlo; en caso de ser menor a la fecha con datos más antigua de la serie, será reemplazada por tal. Debe estar en formato ISO 8601 (AAAA-MM-DD).</td>
+        <td>string</td>
+        <td>Fecha más antigua de la serie</td>
+        <td>'2014-03-30'</td>
+    </tr>
+    <tr>
+        <td>endDate</td>
+        <td>No</td>
+        <td>Fecha de fin de la región del gráfico sobre la cual hacer un zoom inicial al renderizarlo; en caso de ser mayor a la fecha con datos más reciente de la serie, será reemplazada por tal. Debe estar en formato ISO 8601 (AAAA-MM-DD).</td>
+        <td>string</td>
+        <td>Fecha más reciente de la serie</td>
+        <td>'2018-12-09'</td>
+    </tr>
 </table>
 
 ## Paleta de colores por defecto
@@ -247,6 +287,16 @@ Por defecto, la paleta de colores en los que se grafican las series del componen
 * **#C2185B** o **6**, para fucsia
 * **#039BE5** o **7**, para celeste
 * **#6EA100** o **8**, para verde claro
+
+## Abreviatura
+
+Si se habilita la abreviatura y formateo de números grandes, encendiendo el flag `numbersAbbreviate` (la única manera de apagarlo es seteándole explícitamente un valor `false` por medio del parámetro del componente), se procederá a formatearlos de la siguiente manera:
+
+* Los valores porcentuales (distinguidos así por los metadatos de la serie que representan) no son abreviados.
+* Todo número mayor o igual a un billón (**1.000.000.000.000**) o menor a un billón negativo (**-1.000.000.000.000**) será dividido por un billón, y se le agregará como sufijo la letra **B**.
+* Todo número mayor o igual a diez millones (**10.000.000**) y menor a un billón, o bien menor o igual a diez millones negativos (**-10.000.000**) y mayor a un billón negativo (**-1.000.000.000.000**), será dividido por un millón (**1.000.000**), y se le agregará como sufijo la letra **M**.
+* Todo número mayor a un diez millones negativos y menor a diez millones será conservado como tal, sin aplicársele sufijo alguno.
+* En caso de abreviar, la cantidad de decimales que son tenidos en cuenta del cociente obtenido al dividir el valor original de la serie por el divisor apropiado depende de los valores (por defecto o especificados) de las cantidades de los parámetros `decimalsBillion` y `decimalsMillion` (según corresponda).
 
 ## Asignación dinámica de atributos
 
@@ -266,8 +316,8 @@ Varios componentes del gráfico se muestran/ocultan dinámicamente dependiendo d
 ```html
 <html>
 <body>
-  <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/js/components.js'></script>
-  <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.6.10/dist/css/components.css'/>
+  <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/js/components.js'></script>
+  <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/css/components.css'/>
   <div id="root"></div>
   <script>
     window.onload = function () {
