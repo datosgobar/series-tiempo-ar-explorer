@@ -3,6 +3,8 @@ import { ISerie, DEFAULT_SIGNIFICANT_FIGURES } from "./Serie";
 import {PeriodicityManager} from "./utils/periodicityManager";
 
 
+const DEFAULT_HITS_90_DAYS: number = 0;
+
 export default class SearchResult implements ISerie {
 
     private periodicityParser: PeriodicityManager;
@@ -111,7 +113,7 @@ export default class SearchResult implements ISerie {
     }
 
     get hits90Days(): number {
-        return this.searchResult.field.hits_90_days;
+        return this.searchResult.field.hits_90_days || DEFAULT_HITS_90_DAYS;
     }
 
 }
