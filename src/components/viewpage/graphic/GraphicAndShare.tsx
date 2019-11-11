@@ -18,6 +18,8 @@ import Graphic, { IChartExtremeProps } from "./Graphic";
 import GraphicComplements from "./GraphicComplements";
 
 
+const DEFAULT_CHART_TYPE: string = 'line';
+
 export interface IGraphicAndShareProps {
     series: ISerie[];
     date: IDateRange;
@@ -94,7 +96,7 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
     }
 
     public getSelectedChartType(): string {
-        return getQueryParams(this.props.location).get('chartType') || 'line';
+        return getQueryParams(this.props.location).get('chartType') || DEFAULT_CHART_TYPE;
     }
 
     public render() {
