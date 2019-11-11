@@ -10,6 +10,8 @@ import { ISerieApi } from '../../api/SerieApi';
 import SerieConfig from '../../api/SerieConfig';
 import { getId, removeDuplicates } from "../../helpers/common/commonFunctions";
 import { getMaxDecimalsAmount } from '../../helpers/common/decimalsAmountHandling';
+import { getFullSerieId } from '../../helpers/common/fullSerieID';
+import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 import { emptySerie, serieWithData } from '../../helpers/common/seriesClassification';
 import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
@@ -24,8 +26,6 @@ import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
 import SeriesPicker from './seriespicker/SeriesPicker';
 import SeriesTags from './SeriesTags';
-import { getFullSerieId } from '../../helpers/common/fullSerieID';
-import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 
 interface IViewPageProps extends RouterProps {
     seriesApi: ISerieApi;
@@ -60,10 +60,11 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.removeSerie = this.removeSerie.bind(this);
         this.addPickedSerie = this.addPickedSerie.bind(this);
         this.setQueryParams = this.setQueryParams.bind(this);
+        const params = getQueryParams(this.props.location);
         this.state = {
             emptySeries: [],
             failedSeries: [],
-            lastSuccessQueryParams: getQueryParams(this.props.location),
+            lastSuccessQueryParams: params
         }
     }
 

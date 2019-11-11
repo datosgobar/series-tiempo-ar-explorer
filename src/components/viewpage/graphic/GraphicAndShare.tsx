@@ -3,7 +3,6 @@ import * as moment from "moment";
 import * as React from 'react';
 import { connect } from "react-redux";
 import { setDate } from "../../../actions/seriesActions";
-import ChartTypeSelector from '../../../api/ChartTypeSelector';
 import { IDataPoint } from "../../../api/DataPoint";
 import { IDateRange } from "../../../api/DateSerie";
 import QueryParams from '../../../api/QueryParams';
@@ -11,12 +10,15 @@ import { ISerie } from "../../../api/Serie";
 import { ISerieApi } from "../../../api/SerieApi";
 import SerieConfig from "../../../api/SerieConfig";
 import { formattedMoment, localTimestamp } from "../../../helpers/common/dateFunctions";
+import { getFullSerieId } from '../../../helpers/common/fullSerieID';
 import { IStore } from "../../../store/initialState";
 import GraphContainer from "../../style/Graphic/GraphContainer";
 import { getQueryParams } from '../ViewPage';
 import Graphic, { IChartExtremeProps } from "./Graphic";
 import GraphicComplements from "./GraphicComplements";
 
+
+const DEFAULT_CHART_TYPE: string = 'line';
 
 export interface IGraphicAndShareProps {
     series: ISerie[];
@@ -43,6 +45,7 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         this.handleChangeUnits = this.handleChangeUnits.bind(this);
         this.handleChangeAggregation = this.handleChangeAggregation.bind(this);
         this.removeDateParams = this.removeDateParams.bind(this);
+        this.handleChangeChartType = this.handleChangeChartType.bind(this);
 
         this.state = {
             chartType: {}
@@ -85,6 +88,17 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         this.props.updateParamsInUrl(params);
     }
 
+    public handleChangeChartType(value: string) {
+        const params = getQueryParams(this.props.location);
+        params.set('chartType', value);
+
+        this.props.updateParamsInUrl(params);
+    }
+
+    public getSelectedChartType(): string {
+        return getQueryParams(this.props.location).get('chartType') || DEFAULT_CHART_TYPE;
+    }
+
     public render() {
         return (
             <GraphContainer>
@@ -106,7 +120,9 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
                                     series={this.props.series}
                                     handleChangeFrequency={this.handleChangeFrequency}
                                     handleChangeUnits={this.handleChangeUnits}
-                                    handleChangeAggregation={this.handleChangeAggregation} />
+                                    handleChangeAggregation={this.handleChangeAggregation}
+                                    handleChangeChartType={this.handleChangeChartType}
+                                    selectedChartType={this.getSelectedChartType()} />
             </GraphContainer>
         )
     }
@@ -170,9 +186,11 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
     }
 
     private generateChartTypes(): any {
-        const params = getQueryParams(this.props.location);
-        const chartTypeSelector = new ChartTypeSelector(this.props.series, params)
-        return chartTypeSelector.getChartTypesBySeries();
+        return this.props.series.reduce((result: {}, serie: ISerie) => {
+            const fullId = getFullSerieId(serie);
+            result[fullId] = this.getSelectedChartType();
+            return result;
+        }, {})
     }
 
 }

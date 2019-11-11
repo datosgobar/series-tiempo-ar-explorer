@@ -118,9 +118,15 @@ export default class Graphic extends React.Component<IGraphicProps> {
     };
 
     public shouldComponentUpdate(nextProps: IGraphicProps) {
+
+        if (this.props.chartTypes !== nextProps.chartTypes) {
+            return true;
+        }
+
         return this.props.series.every((serie1: ISerie) => {
             return nextProps.series.every((serie2: ISerie) => serie1.id !== serie2.id)
         });
+
     }
 
     private hasSmallTooltip() {

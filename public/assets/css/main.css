@@ -1,7 +1,7 @@
 .g-complement {
   margin-right: 10px;
   float: right;
-  width: 20%;
+  width: 11%;
 }
 
 @media (max-width: 990px) {
@@ -110,6 +110,10 @@
 }
 
 .highcharts-legend {
+  display: none;
+}
+
+.highcharts-credits {
   display: none;
 }
 
