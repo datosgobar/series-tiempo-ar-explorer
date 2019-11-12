@@ -18,7 +18,7 @@ export interface IExplorerConfig {
     catalogId?: string;
     formatChartUnits: boolean;
     laps: ILapsProps;
-    locale: string;
+    locale?: string;
     maxDecimals?: number;
     heroImageUrl?: string;
     numbersAbbreviate?: boolean;
@@ -39,7 +39,7 @@ export function render(selector: string, config: IExplorerConfig) {
                  featuredIds={ getFeatured(config) }
                  formatChartUnits={ config.formatChartUnits }
                  laps={config.laps}
-                 locale={config.locale}
+                 locale={config.locale || "AR"} 
                  maxDecimals={config.maxDecimals}
                  heroImageUrl={config.heroImageUrl}
                  numbersAbbreviate={abbreviationProps.numbersAbbreviate}

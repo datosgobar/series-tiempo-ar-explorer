@@ -11,6 +11,7 @@ interface IFeaturedCardListProps {
     numbersAbbreviate: boolean;
     decimalsBillion: number;
     decimalsMillion: number;
+    locale: string;
 }
 
 export default(props: IFeaturedCardListProps) =>
@@ -23,6 +24,7 @@ export default(props: IFeaturedCardListProps) =>
                                               maxDecimals={props.maxDecimals} 
                                               numbersAbbreviate={props.numbersAbbreviate}
                                               decimalsBillion={props.decimalsBillion}
-                                              decimalsMillion={props.decimalsMillion}  /> : null
+                                              decimalsMillion={props.decimalsMillion}
+                                              locale={props.locale}  /> : null
         })}
     </Row>

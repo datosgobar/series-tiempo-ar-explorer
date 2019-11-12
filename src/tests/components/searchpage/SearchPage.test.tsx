@@ -51,7 +51,8 @@ describe("SearchPage", () => {
             <MemoryRouter initialEntries={['/search/?q=cons']} initialIndex={0}>
                 <Provider store={store}>
                     <SearchPage seriesApi={new MockApi(0)} 
-                                heroImageUrl="myHero.jpg" />
+                                heroImageUrl="myHero.jpg"
+                                locale={"AR"} />
                 </Provider>
             </MemoryRouter>
         , div);
@@ -66,7 +67,8 @@ describe("SearchPage", () => {
                             initialIndex={0} >
                 <Provider store={store}>
                     <SearchPage seriesApi={mockSeriesApi} 
-                                heroImageUrl="myHero.jpg" />
+                                heroImageUrl="myHero.jpg"
+                                locale={"AR"} />
                 </Provider>
             </MemoryRouter>
         );
@@ -84,7 +86,8 @@ describe("SearchPage", () => {
                             initialIndex={0}>
                     <Provider store={store}>
                         <SearchPage seriesApi={mockSeriesApi} 
-                                    heroImageUrl="myHero.jpg" />
+                                    heroImageUrl="myHero.jpg"
+                                    locale={"AR"} />
                     </Provider>
             </MemoryRouter>
         );

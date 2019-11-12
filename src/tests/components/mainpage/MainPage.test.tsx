@@ -31,7 +31,8 @@ it('renders without crashing', () => {
         <Provider store={store}>
           <MainPage featured={['id1', 'id2']} 
                     seriesApi={seriesApi} 
-                    heroImageUrl="myHero.jpg" />
+                    heroImageUrl="myHero.jpg"
+                    locale={"AR"} />
         </Provider>
     </MemoryRouter>);
 

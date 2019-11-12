@@ -25,6 +25,7 @@ interface IFeaturedProps {
     numbersAbbreviate: boolean;
     decimalsBillion: number;
     decimalsMillion: number;
+    locale: string;
 }
 
 
@@ -51,7 +52,8 @@ class Featured extends React.Component<IFeaturedProps, any> {
                                   maxDecimals={this.props.maxDecimals} 
                                   numbersAbbreviate={this.props.numbersAbbreviate} 
                                   decimalsBillion={this.props.decimalsBillion} 
-                                  decimalsMillion={this.props.decimalsMillion} />
+                                  decimalsMillion={this.props.decimalsMillion}
+                                  locale={this.props.locale} />
             </FeaturedContainer>
         );
     }
