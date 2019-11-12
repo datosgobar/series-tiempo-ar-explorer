@@ -17,6 +17,7 @@ export interface ISeriesPickerProps {
     numbersAbbreviate: boolean;
     decimalsBillion: number;
     decimalsMillion: number;
+    locale: string;
 }
 
 class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
@@ -78,7 +79,8 @@ class SeriesPicker extends React.Component<ISeriesPickerProps, any> {
                         maxDecimals={this.props.maxDecimals}
                         numbersAbbreviate={this.props.numbersAbbreviate}
                         decimalsBillion={this.props.decimalsBillion}
-                        decimalsMillion={this.props.decimalsMillion} />
+                        decimalsMillion={this.props.decimalsMillion}
+                        locale={this.props.locale} />
                 )}
             </div>
         );

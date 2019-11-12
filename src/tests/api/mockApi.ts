@@ -89,6 +89,7 @@ export function toSerie(id: string): ISerie {
         distributionTitle: '',
         downloadURL: '',
         endDate: 'end',
+        hits90Days: 150,
         id,
         isPercentage: true,
         issued: `${id} issued`,

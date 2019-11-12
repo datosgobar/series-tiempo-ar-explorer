@@ -28,6 +28,7 @@ interface ISearchPageProps extends RouteComponentProps<any> {
     numbersAbbreviate?: boolean;
     decimalsBillion?: number;
     decimalsMillion?: number;
+    locale: string;
 }
 
 class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> {
@@ -234,7 +235,8 @@ class SearchPage extends React.Component<ISearchPageProps & ISearchParams, any> 
                                          maxDecimals={maxDecimals}
                                          numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                                          decimalsBillion={abbreviationProps.decimalsBillion}
-                                         decimalsMillion={abbreviationProps.decimalsMillion} />
+                                         decimalsMillion={abbreviationProps.decimalsMillion}
+                                         locale={this.props.locale} />
     }
 }
 
@@ -245,6 +247,7 @@ function mapStateToProps(state: IStore, ownProps: ISearchPageProps) {
         decimalsBillion: state.decimalsBillion,
         decimalsMillion: state.decimalsMillion,
         heroImageUrl: state.heroImageUrl,
+        locale: state.locale,
         maxDecimals: state.maxDecimals,
         numbersAbbreviate: state.numbersAbbreviate,
         seriesApi: state.seriesApi

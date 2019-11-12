@@ -46,7 +46,7 @@ const initialState: IStore = {
         Semestral: 10,
         Trimestral: 20,
     },
-    locale: '',
+    locale: 'AR',
     maxDecimals: MAX_SIGNIFICANT_FIGURES,
     numbersAbbreviate: true,
     searchParams: {

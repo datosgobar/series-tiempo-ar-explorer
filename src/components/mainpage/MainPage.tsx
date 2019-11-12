@@ -19,6 +19,7 @@ interface IMainPageProps {
     numbersAbbreviate?: boolean;
     decimalsBillion?: number;
     decimalsMillion?: number;
+    locale: string;
 }
 
 
@@ -54,7 +55,8 @@ export class MainPage extends React.Component<IMainPageProps, any> {
                           maxDecimals={maxDecimals} 
                           numbersAbbreviate={abbreviationProps.numbersAbbreviate} 
                           decimalsBillion={abbreviationProps.decimalsBillion} 
-                          decimalsMillion={abbreviationProps.decimalsMillion} />
+                          decimalsMillion={abbreviationProps.decimalsMillion}
+                          locale={this.props.locale} />
             </section>
         );
 
@@ -68,6 +70,7 @@ function mapStateToProps(state: IStore) {
         decimalsMillion: state.decimalsMillion,
         featured: state.featured,
         heroImageUrl: state.heroImageUrl,
+        locale: state.locale,
         maxDecimals: state.maxDecimals,
         numbersAbbreviate: state.numbersAbbreviate,
         seriesApi: state.seriesApi

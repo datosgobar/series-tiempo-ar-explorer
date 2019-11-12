@@ -1,3 +1,5 @@
+import { IAbbreviationProps } from "./numberAbbreviation";
+
 export const DECIMAL_SEPARATORS = {
     'AR': ',',
     'US': '.'
@@ -25,6 +27,8 @@ interface IFormattingTarget {
 
 export const DEFAULT_DECIMALS_BILLION = 2;
 export const DEFAULT_DECIMALS_MILLION = 2;
+
+export const DECIMALS_FOR_HITS_90_DAYS = 0;
 
 const ONE_BILLION = 1000000000000;
 const TEN_MILLION = 10000000;
@@ -151,5 +155,19 @@ export default class LocaleValueFormatter {
         return this.applyThousandSeparator(decimalFixedValue);
 
     }
+
+}
+
+export function formattedHits90Days(locale: string, abbreviationProps: IAbbreviationProps, originalHits: number): string {
+
+    const config: ILocaleValueFormatterConfig = {
+        code: locale,
+        decimalPlaces: DECIMALS_FOR_HITS_90_DAYS,
+        decimalsBillion: abbreviationProps.decimalsBillion,
+        decimalsMillion: abbreviationProps.decimalsMillion,
+        numbersAbbreviate: abbreviationProps.numbersAbbreviate
+    }
+    const formatter: LocaleValueFormatter = new LocaleValueFormatter(config);
+    return formatter.formatValue(originalHits);
 
 }

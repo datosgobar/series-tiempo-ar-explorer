@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { formattedHits90Days } from '../../../../helpers/common/LocaleValueFormatter';
+import { IAbbreviationProps } from '../../../../helpers/common/numberAbbreviation';
 import D3SeriesChart from "../../../d3_charts/D3SeriesChart";
 import Row from "../../Common/Row";
 import Card from "../Card";
@@ -8,8 +10,17 @@ import CardTitle from "../CardTitle";
 import { ISerieCardProps } from "./SerieCard";
 
 
-export default (props: ISerieCardProps) =>
-    <Card title={props.serie.title} {...props}>
+export default (props: ISerieCardProps) => {
+
+    const abbreviateProps: IAbbreviationProps = {
+        decimalsBillion: props.decimalsBillion,
+        decimalsMillion: props.decimalsMillion,
+        numbersAbbreviate: props.numbersAbbreviate
+    }
+    const hits90Days = formattedHits90Days(props.locale, abbreviateProps, props.serie.hits90Days);
+
+    return(
+        <Card title={props.serie.title} {...props}>
         <Row>
             <div className="col-xs-12">
                 <CardTitle>{props.serie.description}</CardTitle>
@@ -23,6 +34,7 @@ export default (props: ISerieCardProps) =>
                 <CardSubtitle><strong>Período: </strong>{props.serie.startDate}-{props.serie.endDate}</CardSubtitle>
                 <CardSubtitle><strong>Unidades: </strong>{props.serie.units}</CardSubtitle>
                 <CardSubtitle><strong>Frecuencia: </strong>{props.serie.accrualPeriodicity}</CardSubtitle>
+                <CardSubtitle><strong>Consultas últimos 90 días: </strong>{hits90Days}</CardSubtitle>
                 <CardSubtitle><strong>ID: </strong>{props.serie.id}</CardSubtitle>
             </div>
 
@@ -36,3 +48,7 @@ export default (props: ISerieCardProps) =>
             </div>
         </Row>
     </Card>
+    );
+
+}
+

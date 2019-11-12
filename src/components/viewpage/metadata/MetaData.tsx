@@ -8,7 +8,11 @@ import SerieDetails from '../../style/Details/SerieDetails';
 
 interface IMetaDataProps {
     series: ISerie[];
+    locale: string;
     onRemove: (serieId: string) => void;
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 export class MetaData extends React.Component<IMetaDataProps, any> {
@@ -34,7 +38,14 @@ export class MetaData extends React.Component<IMetaDataProps, any> {
         return (
             <div className='MetaData'>
                 {this.props.series.map((serie: ISerie, index: number) =>
-                    <SerieDetails key={serie.id} serie={serie} series={this.props.series} actions={this.actionsListFor(serie.id)} />
+                    <SerieDetails key={serie.id}
+                                  serie={serie}
+                                  series={this.props.series} 
+                                  actions={this.actionsListFor(serie.id)}
+                                  locale={this.props.locale}
+                                  numbersAbbreviate={this.props.numbersAbbreviate}
+                                  decimalsBillion={this.props.decimalsBillion}
+                                  decimalsMillion={this.props.decimalsMillion} />
                 )}
             </div>
         );

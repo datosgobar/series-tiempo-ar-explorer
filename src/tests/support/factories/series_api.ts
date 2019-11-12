@@ -59,6 +59,7 @@ export function generateITSAPIResponse(tsIDs: string[] = ["1.1", "1.2"]): ITSAPI
                 field: {
                     description: `${tsID} field description`,
                     frequency: `${tsID} field periodicity`,
+                    hits_90_days: 892,
                     id: tsID,
                     is_percentage: true,
                     max_value: "2",

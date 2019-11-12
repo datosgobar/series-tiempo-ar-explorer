@@ -1,23 +1,37 @@
 import * as React from 'react';
 import { ISerie } from '../../../api/Serie';
+import { getFullSerieId } from '../../../helpers/common/fullSerieID';
+import { formattedHits90Days } from '../../../helpers/common/LocaleValueFormatter';
+import { IAbbreviationProps } from '../../../helpers/common/numberAbbreviation';
 import Row from '../../style/Common/Row';
 import { Color, getColorBySerieId } from '../Colors/Color';
 import Details from './Details';
 import DetailsTitle from './DetailsTitle';
 import DetailsTitleAndActions from './DetailsTitleAndActions';
-import { getFullSerieId } from '../../../helpers/common/fullSerieID';
 
 
 interface ISerieDetailsProp extends React.Props<any> {
     serie: ISerie;
+    locale: string;
     actions?: JSX.Element[];
     pegColorFor?: (serieId: string) => Color;
     series: ISerie[];
+    numbersAbbreviate: boolean;
+    decimalsBillion: number;
+    decimalsMillion: number;
 }
 
 
-export default (props: ISerieDetailsProp) =>
+export default (props: ISerieDetailsProp) => {
 
+    const abbreviationProps: IAbbreviationProps = {
+        decimalsBillion: props.decimalsBillion,
+        decimalsMillion: props.decimalsMillion,
+        numbersAbbreviate: props.numbersAbbreviate
+    }
+    const hits90Days = formattedHits90Days(props.locale, abbreviationProps, props.serie.hits90Days);
+
+    return(
     <Details key={props.serie.id}>
         <DetailsTitleAndActions>
             <DetailsTitle style={{borderLeftColor: getColorBySerieId(props.series, getFullSerieId(props.serie))}}>
@@ -68,6 +82,10 @@ export default (props: ISerieDetailsProp) =>
                     <dd>{`${props.serie.startDate} a ${props.serie.endDate}`} ({props.serie.timeIndexSize} valores)</dd>
                 </dl>
                 <dl className="dl-horizontal">
+                    <dt>Consultas últimos 90 días</dt>
+                    <dd>{hits90Days}</dd>
+                </dl>
+                <dl className="dl-horizontal">
                     <dt>Distribución original</dt>
                     <dd><a href={props.serie.downloadURL} className="color-1">{props.serie.downloadURL}</a></dd>
                 </dl>
@@ -78,6 +96,10 @@ export default (props: ISerieDetailsProp) =>
             </div>
         </Row>
     </Details>
+    );
+
+}
+
 
 
 function serieUnits(serie: ISerie): string {

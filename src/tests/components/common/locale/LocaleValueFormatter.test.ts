@@ -1,4 +1,5 @@
-import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../../../../helpers/common/LocaleValueFormatter";
+import LocaleValueFormatter, { ILocaleValueFormatterConfig, formattedHits90Days } from "../../../../helpers/common/LocaleValueFormatter";
+import { IAbbreviationProps } from "../../../../helpers/common/numberAbbreviation";
 
 let formatter: LocaleValueFormatter;
 let config: ILocaleValueFormatterConfig;
@@ -251,5 +252,38 @@ describe("Tests for US locale-wise value formatting", () => {
         });
 
     })
+
+})
+
+describe("Tests for specific formatting of the 'hits_90_days' metadata", () => {
+
+    let locale: string;
+    let abbreviationProps: IAbbreviationProps;
+    let hitsAmount: number;
+
+    beforeAll(() => {
+        locale = "AR";
+        abbreviationProps = {
+            numbersAbbreviate: true,
+            decimalsBillion: 2,
+            decimalsMillion: 4
+        };
+    })
+
+    it("The amount of hits is always formatted as an integer number", () => {
+        hitsAmount = 1489.19;
+        formattedString = formattedHits90Days(locale, abbreviationProps, hitsAmount);
+        expect(formattedString).toEqual("1489");
+    });
+    it("Amounts of hits bigger than ten thousand have the thousand separator applied when formatted", () => {
+        hitsAmount = 351987;
+        formattedString = formattedHits90Days(locale, abbreviationProps, hitsAmount);
+        expect(formattedString).toEqual("351.987");
+    });
+    it("Really big amounts of hits are abbreviated and have their proper suffix appended", () => {
+        hitsAmount = 20003984;
+        formattedString = formattedHits90Days(locale, abbreviationProps, hitsAmount);
+        expect(formattedString).toEqual("20,0040M");
+    });
 
 })

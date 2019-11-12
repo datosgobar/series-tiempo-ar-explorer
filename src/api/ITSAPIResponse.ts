@@ -90,6 +90,7 @@ export interface IField {
     max_value: string;
     is_percentage: boolean;
     significant_figures: number;
+    hits_90_days: number;
 }
 
 export interface IPublisher {

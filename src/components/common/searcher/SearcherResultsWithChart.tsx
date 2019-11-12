@@ -17,6 +17,7 @@ interface ISearcherResultsWithSeriesProps {
     numbersAbbreviate: boolean;
     decimalsBillion: number;
     decimalsMillion: number;
+    locale: string;
 }
 
 interface ISearcherResultsWithSeriesState {
@@ -47,7 +48,8 @@ class SearcherResultsWithChart extends React.Component<ISearcherResultsWithSerie
                                                      maxDecimals={this.props.maxDecimals} 
                                                      numbersAbbreviate={this.props.numbersAbbreviate}
                                                      decimalsBillion={this.props.decimalsBillion}
-                                                     decimalsMillion={this.props.decimalsMillion} />;
+                                                     decimalsMillion={this.props.decimalsMillion}
+                                                     locale={this.props.locale} />;
                 })}
             </div>
         )

@@ -47,7 +47,8 @@ describe('SeriesPicker', () => {
                               maxDecimals={2} 
                               numbersAbbreviate={true}
                               decimalsBillion={2} 
-                              decimalsMillion={2} />
+                              decimalsMillion={2}
+                              locale={"AR"} />
             </Provider>);
 
         wrapper.find(AutoComplete).find('input').simulate('change', { target: { value: searchTerm } });

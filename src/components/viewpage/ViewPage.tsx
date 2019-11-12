@@ -37,6 +37,7 @@ interface IViewPageProps extends RouterProps {
     numbersAbbreviate?: boolean;
     decimalsBillion?: number;
     decimalsMillion?: number;
+    locale: string;
 }
 
 interface IViewPageState {
@@ -150,7 +151,11 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                          numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                                          decimalsBillion={abbreviationProps.decimalsBillion}
                                          decimalsMillion={abbreviationProps.decimalsMillion} />
-                        <MetaData onRemove={this.removeSerie} />
+                        <MetaData onRemove={this.removeSerie}
+                                  locale={this.props.locale}
+                                  numbersAbbreviate={abbreviationProps.numbersAbbreviate}
+                                  decimalsBillion={abbreviationProps.decimalsBillion}
+                                  decimalsMillion={abbreviationProps.decimalsMillion} />
                     </Container>
                     <DetallePanel seriesPicker={ <SeriesPicker onPick={this.addPickedSerie}
                                                                onRemoveSerie={this.removeSerie}
@@ -158,7 +163,8 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                                                                maxDecimals={maxDecimals}
                                                                numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                                                                decimalsBillion={abbreviationProps.decimalsBillion}
-                                                               decimalsMillion={abbreviationProps.decimalsMillion} /> } />
+                                                               decimalsMillion={abbreviationProps.decimalsMillion}
+                                                               locale={this.props.locale} /> } />
                 </div>
             </section>
         );
@@ -281,6 +287,7 @@ function mapStateToProps(state: IStore) {
         decimalsMillion: state.decimalsMillion,
         formatChartUnits: state.formatChartUnits,
         heroImageUrl: state.heroImageUrl,
+        locale: state.locale,
         maxDecimals: state.maxDecimals,
         numbersAbbreviate: state.numbersAbbreviate,
         seriesApi: state.seriesApi

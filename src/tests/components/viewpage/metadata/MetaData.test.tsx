@@ -16,7 +16,7 @@ it('renders without crashing', () => {
     const onRemove = jest.fn();
     const wrapper = mount(
         <Provider store={store}>
-            <MetaData onRemove={onRemove} />
+            <MetaData onRemove={onRemove} locale={"AR"} numbersAbbreviate={true} decimalsBillion={2} decimalsMillion={2} />
         </Provider>
     );
 
