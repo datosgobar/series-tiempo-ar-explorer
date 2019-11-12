@@ -22,7 +22,7 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         if (this.props.series.length === 0) { return null }
 
         const unitsPickerStyle: IPickerStyle = {
-            width: '20.5%'
+            width: '24.5%'
         }
         const aggregationPickerStyle: IPickerStyle = {
             width: '16.5%'
@@ -73,8 +73,10 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
             { value: "value", title: "Unidades originales", available: true },
             { value: "change", title: "Variación", available: true },
             { value: "change_a_year_ago", title: "Variación interanual", available: true },
+            { value: "change_since_beginning_of_year", title: "Variación acumulada anual", available: true },
             { value: "percent_change", title: "Variación porcentual", available: true },
-            { value: "percent_change_a_year_ago", title: "Variación porcentual interanual", available: true }
+            { value: "percent_change_a_year_ago", title: "Variación porcentual interanual", available: true },
+            { value: "percent_change_since_beginning_of_year", title: "Variación porcentual acumulada anual", available: true }
         ];
     }
 
