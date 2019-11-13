@@ -15,7 +15,7 @@ export default (props: IOptionsContainerProps) => {
     delete auxProps.className;
 
     return (
-        <div className={`g-complement col-xs-4 ${props.className}`} style={props.style}>
+        <div className={`g-complement col-xs-12 ${props.className}`} style={props.style}>
             <FormHorizontal>
                 <label>{labelText}</label>
                 <span {...auxProps} />

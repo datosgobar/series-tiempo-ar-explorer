@@ -4,17 +4,27 @@
   width: 11%;
 }
 
-@media (max-width: 990px) {
+@media (max-width: 990px) {   /* iPad viewport */
   .g-complement {
-    width: 30%;
+    width: 40% !important;
+    float: left !important;
+  }
+  .g-chartType-selector, .g-units-selector {
+    margin-left: 65px;
+  }
+  .share {
+    text-align: center;
+  }
+  .g-social-container, .dropdown {
+    display: inline-block;
   }
 }
 
-@media (max-width: 526px) {
+@media (max-width: 526px) {   /* Mobile viewport */
   .g-complement {
     width: 90% !important;
     margin-left: 15px;
-    float: none !important;
+    float: left !important;
   }
 }
 
