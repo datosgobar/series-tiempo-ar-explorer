@@ -2615,59 +2615,49 @@ ANIMACIÓN:
 RESPONSIVE:
 ------------------------------------------------------------------------------------
 */
-@media (max-width: 460px) {
-  .share {
-    width: 100%;
-    display: block;
-  }
-
-  .d3-line-chart-container {
-    display: block;
-    width: 100%;
-  }
-
-  .d3-line-chart {
-    float: none !important;
-    margin-top: 15px !important;
-  }
-
-  .series-card {
-    height: auto !important;
-  }
-}
-
-@media (max-width: 526px) {   /* Mobile viewport */
+@media (max-width: 767px) {   /* Mobile viewport */
   .g-complement {
     width: 90% !important;
     margin-left: 15px;
     float: left !important;
   }
-  section#home #hero {
+  section#home #hero,
+  section#listado #hero {
     height: 250px;
   }
-  section#home #hero div.hero-caption {
-    height: auto;
-    padding-top: 0px;
+  section#home #hero div.hero-caption .container div.row h1.title-xxlg,
+  section#listado #hero div.hero-caption .container div.row h1.title-xlg {
+    font-size: 35px;
   }
-  section#listado #hero .container h1.title-xlg {
-    margin-bottom: 20px;
+  section#home #hero div.hero-caption .container div.row p.larger.color-w.mg-b,
+  section#listado #hero div.hero-caption .container div.row p.large.color-w.mg-b {
+    font-size: 15px;
   }
-  section#listado #hero .container div.row p.large.color-w.mg-b {
-    display: none;
+  section#home #hero .container #form-hero-search .form-group i,
+  section#listado #hero .container #form-hero-search .form-group i {
+    font-size: 26px;
+  }
+  section#listado #hero .container #form-hero-search .form-group .form-autocomplete input.form-control {
+    height: 68.15px;
   }
   section#listado #listado-list .container #list div.search-conditions div.title-and-sorting {
     display: block;
   }
-}
-
-@media (max-width: 600px) and (min-width: 461px) {
   .share {
-    width: 57%;
-    display: inline-block;
+    width: 100%;
+    display: block;
   }
-}
-
-@media (max-width: 767px) {
+  .d3-line-chart-container {
+    display: block;
+    width: 100%;
+  }
+  .d3-line-chart {
+    float: none !important;
+    margin-top: 15px !important;
+  }
+  .series-card {
+    height: auto !important;
+  }
   section#listado #listado-list #filters {
     height: auto !important;
     margin-top: 15px;
@@ -2709,7 +2699,7 @@ RESPONSIVE:
   }
 }
 
-@media (max-width: 990px) { /* iPad viewport */
+@media (max-width: 992px) and (min-width: 768px) { /* Tablet viewport */
   .g-complement {
     width: 40% !important;
     float: left !important;
