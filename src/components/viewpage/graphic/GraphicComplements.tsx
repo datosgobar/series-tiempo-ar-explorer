@@ -31,9 +31,9 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
         return (
             <div className="row graphic-complements">
                 <ShareLinks url={this.props.url} series={this.props.series} />
-                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeChartType} selected={this.props.selectedChartType} availableOptions={this.chartTypeOptions()} label="Tipo de Gráfico" />
+                <OptionsPicker className="col-sm-2 g-chartType-selector" onChangeOption={this.props.handleChangeChartType} selected={this.props.selectedChartType} availableOptions={this.chartTypeOptions()} label="Tipo de Gráfico" />
                 <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeAggregation} selected={this.selectedAggregation()} availableOptions={this.aggregationOptions()} label="Agregación" style={aggregationPickerStyle} />
-                <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeUnits} selected={this.selectedUnit()} availableOptions={this.unitOptions()} label="Unidades" style={unitsPickerStyle} />
+                <OptionsPicker className="col-sm-2 g-units-selector" onChangeOption={this.props.handleChangeUnits} selected={this.selectedUnit()} availableOptions={this.unitOptions()} label="Unidades" style={unitsPickerStyle} />
                 <OptionsPicker className="col-sm-2" onChangeOption={this.props.handleChangeFrequency} selected={this.frequency()} availableOptions={this.frequencyOptions()} label="Frecuencia" />
             </div>
         )
