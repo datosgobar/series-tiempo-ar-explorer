@@ -28,7 +28,7 @@ export default (props: ISerieCardProps) => {
             </div>
         </Row>
         <Row>
-            <div className="col-xs-8">
+            <div className="col-sm-8 col-xs-12">
                 <CardSubtitle><strong>Publicador: </strong>{props.serie.publisher.name}</CardSubtitle>
                 <CardSubtitle><strong>Fuente: </strong>{props.serie.datasetSource}</CardSubtitle>
                 <CardSubtitle><strong>Período: </strong>{props.serie.startDate}-{props.serie.endDate}</CardSubtitle>
@@ -38,7 +38,7 @@ export default (props: ISerieCardProps) => {
                 <CardSubtitle><strong>ID: </strong>{props.serie.id}</CardSubtitle>
             </div>
 
-            <div className="col-xs-4 d3-line-chart-container">
+            <div className="col-sm-4 col-xs-12 d3-line-chart-container">
                 <D3SeriesChart serie={props.serie}
                                frequency={props.serie.accrualPeriodicity} 
                                maxDecimals={props.maxDecimals} 
