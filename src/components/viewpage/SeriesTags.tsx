@@ -21,10 +21,16 @@ interface ISeriesTagsProps extends React.Props<any> {
 function seriesTags(props: ISeriesTagsProps, state: any) {
     return (
         <span>
-            {props.serieTags.map((serieTag: ISerieTag, index: number) =>
-                <Tag key={index} pegColor={getSerieColor(props.series, getFullSerieId(serieTag))} onClose={getOnCloseFor(props.serieTags, serieTag.id, props.onTagClose)}>
+            {props.serieTags.map((serieTag: ISerieTag, index: number) => {
+                const fullSerieID = getFullSerieId(serieTag);
+                return(
+                <Tag key={index} 
+                     pegColor={getSerieColor(props.series, fullSerieID)} 
+                     onClose={getOnCloseFor(props.serieTags, fullSerieID, props.onTagClose)}>
                     {serieTag.title}
                 </Tag>
+                );
+            }
             )}
         </span>
     )

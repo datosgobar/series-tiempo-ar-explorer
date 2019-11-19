@@ -106,7 +106,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
     }
 
     public removeSerie(serieId: string) {
-        const ids = getIDs(this.props.location as Location).filter((val) => serieIdSanitizer(val) !== serieId);
+        const ids = getIDs(this.props.location as Location).filter((val) => val !== serieId);
         if (ids.length) {
             this.viewSeries(ids);
         }
@@ -275,10 +275,6 @@ export function seriesConfigByUrl(url: string): (series: ISerie[]) => SerieConfi
         seriesConfig.setPercentChangeAYearAgo(search.some((value: string) => value.includes(getFullSerieId(serie)) && value.includes('percent_change_a_year_ago')));
         return seriesConfig;
     });
-}
-
-function serieIdSanitizer(serieId: string): string {
-    return serieId.split(':')[0];
 }
 
 function mapStateToProps(state: IStore) {
