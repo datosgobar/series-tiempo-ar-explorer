@@ -2622,22 +2622,27 @@ RESPONSIVE:
     float: left !important;
   }
   section#home #hero,
-  section#listado #hero {
+  section#listado #hero,
+  section#detalle #hero {
     height: 250px;
   }
   section#home #hero div.hero-caption .container div.row h1.title-xxlg,
-  section#listado #hero div.hero-caption .container div.row h1.title-xlg {
+  section#listado #hero div.hero-caption .container div.row h1.title-xlg,
+  section#detalle #hero div.hero-caption .container div.row h1.title-xlg {
     font-size: 35px;
   }
   section#home #hero div.hero-caption .container div.row p.larger.color-w.mg-b,
-  section#listado #hero div.hero-caption .container div.row p.large.color-w.mg-b {
+  section#listado #hero div.hero-caption .container div.row p.large.color-w.mg-b,
+  section#detalle #hero div.hero-caption .container div.row p.large.color-w.mg-b {
     font-size: 15px;
   }
   section#home #hero .container #form-hero-search .form-group i,
-  section#listado #hero .container #form-hero-search .form-group i {
+  section#listado #hero .container #form-hero-search .form-group i,
+  section#detalle #hero .container #form-hero-search .form-group i {
     font-size: 26px;
   }
-  section#listado #hero .container #form-hero-search .form-group .form-autocomplete input.form-control {
+  section#listado #hero .container #form-hero-search .form-group .form-autocomplete input.form-control,
+  section#detalle #hero .container #form-hero-search .form-group .form-autocomplete input.form-control {
     height: 68.15px;
   }
   section#listado #listado-list .container #list div.search-conditions div.title-and-sorting {
@@ -2646,6 +2651,7 @@ RESPONSIVE:
   .share {
     width: 100%;
     display: block;
+    text-align: center;
   }
   .d3-line-chart-container {
     display: block;
@@ -2672,8 +2678,12 @@ RESPONSIVE:
   section#listado #listado-list #list .series-card .card-title {
     font-size: 18px;
   }
-  section#detalle #detalle-content .tag {
+  section#detalle #detalle-content #btn-config {
+    margin-right: 15px;
+  }
+  section#detalle #detalle-content span.tag {
     margin-bottom: 7.5px;
+    margin-left: 15px;
   }
   section#detalle #detalle-content .detalle-serie .dl-horizontal dt,
   section#detalle #detalle-content .detalle-serie .dl-horizontal dd {
