@@ -14,10 +14,10 @@ export default (props: IFinalSeriesHeroProps) =>
             </div>
         </Row>
         <Row>
-            <div className="col-sm-8 col-md-7">
+            <div className="col-sm-12 col-md-10">
                 <PLarge>{props.paragraph}</PLarge>
             </div>
-            <div className="col-sm-4 col-md-5">
+            <div className="col-sm-12 col-md-10">
                 {props.searchBox}
             </div>
         </Row>

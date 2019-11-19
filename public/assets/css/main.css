@@ -2759,7 +2759,9 @@ RESPONSIVE:
   .mg-xlg-b {
     margin-bottom: 30px;
   }
-  section#home #hero {
+  section#home #hero,
+  section#listado #hero,
+  section#detalle #hero {
     height: 210px;
   }
   section#home #hero,
