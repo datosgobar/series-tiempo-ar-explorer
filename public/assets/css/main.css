@@ -2709,7 +2709,7 @@ RESPONSIVE:
   }
 }
 
-@media (max-width: 992px) and (min-width: 768px) { /* Tablet viewport */
+@media (max-width: 1281px) and (min-width: 768px) { /* Tablet viewport */
   .g-complement {
     width: 40% !important;
     float: left !important;
