@@ -31,7 +31,8 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            decimalTooltip={config.decimalTooltip}
                            decimalTooltips={config.decimalTooltips || {}} 
                            startDate={config.startDate} 
-                           endDate={config.endDate} 
+                           endDate={config.endDate}
+                           last={config.last} 
                            numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                            decimalsBillion={abbreviationProps.decimalsBillion}
                            decimalsMillion={abbreviationProps.decimalsMillion} />,
