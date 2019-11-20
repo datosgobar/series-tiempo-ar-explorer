@@ -1,4 +1,5 @@
-import { extractIdsFromUrl, extractUriFromUrl } from "../../../helpers/common/URLExtractors";
+import { extractIdsFromUrl, extractUriFromUrl, getDateFromUrl } from "../../../helpers/common/URLExtractors";
+import { IDateRange } from "../../../api/DateSerie";
 
 describe("Extraction and adjustment of IDs from the URL", () => {
 
@@ -28,6 +29,38 @@ describe("Extraction and adjustment of IDs from the URL", () => {
         ids = extractIdsFromUrl(url);
         expect(ids[0]).toEqual("148.3_INIVELNAL_DICI_M_26:change");
         expect(ids[1]).toEqual("148.3_INIVELGBA_DICI_M_21:percent_change");
+    });
+
+})
+
+describe("Extraction of date range from the URL", () => {
+
+    let url: string;
+    let dateRange: IDateRange;
+
+    it("If no dates are specified, the range has no limits", () => {
+        url = "https://apis.datos.gob.ar/series/api/series/?ids=99.3_IR_2008_0_9";
+        dateRange = getDateFromUrl(url);
+        expect(dateRange.start).toEqual('');
+        expect(dateRange.end).toEqual('');
+    });
+    it("If only start date is specified, then only such is included as a limit", () => {
+        url = "https://apis.datos.gob.ar/series/api/series/?ids=99.3_IR_2008_0_9&start_date=2017-05-30";
+        dateRange = getDateFromUrl(url);
+        expect(dateRange.start).toEqual('2017-05-30');
+        expect(dateRange.end).toEqual('');
+    });
+    it("If only end date is specified, then only such is included as a limit", () => {
+        url = "https://apis.datos.gob.ar/series/api/series/?ids=99.3_IR_2008_0_9&end_date=2019-04-21";
+        dateRange = getDateFromUrl(url);
+        expect(dateRange.start).toEqual('');
+        expect(dateRange.end).toEqual('2019-04-21');
+    });
+    it("If both dates are specified, then the range has both of its limits", () => {
+        url = "https://apis.datos.gob.ar/series/api/series/?ids=99.3_IR_2008_0_9&start_date=2010-11-04&end_date=2015-06-28";
+        dateRange = getDateFromUrl(url);
+        expect(dateRange.start).toEqual('2010-11-04');
+        expect(dateRange.end).toEqual('2015-06-28');
     });
 
 })

@@ -2691,6 +2691,9 @@ RESPONSIVE:
     width: 100%;
     margin: 0 !important;
   }
+  section#detalle #detalle-content .detalle-serie .dl-horizontal dd a.color-1 {
+    overflow-wrap: break-word;
+  }
   section#detalle #detalle-content .detalle-serie .title-and-actions .title,
   section#detalle #detalle-content .detalle-serie .title-and-actions .action,
   section#detalle #detalle-content .detalle-serie .title-and-actions .title-warning {
