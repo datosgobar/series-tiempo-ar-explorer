@@ -13,6 +13,7 @@ export interface IGraphicComplementsProps {
     handleChangeChartType: (value: string) => void;
     url: string;
     selectedChartType: string;
+    selectedUnits: string;
 }
 
 export default class GraphicComplements extends React.Component<IGraphicComplementsProps, any> {
@@ -32,26 +33,26 @@ export default class GraphicComplements extends React.Component<IGraphicCompleme
             <div className="row graphic-complements">
                 <ShareLinks url={this.props.url} series={this.props.series} />
                 <OptionsPicker className="col-xs-12 col-md-3 col-lg-3 g-chartType-selector"
-                               onChangeOption={this.props.handleChangeChartType} 
-                               selected={this.props.selectedChartType} 
-                               availableOptions={this.chartTypeOptions()} 
+                               onChangeOption={this.props.handleChangeChartType}
+                               selected={this.props.selectedChartType}
+                               availableOptions={this.chartTypeOptions()}
                                label="Tipo de Gráfico" />
-                <OptionsPicker className="col-xs-12 col-md-3 col-lg-3" 
-                               onChangeOption={this.props.handleChangeAggregation} 
-                               selected={this.selectedAggregation()} 
-                               availableOptions={this.aggregationOptions()} 
-                               label="Agregación" 
+                <OptionsPicker className="col-xs-12 col-md-3 col-lg-3"
+                               onChangeOption={this.props.handleChangeAggregation}
+                               selected={this.selectedAggregation()}
+                               availableOptions={this.aggregationOptions()}
+                               label="Agregación"
                                style={aggregationPickerStyle} />
-                <OptionsPicker className="col-xs-12 col-md-3 col-lg-3 g-units-selector" 
-                               onChangeOption={this.props.handleChangeUnits} 
-                               selected={this.selectedUnit()} 
-                               availableOptions={this.unitOptions()} 
-                               label="Unidades" 
+                <OptionsPicker className="col-xs-12 col-md-3 col-lg-3 g-units-selector"
+                               onChangeOption={this.props.handleChangeUnits}
+                               selected={this.props.selectedUnits}
+                               availableOptions={this.unitOptions()}
+                               label="Unidades"
                                style={unitsPickerStyle} />
-                <OptionsPicker className="col-xs-12 col-md-3 col-lg-3" 
-                               onChangeOption={this.props.handleChangeFrequency} 
-                               selected={this.frequency()} 
-                               availableOptions={this.frequencyOptions()} 
+                <OptionsPicker className="col-xs-12 col-md-3 col-lg-3"
+                               onChangeOption={this.props.handleChangeFrequency}
+                               selected={this.frequency()}
+                               availableOptions={this.frequencyOptions()}
                                label="Frecuencia" />
             </div>
         )

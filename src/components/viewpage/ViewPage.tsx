@@ -12,6 +12,7 @@ import { getMaxDecimalsAmount } from '../../helpers/common/decimalsAmountHandlin
 import { getFullSerieId } from '../../helpers/common/fullSerieID';
 import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 import { emptySerie, serieWithData } from '../../helpers/common/seriesClassification';
+import { getDateFromUrl, IDsExtractor } from '../../helpers/common/URLExtractors';
 import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import ClearFix from '../style/ClearFix';
@@ -25,7 +26,6 @@ import GraphicAndShare from "./graphic/GraphicAndShare";
 import MetaData from './metadata/MetaData';
 import SeriesPicker from './seriespicker/SeriesPicker';
 import SeriesTags from './SeriesTags';
-import { getDateFromUrl, extractIdsFromUrl } from '../../helpers/common/URLExtractors';
 
 interface IViewPageProps extends RouterProps {
     seriesApi: ISerieApi;
@@ -101,12 +101,14 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
     }
 
     public addPickedSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
-        const ids = extractIdsFromUrl(this.props.location.search).concat(serieId);
+        const extractor: IDsExtractor = new IDsExtractor(this.props.location.search);
+        const ids = extractor.getIDsAsTheyAre().concat(serieId);
         this.viewSeries(ids);
     }
 
     public removeSerie(serieId: string) {
-        const ids = extractIdsFromUrl(this.props.location.search).filter((val) => val !== serieId);
+        const extractor: IDsExtractor = new IDsExtractor(this.props.location.search);
+        const ids = extractor.getIDsExcludingCertainOne(serieId);
         if (ids.length) {
             this.viewSeries(ids);
         }
@@ -171,7 +173,8 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
     }
 
     private handleUriChange(location: Location) {
-        const ids = extractIdsFromUrl(location.search);
+        const extractor: IDsExtractor = new IDsExtractor(location.search);
+        const ids = extractor.getIDsAsTheyAre();
 
         if (ids.length === 0) { return }
 

@@ -3,15 +3,15 @@ import { ApiClient } from "../../api/ApiClient";
 import QueryParams from "../../api/QueryParams";
 import { ISerie, MAX_SIGNIFICANT_FIGURES } from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
-import { extractIdsFromUrl, extractUriFromUrl } from "../../helpers/common/URLExtractors";
-import { PropsAdjuster, IAdjustmentOptions } from "../../helpers/graphic/propsAdjuster";
+import { buildAbbreviationProps } from "../../helpers/common/numberAbbreviation";
+import { extractUriFromUrl, IDsExtractor } from "../../helpers/common/URLExtractors";
+import { IAdjustmentOptions, PropsAdjuster } from "../../helpers/graphic/propsAdjuster";
 import { GraphicURLValidator } from "../../helpers/graphic/URLValidation";
 import { getColorArray } from "../style/Colors/Color";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
-import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides, INumberPropsPerId } from "../viewpage/graphic/Graphic";
+import Graphic, { IChartTypeProps, ILegendLabel, INumberPropsPerId, ISeriesAxisSides } from "../viewpage/graphic/Graphic";
 import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
-import { buildAbbreviationProps } from "../../helpers/common/numberAbbreviation";
 
 export interface IGraphicExportableProps {
     graphicUrl: string;
@@ -69,7 +69,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
     public componentDidMount() {
         const url = new URLSearchParams(this.props.graphicUrl);
-        const ids = extractIdsFromUrl(this.props.graphicUrl);
+        const extractor: IDsExtractor = new IDsExtractor(this.props.graphicUrl);
+        const ids = extractor.getModifiedIDs();
         const params = new QueryParams(ids);
 
         const zoomStartDate = this.props.startDate || '';
