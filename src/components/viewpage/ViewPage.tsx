@@ -3,7 +3,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouterProps, withRouter } from "react-router";
 import { clearViewSeries, loadViewSeries, setDate } from '../../actions/seriesActions';
-import { IDateRange } from "../../api/DateSerie";
 import QueryParams from "../../api/QueryParams";
 import { ISerie } from '../../api/Serie';
 import { ISerieApi } from '../../api/SerieApi';
@@ -13,6 +12,7 @@ import { getMaxDecimalsAmount } from '../../helpers/common/decimalsAmountHandlin
 import { getFullSerieId } from '../../helpers/common/fullSerieID';
 import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
 import { emptySerie, serieWithData } from '../../helpers/common/seriesClassification';
+import { getDateFromUrl, IDsExtractor } from '../../helpers/common/URLExtractors';
 import { IStore } from '../../store/initialState';
 import SearchBox from '../common/searchbox/SearchBox';
 import ClearFix from '../style/ClearFix';
@@ -101,12 +101,14 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
     }
 
     public addPickedSerie(event: React.MouseEvent<HTMLButtonElement>, serieId: string) {
-        const ids = getIDs(this.props.location as Location).concat(serieId);
+        const extractor: IDsExtractor = new IDsExtractor(this.props.location.search);
+        const ids = extractor.getIDsAsTheyAre().concat(serieId);
         this.viewSeries(ids);
     }
 
     public removeSerie(serieId: string) {
-        const ids = getIDs(this.props.location as Location).filter((val) => val !== serieId);
+        const extractor: IDsExtractor = new IDsExtractor(this.props.location.search);
+        const ids = extractor.getIDsExcludingCertainOne(serieId);
         if (ids.length) {
             this.viewSeries(ids);
         }
@@ -171,11 +173,12 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
     }
 
     private handleUriChange(location: Location) {
-        const ids = getIDs(location);
+        const extractor: IDsExtractor = new IDsExtractor(location.search);
+        const ids = extractor.getIDsAsTheyAre();
 
         if (ids.length === 0) { return }
 
-        this.props.dispatch(setDate(getDateFromUrl(location)));
+        this.props.dispatch(setDate(getDateFromUrl(location.search)));
 
         const idsWoDuplicates = removeDuplicates(ids);
         if (idsWoDuplicates.length < ids.length) {
@@ -241,23 +244,6 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         this.setState({ lastSuccessQueryParams: getQueryParams(this.props.location) });
     }
 
-}
-
-function getIDs(location: Location): string[] {
-    const params = new URLSearchParams(location.search);
-
-    let ids = params.getAll('ids');
-    ids = ids.length ? ids.join(',').split(',') : [];
-
-    return ids;
-}
-
-function getDateFromUrl(location: Location): IDateRange {
-    const params = getQueryParams(location);
-    const start = params.get('start_date') || '';
-    const end = params.get('end_date') || '';
-
-    return { start, end };
 }
 
 export function getQueryParams(location: any): URLSearchParams {

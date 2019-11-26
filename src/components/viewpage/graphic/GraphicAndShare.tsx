@@ -19,6 +19,7 @@ import { chartExtremes } from '../../../helpers/graphic/chartExtremes';
 
 
 const DEFAULT_CHART_TYPE: string = 'line';
+const DEFAULT_REPRESENTATION_MODE: string = 'value';
 
 export interface IGraphicAndShareProps {
     series: ISerie[];
@@ -95,10 +96,6 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         this.props.updateParamsInUrl(params);
     }
 
-    public getSelectedChartType(): string {
-        return getQueryParams(this.props.location).get('chartType') || DEFAULT_CHART_TYPE;
-    }
-
     public render() {
         return (
             <GraphContainer>
@@ -122,9 +119,18 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
                                     handleChangeUnits={this.handleChangeUnits}
                                     handleChangeAggregation={this.handleChangeAggregation}
                                     handleChangeChartType={this.handleChangeChartType}
-                                    selectedChartType={this.getSelectedChartType()} />
+                                    selectedChartType={this.getSelectedChartType()}
+                                    selectedUnits={this.getSelectedUnits()} />
             </GraphContainer>
         )
+    }
+
+    private getSelectedChartType(): string {
+        return getQueryParams(this.props.location).get('chartType') || DEFAULT_CHART_TYPE;
+    }
+
+    private getSelectedUnits(): string {
+        return getQueryParams(this.props.location).get('representation_mode') || DEFAULT_REPRESENTATION_MODE;
     }
 
     private removeDateParams() {
