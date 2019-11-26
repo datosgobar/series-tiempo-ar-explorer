@@ -139,7 +139,8 @@ export class ChartConfigBuilder {
                             this.props.onZoom({min: Math.ceil(e.min), max: Math.ceil(e.max)});
                         }
                     }
-                }
+                },
+                minRange: 2
             },
 
             yAxis: yAxisArray,

@@ -9,8 +9,8 @@ import { IAdjustmentOptions, PropsAdjuster } from "../../helpers/graphic/propsAd
 import { GraphicURLValidator } from "../../helpers/graphic/URLValidation";
 import { getColorArray } from "../style/Colors/Color";
 import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContainer";
-import Graphic, { IChartTypeProps, ILegendLabel, INumberPropsPerId, ISeriesAxisSides } from "../viewpage/graphic/Graphic";
-import { chartExtremes } from "../viewpage/graphic/GraphicAndShare";
+import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides, INumberPropsPerId } from "../viewpage/graphic/Graphic";
+import { chartExtremes } from "../../helpers/graphic/chartExtremes";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
 
 export interface IGraphicExportableProps {
@@ -37,6 +37,7 @@ export interface IGraphicExportableProps {
     decimalTooltip?: number;
     startDate?: string;
     endDate?: string;
+    last?: number;
     numbersAbbreviate?: boolean;
     decimalsBillion?: number;
     decimalsMillion?: number;
@@ -111,7 +112,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         return (
             <ExportableGraphicContainer>
                 <Graphic series={this.state.series}
-                         range={chartExtremes(this.state.series, this.state.dateRange)}
+                         range={chartExtremes(this.state.series, this.state.dateRange, this.props.last)}
                          seriesConfig={seriesConfigByUrl(this.props.graphicUrl)(this.state.series)}
                          chartOptions={chartOptions}
                          formatUnits={true}
