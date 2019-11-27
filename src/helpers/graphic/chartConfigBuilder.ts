@@ -31,7 +31,7 @@ export class ChartConfigBuilder {
 
         const yAxisArray = generateYAxisArray(this.yAxisBySeries);
         const seriesValues = this.seriesValues(yAxisArray);
-        
+
         return {
 
             legend: {
@@ -51,9 +51,9 @@ export class ChartConfigBuilder {
             title: {
                 text: ''
             },
-            plotOptions : { series: { dataGrouping: { enabled: false } } },
-            tooltip:{
-                formatter () {
+            plotOptions: { series: { dataGrouping: { enabled: false } } },
+            tooltip: {
+                formatter() {
                     const self: any = this;
                     // @ts-ignore
                     const builder: ChartConfigBuilder = _this;
@@ -68,11 +68,11 @@ export class ChartConfigBuilder {
 
                             let significantFigures = serieConfig.getSerieSignificantFigures();
 
-                            if(builder.props.maxDecimals !== undefined) {
+                            if (builder.props.maxDecimals !== undefined) {
                                 significantFigures = Math.min(builder.props.maxDecimals, serieConfig.getSerieSignificantFigures());
                             }
 
-                            const decimalPlaces = getTooltipDecimals(serieConfig.getFullSerieId(), 
+                            const decimalPlaces = getTooltipDecimals(serieConfig.getFullSerieId(),
                                 significantFigures, builder.props.decimalTooltips);
 
                             const localeFormatterConfig: ILocaleValueFormatterConfig = {
@@ -87,10 +87,10 @@ export class ChartConfigBuilder {
                             value = localeFormatter.formatValue(value);
 
                             contentTooltip += tooltipFormatter(point, value, builder.smallTooltip);
-                            
+
                         }
 
-                        if (index < self.points.length -1) {
+                        if (index < self.points.length - 1) {
                             contentTooltip += "<br>";
                         }
                     });
@@ -128,7 +128,7 @@ export class ChartConfigBuilder {
                         const zoomBtnClicked = e.min === undefined && e.max === undefined && e.trigger === 'zoom';
                         const viewAllClicked = e.trigger === 'rangeSelectorButton' && e.rangeSelectorButton.type === 'all';
 
-                        if((zoomBtnClicked || viewAllClicked) && this.props.onReset) {
+                        if ((zoomBtnClicked || viewAllClicked) && this.props.onReset) {
                             this.props.onReset();
                         } else if (this.props.onZoom) {
                             const defaultMin = e.min === 0 || e.min === this.props.range.min;
@@ -136,40 +136,111 @@ export class ChartConfigBuilder {
                             if (e.min === e.max || defaultMin && defaultMax) { return }
 
 
-                            this.props.onZoom({min: Math.ceil(e.min), max: Math.ceil(e.max)});
+                            this.props.onZoom({ min: Math.ceil(e.min), max: Math.ceil(e.max) });
                         }
                     }
                 },
                 minRange: 2
             },
+            responsive: {
+                rules: [
+                    {
+                        condition: {
+                            maxWidth: 359
+                        },
+                        chartOptions: {
+                            rangeSelector: {
+                                buttonPosition: {
+                                    x: -30
+                                },
+                                inputPosition: {
+                                    align: 'center',
+                                    x: 35
+                                }
+                            },
+                        }
+                    },
+                    {
+                        condition: {
+                            maxWidth: 400,
+                            minWidth: 360
+                        },
+                        chartOptions: {
+                            rangeSelector: {
+                                buttonPosition: {
+                                    x: 10
+                                },
+                                inputPosition: {
+                                    align: 'center',
+                                    x: 25
+                                }
+                            },
+                        }
+                    },
+                    {
+                        condition: {
+                            maxWidth: 500,
+                            minWidth: 401
+                        },
+                        chartOptions: {
+                            rangeSelector: {
+                                buttonPosition: {
+                                    align: 'right',
+                                    x: 80
+                                },
+                                inputPosition: {
+                                    align: 'center',
+                                    x: 25
+                                }
+                            }
+                        }
+                    },
+                    {
+                        condition: {
+                            maxWidth: 767,
+                            minWidth: 551
+                        },
+                        chartOptions: {
+                            rangeSelector: {
+                                buttonPosition: {
+                                    align: 'left',
+                                    x: -30
+                                },
+                                inputPosition: {
+                                    align: 'right'
+                                }
+                            },
+                        }
+                    }]
+            },
 
             yAxis: yAxisArray,
             series: seriesValues
         };
-        
+
     }
 
     private exporting() {
         return {
             buttons: {
                 contextButton: {
-                    menuItems: ['printChart', 'downloadPNG','downloadJPEG', 'downloadPDF', 'downloadSVG']
+                    menuItems: ['printChart', 'downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG']
                 },
             },
             chartOptions: {
                 legend: { itemStyle: { width: 300 } },
-                navigator: {enabled: false},
-                rangeSelector: {enabled: false},
+                navigator: { enabled: false },
+                rangeSelector: { enabled: false },
                 scrollbar: { enabled: false },
             }
         }
     }
 
     private rangeSelector() {
-        return  {
+        return {
             buttons: [
-                { count: 1, text: '1m', type: 'month'},
-                { count: 3, text: '3m', type: 'month'},
+                { count: 1, text: '1m', type: 'month' },
+                { count: 3, text: '3m', type: 'month' },
                 { count: 6, text: '6m', type: 'month' },
                 { text: 'YTD', type: 'ytd' },
                 { count: 1, text: '1y', type: 'year' },
@@ -202,7 +273,7 @@ export class ChartConfigBuilder {
             yAxisArray,
         }
         return series.map((serie) => new HighchartsSerieBuilder(options)
-                                            .buildFromSerie(serie));
+            .buildFromSerie(serie));
     }
 
 }
