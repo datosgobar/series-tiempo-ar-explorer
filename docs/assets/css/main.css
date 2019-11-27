@@ -4,20 +4,6 @@
   width: 11%;
 }
 
-@media (max-width: 990px) {
-  .g-complement {
-    width: 30%;
-  }
-}
-
-@media (max-width: 526px) {
-  .g-complement {
-    width: 90% !important;
-    margin-left: 15px;
-    float: none !important;
-  }
-}
-
 .pointer {
   cursor: pointer;
 }
@@ -155,34 +141,6 @@
   .highcharts-root,
   .highcharts-background {
     width: 700px;
-  }
-}
-
-@media (max-width: 600px) and (min-width: 461px) {
-  .share {
-    width: 57%;
-    display: inline-block;
-  }
-}
-
-@media (max-width: 460px) {
-  .share {
-    width: 100%;
-    display: block;
-  }
-
-  .d3-line-chart-container {
-    display: block;
-    width: 100%;
-  }
-
-  .d3-line-chart {
-    float: none !important;
-    margin-top: 15px !important;
-  }
-
-  .series-card {
-    height: auto !important;
   }
 }
 
@@ -1592,7 +1550,7 @@ aside .series-card,
 footer .series-card {
   position: relative;
   display: block;
-  height: 280px;
+  height: 298px;
   border: 1px solid #dddddd;
   padding: 22.5px;
   overflow: hidden;
@@ -2657,7 +2615,65 @@ ANIMACIÓN:
 RESPONSIVE:
 ------------------------------------------------------------------------------------
 */
-@media (max-width: 767px) {
+@media (max-width: 767px) {   /* Mobile viewport */
+  .g-complement {
+    width: 90% !important;
+    margin-left: 18px;
+    margin-right: 15px;
+    float: left !important;
+  }
+  .g-complement > * {
+    display: inline;
+    float: none;
+  }
+  @media (min-width: 576px) { /* Only for landscaped mobile viewports */
+    .g-complement {
+      margin-left: 32px;
+    }
+  }
+  section#home #hero,
+  section#listado #hero,
+  section#detalle #hero {
+    height: 250px;
+  }
+  section#home #hero div.hero-caption .container div.row h1.title-xxlg,
+  section#listado #hero div.hero-caption .container div.row h1.title-xlg,
+  section#detalle #hero div.hero-caption .container div.row h1.title-xlg {
+    font-size: 35px;
+  }
+  section#home #hero div.hero-caption .container div.row p.larger.color-w.mg-b,
+  section#listado #hero div.hero-caption .container div.row p.large.color-w.mg-b,
+  section#detalle #hero div.hero-caption .container div.row p.large.color-w.mg-b {
+    font-size: 15px;
+  }
+  section#home #hero .container #form-hero-search .form-group i,
+  section#listado #hero .container #form-hero-search .form-group i,
+  section#detalle #hero .container #form-hero-search .form-group i {
+    font-size: 26px;
+  }
+  section#listado #hero .container #form-hero-search .form-group .form-autocomplete input.form-control,
+  section#detalle #hero .container #form-hero-search .form-group .form-autocomplete input.form-control {
+    height: 68.15px;
+  }
+  section#listado #listado-list .container #list div.search-conditions div.title-and-sorting {
+    display: block;
+  }
+  .share {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+  .d3-line-chart-container {
+    display: block;
+    width: 100%;
+  }
+  .d3-line-chart {
+    float: none !important;
+    margin-top: 15px !important;
+  }
+  .series-card {
+    height: auto !important;
+  }
   section#listado #listado-list #filters {
     height: auto !important;
     margin-top: 15px;
@@ -2672,14 +2688,21 @@ RESPONSIVE:
   section#listado #listado-list #list .series-card .card-title {
     font-size: 18px;
   }
-  section#detalle #detalle-content .tag {
+  section#detalle #detalle-content #btn-config {
+    margin-right: 15px;
+  }
+  section#detalle #detalle-content span.tag {
     margin-bottom: 7.5px;
+    margin-left: 15px;
   }
   section#detalle #detalle-content .detalle-serie .dl-horizontal dt,
   section#detalle #detalle-content .detalle-serie .dl-horizontal dd {
     display: block;
     width: 100%;
     margin: 0 !important;
+  }
+  section#detalle #detalle-content .detalle-serie .dl-horizontal dd a.color-1 {
+    overflow-wrap: break-word;
   }
   section#detalle #detalle-content .detalle-serie .title-and-actions .title,
   section#detalle #detalle-content .detalle-serie .title-and-actions .action,
@@ -2698,7 +2721,26 @@ RESPONSIVE:
     white-space: nowrap;
   }
 }
-@media (max-width: 992px) {
+
+@media (max-width: 1199px) and (min-width: 768px) { /* Tablet viewport */
+  .g-complement {
+    width: 40% !important;
+    float: left !important;
+  }
+  .g-chartType-selector, .g-units-selector {
+    margin-left: 65px;
+  }
+  @media (min-width: 1024px) { /* Only for landscaped iPad viewports */
+    .g-chartType-selector, .g-units-selector {
+      margin-left: 90px;
+    }
+  }
+  .share {
+    text-align: center;
+  }
+  .g-social-container, .dropdown {
+    display: inline-block;
+  }
   .mg-b-xs {
     margin-bottom: 15px !important;
   }
@@ -2738,8 +2780,12 @@ RESPONSIVE:
   section#home #hero,
   section#listado #hero,
   section#detalle #hero {
+    height: 210px;
+  }
+  section#home #hero,
+  section#listado #hero,
+  section#detalle #hero {
     width: 100%;
-    height: auto;
   }
   section#home #hero .container,
   section#listado #hero .container,
@@ -2750,7 +2796,6 @@ RESPONSIVE:
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
     transform: translateY(0);
-    padding: 30px 0;
   }
   section#home #hero .container .title-xxlg,
   section#listado #hero .container .title-xxlg,
