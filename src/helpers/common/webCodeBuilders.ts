@@ -88,8 +88,8 @@ export function graphicWebCode(url: string, series: ISerie[]): string {
     const source = calculateChartSource(series);
     const chartType = calculateChartType(url);
 
-    let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/js/components.js'></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/css/components.css'/>
+    let htmlScript = `<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/js/components.js'></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/css/components.css'/>
 <div id=\"root\"></div>
 <script>
     window.onload = function() {
