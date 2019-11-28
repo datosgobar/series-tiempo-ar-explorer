@@ -10,6 +10,7 @@ import { dateFormatByPeriodicity } from "./dateFormatting";
 import { HighchartsSerieBuilder, IHighchartsSerieBuilderOptions } from "./hcSerieFromISerie";
 import { tooltipDateValue, tooltipFormatter } from "./tooltipHandling";
 import LocaleValueFormatter, { ILocaleValueFormatterConfig } from "../common/LocaleValueFormatter";
+import { RESPONSIVE_FILTERS_ALIGNMENT_RULES } from "./responsiveFiltersAlignment";
 
 export class ChartConfigBuilder {
 
@@ -143,75 +144,7 @@ export class ChartConfigBuilder {
                 minRange: 2
             },
             responsive: {
-                rules: [
-                    {
-                        condition: {
-                            maxWidth: 359
-                        },
-                        chartOptions: {
-                            rangeSelector: {
-                                buttonPosition: {
-                                    x: -30
-                                },
-                                inputPosition: {
-                                    align: 'center',
-                                    x: 35
-                                }
-                            },
-                        }
-                    },
-                    {
-                        condition: {
-                            maxWidth: 400,
-                            minWidth: 360
-                        },
-                        chartOptions: {
-                            rangeSelector: {
-                                buttonPosition: {
-                                    x: 10
-                                },
-                                inputPosition: {
-                                    align: 'center',
-                                    x: 25
-                                }
-                            },
-                        }
-                    },
-                    {
-                        condition: {
-                            maxWidth: 500,
-                            minWidth: 401
-                        },
-                        chartOptions: {
-                            rangeSelector: {
-                                buttonPosition: {
-                                    align: 'right',
-                                    x: 80
-                                },
-                                inputPosition: {
-                                    align: 'center',
-                                    x: 25
-                                }
-                            }
-                        }
-                    },
-                    {
-                        condition: {
-                            maxWidth: 767,
-                            minWidth: 551
-                        },
-                        chartOptions: {
-                            rangeSelector: {
-                                buttonPosition: {
-                                    align: 'left',
-                                    x: -30
-                                },
-                                inputPosition: {
-                                    align: 'right'
-                                }
-                            },
-                        }
-                    }]
+                rules: RESPONSIVE_FILTERS_ALIGNMENT_RULES
             },
 
             yAxis: yAxisArray,
