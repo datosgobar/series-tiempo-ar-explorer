@@ -37,7 +37,7 @@ export default (props: IFullCardProps) => {
         decimalsBillion: abbreviationProps.decimalsBillion,
         decimalsMillion: abbreviationProps.decimalsMillion,
         explicitSign: options.explicitSign,
-        isPercentage: props.serie.isPercentage,
+        isPercentage: props.cardOptions.isPercentage !== undefined ? props.cardOptions.isPercentage : props.serie.isPercentage,
         numbersAbbreviate: abbreviationProps.numbersAbbreviate
     }
     const formatter = new LocaleValueFormatter(formatterConfig);

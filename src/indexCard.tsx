@@ -22,6 +22,7 @@ export interface ICardBaseConfig {
     numbersAbbreviate?: boolean;
     decimalsBillion?: number;
     decimalsMillion?: number;
+    isPercentage?: boolean;
 }
 
 export interface ICardExportableConfig extends ICardBaseConfig {
@@ -50,7 +51,8 @@ export function render(selector: string, config: ICardExportableConfig) {
                         decimals={config.decimals}
                         numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                         decimalsBillion={abbreviationProps.decimalsBillion}
-                        decimalsMillion={abbreviationProps.decimalsMillion} />,
+                        decimalsMillion={abbreviationProps.decimalsMillion}
+                        isPercentage={config.isPercentage} />,
         document.getElementById(selector) as HTMLElement
     )
 

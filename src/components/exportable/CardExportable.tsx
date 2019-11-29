@@ -87,7 +87,8 @@ export default class CardExportable extends React.Component<ICardExportableProps
                 numbersAbbreviate: this.props.numbersAbbreviate,
                 source: this.props.source,
                 title: this.props.title,
-                units:this.props.units
+                units: this.props.units,
+                isPercentage: this.props.isPercentage 
             },
             downloadUrl: this.getDownloadUrl(),
             laps: this.state.laps,
