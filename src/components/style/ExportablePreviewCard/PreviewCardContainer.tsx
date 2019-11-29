@@ -17,7 +17,6 @@ export default class PreviewCardContainer extends React.Component<IPreviewCardCo
     public render() {
         return (
             <div className="p-container" onClick={this.clickHandling}>
-                <p>Holis</p>
                 {this.props.children}
             </div>
         );

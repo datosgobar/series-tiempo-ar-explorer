@@ -46,7 +46,8 @@ export default class PreviewCardExportable extends React.Component<IPreviewCardE
                                     maxDecimals={2}
                                     numbersAbbreviate={true}
                                     decimalsBillion={2}
-                                    decimalsMillion={2} />
+                                    decimalsMillion={2}
+                                    connectedChart={false} />
             </PreviewCardContainer>
         );
         /* <SerieCardWithChart serie={this.state.serie}

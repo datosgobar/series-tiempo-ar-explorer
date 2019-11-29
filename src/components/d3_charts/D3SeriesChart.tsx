@@ -125,5 +125,5 @@ function mapStateToProps(state: IStore) {
     };
 }
 
-
-export default connect(mapStateToProps)(D3SeriesChart);
+export const UnconnectedD3SeriesChart = D3SeriesChart;
+export const ConnectedD3SeriesChart = connect(mapStateToProps)(D3SeriesChart);

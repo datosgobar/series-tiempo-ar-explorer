@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { formattedHits90Days } from '../../../../helpers/common/LocaleValueFormatter';
 import { IAbbreviationProps } from '../../../../helpers/common/numberAbbreviation';
-import D3SeriesChart from "../../../d3_charts/D3SeriesChart";
+import { ConnectedD3SeriesChart, UnconnectedD3SeriesChart } from "../../../d3_charts/D3SeriesChart";
 import Row from "../../Common/Row";
 import Card from "../Card";
 import CardBody from "../CardBody";
@@ -9,8 +9,11 @@ import CardSubtitle from "../CardSubtitle";
 import CardTitle from "../CardTitle";
 import { ISerieCardProps } from "./SerieCard";
 
+interface ISerieCardWithChartProps extends ISerieCardProps {
+    connectedChart: boolean;
+}
 
-export default (props: ISerieCardProps) => {
+export default (props: ISerieCardWithChartProps) => {
 
     const abbreviateProps: IAbbreviationProps = {
         decimalsBillion: props.decimalsBillion,
@@ -18,6 +21,35 @@ export default (props: ISerieCardProps) => {
         numbersAbbreviate: props.numbersAbbreviate
     }
     const hits90Days = formattedHits90Days(props.locale, abbreviateProps, props.serie.hits90Days);
+
+    let D3SeriesChart = props.connectedChart ? ConnectedD3SeriesChart : UnconnectedD3SeriesChart;
+    const seriesChartProps = {
+        decimalsBillion: props.decimalsBillion,
+        decimalsMillion: props.decimalsMillion,
+        frequency: props.serie.accrualPeriodicity,
+        laps: {
+            Anual: 10,
+            Diaria: 90,
+            Mensual: 24,
+            Semestral: 10,
+            Trimestral: 20,
+        },
+        locale: props.locale,
+        maxDecimals: props.maxDecimals,
+        numbersAbbreviate: props.numbersAbbreviate,
+        serie: props.serie
+    };
+    if (!props.connectedChart) {
+        D3SeriesChart = UnconnectedD3SeriesChart;
+        seriesChartProps.laps = {
+            Anual: 10,
+            Diaria: 90,
+            Mensual: 24,
+            Semestral: 10,
+            Trimestral: 20,
+        }
+    }
+
 
     return(
         <Card title={props.serie.title} {...props}>
@@ -39,12 +71,7 @@ export default (props: ISerieCardProps) => {
             </div>
 
             <div className="col-sm-4 col-xs-12 d3-line-chart-container">
-                <D3SeriesChart serie={props.serie}
-                               frequency={props.serie.accrualPeriodicity} 
-                               maxDecimals={props.maxDecimals} 
-                               numbersAbbreviate={props.numbersAbbreviate} 
-                               decimalsBillion={props.decimalsBillion} 
-                               decimalsMillion={props.decimalsMillion} />
+                <D3SeriesChart {...seriesChartProps} />
             </div>
         </Row>
     </Card>
