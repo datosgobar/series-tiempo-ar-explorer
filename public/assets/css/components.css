@@ -199,6 +199,12 @@ div.highcharts-tooltip-box span table tbody tr td span.tooltip-value {
   overflow: hidden;
 }
 
+.highcharts-range-selector:focus {
+  top: 75px !important;
+  width: 95px !important;
+  height: 25px !important;
+}
+
 /*---Fin Graphic---*/
 
 
