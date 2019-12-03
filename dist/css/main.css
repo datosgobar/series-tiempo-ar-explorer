@@ -1265,6 +1265,7 @@ section#detalle #detalle-content .detalle-serie .title-and-actions .title {
   border-left-width: 5px;
   border-left-style: solid;
   border-left-color: #999999;
+  word-break: break-word;
 }
 section#detalle #detalle-content .detalle-serie .title-and-actions .action {
   font-size: 12px;
