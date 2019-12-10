@@ -9,7 +9,7 @@ export function render(selector: string, config: IGraphicExportableProps) {
     const abbreviationProps = buildAbbreviationProps(config.numbersAbbreviate, config.decimalsBillion, config.decimalsMillion);
 
     ReactDOM.render(
-        <GraphicExportable graphicUrl={config.graphicUrl}
+        <GraphicExportable graphicUrl={config.graphicUrl} 
                            chartOptions={config.chartOptions || {}}
                            navigator={config.navigator}
                            locale={config.locale}
@@ -35,7 +35,11 @@ export function render(selector: string, config: IGraphicExportableProps) {
                            last={config.last} 
                            numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                            decimalsBillion={abbreviationProps.decimalsBillion}
-                           decimalsMillion={abbreviationProps.decimalsMillion} />,
+                           decimalsMillion={abbreviationProps.decimalsMillion}
+                           chartTypeSelector={config.chartTypeSelector}
+                           aggregationSelector={config.aggregationSelector}
+                           unitsSelector={config.unitsSelector}
+                           frequencySelector={config.frequencySelector} />,
         document.getElementById(selector) as HTMLElement
     )
 

@@ -4,7 +4,7 @@ import QueryParams from "../../api/QueryParams";
 import { ISerie, MAX_SIGNIFICANT_FIGURES } from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
 import { buildAbbreviationProps } from "../../helpers/common/numberAbbreviation";
-import { extractUriFromUrl, IDsExtractor } from "../../helpers/common/URLExtractors";
+import { extractUriFromUrl, IDsExtractor, getRepresentationModeFromUrl, getCollapseParamsFromUrl } from "../../helpers/common/URLExtractors";
 import { IAdjustmentOptions, PropsAdjuster } from "../../helpers/graphic/propsAdjuster";
 import { GraphicURLValidator } from "../../helpers/graphic/URLValidation";
 import { getColorArray } from "../style/Colors/Color";
@@ -12,6 +12,7 @@ import ExportableGraphicContainer from "../style/Graphic/ExportableGraphicContai
 import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides, INumberPropsPerId } from "../viewpage/graphic/Graphic";
 import { chartExtremes } from "../../helpers/graphic/chartExtremes";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
+import ExportableGraphicPickers from "../style/Graphic/ExportableGraphicPickers";
 
 export interface IGraphicExportableProps {
     graphicUrl: string;
@@ -41,11 +42,19 @@ export interface IGraphicExportableProps {
     numbersAbbreviate?: boolean;
     decimalsBillion?: number;
     decimalsMillion?: number;
+    chartTypeSelector?: boolean;
+    aggregationSelector?: boolean;
+    unitsSelector?: boolean;
+    frequencySelector?: boolean;
 }
 
 interface IGraphicExportableState {
     series: ISerie[];
     dateRange: { start: string, end: string };
+    selectedAggregation: string;
+    selectedChartType: string;
+    selectedFrequency: string;
+    selectedUnits: string;
 }
 
 export default class GraphicExportable extends React.Component<IGraphicExportableProps, IGraphicExportableState> {
@@ -55,6 +64,10 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     public constructor(props: any) {
         super(props);
         this.afterRender = this.afterRender.bind(this);
+        this.handleChangeAggregation = this.handleChangeAggregation.bind(this);
+        this.handleChangeChartType = this.handleChangeChartType.bind(this);
+        this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
+        this.handleChangeUnits = this.handleChangeUnits.bind(this);
 
         const urlValidator = new GraphicURLValidator();
         if(!urlValidator.isValidURL(this.props.graphicUrl)) {
@@ -62,25 +75,23 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         }
 
         this.seriesApi = new SerieApi(new ApiClient(extractUriFromUrl(props.graphicUrl), 'ts-components'));
+        const collapseParams = getCollapseParamsFromUrl(this.props.graphicUrl);
+
         this.state = {
             dateRange: { start: '', end: '' },
-            series: []
+            series: [],
+            selectedAggregation: collapseParams.collapseAggregation,
+            selectedChartType: '',
+            selectedFrequency: collapseParams.collapse,
+            selectedUnits: getRepresentationModeFromUrl(this.props.graphicUrl)
         }
     }
 
     public componentDidMount() {
-        const url = new URLSearchParams(this.props.graphicUrl);
-        const extractor: IDsExtractor = new IDsExtractor(this.props.graphicUrl);
-        const ids = extractor.getModifiedIDs();
-        const params = new QueryParams(ids);
 
+        const ids = getIDsFromGraphicURL(this.props.graphicUrl);
         const zoomStartDate = this.props.startDate || '';
         const zoomEndDate = this.props.endDate || '';
-        const serieStartDate = url.get('start_date') || '';
-        const serieEndDate = url.get('end_date') || '';
-
-        params.setStartDate(serieStartDate);
-        params.setEndDate(serieEndDate);
 
         this.setState({
             dateRange: {
@@ -88,26 +99,77 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                 end: zoomEndDate
             }
         });
-        params.addParamsFrom(url);
+
+        const params = buildParamsFromIDs(this.props.graphicUrl);
         this.fetchSeries(params);
 
-        const adjuster = new PropsAdjuster(ids);
-        const adjustmentOptions: IAdjustmentOptions = {
-            chartType: this.props.chartType,
-            chartTypes: this.props.chartTypes,
-            decimalTooltip: this.props.decimalTooltip,
-            decimalTooltips: this.props.decimalTooltips,
-            legendLabel: this.props.legendLabel,
-            seriesAxis: this.props.seriesAxis
-        };
-        adjuster.adjustAll(adjustmentOptions);
+        this.adjustProps(ids, this.props.chartType);
 
+    }
+
+    public shouldComponentUpdate(nextProps: IGraphicExportableProps, nextState: IGraphicExportableState) {
+
+        let chartType = this.props.chartType;
+        if (nextState.selectedChartType !== '') {
+            chartType = nextState.selectedChartType;    
+        }
+
+        const representationMode = this.state.selectedUnits !== 'value' ? this.state.selectedUnits : undefined;
+        const ids = getIDsFromGraphicURL(this.props.graphicUrl, representationMode);
+        this.adjustProps(ids, chartType);
+        return true;
+
+    }
+
+    public handleChangeFrequency(value: string) {
+        const params = buildParamsFromIDs(this.props.graphicUrl);
+        params.setCollapse(value);
+        params.setCollapseAggregation(this.state.selectedAggregation);
+        params.setRepresentationMode(this.state.selectedUnits);
+        this.setState({
+            selectedFrequency: value
+        });
+        this.fetchSeries(params);
+    }
+
+    public handleChangeUnits(value: string) {
+        const params = buildParamsFromIDs(this.props.graphicUrl, true);
+        params.setRepresentationMode(value);
+        params.setCollapseAggregation(this.state.selectedAggregation);
+        params.setCollapse(this.state.selectedFrequency);
+        this.setState({
+            selectedUnits: value
+        });
+        this.fetchSeries(params);
+    }
+
+    public handleChangeAggregation(value: string) {
+        const params = buildParamsFromIDs(this.props.graphicUrl);
+        params.setCollapseAggregation(value);
+        params.setCollapse(this.state.selectedFrequency);
+        params.setRepresentationMode(this.state.selectedUnits);
+        this.setState({
+            selectedAggregation: value
+        });
+        this.fetchSeries(params);
+    }
+
+    public handleChangeChartType(value: string) {
+        this.setState({
+            selectedChartType: value
+        });
+        this.resetChartTypes();
     }
 
     public render() {
 
         const chartOptions = buildChartOptions(this.props.chartOptions, this.props);
         const abbreviationProps = buildAbbreviationProps(this.props.numbersAbbreviate, this.props.decimalsBillion, this.props.decimalsMillion);
+
+        const chartTypeSelector = this.props.chartTypeSelector  !== undefined ? this.props.chartTypeSelector : true;
+        const unitsSelector = this.props.unitsSelector  !== undefined ? this.props.unitsSelector : true;
+        const aggregationSelector = this.props.aggregationSelector  !== undefined ? this.props.aggregationSelector : true;
+        const frequencySelector = this.props.frequencySelector  !== undefined ? this.props.frequencySelector : true;
 
         return (
             <ExportableGraphicContainer>
@@ -130,6 +192,19 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                          decimalsBillion={abbreviationProps.decimalsBillion}
                          decimalsMillion={abbreviationProps.decimalsMillion} />
+                <ExportableGraphicPickers series={this.state.series}
+                                          handleChangeAggregation={this.handleChangeAggregation}
+                                          handleChangeFrequency={this.handleChangeFrequency}
+                                          handleChangeUnits={this.handleChangeUnits} 
+                                          handleChangeChartType={this.handleChangeChartType}
+                                          selectedFrequency={this.state.selectedFrequency}
+                                          selectedUnits={this.state.selectedUnits}
+                                          selectedAggregation={this.state.selectedAggregation}
+                                          selectedChartType={this.state.selectedChartType}
+                                          chartTypeSelector={chartTypeSelector}
+                                          unitsSelector={unitsSelector}
+                                          aggregationSelector={aggregationSelector}
+                                          frequencySelector={frequencySelector} />
             </ExportableGraphicContainer>
         )
     }
@@ -174,12 +249,73 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         }
     }
 
-
     private fetchSeries(params: QueryParams) {
         this.seriesApi.fetchSeries(params)
-            .then((series: ISerie[]) => this.setState({series}))
+            .then((series: ISerie[]) => {
+                this.setState({series});
+            })
             .catch(alert);
     }
+
+    private adjustProps(ids: string[], chartType?: string): void {
+
+        const adjuster = new PropsAdjuster(ids);
+        const adjustmentOptions: IAdjustmentOptions = {
+            chartType,
+            chartTypes: this.props.chartTypes,
+            decimalTooltip: this.props.decimalTooltip,
+            decimalTooltips: this.props.decimalTooltips,
+            legendLabel: this.props.legendLabel,
+            seriesAxis: this.props.seriesAxis
+        };
+        adjuster.adjustAll(adjustmentOptions);
+
+    }
+
+    private resetChartTypes(): void {
+        
+        const orderedSeriesIDs = Object.keys(this.props.chartTypes);
+        orderedSeriesIDs.sort();
+        for (const id of orderedSeriesIDs) {
+            delete this.props.chartTypes[id];
+        }
+
+    }
+
+}
+
+function purifyIDs(originalIDs: string[]): string[] {
+
+    const pureIDs = []; 
+    for (const id of originalIDs) {
+        pureIDs.push(id.split(':')[0]);
+    }
+    return pureIDs;
+
+}
+
+function getIDsFromGraphicURL(graphicURL: string, representationMode?: string): string[] {
+    const extractor: IDsExtractor = new IDsExtractor(graphicURL, representationMode);
+    return extractor.getModifiedIDs();
+}
+
+function buildParamsFromIDs(graphicURL: string, pureIDsOnly: boolean = false): QueryParams { 
+
+    const url = new URLSearchParams(graphicURL);
+    const serieStartDate = url.get('start_date') || '';
+    const serieEndDate = url.get('end_date') || '';
+
+    let ids = getIDsFromGraphicURL(graphicURL);
+    if (pureIDsOnly) {
+        ids = purifyIDs(ids);
+    }
+    const params = new QueryParams(ids);
+
+    params.setStartDate(serieStartDate);
+    params.setEndDate(serieEndDate);
+    params.addParamsFrom(url, false);       // The repMode has already been added to the ids when getting them from the URL
+
+    return params;
 
 }
 

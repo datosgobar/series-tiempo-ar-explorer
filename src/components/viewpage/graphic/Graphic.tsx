@@ -119,13 +119,24 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     public shouldComponentUpdate(nextProps: IGraphicProps) {
 
-        if (this.props.chartTypes !== nextProps.chartTypes) {
+        /*if (this.props.chartTypes !== nextProps.chartTypes) {
+            return true;
+        }
+
+        /const types = (Object as any).values(this.props.chartTypes);
+        if (types.any((chartType: string) => chartType !== 'line')) {
+            return true;
+        }
+
+        if (this.props.series !== nextProps.series) {
             return true;
         }
 
         return this.props.series.every((serie1: ISerie) => {
             return nextProps.series.every((serie2: ISerie) => serie1.id !== serie2.id)
-        });
+        });*/
+
+        return true;
 
     }
 

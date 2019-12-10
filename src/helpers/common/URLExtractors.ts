@@ -1,14 +1,19 @@
 import { IDateRange } from "../../api/DateSerie";
 
+export interface ICollapseParams {
+    collapse: string;
+    collapseAggregation: string;
+}
+
 export class IDsExtractor {
 
     private idsParam: string;
     private repModeParam: string;
 
-    constructor(url: string) {
+    constructor(url: string, representationMode?: string) {
         const params = new URLSearchParams(url.split('?')[1]);
         this.idsParam = params.get('ids') || '';
-        this.repModeParam = params.get('representation_mode') || '';
+        this.repModeParam = representationMode || params.get('representation_mode') || '';
     }
 
     public getIDsAsTheyAre(): string[] {
@@ -67,6 +72,33 @@ export function getDateFromUrl(url: string): IDateRange {
     const end = params.get('end_date') || '';
 
     return { start, end };
+
+}
+
+export function getRepresentationModeFromUrl(url: string): string {
+
+    const params = new URLSearchParams(url);
+    let repMode = params.get('representation_mode') || '';
+
+    const series = params.getAll('ids');
+    if (series.length === 1) {
+        if (series[0].indexOf(':') !== -1) {
+            repMode = series[0].split(':')[1];
+        }
+    }
+
+    return repMode;
+
+}
+
+export function getCollapseParamsFromUrl(url: string): ICollapseParams {
+
+    const params = new URLSearchParams(url);
+
+    const collapse = params.get('collapse') || '';
+    const collapseAggregation = params.get('collapse_aggregation') || '';
+
+    return { collapse, collapseAggregation };
 
 }
 

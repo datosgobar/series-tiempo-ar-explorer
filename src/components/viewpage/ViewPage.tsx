@@ -192,7 +192,7 @@ export class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
 
     private setParamsAndFetch(ids: string[], location: Location) {
         const queryParams = new QueryParams(ids);
-        queryParams.addParamsFrom(getQueryParams(location));
+        queryParams.addParamsFrom(getQueryParams(location), true);
 
         this.fetchSeries(queryParams);
     }
