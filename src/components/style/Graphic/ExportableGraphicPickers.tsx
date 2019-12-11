@@ -17,6 +17,7 @@ export interface IExportableGraphicPickersProps {
     aggregationSelector: boolean;
     unitsSelector: boolean;
     frequencySelector: boolean;
+    presentSelectorsAmount: number;
     parentWidth: number;
 }
 
@@ -120,14 +121,8 @@ export default class ExportableGraphicPickers extends React.Component<IExportabl
             }
         }
 
-        let presentSelectors = 0;
-        if (this.props.chartTypeSelector) { presentSelectors++; }
-        if (this.props.aggregationSelector) { presentSelectors++; }
-        if (this.props.unitsSelector) { presentSelectors++; }
-        if (this.props.frequencySelector) { presentSelectors++; }
-
         return {
-            width: WIDTHS_PER_PRESENT_SELECTORS[presentSelectors]
+            width: WIDTHS_PER_PRESENT_SELECTORS[this.props.presentSelectorsAmount]
         }
 
     }

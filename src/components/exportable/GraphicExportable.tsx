@@ -206,20 +206,24 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                                           unitsSelector={unitsSelector}
                                           aggregationSelector={aggregationSelector}
                                           frequencySelector={frequencySelector}
+                                          presentSelectorsAmount={this.presentSelectorsAmount()}
                                           parentWidth={this.divWidth} />
             </ExportableGraphicContainer>
         )
     }
 
     private afterRender(chart: any) {
-        const chartHeight = chart.container.parentElement.clientHeight;
+
+        this.divWidth = chart.container.parentElement.clientWidth;
+        const pickersHeight = this.divWidth < 1500 ? this.presentSelectorsAmount() * 74 : 74;   // Height of the pickers' container
+        const rootDivHeight = chart.container.parentElement.parentElement.parentElement.clientHeight;
+        
+        const chartHeight = rootDivHeight - chart.subtitle.element.clientHeight - pickersHeight;
         const zoomEnabled = this.props.zoom || (this.props.zoom === undefined && chart.chartWidth >= 620);
         const navigatorEnabled = this.props.navigator || (this.props.navigator === undefined && chartHeight >= 500);
         const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
         const smallChart = chart.chartWidth <= 700;
         const displayUnits = this.props.displayUnits || (this.props.displayUnits === undefined && chart.chartWidth > 450);
-
-        this.divWidth = chart.container.parentElement.clientWidth;
 
         chart.update({
             chart: {
@@ -283,6 +287,19 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         for (const id of orderedSeriesIDs) {
             delete this.props.chartTypes[id];
         }
+
+    }
+
+    private presentSelectorsAmount(): number {
+
+        let amount = 0;
+
+        if (this.props.chartTypeSelector !== false) { amount++; }
+        if (this.props.aggregationSelector !== false) { amount++; }
+        if (this.props.unitsSelector !== false) { amount++; }
+        if (this.props.frequencySelector !== false) { amount++; }
+
+        return amount;
 
     }
 

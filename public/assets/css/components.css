@@ -38,7 +38,7 @@
   width: 100%;
 }
 
-.exportable-graph div { /* Force highcharts to set the height from container */
+.exportable-graph div:not(.g-pickers-container, [data-highcharts-chart]) { /* Force highcharts to set the height from container */
   height: 100%;
 }
 
