@@ -1,7 +1,7 @@
-import OptionsPicker, { IPickerOptionsProps } from "../../common/picker/OptionsPicker";
 import * as React from "react";
 import { ISerie } from "../../../api/Serie";
-import { isHigherFrequency } from "../../../api/utils/periodicityManager";
+import { CHART_TYPE_OPTIONS, AGGREGATION_OPTIONS, UNIT_OPTIONS, frequencyOptions, appropiatedFrequency } from "../../../helpers/graphic/optionPickers";
+import OptionsPicker from "../../common/picker/OptionsPicker";
 
 export interface IExportableGraphicPickersProps {
     series: ISerie[];
@@ -17,6 +17,7 @@ export interface IExportableGraphicPickersProps {
     aggregationSelector: boolean;
     unitsSelector: boolean;
     frequencySelector: boolean;
+    parentWidth: number;
 }
 
 const FREQUENCY_MAPPING = {
@@ -27,6 +28,12 @@ const FREQUENCY_MAPPING = {
     "Anual": "year"
 }
 
+interface IPickerStyle {
+    width: string
+}
+
+const WIDTHS_PER_PRESENT_SELECTORS = ['0%', '80%', '40%', '30%', '20%']
+
 export default class ExportableGraphicPickers extends React.Component<IExportableGraphicPickersProps, any> {
 
     public render() {
@@ -36,36 +43,43 @@ export default class ExportableGraphicPickers extends React.Component<IExportabl
         }
 
         const initialFrequency = this.props.selectedFrequency === '' ? this.highestFrequency() : this.props.selectedFrequency;
-        const emptyDiv = <div className="col-xs-12 col-md-3 col-lg-3"/>;
+        const emptyDiv = <div style={{width: '0px'}}/>;
+
+        const containerStyle = this.getContainerStyle();
+        const pickerStyle = this.getPickersWidthStyle();
 
         return (
-            <div className="g-pickers-container">
+            <div className="g-pickers-container" style={containerStyle}>
                 { this.props.chartTypeSelector ? (<OptionsPicker className="col-xs-12 col-md-3 col-lg-3 g-picker"
                                                                  onChangeOption={this.props.handleChangeChartType}
                                                                  selected={this.props.selectedChartType}
-                                                                 availableOptions={this.chartTypeOptions()}
-                                                                 label="Tipo de Gráfico" />)
+                                                                 availableOptions={CHART_TYPE_OPTIONS}
+                                                                 label="Tipo de Gráfico"
+                                                                 style={pickerStyle} />)
                                                : emptyDiv 
                 }
                 { this.props.aggregationSelector ? (<OptionsPicker className="col-xs-12 col-md-3 col-lg-3 g-picker"
                                                                    onChangeOption={this.props.handleChangeAggregation}
                                                                    selected={this.props.selectedAggregation}
-                                                                   availableOptions={this.aggregationOptions()}
-                                                                   label="Agregación" />)
+                                                                   availableOptions={AGGREGATION_OPTIONS}
+                                                                   label="Agregación"
+                                                                   style={pickerStyle} />)
                                                  : emptyDiv 
                 }
                 { this.props.unitsSelector ? (<OptionsPicker className="col-xs-12 col-md-3 col-lg-3 g-picker"
                                                              onChangeOption={this.props.handleChangeUnits}
                                                              selected={this.props.selectedUnits}
-                                                             availableOptions={this.unitOptions()}
-                                                             label="Unidades" />)
+                                                             availableOptions={UNIT_OPTIONS}
+                                                             label="Unidades"
+                                                             style={pickerStyle} />)
                                                  : emptyDiv 
                 }
                 { this.props.frequencySelector ? (<OptionsPicker className="col-xs-12 col-md-3 col-lg-3 g-picker"
                                                                  onChangeOption={this.props.handleChangeFrequency}
                                                                  selected={initialFrequency}
-                                                                 availableOptions={this.frequencyOptions()}
-                                                                 label="Frecuencia" />)
+                                                                 availableOptions={frequencyOptions(this.props.series)}
+                                                                 label="Frecuencia"
+                                                                 style={pickerStyle} />)
                                                  : emptyDiv 
                 }
             </div>
@@ -73,70 +87,48 @@ export default class ExportableGraphicPickers extends React.Component<IExportabl
 
     }
 
-    public chartTypeOptions(): IPickerOptionsProps[] {
-        return [
-            { value: "line", title: "Líneas", available: true },
-            { value: "column", title: "Columnas", available: true },
-            { value: "area", title: "Áreas", available: true }
-        ];
-    }
-
-    public unitOptions(): IPickerOptionsProps[] {
-        return [
-            { value: "value", title: "Unidades originales", available: true },
-            { value: "change", title: "Variación", available: true },
-            { value: "change_a_year_ago", title: "Variación interanual", available: true },
-            { value: "change_since_beginning_of_year", title: "Variación acumulada anual", available: true },
-            { value: "percent_change", title: "Variación porcentual", available: true },
-            { value: "percent_change_a_year_ago", title: "Variación porcentual interanual", available: true },
-            { value: "percent_change_since_beginning_of_year", title: "Variación porcentual acumulada anual", available: true }
-        ];
-    }
-
-    public aggregationOptions(): IPickerOptionsProps[] {
-        return [
-            { value: "avg", title: "Promedio", available: true },
-            { value: "sum", title: "Suma", available: true },
-            { value: "min", title: "Mínimo", available: true },
-            { value: "max", title: "Máximo", available: true },
-            { value: "end_of_period", title: "Último valor del período", available: true }
-        ];
-    }
-
-    public frequencyOptions(): IPickerOptionsProps[] {
-        const accrualPeriodicity = this.appropiatedFrequency();
-        // noinspection TsLint
-        const options = [
-            { value: 'year',     title: 'Anual',      available: false },
-            { value: 'semester', title: 'Semestral',  available: false },
-            { value: 'quarter',  title: 'Trimestral', available: false },
-            { value: 'month',    title: 'Mensual',    available: false },
-            { value: 'day',      title: 'Diaria',     available: false },
-        ];
-
-        const optionIndex = options.findIndex((option: IPickerOptionsProps) => option.title === accrualPeriodicity);
-        options.forEach((option: IPickerOptionsProps) => {
-            option.available = options.indexOf(option) <= optionIndex;
-        });
-
-        return options;
-    }
-
-    private appropiatedFrequency(): string {
-        let higherFrequency = this.props.series[0].accrualPeriodicity;
-        this.props.series.forEach((serie: ISerie) => {
-            if (isHigherFrequency(serie.accrualPeriodicity, higherFrequency)) {
-                higherFrequency = serie.accrualPeriodicity;
-            }
-        });
-
-        return higherFrequency;
-    }
-
     private highestFrequency(): string {
 
-        const frequencyTitle = this.appropiatedFrequency();
+        const frequencyTitle = appropiatedFrequency(this.props.series);
         return FREQUENCY_MAPPING[frequencyTitle];
+
+    }
+
+    private getContainerStyle(): React.CSSProperties {
+
+        const containerStyle = {
+            alignItems: 'stretch',
+            flexDirection: 'row',
+            justifyContent: 'space-around'
+        } as React.CSSProperties;
+
+        if (this.props.parentWidth < 1500) {
+            containerStyle.alignItems = 'center';
+            containerStyle.flexDirection = 'column';
+            containerStyle.justifyContent = 'flex-start';
+        }  
+
+        return containerStyle
+
+    }
+
+    private getPickersWidthStyle(): IPickerStyle {
+
+        if (this.props.parentWidth < 1500) {
+            return {
+                width: '70%'
+            }
+        }
+
+        let presentSelectors = 0;
+        if (this.props.chartTypeSelector) { presentSelectors++; }
+        if (this.props.aggregationSelector) { presentSelectors++; }
+        if (this.props.unitsSelector) { presentSelectors++; }
+        if (this.props.frequencySelector) { presentSelectors++; }
+
+        return {
+            width: WIDTHS_PER_PRESENT_SELECTORS[presentSelectors]
+        }
 
     }
 

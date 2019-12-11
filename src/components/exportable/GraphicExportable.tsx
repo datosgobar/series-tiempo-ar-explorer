@@ -60,6 +60,7 @@ interface IGraphicExportableState {
 export default class GraphicExportable extends React.Component<IGraphicExportableProps, IGraphicExportableState> {
 
     private seriesApi: SerieApi;
+    private divWidth: number;
 
     public constructor(props: any) {
         super(props);
@@ -204,7 +205,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                                           chartTypeSelector={chartTypeSelector}
                                           unitsSelector={unitsSelector}
                                           aggregationSelector={aggregationSelector}
-                                          frequencySelector={frequencySelector} />
+                                          frequencySelector={frequencySelector}
+                                          parentWidth={this.divWidth} />
             </ExportableGraphicContainer>
         )
     }
@@ -216,6 +218,8 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const datepickerEnabled = this.props.datePickerEnabled || (this.props.datePickerEnabled === undefined && chart.chartWidth >= 400);
         const smallChart = chart.chartWidth <= 700;
         const displayUnits = this.props.displayUnits || (this.props.displayUnits === undefined && chart.chartWidth > 450);
+
+        this.divWidth = chart.container.parentElement.clientWidth;
 
         chart.update({
             chart: {
