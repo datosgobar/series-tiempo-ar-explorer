@@ -16,10 +16,9 @@ import { getQueryParams } from '../ViewPage';
 import Graphic, { IChartExtremeProps } from "./Graphic";
 import GraphicComplements from "./GraphicComplements";
 import { chartExtremes } from '../../../helpers/graphic/chartExtremes';
+import { DEFAULT_REPRESENTATION_MODE } from '../../../helpers/common/URLExtractors';
+import { DEFAULT_CHART_TYPE } from '../../../api/ChartTypeSelector';
 
-
-const DEFAULT_CHART_TYPE: string = 'line';
-const DEFAULT_REPRESENTATION_MODE: string = 'value';
 
 export interface IGraphicAndShareProps {
     series: ISerie[];
@@ -153,7 +152,7 @@ class GraphicAndShare extends React.Component<IGraphicAndShareProps, any> {
         const endDate = getQueryParams(location).get('end_date') || '';
 
         const queryParams = new QueryParams(ids);
-        queryParams.addParamsFrom(getQueryParams(location), true);
+        queryParams.addParamsFrom(getQueryParams(location));
         queryParams.setChartType(getQueryParams(location).get('chartType')||'line');
         if (this.validStartDateFilter(startDate)) { queryParams.setStartDate(startDate) }
         if (this.validEndDateFilter(endDate)) { queryParams.setEndDate(endDate) }

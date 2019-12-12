@@ -113,12 +113,10 @@ export default class QueryParams {
         this.chartType = chartType;
     }
 
-    public addParamsFrom(params: any, addRepMode: boolean) {
+    public addParamsFrom(params: any) {
         this.setCollapse(params.get('collapse') || '');
         this.setCollapseAggregation(params.get('collapse_aggregation') || '');
-        if (addRepMode) {
-            this.setRepresentationMode(params.get('representation_mode') || '');
-        }
+        this.setRepresentationMode(params.get('representation_mode') || '');
         this.setLast(params.get('last') || '');
     }
 

@@ -3,8 +3,8 @@ import { ISerie } from "./Serie";
 import { getFullSerieId } from "../helpers/common/fullSerieID";
 
 
-const DEFAULT_TYPE = "line";
-const VALID_TYPES = [DEFAULT_TYPE, "column", "area"];
+export const DEFAULT_CHART_TYPE = "line";
+const VALID_TYPES = [DEFAULT_CHART_TYPE, "column", "area"];
 
 
 export default class ChartTypeSelector {
@@ -37,9 +37,9 @@ export default class ChartTypeSelector {
 }
 
 function getValidChartType(type: string|null): string {
-    type = type || DEFAULT_TYPE;
+    type = type || DEFAULT_CHART_TYPE;
     if (!isValidChartType(type) || type === "default") {
-        type = DEFAULT_TYPE;
+        type = DEFAULT_CHART_TYPE;
     }
 
     return type;
@@ -60,4 +60,30 @@ function chartTypesFromString(types: string|null): IChartTypeProps {
 
 function isValidChartType(type: string|null): boolean {
     return VALID_TYPES.indexOf(type || '') !== -1;
+}
+
+export function getSelectedChartType(chartTypes: IChartTypeProps, chartType?: string) {
+
+    if(chartType !== undefined) { return chartType; }
+
+    const types: string[] = (Object as any).values(chartTypes);
+    if (types.length > 0) {
+        return types[0];
+    }
+
+    return DEFAULT_CHART_TYPE;
+
+}
+
+export function cloneChartTypes(original: IChartTypeProps): IChartTypeProps {
+
+    const involvedIDs = Object.keys(original);
+    const newTypes: IChartTypeProps = {}
+
+    for (const id of involvedIDs) {
+        newTypes[id] = original[id];
+    }
+
+    return newTypes;
+
 }

@@ -13,6 +13,8 @@ import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides, INumberPropsP
 import { chartExtremes } from "../../helpers/graphic/chartExtremes";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
 import ExportableGraphicPickers from "../style/Graphic/ExportableGraphicPickers";
+import { getSelectedChartType, cloneChartTypes } from "../../api/ChartTypeSelector";
+import FetchParamsBuilder, { IFetchParamsBuildingConfig } from "../../helpers/graphic/fetchParamsBuilder";
 
 export interface IGraphicExportableProps {
     graphicUrl: string;
@@ -61,6 +63,9 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
     private seriesApi: SerieApi;
     private divWidth: number;
+    private queriedIDs: string[];
+    private fetchParamsBuilder: FetchParamsBuilder;
+    private originalChartTypes: IChartTypeProps;
 
     public constructor(props: any) {
         super(props);
@@ -75,14 +80,17 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             throw new Error(`El parametro graphicURL: '${this.props.graphicUrl}' representa una URL de grafico inválida; por favor, revísela`);
         }
 
+        this.originalChartTypes = cloneChartTypes(this.props.chartTypes);
         this.seriesApi = new SerieApi(new ApiClient(extractUriFromUrl(props.graphicUrl), 'ts-components'));
         const collapseParams = getCollapseParamsFromUrl(this.props.graphicUrl);
+        this.queriedIDs = getIDsFromGraphicURL(this.props.graphicUrl);
+        this.fetchParamsBuilder = new FetchParamsBuilder(this.props.graphicUrl);
 
         this.state = {
             dateRange: { start: '', end: '' },
             series: [],
             selectedAggregation: collapseParams.collapseAggregation,
-            selectedChartType: '',
+            selectedChartType: getSelectedChartType(this.props.chartTypes || {}, this.props.chartType),
             selectedFrequency: collapseParams.collapse,
             selectedUnits: getRepresentationModeFromUrl(this.props.graphicUrl)
         }
@@ -90,7 +98,6 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
     public componentDidMount() {
 
-        const ids = getIDsFromGraphicURL(this.props.graphicUrl);
         const zoomStartDate = this.props.startDate || '';
         const zoomEndDate = this.props.endDate || '';
 
@@ -101,57 +108,74 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             }
         });
 
-        const params = buildParamsFromIDs(this.props.graphicUrl);
+        const fetchConfig: IFetchParamsBuildingConfig = {
+            collapse: this.state.selectedFrequency,
+            collapseAggregation: this.state.selectedAggregation,
+            ids: this.queriedIDs,
+            representationMode: this.state.selectedUnits !== '' ? this.state.selectedUnits : undefined
+        };
+        const params = this.fetchParamsBuilder.getParams(fetchConfig);
         this.fetchSeries(params);
 
-        this.adjustProps(ids, this.props.chartType);
+        this.adjustProps(this.queriedIDs, this.props.chartType);        // First time rendering, use the prop
 
     }
 
     public shouldComponentUpdate(nextProps: IGraphicExportableProps, nextState: IGraphicExportableState) {
 
-        let chartType = this.props.chartType;
-        if (nextState.selectedChartType !== '') {
-            chartType = nextState.selectedChartType;    
+        if (JSON.stringify(this.state) === JSON.stringify(nextState)) {
+            return false;
         }
+        
+        const chartType = nextState.selectedChartType; 
+        const updatedUrl = getUpdatedRepModeURL(this.props.graphicUrl, nextState.selectedUnits);
 
-        const representationMode = this.state.selectedUnits !== 'value' ? this.state.selectedUnits : undefined;
-        const ids = getIDsFromGraphicURL(this.props.graphicUrl, representationMode);
+        const ids = getIDsFromGraphicURL(updatedUrl);
         this.adjustProps(ids, chartType);
+
         return true;
 
     }
 
     public handleChangeFrequency(value: string) {
-        const params = buildParamsFromIDs(this.props.graphicUrl);
-        params.setCollapse(value);
-        params.setCollapseAggregation(this.state.selectedAggregation);
-        params.setRepresentationMode(this.state.selectedUnits);
+        const fetchConfig: IFetchParamsBuildingConfig = {
+            collapse: value,
+            collapseAggregation: this.state.selectedAggregation,
+            ids: this.queriedIDs,
+            representationMode: this.state.selectedUnits !== '' ? this.state.selectedUnits : undefined
+        };
         this.setState({
             selectedFrequency: value
         });
+        const params = this.fetchParamsBuilder.getParams(fetchConfig);
         this.fetchSeries(params);
     }
 
     public handleChangeUnits(value: string) {
-        const params = buildParamsFromIDs(this.props.graphicUrl, true);
-        params.setRepresentationMode(value);
-        params.setCollapseAggregation(this.state.selectedAggregation);
-        params.setCollapse(this.state.selectedFrequency);
+        const fetchConfig: IFetchParamsBuildingConfig = {
+            collapse: this.state.selectedFrequency,
+            collapseAggregation: this.state.selectedAggregation,
+            ids: this.queriedIDs,
+            representationMode: value
+        };
         this.setState({
             selectedUnits: value
         });
+        const params = this.fetchParamsBuilder.getParams(fetchConfig);
         this.fetchSeries(params);
     }
 
     public handleChangeAggregation(value: string) {
-        const params = buildParamsFromIDs(this.props.graphicUrl);
-        params.setCollapseAggregation(value);
-        params.setCollapse(this.state.selectedFrequency);
-        params.setRepresentationMode(this.state.selectedUnits);
+        const fetchConfig: IFetchParamsBuildingConfig = {
+            collapse: this.state.selectedFrequency,
+            collapseAggregation: value,
+            ids: this.queriedIDs,
+            representationMode: this.state.selectedUnits !== '' ? this.state.selectedUnits : undefined
+        };
         this.setState({
             selectedAggregation: value
         });
+        const params = this.fetchParamsBuilder.getParams(fetchConfig);
         this.fetchSeries(params);
     }
 
@@ -282,10 +306,16 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
     private resetChartTypes(): void {
         
-        const orderedSeriesIDs = Object.keys(this.props.chartTypes);
+        let orderedSeriesIDs = Object.keys(this.props.chartTypes);
         orderedSeriesIDs.sort();
         for (const id of orderedSeriesIDs) {
             delete this.props.chartTypes[id];
+        }
+
+        orderedSeriesIDs = Object.keys(this.originalChartTypes);
+        orderedSeriesIDs.sort();
+        for (const id of orderedSeriesIDs) {
+            this.props.chartTypes[id] = this.originalChartTypes[id];
         }
 
     }
@@ -305,38 +335,22 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
 }
 
-function purifyIDs(originalIDs: string[]): string[] {
-
-    const pureIDs = []; 
-    for (const id of originalIDs) {
-        pureIDs.push(id.split(':')[0]);
-    }
-    return pureIDs;
-
-}
-
-function getIDsFromGraphicURL(graphicURL: string, representationMode?: string): string[] {
-    const extractor: IDsExtractor = new IDsExtractor(graphicURL, representationMode);
+function getIDsFromGraphicURL(graphicURL: string): string[] {
+    const extractor: IDsExtractor = new IDsExtractor(graphicURL);
     return extractor.getModifiedIDs();
 }
 
-function buildParamsFromIDs(graphicURL: string, pureIDsOnly: boolean = false): QueryParams { 
+function getUpdatedRepModeURL(originalURL: string, newRepMode: string): string {
 
-    const url = new URLSearchParams(graphicURL);
-    const serieStartDate = url.get('start_date') || '';
-    const serieEndDate = url.get('end_date') || '';
-
-    let ids = getIDsFromGraphicURL(graphicURL);
-    if (pureIDsOnly) {
-        ids = purifyIDs(ids);
+    if (originalURL.indexOf('representation_mode=') !== -1) {
+        const originalRepMode = originalURL.split('representation_mode=')[1].split('&')[0];
+        return originalURL.replace(originalRepMode, newRepMode);
     }
-    const params = new QueryParams(ids);
 
-    params.setStartDate(serieStartDate);
-    params.setEndDate(serieEndDate);
-    params.addParamsFrom(url, false);       // The repMode has already been added to the ids when getting them from the URL
-
-    return params;
+    if (newRepMode !== 'value') {
+        return `${originalURL}&representation_mode=${newRepMode}`;
+    }
+    return originalURL;    
 
 }
 

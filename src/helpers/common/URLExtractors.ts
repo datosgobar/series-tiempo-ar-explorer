@@ -1,5 +1,9 @@
 import { IDateRange } from "../../api/DateSerie";
 
+
+export const DEFAULT_REPRESENTATION_MODE: string = 'value';
+const DEFAULT_COLLAPSE_AGGREGATION: string = 'avg'
+
 export interface ICollapseParams {
     collapse: string;
     collapseAggregation: string;
@@ -10,10 +14,10 @@ export class IDsExtractor {
     private idsParam: string;
     private repModeParam: string;
 
-    constructor(url: string, representationMode?: string) {
+    constructor(url: string) {
         const params = new URLSearchParams(url.split('?')[1]);
         this.idsParam = params.get('ids') || '';
-        this.repModeParam = representationMode || params.get('representation_mode') || '';
+        this.repModeParam = params.get('representation_mode') || '';
     }
 
     public getIDsAsTheyAre(): string[] {
@@ -78,16 +82,22 @@ export function getDateFromUrl(url: string): IDateRange {
 export function getRepresentationModeFromUrl(url: string): string {
 
     const params = new URLSearchParams(url);
-    let repMode = params.get('representation_mode') || '';
+    const repMode = params.get('representation_mode') || '';
 
-    const series = params.getAll('ids');
-    if (series.length === 1) {
-        if (series[0].indexOf(':') !== -1) {
-            repMode = series[0].split(':')[1];
+    if (repMode !== '') { return repMode; }
+
+    const IDsQueryParam = params.get('ids');
+
+    if (IDsQueryParam !== null) {
+        const seriesIDs = IDsQueryParam.split(',');
+        for (const id of seriesIDs) {
+            if (id.indexOf(':') !== -1) {
+                return id.split(':')[1];
+            }
         }
     }
 
-    return repMode;
+    return DEFAULT_REPRESENTATION_MODE;
 
 }
 
@@ -96,7 +106,7 @@ export function getCollapseParamsFromUrl(url: string): ICollapseParams {
     const params = new URLSearchParams(url);
 
     const collapse = params.get('collapse') || '';
-    const collapseAggregation = params.get('collapse_aggregation') || '';
+    const collapseAggregation = params.get('collapse_aggregation') || DEFAULT_COLLAPSE_AGGREGATION;
 
     return { collapse, collapseAggregation };
 
