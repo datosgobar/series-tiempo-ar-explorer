@@ -81,29 +81,54 @@ export function getDateFromUrl(url: string): IDateRange {
 
 export function getRepresentationModeFromUrl(url: string): string {
 
-    const params = new URLSearchParams(url);
+    const searchQuery = new URL(url).search;
+    const params = new URLSearchParams(searchQuery);
     const repMode = params.get('representation_mode') || '';
 
     if (repMode !== '') { return repMode; }
 
     const IDsQueryParam = params.get('ids');
+    const specificRepModes = [];
 
     if (IDsQueryParam !== null) {
         const seriesIDs = IDsQueryParam.split(',');
         for (const id of seriesIDs) {
             if (id.indexOf(':') !== -1) {
-                return id.split(':')[1];
+                specificRepModes.push(id.split(':')[1]);
+            }
+            else {
+                specificRepModes.push(DEFAULT_REPRESENTATION_MODE);
             }
         }
+    }
+
+    specificRepModes.sort();
+    if (specificRepModes[0] === specificRepModes[specificRepModes.length - 1]) {
+        return specificRepModes[0];
     }
 
     return DEFAULT_REPRESENTATION_MODE;
 
 }
 
+export function getUpdatedRepModeURL(originalURL: string, newRepMode: string): string {
+
+    if (originalURL.indexOf('representation_mode=') !== -1) {
+        const originalRepMode = originalURL.split('representation_mode=')[1].split('&')[0];
+        return originalURL.replace(originalRepMode, newRepMode);
+    }
+
+    if (newRepMode !== DEFAULT_REPRESENTATION_MODE) {
+        return `${originalURL}&representation_mode=${newRepMode}`;
+    }
+    return originalURL;    
+
+}
+
 export function getCollapseParamsFromUrl(url: string): ICollapseParams {
 
-    const params = new URLSearchParams(url);
+    const searchQuery = new URL(url).search;
+    const params = new URLSearchParams(searchQuery);
 
     const collapse = params.get('collapse') || '';
     const collapseAggregation = params.get('collapse_aggregation') || DEFAULT_COLLAPSE_AGGREGATION;

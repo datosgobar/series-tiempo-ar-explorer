@@ -38,6 +38,8 @@ export interface IGraphicProps {
     numbersAbbreviate: boolean;
     decimalsBillion: number;
     decimalsMillion: number;
+    originalChartTypes?: IChartTypeProps;
+    waitForSeriesFetch?: boolean;
 }
 
 export interface IStringPropsPerId {
@@ -76,12 +78,17 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     private myRef: RefObject<any>;
     private yAxisBySeries: IYAxisConf;
+    private originalChartTypes: IChartTypeProps | undefined;
 
     constructor(props: IGraphicProps) {
 
         super(props);
         this.myRef = React.createRef();       
         setHighchartsGlobalConfig(props.locale);
+
+        if (this.props.originalChartTypes !== undefined) {
+            this.originalChartTypes = this.originalChartTypes = JSON.parse(JSON.stringify(this.props.originalChartTypes)) as IChartTypeProps;
+        }
 
     }
 
@@ -119,11 +126,19 @@ export default class Graphic extends React.Component<IGraphicProps> {
 
     public shouldComponentUpdate(nextProps: IGraphicProps) {
 
-        if (JSON.stringify(this.props) === JSON.stringify(nextProps)) {
-            return false;
+        if (JSON.stringify(this.props.series) !== JSON.stringify(nextProps.series)) {
+            return true;
         }
-
-        return true;
+        if (JSON.stringify(this.props.chartTypes) !== JSON.stringify(nextProps.chartTypes)) {
+            return true;
+        }
+        if (this.originalChartTypes !== undefined && 
+            JSON.stringify(nextProps.chartTypes) !== JSON.stringify(this.originalChartTypes) &&
+            nextProps.waitForSeriesFetch === false) {
+            return true;
+        }
+        
+        return false;
 
     }
 

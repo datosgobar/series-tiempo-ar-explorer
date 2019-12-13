@@ -61,29 +61,3 @@ function chartTypesFromString(types: string|null): IChartTypeProps {
 function isValidChartType(type: string|null): boolean {
     return VALID_TYPES.indexOf(type || '') !== -1;
 }
-
-export function getSelectedChartType(chartTypes: IChartTypeProps, chartType?: string) {
-
-    if(chartType !== undefined) { return chartType; }
-
-    const types: string[] = (Object as any).values(chartTypes);
-    if (types.length > 0) {
-        return types[0];
-    }
-
-    return DEFAULT_CHART_TYPE;
-
-}
-
-export function cloneChartTypes(original: IChartTypeProps): IChartTypeProps {
-
-    const involvedIDs = Object.keys(original);
-    const newTypes: IChartTypeProps = {}
-
-    for (const id of involvedIDs) {
-        newTypes[id] = original[id];
-    }
-
-    return newTypes;
-
-}

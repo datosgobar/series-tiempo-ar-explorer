@@ -1,6 +1,4 @@
-import { ISerie } from "../../api/Serie";
 import SerieConfig from "../../api/SerieConfig";
-import { IChartTypeProps } from "../../components/viewpage/graphic/Graphic";
 
 export interface ISerieFullID {
     id: string;
@@ -15,16 +13,4 @@ export function getFullSerieId(serie: ISerieFullID): string {
 
 export function findSerieConfig(configs: SerieConfig[], serieId: string) {
     return configs.find((config: SerieConfig) => config.getFullSerieId() === serieId);
-}
-
-export function getChartType(serie: ISerie, types?: IChartTypeProps): string {
-
-    if (!types) { return 'line' }
-
-    const serieFullID: ISerieFullID = {
-        id: serie.id,
-        representationMode: serie.representationMode
-    }
-    return types[getFullSerieId(serieFullID)];
-
 }

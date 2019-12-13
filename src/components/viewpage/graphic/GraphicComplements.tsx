@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ISerie } from "../../../api/Serie";
 import OptionsPicker, { IPickerStyle } from '../../common/picker/OptionsPicker';
 import ShareLinks from '../ShareLinks';
-import { CHART_TYPE_OPTIONS, AGGREGATION_OPTIONS, UNIT_OPTIONS, frequencyOptions } from '../../../helpers/graphic/optionPickers';
+import { CHART_TYPE_OPTIONS, AGGREGATION_OPTIONS, UNIT_OPTIONS, frequencyOptions } from '../../../helpers/graphic/optionSelectors';
 
 
 export interface IGraphicComplementsProps {

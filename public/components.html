@@ -33,7 +33,7 @@ body {
 </style>
 
 <body>
-    <!-- <div class="row">
+    <div class="row">
         <div class="title">
             <h3>Card: default</h3></div>
         <div id='ipc-card' class="col-xs-12 col-sm-6 col-md-3"></div>
@@ -72,13 +72,13 @@ body {
         <div id='exportaciones-card-min-xtreme' class="col-xs-12 col-sm-6 col-md-3"></div>
         <div id='superavit-card-min-xtreme' class="col-xs-12 col-sm-6 col-md-3"></div>
         <div id='desempleo-card-min-xtreme' class="col-xs-12 col-sm-6 col-md-3"></div>
-    </div> -->
+    </div>
     <div class="row row-graphic">
         <div class="title">
             <h3>Graphic: full</h3></div>
         <div id='tcrm-graphic' style="height: 800px;"></div>
     </div>
-    <!-- <div class="row row-graphic">
+    <div class="row row-graphic">
         <div class="title">
             <h3>Graphic: sin filtros de tiempo</h3></div>
         <div id='emae-graphic-without-filters' class="col-xs-12 col-sm-6 col-md-6" style="height: 700px;"></div>
@@ -90,216 +90,210 @@ body {
         <div id='ipc-graphic-min' class="col-xs-12 col-sm-6 col-md-4" style="height: 400px;"></div>
         <div id='rem-graphic-min' class="col-xs-12 col-sm-6 col-md-4" style="height: 400px;"></div>
         <div id='tcbna-graphic-min' class="col-xs-12 col-sm-6 col-md-4" style="height: 400px;"></div>
-    </div> -->
+    </div>
     <script>
     window.onload = function() {
         // componentes de series de tiempo
 
-        // TSComponents.Card.render('ipc-card', {
-        //     serieId: '116.4_TCRZE_2015_D_36_4',
-        //     color: '#F9A822',
-        //     hasChart: 'small',
-        //     title: "Indice de Precios al Consumidor Nacional"
-        // })
-        // TSComponents.Card.render('exportaciones-card', {
-        //     serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
-        //     explicitSign: true,
-        //     hasChart: 'small',
-        //     title: "Exportaciones"
-        // })
-        // TSComponents.Card.render('superavit-card', {
-        //     serieId: '372.6_SUPERAVIT_017__23_67',
-        //     hasChart: 'small',
-        //     title: "Resultado Primario del Sector Público No Fin."
-        // })
-        // TSComponents.Card.render('desempleo-card', {
-        //     serieId: '42.3_EPH_PUNTUATAL_0_M_30',
-        //     color: '#EC407A',
-        //     hasChart: 'small',
-        //     title: "Desocupación"
-        // })
-        // TSComponents.Card.render('ipc-card-links2', {
-        //     serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
-        //     color: '#F9A822',
-        //     hasChart: 'small',
-        //     links: "small",
-        //     title: "Indice de Precios al Consumidor Nacional"
-        // })
-        // TSComponents.Card.render('exportaciones-card-links2', {
-        //     serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
-        //     explicitSign: true,
-        //     hasChart: 'small',
-        //     links: "small",
-        //     title: "Exportaciones"
-        // })
-        // TSComponents.Card.render('superavit-card-links2', {
-        //     serieId: '372.6_SUPERAVIT_017__23_67',
-        //     hasChart: 'small',
-        //     links: "small",
-        //     title: "Resultado Primario del Sector Público No Fin."
-        // })
-        // TSComponents.Card.render('desempleo-card-links2', {
-        //     serieId: '42.3_EPH_PUNTUATAL_0_M_30',
-        //     color: '#EC407A',
-        //     hasChart: 'small',
-        //     links: "small",
-        //     title: "Desocupación"
-        // })
-        // TSComponents.Card.render('ipc-card-med', {
-        //     serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
-        //     color: '#F9A822',
-        //     hasChart: 'small',
-        //     links: "none",
-        //     title: "Indice de Precios al Consumidor Nacional"
-        // })
-        // TSComponents.Card.render('exportaciones-card-med', {
-        //     serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
-        //     explicitSign: true,
-        //     hasChart: 'small',
-        //     links: "none",
-        //     title: "Exportaciones"
-        // })
-        // TSComponents.Card.render('superavit-card-med', {
-        //     serieId: '372.6_SUPERAVIT_017__23_67',
-        //     hasChart: 'small',
-        //     links: "none",
-        //     title: "Resultado Primario del Sector Público No Fin."
-        // })
-        // TSComponents.Card.render('desempleo-card-med', {
-        //     serieId: '42.3_EPH_PUNTUATAL_0_M_30',
-        //     color: '#EC407A',
-        //     hasChart: 'small',
-        //     links: "none",
-        //     title: "Desocupación"
-        // })
-        // TSComponents.Card.render('ipc-card-min', {
-        //     serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
-        //     color: '#F9A822',
-        //     links: 'none',
-        //     hasChart: "none",
-        //     title: "Indice de Precios al Consumidor Nacional"
-        // })
-        // TSComponents.Card.render('exportaciones-card-min', {
-        //     serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
-        //     explicitSign: true,
-        //     links: 'none',
-        //     hasChart: "none",
-        //     title: "Exportaciones"
-        // })
-        // TSComponents.Card.render('superavit-card-min', {
-        //     serieId: '372.6_SUPERAVIT_017__23_67',
-        //     links: 'none',
-        //     hasChart: "none",
-        //     title: "Resultado Primario del Sector Público No Fin."
-        // })
-        // TSComponents.Card.render('desempleo-card-min', {
-        //     serieId: '42.3_EPH_PUNTUATAL_0_M_30',
-        //     color: '#EC407A',
-        //     links: 'none',
-        //     hasChart: "none",
-        //     title: "Desocupación"
-        // })
-        // TSComponents.Card.render('ipc-card-min-xtreme', {
-        //     serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
-        //     links: 'none',
-        //     hasChart: "none",
-        //     title: "",
-        //     units: "",
-        //     source: ""
-        // })
-        // TSComponents.Card.render('exportaciones-card-min-xtreme', {
-        //     serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
-        //     explicitSign: true,
-        //     links: 'none',
-        //     hasChart: "none",
-        //     title: "",
-        //     units: "",
-        //     source: ""
-        // })
-        // TSComponents.Card.render('superavit-card-min-xtreme', {
-        //     serieId: '372.6_SUPERAVIT_017__23_67',
-        //     links: 'none',
-        //     hasChart: "none",
-        //     title: "",
-        //     units: "",
-        //     source: ""
-        // })
-        // TSComponents.Card.render('desempleo-card-min-xtreme', {
-        //     serieId: '42.3_EPH_PUNTUATAL_0_M_30',
-        //     color: '#EC407A',
-        //     links: 'none',
-        //     hasChart: "none",
-        //     title: "",
-        //     units: "",
-        //     source: ""
-        // })
+        TSComponents.Card.render('ipc-card', {
+            serieId: '116.4_TCRZE_2015_D_36_4',
+            color: '#F9A822',
+            hasChart: 'small',
+            title: "Indice de Precios al Consumidor Nacional"
+        })
+        TSComponents.Card.render('exportaciones-card', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            hasChart: 'small',
+            title: "Exportaciones"
+        })
+        TSComponents.Card.render('superavit-card', {
+            serieId: '372.6_SUPERAVIT_017__23_67',
+            hasChart: 'small',
+            title: "Resultado Primario del Sector Público No Fin."
+        })
+        TSComponents.Card.render('desempleo-card', {
+            serieId: '42.3_EPH_PUNTUATAL_0_M_30',
+            color: '#EC407A',
+            hasChart: 'small',
+            title: "Desocupación"
+        })
+        TSComponents.Card.render('ipc-card-links2', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            color: '#F9A822',
+            hasChart: 'small',
+            links: "small",
+            title: "Indice de Precios al Consumidor Nacional"
+        })
+        TSComponents.Card.render('exportaciones-card-links2', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            hasChart: 'small',
+            links: "small",
+            title: "Exportaciones"
+        })
+        TSComponents.Card.render('superavit-card-links2', {
+            serieId: '372.6_SUPERAVIT_017__23_67',
+            hasChart: 'small',
+            links: "small",
+            title: "Resultado Primario del Sector Público No Fin."
+        })
+        TSComponents.Card.render('desempleo-card-links2', {
+            serieId: '42.3_EPH_PUNTUATAL_0_M_30',
+            color: '#EC407A',
+            hasChart: 'small',
+            links: "small",
+            title: "Desocupación"
+        })
+        TSComponents.Card.render('ipc-card-med', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            color: '#F9A822',
+            hasChart: 'small',
+            links: "none",
+            title: "Indice de Precios al Consumidor Nacional"
+        })
+        TSComponents.Card.render('exportaciones-card-med', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            hasChart: 'small',
+            links: "none",
+            title: "Exportaciones"
+        })
+        TSComponents.Card.render('superavit-card-med', {
+            serieId: '372.6_SUPERAVIT_017__23_67',
+            hasChart: 'small',
+            links: "none",
+            title: "Resultado Primario del Sector Público No Fin."
+        })
+        TSComponents.Card.render('desempleo-card-med', {
+            serieId: '42.3_EPH_PUNTUATAL_0_M_30',
+            color: '#EC407A',
+            hasChart: 'small',
+            links: "none",
+            title: "Desocupación"
+        })
+        TSComponents.Card.render('ipc-card-min', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            color: '#F9A822',
+            links: 'none',
+            hasChart: "none",
+            title: "Indice de Precios al Consumidor Nacional"
+        })
+        TSComponents.Card.render('exportaciones-card-min', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            links: 'none',
+            hasChart: "none",
+            title: "Exportaciones"
+        })
+        TSComponents.Card.render('superavit-card-min', {
+            serieId: '372.6_SUPERAVIT_017__23_67',
+            links: 'none',
+            hasChart: "none",
+            title: "Resultado Primario del Sector Público No Fin."
+        })
+        TSComponents.Card.render('desempleo-card-min', {
+            serieId: '42.3_EPH_PUNTUATAL_0_M_30',
+            color: '#EC407A',
+            links: 'none',
+            hasChart: "none",
+            title: "Desocupación"
+        })
+        TSComponents.Card.render('ipc-card-min-xtreme', {
+            serieId: '148.3_INIVELNAL_DICI_M_26:percent_change',
+            links: 'none',
+            hasChart: "none",
+            title: "",
+            units: "",
+            source: ""
+        })
+        TSComponents.Card.render('exportaciones-card-min-xtreme', {
+            serieId: '74.3_IET_0_M_16:percent_change_a_year_ago',
+            explicitSign: true,
+            links: 'none',
+            hasChart: "none",
+            title: "",
+            units: "",
+            source: ""
+        })
+        TSComponents.Card.render('superavit-card-min-xtreme', {
+            serieId: '372.6_SUPERAVIT_017__23_67',
+            links: 'none',
+            hasChart: "none",
+            title: "",
+            units: "",
+            source: ""
+        })
+        TSComponents.Card.render('desempleo-card-min-xtreme', {
+            serieId: '42.3_EPH_PUNTUATAL_0_M_30',
+            color: '#EC407A',
+            links: 'none',
+            hasChart: "none",
+            title: "",
+            units: "",
+            source: ""
+        })
 
         TSComponents.Graphic.render('tcrm-graphic', {
-            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=tmi_arg,tmi_26:change&limit=1000&start=0',
+            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=143.3_NO_PR_2004_A_21:percent_change_a_year_ago,116.4_TCRZE_2015_D_36_4&limit=1000&start=0',
             title: "Nivel de actividad y tipo de cambio real",
             source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)",
-            // chartTypes: { '143.3_NO_PR_2004_A_21:percent_change_a_year_ago': 'column' },
-            chartTypes: { 'tmi_26:change': 'column' },
-            // chartType: 'area',
+            chartTypes: { '143.3_NO_PR_2004_A_21:percent_change_a_year_ago': 'column' },
             navigator: true,
             decimalTooltip: 3
         })
+        TSComponents.Graphic.render('emae-graphic-without-filters', {
+            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=defensa_FAA_0006,99.3_IR_2008_0_9&limit=1000&start=0&format=json',
+            chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/
+            },
+            source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)",
+            datePickerEnabled: false,
+            navigator: false,
+            title: "Estimador Mensual de Actividad Económica (EMAE)",
+            chartTypes: { 'defensa_FAA_0006': 'area', '99.3_IR_2008_0_9': 'area' },
+            legendLabel: { 'defensa_FAA_0006': "Fuerza Aérea", '99.3_IR_2008_0_9': "IPC" },
+            seriesAxis: { 'defensa_FAA_0006': 'left', '99.3_IR_2008_0_9': 'right' }
+        })
+        TSComponents.Graphic.render('ica-graphic-without-filters', {
+            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=74.3_IET_0_M_16,74.3_IIT_0_M_25,74.3_ISC_0_M_19,307.2_SERVICIOS_IOS_0_T_51_87&collapse=year&collapse_aggregation=sum',
+            chartTypes: { '74.3_IET_0_M_16': 'line', '74.3_IIT_0_M_25': 'line', '74.3_ISC_0_M_19': 'column', '307.2_SERVICIOS_IOS_0_T_51_87': 'line' },
+            title: "Intercambio Comercial Argentino (ICA)",
+            navigator: false,
+            datePickerEnabled: false,
+            source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)",
+            seriesAxis: { '74.3_IET_0_M_16': 'left', '74.3_IIT_0_M_25': 'left', '74.3_ISC_0_M_19': 'right', '307.2_SERVICIOS_IOS_0_T_51_87': 'right'}
+        })
+        TSComponents.Graphic.render('ipc-graphic-min', {
+            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26:percent_change_a_year_ago',
+            navigator: false,
+            datePickerEnabled: false,
+            title: "Inflación interanual (nivel general)",
+            chartTypeSelector: false,
+            unitsSelector: false,
+            frequencySelector: false,
+            aggregationSelector: false
+        })
+        TSComponents.Graphic.render('rem-graphic-min', {
+            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=430.1_MEDIANA_IP_12_M_0_0_27_96',
+            navigator: false,
+            datePickerEnabled: false,
+            title: "REM mediana de expectativas de inflación a 12 meses",
+            chartTypeSelector: false,
+            unitsSelector: false,
+            frequencySelector: false,
+            aggregationSelector: false
+        })
+        TSComponents.Graphic.render('tcbna-graphic-min', {
+            graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=168.1_T_CAMBIOR_D_0_0_26',
+            navigator: false,
+            datePickerEnabled: false,
+            title: "Tipo de Cambio Vendedor (BNA)",
+            chartTypeSelector: false,
+            unitsSelector: false,
+            frequencySelector: false,
+            aggregationSelector: false
+        })
 
-        // TSComponents.Graphic.render('emae-graphic-without-filters', {
-        //     graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?metadata=full&ids=defensa_FAA_0006,99.3_IR_2008_0_9&limit=1000&start=0&format=json',
-        //     chartOptions: { // Override highstock configs. See https://api.highcharts.com/highstock/
-        //     },
-        //     source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)",
-        //     datePickerEnabled: false,
-        //     navigator: false,
-        //     title: "Estimador Mensual de Actividad Económica (EMAE)",
-        //     chartTypes: { 'defensa_FAA_0006': 'area', '99.3_IR_2008_0_9': 'area' },
-        //     legendLabel: { 'defensa_FAA_0006': "Fuerza Aérea", '99.3_IR_2008_0_9': "IPC" },
-        //     seriesAxis: { 'defensa_FAA_0006': 'left', '99.3_IR_2008_0_9': 'right' }
-        // })
-
-        // TSComponents.Graphic.render('ica-graphic-without-filters', {
-        //     graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=74.3_IET_0_M_16,74.3_IIT_0_M_25,74.3_ISC_0_M_19,307.2_SERVICIOS_IOS_0_T_51_87&collapse=year&collapse_aggregation=sum',
-        //     chartTypes: { '74.3_IET_0_M_16': 'line', '74.3_IIT_0_M_25': 'line', '74.3_ISC_0_M_19': 'column', '307.2_SERVICIOS_IOS_0_T_51_87': 'line' },
-        //     title: "Intercambio Comercial Argentino (ICA)",
-        //     navigator: false,
-        //     datePickerEnabled: false,
-        //     source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)",
-        //     seriesAxis: { '74.3_IET_0_M_16': 'left', '74.3_IIT_0_M_25': 'left', '74.3_ISC_0_M_19': 'right', '307.2_SERVICIOS_IOS_0_T_51_87': 'right'}
-        // })
-
-        // TSComponents.Graphic.render('ipc-graphic-min', {
-        //     graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26:percent_change_a_year_ago',
-        //     navigator: false,
-        //     datePickerEnabled: false,
-        //     title: "Inflación interanual (nivel general)",
-        //     chartTypeSelector: false,
-        //     unitsSelector: false,
-        //     aggregationSelector: false,
-        //     frequencySelector: false
-        // })
-
-        // TSComponents.Graphic.render('rem-graphic-min', {
-        //     graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=430.1_MEDIANA_IP_12_M_0_0_27_96',
-        //     navigator: false,
-        //     datePickerEnabled: false,
-        //     title: "REM mediana de expectativas de inflación a 12 meses",
-        //     chartTypeSelector: false,
-        //     unitsSelector: false,
-        //     aggregationSelector: false,
-        //     frequencySelector: false
-        // })
-
-        // TSComponents.Graphic.render('tcbna-graphic-min', {
-        //     graphicUrl: 'https://apis.datos.gob.ar/series/api/series/?ids=168.1_T_CAMBIOR_D_0_0_26',
-        //     navigator: false,
-        //     datePickerEnabled: false,
-        //     title: "Tipo de Cambio Vendedor (BNA)",
-        //     chartTypeSelector: false,
-        //     unitsSelector: false,
-        //     aggregationSelector: false,
-        //     frequencySelector: false
-        // })
 
 
     }

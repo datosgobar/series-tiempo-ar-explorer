@@ -4,7 +4,7 @@ import QueryParams from "../../api/QueryParams";
 import { ISerie, MAX_SIGNIFICANT_FIGURES } from "../../api/Serie";
 import SerieApi from "../../api/SerieApi";
 import { buildAbbreviationProps } from "../../helpers/common/numberAbbreviation";
-import { extractUriFromUrl, IDsExtractor, getRepresentationModeFromUrl, getCollapseParamsFromUrl } from "../../helpers/common/URLExtractors";
+import { extractUriFromUrl, IDsExtractor, getRepresentationModeFromUrl, getCollapseParamsFromUrl, getUpdatedRepModeURL } from "../../helpers/common/URLExtractors";
 import { IAdjustmentOptions, PropsAdjuster } from "../../helpers/graphic/propsAdjuster";
 import { GraphicURLValidator } from "../../helpers/graphic/URLValidation";
 import { getColorArray } from "../style/Colors/Color";
@@ -13,8 +13,8 @@ import Graphic, { IChartTypeProps, ILegendLabel, ISeriesAxisSides, INumberPropsP
 import { chartExtremes } from "../../helpers/graphic/chartExtremes";
 import { seriesConfigByUrl } from "../viewpage/ViewPage";
 import ExportableGraphicPickers from "../style/Graphic/ExportableGraphicPickers";
-import { getSelectedChartType, cloneChartTypes } from "../../api/ChartTypeSelector";
 import FetchParamsBuilder, { IFetchParamsBuildingConfig } from "../../helpers/graphic/fetchParamsBuilder";
+import { getSelectedChartType } from "../../helpers/common/chartTypeHandling";
 
 export interface IGraphicExportableProps {
     graphicUrl: string;
@@ -66,6 +66,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
     private queriedIDs: string[];
     private fetchParamsBuilder: FetchParamsBuilder;
     private originalChartTypes: IChartTypeProps;
+    private graphicRenderWaitForFetch: boolean;
 
     public constructor(props: any) {
         super(props);
@@ -80,17 +81,20 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             throw new Error(`El parametro graphicURL: '${this.props.graphicUrl}' representa una URL de grafico inválida; por favor, revísela`);
         }
 
-        this.originalChartTypes = cloneChartTypes(this.props.chartTypes);
+        this.graphicRenderWaitForFetch = true;
+        this.originalChartTypes = JSON.parse(JSON.stringify(this.props.chartTypes)) as IChartTypeProps;
         this.seriesApi = new SerieApi(new ApiClient(extractUriFromUrl(props.graphicUrl), 'ts-components'));
         const collapseParams = getCollapseParamsFromUrl(this.props.graphicUrl);
-        this.queriedIDs = getIDsFromGraphicURL(this.props.graphicUrl);
         this.fetchParamsBuilder = new FetchParamsBuilder(this.props.graphicUrl);
+
+        const extractor: IDsExtractor = new IDsExtractor(this.props.graphicUrl);
+        this.queriedIDs = extractor.getModifiedIDs();
 
         this.state = {
             dateRange: { start: '', end: '' },
             series: [],
             selectedAggregation: collapseParams.collapseAggregation,
-            selectedChartType: getSelectedChartType(this.props.chartTypes || {}, this.props.chartType),
+            selectedChartType: getSelectedChartType(this.props.chartTypes || {}, this.queriedIDs, this.props.chartType),
             selectedFrequency: collapseParams.collapse,
             selectedUnits: getRepresentationModeFromUrl(this.props.graphicUrl)
         }
@@ -130,7 +134,9 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const chartType = nextState.selectedChartType; 
         const updatedUrl = getUpdatedRepModeURL(this.props.graphicUrl, nextState.selectedUnits);
 
-        const ids = getIDsFromGraphicURL(updatedUrl);
+        const extractor: IDsExtractor = new IDsExtractor(updatedUrl);
+        const ids = extractor.getModifiedIDs();
+
         this.adjustProps(ids, chartType);
 
         return true;
@@ -144,6 +150,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             ids: this.queriedIDs,
             representationMode: this.state.selectedUnits !== '' ? this.state.selectedUnits : undefined
         };
+        this.graphicRenderWaitForFetch = true;
         this.setState({
             selectedFrequency: value
         });
@@ -158,6 +165,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             ids: this.queriedIDs,
             representationMode: value
         };
+        this.graphicRenderWaitForFetch = true;    // If changing the units, the inner graphic should only re-render when series have arrived
         this.setState({
             selectedUnits: value
         });
@@ -172,6 +180,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
             ids: this.queriedIDs,
             representationMode: this.state.selectedUnits !== '' ? this.state.selectedUnits : undefined
         };
+        this.graphicRenderWaitForFetch = true;
         this.setState({
             selectedAggregation: value
         });
@@ -183,6 +192,7 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         this.setState({
             selectedChartType: value
         });
+        this.graphicRenderWaitForFetch = false;  // If changing the chartType, the inner graphic should not wait for any fetch to render
         this.resetChartTypes();
     }
 
@@ -216,7 +226,9 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
                          maxDecimals={MAX_SIGNIFICANT_FIGURES}
                          numbersAbbreviate={abbreviationProps.numbersAbbreviate}
                          decimalsBillion={abbreviationProps.decimalsBillion}
-                         decimalsMillion={abbreviationProps.decimalsMillion} />
+                         decimalsMillion={abbreviationProps.decimalsMillion}
+                         originalChartTypes={this.props.chartTypes}
+                         waitForSeriesFetch={this.graphicRenderWaitForFetch} />
                 <ExportableGraphicPickers series={this.state.series}
                                           handleChangeAggregation={this.handleChangeAggregation}
                                           handleChangeFrequency={this.handleChangeFrequency}
@@ -332,25 +344,6 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         return amount;
 
     }
-
-}
-
-function getIDsFromGraphicURL(graphicURL: string): string[] {
-    const extractor: IDsExtractor = new IDsExtractor(graphicURL);
-    return extractor.getModifiedIDs();
-}
-
-function getUpdatedRepModeURL(originalURL: string, newRepMode: string): string {
-
-    if (originalURL.indexOf('representation_mode=') !== -1) {
-        const originalRepMode = originalURL.split('representation_mode=')[1].split('&')[0];
-        return originalURL.replace(originalRepMode, newRepMode);
-    }
-
-    if (newRepMode !== 'value') {
-        return `${originalURL}&representation_mode=${newRepMode}`;
-    }
-    return originalURL;    
 
 }
 

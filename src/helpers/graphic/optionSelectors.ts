@@ -1,6 +1,6 @@
 import { IPickerOptionsProps } from "../../components/common/picker/OptionsPicker";
 import { ISerie } from "../../api/Serie";
-import { isHigherFrequency } from "../../api/utils/periodicityManager";
+import { isLowerFrequency } from "../../api/utils/periodicityManager";
 
 export const CHART_TYPE_OPTIONS: IPickerOptionsProps[] = [
     { value: "line", title: "Líneas", available: true },
@@ -30,7 +30,7 @@ export function appropiatedFrequency(series: ISerie[]): string {
 
     let higherFrequency = series[0].accrualPeriodicity;
     series.forEach((serie: ISerie) => {
-        if (isHigherFrequency(serie.accrualPeriodicity, higherFrequency)) {
+        if (isLowerFrequency(serie.accrualPeriodicity, higherFrequency)) {
             higherFrequency = serie.accrualPeriodicity;
         }
     });
@@ -42,20 +42,20 @@ export function appropiatedFrequency(series: ISerie[]): string {
 export function frequencyOptions(series: ISerie[]): IPickerOptionsProps[] {
 
     const accrualPeriodicity = appropiatedFrequency(series);
-        // noinspection TsLint
-        const options = [
-            { value: 'year',     title: 'Anual',      available: false },
-            { value: 'semester', title: 'Semestral',  available: false },
-            { value: 'quarter',  title: 'Trimestral', available: false },
-            { value: 'month',    title: 'Mensual',    available: false },
-            { value: 'day',      title: 'Diaria',     available: false },
-        ];
+    // noinspection TsLint
+    const options = [
+        { value: 'year',     title: 'Anual',      available: false },
+        { value: 'semester', title: 'Semestral',  available: false },
+        { value: 'quarter',  title: 'Trimestral', available: false },
+        { value: 'month',    title: 'Mensual',    available: false },
+        { value: 'day',      title: 'Diaria',     available: false },
+    ];
 
-        const optionIndex = options.findIndex((option: IPickerOptionsProps) => option.title === accrualPeriodicity);
-        options.forEach((option: IPickerOptionsProps) => {
-            option.available = options.indexOf(option) <= optionIndex;
-        });
+    const optionIndex = options.findIndex((option: IPickerOptionsProps) => option.title === accrualPeriodicity);
+    options.forEach((option: IPickerOptionsProps) => {
+        option.available = options.indexOf(option) <= optionIndex;
+    });
 
-        return options;
+    return options;
 
 }

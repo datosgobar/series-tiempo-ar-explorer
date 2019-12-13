@@ -1,4 +1,4 @@
-import { extractUriFromUrl, getDateFromUrl, IDsExtractor } from "../../../helpers/common/URLExtractors";
+import { extractUriFromUrl, getDateFromUrl, IDsExtractor, getRepresentationModeFromUrl, DEFAULT_REPRESENTATION_MODE, getUpdatedRepModeURL, ICollapseParams, getCollapseParamsFromUrl } from "../../../helpers/common/URLExtractors";
 import { IDateRange } from "../../../api/DateSerie";
 
 describe("Extraction and modifying of IDs from the URL", () => {
@@ -130,6 +130,89 @@ describe("Extraction of date range from the URL", () => {
     });
 
 })
+
+describe("Obtention of the representation mode param from the URL", () => {
+
+    let url: string;
+    let representationMode: string
+
+    it("If the representation_mode query param is present, it is returned", () => {
+        url = "https://apis.datos.gob.ar/series/api/series/?ids=300.2_AP_PAS_APEDEG_0_A_32:percent_change&representation_mode=change";
+        representationMode = getRepresentationModeFromUrl(url);
+        expect(representationMode).toEqual('change');
+    });
+    it("If no query param is specified, but every id has the same modifier, such is returned", () => {
+        url = "https://apis.datos.gob.ar/series/api/series/?ids=defensa_FAA_0006:change_a_year_ago,74.3_ISC_0_M_19:change_a_year_ago";
+        representationMode = getRepresentationModeFromUrl(url);
+        expect(representationMode).toEqual('change_a_year_ago');
+    });
+    it("If no query param is specified, but ids differ on their modifiers, the default is returned", () => {
+        url = "https://apis.datos.gob.ar/series/api/series/?ids=77.3_IEA_0_A_27_2:change,77.3_IEA_0_A_27:percent_change_a_year_ago";
+        representationMode = getRepresentationModeFromUrl(url);
+        expect(representationMode).toEqual(DEFAULT_REPRESENTATION_MODE);
+    });
+    it("Unmodified ids have the default representation mode as modifier", () => {
+        url = "https://apis.datos.gob.ar/series/api/series/?ids=bcra_4,221.1_PELECT_LES_1970_0_38";
+        representationMode = getRepresentationModeFromUrl(url);
+        expect(representationMode).toEqual(DEFAULT_REPRESENTATION_MODE);
+    });
+
+});
+
+describe("Obtention of a new URL from a base one and a representation mode update", () => {
+
+    let originalURL: string;
+    let newRepMode: string;
+    let updatedURL: string;
+
+    it("If the base URL has the representation_mode query param, it is replaced with the new one", () => {
+        originalURL = 'https://apis.datos.gob.ar/series/api/series/?ids=snic_hdv_22&representation_mode=change_since_beginning_of_year';
+        newRepMode = 'percent_change';
+        updatedURL = getUpdatedRepModeURL(originalURL, newRepMode);
+        expect(updatedURL).toEqual('https://apis.datos.gob.ar/series/api/series/?ids=snic_hdv_22&representation_mode=percent_change');
+    });
+    it("If the query param is not present and the new mode is not the default one, the param is added", () => {
+        originalURL = 'https://apis.datos.gob.ar/series/api/series/?ids=ahora12_operaciones_7o6Vx1';
+        newRepMode = 'change';
+        updatedURL = getUpdatedRepModeURL(originalURL, newRepMode);
+        expect(updatedURL).toEqual('https://apis.datos.gob.ar/series/api/series/?ids=ahora12_operaciones_7o6Vx1&representation_mode=change');
+    });
+    it("If the query param is not present and the new mode is the default one, the URL is not updated at all", () => {
+        originalURL = 'https://apis.datos.gob.ar/series/api/series/?ids=105.1_I2JC_2016_M_21';
+        newRepMode = 'value';
+        updatedURL = getUpdatedRepModeURL(originalURL, newRepMode);
+        expect(updatedURL).toEqual(originalURL);
+    });
+
+})
+
+describe("Obtention of the collapse and aggregation params from the URL", () => {
+
+    let url: string;
+    let params: ICollapseParams;
+
+    it("If the collapse query param is present, it is returned as such", () => {
+        url = 'https://apis.datos.gob.ar/series/api/series/?ids=122.2_CV_1999_0_12&collapse=semester';
+        params = getCollapseParamsFromUrl(url);
+        expect(params.collapse).toEqual('semester');
+    });
+    it("If the collapse query param is absent, the empty string is inferred as such", () => {
+        url = 'https://apis.datos.gob.ar/series/api/series/?ids=bcra_monedas_0402';
+        params = getCollapseParamsFromUrl(url);
+        expect(params.collapse).toEqual('');
+    });
+    it("If the collapse_aggregation query param is present, it is returned as such", () => {
+        url = 'https://apis.datos.gob.ar/series/api/series/?ids=ahora12_corrientes_ub0WCc&collapse=year&collapse_aggregation=max';
+        params = getCollapseParamsFromUrl(url);
+        expect(params.collapseAggregation).toEqual('max');
+    });
+    it("If the collapse_aggregation query param is absent, 'avg' is inferred as such", () => {
+        url = 'https://apis.datos.gob.ar/series/api/series/?ids=302.1_S_ORIGINALRGA_0_A_23&collapse=month';
+        params = getCollapseParamsFromUrl(url);
+        expect(params.collapseAggregation).toEqual('avg');
+    });
+
+});
 
 describe("Extraction of URI from the URL", () => {
 
