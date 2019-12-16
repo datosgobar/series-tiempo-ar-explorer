@@ -201,10 +201,10 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
         const chartOptions = buildChartOptions(this.props.chartOptions, this.props);
         const abbreviationProps = buildAbbreviationProps(this.props.numbersAbbreviate, this.props.decimalsBillion, this.props.decimalsMillion);
 
-        const chartTypeSelector = this.props.chartTypeSelector  !== undefined ? this.props.chartTypeSelector : true;
-        const unitsSelector = this.props.unitsSelector  !== undefined ? this.props.unitsSelector : true;
-        const aggregationSelector = this.props.aggregationSelector  !== undefined ? this.props.aggregationSelector : true;
-        const frequencySelector = this.props.frequencySelector  !== undefined ? this.props.frequencySelector : true;
+        const chartTypeSelector = this.props.chartTypeSelector ? this.props.chartTypeSelector : false;
+        const unitsSelector = this.props.unitsSelector ? this.props.unitsSelector : false;
+        const aggregationSelector = this.props.aggregationSelector ? this.props.aggregationSelector : false;
+        const frequencySelector = this.props.frequencySelector ? this.props.frequencySelector : false;
 
         return (
             <ExportableGraphicContainer>
@@ -336,10 +336,10 @@ export default class GraphicExportable extends React.Component<IGraphicExportabl
 
         let amount = 0;
 
-        if (this.props.chartTypeSelector !== false) { amount++; }
-        if (this.props.aggregationSelector !== false) { amount++; }
-        if (this.props.unitsSelector !== false) { amount++; }
-        if (this.props.frequencySelector !== false) { amount++; }
+        if (this.props.chartTypeSelector) { amount++; }
+        if (this.props.aggregationSelector) { amount++; }
+        if (this.props.unitsSelector) { amount++; }
+        if (this.props.frequencySelector) { amount++; }
 
         return amount;
 
