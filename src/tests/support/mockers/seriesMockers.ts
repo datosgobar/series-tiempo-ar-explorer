@@ -1,7 +1,7 @@
 export function generateCommonMockSerieEMAE() {
 
     return {
-        accrualPeriodicity: "R/P1M",
+        accrualPeriodicity: "Mensual",
         collapseAggregation: "CollapseAgregation",
         data: [{ date: "2018-07-01", value: 145.30019275372558 },
         { date: "2018-08-01", value: 145.96423636915267 },
@@ -48,7 +48,7 @@ export function generateCommonMockSerieEMAE() {
 export function generateCommonMockSerieMotos() {
 
     return {
-        accrualPeriodicity: "R/P1M",
+        accrualPeriodicity: "Mensual",
         collapseAggregation: "CollapseAgregation",
         data: [{ date: "2018-09-01", value: 33896 },
         { date: "2018-10-01", value: 35567 },
@@ -107,6 +107,18 @@ export function generatePercentageYearMockSerie() {
     serie.representationMode = "percent_change_a_year_ago";
     return serie;
 
+}
+
+export function generateYearlyFrequencySerie() {
+    const serie = generateCommonMockSerieEMAE();
+    serie.accrualPeriodicity = "Anual";
+    return serie;
+}
+
+export function generateDailyFrequencySerie() {
+    const serie = generateCommonMockSerieEMAE();
+    serie.accrualPeriodicity = "Diaria";
+    return serie;
 }
 
 export function generateEmptySerie() {

@@ -16,10 +16,9 @@ import { getQueryParams } from '../ViewPage';
 import Graphic, { IChartExtremeProps } from "./Graphic";
 import GraphicComplements from "./GraphicComplements";
 import { chartExtremes } from '../../../helpers/graphic/chartExtremes';
+import { DEFAULT_REPRESENTATION_MODE } from '../../../helpers/common/URLExtractors';
+import { DEFAULT_CHART_TYPE } from '../../../api/ChartTypeSelector';
 
-
-const DEFAULT_CHART_TYPE: string = 'line';
-const DEFAULT_REPRESENTATION_MODE: string = 'value';
 
 export interface IGraphicAndShareProps {
     series: ISerie[];

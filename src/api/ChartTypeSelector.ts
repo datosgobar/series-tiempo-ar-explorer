@@ -3,8 +3,8 @@ import { ISerie } from "./Serie";
 import { getFullSerieId } from "../helpers/common/fullSerieID";
 
 
-const DEFAULT_TYPE = "line";
-const VALID_TYPES = [DEFAULT_TYPE, "column", "area"];
+export const DEFAULT_CHART_TYPE = "line";
+const VALID_TYPES = [DEFAULT_CHART_TYPE, "column", "area"];
 
 
 export default class ChartTypeSelector {
@@ -37,9 +37,9 @@ export default class ChartTypeSelector {
 }
 
 function getValidChartType(type: string|null): string {
-    type = type || DEFAULT_TYPE;
+    type = type || DEFAULT_CHART_TYPE;
     if (!isValidChartType(type) || type === "default") {
-        type = DEFAULT_TYPE;
+        type = DEFAULT_CHART_TYPE;
     }
 
     return type;

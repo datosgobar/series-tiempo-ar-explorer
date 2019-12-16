@@ -38,7 +38,7 @@
   width: 100%;
 }
 
-.exportable-graph div { /* Force highcharts to set the height from container */
+.exportable-graph div:not(.g-pickers-container, [data-highcharts-chart]) { /* Force highcharts to set the height from container */
   height: 100%;
 }
 
@@ -203,6 +203,17 @@ div.highcharts-tooltip-box span table tbody tr td span.tooltip-value {
   top: 75px !important;
   width: 95px !important;
   height: 25px !important;
+}
+
+div.g-pickers-container {
+  margin-top: 20px;
+  display: flex;
+}
+
+div.g-pickers-container div.g-picker {
+  float: none;
+  position: relative;
+  text-align: center;
 }
 
 /*---Fin Graphic---*/

@@ -47,12 +47,12 @@ export class PeriodicityManager {
 
  }
 
-// returns if `higher` is higher than `newFrequency`
-export function isHigherFrequency(higher: string, newFrequency: string): boolean {
-    return (higher === 'Anual') ||
-        (higher === 'Semestral' && newFrequency !== 'Anual') ||
-        ((higher === 'Trimestral') && ((newFrequency !== 'Anual') && newFrequency !== 'Semestral')) ||
-        (higher === 'Mensual' && ((newFrequency !== 'Anual') && (newFrequency !== 'Semestral') && (newFrequency !== 'Trimestral')))
+// returns if `lower` is lower (less frequent) than `newFrequency`
+export function isLowerFrequency(lower: string, newFrequency: string): boolean {
+    return (lower === 'Anual') ||
+        (lower === 'Semestral' && newFrequency !== 'Anual') ||
+        ((lower === 'Trimestral') && ((newFrequency !== 'Anual') && newFrequency !== 'Semestral')) ||
+        (lower === 'Mensual' && ((newFrequency !== 'Anual') && (newFrequency !== 'Semestral') && (newFrequency !== 'Trimestral')))
 }
 
 export function i18nFrequency(frequency: string): string {

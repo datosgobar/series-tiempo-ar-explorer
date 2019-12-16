@@ -1,4 +1,4 @@
-import { getChartType, getFullSerieId } from "../common/fullSerieID";
+import { getFullSerieId } from "../common/fullSerieID";
 import { timestamp } from "../common/dateFunctions";
 import { ISerie } from "../../api/Serie";
 import { IYAxis, IYAxisConf, ILegendLabel, IChartTypeProps } from "../../components/viewpage/graphic/Graphic";
@@ -6,6 +6,7 @@ import { IHCSerie } from "../../components/viewpage/graphic/highcharts";
 import { DEFAULT_HC_SERIES_CONFIG } from "./hcConfiguration";
 import { getSerieColor, Color } from "../../components/style/Colors/Color";
 import { valuesFromObject } from "../common/commonFunctions";
+import { getChartType } from "../common/chartTypeHandling";
 
 export interface IHighchartsSerieBuilderOptions {
     chartTypes?: IChartTypeProps,
