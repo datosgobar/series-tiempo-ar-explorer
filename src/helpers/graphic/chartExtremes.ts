@@ -2,6 +2,8 @@ import { IDataPoint } from "../../api/DataPoint";
 import { ISerie } from "../../api/Serie";
 import { IChartExtremeProps } from "../../components/viewpage/graphic/Graphic";
 
+const MIN_LAST_OFFSET = 1;
+
 export function chartExtremes(series: ISerie[], dateRange: { start: string; end: string; }, last?: number): IChartExtremeProps {
 
     if (series.length === 0) {
@@ -19,7 +21,8 @@ export function chartExtremes(series: ISerie[], dateRange: { start: string; end:
         maxDataIndex = firstSerieData.length - 1;
     }
     if (last !== undefined) {
-        minDataIndex = Math.max(minDataIndex, maxDataIndex - last + 1);
+        const lastOffset = Math.max(MIN_LAST_OFFSET, last)
+        minDataIndex = Math.max(minDataIndex, maxDataIndex - lastOffset + 1);
     }
 
     const min = new Date(firstSerieData[minDataIndex].date).getTime();

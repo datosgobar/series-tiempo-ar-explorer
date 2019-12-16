@@ -92,6 +92,16 @@ describe("Tests for obtainment of a chart's time axis extremes", () => {
             last = 20;
             evaluateTimestamps(dateRange.start, dateRange.end, last);
         });
+        it("If the amount of last values asked for is only one, just the last value of the interval is returned", () => {
+            last = 1;
+            evaluateTimestamps(dateRange.end, dateRange.end, last);
+        });
+        it("Asking for a negative amount of last values is the same than asking for the last itself", () => {
+            const lastOneValueExtremes = chartExtremes(series, dateRange, 1);
+            const lastNegativeExtremes = chartExtremes(series, dateRange, -2)
+            expect(lastOneValueExtremes.min).toEqual(lastNegativeExtremes.min);
+            expect(lastOneValueExtremes.max).toEqual(lastNegativeExtremes.max);
+        })
         
     })
 
