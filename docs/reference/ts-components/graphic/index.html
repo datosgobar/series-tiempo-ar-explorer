@@ -915,6 +915,38 @@ Este gráfico se genera a partir del siguiente código:
         <td>Fecha más reciente de la serie</td>
         <td>'2018-12-09'</td>
     </tr>
+    <tr>
+        <td>frequencySelector</td>
+        <td>No</td>
+        <td>Presencia del selector de frecuencias al pie del componente. Sus opciones serán todas las frecuencias menores o iguales a las de la menor de las series involucradas.</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>aggregationSelector</td>
+        <td>No</td>
+        <td>Presencia del selector de tipo de agregación al pie del componente. Sus opciones serán todas las permitidas en consultas a la API.</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>unitsSelector</td>
+        <td>No</td>
+        <td>Presencia del selector de unidades (modo de representación) para las series involucradas. La opción elegida será aplicada a toda serie que no tenga un modificador explícito en su ID.</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>chartTypeSelector</td>
+        <td>No</td>
+        <td>Presencia del selector de tipo de gráfico a dibujar para las series involucradas. La opción elegida será empleada para toda aquella serie que no tenga un tipo de gráfico específico definido en el parámetro chartTypes.</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>true</td>
+    </tr>
 </table>
 
 <h2 id="paleta-de-colores-por-defecto"><a class="toclink" href="#paleta-de-colores-por-defecto">Paleta de colores por defecto</a><a class="headerlink" href="#paleta-de-colores-por-defecto" title="Permanent link">&#128279;</a></h2>
