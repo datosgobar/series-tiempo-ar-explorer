@@ -1,5 +1,36 @@
-/*---Roboto---*/
+/*---Fonts---*/
+
+/* Roboto */
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,500,600&display=swap");
+/* Regular */
+@font-face {
+  font-family: 'Regular';
+  src: url('../fonts/roboto/Roboto-Regular.eot');
+  src: url('../fonts/roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Regular.woff') format('woff'), url('../fonts/roboto/Roboto-Regular.ttf') format('truetype'), url('../fonts/roboto/Roboto-Regular.svg#Roboto-Regular') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+}
+/* Medium */
+@font-face {
+  font-family: 'Medium';
+  src: url('../fonts/roboto/Roboto-Medium.eot');
+  src: url('../fonts/roboto/Roboto-Medium.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Medium.woff') format('woff'), url('../fonts/roboto/Roboto-Medium.ttf') format('truetype'), url('../fonts/roboto/Roboto-Medium.svg#Roboto-Medium') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+}
+/* Bold */
+@font-face {
+  font-family: 'Bold';
+  src: url('../fonts/roboto/Roboto-Bold.eot');
+  src: url('../fonts/roboto/Roboto-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Bold.woff') format('woff'), url('../fonts/roboto/Roboto-Bold.ttf') format('truetype'), url('../fonts/roboto/Roboto-Bold.svg#Roboto-Bold') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+/*---Fin Fonts---*/
 
 /*---Graphic---*/
 
@@ -7,7 +38,7 @@
   width: 100%;
 }
 
-.exportable-graph div { /* Force highcharts to set the height from container */
+.exportable-graph div:not(.g-pickers-container, [data-highcharts-chart]) { /* Force highcharts to set the height from container */
   height: 100%;
 }
 
@@ -166,6 +197,23 @@ div.highcharts-tooltip-box span table tbody tr td span.tooltip-value {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.highcharts-range-selector:focus {
+  top: 75px !important;
+  width: 95px !important;
+  height: 25px !important;
+}
+
+div.g-pickers-container {
+  margin-top: 20px;
+  display: flex;
+}
+
+div.g-pickers-container div.g-picker {
+  float: none;
+  position: relative;
+  text-align: center;
 }
 
 /*---Fin Graphic---*/
@@ -713,6 +761,205 @@ main a[href^="https://"][target^="_blank"]::after {
 }
 
 /*---Fin Card---*/
+
+/*---PreviewCard---*/
+
+.mg-lg-b {
+  margin-bottom: 30px;
+}
+
+.series-card {
+  animation-duration: .1s;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  border-right-width: 5px;
+  border-right-style: solid;
+  border-right-color: #999999;
+  display: block;
+  font-family: "Regular", sans-serif;
+  height: 298px;
+  letter-spacing: normal;
+  line-height: 17.5px;
+  overflow: hidden;
+  padding: 22.5px;
+  position: relative;
+  text-align: left;
+  text-rendering: optimizeLegibility;
+  word-spacing: 0px;
+}
+
+.series-card:hover,
+.series-card:focus {
+  border-top-color: #999999;
+  border-bottom-color: #999999;
+  border-left-color: #999999;
+  cursor: pointer;
+}
+
+.series-card .row {
+  display: block !important;
+  margin-left: -15px;
+  margin-right: -15px !important;
+  padding: 0;
+  width: 100%; 
+}
+
+.series-card .p-headers, .p-metadata {
+  color: rgb(51, 51, 51);
+  float: left;
+  font-size: 14px;
+  min-height: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+}
+
+.series-card .p-headers {
+  width: 100%;
+}
+
+.series-card .p-headers .card-title,
+.series-card .p-headers .card-desc {
+  margin-bottom: 7.5px;
+}
+
+.series-card .p-headers .card-title {
+  color: #3e3e3e;
+  display: -webkit-box;
+  font-family: 'Medium';
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 30px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  overflow: hidden;
+  padding: 0px;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.series-card .p-headers .card-desc {
+  color: rgb(51, 51, 51);
+  display: -webkit-box;
+  font-size: 14px;
+  height: auto;
+  overflow: hidden;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.series-card .p-headers .card-desc p {
+  color: #757575;
+  font-size: 14px;
+  height: auto;
+  margin: 0px;
+}
+
+.series-card .p-metadata {
+  width: 66.67%;
+}
+
+.series-card .p-metadata .card-info {
+  color: rgb(153, 153, 153);
+  display: -webkit-box;
+  font-size: 12px;
+  letter-spacing: normal;
+  overflow: hidden;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.series-card .p-metadata .card-info strong {
+  font-family: "Bold";
+  font-weight: 400;
+}
+
+.series-card .d3-line-chart {
+  float: right;
+  margin-top: 20px;
+}
+
+.series-card .d3-line-chart .units .date, 
+.series-card .d3-line-chart .units .value {
+  font-weight: 700;
+}
+
+.series-card .d3-line-chart .units .date {
+  color: rgb(104, 104, 104);
+  font-size: 12px;
+}
+
+.series-card .d3-line-chart .units .value {
+  color: rgb(26, 150, 210);
+  font-size: 18px;
+}
+
+.series-card .d3-line-chart svg {
+  overflow: hidden;
+}
+
+.series-card .d3-line-chart .frequency {
+  color: rgb(104, 104, 104);
+  font-size: 10px;
+}
+
+.series-card .card-section,
+.series-card .card-count {
+  display: block;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.series-card .card-section {
+  color: #999999;
+}
+
+.series-card .card-count,
+.series-card .card-source {
+  color: #aaaaaa;
+}
+
+.series-card.card-small {
+  padding: 15px 22.5px;
+}
+
+.series-card.card-has-check {
+  padding-right: 45px;
+}
+
+.series-card.card-has-check .card-check {
+  position: absolute;
+  z-index: 9;
+  top: 50%;
+  right: 15px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.series-card.card-has-check .card-check i {
+  font-size: 30px;
+  color: #0897D7;
+}
+
+@media (max-width: 767px) { /* Mobile viewport */
+  .series-card {
+    height: auto !important;
+  }
+  .series-card .card-title {
+    font-size: 18px;
+  }
+}
+
+/*---Fin PreviewCard---*/
 
 /*---Iconos---*/
 
