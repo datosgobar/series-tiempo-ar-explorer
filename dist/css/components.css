@@ -38,7 +38,7 @@
   width: 100%;
 }
 
-.exportable-graph div { /* Force highcharts to set the height from container */
+.exportable-graph div:not(.g-pickers-container, [data-highcharts-chart]) { /* Force highcharts to set the height from container */
   height: 100%;
 }
 
@@ -197,6 +197,23 @@ div.highcharts-tooltip-box span table tbody tr td span.tooltip-value {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.highcharts-range-selector:focus {
+  top: 75px !important;
+  width: 95px !important;
+  height: 25px !important;
+}
+
+div.g-pickers-container {
+  margin-top: 20px;
+  display: flex;
+}
+
+div.g-pickers-container div.g-picker {
+  float: none;
+  position: relative;
+  text-align: center;
 }
 
 /*---Fin Graphic---*/
@@ -801,6 +818,7 @@ main a[href^="https://"][target^="_blank"]::after {
   font-size: 24px;
   line-height: 30px;
   margin-top: 0px;
+  overflow: hidden;
   padding: 0px;
   -moz-box-orient: vertical;
   -webkit-line-clamp: 2;

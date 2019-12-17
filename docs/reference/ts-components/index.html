@@ -446,6 +446,18 @@
 
 
   <li class="md-nav__item">
+    <a href="preview-card/" title="TSComponents: PreviewCard" class="md-nav__link">
+      TSComponents: PreviewCard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="examples/" title="TSComponents: Ejemplos" class="md-nav__link">
       TSComponents: Ejemplos
     </a>
@@ -579,16 +591,19 @@
                 
                 
                 <h1 id="tscomponents"><a class="toclink" href="#tscomponents">TSComponents</a><a class="headerlink" href="#tscomponents" title="Permanent link">&#128279;</a></h1>
-<p><strong>Versión</strong>: 2.7.0</p>
+<p><strong>Versión</strong>: 2.8.0</p>
 <p>El objeto <code>TSComponents</code> contiene distintos componentes exportables que se pueden utilizar dentro de una experiencia web.</p>
-<p>Está en el archivo llamado <code>components.js</code> y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/js/components.js</p>
+<p>Está en el archivo llamado <code>components.js</code> y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/js/components.js</p>
 <h2 id="componentes"><a class="toclink" href="#componentes">Componentes</a><a class="headerlink" href="#componentes" title="Permanent link">&#128279;</a></h2>
 <ul>
 <li>
-<p><strong><a href="graphic/"><code>graphic</code></a></strong>: gráfico de líneas, barras o área usado en el explorador de series de tiempo con todas sus funcionalidades.</p>
+<p><strong><a href="graphic/"><code>Graphic</code></a></strong>: gráfico de líneas, barras o área usado en el explorador de series de tiempo con todas sus funcionalidades.</p>
 </li>
 <li>
-<p><strong><a href="card/"><code>card</code></a></strong>: tarjeta con información de la serie y un gráfico incluído con sus datos.</p>
+<p><strong><a href="card/"><code>Card</code></a></strong>: tarjeta con información de la serie y un gráfico incluido con sus datos.</p>
+</li>
+<li>
+<p><strong><a href="preview-card/"><code>PreviewCard</code></a></strong>: tarjeta de tamaño variable con metadatos de la serie y un gráfico incluido con sus datos.</p>
 </li>
 </ul>
 <h2 id="como-los-uso"><a class="toclink" href="#como-los-uso">¿Cómo los uso?</a><a class="headerlink" href="#como-los-uso" title="Permanent link">&#128279;</a></h2>
@@ -596,14 +611,14 @@
 <ul>
 <li>Importar librería JS:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <ul>
 <li>Importar hoja de estilos CSS:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.7.0/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
 </pre></div>
 
 
@@ -625,6 +640,12 @@
 
 
 <div class="codehilite"><pre><span></span><span class="nx">TSComponents</span><span class="p">.</span><span class="nx">Card</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;card_01&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="nx">TSComponents</span><span class="p">.</span><span class="nx">PreviewCard</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;preview_01&#39;</span><span class="p">,</span> <span class="p">{</span>
   <span class="p">...</span>
 <span class="p">})</span>
 </pre></div>

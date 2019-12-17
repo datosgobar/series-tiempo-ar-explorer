@@ -12,6 +12,7 @@ nav:
       - TSComponents: 'reference/ts-components.md'
       - "TSComponents: Graphic": 'reference/ts-components/graphic.md'
       - "TSComponents: Card": 'reference/ts-components/card.md'
+      - "TSComponents: PreviewCard": 'reference/ts-components/preview-card.md'
       - "TSComponents: Ejemplos": 'reference/ts-components/examples.md'
       - "TSComponents: Layout": 'reference/ts-components/layout.md'
   #   - Condiciones de uso: terms.md

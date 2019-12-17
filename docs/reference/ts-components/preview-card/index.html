@@ -13,7 +13,7 @@
         <meta name="description" content="Interfaz web para buscar, visualizar y compartir indicadores disponibles en la API de Series de Tiempo.">
       
       
-        <link rel="canonical" href="https://datos.gob.ar/series/reference/ts-explorer/">
+        <link rel="canonical" href="https://datos.gob.ar/series/reference/ts-components/preview-card/">
       
       
         <meta name="author" content="Datos Argentina">
@@ -37,27 +37,27 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
     
     
       
-        <title>TSExplorer - Explorador de Series de Tiempo</title>
+        <title>TSComponents: PreviewCard - Explorador de Series de Tiempo</title>
       
     
     
 	
-      <link rel="stylesheet" href="../../assets/stylesheets/application.0284f74d.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.0284f74d.css">
       
       
     
-	<link rel="stylesheet" href="../../css/extra.css">
+	<link rel="stylesheet" href="../../../css/extra.css">
 
     
     
-      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+      <script src="../../../assets/javascripts/modernizr.74668098.js"></script>
     
-    <script src="../../js/extra.js"></script>
+    <script src="../../../js/extra.js"></script>
 
     
       
@@ -66,7 +66,7 @@
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
     
     
     
@@ -131,7 +131,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#tsexplorer" tabindex="1" class="md-skip">
+      <a href="#componente-previewcard" tabindex="1" class="md-skip">
         Saltar a contenido
       </a>
     
@@ -142,7 +142,7 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href="https://datos.gob.ar/series" title="Explorador de Series de Tiempo" class="md-header-nav__button md-logo">
           
-            <img src="../../images/logo.svg" width="24" height="24">
+            <img src="../../../images/logo.svg" width="24" height="24">
           
         </a>
       </div>
@@ -157,7 +157,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                TSExplorer
+                TSComponents: PreviewCard
               
             </span>
           
@@ -260,7 +260,7 @@
           <a href="https://datos.gob.ar/series"
               title="Explorador de Series de Tiempo" class="md-nav__button md-logo">
             
-              <img src="../../images/logo.svg" width="48" height="48" />
+              <img src="../../../images/logo.svg" width="48" height="48" />
             
           </a>
           Explorador de Series de Tiempo
@@ -298,7 +298,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../docs/" title="Inicio" class="md-nav__link">
+    <a href="../../../docs/" title="Inicio" class="md-nav__link">
       Inicio
     </a>
   </li>
@@ -351,6 +351,54 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../../ts-explorer/" title="TSExplorer" class="md-nav__link">
+      TSExplorer
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="TSComponents" class="md-nav__link">
+      TSComponents
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../graphic/" title="TSComponents: Graphic" class="md-nav__link">
+      TSComponents: Graphic
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../card/" title="TSComponents: Card" class="md-nav__link">
+      TSComponents: Card
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -362,11 +410,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        TSExplorer
+        TSComponents: PreviewCard
       </label>
     
-    <a href="./" title="TSExplorer" class="md-nav__link md-nav__link--active">
-      TSExplorer
+    <a href="./" title="TSComponents: PreviewCard" class="md-nav__link md-nav__link--active">
+      TSComponents: PreviewCard
     </a>
     
       
@@ -380,15 +428,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#como-lo-uso" title="¿Cómo lo uso?" class="md-nav__link">
-    ¿Cómo lo uso?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ejemplo-de-uso" title="Ejemplo de uso" class="md-nav__link">
-    Ejemplo de uso
+  <a href="#ejemplo-base" title="Ejemplo base" class="md-nav__link">
+    Ejemplo base
   </a>
   
 </li>
@@ -401,6 +442,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#clickeabilidad" title="Clickeabilidad" class="md-nav__link">
+    Clickeabilidad
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#abreviatura" title="Abreviatura" class="md-nav__link">
     Abreviatura
   </a>
@@ -408,8 +456,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo-online" title="Demo online" class="md-nav__link">
-    Demo online
+  <a href="#ejemplo-completo" title="Ejemplo completo" class="md-nav__link">
+    Ejemplo completo
   </a>
   
 </li>
@@ -431,55 +479,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../ts-components/" title="TSComponents" class="md-nav__link">
-      TSComponents
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../ts-components/graphic/" title="TSComponents: Graphic" class="md-nav__link">
-      TSComponents: Graphic
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../ts-components/card/" title="TSComponents: Card" class="md-nav__link">
-      TSComponents: Card
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../ts-components/preview-card/" title="TSComponents: PreviewCard" class="md-nav__link">
-      TSComponents: PreviewCard
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../ts-components/examples/" title="TSComponents: Ejemplos" class="md-nav__link">
+    <a href="../examples/" title="TSComponents: Ejemplos" class="md-nav__link">
       TSComponents: Ejemplos
     </a>
   </li>
@@ -491,7 +491,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../ts-components/layout/" title="TSComponents: Layout" class="md-nav__link">
+    <a href="../layout/" title="TSComponents: Layout" class="md-nav__link">
       TSComponents: Layout
     </a>
   </li>
@@ -533,7 +533,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../developers/install/" title="Instalación" class="md-nav__link">
+    <a href="../../../developers/install/" title="Instalación" class="md-nav__link">
       Instalación
     </a>
   </li>
@@ -545,7 +545,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../developers/deploy/" title="Despliegue" class="md-nav__link">
+    <a href="../../../developers/deploy/" title="Despliegue" class="md-nav__link">
       Despliegue
     </a>
   </li>
@@ -579,15 +579,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#como-lo-uso" title="¿Cómo lo uso?" class="md-nav__link">
-    ¿Cómo lo uso?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ejemplo-de-uso" title="Ejemplo de uso" class="md-nav__link">
-    Ejemplo de uso
+  <a href="#ejemplo-base" title="Ejemplo base" class="md-nav__link">
+    Ejemplo base
   </a>
   
 </li>
@@ -600,6 +593,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#clickeabilidad" title="Clickeabilidad" class="md-nav__link">
+    Clickeabilidad
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#abreviatura" title="Abreviatura" class="md-nav__link">
     Abreviatura
   </a>
@@ -607,8 +607,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo-online" title="Demo online" class="md-nav__link">
-    Demo online
+  <a href="#ejemplo-completo" title="Ejemplo completo" class="md-nav__link">
+    Ejemplo completo
   </a>
   
 </li>
@@ -629,67 +629,46 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/datosgobar/series-tiempo-ar-explorer/edit/master/docs/reference/ts-explorer.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/datosgobar/series-tiempo-ar-explorer/edit/master/docs/reference/ts-components/preview-card.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="tsexplorer"><a class="toclink" href="#tsexplorer">TSExplorer</a><a class="headerlink" href="#tsexplorer" title="Permanent link">&#128279;</a></h1>
-<p><strong>Versión</strong>: 2.8.1</p>
-<p>El objeto <code>TSExplorer</code> contiene una <em>one page application</em> con un explorador de series de tiempo, que permite buscar y visualizar series de un catálogo de datos abiertos.</p>
-<p>Está en el archivo llamado <code>main.js</code> y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.8.1/dist/js/main.js</p>
-<h2 id="como-lo-uso"><a class="toclink" href="#como-lo-uso">¿Cómo lo uso?</a><a class="headerlink" href="#como-lo-uso" title="Permanent link">&#128279;</a></h2>
-<ul>
-<li>Importar librería JS:</li>
-</ul>
-<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.8.1/dist/js/main.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</pre></div>
+                <h1 id="componente-previewcard"><a class="toclink" href="#componente-previewcard">Componente: PreviewCard</a><a class="headerlink" href="#componente-previewcard" title="Permanent link">&#128279;</a></h1>
+<p>El componente <code>PreviewCard</code> permite embeber tarjetas con metadatos de la serie, y un gráfico incluido dentro de la misma, pudiendo ajustar su ancho al insertarlas en un documento HTML.</p>
+<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/js/components.js'></script></p>
+<style>
+    .row {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+    }
+</style>
 
+<div class="row">
+    <div id="preview"></div>
+</div>
 
-<ul>
-<li>Definir dónde se va a dibujar:</li>
-</ul>
-<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;explorer-container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</pre></div>
+<h2 id="ejemplo-base"><a class="toclink" href="#ejemplo-base">Ejemplo base</a><a class="headerlink" href="#ejemplo-base" title="Permanent link">&#128279;</a></h2>
+<p>Ver online: <a href="https://jsfiddle.net/18gykLxp/">https://jsfiddle.net/18gykLxp/</a></p>
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- importa librería JS --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
+<span class="c">&lt;!-- importa hoja de estilos CSS --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
 
-<ul>
-<li>Instanciar el explorador:</li>
-</ul>
-<div class="codehilite"><pre><span></span><span class="nx">TSExplorer</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;explorer-container&#39;</span><span class="p">,</span> <span class="p">{</span>
-<span class="p">...</span>
-<span class="p">})</span>
-</pre></div>
+<span class="c">&lt;!-- código HTML donde ubicar un div con una tarjeta --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;emae&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-
-<h2 id="ejemplo-de-uso"><a class="toclink" href="#ejemplo-de-uso">Ejemplo de uso</a><a class="headerlink" href="#ejemplo-de-uso" title="Permanent link">&#128279;</a></h2>
-<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.8.1/dist/js/main.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;explorer-container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- JS que genera la tarjeta en el div --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">TSExplorer</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;explorer-container&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="nx">featured</span><span class="o">:</span> <span class="p">[</span>
-                <span class="s2">&quot;103.1_I2N_2016_M_15&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;168.1_T_CAMBIOR_D_0_0_26&quot;</span><span class="p">,</span>
-            <span class="p">],</span>
-            <span class="nx">seriesApiUri</span><span class="o">:</span> <span class="s2">&quot;https://apis.datos.gob.ar/series/api&quot;</span><span class="p">,</span>
-            <span class="nx">catalogId</span><span class="o">:</span> <span class="s1">&#39;datosgobar&#39;</span><span class="p">,</span>
-            <span class="nx">formatChartUnits</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="nx">laps</span><span class="o">:</span> <span class="p">{</span>
-                <span class="nx">Diaria</span><span class="o">:</span> <span class="mi">90</span><span class="p">,</span>
-                <span class="nx">Mensual</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
-                <span class="nx">Trimestral</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-                <span class="nx">Semestral</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-                <span class="nx">Anual</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-            <span class="p">},</span>
-            <span class="nx">locale</span><span class="o">:</span> <span class="s1">&#39;AR&#39;</span>
+        <span class="nx">TSComponents</span><span class="p">.</span><span class="nx">Preview</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;emae&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="c1">// ID de la serie solicitada</span>
+            <span class="nx">serieId</span><span class="o">:</span> <span class="s1">&#39;11.1_CMMR_2004_A_10&#39;</span>
         <span class="p">})</span>
     <span class="p">}</span>
-  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 
 
@@ -698,78 +677,42 @@
     <tr>
         <th>Nombre</th>
         <th>Requerido</th>
-        <th style="min-width: 20em;">Descripción</th>
+        <th>Descripción</th>
         <th>Tipo</th>
         <th>Default</th>
         <th>Ejemplos</th>
     </tr>
     <tr>
-        <td>seriesApiUri</td>
+        <td>serieId</td>
         <td>Si</td>
-        <td>URI a la API donde buscamos los datos.</td>
+        <td>ID de la serie a buscar.</td>
         <td>string</td>
         <td>Ninguno</td>
+        <td>bcra_5</td>
+    </tr>
+    <tr>
+        <td>explorerUrl</td>
+        <td>No</td>
+        <td>URL de la instancia del componente Explorer donde mostrar todos los detalles de la serie representada al clickear la tarjeta.</td>
+        <td>string</td>
+        <td>https://datos.gob.ar/series/api/series</td>
+        <td>https://miexplorer.org/series</td>
+    </tr>
+    <tr>
+        <td>apiBaseUrl</td>
+        <td>No</td>
+        <td>URL de la API de Series de Tiempo a la cual pedir los datos de la serie a representar. Debe poseer un endpoint '/series/'.</td>
+        <td>string</td>
         <td>https://apis.datos.gob.ar/series/api</td>
-    </tr>
-    <tr>
-        <td>featured</td>
-        <td>No</td>
-        <td>Indica los IDs de las series destacadas</td>
-        <td>string[]</td>
-        <td>[]</td>
-        <td>["103.1_I2N_2016_M_15", "168.1_T_CAMBIOR_D_0_0_26"]</td>
-    </tr>
-    <tr>
-        <td>catalogId</td>
-        <td>No</td>
-        <td>Representa el id del catálogo de donde busca las series</td>
-        <td>string</td>
-        <td>Ninguno</td>
-        <td>datosgobar</td>
-    </tr>
-    <tr>
-        <td>formatChartUnits</td>
-        <td>No</td>
-        <td>Indica si debe formatear a porcentaje los valores entre -1 y 1.</td>
-        <td>boolean</td>
-        <td>true</td>
-        <td>true / false</td>
-    </tr>
-    <tr>
-        <td>laps</td>
-        <td>No</td>
-        <td>Información para traer los últimos _n_ valores de la serie, con _n_ igual al valor por frecuencia.
-        <br>
-        <br>
-        {Diaria: number, Mensual: number, Trimestral: number, Semestral: number, Anual: number}
-        </td>
-        <td>object</td>
-        <td>true</td>
-        <td>true / false</td>
-    </tr>
-    <tr>
-        <td>locale</td>
-        <td>No</td>
-        <td>Valores posibles: `"AR"` o `"US"` (pendientes nuevos valores). Representan qué _locale_ usar para formatear números, es decir, separadores de miles o de decimales.</td>
-        <td>string</td>
-        <td>"AR"</td>
-        <td>"AR" / "US"</td>
+        <td>https://miapi.org/api</td>
     </tr>
     <tr>
         <td>maxDecimals</td>
         <td>No</td>
-        <td>Cantidad máxima de cifras decimales a mostrar para los valores de las series, tanto en sus tarjetas destacadas, como resultados de búsqueda y notas (tooltips) de los gráficos.</td>
+        <td>Cantidad máxima de cifras decimales a mostrar para los valores de las series representadas.</td>
         <td>int</td>
         <td>2</td>
-        <td>0/4/1</td>
-    </tr>
-    <tr>
-        <td>heroImageUrl</td>
-        <td>No</td>
-        <td>URL de la imagen a mostrar de fondo en el banner del encabezado.</td>
-        <td>string</td>
-        <td>https://datos.gob.ar/images/hero_bg.svg</td>
-        <td>https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg</td>
+        <td>5</td>
     </tr>
     <tr>
         <td>numbersAbbreviate</td>
@@ -795,8 +738,23 @@
         <td>2</td>
         <td>0</td>
     </tr>
+    <tr>
+        <td>width</td>
+        <td>No</td>
+        <td>Ancho del componente. Puede ser un porcentaje (el porcentaje del ancho del div que lo contendrá), o bien una cantidad de pixeles (con el sufijo 'px'; representa un ancho absoluto, independiente del div contenedor).</td>
+        <td>string</td>
+        <td>'100%'</td>
+        <td>'50%', '560px'</td>
+    </tr>
 </table>
 
+<h2 id="clickeabilidad"><a class="toclink" href="#clickeabilidad">Clickeabilidad</a><a class="headerlink" href="#clickeabilidad" title="Permanent link">&#128279;</a></h2>
+<p>El componente es 100% clickeable, en toda su superficie, y hacerlo abrirá otra pestaña en el navegador donde se esté visualizando la tarjeta. El sitio de la nueva pestaña permitirá visualizar más detalles de la serie involucrada, en distintos hosts según los valores de los parámetros del componente:</p>
+<ul>
+<li>Si el parámetro <code>explorerUrl</code> está presente, la nueva pestaña irá a la sección de <em>Detalle</em> de la serie involucrada en la instancia del <code>Explorer</code> ubicada en su URL-</li>
+<li>Si el parámetro <code>explorerUrl</code> no está presente, pero <code>apiBaseUrl</code> si lo está, la nueva pestaña irá a la versión JSON de la respuesta brindada por la API especificada en el parámetro, en su endpoint de <code>/series/</code>, pidiendo los últimos 5000 valores (si los hubiese) y con todos los metadatos posibles de la serie.</li>
+<li>Si ninguno de los dos parámetros está presente, la nueva pestaña irá a la sección de <em>Detalle</em> involucrada en el Explorador de Series de Tiempo de <a href="datos.gob.ar">datos.gob.ar</a>.</li>
+</ul>
 <h2 id="abreviatura"><a class="toclink" href="#abreviatura">Abreviatura</a><a class="headerlink" href="#abreviatura" title="Permanent link">&#128279;</a></h2>
 <p>Si se habilita la abreviatura y formateo de números grandes, encendiendo el flag <code>numbersAbbreviate</code> (la única manera de apagarlo es seteándole explícitamente un valor <code>false</code> por medio del parámetro del componente), se procederá a formatearlos de la siguiente manera:</p>
 <ul>
@@ -806,8 +764,41 @@
 <li>Todo número mayor a un diez millones negativos y menor a diez millones será conservado como tal, sin aplicársele sufijo alguno.</li>
 <li>En caso de abreviar, la cantidad de decimales que son tenidos en cuenta del cociente obtenido al dividir el valor original de la serie por el divisor apropiado depende de los valores (por defecto o especificados) de las cantidades de los parámetros <code>decimalsBillion</code> y <code>decimalsMillion</code> (según corresponda).</li>
 </ul>
-<h2 id="demo-online"><a class="toclink" href="#demo-online">Demo online</a><a class="headerlink" href="#demo-online" title="Permanent link">&#128279;</a></h2>
-<p><a href="https://jsfiddle.net/u7y3q9e2/">https://jsfiddle.net/u7y3q9e2/</a></p>
+<h2 id="ejemplo-completo"><a class="toclink" href="#ejemplo-completo">Ejemplo completo</a><a class="headerlink" href="#ejemplo-completo" title="Permanent link">&#128279;</a></h2>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;preview&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">TSComponents</span><span class="p">.</span><span class="nx">PreviewCard</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;preview&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">serieId</span><span class="o">:</span> <span class="s1">&#39;143.3_NO_PR_2004_A_21&#39;</span><span class="p">,</span>
+        <span class="nx">explorerUrl</span><span class="o">:</span> <span class="s1">&#39;https://datos.gob.ar/series/api/series&#39;</span><span class="p">,</span>
+        <span class="nx">apiBaseUrl</span><span class="o">:</span> <span class="s1">&#39;https://apis.datos.gob.ar/series/api&#39;</span><span class="p">,</span>
+        <span class="nx">maxDecimals</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="nx">numbersAbbreviate</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">decimalsMillion</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nx">decimalsBillion</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="nx">width</span><span class="o">:</span> <span class="s1">&#39;500px&#39;</span>
+    <span class="p">})</span>
+    <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<script>
+    window.onload = function() {
+
+        TSComponents.PreviewCard.render('preview', {
+            serieId: '143.3_NO_PR_2004_A_21',
+            maxDecimals: 4,
+            width: '600px'
+        })
+
+    }
+</script>
                 
                   
                 
@@ -828,7 +819,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../docs/" title="Inicio" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../card/" title="TSComponents: Card" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -837,19 +828,19 @@
                 <span class="md-footer-nav__direction">
                   Anterior
                 </span>
-                Inicio
+                TSComponents: Card
               </span>
             </div>
           </a>
         
         
-          <a href="../ts-components/" title="TSComponents" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../examples/" title="TSComponents: Ejemplos" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Siguiente
                 </span>
-                TSComponents
+                TSComponents: Ejemplos
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -877,24 +868,24 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.245445c6.js"></script>
+      <script src="../../../assets/javascripts/application.245445c6.js"></script>
       
         
         
           
-          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
           
             
               
               
-                <script src="../../assets/javascripts/lunr/lunr.es.js"></script>
+                <script src="../../../assets/javascripts/lunr/lunr.es.js"></script>
               
             
           
           
         
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
       
     
   </body>
