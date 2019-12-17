@@ -800,6 +800,7 @@ main a[href^="https://"][target^="_blank"]::after {
 }
 
 .series-card .row {
+  display: block !important;
   margin-left: -15px;
   margin-right: -15px !important;
   padding: 0;
