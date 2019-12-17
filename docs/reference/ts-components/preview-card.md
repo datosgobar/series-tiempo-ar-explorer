@@ -168,7 +168,7 @@ Si se habilita la abreviatura y formateo de números grandes, encendiendo el fla
         TSComponents.PreviewCard.render('preview', {
             serieId: '143.3_NO_PR_2004_A_21',
             maxDecimals: 4,
-            width: '600px'
+            width: '500px'
         })
 
     }

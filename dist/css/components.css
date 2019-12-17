@@ -806,17 +806,35 @@ main a[href^="https://"][target^="_blank"]::after {
   width: 100%; 
 }
 
-.series-card .card-title,
-.series-card .card-desc {
+.series-card .p-headers, .p-metadata {
+  color: rgb(51, 51, 51);
+  float: left;
+  font-size: 14px;
+  min-height: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+}
+
+.series-card .p-headers {
+  width: 100%;
+}
+
+.series-card .p-headers .card-title,
+.series-card .p-headers .card-desc {
   margin-bottom: 7.5px;
 }
 
-.series-card .card-title {
+.series-card .p-headers .card-title {
   color: #3e3e3e;
   display: -webkit-box;
   font-family: 'Medium';
   font-size: 24px;
+  font-weight: 500;
+  letter-spacing: normal;
   line-height: 30px;
+  margin-left: 0px;
+  margin-right: 0px;
   margin-top: 0px;
   overflow: hidden;
   padding: 0px;
@@ -824,20 +842,28 @@ main a[href^="https://"][target^="_blank"]::after {
   -webkit-line-clamp: 2;
 }
 
-.series-card .card-desc {
+.series-card .p-headers .card-desc {
+  color: rgb(51, 51, 51);
   display: -webkit-box;
+  font-size: 14px;
   height: auto;
   overflow: hidden;
   -moz-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
 
-.series-card .card-desc p {
+.series-card .p-headers .card-desc p {
   color: #757575;
-  margin-bottom: 0;
+  font-size: 14px;
+  height: auto;
+  margin: 0px;
 }
 
-.series-card .card-info {
+.series-card .p-metadata {
+  width: 66.67%;
+}
+
+.series-card .p-metadata .card-info {
   color: rgb(153, 153, 153);
   display: -webkit-box;
   font-size: 12px;
@@ -847,7 +873,7 @@ main a[href^="https://"][target^="_blank"]::after {
   -webkit-line-clamp: 2;
 }
 
-.series-card .card-info strong {
+.series-card .p-metadata .card-info strong {
   font-family: "Bold";
   font-weight: 400;
 }

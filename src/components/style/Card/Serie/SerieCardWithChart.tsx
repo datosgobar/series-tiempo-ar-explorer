@@ -54,13 +54,13 @@ export default (props: ISerieCardWithChartProps) => {
     return(
         <Card title={props.serie.title} {...props}>
         <Row>
-            <div className="col-xs-12">
+            <div className="col-xs-12 p-headers">
                 <CardTitle>{props.serie.description}</CardTitle>
                 <CardBody>{props.serie.datasetTitle}</CardBody>
             </div>
         </Row>
         <Row>
-            <div className="col-sm-8 col-xs-12">
+            <div className="col-sm-8 col-xs-12 p-metadata">
                 <CardSubtitle><strong>Publicador: </strong>{props.serie.publisher.name}</CardSubtitle>
                 <CardSubtitle><strong>Fuente: </strong>{props.serie.datasetSource}</CardSubtitle>
                 <CardSubtitle><strong>Período: </strong>{props.serie.startDate}-{props.serie.endDate}</CardSubtitle>
