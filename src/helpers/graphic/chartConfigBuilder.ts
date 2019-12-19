@@ -179,6 +179,7 @@ export class ChartConfigBuilder {
                 { count: 1, text: '1y', type: 'year' },
                 { text: 'Todo', type: 'all' }
             ],
+            inputDateFormat: dateFormatByPeriodicity(this.props.series),
             inputEditDateFormat: dateFormatByPeriodicity(this.props.series),
             inputDateParser: {}
         }
