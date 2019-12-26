@@ -7,11 +7,21 @@ import QueryParams from "../../api/QueryParams";
 import { getCardColor } from "../style/Colors/Color";
 import { DEFAULT_DECIMALS_BILLION, DEFAULT_DECIMALS_MILLION } from "../../helpers/common/LocaleValueFormatter";
 import { ICardRowExportableConfig } from "../../indexCardRow";
+import FullCard from "../exportable_card/FullCard";
+import { ICardBaseConfig } from "../../indexCard";
 
 export type ICardRowExportableProps = ICardRowExportableConfig;
 
 interface ICardRowExportableState {
     series: ISerie[] | null;
+}
+
+const LAPS = {
+    Anual: 10,
+    Diaria: 90,
+    Mensual: 24,
+    Semestral: 10,
+    Trimestral: 20,
 }
 
 export default class CardRowExportable extends React.Component<ICardRowExportableProps, ICardRowExportableState> {
@@ -74,11 +84,49 @@ export default class CardRowExportable extends React.Component<ICardRowExportabl
 
         if (!this.state.series) { return null; }
 
+        const rowsAmount = Math.floor(this.idsAmount / 4) + 1;
+        const rows = [];
+
+        for (let i = 0; i < rowsAmount; i++) {
+
+            const cards = [];
+            for (let j = i*4; j < (i+1)*4 && j < this.idsAmount; j++) {
+                
+                const downloadUrl = this.getDownloadUrl(this.props.ids[j]);
+                const laps = LAPS[this.state.series[j].accrualPeriodicity];
+                const cardOptions: ICardBaseConfig = {
+                    chartType: "line",
+                    collapse: this.props.collapse,
+                    color: this.colors[j],
+                    decimals: this.decimals[j],
+                    decimalsBillion: this.decimalsBillion[j],
+                    decimalsMillion: this.decimalsMillion[j],
+                    explicitSign: this.explicitSigns[j],
+                    hasChart: this.props.hasChart,
+                    hasColorBar: this.props.hasColorBar,
+                    hasFrame: this.props.hasFrame,
+                    isPercentage: this.props.isPercentage,
+                    links: this.props.links,
+                    locale: this.props.locale,
+                    numbersAbbreviate: this.numbersAbbreviate[j],
+                    source: this.sources[j],
+                    title: this.titles[j],
+                    units: this.units[j]
+                }
+
+                cards.push(<FullCard serie={this.state.series[j]}
+                                     downloadUrl={downloadUrl}
+                                     laps={laps}
+                                     cardOptions={cardOptions}/>);
+                                     
+            }
+
+            rows.push(<div className="r-row">{cards}</div>)
+        }
+
         return(
             <div>
-                {for (let step = 0; step < this.idsAmount; step++) {
-                this.titles.push(this.props.title);
-                }}
+                {rows}
             </div>
         );
 
@@ -240,6 +288,15 @@ export default class CardRowExportable extends React.Component<ICardRowExportabl
                     series
                 })
             })
+    }
+
+    private getDownloadUrl(serieId: string): string {
+        const params = new QueryParams([serieId]);
+        params.setLast(5000);
+        if(this.props.collapse !== undefined) {
+            params.setCollapse(this.props.collapse);
+        }
+        return this.seriesApi.downloadDataURL(params);
     }
 
 }

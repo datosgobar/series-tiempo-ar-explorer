@@ -218,6 +218,11 @@ div.g-pickers-container div.g-picker {
 
 /*---Fin Graphic---*/
 
+div.r-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+}
 
 /*---Card---*/
 

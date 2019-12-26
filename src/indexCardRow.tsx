@@ -5,16 +5,17 @@ import CardRowExportable from "./components/exportable/CardRowExportable";
 export interface ICardRowExportableConfig {
     apiBaseUrl?: string;
     collapse?: string;
-    color: string[] | string;
+    color?: string[] | string;
     decimals?: number[] | number;
     decimalsBillion?: number[] | number;
     decimalsMillion?: number[] | number;
     explicitSign?: boolean[] | boolean;
-    hasChart?: string;
+    hasChart: string;
     hasColorBar?: boolean;
     hasFrame?: boolean;
     ids: string[];
-    links?: string;
+    isPercentage?: boolean;
+    links: string;
     locale: string;
     numbersAbbreviate?: boolean[] | boolean;
     source: string[] | string;
@@ -33,11 +34,11 @@ export function render(selector: string, config: ICardRowExportableConfig) {
                            decimalsBillion={config.decimalsBillion}
                            decimalsMillion={config.decimalsMillion}
                            explicitSign={config.explicitSign}
-                           hasChart={config.hasChart}
+                           hasChart={config.hasChart || 'small'}
                            hasColorBar={config.hasColorBar}
                            hasFrame={config.hasFrame}
-                           links={config.links}
-                           locale={config.locale}
+                           links={config.links || 'full'}
+                           locale={config.locale || 'AR'}
                            numbersAbbreviate={config.numbersAbbreviate}
                            source={config.source}
                            title={config.title}
