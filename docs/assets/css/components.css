@@ -38,6 +38,10 @@
   width: 100%;
 }
 
+.exportable-graph > div > div:first-child {
+  z-index: auto !important;
+}
+
 .exportable-graph div:not(.g-pickers-container, [data-highcharts-chart]) { /* Force highcharts to set the height from container */
   height: 100%;
 }
@@ -72,8 +76,8 @@
   font-size: 13px;
 }
 
-div.highcharts-container:hover {
-  z-index: 1 !important;
+div.highcharts-container {
+  z-index: auto !important;
 }
 
 /* Tooltip styles for iframing or third-party pages */
@@ -199,10 +203,31 @@ div.highcharts-tooltip-box span table tbody tr td span.tooltip-value {
   overflow: hidden;
 }
 
+.highcharts-label.highcharts-range-input {
+  color: rgb(104, 104, 104);
+  letter-spacing: normal;
+  text-rendering: optimizeLegibility;
+  word-spacing: 0px;
+  z-index: 1;
+}
+
+.highcharts-range-selector {
+  border-color: rgb(192, 192, 192);
+  color: rgb(104, 104, 104);
+  letter-spacing: normal;
+  line-height: 14px;
+  text-rendering: optimizeLegibility;
+  vertical-align: baseline;
+  word-spacing: 0px;
+}
+
 .highcharts-range-selector:focus {
-  top: 75px !important;
-  width: 95px !important;
-  height: 25px !important;
+  top: 12px !important;
+  width: 90px !important;
+  height: 20px !important;
+  margin-left: 2px;
+  border: 0px !important;
+  z-index: 2;
 }
 
 div.g-pickers-container {
@@ -217,7 +242,6 @@ div.g-pickers-container div.g-picker {
 }
 
 /*---Fin Graphic---*/
-
 
 /*---Card---*/
 
@@ -960,6 +984,16 @@ main a[href^="https://"][target^="_blank"]::after {
 }
 
 /*---Fin PreviewCard---*/
+
+/*---CardRow---*/
+
+div.r-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+}
+
+/*---Fin CardRow---*/
 
 /*---Iconos---*/
 

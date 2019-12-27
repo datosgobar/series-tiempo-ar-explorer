@@ -289,9 +289,15 @@
 }
 
 .highcharts-range-selector:focus {
-  top: 75px !important;
+  top: 9px !important;
   width: 95px !important;
   height: 25px !important;
+}
+
+@media (max-width: 687px) {   /* Correction of date-range selector for smaller viewports */
+  .highcharts-range-selector:focus {
+    top: 40px !important;
+  }
 }
 
 /*
