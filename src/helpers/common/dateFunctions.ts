@@ -3,6 +3,7 @@ import 'moment/locale/es';
 import { ISerie } from "../../api/Serie";
 import { PERIODICITY_LANG } from "../../api/utils/periodicityManager";
 import { capitalize } from "./commonFunctions";
+import { lastNonNullPoint } from "./serieDataHandling";
 
 export function timestamp(date: string): number {
     return new Date(date).getTime()
@@ -99,6 +100,6 @@ export function shortLocaleDate(format: string, dateString: string) {
 export function lastSerieDate(serie: ISerie): string {
 
     const langFrequency = serie.frequency !== undefined ? PERIODICITY_LANG[serie.frequency] : serie.accrualPeriodicity;
-    return fullLocaleDate(langFrequency, serie.data[serie.data.length-1].date);
+    return fullLocaleDate(langFrequency, lastNonNullPoint(serie.data).date);
 
 }

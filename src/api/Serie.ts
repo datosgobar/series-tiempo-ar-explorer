@@ -224,6 +224,7 @@ export default class Serie implements ISerie {
             units: this.units,
         };
     }
+
 }
 
 function emptyDatasetThemes(): IDataSetTheme[] {

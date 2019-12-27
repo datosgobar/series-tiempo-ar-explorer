@@ -13,6 +13,7 @@ import FullCardValue from '../style/exportable_card/FullCardValue';
 import FullCardChart from './FullCardChart';
 import FullCardLinks from './FullCardLinks';
 import { buildAbbreviationProps } from '../../helpers/common/numberAbbreviation';
+import { lastNonNullPoint } from '../../helpers/common/serieDataHandling';
 
 
 interface IFullCardProps {
@@ -29,7 +30,7 @@ export default (props: IFullCardProps) => {
         downloadUrl: props.downloadUrl,
         serieId: getFullSerieId(props.serie)
     };
-    const value = props.serie.data[props.serie.data.length-1].value;
+    const value = lastNonNullPoint(props.serie.data).value;
     const abbreviationProps = buildAbbreviationProps(options.numbersAbbreviate, options.decimalsBillion, options.decimalsMillion);
     const formatterConfig: ILocaleValueFormatterConfig = {
         code: options.locale,

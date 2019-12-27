@@ -21,7 +21,7 @@ const COLORS = {
 const hexaColorRegex = /^#[0-9a-f]{6}$/i;
 
 export const DEFAULT_CARD_COLOR = "#0072BB";
-const DEFAULT_COLORS = (Object as any).values(COLORS);
+export const DEFAULT_COLORS = (Object as any).values(COLORS);
 
 export default COLORS;
 
