@@ -218,12 +218,6 @@ div.g-pickers-container div.g-picker {
 
 /*---Fin Graphic---*/
 
-div.r-row {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 40px;
-}
-
 /*---Card---*/
 
 /*-General Styles-*/
@@ -965,6 +959,16 @@ main a[href^="https://"][target^="_blank"]::after {
 }
 
 /*---Fin PreviewCard---*/
+
+/*---CardRow---*/
+
+div.r-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+}
+
+/*---Fin CardRow---*/
 
 /*---Iconos---*/
 
