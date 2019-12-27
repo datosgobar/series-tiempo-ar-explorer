@@ -289,7 +289,7 @@
 }
 
 .highcharts-range-selector:focus {
-  top: 75px !important;
+  top: 9px !important;
   width: 95px !important;
   height: 25px !important;
 }
