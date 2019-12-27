@@ -7,6 +7,8 @@ El componente `CardRow` permite desplegar rápidamente numerosas `Card`s, dispon
 
 <div id="fila"></div>
 
+*Nota: todos los valores obtenidos en la llamada a la API serán automáticamente agregados, en caso de ser necesario, según la menor frecuencia entre las series involucradas. Si se quiere conservar la frecuencia de cada una ante una posible diferencia de frecuencias, se recomienda usar varios componentes `Card` individuales*.
+
 ## Ejemplo base
 Ver online: [https://jsfiddle.net/76mk3eqd/](https://jsfiddle.net/76mk3eqd/)
 
