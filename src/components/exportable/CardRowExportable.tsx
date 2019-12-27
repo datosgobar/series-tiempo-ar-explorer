@@ -4,7 +4,7 @@ import SerieApi, { METADATA } from "../../api/SerieApi";
 import { ApiClient } from "../../api/ApiClient";
 import { getAPIDefaultURI } from "../../helpers/previewCard/linkGenerators";
 import QueryParams from "../../api/QueryParams";
-import { getCardColor } from "../style/Colors/Color";
+import { getCardColor, DEFAULT_COLORS } from "../style/Colors/Color";
 import { DEFAULT_DECIMALS_BILLION, DEFAULT_DECIMALS_MILLION } from "../../helpers/common/LocaleValueFormatter";
 import { ICardRowExportableConfig } from "../../indexCardRow";
 import FullCard from "../exportable_card/FullCard";
@@ -140,10 +140,15 @@ export default class CardRowExportable extends React.Component<ICardRowExportabl
             }
             this.colors = this.props.color;
         }
-        else {
+        else if (this.props.color !== undefined) {
             const color = getCardColor(this.props.color);
             for (let step = 0; step < this.idsAmount; step++) {
                 this.colors.push(color);
+            }
+        }
+        else {
+            for (let step = 0; step < this.idsAmount; step++) {
+                this.colors.push(DEFAULT_COLORS[step % DEFAULT_COLORS.length].code)
             }
         }
 
