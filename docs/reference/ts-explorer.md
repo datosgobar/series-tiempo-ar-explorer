@@ -1,17 +1,17 @@
 # TSExplorer
 
-**Versión**: 2.8.2
+**Versión**: 2.8.3
 
 El objeto `TSExplorer` contiene una _one page application_ con un explorador de series de tiempo, que permite buscar y visualizar series de un catálogo de datos abiertos.
 
-Está en el archivo llamado `main.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.8.2/dist/js/main.js
+Está en el archivo llamado `main.js` y se aloja versionado en el CDN: https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.8.3/dist/js/main.js
 
 ## ¿Cómo lo uso?
 
 * Importar librería JS:
 
 ```html
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.8.2/dist/js/main.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.8.3/dist/js/main.js'></script>
 ```
 
 * Definir dónde se va a dibujar:
@@ -33,7 +33,7 @@ TSExplorer.render('explorer-container', {
 ```html
 <html>
 <body>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.8.2/dist/js/main.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@2.8.3/dist/js/main.js"></script>
 
   <div id="explorer-container"></div>
 
@@ -178,4 +178,4 @@ Si se habilita la abreviatura y formateo de números grandes, encendiendo el fla
 * En caso de abreviar, la cantidad de decimales que son tenidos en cuenta del cociente obtenido al dividir el valor original de la serie por el divisor apropiado depende de los valores (por defecto o especificados) de las cantidades de los parámetros `decimalsBillion` y `decimalsMillion` (según corresponda).
  
 ## Demo online
-[https://jsfiddle.net/r9np3w4s/](https://jsfiddle.net/r9np3w4s/)
+[https://jsfiddle.net/6v7at9nh/](https://jsfiddle.net/6v7at9nh/)

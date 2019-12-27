@@ -294,6 +294,12 @@
   height: 25px !important;
 }
 
+@media (max-width: 687px) {   /* Correction of date-range selector for smaller viewports */
+  .highcharts-range-selector:focus {
+    top: 40px !important;
+  }
+}
+
 /*
 ------------------------------------------------------------------------------------
 MIXINS:
