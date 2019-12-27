@@ -745,8 +745,8 @@
                 <h1 id="componente-card"><a class="toclink" href="#componente-card">Componente: card</a><a class="headerlink" href="#componente-card" title="Permanent link">&#128279;</a></h1>
 <p>El componente <code>card</code> permite embeber tarjetas con información de la serie, y un gráfico incluído dentro de la misma, en sitios web.</p>
 <p><link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" media="all" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.1/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.1/dist/js/components.js'></script></p>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/js/components.js'></script></p>
 <style>
     .row {
         width: 90%;
@@ -762,15 +762,15 @@
 </div>
 
 <h2 id="ejemplo-base"><a class="toclink" href="#ejemplo-base">Ejemplo base</a><a class="headerlink" href="#ejemplo-base" title="Permanent link">&#128279;</a></h2>
-<p>Ver online: <a href="https://jsfiddle.net/tj2b1fm6/">https://jsfiddle.net/tj2b1fm6/</a></p>
+<p>Ver online: <a href="https://jsfiddle.net/nuL2oefw/">https://jsfiddle.net/nuL2oefw/</a></p>
 <div class="codehilite"><pre><span></span><span class="c">&lt;!-- importa íconos de FontAwesome --&gt;</span>
 <span class="p">&lt;</span><span class="nt">link</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css&quot;</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;all&quot;</span> <span class="p">/&gt;</span>
 
 <span class="c">&lt;!-- importa librería JS --&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.1/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- importa hoja de estilos CSS --&gt;</span>
-<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.1/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
 
 <span class="c">&lt;!-- código HTML donde ubicar un div con una tarjeta --&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tmi&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -939,9 +939,17 @@
         <td>decimalsMillion</td>
         <td>No</td>
         <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un millón. Supeditará al valor del parámetro decimals.</td>
-        <td>boolean</td>
+        <td>int</td>
         <td>2</td>
         <td>0</td>
+    </tr>
+    <tr>
+        <td>isPercentage</td>
+        <td>No</td>
+        <td>Flag que indica si el valor de la Card debe ser tratado como uno porcentual o no porcentual. Si no se especifica valor, se respetará lo indicado por la API.</td>
+        <td>boolean</td>
+        <td>Ninguno</td>
+        <td>true</td>
     </tr>
 </table>
 
@@ -997,7 +1005,7 @@
 
 
 <h2 id="demo-online"><a class="toclink" href="#demo-online">Demo online</a><a class="headerlink" href="#demo-online" title="Permanent link">&#128279;</a></h2>
-<p><a href="https://jsfiddle.net/tj2b1fm6/">https://jsfiddle.net/tj2b1fm6/</a></p>
+<p><a href="https://jsfiddle.net/nuL2oefw/">https://jsfiddle.net/nuL2oefw/</a></p>
 <h2 id="variantes-de-tarjetas"><a class="toclink" href="#variantes-de-tarjetas">Variantes de tarjetas</a><a class="headerlink" href="#variantes-de-tarjetas" title="Permanent link">&#128279;</a></h2>
 <h3 id="card-default"><a class="toclink" href="#card-default">Card: default</a><a class="headerlink" href="#card-default" title="Permanent link">&#128279;</a></h3>
 <div class="row">

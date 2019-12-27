@@ -10,7 +10,8 @@ Para lanzar una nueva release de los TS Components, se deben realizar los siguie
  	- *graphic.md*
  	- *card.md*
 	- *preview-card.md*
-2. **Actualizar los JSFiddles** de los archivos *graphic.md*, *card.md* y *preview-card.md*:
+	- *card-row.md*
+2. **Actualizar los JSFiddles** de los archivos *graphic.md*, *card.md*, *preview-card.md* y *card-row.md*:
 	1. Actualizar las versiones de `components.js` y `components.css` usadas en dichos fiddles
 	2. Guardar los fiddles, de manera que se les asigne un nuevo hash con los cambios persistidos
 	3. Reemplazar las URL de dichos fiddles en los archivos .md
