@@ -13,6 +13,7 @@ nav:
       - "TSComponents: Graphic": 'reference/ts-components/graphic.md'
       - "TSComponents: Card": 'reference/ts-components/card.md'
       - "TSComponents: PreviewCard": 'reference/ts-components/preview-card.md'
+      - "TSComponents: CardRow": 'reference/ts-components/card-row.md'
       - "TSComponents: Ejemplos": 'reference/ts-components/examples.md'
       - "TSComponents: Layout": 'reference/ts-components/layout.md'
   #   - Condiciones de uso: terms.md

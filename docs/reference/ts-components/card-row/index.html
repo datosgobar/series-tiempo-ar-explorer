@@ -13,7 +13,7 @@
         <meta name="description" content="Interfaz web para buscar, visualizar y compartir indicadores disponibles en la API de Series de Tiempo.">
       
       
-        <link rel="canonical" href="https://datos.gob.ar/series/reference/ts-components/preview-card/">
+        <link rel="canonical" href="https://datos.gob.ar/series/reference/ts-components/card-row/">
       
       
         <meta name="author" content="Datos Argentina">
@@ -42,7 +42,7 @@
     
     
       
-        <title>TSComponents: PreviewCard - Explorador de Series de Tiempo</title>
+        <title>TSComponents: CardRow - Explorador de Series de Tiempo</title>
       
     
     
@@ -131,7 +131,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#componente-previewcard" tabindex="1" class="md-skip">
+      <a href="#componente-cardrow" tabindex="1" class="md-skip">
         Saltar a contenido
       </a>
     
@@ -157,7 +157,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                TSComponents: PreviewCard
+                TSComponents: CardRow
               
             </span>
           
@@ -399,6 +399,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../preview-card/" title="TSComponents: PreviewCard" class="md-nav__link">
+      TSComponents: PreviewCard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -410,11 +422,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        TSComponents: PreviewCard
+        TSComponents: CardRow
       </label>
     
-    <a href="./" title="TSComponents: PreviewCard" class="md-nav__link md-nav__link--active">
-      TSComponents: PreviewCard
+    <a href="./" title="TSComponents: CardRow" class="md-nav__link md-nav__link--active">
+      TSComponents: CardRow
     </a>
     
       
@@ -435,15 +447,42 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tabla-de-parametros" class="md-nav__link">
-    Tabla de parámetros
+  <a href="#parametros" class="md-nav__link">
+    Parámetros
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros-obligatorios" class="md-nav__link">
+    Parámetros obligatorios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametros-opcionales-de-valor-singular" class="md-nav__link">
+    Parámetros opcionales de valor singular
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametros-opcionales-de-valor-singular-o-de-array" class="md-nav__link">
+    Parámetros opcionales de valor singular o de array
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#clickeabilidad" class="md-nav__link">
-    Clickeabilidad
+  <a href="#paleta-de-colores-por-defecto" class="md-nav__link">
+    Paleta de colores por defecto
   </a>
   
 </li>
@@ -470,18 +509,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../card-row/" title="TSComponents: CardRow" class="md-nav__link">
-      TSComponents: CardRow
-    </a>
   </li>
 
         
@@ -598,15 +625,42 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tabla-de-parametros" class="md-nav__link">
-    Tabla de parámetros
+  <a href="#parametros" class="md-nav__link">
+    Parámetros
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametros-obligatorios" class="md-nav__link">
+    Parámetros obligatorios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametros-opcionales-de-valor-singular" class="md-nav__link">
+    Parámetros opcionales de valor singular
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametros-opcionales-de-valor-singular-o-de-array" class="md-nav__link">
+    Parámetros opcionales de valor singular o de array
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#clickeabilidad" class="md-nav__link">
-    Clickeabilidad
+  <a href="#paleta-de-colores-por-defecto" class="md-nav__link">
+    Paleta de colores por defecto
   </a>
   
 </li>
@@ -641,131 +695,198 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/datosgobar/series-tiempo-ar-explorer/edit/master/docs/reference/ts-components/preview-card.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/datosgobar/series-tiempo-ar-explorer/edit/master/docs/reference/ts-components/card-row.md" title="Editar esta página" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="componente-previewcard"><a class="toclink" href="#componente-previewcard">Componente: PreviewCard</a><a class="headerlink" href="#componente-previewcard" title="Permanent link">&#128279;</a></h1>
-<p>El componente <code>PreviewCard</code> permite embeber tarjetas con metadatos de la serie, y un gráfico incluido dentro de la misma, pudiendo ajustar su ancho al insertarlas en un documento HTML.</p>
+                <h1 id="componente-cardrow"><a class="toclink" href="#componente-cardrow">Componente: CardRow</a><a class="headerlink" href="#componente-cardrow" title="Permanent link">&#128279;</a></h1>
+<p>El componente <code>CardRow</code> permite desplegar rápidamente numerosas <code>Card</code>s, disponiéndolas en filas de hasta 4 tarjetas y optimizando recursos al realizar una sola llamada a la API para obtener los datos de sus series.</p>
 <p><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/css/components.css" type="text/css">
 <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/js/components.js'></script></p>
-<style>
-    .row {
-        width: 90%;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-    }
-</style>
-
-<div class="row">
-    <div id="preview"></div>
-</div>
+<div id="fila"></div>
 
 <h2 id="ejemplo-base"><a class="toclink" href="#ejemplo-base">Ejemplo base</a><a class="headerlink" href="#ejemplo-base" title="Permanent link">&#128279;</a></h2>
-<p>Ver online: <a href="https://jsfiddle.net/vt3mwrzo/">https://jsfiddle.net/vt3mwrzo/</a></p>
+<p>Ver online: <a href="https://jsfiddle.net/76mk3eqd/">https://jsfiddle.net/76mk3eqd/</a></p>
+<p><em>Nota:</em> Para visualizarlo bien, expandir el recuadro inferior derecho (donde se dibujará el resultado) a mas de tres cuartos de la pantalla.</p>
 <div class="codehilite"><pre><span></span><span class="c">&lt;!-- importa librería JS --&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/js/components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- importa hoja de estilos CSS --&gt;</span>
 <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/css&#39;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/css/components.css&#39;</span><span class="p">/&gt;</span>
 
-<span class="c">&lt;!-- código HTML donde ubicar un div con una tarjeta --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;emae&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- código HTML donde ubicar un div con todo el despliegue de tarjetas --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tiposCambio&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="c">&lt;!-- JS que genera la tarjeta en el div --&gt;</span>
+<span class="c">&lt;!-- JS que genera las filas de tarjetas en el div --&gt;</span>
 <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">TSComponents</span><span class="p">.</span><span class="nx">PreviewCard</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;emae&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="c1">// ID de la serie solicitada</span>
-            <span class="nx">serieId</span><span class="o">:</span> <span class="s1">&#39;11.1_CMMR_2004_A_10&#39;</span>
+        <span class="nx">TSComponents</span><span class="p">.</span><span class="nx">CardRow</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;tiposCambio&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="c1">// IDs de series solicitadas</span>
+            <span class="nx">ids</span><span class="o">:</span> <span class="p">[</span>
+                <span class="s1">&#39;116.2_TCRZE_0_T_26&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;116.2_TCRB_0_T_23&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;116.2_TCRU_0_T_24&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;116.4_TCRZE_2015_D_31_73&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;116.4_TCRZE_2015_D_23_99&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;116.1_TCRCA_0_A_23&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;116.1_TCRJ_0_A_22&#39;</span>
+            <span class="p">]</span>
         <span class="p">})</span>
     <span class="p">}</span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 
 
-<h2 id="tabla-de-parametros"><a class="toclink" href="#tabla-de-parametros">Tabla de parámetros</a><a class="headerlink" href="#tabla-de-parametros" title="Permanent link">&#128279;</a></h2>
+<h2 id="parametros"><a class="toclink" href="#parametros">Parámetros</a><a class="headerlink" href="#parametros" title="Permanent link">&#128279;</a></h2>
+<h3 id="parametros-obligatorios"><a class="toclink" href="#parametros-obligatorios">Parámetros obligatorios</a><a class="headerlink" href="#parametros-obligatorios" title="Permanent link">&#128279;</a></h3>
+<p>El único parámetro obligatorio es <code>ids</code>, el cual debe ser un array de strings, refiriendo los IDs (puros o compuestos) de las series cuyas <code>Card</code> quieran representarse.</p>
+<h3 id="parametros-opcionales-de-valor-singular"><a class="toclink" href="#parametros-opcionales-de-valor-singular">Parámetros opcionales de valor singular</a><a class="headerlink" href="#parametros-opcionales-de-valor-singular" title="Permanent link">&#128279;</a></h3>
+<p>Algunos parámetros opcionales deben ser un valor singular, de cierto tipo, y afectan a todas las tarjetas rendereadas:</p>
 <table>
     <tr>
         <th>Nombre</th>
-        <th>Requerido</th>
         <th>Descripción</th>
         <th>Tipo</th>
         <th>Default</th>
         <th>Ejemplos</th>
     </tr>
     <tr>
-        <td>serieId</td>
-        <td>Si</td>
-        <td>ID de la serie a buscar.</td>
-        <td>string</td>
-        <td>Ninguno</td>
-        <td>bcra_5</td>
-    </tr>
-    <tr>
-        <td>explorerUrl</td>
-        <td>No</td>
-        <td>URL de la instancia del componente Explorer donde mostrar todos los detalles de la serie representada al clickear la tarjeta.</td>
-        <td>string</td>
-        <td>https://datos.gob.ar/series/api/series</td>
-        <td>https://miexplorer.org/series</td>
-    </tr>
-    <tr>
         <td>apiBaseUrl</td>
-        <td>No</td>
         <td>URL de la API de Series de Tiempo a la cual pedir los datos de la serie a representar. Debe poseer un endpoint '/series/'.</td>
         <td>string</td>
         <td>https://apis.datos.gob.ar/series/api</td>
         <td>https://miapi.org/api</td>
     </tr>
     <tr>
-        <td>maxDecimals</td>
-        <td>No</td>
-        <td>Cantidad máxima de cifras decimales a mostrar para los valores de las series representadas.</td>
-        <td>int</td>
-        <td>2</td>
-        <td>5</td>
+        <td>collapse</td>
+        <td>Permite cambiar la frecuencia en la que se muestra la serie. Mediante este parámetro se puede hacer, por ejemplo, un agregado anual para una serie que tiene una frecuencia diaria. Las limitaciones del campo son que la frecuencia elegida tiene que ser menor o igual a la menor frecuencia entre las series involucradas, si no lo es entonces el componente no se mostrará (Ej: si menor frecuencia semestral, 'collapse' puede ser solo o 'semester' o 'year').</td>
+        <td>string</td>
+        <td>Ninguno</td>
+        <td>'day', 'month', 'quarter', 'semester', 'year'</td>
     </tr>
     <tr>
-        <td>numbersAbbreviate</td>
-        <td>No</td>
-        <td>Flag que indica si se deben abreviar los números grandes y formatearlos con el sufijo pertinente; si está apagado, no se realizará abreviatura alguna. Ver la sección de "Abreviatura" para más detalle.</td>
-        <td>boolean</td>
-        <td>true</td>
+        <td>hasColorBar</td>
+        <td>Permite forzar la presencia de la barra de color (el mismo que posee el número) en el borde superior de las tarjetas. De no estar definido, la barrá estará presente sólo si las tarjetas poseen marco.</td>
+        <td>booleano</td>
+        <td>Ninguno</td>
         <td>false</td>
     </tr>
     <tr>
-        <td>decimalsBillion</td>
-        <td>No</td>
-        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un billón. Puede ser mayor al parámetro maxDecimals.</td>
-        <td>int</td>
-        <td>2</td>
-        <td>4</td>
+        <td>hasFrame</td>
+        <td>Permite forzar la presencia de un marco alrededor de las tarjetas y un fondo blanco para las mismas. De no estar definido, las tarjetas tendrán marco si tienen al menos gráfico o enlaces.</td>
+        <td>booleano</td>
+        <td>Ninguno</td>
+        <td>true</td>
     </tr>
     <tr>
-        <td>decimalsMillion</td>
-        <td>No</td>
-        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un millón. Puede ser mayor al parámetro maxDecimals.</td>
+        <td>isPercentage</td>
+        <td>Flag que indica si los valores de las Cards deben ser tratados como porcentuales o no porcentuales. Si no se especifica valor, se respetará lo indicado por la API.</td>
         <td>boolean</td>
-        <td>2</td>
-        <td>0</td>
+        <td>Ninguno</td>
+        <td>true</td>
     </tr>
     <tr>
-        <td>width</td>
-        <td>No</td>
-        <td>Ancho del componente. Puede ser un porcentaje (el porcentaje del ancho del div que lo contendrá), o bien una cantidad de pixeles (con el sufijo 'px'; representa un ancho absoluto, independiente del div contenedor).</td>
+        <td>links</td>
+        <td>Indica qué enlaces a mostrar bajo las tarjetas para descargar o compartir las mismas.</td>
         <td>string</td>
-        <td>'100%'</td>
-        <td>'50%', '560px'</td>
+        <td>full</td>
+        <td>small</td>
+    </tr>
+    <tr>
+        <td>locale</td>
+        <td>Valores posibles: "AR" o "US" (pendientes nuevos valores). Representan qué _locale_ usar para formatear números, es decir, separadores de miles o de decimales.</td>
+        <td>string</td>
+        <td>AR</td>
+        <td>AR o US</td>
     </tr>
 </table>
 
-<h2 id="clickeabilidad"><a class="toclink" href="#clickeabilidad">Clickeabilidad</a><a class="headerlink" href="#clickeabilidad" title="Permanent link">&#128279;</a></h2>
-<p>El componente es 100% clickeable, en toda su superficie, y hacerlo abrirá otra pestaña en el navegador donde se esté visualizando la tarjeta. El sitio de la nueva pestaña permitirá visualizar más detalles de la serie involucrada, en distintos hosts según los valores de los parámetros del componente:</p>
+<h3 id="parametros-opcionales-de-valor-singular-o-de-array"><a class="toclink" href="#parametros-opcionales-de-valor-singular-o-de-array">Parámetros opcionales de valor singular o de array</a><a class="headerlink" href="#parametros-opcionales-de-valor-singular-o-de-array" title="Permanent link">&#128279;</a></h3>
+<p>Algunos parámetros opcionales pueden ser un valor singular, de cierto tipo, como un array de valores de ese tipo (para lo cual deben tener tantos elementos como el parámetro <code>ids</code>). En caso de ser un array, en lugar de configurar todas las tarjetas con un mismo valor, puede determinarse la configuración de dicho parámetro para la tarjeta de cada serie, apareando el índice de <code>ids</code> con el de dicho array de parámetro:</p>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Tipo</th>
+        <th>Default</th>
+        <th>Ejemplos</th>
+    </tr>
+    <tr>
+        <td>color</td>
+        <td>Indica el color a usar para el número y el borde de una tarjeta. Los códigos de colores pueden ser tanto hexadecimales (ej. "#00CC44") como numeros que son mapeados a la paleta por defecto (del 0 al 8); ver paleta por defecto más abajo. Si se omite, se alternarán los valores de la paleta por defecto para cada tarjeta.</td>
+        <td>string</td>
+        <td>Ninguno, sigue la paleta por defecto</td>
+        <td>'#83DB2C' ó ['#0072BB', '#FF826A', 5]</td>
+    </tr>
+    <tr>
+        <td>decimals</td>
+        <td>Permite elegir cuántos dígitos decimales mostrar en el valor de una tarjeta. Debe ser mayor o igual a 0. Redondea los valores en caso de ser menor a la cantidad de dígitos original del valor; completa con 0s en caso contrario.</td>
+        <td>int</td>
+        <td>2</td>
+        <td>3 ó [1, 4, 0]</td>
+    </tr>
+    <tr>
+        <td>decimalsBillion</td>
+        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un billón. Puede ser mayor al parámetro decimals.</td>
+        <td>int</td>
+        <td>2</td>
+        <td>5 ó [3, 3, 2]</td>
+    </tr>
+    <tr>
+        <td>decimalsMillion</td>
+        <td>Cantidad de dígitos decimales a mostrar en aquellos números que son abreviados y divididos por un millón. Puede ser mayor al parámetro decimals.</td>
+        <td>boolean</td>
+        <td>2</td>
+        <td>4 ó [6, 1, 6]</td>
+    </tr>
+    <tr>
+        <td>explicitSign</td>
+        <td>Permite forzar la presencia de un signo antepuesto al valor mostrado; es decir, si dicho valor resultara positivo, será precedido por un signo de adición ('+').</td>
+        <td>booleano</td>
+        <td>false</td>
+        <td>true ó [true, false, true]</td>
+    </tr>
+    <tr>
+        <td>numbersAbbreviate</td>
+        <td>Flag que indica si se deben abreviar los números grandes y formatearlos con el sufijo pertinente; si está apagado, no se realizará abreviatura alguna. Ver la sección de "Abreviatura" para más detalle.</td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>false ó [false, false, true]</td>
+    </tr>
+    <tr>
+        <td>source</td>
+        <td>Especifica el texto al pie de una tarjeta, que refiere a la fuente de la información. De no definirse, se considera la fuente por defecto de la serie; de definirse como '', se la omite.</td>
+        <td>string</td>
+        <td>Ninguno</td>
+        <td>'Mi Fuente' ó ['Fuente 1', '', 'Fuente3']</td>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>Especifica el título de una tarjeta. De no definirse, se considera el título por defecto de la serie; de definirse como '', se lo omite.</td>
+        <td>string</td>
+        <td>Ninguno</td>
+        <td>'Tarjetas de la fila' ó ['Tarjeta 1', 'Tarjeta 2', '']</td>
+    </tr>
+    <tr>
+        <td>units</td>
+        <td>Especifica el texto al pie de una tarjeta, que refiere a las unidades en que se mide el valor mostrado. De no definirse, se consideran las unidades por defecto de la serie; de definirse como '', se las omite.</td>
+        <td>string</td>
+        <td>Ninguno</td>
+        <td>'Hectolitros' ó ['', 'Unidad 2', 'Unidad 3']</td>
+    </tr>
+</table>
+
+<h2 id="paleta-de-colores-por-defecto"><a class="toclink" href="#paleta-de-colores-por-defecto">Paleta de colores por defecto</a><a class="headerlink" href="#paleta-de-colores-por-defecto" title="Permanent link">&#128279;</a></h2>
+<p>Por defecto, la paleta de colores en los que se grafican las series del componente. Cada uno puede ser identificado con un hexadecimal o un entero decimal:</p>
 <ul>
-<li>Si el parámetro <code>explorerUrl</code> está presente, la nueva pestaña irá a la sección de <em>Detalle</em> de la serie involucrada en la instancia del <code>Explorer</code> ubicada en su URL-</li>
-<li>Si el parámetro <code>explorerUrl</code> no está presente, pero <code>apiBaseUrl</code> si lo está, la nueva pestaña irá a la versión JSON de la respuesta brindada por la API especificada en el parámetro, en su endpoint de <code>/series/</code>, pidiendo los últimos 5000 valores (si los hubiese) y con todos los metadatos posibles de la serie.</li>
-<li>Si ninguno de los dos parámetros está presente, la nueva pestaña irá a la sección de <em>Detalle</em> involucrada en el Explorador de Series de Tiempo de <a href="datos.gob.ar">datos.gob.ar</a>.</li>
+<li><strong>#0072BB</strong> o <strong>0</strong>, para azul</li>
+<li><strong>#2E7D33</strong> o <strong>1</strong>, para verde oscuro</li>
+<li><strong>#C62828</strong> o <strong>2</strong>, para rojo</li>
+<li><strong>#F9A822</strong> o <strong>3</strong>, para naranja</li>
+<li><strong>#6A1B99</strong> o <strong>4</strong>, para violeta</li>
+<li><strong>#EC407A</strong> o <strong>5</strong>, para rosa</li>
+<li><strong>#C2185B</strong> o <strong>6</strong>, para fucsia</li>
+<li><strong>#039BE5</strong> o <strong>7</strong>, para celeste</li>
+<li><strong>#6EA100</strong> o <strong>8</strong>, para verde claro</li>
 </ul>
 <h2 id="abreviatura"><a class="toclink" href="#abreviatura">Abreviatura</a><a class="headerlink" href="#abreviatura" title="Permanent link">&#128279;</a></h2>
 <p>Si se habilita la abreviatura y formateo de números grandes, encendiendo el flag <code>numbersAbbreviate</code> (la única manera de apagarlo es seteándole explícitamente un valor <code>false</code> por medio del parámetro del componente), se procederá a formatearlos de la siguiente manera:</p>
@@ -780,18 +901,47 @@
 <div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;preview&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-      <span class="nx">TSComponents</span><span class="p">.</span><span class="nx">PreviewCard</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;preview&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">serieId</span><span class="o">:</span> <span class="s1">&#39;143.3_NO_PR_2004_A_21&#39;</span><span class="p">,</span>
-        <span class="nx">explorerUrl</span><span class="o">:</span> <span class="s1">&#39;https://datos.gob.ar/series/api/series&#39;</span><span class="p">,</span>
+      <span class="nx">TSComponents</span><span class="p">.</span><span class="nx">CardRow</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;row&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">ids</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s1">&#39;tn_86&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tn_02&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;tn_94&#39;</span>
+        <span class="p">],</span>
         <span class="nx">apiBaseUrl</span><span class="o">:</span> <span class="s1">&#39;https://apis.datos.gob.ar/series/api&#39;</span><span class="p">,</span>
-        <span class="nx">maxDecimals</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="nx">numbersAbbreviate</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nx">decimalsMillion</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="nx">decimalsBillion</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="nx">width</span><span class="o">:</span> <span class="s1">&#39;500px&#39;</span>
+        <span class="nx">collapse</span><span class="o">:</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span>
+        <span class="nx">hasColorBar</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">hasFrame</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">isPercentage</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">links</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="nx">locale</span><span class="o">:</span> <span class="s1">&#39;AR&#39;</span><span class="p">,</span>
+        <span class="nx">color</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s1">&#39;#FF2200&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;#44BB22&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;#393900&#39;</span>
+        <span class="p">],</span>
+        <span class="nx">decimals</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="nx">decimalsBillion</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="nx">decimalsMillion</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="nx">explicitSign</span><span class="o">:</span> <span class="p">[</span>
+            <span class="kc">true</span><span class="p">,</span>
+            <span class="kc">true</span><span class="p">,</span>
+            <span class="kc">false</span>
+        <span class="p">],</span>
+        <span class="nx">numbersAbbreviate</span><span class="o">:</span> <span class="p">[</span>
+            <span class="kc">false</span><span class="p">,</span>
+            <span class="kc">true</span><span class="p">,</span>
+            <span class="kc">false</span>
+        <span class="p">],</span>
+        <span class="nx">source</span><span class="o">:</span> <span class="s1">&#39;Mi propia fuente&#39;</span><span class="p">,</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Tarjetas de la fila&#39;</span><span class="p">,</span>
+        <span class="nx">units</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s1">&#39;Unidad 1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Unidad 2&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Unidad 3&#39;</span>
+        <span class="p">]</span>
     <span class="p">})</span>
     <span class="p">}</span>
   <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
@@ -803,10 +953,17 @@
 <script>
     window.onload = function() {
 
-        TSComponents.PreviewCard.render('preview', {
-            serieId: '143.3_NO_PR_2004_A_21',
-            maxDecimals: 4,
-            width: '500px'
+        TSComponents.CardRow.render('fila', {
+            ids: [
+                '105.1_I2L_2016_M_16',
+                '105.1_I2TR_2016_M_23',
+                '105.1_I2CE_2016_M_16'
+            ],
+            color: [
+                '#00FF00',
+                '#FF0000',
+                '#CCCCCC'
+            ]
         })
 
     }
@@ -831,7 +988,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../card/" title="TSComponents: Card" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../preview-card/" title="TSComponents: PreviewCard" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -840,19 +997,19 @@
                 <span class="md-footer-nav__direction">
                   Anterior
                 </span>
-                TSComponents: Card
+                TSComponents: PreviewCard
               </span>
             </div>
           </a>
         
         
-          <a href="../card-row/" title="TSComponents: CardRow" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../examples/" title="TSComponents: Ejemplos" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Siguiente
                 </span>
-                TSComponents: CardRow
+                TSComponents: Ejemplos
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

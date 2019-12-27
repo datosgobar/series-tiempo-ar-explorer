@@ -34,7 +34,7 @@ Ver online: [https://jsfiddle.net/vt3mwrzo/](https://jsfiddle.net/vt3mwrzo/)
 <!-- JS que genera la tarjeta en el div -->
 <script>
     window.onload = function() {
-        TSComponents.Preview.render('emae', {
+        TSComponents.PreviewCard.render('emae', {
             // ID de la serie solicitada
             serieId: '11.1_CMMR_2004_A_10'
         })
