@@ -630,25 +630,35 @@
 <li><code>npm run build-docs</code></li>
 <li><code>make build</code></li>
 </ul>
-<p>Y finalmente subir todo al branch default:
-- <code>git add .</code>
-- <code>git commit -m "Deploy a github pages"</code>
-- <code>git push</code></p>
+<p>Y finalmente subir todo al branch default:</p>
+<ul>
+<li><code>git add .</code></li>
+<li><code>git commit -m "Deploy a github pages"</code></li>
+<li><code>git push</code></li>
+</ul>
 <h4 id="release-para-cdn"><a class="toclink" href="#release-para-cdn">Release para CDN</a><a class="headerlink" href="#release-para-cdn" title="Permanent link">&#128279;</a></h4>
-<p>Crear un branch desde la versión que queremos salir:
-- <code>git checkout -b &lt;nombre&gt;</code></p>
-<p>Generar los archivos para distribuir. Tenemos dos maneras, ambas son iguales:
-- <code>npm run release</code>
-- <code>make release</code></p>
-<p>Agregar los archivos:
-- <code>git add dist</code> (basta con agregar sólo la carpeta a distribuir)
-- <code>git commit -m "Actualizo carpeta dist"</code>
-- <code>git push origin &lt;nombre del branch&gt;</code></p>
-<p>Crear un tag:
-- <code>git tag &lt;nombreDeTag&gt;</code>
-- <code>git push --tags</code></p>
+<p>Crear un branch desde la versión que queremos salir:</p>
+<ul>
+<li><code>git checkout -b &lt;nombre&gt;</code></li>
+</ul>
+<p>Generar los archivos para distribuir. Tenemos dos maneras, ambas son iguales:</p>
+<ul>
+<li><code>npm run release</code></li>
+<li><code>make release</code></li>
+</ul>
+<p>Agregar los archivos:</p>
+<ul>
+<li><code>git add dist</code> (basta con agregar sólo la carpeta a distribuir)</li>
+<li><code>git commit -m "Actualizo carpeta dist"</code></li>
+<li><code>git push origin &lt;nombre del branch&gt;</code></li>
+</ul>
+<p>Crear un tag:</p>
+<ul>
+<li><code>git tag &lt;nombreDeTag&gt;</code></li>
+<li><code>git push --tags</code></li>
+</ul>
 <p>Con el nombre del tag ya podemos acceder a los archivos que necesitemos:</p>
-<p><a href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@nombreDelTag/dist/js/main.js">https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@nombreDelTag/dist/js/main.js</a></p>
+<p><i>https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@nombreDelTag/dist/js/main.js</i></p>
 <p>Actualizar <a href="https://github.com/datosgobar/series-tiempo-ar-explorer-demo">series-tiempo-ar-explorer-demo</a> para usar la versión deseada (en el ejemplo la versión es <code>test_0.4</code> pero podemos usar cualquiera ya sea para el archivo css o para el js):
 - Modificar el <code>index.html</code> del directorio root del proyecto demo para cambiar la versión usada de JS y de CSS:
   - CSS: cambiar la línea:</p>
