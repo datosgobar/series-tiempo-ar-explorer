@@ -70,7 +70,7 @@
     "uglifyjs-webpack-plugin": "^1.1.8",
     "url-join": "^4.0.0",
     "url-loader": "0.6.2",
-    "url-parse": "^1.4.3",
+    "url-parse": "^1.5.8",
     "url-search-params": "^1.1.0",
     "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4",
