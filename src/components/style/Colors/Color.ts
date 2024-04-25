@@ -7,7 +7,7 @@ export class Color {
 
 // "a<number>" is because order is important
 const COLORS = {
-    a1Blue1: new Color("blue1", "#0072BB"),
+    a1Blue1: new Color("blue1", "#242C4F"),
     a2Green1: new Color("green1","#2E7D33"),
     a3Red1: new Color("red1", "#C62828"),
     a4Orange: new Color("orange", "#F9A822"),
@@ -20,7 +20,7 @@ const COLORS = {
 
 const hexaColorRegex = /^#[0-9a-f]{6}$/i;
 
-export const DEFAULT_CARD_COLOR = "#0072BB";
+export const DEFAULT_CARD_COLOR = "#242C4F";
 export const DEFAULT_COLORS = (Object as any).values(COLORS);
 
 export default COLORS;
