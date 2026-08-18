@@ -2,8 +2,8 @@
 
 El componente `CardRow` permite desplegar rápidamente numerosas `Card`s, disponiéndolas en filas de hasta 4 tarjetas y optimizando recursos al realizar una sola llamada a la API para obtener los datos de sus series.
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/js/components.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.1/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.1/dist/js/components.js'></script>
 
 <div id="fila"></div>
 
@@ -16,10 +16,10 @@ Ver online: [https://jsfiddle.net/76mk3eqd/](https://jsfiddle.net/76mk3eqd/)
 
 ```html
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.1/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.1/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con todo el despliegue de tarjetas -->
 <div id="tiposCambio"></div>

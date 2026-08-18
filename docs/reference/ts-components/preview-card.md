@@ -2,8 +2,8 @@
 
 El componente `PreviewCard` permite embeber tarjetas con metadatos de la serie, y un gráfico incluido dentro de la misma, pudiendo ajustar su ancho al insertarlas en un documento HTML.
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/css/components.css" type="text/css">
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/js/components.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.1/dist/css/components.css" type="text/css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.1/dist/js/components.js'></script>
 
 <style>
     .row {
@@ -23,10 +23,10 @@ Ver online: [https://jsfiddle.net/vt3mwrzo/](https://jsfiddle.net/vt3mwrzo/)
 
 ```html
 <!-- importa librería JS -->
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/js/components.js'></script>
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.1/dist/js/components.js'></script>
 
 <!-- importa hoja de estilos CSS -->
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.0/dist/css/components.css'/>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.9.1/dist/css/components.css'/>
 
 <!-- código HTML donde ubicar un div con una tarjeta -->
 <div id="emae"></div>
