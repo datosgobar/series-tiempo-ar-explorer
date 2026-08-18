@@ -34,12 +34,12 @@ describe('Link building functions for Dropdown components of the Card component'
 
         it('Basic serie, without collapse query param', () => {
             const viewURL = viewDatosGobAr(serieID);
-            expect(viewURL).toEqual('https://datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26:percent_change');
+            expect(viewURL).toEqual('https://datos.gob.ar/series/148.3_INIVELNAL_DICI_M_26:percent_change');
         });
         it('Serie without collapse parameter', () => {
             const collapse = 'year';
             const viewURL = viewDatosGobAr(serieID, collapse);
-            expect(viewURL).toEqual('https://datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26:percent_change&collapse=year');
+            expect(viewURL).toEqual('https://datos.gob.ar/series/148.3_INIVELNAL_DICI_M_26:percent_change?collapse=year');
         });
 
     })

@@ -14,7 +14,7 @@ describe("Tests for generation of the target URL to open when clicking on the Pr
 
     it("If no URL for the Explorer is defined, the default one is used as prefix", () => {
         clickTarget = getClickTarget(config);
-        expect(clickTarget).toEqual("https://datos.gob.ar/series/api/series/?ids=103.1_I2N_2016_M_15");
+        expect(clickTarget).toEqual("https://datos.gob.ar/series/103.1_I2N_2016_M_15");
     });
     it("If only a Base URL for the API is defined, it is used as a prefix", () => {
         config.apiBaseUrl = "https://my.api.com";
