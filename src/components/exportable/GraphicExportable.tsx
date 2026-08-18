@@ -442,9 +442,12 @@ function creditsOptions(componentProps: IGraphicExportableProps) {
 }
 
 function productionUrl(apiCall: string): string {
-    const url = apiCall.split('apis.datos.gob.ar')[1];
+    const ids = new IDsExtractor(apiCall).getIDsAsTheyAre();
 
-    return `https://datos.gob.ar${url}`;
+    if (ids.length > 1) {
+        return `https://datos.gob.ar/series/?compare=${ids.join(',')}`;
+    }
+    return `https://datos.gob.ar/series/${ids[0]}`;
 }
 
 function defaultChartValue(value: boolean|undefined): boolean|undefined {

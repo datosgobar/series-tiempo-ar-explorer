@@ -4,7 +4,7 @@ export function getAPIDefaultURI(): string {
     return `https://apis.datos.gob.ar/series/api`
 }
 
-const SERIES_EXPLORER_DEFAULT_URL = "https://datos.gob.ar/series/api/series";
+const SERIES_EXPLORER_DEFAULT_URL = "https://datos.gob.ar/series";
 
 export function getClickTarget(config: IPreviewCardExportableConfig): string {
 
@@ -14,6 +14,6 @@ export function getClickTarget(config: IPreviewCardExportableConfig): string {
     if (config.apiBaseUrl) {
         return `${config.apiBaseUrl}/series/?metadata=full&ids=${config.serieId}&last=5000`;
     }
-    return `${SERIES_EXPLORER_DEFAULT_URL}/?ids=${config.serieId}`;;
+    return `${SERIES_EXPLORER_DEFAULT_URL}/${config.serieId}`;
 
 }
